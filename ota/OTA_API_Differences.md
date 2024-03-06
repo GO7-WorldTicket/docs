@@ -437,8 +437,10 @@ Before each passenger had an individual Fare Breakdown.
 <a id="ota-message-samples"></a>
 # OTA Message Samples
 
+<a id="ota_airlowfaresearchrq"></a>
 ## OTA_AirLowFareSearchRQ
 
+<a id="search-for-one-way-trip-options"></a>
 ### Search for one-way trip options
 
 ```json
@@ -508,6 +510,7 @@ Before each passenger had an individual Fare Breakdown.
 }
 ```
 
+<a id="search-for-round-trip-options"></a>
 ### Search for round trip options
 
 ```json
