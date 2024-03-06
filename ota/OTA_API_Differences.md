@@ -414,14 +414,17 @@ Before each passenger had an individual Fare Breakdown.
 }
 ```
 
+<a id="differences-highlighted"></a>
 # Differences Highlighted
 
+<a id="request-vs-response"></a>
 ## Request vs. Response
 
 - Requests require specific authentication details (`agentID` and `agencyID`) and, in certain operations like ticket issuance, detailed passenger information.
 - Responses uniquely feature multiple `BookingReferenceIDs` for operations involving more than one booking and include specific formatting for `ticketTimeLimit`.
 - Responses in AirLowFareSearch (AirLowFareSearchRS), the PTC Fare Breakdown is now organized by passenger type instead of by passenger number.
 
+<a id="common-pitfalls"></a>
 ## Common Pitfalls
 
 - Omitting `agentID` and `agencyID` in requests can lead to input validation errors.
