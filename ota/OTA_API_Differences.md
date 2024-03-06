@@ -736,6 +736,7 @@ We require to provide a contact information.
 
 ```json
 {
+  "correlationID": "4f4dad22-9432-4c5f-ab0c-994cdd0a992e",
   "target": "Production",
   "version": "2.001",
   "primaryLangID": "en",
@@ -760,9 +761,9 @@ We require to provide a contact information.
         {
           "flightSegment": [
             {
-              "departureDateTime": "2024-03-28T10:00:00.000+03:00",
-              "arrivalDateTime": "2024-03-28T12:25:00.000+03:00",
-              "flightNumber": "0080",
+              "departureDateTime": "2024-03-28T14:00:00.000+03:00",
+              "arrivalDateTime": "2024-03-28T16:20:00.000+03:00",
+              "flightNumber": "1120",
               "resBookDesigCode": "Y",
               "fareBasisCode": "ApplPayGreater",
               "status": "30",
