@@ -28,7 +28,7 @@
   - [OTA_AirDemandTicketRQ](#ota_airdemandticketrq)
     - [Pay with debit-credit account](#pay-with-debit-credit-account)
   - [OTA_AirBookModifyRQ](#ota_airbookmodifyrq)
-    - [Update Passenger Names in a Group Booking with 2 adults, 1 child, and 1 infant](#update-passenger-names-in-a-group-booking-with-2-adults-1-child-and-1-infant) 
+    - [Update Passenger Names in Group Booking](#update-passenger-names-in-group-booking) 
   - [OTA_ReadRQ](#ota_readrq)
 
 # Introduction
@@ -1177,8 +1177,11 @@ Makes round trip booking in Business class C.
   }
 }
 ```
+
+<a id="ota_airbookmodifyrq"></a>
 ## OTA_AirBookModifyRQ
 
+<a id="update-passenger-names-in-group-booking"></a>
 ### Update Passenger Names in a Group Booking with 2 adults, 1 child, and 1 infant
 ```json
 {
