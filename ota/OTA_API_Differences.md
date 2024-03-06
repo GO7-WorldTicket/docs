@@ -16,14 +16,15 @@
     - [Common Pitfalls](#common-pitfalls)
 
 - [OTA Message Samples](#ota-message-samples)
-- - [OTA_AirLowFareSearchRQ](#ota_airlowfaresearchrq)
+  - [OTA_AirLowFareSearchRQ](#ota_airlowfaresearchrq)
     - [Search for One-way Trip Options](#search-for-one-way-trip-options) 
     - [Search for Round Trip Options](#search-for-round-trip-options) 
   - [OTA_AirBookRQ](#ota_airbookrq)
     - [Make One-way Booking](#make-one-way-booking)
+    - [Make Round Trip Booking](#make-round-trip-booking)
   - [OTA_AirPriceRQ](#ota_airpricerq)
     - [Make One-way Group Booking in Economy Class](#make-one-way-group-booking-in-economy-class)
-    - [Make Round-trip Group Booking in Business Class](#make-round-trip-group-booking-in-business-class)
+    - [Make Round Trip Group Booking in Business Class](#make-round-trip-group-booking-in-business-class)
   - [OTA_AirDemandTicketRQ](#ota_airdemandticketrq)
     - [Pay with debit-credit account](#pay-with-debit-credit-account)
   - [OTA_AirBookModifyRQ](#ota_airbookmodifyrq)
@@ -594,14 +595,16 @@ Before each passenger had an individual Fare Breakdown.
 
 ```
 
+<a id="ota_airbookrq"></a>
 ## OTA_AirBookRQ
 
 This section is dedicated to the OTA_AirBook function, which handles booking operations within the OTA API. Here, you'll find the required fields and structure for making a regular booking request.
 We require to provide the CTC and document information.
 
+<a id="make-one-way-booking"></a>
 ### Make one-way booking
 
-The request below makes a round trip booking for two adults.
+Makes one-way booking for two adults in Economy class.
 
 ```json
 {
@@ -725,6 +728,160 @@ The request below makes a round trip booking for two adults.
         },
         "passengerTypeCode": "ADT",
         "gender": "Male"
+      }
+    ]
+  }
+}
+```
+
+<a id="make-round-trip-booking"></a>
+### Make round trip booking
+
+Makes one-way booking for two adults in Business class.
+
+```json
+{
+  "version": "2.001",
+  "pos": {
+    "source": [
+      {
+        "isoCurrency": "SAR",
+        "requestorID": {
+          "type": "5",
+          "id": "umrah",
+          "name": "umrah"
+        },
+        "bookingChannel": {
+          "type": "OTA"
+        }
+      }
+    ]
+  },
+  "airItinerary": {
+    "originDestinationOptions": {
+      "originDestinationOption": [
+        {
+          "flightSegment": [
+            {
+              "departureAirport": {
+                "locationCode": "MKX"
+              },
+              "arrivalAirport": {
+                "locationCode": "DMX"
+              },
+              "operatingAirline": {
+                "code": "HHR",
+                "flightNumber": "0080"
+              },
+              "equipment": [],
+              "departureDateTime": "2024-03-25T10:00:00.000+03:00",
+              "arrivalDateTime": "2024-03-25T12:25:00.000+03:00",
+              "rph": "1",
+              "marketingAirline": {
+                "code": "HHR"
+              },
+              "flightNumber": "0080",
+              "resBookDesigCode": "C",
+              "fareBasisCode": "002",
+              "status": "30"
+            }
+          ]
+        },
+        {
+          "flightSegment": [
+            {
+              "departureAirport": {
+                "locationCode": "DMX"
+              },
+              "arrivalAirport": {
+                "locationCode": "MKX"
+              },
+              "operatingAirline": {
+                "code": "HHR",
+                "flightNumber": "1151"
+              },
+              "equipment": [],
+              "departureDateTime": "2024-03-28T17:30:00.000+03:00",
+              "arrivalDateTime": "2024-03-28T19:50:00.000+03:00",
+              "rph": "2",
+              "marketingAirline": {
+                "code": "HHR"
+              },
+              "flightNumber": "1151",
+              "resBookDesigCode": "C",
+              "fareBasisCode": "002",
+              "status": "30"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "travelerInfo": {
+    "airTraveler": [
+      {
+        "personName": {
+          "namePrefix": [
+            "MISS"
+          ],
+          "givenName": [
+            "ONE"
+          ],
+          "surname": "TEST"
+        },
+        "document": [
+          {
+            "docHolderNationality": "TH",
+            "docID": "0123456789",
+            "expireDate": "2027-12-12",
+            "docType": "2",
+            "birthDate": "1979-01-01"
+          }
+        ],
+        "travelerRefNumber": {
+          "rph": "1"
+        },
+        "passengerTypeCode": "ADT",
+        "gender": "Male"
+      },
+      {
+        "personName": {
+          "namePrefix": [
+            "MR"
+          ],
+          "givenName": [
+            "TWO"
+          ],
+          "surname": "TEST"
+        },
+        "document": [
+          {
+            "docHolderNationality": "TH",
+            "docID": "00123456789",
+            "expireDate": "2027-12-12",
+            "docType": "2",
+            "birthDate": "1979-01-01"
+          }
+        ],
+        "travelerRefNumber": {
+          "rph": "2"
+        },
+        "passengerTypeCode": "ADT",
+        "gender": "Male"
+      },
+      {
+        "passengerTypeCode": "CTC",
+        "personName": {
+          "givenName": [
+            "John"
+          ],
+          "surname": "Doe"
+        },
+        "email": [
+          {
+            "value": "my@agency.sa"
+          }
+        ]
       }
     ]
   }
