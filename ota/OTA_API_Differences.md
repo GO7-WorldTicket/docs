@@ -434,7 +434,7 @@ Before each passenger had an individual Fare Breakdown.
 - Failing to provide comprehensive passenger details when issuing tickets can cause transaction failures.
 ---
 
-<a id="ota-message-samples"/>
+<a id="ota-message-samples"></a>
 # OTA Message Samples
 
 ## OTA_AirLowFareSearchRQ
