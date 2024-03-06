@@ -16,7 +16,7 @@
     - [Common Pitfalls](#common-pitfalls)
 
 - [OTA Message Samples](#ota-message-samples)
-  - [OTA_AirLowFareSearchRQ](#ota_airlowfaresearchrq)
+- - [OTA_AirLowFareSearchRQ](#ota_airlowfaresearchrq)
     - [Search for One-way Trip Options](#search-for-one-way-trip-options) 
     - [Search for Round Trip Options](#search-for-round-trip-options) 
   - [OTA_AirBookRQ](#ota_airbookrq)
@@ -684,7 +684,7 @@ The request below makes a round trip booking for two adults.
         ],
         "document": [
           {
-            "birthDate": "1979-01-01"
+            "birthDate": "1979-01-01",
             "docID": "0123456789",
             "docType": "5",
             "docHolderNationality": "SA",
