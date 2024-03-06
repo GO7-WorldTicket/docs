@@ -9,8 +9,9 @@
     - [Contact Validation](#contact-validation)
     - [Traveller Validation](#traveller-validation)
 - [OTA Responses](#ota-responses)
-    - [Multiple BookingReferenceIDs](#multiple-bookingreferenceids)
+    - [Multiple BookingReferenceIDs](#multiple-booking-reference-ids)
     - [Ticketing Time Limit](#ticketing-time-limit)
+    - [Fare Breakdown by Type](#fare-breakdown)
 - [Differences Highlighted](#differences-highlighted)
     - [Request vs. Response](#request-vs-response)
     - [Common Pitfalls](#common-pitfalls)
@@ -145,11 +146,11 @@ Traveller information is located under different nodes depending on OTA request:
 | [OTA_AirPriceRQ](#ota_airpricerq)           | `/travelerInfoSummary/airTravelerAvail/airTraveler` |
 
 
+<a id="ota-responses"></a>
 # OTA Responses
 
-## Key Points
-
-### Multiple BookingReferenceIDs
+<a id="multiple-booking-reference-ids"></a>
+## Multiple Booking Reference IDs
 
 The response can include multiple `BookingReferenceIDs` both GO7 and HHR, reflecting the unique identifiers for each booking made or queried.
 
@@ -174,6 +175,7 @@ The response can include multiple `BookingReferenceIDs` both GO7 and HHR, reflec
 }
 ```
 
+<a id="ticketing-time-limit"></a>
 ### Ticketing Time Limit
 
 The `ticketTimeLimit` field in responses retains its ISO date format but now includes a local time offset instead of being in strict UTC time. This change allows for a more precise representation of time zones.
@@ -192,7 +194,8 @@ The `ticketTimeLimit` field in responses retains its ISO date format but now inc
 }
 ```
 
-### Fare Breakdown by Passenger Type
+<a id="fare-breakdown"></a>
+### Fare Breakdown
 
 In `AirLowFareSearchRS`, the PTC Fare Breakdown is now grouped by passenger type and not have individual price breakdown anymore. 
 This is how price breakdown is reported by HHR system. 
