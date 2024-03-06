@@ -6,15 +6,14 @@
 - [Introduction](#introduction)
 - [OTA Requests](#ota-requests)
     - [Agent Identification](#agent-identification)
-      - [Contact Validation](#contact-validation)
-      - [Traveller Validation](#traveller-validation)
+    - [Contact Validation](#contact-validation)
+    - [Traveller Validation](#traveller-validation)
 - [OTA Responses](#ota-responses)
     - [Multiple BookingReferenceIDs](#multiple-bookingreferenceids)
     - [Ticketing Time Limit](#ticketing-time-limit)
 - [Differences Highlighted](#differences-highlighted)
     - [Request vs. Response](#request-vs-response)
     - [Common Pitfalls](#common-pitfalls)
-
 - [OTA Message Samples](#ota-message-samples)
   - [OTA_AirLowFareSearchRQ](#ota_airlowfaresearchrq)
     - [Search for One-way Trip Options](#search-for-one-way-trip-options) 
@@ -37,6 +36,7 @@ This document aims to clarify the differences between request and response forma
 
 # OTA Requests
 
+<a id="agent-identification"></a>
 ## Agent Identification
 
 Every OTA request must include `agentID` and `agencyID` to identify the agent working with the OTA API. This information can be configured under the `pos/source/requestorID`(PointOfSale) in every OTA request.
@@ -61,15 +61,25 @@ Every OTA request must include `agentID` and `agencyID` to identify the agent wo
 }
 ```
 
+<a id="traveller-validation"></a>
 ### Traveller Validation
 
-#### Required Fields for traveller information:  
+Required Fields for traveller information:  
 
 - `personName.givenName`: first name
 - `personName.surname`: last name
 - `email.value`: email
 - `passengerTypeCode`
 - `gender`
+
+
+When issuing tickets through an HHR system, it's imperative to provide a passenger `document`,
+therefore they are required at a time booking is created, except a group booking case.
+
+- `birthDate`: date of birth
+- `docHolderNationality`: nationality
+- `docID`: document ID
+- `expireDate`: document expire date
 
 ```json
 {
@@ -95,15 +105,8 @@ Every OTA request must include `agentID` and `agencyID` to identify the agent wo
   "gender": "Male"
 }
 ```
-
-When issuing tickets through an HHR system, it's imperative to provide a passenger document, 
-therefore they are required at a time booking is created, except a group booking case.  
-
-- `birthDate`: date of birth
-- `docHolderNationality`: nationality
-- `docID`: document ID
-- `expireDate`: document expire date
-
+                            
+Traveller information is located under different nodes depending on OTA request:
 | OTA Request     | JSON Path                                           |
 |-----------------|-----------------------------------------------------|
 | AirBookRQ       | `/travelerInfo/airTraveler`                         |
@@ -111,29 +114,17 @@ therefore they are required at a time booking is created, except a group booking
 | AirPriceRQ      | `/travelerInfoSummary/airTravelerAvail/airTraveler` |
 
 
-```json
-{
-  "document": [
-    {
-      "birthDate": "1979-01-01",
-      "docHolderNationality": "TH",
-      "docID": "0123456789",
-      "expireDate": "2027-12-12",
-      "docType": "2"
-    }
-  ]
-}
-```
-
+<a id="contact-validation"></a>
 ### Contact Validation
 
-Applies to: 
+Applies to:
 
 * AirPriceRQ
 * AirBookRQ
 * AirBookModifyRQ (Optional) 
 
-#### Required Fields for Contact Information: 
+Required fields for Contact Information: 
+
 - `givenName`
 - `surname`
 - `email`
