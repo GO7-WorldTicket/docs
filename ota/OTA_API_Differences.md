@@ -1182,7 +1182,11 @@ Makes round trip booking in Business class C.
 ## OTA_AirBookModifyRQ
 
 <a id="update-passenger-names-in-group-booking"></a>
-### Update Passenger Names in a Group Booking with 2 adults, 1 child, and 1 infant
+### Update Passenger Names in a Group Booking 
+
+Original booking has unnamed passengers: 2 adults, 1 child, and 1 infant.
+The request below updates all of them in one go.
+
 ```json
 {
   "version": "2.001",
