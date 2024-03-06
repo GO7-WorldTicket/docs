@@ -896,6 +896,7 @@ We require to provide a contact information.
 
 <a id="make-one-way-group-booking"></a>
 ### Make one-way group booking
+
 Makes one way group booking in Economy class C.
 
 ```json
@@ -999,7 +1000,7 @@ Makes one way group booking in Economy class C.
 <a id="make-round-trip-group-booking"></a>
 ### Make round trip group booking
 
-Makes round trip booking in Business class.
+Makes round trip booking in Business class C.
 
 ```json
 {
@@ -1125,8 +1126,11 @@ Makes round trip booking in Business class.
   }
 }
 ```
+
+<a id="ota_airdemandticketrq"></a>
 ## OTA_AirDemandTicketRQ
 
+<a id="pay-with-debit-credit-account"></a>
 ### Pay with debit-credit account
 
 ```json
