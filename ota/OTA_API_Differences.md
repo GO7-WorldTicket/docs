@@ -15,7 +15,7 @@
     - [Request vs. Response](#request-vs-response)
     - [Common Pitfalls](#common-pitfalls)
 
-- [OTA Message Samples](#ota-message-samples)
+- [OTA Message Samples](#markdown-header-ota-message-samples)
 - - [OTA_AirLowFareSearchRQ](#ota_airlowfaresearchrq)
     - [Search for One-way Trip Options](#search-for-one-way-trip-options) 
     - [Search for Round Trip Options](#search-for-round-trip-options) 
