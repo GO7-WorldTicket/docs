@@ -4,25 +4,31 @@
 ## Table of Contents
 
 - [Introduction](#introduction)
-- [OTA Request](#ota-requests)
+- [OTA Requests](#ota-requests)
     - [Agent Identification](#agent-identification)
       - [Contact Validation](#contact-validation)
       - [Traveller Validation](#traveller-validation)
-- [OTA Response](#ota-responses)
+- [OTA Responses](#ota-responses)
     - [Multiple BookingReferenceIDs](#multiple-bookingreferenceids)
     - [Ticketing Time Limit](#ticketing-time-limit)
 - [Differences Highlighted](#differences-highlighted)
     - [Request vs. Response](#request-vs-response)
     - [Common Pitfalls](#common-pitfalls)
 
-- [Request Examples](#request-examples)
-    - [AirLowFareSearchRQ](#airlowfaresearchrq)
-    - [AirBook](#airbookrq)
-    - [AirPrice](#airpricerq)
-    - [AirModify](#airmodifyrq)
-    - [AirRead](#airreadrq)
-
 - [OTA Message Samples](#ota-message-samples)
+  - [OTA_AirLowFareSearchRQ](#ota_airlowfaresearchrq)
+    - [Search for One-way Trip Options](#search-for-one-way-trip-options) 
+    - [Search for Round Trip Options](#search-for-round-trip-options) 
+  - [OTA_AirBookRQ](#ota_airbookrq)
+    - [Make One-way Booking](#make-one-way-booking)
+  - [OTA_AirPriceRQ](#ota_airpricerq)
+    - [Make One-way Group Booking in Economy Class](#make-one-way-group-booking-in-economy-class)
+    - [Make Round-trip Group Booking in Business Class](#make-round-trip-group-booking-in-business-class)
+  - [OTA_AirDemandTicketRQ](#ota_airdemandticketrq)
+    - [Pay with debit-credit account](#pay-with-debit-credit-account)
+  - [OTA_AirBookModifyRQ](#ota_airbookmodifyrq)
+    - [Update Passenger Names in a Group Booking with 2 adults, 1 child, and 1 infant](#update-passenger-names-in-a-group-booking-with-2-adults-1-child-and-1-infant) 
+  - [OTA_ReadRQ](#ota_readrq)
 
 # Introduction
 
@@ -56,44 +62,46 @@ Every OTA request must include `agentID` and `agencyID` to identify the agent wo
 
 ### Traveller Validation
 
-#### Required Fields for traveller information: `givenName`, `surname`, `email`, `date of birth`, `nationality`, and unique `rph`.
+#### Required Fields for traveller information:  
+
+- `personName.givenName`: first name
+- `personName.surname`: last name
+- `email.value`: email
+- `passengerTypeCode`
+- `gender`
 
 ```json
 {
   "personName": {
     "namePrefix": [ "MISS" ],
-    "givenName": [ "PAXONE" ],
+    "givenName": [ "ONE" ],
     "surname": "TEST"
   },
   "telephone": [],
   "email": [
-    { "value": "kmuangsamai@go7.io" }
+    { "value": "test@go7.io" }
   ],
   "document": [
     {
+      "birthDate": "1979-01-01",
       "docHolderNationality": "TH",
       "docID": "987654321",
       "expireDate": "2027-12-12",
       "docType": "2"
-    },
-    {
-      "birthDate": "1979-01-01"
     }
   ],
-  "travelerRefNumber": {
-    "rph": "1"
-  },
-  "flightSegmentRPHs": {
-    "flightSegmentRPH": [
-      "1"
-    ]
-  },
   "passengerTypeCode": "ADT",
   "gender": "Male"
 }
 ```
 
-When issuing tickets through an HHR system, it's imperative to include detailed passenger information in the document such as `date of birth`, `nationality`, `expireDate`.
+When issuing tickets through an HHR system, it's imperative to provide a passenger document, 
+therefore they are required at a time booking is created, except a group booking case.  
+
+- `birthDate`: date of birth
+- `docHolderNationality`: nationality
+- `docID`: document ID
+- `expireDate`: document expire date
 
 | OTA Request     | JSON Path                                           |
 |-----------------|-----------------------------------------------------|
@@ -106,13 +114,11 @@ When issuing tickets through an HHR system, it's imperative to include detailed 
 {
   "document": [
     {
+      "birthDate": "1979-01-01",
       "docHolderNationality": "TH",
       "docID": "0123456789",
       "expireDate": "2027-12-12",
       "docType": "2"
-    },
-    {
-      "birthDate": "1979-01-01"
     }
   ]
 }
@@ -126,7 +132,10 @@ Applies to:
 * AirBookRQ
 * AirBookModifyRQ (Optional) 
 
-#### Required Fields for contact information: `givenName`, `surname`, `email`, `date of birth`, `nationality`.
+#### Required Fields for Contact Information: 
+- `givenName`
+- `surname`
+- `email`
 
 ```json
 {
@@ -138,44 +147,8 @@ Applies to:
     },
     "email": [
       { "value": "kmuangsamai@go7.io" }
-    ],
-    "telephone": [
-      {
-        "countryAccessCode": "380",
-        "phoneNumber": "671234567"
-      }
-    ],
-    "document": [
-      {
-        "docHolderNationality": "TH",
-        "docID": "0123456789",
-        "expireDate": "2027-12-12",
-        "docType": "2"
-      },
-      {
-        "birthDate": "1979-01-01"
-      }
     ]
   }
-}
-```
-
-
-### Ticketing Time Limit
-
-The `ticketTimeLimit` field in responses retains its ISO date format but now includes a local time offset instead of being in strict UTC time. This change allows for a more precise representation of time zones.
-
-**Before**
-```json
-{
-  "ticketTimeLimit": "2024-02-29T07:25:24.045Z"
-}
-```
-
-**After**
-```json
-{
-  "ticketTimeLimit": "2024-02-29T10:36:58.000+03:00"
 }
 ```
 
@@ -208,12 +181,125 @@ The response can include multiple `BookingReferenceIDs` both GO7 and HHR, reflec
 }
 ```
 
-### PTC FareBreakdown By passengerType
+### Ticketing Time Limit
+
+The `ticketTimeLimit` field in responses retains its ISO date format but now includes a local time offset instead of being in strict UTC time. This change allows for a more precise representation of time zones.
+
+**Before**
+```json
+{
+  "ticketTimeLimit": "2024-02-29T07:25:24.045Z"
+}
+```
+
+**After**
+```json
+{
+  "ticketTimeLimit": "2024-02-29T10:36:58.000+03:00"
+}
+```
+
+### Fare Breakdown by Passenger Type
 
 In `AirLowFareSearchRS`, the PTC Fare Breakdown is now grouped by passenger type and not have individual price breakdown anymore. 
 This is how price breakdown is reported by HHR system. 
 
-Please note, `quantity` field in the sample having value 2. It was always 1 before.
+Please note, `quantity` field has changed to  2 that corresponds to a number of travellers requested. 
+Before each passenger had an individual Fare Breakdown.
+
+**Before:**
+```json
+{
+  "ptcfareBreakdowns": {
+    "ptcfareBreakdown": [
+      {
+        "passengerTypeQuantity": {
+          "code": "ADT",
+          "quantity": 1
+        },
+        "fareBasisCodes": {
+          "fareBasisCode": [
+            {
+              "value": "YECOSTD"
+            }
+          ]
+        },
+        "passengerFare": [
+          {
+            "baseFare": {
+              "currencyCode": "SAR",
+              "decimalPlaces": 2,
+              "amount": 300.00
+            },
+            "equivFare": [],
+            "totalFare": {
+              "currencyCode": "SAR",
+              "decimalPlaces": 2,
+              "amount": 300.00
+            },
+            "unstructuredFareCalc": {
+              "value": "JED HHR XMK 300.00SAR END"
+            },
+            "fareBaggageAllowance": [],
+            "remark": []
+          }
+        ],
+        "travelerRefNumber": [
+          {
+            "rph": "1"
+          }
+        ],
+        "fareInfo": [],
+        "pricingUnit": [],
+        "flightRefNumberRPHList": []
+      },
+      {
+        "passengerTypeQuantity": {
+          "code": "ADT",
+          "quantity": 1
+        },
+        "fareBasisCodes": {
+          "fareBasisCode": [
+            {
+              "value": "YECOSTD"
+            }
+          ]
+        },
+        "passengerFare": [
+          {
+            "baseFare": {
+              "currencyCode": "SAR",
+              "decimalPlaces": 2,
+              "amount": 300.00
+            },
+            "equivFare": [],
+            "totalFare": {
+              "currencyCode": "SAR",
+              "decimalPlaces": 2,
+              "amount": 300.00
+            },
+            "unstructuredFareCalc": {
+              "value": "JED HHR XMK 300.00SAR END"
+            },
+            "fareBaggageAllowance": [],
+            "remark": []
+          }
+        ],
+        "travelerRefNumber": [
+          {
+            "rph": "2"
+          }
+        ],
+        "fareInfo": [],
+        "pricingUnit": [],
+        "flightRefNumberRPHList": []
+      }
+    ]
+  }
+}
+```
+
+**After:**
 
 ```json
 {
@@ -238,7 +324,6 @@ Please note, `quantity` field in the sample having value 2. It was always 1 befo
               "currencyCode": "SAR",
               "amount": 4.0
             },
-            "equivFare": [],
             "fees": {
               "fee": [
                 {
@@ -256,12 +341,9 @@ Please note, `quantity` field in the sample having value 2. It was always 1 befo
             "totalFare": {
               "currencyCode": "SAR",
               "amount": 39.1
-            },
-            "fareBaggageAllowance": [],
-            "remark": []
+            }
           }
         ],
-        "travelerRefNumber": [],
         "fareInfo": [
           {
             "fareReference": [
@@ -270,15 +352,9 @@ Please note, `quantity` field in the sample having value 2. It was always 1 befo
                 "resBookDesigCode": "Y",
                 "accountCode": "ApplPayGreater"
               }
-            ],
-            "marketingAirline": [],
-            "date": [],
-            "fareInfo": [],
-            "city": [],
-            "airport": []
+            ]
           }
         ],
-        "pricingUnit": [],
         "flightRefNumberRPHList": [
           "1"
         ]
@@ -302,7 +378,6 @@ Please note, `quantity` field in the sample having value 2. It was always 1 befo
               "currencyCode": "SAR",
               "amount": 1.0
             },
-            "equivFare": [],
             "fees": {
               "fee": [
                 {
@@ -320,12 +395,9 @@ Please note, `quantity` field in the sample having value 2. It was always 1 befo
             "totalFare": {
               "currencyCode": "SAR",
               "amount": 18.4
-            },
-            "fareBaggageAllowance": [],
-            "remark": []
+            }
           }
         ],
-        "travelerRefNumber": [],
         "fareInfo": [
           {
             "fareReference": [
@@ -334,15 +406,9 @@ Please note, `quantity` field in the sample having value 2. It was always 1 befo
                 "resBookDesigCode": "Y",
                 "accountCode": "ApplPayGreater"
               }
-            ],
-            "marketingAirline": [],
-            "date": [],
-            "fareInfo": [],
-            "city": [],
-            "airport": []
+            ]
           }
         ],
-        "pricingUnit": [],
         "flightRefNumberRPHList": [
           "1"
         ]
@@ -370,9 +436,9 @@ Please note, `quantity` field in the sample having value 2. It was always 1 befo
 
 # OTA Message Samples
 
-## AirLowFareSearch for one-way trip
+## OTA_AirLowFareSearchRQ
 
-### AirLowFareSearchRQ
+### Search for one-way trip options
 
 ```json
 {
@@ -424,11 +490,93 @@ Please note, `quantity` field in the sample having value 2. It was always 1 befo
         "passengerTypeQuantity": [
           {
             "code": "ADT",
-            "quantity": 5
+            "quantity": 2
           },
           {
             "code": "CHD",
+            "quantity": 1
+          },
+          {
+            "code": "INF",
+            "quantity": 1
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+### Search for round trip options
+
+```json
+{
+  "version": "2.001",
+  "pos": {
+    "source": [
+      {
+        "isoCurrency": "SAR",
+        "requestorID": {
+          "type": "5",
+          "id": "<agentID>",
+          "name": "<agencyID>"
+        },
+        "bookingChannel": {
+          "type": "OTA"
+        }
+      }
+    ]
+  },
+  "processingInfo": {
+    "displayOrder": "BY_PRICE_LOW_TO_HIGH",
+    "availabilityIndicator": true
+  },
+  "originDestinationInformation": [
+    {
+      "originLocation": {
+        "locationCode": "MKX"
+      },
+      "destinationLocation": {
+        "locationCode": "DMX"
+      },
+      "departureDateTime": {
+        "value": "2024-03-25T08:00:00",
+        "windowBefore": "P0D",
+        "windowAfter": "P0D"
+      }
+    },
+    {
+      "originLocation": {
+        "locationCode": "DMX"
+      },
+      "destinationLocation": {
+        "locationCode": "MKX"
+      },
+      "departureDateTime": {
+        "value": "2024-03-28T08:00:00",
+        "windowBefore": "P0D",
+        "windowAfter": "P0D"
+      }
+    }
+  ],
+  "specificFlightInfo": {
+    "bookingClassPref": [
+      {
+        "resBookDesigCode": "C"
+      }
+    ]
+  },
+  "travelerInfoSummary": {
+    "airTravelerAvail": [
+      {
+        "passengerTypeQuantity": [
+          {
+            "code": "ADT",
             "quantity": 2
+          },
+          {
+            "code": "CHD",
+            "quantity": 0
           },
           {
             "code": "INF",
@@ -439,15 +587,18 @@ Please note, `quantity` field in the sample having value 2. It was always 1 befo
     ]
   }
 }
+
 ```
 
-## Make a one-way booking
-
-### AirBookRQ
+## OTA_AirBookRQ
 
 This section is dedicated to the OTA_AirBook function, which handles booking operations within the OTA API. Here, you'll find the required fields and structure for making a regular booking request.
 We require to provide the CTC and document information.
 
+### Make one-way booking
+
+The request below makes a round trip booking for two adults.
+
 ```json
 {
   "version": "2.001",
@@ -507,29 +658,11 @@ We require to provide the CTC and document information.
           "givenName": [
             "QA"
           ],
-          "middleName": [
-            "TEST"
-          ],
           "surname": "TESTER"
         },
         "email": [
           {
             "value": "test@go7.io"
-          }
-        ],
-        "telephone": [
-          {
-            "countryAccessCode": "380",
-            "phoneNumber": "671234567"
-          }
-        ],
-        "address": [
-          {
-            "cityName": "Makkha",
-            "countryName": {
-              "value": "",
-              "code": "SA"
-            }
           }
         ]
       },
@@ -539,7 +672,7 @@ We require to provide the CTC and document information.
             "MISS"
           ],
           "givenName": [
-            "PAXONE"
+            "ONE"
           ],
           "surname": "PARKER"
         },
@@ -549,16 +682,9 @@ We require to provide the CTC and document information.
             "phoneNumber": "671234567"
           }
         ],
-        "email": [
-          {
-            "value": "test@go7.io"
-          }
-        ],
         "document": [
           {
             "birthDate": "1979-01-01"
-          },
-          {
             "docID": "0123456789",
             "docType": "5",
             "docHolderNationality": "SA",
@@ -567,11 +693,6 @@ We require to provide the CTC and document information.
         ],
         "travelerRefNumber": {
           "rph": "1"
-        },
-        "flightSegmentRPHs": {
-          "flightSegmentRPH": [
-            "1"
-          ]
         },
         "passengerTypeCode": "ADT",
         "gender": "Male"
@@ -582,26 +703,13 @@ We require to provide the CTC and document information.
             "MISS"
           ],
           "givenName": [
-            "PAXTWO"
+            "TWO"
           ],
           "surname": "PARKER"
         },
-        "telephone": [
-          {
-            "countryAccessCode": "380",
-            "phoneNumber": "671234567"
-          }
-        ],
-        "email": [
-          {
-            "value": "test@go7.io"
-          }
-        ],
         "document": [
           {
-            "birthDate": "1979-01-01"
-          },
-          {
+            "birthDate": "1979-01-01",
             "docID": "0123456789",
             "docType": "5",
             "docHolderNationality": "SA",
@@ -611,54 +719,6 @@ We require to provide the CTC and document information.
         "travelerRefNumber": {
           "rph": "2"
         },
-        "flightSegmentRPHs": {
-          "flightSegmentRPH": [
-            "1"
-          ]
-        },
-        "passengerTypeCode": "ADT",
-        "gender": "Male"
-      },
-      {
-        "personName": {
-          "namePrefix": [
-            "MR"
-          ],
-          "givenName": [
-            "PAXTHREE"
-          ],
-          "surname": "PARKER"
-        },
-        "telephone": [
-          {
-            "countryAccessCode": "380",
-            "phoneNumber": "671234567"
-          }
-        ],
-        "email": [
-          {
-            "value": "test@go7.io"
-          }
-        ],
-        "document": [
-          {
-            "birthDate": "1979-01-01"
-          },
-          {
-            "docID": "0123456789",
-            "docType": "5",
-            "docHolderNationality": "SA",
-            "expireDate": "2027-12-12"
-          }
-        ],
-        "travelerRefNumber": {
-          "rph": "3"
-        },
-        "flightSegmentRPHs": {
-          "flightSegmentRPH": [
-            "1"
-          ]
-        },
         "passengerTypeCode": "ADT",
         "gender": "Male"
       }
@@ -667,27 +727,128 @@ We require to provide the CTC and document information.
 }
 ```
 
-## Make a group booking
-
-### AirPriceRQ
+## OTA_AirPriceRQ
 
 In the OTA_AirPrice section, we detail the necessary fields and structure for a group booking creation.
-We require to provide the CTC and document information.
+We require to provide a contact information.
+
+### Make one-way group booking in Economy class
 
 ```json
 {
+  "target": "Production",
   "version": "2.001",
+  "primaryLangID": "en",
   "pos": {
     "source": [
       {
-        "bookingChannel": {
-          "type": "OTA"
-        },
-        "isocurrency": "SAR",
+        "isoCurrency": "SAR",
         "requestorID": {
           "type": "5",
-          "id": "<agentID>",
-          "name": "<agencyID>"
+          "id": "umrah",
+          "name": "umrah"
+        },
+        "bookingChannel": {
+          "type": "OTA"
+        }
+      }
+    ]
+  },
+  "airItinerary": {
+    "originDestinationOptions": {
+      "originDestinationOption": [
+        {
+          "flightSegment": [
+            {
+              "departureDateTime": "2024-03-28T10:00:00.000+03:00",
+              "arrivalDateTime": "2024-03-28T12:25:00.000+03:00",
+              "flightNumber": "0080",
+              "resBookDesigCode": "Y",
+              "fareBasisCode": "ApplPayGreater",
+              "status": "30",
+              "departureAirport": {
+                "locationCode": "MKX"
+              },
+              "arrivalAirport": {
+                "locationCode": "DMX"
+              },
+              "marketingAirline": {
+                "code": "HHR"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "travelerInfoSummary": {
+    "pricingPref": [
+      {
+        "_": "Quote",
+        "qualifier": "4"
+      }
+    ],
+    "airTravelerAvail": [
+      {
+        "passengerTypeQuantity": [
+          {
+            "code": "ADT",
+            "quantity": 2
+          },
+          {
+            "code": "CHD",
+            "quantity": 0
+          },
+          {
+            "code": "INF",
+            "quantity": 0
+          }
+        ]
+      },
+      {
+        "airTraveler": {
+          "passengerTypeCode": "CTC",
+          "personName": {
+            "givenName": [
+              "John"
+            ],
+            "surname": "Doe"
+          },
+          "email": [
+            {
+              "value": "my@agency.sa"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "bookingReferenceID": {
+    "type": "9",
+    "id": "My Group 1"
+  }
+}
+```
+
+
+### Make round trip group booking in Business class
+
+```json
+{
+  "target": "Production",
+  "version": "2.001",
+  "primaryLangID": "en",
+  "pos": {
+    "source": [
+      {
+        "isoCurrency": "SAR",
+        "requestorID": {
+          "type": "5",
+          "id": "umrah",
+          "name": "umrah"
+        },
+        "bookingChannel": {
+          "type": "OTA"
         }
       }
     ]
@@ -709,15 +870,42 @@ We require to provide the CTC and document information.
                 "flightNumber": "0080"
               },
               "equipment": [],
-              "departureDateTime": "2024-04-19T09:00:00.000+03:00",
-              "arrivalDateTime": "2024-04-19T11:25:00.000+03:00",
+              "departureDateTime": "2024-03-25T10:00:00.000+03:00",
+              "arrivalDateTime": "2024-03-25T12:25:00.000+03:00",
               "rph": "1",
               "marketingAirline": {
                 "code": "HHR"
               },
               "flightNumber": "0080",
-              "fareBasisCode": "ApplPayGreater",
-              "resBookDesigCode": "Y",
+              "resBookDesigCode": "C",
+              "fareBasisCode": "002",
+              "status": "30"
+            }
+          ]
+        },
+        {
+          "flightSegment": [
+            {
+              "departureAirport": {
+                "locationCode": "DMX"
+              },
+              "arrivalAirport": {
+                "locationCode": "MKX"
+              },
+              "operatingAirline": {
+                "code": "HHR",
+                "flightNumber": "0141"
+              },
+              "equipment": [],
+              "departureDateTime": "2024-03-28T16:30:00.000+03:00",
+              "arrivalDateTime": "2024-03-28T18:55:00.000+03:00",
+              "rph": "2",
+              "marketingAirline": {
+                "code": "HHR"
+              },
+              "flightNumber": "0141",
+              "resBookDesigCode": "C",
+              "fareBasisCode": "002",
               "status": "30"
             }
           ]
@@ -725,174 +913,54 @@ We require to provide the CTC and document information.
       ]
     }
   },
-  "travelerInfo": {
-    "airTraveler": [
+  "travelerInfoSummary": {
+    "pricingPref": [
       {
-        "passengerTypeCode": "CTC",
-        "personName": {
-          "givenName": [
-            "QA"
-          ],
-          "middleName": [
-            "TEST"
-          ],
-          "surname": "TESTER"
-        },
-        "email": [
+        "_": "Quote",
+        "qualifier": "4"
+      }
+    ],
+    "airTravelerAvail": [
+      {
+        "passengerTypeQuantity": [
           {
-            "value": "test@go7.io"
-          }
-        ],
-        "telephone": [
+            "code": "ADT",
+            "quantity": 2
+          },
           {
-            "countryAccessCode": "380",
-            "phoneNumber": "671234567"
-          }
-        ],
-        "address": [
+            "code": "CHD",
+            "quantity": 0
+          },
           {
-            "cityName": "Makkha",
-            "countryName": {
-              "value": "",
-              "code": "SA"
-            }
+            "code": "INF",
+            "quantity": 0
           }
         ]
       },
       {
-        "personName": {
-          "namePrefix": [
-            "MISS"
-          ],
-          "givenName": [
-            "PAXONE"
-          ],
-          "surname": "PARKER"
-        },
-        "telephone": [
-          {
-            "countryAccessCode": "380",
-            "phoneNumber": "671234567"
-          }
-        ],
-        "email": [
-          {
-            "value": "test@go7.io"
-          }
-        ],
-        "document": [
-          {
-            "birthDate": "1979-01-01"
+        "airTraveler": {
+          "passengerTypeCode": "CTC",
+          "personName": {
+            "givenName": [
+              "John"
+            ],
+            "surname": "Doe"
           },
-          {
-            "docID": "0123456789",
-            "docType": "5",
-            "docHolderNationality": "SA",
-            "expireDate": "2027-12-12"
-          }
-        ],
-        "travelerRefNumber": {
-          "rph": "1"
-        },
-        "flightSegmentRPHs": {
-          "flightSegmentRPH": [
-            "1"
+          "email": [
+            {
+              "value": "my@agency.sa"
+            }
           ]
-        },
-        "passengerTypeCode": "ADT",
-        "gender": "Male"
-      },
-      {
-        "personName": {
-          "namePrefix": [
-            "MISS"
-          ],
-          "givenName": [
-            "PAXTWO"
-          ],
-          "surname": "PARKER"
-        },
-        "telephone": [
-          {
-            "countryAccessCode": "380",
-            "phoneNumber": "671234567"
-          }
-        ],
-        "email": [
-          {
-            "value": "test@go7.io"
-          }
-        ],
-        "document": [
-          {
-            "birthDate": "1979-01-01"
-          },
-          {
-            "docID": "0123456789",
-            "docType": "5",
-            "docHolderNationality": "SA",
-            "expireDate": "2027-12-12"
-          }
-        ],
-        "travelerRefNumber": {
-          "rph": "2"
-        },
-        "flightSegmentRPHs": {
-          "flightSegmentRPH": [
-            "1"
-          ]
-        },
-        "passengerTypeCode": "ADT",
-        "gender": "Male"
-      },
-      {
-        "personName": {
-          "namePrefix": [
-            "MR"
-          ],
-          "givenName": [
-            "PAXTHREE"
-          ],
-          "surname": "PARKER"
-        },
-        "telephone": [
-          {
-            "countryAccessCode": "380",
-            "phoneNumber": "671234567"
-          }
-        ],
-        "email": [
-          {
-            "value": "test@go7.io"
-          }
-        ],
-        "document": [
-          {
-            "birthDate": "1979-01-01"
-          },
-          {
-            "docID": "0123456789",
-            "docType": "5",
-            "docHolderNationality": "SA",
-            "expireDate": "2027-12-12"
-          }
-        ],
-        "travelerRefNumber": {
-          "rph": "3"
-        },
-        "flightSegmentRPHs": {
-          "flightSegmentRPH": [
-            "1"
-          ]
-        },
-        "passengerTypeCode": "ADT",
-        "gender": "Male"
+        }
       }
     ]
   }
 }
 ```
-## AirDemandRQ
+## OTA_AirDemandTicketRQ
+
+### Pay with debit-credit account
+
 ```json
 {
   "version": "2.001",
@@ -921,8 +989,7 @@ We require to provide the CTC and document information.
       "id": "ADECSP",
       "type": "14",
       "companyName": {
-        "code": "test-skywork-dev",
-        "companyShortName": "test-skywork-dev"
+        "code": "W1"
       }
     },
     "paymentInfo": [
@@ -938,21 +1005,23 @@ We require to provide the CTC and document information.
   }
 }
 ```
-## AirModifyRQ
+## OTA_AirBookModifyRQ
+
+### Update Passenger Names in a Group Booking with 2 adults, 1 child, and 1 infant
 ```json
 {
   "version": "2.001",
   "pos": {
     "source": [
       {
-        "bookingChannel": {
-          "type": "OTA"
-        },
-        "isocurrency": "SAR",
+        "isoCurrency": "SAR",
         "requestorID": {
           "type": "5",
-          "id": "<agentID>",
-          "name": "<agencyID>"
+          "id": "umrah",
+          "name": "umrah"
+        },
+        "bookingChannel": {
+          "type": "OTA"
         }
       }
     ]
@@ -975,8 +1044,8 @@ We require to provide the CTC and document information.
                   "flightNumber": "0080"
                 },
                 "equipment": [],
-                "departureDateTime": "2024-04-11T09:00:00.000+03:00",
-                "arrivalDateTime": "2024-04-11T11:25:00.000+03:00",
+                "departureDateTime": "2024-03-04T10:00:00.000+03:00",
+                "arrivalDateTime": "2024-03-04T12:25:00.000+03:00",
                 "rph": "1",
                 "marketingAirline": {
                   "code": "HHR"
@@ -998,326 +1067,61 @@ We require to provide the CTC and document information.
     "travelerInfo": {
       "airTraveler": [
         {
-          "personName": {
-            "namePrefix": [],
-            "givenName": [
-              "QA TEST"
-            ],
-            "middleName": [],
-            "surname": "TESTER",
-            "nameSuffix": [],
-            "nameTitle": []
-          },
-          "telephone": [
-            {
-              "countryAccessCode": "380",
-              "phoneNumber": "671234567"
-            }
-          ],
-          "email": [
-            {
-              "value": "test@go7.io",
-              "defaultInd": true
-            }
-          ],
-          "address": [
-            {
-              "bldgRoom": [],
-              "addressLine": [],
-              "cityName": "Makkha",
-              "countryName": {
-                "code": "SA"
-              }
-            }
-          ],
-          "custLoyalty": [],
-          "document": [],
-          "socialMediaInfo": [],
-          "passengerTypeCode": "CTC",
-          "comment": []
-        },
-        {
-          "personName": {
-            "namePrefix": [
-              "MISS"
-            ],
-            "givenName": [
-              "PAXONE"
-            ],
-            "middleName": [],
-            "surname": "TEST",
-            "nameSuffix": [],
-            "nameTitle": []
-          },
-          "telephone": [
-            {
-              "countryAccessCode": "380",
-              "phoneNumber": "671234567"
-            }
-          ],
-          "email": [
-            {
-              "value": "test@go7.io"
-            }
-          ],
-          "address": [],
-          "custLoyalty": [],
-          "document": [
-            {
-              "docLimitations": [],
-              "birthDate": "1979-01-01"
-            },
-            {
-              "docLimitations": [],
-              "docID": "0123456789",
-              "docType": "5",
-              "docHolderNationality": "SA",
-              "expireDate": "2027-12-12"
-            }
-          ],
           "travelerRefNumber": {
             "rph": "1"
           },
-          "flightSegmentRPHs": {
-            "flightSegmentRPH": [
-              "1"
-            ]
-          },
-          "socialMediaInfo": [],
+          
           "passengerTypeCode": "ADT",
-          "gender": "Male",
-          "comment": []
+          "gender": "Unknown"
         },
         {
-          "personName": {
-            "namePrefix": [
-              "MISS"
-            ],
-            "givenName": [
-              "PAXTWO"
-            ],
-            "middleName": [],
-            "surname": "TEST",
-            "nameSuffix": [],
-            "nameTitle": []
-          },
-          "telephone": [
-            {
-              "countryAccessCode": "380",
-              "phoneNumber": "671234567"
-            }
-          ],
-          "email": [
-            {
-              "value": "test@go7.io"
-            }
-          ],
-          "address": [],
-          "custLoyalty": [],
-          "document": [
-            {
-              "docLimitations": [],
-              "birthDate": "1979-01-01"
-            },
-            {
-              "docLimitations": [],
-              "docID": "0123456789",
-              "docType": "5",
-              "docHolderNationality": "SA",
-              "expireDate": "2027-12-12"
-            }
-          ],
           "travelerRefNumber": {
             "rph": "2"
           },
-          "flightSegmentRPHs": {
-            "flightSegmentRPH": [
-              "1"
-            ]
-          },
-          "socialMediaInfo": [],
           "passengerTypeCode": "ADT",
-          "gender": "Male",
-          "comment": []
+          "gender": "Unknown"
         },
         {
-          "personName": {
-            "namePrefix": [
-              "MISS"
-            ],
-            "givenName": [
-              "PAXTHREE"
-            ],
-            "middleName": [],
-            "surname": "TEST",
-            "nameSuffix": [],
-            "nameTitle": []
-          },
-          "telephone": [
-            {
-              "countryAccessCode": "380",
-              "phoneNumber": "671234567"
-            }
-          ],
-          "email": [
-            {
-              "value": "test@go7.io"
-            }
-          ],
-          "address": [],
-          "custLoyalty": [],
-          "document": [
-            {
-              "docLimitations": [],
-              "birthDate": "2017-01-01"
-            },
-            {
-              "docLimitations": [],
-              "docID": "0123456789",
-              "docType": "5",
-              "docHolderNationality": "SA",
-              "expireDate": "2027-12-12"
-            }
-          ],
           "travelerRefNumber": {
             "rph": "3"
           },
-          "flightSegmentRPHs": {
-            "flightSegmentRPH": [
-              "1"
-            ]
-          },
-          "socialMediaInfo": [],
           "passengerTypeCode": "CHD",
-          "gender": "Female",
-          "comment": []
+          "gender": "Unknown"
         },
         {
-          "personName": {
-            "namePrefix": [
-              "MR"
-            ],
-            "givenName": [
-              "PAXFOUR"
-            ],
-            "middleName": [],
-            "surname": "TEST",
-            "nameSuffix": [],
-            "nameTitle": []
-          },
-          "telephone": [
-            {
-              "countryAccessCode": "380",
-              "phoneNumber": "671234567"
-            }
-          ],
-          "email": [
-            {
-              "value": "test@go7.io"
-            }
-          ],
-          "address": [],
-          "custLoyalty": [],
-          "document": [
-            {
-              "docLimitations": [],
-              "birthDate": "2024-01-01"
-            },
-            {
-              "docLimitations": [],
-              "docID": "0123456789",
-              "docType": "5",
-              "docHolderNationality": "SA",
-              "expireDate": "2027-12-12"
-            }
-          ],
           "travelerRefNumber": {
             "rph": "4"
           },
-          "flightSegmentRPHs": {
-            "flightSegmentRPH": [
-              "1"
-            ]
-          },
-          "socialMediaInfo": [],
           "passengerTypeCode": "INF",
-          "gender": "Male",
+          "gender": "Unknown",
           "comment": [
             {
               "value": "1",
               "name": "attendantRph"
             }
           ]
-        },
-        {
-          "personName": {
-            "namePrefix": [
-              "MISS"
-            ],
-            "givenName": [
-              "PAXFIVE"
-            ],
-            "middleName": [],
-            "surname": "TEST",
-            "nameSuffix": [],
-            "nameTitle": []
-          },
-          "telephone": [
-            {
-              "countryAccessCode": "380",
-              "phoneNumber": "671234567"
-            }
-          ],
-          "email": [
-            {
-              "value": "test@go7.io"
-            }
-          ],
-          "address": [],
-          "custLoyalty": [],
-          "document": [
-            {
-              "docLimitations": [],
-              "birthDate": "2024-01-01"
-            },
-            {
-              "docLimitations": [],
-              "docID": "0123456789",
-              "docType": "5",
-              "docHolderNationality": "SA",
-              "expireDate": "2027-12-12"
-            }
-          ],
-          "travelerRefNumber": {
-            "rph": "5"
-          },
-          "flightSegmentRPHs": {
-            "flightSegmentRPH": [
-              "1"
-            ]
-          },
-          "socialMediaInfo": [],
-          "passengerTypeCode": "INF",
-          "gender": "Female",
-          "comment": [
-            {
-              "value": "2",
-              "name": "attendantRph"
-            }
-          ]
         }
-      ],
-      "specialReqDetails": []
+      ]
     },
     "bookingReferenceID": [
       {
+        "companyName": {
+          "code": "W1"
+        },
         "type": "14",
-        "id": "SPTAOZ",
+        "id": "UZNHXQ",
+        "flightRefNumberRPHList": []
+      },
+      {
+        "companyName": {
+          "code": "HHR"
+        },
+        "type": "14",
+        "id": "52C21525F",
         "flightRefNumberRPHList": []
       }
     ],
-    "createDateTime": "2024-02-22T00:00:00.0000",
-    "emdinfo": []
+    "createDateTime": "2024-02-29T18:04:24.500Z"
   },
   "airBookModifyRQ": {
     "modificationType": "3",
@@ -1326,29 +1130,16 @@ We require to provide the CTC and document information.
         {
           "personName": {
             "namePrefix": [
-              "MISS"
+              "MR"
             ],
             "givenName": [
               "PETER"
             ],
-            "surname": "PARKER"
+            "surname": "MAISON"
           },
-          "telephone": [
-            {
-              "countryAccessCode": "380",
-              "phoneNumber": "671234567"
-            }
-          ],
-          "email": [
-            {
-              "value": "test@go7.io"
-            }
-          ],
           "document": [
             {
-              "birthDate": "1979-01-01"
-            },
-            {
+              "birthDate": "1979-01-01",
               "docID": "0123456789",
               "docType": "5",
               "docHolderNationality": "SA",
@@ -1358,12 +1149,8 @@ We require to provide the CTC and document information.
           "travelerRefNumber": {
             "rph": "1"
           },
-          "flightSegmentRPHs": {
-            "flightSegmentRPH": [
-              "1"
-            ]
-          },
           "passengerTypeCode": "ADT",
+          "accompaniedByInfantInd": true,
           "gender": "Male"
         },
         {
@@ -1374,24 +1161,11 @@ We require to provide the CTC and document information.
             "givenName": [
               "ROSE"
             ],
-            "surname": "PARKER"
+            "surname": "MAISON"
           },
-          "telephone": [
-            {
-              "countryAccessCode": "380",
-              "phoneNumber": "671234567"
-            }
-          ],
-          "email": [
-            {
-              "value": "test@go7.io"
-            }
-          ],
           "document": [
             {
-              "birthDate": "1979-01-01"
-            },
-            {
+              "birthDate": "1979-01-01",
               "docID": "0123456789",
               "docType": "5",
               "docHolderNationality": "SA",
@@ -1401,40 +1175,20 @@ We require to provide the CTC and document information.
           "travelerRefNumber": {
             "rph": "2"
           },
-          "flightSegmentRPHs": {
-            "flightSegmentRPH": [
-              "1"
-            ]
-          },
           "passengerTypeCode": "ADT",
-          "gender": "Male"
+          "accompaniedByInfantInd": false,
+          "gender": "Female"
         },
         {
           "personName": {
-            "namePrefix": [
-              "MISS"
-            ],
             "givenName": [
               "SANDRA"
             ],
-            "surname": "PARKER"
+            "surname": "MAISON"
           },
-          "telephone": [
-            {
-              "countryAccessCode": "380",
-              "phoneNumber": "671234567"
-            }
-          ],
-          "email": [
-            {
-              "value": "test@go7.io"
-            }
-          ],
           "document": [
             {
-              "birthDate": "2017-01-01"
-            },
-            {
+              "birthDate": "2023-01-01",
               "docID": "0123456789",
               "docType": "5",
               "docHolderNationality": "SA",
@@ -1444,40 +1198,19 @@ We require to provide the CTC and document information.
           "travelerRefNumber": {
             "rph": "3"
           },
-          "flightSegmentRPHs": {
-            "flightSegmentRPH": [
-              "1"
-            ]
-          },
           "passengerTypeCode": "CHD",
-          "gender": "Female"
+          "gender": "Male"
         },
         {
           "personName": {
-            "namePrefix": [
-              "MR"
-            ],
             "givenName": [
               "OKAN"
             ],
-            "surname": "PARKER"
+            "surname": "MAISON"
           },
-          "telephone": [
-            {
-              "countryAccessCode": "380",
-              "phoneNumber": "671234567"
-            }
-          ],
-          "email": [
-            {
-              "value": "test@go7.io"
-            }
-          ],
           "document": [
             {
-              "birthDate": "2024-01-01"
-            },
-            {
+              "birthDate": "2024-01-01",
               "docID": "0123456789",
               "docType": "5",
               "docHolderNationality": "SA",
@@ -1486,60 +1219,6 @@ We require to provide the CTC and document information.
           ],
           "travelerRefNumber": {
             "rph": "4"
-          },
-          "flightSegmentRPHs": {
-            "flightSegmentRPH": [
-              "1"
-            ]
-          },
-          "passengerTypeCode": "INF",
-          "gender": "Male",
-          "comment": [
-            {
-              "value": "1",
-              "name": "attendantRph"
-            }
-          ]
-        },
-        {
-          "personName": {
-            "namePrefix": [
-              "MISS"
-            ],
-            "givenName": [
-              "NADIA"
-            ],
-            "surname": "PARKER"
-          },
-          "telephone": [
-            {
-              "countryAccessCode": "380",
-              "phoneNumber": "671234567"
-            }
-          ],
-          "email": [
-            {
-              "value": "test@go7.io"
-            }
-          ],
-          "document": [
-            {
-              "birthDate": "2024-01-01"
-            },
-            {
-              "docID": "0123456789",
-              "docType": "5",
-              "docHolderNationality": "SA",
-              "expireDate": "2027-12-12"
-            }
-          ],
-          "travelerRefNumber": {
-            "rph": "5"
-          },
-          "flightSegmentRPHs": {
-            "flightSegmentRPH": [
-              "1"
-            ]
           },
           "passengerTypeCode": "INF",
           "gender": "Female",
@@ -1555,7 +1234,7 @@ We require to provide the CTC and document information.
   }
 }
 ```
-## AirReadRQ
+## OTA_ReadRQ
 ```json
 {
   "version": "2.001",
