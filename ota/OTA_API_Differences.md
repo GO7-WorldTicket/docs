@@ -138,11 +138,11 @@ therefore they are required at a time booking is created, except a group booking
                             
 Traveller information is located under different nodes depending on OTA request:
 
-| OTA Request     | JSON Path                                           |
-|-----------------|-----------------------------------------------------|
-| AirBookRQ       | `/travelerInfo/airTraveler`                         |
-| AirBookModifyRQ | `/airBookModifyRQ/travelerInfo/airTraveler`         |
-| AirPriceRQ      | `/travelerInfoSummary/airTravelerAvail/airTraveler` |
+| OTA Request                                 | JSON Path                                           |
+|---------------------------------------------|-----------------------------------------------------|
+| [OTA_AirBookRQ](#ota_airbookrq)             | `/travelerInfo/airTraveler`                         |
+| [OTA_AirBookModifyRQ](#ota_airbookmodifyrq) | `/airBookModifyRQ/travelerInfo/airTraveler`         |
+| [OTA_AirPriceRQ](#ota_airpricerq)           | `/travelerInfoSummary/airTravelerAvail/airTraveler` |
 
 
 # OTA Responses
