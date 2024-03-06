@@ -137,6 +137,7 @@ therefore they are required at a time booking is created, except a group booking
 ```
                             
 Traveller information is located under different nodes depending on OTA request:
+
 | OTA Request     | JSON Path                                           |
 |-----------------|-----------------------------------------------------|
 | AirBookRQ       | `/travelerInfo/airTraveler`                         |
