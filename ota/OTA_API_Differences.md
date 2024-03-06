@@ -1413,7 +1413,10 @@ The request below updates all of them in one go.
   }
 }
 ```
+
+<a id="ota_readrq"></a>
 ## OTA_ReadRQ
+
 ```json
 {
   "version": "2.001",
