@@ -604,7 +604,7 @@ We require to provide the CTC and document information.
 <a id="make-one-way-booking"></a>
 ### Make one-way booking
 
-Makes one-way booking for two adults in Economy class.
+Makes one-way booking for two adults in Economy class Y.
 
 ```json
 {
@@ -737,7 +737,7 @@ Makes one-way booking for two adults in Economy class.
 <a id="make-round-trip-booking"></a>
 ### Make round trip booking
 
-Makes one-way booking for two adults in Business class.
+Makes one-way booking for two adults in Business class C.
 
 ```json
 {
