@@ -61,6 +61,36 @@ Every OTA request must include `agentID` and `agencyID` to identify the agent wo
 }
 ```
 
+<a id="contact-validation"></a>
+### Contact Validation
+
+Applies to:
+
+* AirPriceRQ
+* AirBookRQ
+* AirBookModifyRQ (Optional)
+
+Required fields for Contact Information:
+
+- `givenName`
+- `surname`
+- `email`
+
+```json
+{
+  "airTraveler": {
+    "passengerTypeCode": "CTC",
+    "personName": {
+      "givenName": ["John"],
+      "surname": "Doe"
+    },
+    "email": [
+      { "value": "kmuangsamai@go7.io" }
+    ]
+  }
+}
+```
+
 <a id="traveller-validation"></a>
 ### Traveller Validation
 
@@ -113,36 +143,6 @@ Traveller information is located under different nodes depending on OTA request:
 | AirBookModifyRQ | `/airBookModifyRQ/travelerInfo/airTraveler`         |
 | AirPriceRQ      | `/travelerInfoSummary/airTravelerAvail/airTraveler` |
 
-
-<a id="contact-validation"></a>
-### Contact Validation
-
-Applies to:
-
-* AirPriceRQ
-* AirBookRQ
-* AirBookModifyRQ (Optional) 
-
-Required fields for Contact Information: 
-
-- `givenName`
-- `surname`
-- `email`
-
-```json
-{
-  "airTraveler": {
-    "passengerTypeCode": "CTC",
-    "personName": {
-      "givenName": ["John"],
-      "surname": "Doe"
-    },
-    "email": [
-      { "value": "kmuangsamai@go7.io" }
-    ]
-  }
-}
-```
 
 # OTA Responses
 
