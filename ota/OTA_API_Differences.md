@@ -23,8 +23,8 @@
     - [Make One-way Booking](#make-one-way-booking)
     - [Make Round Trip Booking](#make-round-trip-booking)
   - [OTA_AirPriceRQ](#ota_airpricerq)
-    - [Make One-way Group Booking in Economy Class](#make-one-way-group-booking-in-economy-class)
-    - [Make Round Trip Group Booking in Business Class](#make-round-trip-group-booking-in-business-class)
+    - [Make One-way Group Booking](#make-one-way-group-booking)
+    - [Make Round Trip Group Booking](#make-round-trip-group-booking)
   - [OTA_AirDemandTicketRQ](#ota_airdemandticketrq)
     - [Pay with debit-credit account](#pay-with-debit-credit-account)
   - [OTA_AirBookModifyRQ](#ota_airbookmodifyrq)
@@ -602,9 +602,9 @@ This section is dedicated to the OTA_AirBook function, which handles booking ope
 We require to provide the CTC and document information.
 
 <a id="make-one-way-booking"></a>
-### Make one-way booking
+### Make one way booking
 
-Makes one-way booking for two adults in Economy class Y.
+Makes one way booking for two adults in Economy class Y.
 
 ```json
 {
@@ -888,12 +888,15 @@ Makes one-way booking for two adults in Business class C.
 }
 ```
 
+<a id="ota_airpricerq"></a>
 ## OTA_AirPriceRQ
 
 In the OTA_AirPrice section, we detail the necessary fields and structure for a group booking creation.
 We require to provide a contact information.
 
-### Make one-way group booking in Economy class
+<a id="make-one-way-group-booking"></a>
+### Make one-way group booking
+Makes one way group booking in Economy class C.
 
 ```json
 {
@@ -993,7 +996,10 @@ We require to provide a contact information.
 ```
 
 
-### Make round trip group booking in Business class
+<a id="make-round-trip-group-booking"></a>
+### Make round trip group booking
+
+Makes round trip booking in Business class.
 
 ```json
 {
