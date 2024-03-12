@@ -23,6 +23,14 @@
     - [AirRead](#airreadrq)
 
 - [OTA Message Samples](#ota-message-samples)
+- [Change Log](#change-log)
+
+## Change Log
+| Change Description               | Changed By          | Change Date |
+|----------------------------------|---------------------|-------------|
+| Initial creation of the document | Sergii Poltarak     | 2024-03-01  |
+| Updated birthdate document       | Sittiwet Mahapratom | 2024-03-12  |
+
 
 # Introduction
 
@@ -74,10 +82,8 @@ Every OTA request must include `agentID` and `agencyID` to identify the agent wo
       "docHolderNationality": "TH",
       "docID": "987654321",
       "expireDate": "2027-12-12",
+      "birthDate": "1979-01-01",
       "docType": "2"
-    },
-    {
-      "birthDate": "1979-01-01"
     }
   ],
   "travelerRefNumber": {
@@ -109,10 +115,8 @@ When issuing tickets through an HHR system, it's imperative to include detailed 
       "docHolderNationality": "TH",
       "docID": "0123456789",
       "expireDate": "2027-12-12",
+      "birthDate": "1979-01-01",
       "docType": "2"
-    },
-    {
-      "birthDate": "1979-01-01"
     }
   ]
 }
@@ -150,10 +154,8 @@ Applies to:
         "docHolderNationality": "TH",
         "docID": "0123456789",
         "expireDate": "2027-12-12",
+        "birthDate": "1979-01-01",
         "docType": "2"
-      },
-      {
-        "birthDate": "1979-01-01"
       }
     ]
   }
@@ -556,13 +558,11 @@ We require to provide the CTC and document information.
         ],
         "document": [
           {
-            "birthDate": "1979-01-01"
-          },
-          {
             "docID": "0123456789",
             "docType": "5",
             "docHolderNationality": "SA",
-            "expireDate": "2027-12-12"
+            "expireDate": "2027-12-12",
+            "birthDate": "1979-01-01"
           }
         ],
         "travelerRefNumber": {
@@ -599,13 +599,11 @@ We require to provide the CTC and document information.
         ],
         "document": [
           {
-            "birthDate": "1979-01-01"
-          },
-          {
             "docID": "0123456789",
             "docType": "5",
             "docHolderNationality": "SA",
-            "expireDate": "2027-12-12"
+            "expireDate": "2027-12-12",
+            "birthDate": "1979-01-01"
           }
         ],
         "travelerRefNumber": {
@@ -642,13 +640,11 @@ We require to provide the CTC and document information.
         ],
         "document": [
           {
-            "birthDate": "1979-01-01"
-          },
-          {
             "docID": "0123456789",
             "docType": "5",
             "docHolderNationality": "SA",
-            "expireDate": "2027-12-12"
+            "expireDate": "2027-12-12",
+            "birthDate": "1979-01-01"
           }
         ],
         "travelerRefNumber": {
@@ -782,13 +778,11 @@ We require to provide the CTC and document information.
         ],
         "document": [
           {
-            "birthDate": "1979-01-01"
-          },
-          {
             "docID": "0123456789",
             "docType": "5",
             "docHolderNationality": "SA",
-            "expireDate": "2027-12-12"
+            "expireDate": "2027-12-12",
+            "birthDate": "1979-01-01"
           }
         ],
         "travelerRefNumber": {
@@ -825,13 +819,11 @@ We require to provide the CTC and document information.
         ],
         "document": [
           {
-            "birthDate": "1979-01-01"
-          },
-          {
             "docID": "0123456789",
             "docType": "5",
             "docHolderNationality": "SA",
-            "expireDate": "2027-12-12"
+            "expireDate": "2027-12-12",
+            "birthDate": "1979-01-01"
           }
         ],
         "travelerRefNumber": {
@@ -868,13 +860,11 @@ We require to provide the CTC and document information.
         ],
         "document": [
           {
-            "birthDate": "1979-01-01"
-          },
-          {
             "docID": "0123456789",
             "docType": "5",
             "docHolderNationality": "SA",
-            "expireDate": "2027-12-12"
+            "expireDate": "2027-12-12",
+            "birthDate": "1979-01-01"
           }
         ],
         "travelerRefNumber": {
@@ -1065,14 +1055,11 @@ We require to provide the CTC and document information.
           "document": [
             {
               "docLimitations": [],
-              "birthDate": "1979-01-01"
-            },
-            {
-              "docLimitations": [],
               "docID": "0123456789",
               "docType": "5",
               "docHolderNationality": "SA",
-              "expireDate": "2027-12-12"
+              "expireDate": "2027-12-12",
+              "birthDate": "1979-01-01"
             }
           ],
           "travelerRefNumber": {
@@ -1117,14 +1104,11 @@ We require to provide the CTC and document information.
           "document": [
             {
               "docLimitations": [],
-              "birthDate": "1979-01-01"
-            },
-            {
-              "docLimitations": [],
               "docID": "0123456789",
               "docType": "5",
               "docHolderNationality": "SA",
-              "expireDate": "2027-12-12"
+              "expireDate": "2027-12-12",
+              "birthDate": "1979-01-01"
             }
           ],
           "travelerRefNumber": {
@@ -1169,14 +1153,11 @@ We require to provide the CTC and document information.
           "document": [
             {
               "docLimitations": [],
-              "birthDate": "2017-01-01"
-            },
-            {
-              "docLimitations": [],
               "docID": "0123456789",
               "docType": "5",
               "docHolderNationality": "SA",
-              "expireDate": "2027-12-12"
+              "expireDate": "2027-12-12",
+              "birthDate": "2017-01-01"
             }
           ],
           "travelerRefNumber": {
@@ -1221,14 +1202,11 @@ We require to provide the CTC and document information.
           "document": [
             {
               "docLimitations": [],
-              "birthDate": "2024-01-01"
-            },
-            {
-              "docLimitations": [],
               "docID": "0123456789",
               "docType": "5",
               "docHolderNationality": "SA",
-              "expireDate": "2027-12-12"
+              "expireDate": "2027-12-12",
+              "birthDate": "2024-01-01"
             }
           ],
           "travelerRefNumber": {
@@ -1278,14 +1256,11 @@ We require to provide the CTC and document information.
           "document": [
             {
               "docLimitations": [],
-              "birthDate": "2024-01-01"
-            },
-            {
-              "docLimitations": [],
               "docID": "0123456789",
               "docType": "5",
               "docHolderNationality": "SA",
-              "expireDate": "2027-12-12"
+              "expireDate": "2027-12-12",
+              "birthDate": "2024-01-01"
             }
           ],
           "travelerRefNumber": {
@@ -1346,13 +1321,11 @@ We require to provide the CTC and document information.
           ],
           "document": [
             {
-              "birthDate": "1979-01-01"
-            },
-            {
               "docID": "0123456789",
               "docType": "5",
               "docHolderNationality": "SA",
-              "expireDate": "2027-12-12"
+              "expireDate": "2027-12-12",
+              "birthDate": "1979-01-01"
             }
           ],
           "travelerRefNumber": {
@@ -1389,13 +1362,11 @@ We require to provide the CTC and document information.
           ],
           "document": [
             {
-              "birthDate": "1979-01-01"
-            },
-            {
               "docID": "0123456789",
               "docType": "5",
               "docHolderNationality": "SA",
-              "expireDate": "2027-12-12"
+              "expireDate": "2027-12-12",
+              "birthDate": "1979-01-01"
             }
           ],
           "travelerRefNumber": {
@@ -1432,13 +1403,11 @@ We require to provide the CTC and document information.
           ],
           "document": [
             {
-              "birthDate": "2017-01-01"
-            },
-            {
               "docID": "0123456789",
               "docType": "5",
               "docHolderNationality": "SA",
-              "expireDate": "2027-12-12"
+              "expireDate": "2027-12-12",
+              "birthDate": "2017-01-01"
             }
           ],
           "travelerRefNumber": {
@@ -1475,13 +1444,11 @@ We require to provide the CTC and document information.
           ],
           "document": [
             {
-              "birthDate": "2024-01-01"
-            },
-            {
               "docID": "0123456789",
               "docType": "5",
               "docHolderNationality": "SA",
-              "expireDate": "2027-12-12"
+              "expireDate": "2027-12-12",
+              "birthDate": "2024-01-01"
             }
           ],
           "travelerRefNumber": {
@@ -1524,13 +1491,11 @@ We require to provide the CTC and document information.
           ],
           "document": [
             {
-              "birthDate": "2024-01-01"
-            },
-            {
               "docID": "0123456789",
               "docType": "5",
               "docHolderNationality": "SA",
-              "expireDate": "2027-12-12"
+              "expireDate": "2027-12-12",
+              "birthDate": "2024-01-01"
             }
           ],
           "travelerRefNumber": {
