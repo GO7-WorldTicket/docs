@@ -3,6 +3,7 @@
 
 ## Table of Contents
 
+- [Change Log](#change-log)
 - [Introduction](#introduction)
 - [OTA Requests](#ota-requests)
     - [Agent Identification](#agent-identification)
@@ -29,6 +30,12 @@
   - [OTA_AirBookModifyRQ](#ota_airbookmodifyrq)
     - [Update Passenger Names in a Group Booking with 2 adults, 1 child, and 1 infant](#update-passenger-names-in-a-group-booking-with-2-adults-1-child-and-1-infant) 
   - [OTA_ReadRQ](#ota_readrq)
+
+## Change Log
+| Change Description               | Changed By          | Change Date |
+|----------------------------------|---------------------|-------------|
+| Initial creation of the document | Sergii Poltarak     | 2024-03-01  |
+| Updated birthdate document       | Sittiwet Mahapratom | 2024-03-12  |
 
 # Introduction
 
@@ -684,7 +691,7 @@ The request below makes a round trip booking for two adults.
         ],
         "document": [
           {
-            "birthDate": "1979-01-01"
+            "birthDate": "1979-01-01",
             "docID": "0123456789",
             "docType": "5",
             "docHolderNationality": "SA",
