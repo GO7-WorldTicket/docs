@@ -32,10 +32,10 @@
   - [OTA_ReadRQ](#ota_readrq)
 
 ## Change Log
-| Change Description               | Changed By          | Change Date |
-|----------------------------------|---------------------|-------------|
-| Initial creation of the document | Sergii Poltarak     | 2024-03-01  |
-| Updated birthdate document       | Sittiwet Mahapratom | 2024-03-12  |
+| Change Description               | Changed By           | Change Date |
+|----------------------------------|----------------------|-------------|
+| Initial creation of the document | Sergii Poltarak      | 2024-03-01  |
+| Updated birthdate document       | Sittiwet Mahapratoom | 2024-03-12  |
 
 # Introduction
 
