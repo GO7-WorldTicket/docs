@@ -3,6 +3,7 @@
 
 ## Table of Contents
 
+- [Change Log](#change-log)
 - [Introduction](#introduction)
 - [OTA Request](#ota-requests)
     - [Agent Identification](#agent-identification)
@@ -23,7 +24,6 @@
     - [AirRead](#airreadrq)
 
 - [OTA Message Samples](#ota-message-samples)
-- [Change Log](#change-log)
 
 ## Change Log
 | Change Description               | Changed By          | Change Date |
