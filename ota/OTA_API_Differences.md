@@ -3,6 +3,7 @@
 
 ## Table of Contents
 
+- [Change Log](#change-log)
 - [Introduction](#introduction)
 - [OTA Requests](#ota-requests)
     - [Agent Identification](#agent-identification)
@@ -30,6 +31,12 @@
   - [OTA_AirBookModifyRQ](#ota_airbookmodifyrq)
     - [Update Passenger Names in Group Booking](#update-passenger-names-in-group-booking) 
   - [OTA_ReadRQ](#ota_readrq)
+
+## Change Log
+| Change Description               | Changed By           | Change Date |
+|----------------------------------|----------------------|-------------|
+| Initial creation of the document | Sergii Poltarak      | 2024-03-01  |
+| Updated birthdate document       | Sittiwet Mahapratoom | 2024-03-12  |
 
 # Introduction
 
