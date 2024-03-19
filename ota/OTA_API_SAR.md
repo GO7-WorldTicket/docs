@@ -2,25 +2,25 @@
 
 ## Table of Contents
 
-* [Introduction](#introduction)
-* [Business Flow](#business-flow)
-* [Authentication](#authentication)
-* [Available Routes and Flights](#available-routes-and-flights)
-    * [Routes](#routes)
-    * [Calendar Availability](#calendar-availability)
-* [OTA for Reservation workflow](#ota-for-reservation-workflow)
-    * [Low Fare Search](#low-fare-search)
-    * [Create a booking](#create-a-booking)
-    * [Payment and Ticketing](#payment-and-ticketing)
-    * [Read booking](#read-booking)
-    * [Modify booking](#modify-booking)
+- [Introduction](#introduction)
+- [Business Flow](#business-flow)
+- [Authentication](#authentication)
+- [Available Routes and Flights](#available-routes-and-flights)
+  - [Routes](#routes)
+  - [Calendar Availability](#calendar-availability)
+- [OTA for Reservation workflow](#ota-for-reservation-workflow)
+  - [Low Fare Search](#low-fare-search)
+  - [Create a booking](#create-a-booking)
+  - [Payment and Ticketing](#payment-and-ticketing)
+  - [Read booking](#read-booking)
+  - [Modify booking](#modify-booking)
 
 <br><br>
 
 ## Change Log
 
-| Change Description               | Changed By        | Change Date |
-| -------------------------------- | ----------------- | ----------- |
+| Change Description               | Changed By          | Change Date |
+| -------------------------------- | ------------------- | ----------- |
 | Initial creation of the document | Arnon Ruangthanawes | 2024-03-19  |
 
 <br><br>
@@ -71,10 +71,9 @@ Replace all variables in curly braces with the actual values.
 | username      | User login                          | username                               |
 | password      | User password                       | **\*\*\*\***                           |
 
-<details>
-  <summary>Authentication Request and Response</summary>
+### Authentication Request and Response
 
-### Request
+#### Request
 
 ```
 curl -X POST \
@@ -83,7 +82,7 @@ curl -X POST \
 -d 'grant_type=password&client_id=sms4&client_secret={client_secret}&username={username}&password={password}'
 ```
 
-### Response
+#### Response
 
 ```
 {
@@ -98,8 +97,6 @@ curl -X POST \
 }
 ```
 
-</details>
-
 <br><br>
 
 # Available Routes and Flights
@@ -110,10 +107,9 @@ curl -X POST \
 
 ## Routes
 
-<details>
-  <summary>Lists all possible city pairs selling by the airline.</summary>
+### Lists all possible city pairs selling by the airline.
 
-### Request
+#### Request
 
 ```
 GET /sms-gateway/schedule/routes?sales_channel=OTA
@@ -121,7 +117,7 @@ Base URL: https://test-api.worldticket.net
 Authorization: ***
 ```
 
-### Response
+#### Response
 
 ```
 [
@@ -171,14 +167,11 @@ Authorization: ***
 ]
 ```
 
-</details>
-
 ## Calendar Availability
 
-<details>
-  <summary>Lists available dates per route. Usually used in the calendar picker.</summary>
+### Lists available dates per route. Usually used in the calendar picker.
 
-### Request
+#### Request
 
 ```
 GET /sms-gateway/schedule/calendar/availability?start_date=2023-12-03T00:00:00&end_date=2023-12-28T00:00:00&departure_airport=XMD&arrival_airport=JED&direct=true
@@ -186,7 +179,7 @@ Base URL: https://test-api.worldticket.net
 Authorization: ***
 ```
 
-### Response
+#### Response
 
 ```
 {
@@ -214,8 +207,6 @@ Authorization: ***
 }
 ```
 
-</details>
-
 <br><br>
 
 # OTA for Reservation workflow
@@ -230,10 +221,9 @@ Authorization: ***
 
 AirLowFareSearch is used to get flight availability with the lowest fare options for the whole journey, or separately per direction (outbound or inbound).
 
-<details>
-  <summary>List all the fares (AirLowFareSearchRQ)</summary>
+### List all the fares (AirLowFareSearchRQ)
 
-### Request Parameters in the header (all required)
+#### Request Parameters in the header (all required)
 
 | Parameter    | Type    | Description        | Example                              |
 | ------------ | ------- | ------------------ | ------------------------------------ |
@@ -242,7 +232,7 @@ AirLowFareSearch is used to get flight availability with the lowest fare options
 | agentId      | Payload | Custom HTTP header | ota                                  |
 | agencyId     | Payload | Custom HTTP header | ota                                  |
 
-### Request
+#### Request
 
 ```
 curl -X POST \
@@ -251,7 +241,7 @@ curl -X POST \
     -H 'local-name: {local_name}' \
 ```
 
-### Payload
+#### Payload
 
 ```
 {
@@ -344,7 +334,7 @@ curl -X POST \
 }
 ```
 
-### Response
+#### Response
 
 ```
 {
@@ -680,8 +670,6 @@ curl -X POST \
 }
 ```
 
-</details>
-
 <br><br>
 
 ## Create a booking
@@ -693,8 +681,7 @@ There are two types of bookings:
 - regular booking
 - group booking
 
-<details>
-  <summary>Create a regular booking (AirBookRQ)</summary>
+### Create a regular booking (AirBookRQ)
 
 ### Request Parameters in the header (all required)
 
@@ -705,7 +692,7 @@ There are two types of bookings:
 | agentId      | Payload | Custom HTTP header | ota                                  |
 | agencyId     | Payload | Custom HTTP header | ota                                  |
 
-### Request
+#### Request
 
 ```
 curl -X POST \
@@ -714,7 +701,7 @@ curl -X POST \
     -H 'local-name: {local_name}' \
 ```
 
-### Payload
+#### Payload
 
 ```
 {
@@ -1011,7 +998,7 @@ curl -X POST \
 }
 ```
 
-### Response
+#### Response
 
 ```
 {
@@ -1571,10 +1558,7 @@ curl -X POST \
 }
 ```
 
-</details>
-
-<details>
-  <summary>Create a group booking (AirPriceRQ)</summary>
+### Create a group booking (AirPriceRQ)
 
 `When making a group booking, passenger names are not known yet, hence In AirPriceRQ, a passenger type quantity (and not names as in AirBookRQ) should be specified and contact details along with a travel itinerary.`
 
@@ -1587,7 +1571,7 @@ curl -X POST \
 | agentId      | Payload | Custom HTTP header | ota                                  |
 | agencyId     | Payload | Custom HTTP header | ota                                  |
 
-### Request
+#### Request
 
 ```
 curl -X POST \
@@ -1596,7 +1580,7 @@ curl -X POST \
     -H 'local-name: {local_name}' \
 ```
 
-### Payload
+#### Payload
 
 ```
 {
@@ -1696,7 +1680,7 @@ curl -X POST \
 }
 ```
 
-### Response
+#### Response
 
 ```
 {
@@ -1934,8 +1918,6 @@ curl -X POST \
 }
 ```
 
-</details>
-
 <br><br>
 
 ## Payment and Ticketing
@@ -1952,8 +1934,7 @@ Supported payment types:
 | Debit credit account | 4        |
 | Invoice              | 40       |
 
-<details>
-  <summary>Make payment for issuing a ticket (AirDemandTicketRQ)</summary>
+### Make payment for issuing a ticket (AirDemandTicketRQ)
 
 ### Request Parameters in the header (all required)
 
@@ -1964,7 +1945,7 @@ Supported payment types:
 | agentId      | Payload | Custom HTTP header | ota                                  |
 | agencyId     | Payload | Custom HTTP header | ota                                  |
 
-### Request
+#### Request
 
 ```
 curl -X POST \
@@ -1973,7 +1954,7 @@ curl -X POST \
     -H 'local-name: {local_name}' \
 ```
 
-### Payload
+#### Payload
 
 ```
 {
@@ -2023,7 +2004,7 @@ curl -X POST \
 }
 ```
 
-### Response
+#### Response
 
 ```
 {
@@ -2154,13 +2135,11 @@ curl -X POST \
 }
 ```
 
-</details>
 <br><br>
 
 ## Read booking
 
-<details>
-  <summary>Read the existing booking in SMS to display the booking information (ReadRQ)</summary>
+### Read the existing booking in SMS to display the booking information (ReadRQ)
 
 ### Request Parameters in the header (all required)
 
@@ -2171,7 +2150,7 @@ curl -X POST \
 | agentId      | Payload | Custom HTTP header | ota                                  |
 | agencyId     | Payload | Custom HTTP header | ota                                  |
 
-### Request
+#### Request
 
 ```
 curl -X POST \
@@ -2180,7 +2159,7 @@ curl -X POST \
     -H 'local-name: {local_name}' \
 ```
 
-### Payload
+#### Payload
 
 ```
 {
@@ -2214,7 +2193,7 @@ curl -X POST \
 }
 ```
 
-### Response
+#### Response
 
 ```
 {
@@ -2770,16 +2749,13 @@ curl -X POST \
 }
 ```
 
-</details>
-
 <br><br>
 
 ## Modify booking
 
-`  Changes to the passenger name are not permitted after the booking is paid and tickets are issued.`
+`Changes to the passenger name are not permitted after the booking is paid and tickets are issued.`
 
-<details>
-  <summary>Modify the existing booking in SMS. Such as name change (OTA_AirBookModifyRQ)</summary>
+### Modify the existing booking in SMS. Such as name change (OTA_AirBookModifyRQ)
 
 ### Request Parameters in the header (all required)
 
@@ -2790,7 +2766,7 @@ curl -X POST \
 | agentId      | Payload | Custom HTTP header | ota                                  |
 | agencyId     | Payload | Custom HTTP header | ota                                  |
 
-### Request
+#### Request
 
 ```
 curl -X POST \
@@ -2799,7 +2775,7 @@ curl -X POST \
     -H 'local-name: {local_name}' \
 ```
 
-### Payload
+#### Payload
 
 ```
 {
@@ -3630,7 +3606,7 @@ curl -X POST \
 }
 ```
 
-### Response
+#### Response
 
 ```
 {
@@ -4039,5 +4015,3 @@ curl -X POST \
   "version": 2.001
 }
 ```
-
-</details>
