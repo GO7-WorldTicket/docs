@@ -2,13 +2,13 @@
 
 ## Table of Contents
 
-- [Introduction](#introduction)
-- [Business Flow](#business-flow)
-- [Authentication](#authentication)
-- [Available Routes and Flights](#available-routes-and-flights)
+* [Introduction](#introduction)
+* [Business Flow](#business-flow)
+* [Authentication](#authentication)
+* [Available Routes and Flights](#available-routes-and-flights)
     * [Routes](#routes)
     * [Calendar Availability](#calendar-availability)
-- [OTA for Reservation workflow](#ota-for-reservation-workflow)
+* [OTA for Reservation workflow](#ota-for-reservation-workflow)
     * [Low Fare Search](#low-fare-search)
     * [Create a booking](#create-a-booking)
     * [Payment and Ticketing](#payment-and-ticketing)
