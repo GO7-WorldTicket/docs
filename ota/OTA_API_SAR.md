@@ -6,14 +6,14 @@
 * [Business Flow](#business-flow)
 * [Authentication](#authentication)
 * [Available Routes and Flights](#available-routes-and-flights)
-     * [Routes](#routes)
-     * [Calendar Availability](#calendar-availability)
+    * [Routes](#routes)
+    * [Calendar Availability](#calendar-availability)
 * [OTA for Reservation workflow](#ota-for-reservation-workflow)
-     * [Low Fare Search](#low-fare-search)
-     * [Create a booking](#create-a-booking)
-     * [Payment and Ticketing](#payment-and-ticketing)
-     * [Read booking](#read-booking)
-     * [Modify booking](#modify-booking)
+    * [Low Fare Search](#low-fare-search)
+    * [Create a booking](#create-a-booking)
+    * [Payment and Ticketing](#payment-and-ticketing)
+    * [Read booking](#read-booking)
+    * [Modify booking](#modify-booking)
 
 <br><br>
 
