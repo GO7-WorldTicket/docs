@@ -32,7 +32,7 @@
 ## Change Log
 
 | Change Description                | Changed By          | Change Date |
-| --------------------------------- | ------------------- | ----------- |
+|-----------------------------------|---------------------|-------------|
 | Initial creation of the document  | Arnon Ruangthanawes | 2024-03-19  |
 | Update api urls, and add examples | Arnon Ruangthanawes | 2024-03-26  |
 
