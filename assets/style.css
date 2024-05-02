@@ -1,0 +1,73 @@
+
+:root {
+  --primary-color: #dbfb37;
+  --secondary-color: #011326;
+}
+
+body {
+  margin: 0px;
+  font-family: Arial;
+}
+
+.go-7-header {
+  background-image: url("/assets/images/go-7-background.jpg");
+  background-size: cover;
+  min-height: 200px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-color: transparent;
+  animation-name: beginPage;
+  animation-duration: 2s;
+  animation: beginPage 3s;
+  padding: 10px 5px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+}
+
+.logos-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.header-text {
+  align-self: self-end;
+  margin-left: auto;
+  margin-right: auto;
+  color: var(--primary-color);
+  letter-spacing: 2px;
+  font-size: 2rem;
+  margin-bottom: 0;
+}
+
+.go-7-logo {
+  width: 12vw;
+  max-width: 130px;
+  margin-right: 5px;
+}
+
+.sar-logo {
+  /* width: 12vw; */
+  /* max-width: 110px; */
+  background-color: white;
+  width: 12vw;
+  max-width: 130px;
+  margin-right: 5px;
+}
+
+.collaboration-text {
+  margin: 0px 0px 5px 0px;
+  color: var(--primary-color);
+}
+
+@keyframes beginPage {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

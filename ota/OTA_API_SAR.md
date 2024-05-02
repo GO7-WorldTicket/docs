@@ -1,3 +1,7 @@
+---
+layout: default
+title: The Title of Your Page
+---
 # OTA API Request and Response for SAR integration
 
 ## Table of Contents
