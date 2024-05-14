@@ -24,6 +24,7 @@ title: The Title of Your Page
     - [One-way trip with booking class](#payload-for-oneway-trip-with-booking-class-for-airlowfaresearchrq)
     - [Round trip](#payload-for-round-trip-for-airlowfaresearchrq)
     - [Round trip with booking class](#payload-for-round-trip-for-airlowfaresearchrq)
+    - [Error Message](#lowfare-search-error-message)
   - [Create a booking](#create-a-booking)
     - [Regular booking](#create-a-regular-booking-airbookrq)
       - [Regular booking for One-way trip](#payload-airbookrq-for-oneway-trip)
@@ -41,11 +42,12 @@ title: The Title of Your Page
 
 ## Change Log
 
-| Change Description                | Changed By          | Change Date |
-| --------------------------------- | ------------------- | ----------- |
-| Initial creation of the document  | Arnon Ruangthanawes | 2024-03-19  |
-| Update api urls, and add examples | Arnon Ruangthanawes | 2024-03-26  |
-| Update code mapping               | Arnon Ruangthanawes | 2024-05-13  |
+| Change Description                        | Changed By          | Change Date |
+| ----------------------------------------- | ------------------- | ----------- |
+| Initial creation of the document          | Arnon Ruangthanawes | 2024-03-19  |
+| Update api urls, and add examples         | Arnon Ruangthanawes | 2024-03-26  |
+| Update code mapping                       | Arnon Ruangthanawes | 2024-05-13  |
+| Include error messages in Low Fare Search | Arnon Ruangthanawes | 2024-05-14  |
 
 <br><br>
 
@@ -407,6 +409,7 @@ curl -X POST \
 ```
 
 #### Payload for Oneway trip for AirLowFareSearchRQ
+
 <details>
   <summary><b>Payload</b></summary>
 
@@ -841,6 +844,7 @@ curl -X POST \
 <br>
 
 #### Payload for Oneway trip with Booking Class for AirLowFareSearchRQ
+
 <details>
   <summary><b>Payload</b></summary>
   <h4>Request</h4>
@@ -8518,6 +8522,7 @@ curl -X POST \
 <br>
 
 #### Payload for Round trip with Booking Class for AirLowFareSearchRQ
+
 <details>
   <summary><b>Payload</b></summary>
   <h4>Request</h4>
@@ -31507,6 +31512,34 @@ curl -X POST \
   </pre>
 </details>
 
+<br>
+
+### Lowfare Search Error Message
+
+<details>
+<summary><b>Error</b></summary>
+<h4>404 - No price tariff exists</h4>
+<pre>HHR returns an empty response (status code 204) when the search criteria cannot be met.</pre>
+
+<h4>400 - No availability found</h4>
+<pre>
+This happens when the HHR system returns data that doesn't match the user's search criteria.
+For instance, if a user searches for a round trip flight, but only one leg is available 
+in the results.
+</pre>
+
+<h4>502 - Cannot get priced itineraries data</h4>
+<pre>
+Unable to create PricedItineraries object that matches the user's search criteria.
+</pre>
+
+<pre>
+<b>Note</b>: HHR currently doesn't support round-trip searches. 
+To address this, the OTA endpoint searches for each leg individually and validates 
+the combined results to simulate a round-trip journey.
+</pre>
+</details>
+
 <br><br>
 
 ## Create a booking
@@ -31539,6 +31572,7 @@ curl -X POST \
 ```
 
 #### Payload AirBookRQ for Oneway trip
+
 <details>
   <summary><b>Payload</b></summary>
   <h4>Request</h4>
@@ -32397,10 +32431,10 @@ curl -X POST \
   </pre>
 </details>
 
-
 <br>
 
 #### Payload AirBookRQ for Round trip
+
 <details>
   <summary><b>Payload</b></summary>
   <h4>Request</h4>
@@ -33334,6 +33368,7 @@ curl -X POST \
 ```
 
 #### Payload AirPriceRQ for Oneway trip
+
 <details>
   <summary><b>Payload</b></summary>
   <h4>Request</h4>
@@ -33673,9 +33708,8 @@ curl -X POST \
   </pre>
 </details>
 
-
-
 #### Payload AirPriceRQ for Round trip
+
 <details>
   <summary><b>Payload</b></summary>
   <h4>Request</h4>
@@ -34210,7 +34244,6 @@ curl -X POST \
     }
   </pre>
 </details>
-
 
 <br><br>
 
@@ -35044,7 +35077,6 @@ curl -X POST \
     }
   </pre>
 </details>
-
 
 <br><br>
 
@@ -36319,6 +36351,7 @@ curl -X POST \
 <br>
 
 #### Payload AirBookModifyRQ for Round trip
+
 <details>
   <summary><b>Payload</b></summary>
   <h4>Request</h4>
@@ -37916,4 +37949,3 @@ curl -X POST \
     }
   </pre>
 </details>
-
