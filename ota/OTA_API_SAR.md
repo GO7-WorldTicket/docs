@@ -12,72 +12,72 @@ title: The Title of Your Page
 - [Authentication](#authentication)
   - [JWT](#jwt)
   - [API Key](#api-key)
+- [OTA XML Schema 2015](#ota-xml-schema-2015)
+- [Postman Collection](#postman-collection)
 - [Available Routes and Flights](#available-routes-and-flights)
   - [Routes](#routes)
   - [Calendar Availability](#calendar-availability)
-- [Code Lists](#code-lists)
-  - [Booking Class](#booking-class)
-  - [Passenger Type](#passengers-type)
-  - [Document Type](#document-type)
+- [Booking Class](#booking-class)
+- [Passenger Type](#passengers-type)
+- [Document Type](#document-type)
 - [OTA for Reservation workflow](#ota-for-reservation-workflow)
   - [Low Fare Search](#low-fare-search)
-    - [One-way trip](#airlowfaresearchrq-for-oneway-trip)
-    - [One-way trip with booking class](#airlowfaresearchrq-for-oneway-trip-with-booking-class-preference)
-    - [Round trip](#airlowfaresearchrq-for-round-trip)
-    - [Round trip with booking class](#airlowfaresearchrq-for-round-trip-with-booking-class-preference)
+    - [One-way trip](#payload-for-oneway-trip-for-airlowfaresearchrq)
+    - [One-way trip with booking class](#payload-for-oneway-trip-with-booking-class-for-airlowfaresearchrq)
+    - [Round trip](#payload-for-round-trip-for-airlowfaresearchrq)
+    - [Round trip with booking class](#payload-for-round-trip-for-airlowfaresearchrq)
     - [Error Message](#lowfare-search-error-message)
   - [Create a booking](#create-a-booking)
     - [Regular booking](#create-a-regular-booking-airbookrq)
-      - [Regular booking for One-way trip](#airbookrq-for-oneway-trip)
-      - [Regular booking for Round trip](#airbookrq-for-round-trip)
+      - [Regular booking for One-way trip](#payload-airbookrq-for-oneway-trip)
+      - [Regular booking for Round trip](#payload-airbookrq-for-round-trip)
     - [Group booking](#create-a-group-booking-airpricerq)
-      - [Group booking for One-way trip](#airpricerq-for-oneway-trip)
-      - [Group booking for Round trip](#airpricerq-for-round-trip)
+      - [Group booking for One-way trip](#payload-airpricerq-for-oneway-trip)
+      - [Group booking for Round trip](#payload-airpricerq-for-round-trip)
   - [Payment and Ticketing](#payment-and-ticketing)
   - [Read booking](#read-booking)
   - [Modify booking](#modify-booking)
     - [Modify booking for One-way trip](#payload-airbookmodifyrq-for-oneway-trip)
     - [Modify booking for Round trip](#payload-airbookmodifyrq-for-round-trip)
-  - [Cancel booking](#cancel-booking)
+
+<br><br>
 
 ## Change Log
 
-| Change Description                                   | Changed By          | Change Date |
-|------------------------------------------------------|---------------------|-------------|
-| Initial creation of the document                     | Arnon Ruangthanawes | 2024-03-19  |
-| Update api urls, and add examples                    | Arnon Ruangthanawes | 2024-03-26  |
-| Update code mapping                                  | Arnon Ruangthanawes | 2024-05-13  |
-| Include error messages in Low Fare Search            | Arnon Ruangthanawes | 2024-05-14  |
-| Describe how to cancel booking entirely or partially | Sergii Poltorak     | 2024-05-22  |
+| Change Description                        | Changed By          | Change Date |
+| ----------------------------------------- | ------------------- | ----------- |
+| Initial creation of the document          | Arnon Ruangthanawes | 2024-03-19  |
+| Update api urls, and add examples         | Arnon Ruangthanawes | 2024-03-26  |
+| Update code mapping                       | Arnon Ruangthanawes | 2024-05-13  |
+| Include error messages in Low Fare Search | Arnon Ruangthanawes | 2024-05-14  |
+| Upload schema and postman files           | Arnon Ruangthanawes | 2024-05-29  |
+
+<br><br>
 
 # Introduction
 
 This document outlines the integration of the Booking API with HHR systems, leveraging it over the OTA API.
 
+<br><br>
+
 ## Endpoints
 
-### Test Endpoints
+|                   | Production                                            | Test                                            |
+| ----------------- | ----------------------------------------------------- | ----------------------------------------------- |
+| Identity Provider | https://api.sar.worldticket.cloud/auth                | https://test-auth.worldticket.net/auth          |
+| OTA API           | https://api.sar.worldticket.cloud/ota/v2015b/OTA      | https://test-api.worldticket.net/ota/v2015b/OTA |
+| REST API          | https://api.sar.worldticket.cloud/{service-name}      | https://test-api.worldticket.net/{service-name} |
+| Routes & Flights  | https://api.sar.worldticket.cloud/sms-gateway-service | https://test.worldticket.net/sms-gateway        |
 
-|                  | Test                                            |
-|------------------|-------------------------------------------------|
-| Auth API         | https://test-auth.worldticket.net/auth          |
-| OTA API          | https://test-api.worldticket.net/ota/v2015b/OTA |
-| REST API         | https://test-api.worldticket.net/{service-name} |
-
-
-### Production Endpoints
-
-|                  | Production                                            |
-|------------------|-------------------------------------------------------|
-| Auth API         | https://api.sar.worldticket.cloud/auth                |
-| OTA API          | https://api.sar.worldticket.cloud/ota/v2015b/OTA      |
-| REST API         | https://api.sar.worldticket.cloud/{service-name}      |
+<br><br>
 
 # Business Flow
 
 This diagram illustrates the API call sequence for searching available trains, creating a reservation, and the intermediate steps required to issue tickets.
 
 ![Alt text](../images/business_flow.svg "Business flow")
+
+<br><br>
 
 # Authentication
 
@@ -106,6 +106,8 @@ curl -X POST \
     -H 'x-api-key: {api_key}' \
     -H 'local-name: {local_name}' \
 ```
+
+<br>
 
 ## JWT
 
@@ -150,6 +152,18 @@ Replace all variables in curly braces with the actual values.
     }
   </pre>
 </details>
+
+<br><br>
+
+# OTA XML Schema 2015
+[Download OTA XML Schema 2015](/docs/assets/resources/ota-xmlbeans-2015B.zip)
+
+<br><br>
+
+# Postman Collection
+[Download Postman Collection](/docs/assets/resources/ota-xmlbeans-2015B.zip)
+
+<br><br>
 
 # Available Routes and Flights
 
@@ -345,16 +359,18 @@ Replace all variables in curly braces with the actual values.
   </pre>
 </details>
 
-# Code Lists
+<br><br>
 
-## Booking Class
+# Booking Class
 
 | Class | Description    | HHR Booking Class |
 | ----- | -------------- | ----------------- |
 | Y     | Economy class  | T                 |
 | C     | Business class | P                 |
 
-## Passengers type
+<br><br>
+
+# Passengers type
 
 | Code   | Description | HHR Code |
 | ------ | ----------- | -------- |
@@ -362,12 +378,16 @@ Replace all variables in curly braces with the actual values.
 | CHILD  | Child       | 2        |
 | INFANT | Infant      | 3        |
 
-## Document Type
+<br><br>
+
+# Document Type
 
 | Code | Description |
 | ---- | ----------- |
 | 1    | Visa        |
 | 2    | Passport    |
+
+<br><br>
 
 # OTA for Reservation workflow
 
@@ -375,6 +395,7 @@ Replace all variables in curly braces with the actual values.
 | ------- | ------------------------------------------------ | ----------------------------------------------- |
 | OTA API | https://api.sar.worldticket.cloud/ota/v2015b/OTA | https://test-api.worldticket.net/ota/v2015b/OTA |
 
+<br>
 
 ## Low Fare Search
 
@@ -385,11 +406,11 @@ AirLowFareSearch is used to get flight availability with the lowest fare options
 #### Request Parameters in the header (all required)
 
 | Parameter  | Type    | Description        | Example                  |
-|------------|---------|--------------------|--------------------------|
+| ---------- | ------- | ------------------ | ------------------------ |
 | x-api-key  | Header  | Access Token       | [Access token](#api-key) |
 | local-name | Header  | Custom HTTP header | OTA_AirLowFareSearchRQ   |
-| agentId    | Payload |                    | ota                      |
-| agencyId   | Payload |                    | ota                      |
+| agentId    | Payload | Custom HTTP header | ota                      |
+| agencyId   | Payload | Custom HTTP header | ota                      |
 
 #### Request
 
@@ -400,10 +421,12 @@ curl -X POST \
     -H 'local-name: {local_name}' \
 ```
 
-#### AirLowFareSearchRQ for Oneway Trip
+#### Payload for Oneway trip for AirLowFareSearchRQ
 
 <details>
-  <summary>Request Payload</summary>
+  <summary><b>Payload</b></summary>
+
+  <h4>Request</h4>
   <pre>
       {
         "version": "2.001",
@@ -494,9 +517,8 @@ curl -X POST \
         }
       }
   </pre>
-</details>
-<details>
-  <summary>Response Payload</summary>
+
+  <h4>Response</h4>
   <pre>
     {
       "success": {},
@@ -544,7 +566,7 @@ curl -X POST \
                         "comment": [],
                         "stopLocation": [],
                         "status": "34",
-                        "tpaExtensions": {
+                        "tpaextensions": {
                           "airEquipType": "TRN"
                         }
                       }
@@ -588,7 +610,7 @@ curl -X POST \
                         "comment": [],
                         "stopLocation": [],
                         "status": "34",
-                        "tpaExtensions": {
+                        "tpaextensions": {
                           "airEquipType": "TRN"
                         }
                       }
@@ -632,7 +654,7 @@ curl -X POST \
                         "comment": [],
                         "stopLocation": [],
                         "status": "34",
-                        "tpaExtensions": {
+                        "tpaextensions": {
                           "airEquipType": "TRN"
                         }
                       }
@@ -676,7 +698,7 @@ curl -X POST \
                         "comment": [],
                         "stopLocation": [],
                         "status": "34",
-                        "tpaExtensions": {
+                        "tpaextensions": {
                           "airEquipType": "TRN"
                         }
                       }
@@ -735,7 +757,7 @@ curl -X POST \
                     "fareInfo": [],
                     "city": [],
                     "airport": [],
-                    "tpaExtensions": {
+                    "tpaextensions": {
                       "priceGroup": "Eco"
                     }
                   },
@@ -761,7 +783,7 @@ curl -X POST \
                     "fareInfo": [],
                     "city": [],
                     "airport": [],
-                    "tpaExtensions": {
+                    "tpaextensions": {
                       "priceGroup": "Eco"
                     }
                   },
@@ -787,7 +809,7 @@ curl -X POST \
                     "fareInfo": [],
                     "city": [],
                     "airport": [],
-                    "tpaExtensions": {
+                    "tpaextensions": {
                       "priceGroup": "Eco"
                     }
                   },
@@ -813,7 +835,7 @@ curl -X POST \
                     "fareInfo": [],
                     "city": [],
                     "airport": [],
-                    "tpaExtensions": {
+                    "tpaextensions": {
                       "priceGroup": "Eco"
                     }
                   }
@@ -832,11 +854,13 @@ curl -X POST \
   </pre>
 </details>
 
+<br>
 
-#### AirLowFareSearchRQ for Oneway Trip with Booking Class Preference
+#### Payload for Oneway trip with Booking Class for AirLowFareSearchRQ
 
 <details>
-  <summary>Request Payload</summary>
+  <summary><b>Payload</b></summary>
+  <h4>Request</h4>
   <pre>
     {
       "version": "2.001",
@@ -846,7 +870,7 @@ curl -X POST \
             "bookingChannel": {
               "type": "OTA"
             },
-            "isoCurrency": "SAR",
+            "isocurrency": "SAR",
             "requestorID": {
               "type": "5",
               "id": "umrah",
@@ -878,6 +902,9 @@ curl -X POST \
         "bookingClassPref": [
           {
             "resBookDesigCode": "Y"
+          },
+          {
+            "resBookDesigCode": "C"
           }
         ]
       },
@@ -903,10 +930,8 @@ curl -X POST \
       }
     }
   </pre>
-</details>
 
-<details>
-  <summary>Response Payload</summary>
+  <h4>Response</h4>
   <pre>
     {
         "success": {},
@@ -5831,10 +5856,13 @@ curl -X POST \
   </pre>
 </details>
 
-#### AirLowFareSearchRQ for Round Trip
+<br>
+
+#### Payload for Round trip for AirLowFareSearchRQ
 
 <details>
-  <summary>Request Payload</summary>
+  <summary><b>Payload</b></summary>
+  <h4>Request</h4>
   <pre>
     {
         "version": "2.001",
@@ -5914,10 +5942,8 @@ curl -X POST \
         }
     }
   </pre>
-</details>
 
-<details>
-  <summary>Response Payload</summary>
+  <h4>Response</h4>
   <pre>
     {
       "success": {},
@@ -8506,10 +8532,13 @@ curl -X POST \
   </pre>
 </details>
 
-#### AirLowFareSearchRQ for Round Trip with Booking Class Preference
+<br>
+
+#### Payload for Round trip with Booking Class for AirLowFareSearchRQ
 
 <details>
-  <summary>Request Payload</summary>
+  <summary><b>Payload</b></summary>
+  <h4>Request</h4>
   <pre>
     {
       "version": "2.001",
@@ -8519,7 +8548,7 @@ curl -X POST \
             "bookingChannel": {
               "type": "OTA"
             },
-            "isoCurrency": "SAR",
+            "isocurrency": "SAR",
             "requestorID": {
               "type": "5",
               "id": "umrah",
@@ -8592,10 +8621,8 @@ curl -X POST \
       }
     }
   </pre>
-</details>
 
-<details>
-  <summary>Response Payload</summary>
+  <h4>Response</h4>
   <pre>
     {
         "success": {},
@@ -31526,6 +31553,8 @@ the combined results to simulate a round-trip journey.
 </pre>
 </details>
 
+<br><br>
+
 ## Create a booking
 
 The purpose is to create the booking in SMS by providing a specific flight and fare in the request.
@@ -31555,10 +31584,11 @@ curl -X POST \
     -H 'local-name: {local_name}' \
 ```
 
-#### AirBookRQ for Oneway Trip
+#### Payload AirBookRQ for Oneway trip
 
 <details>
-  <summary>Request Payload</summary>
+  <summary><b>Payload</b></summary>
+  <h4>Request</h4>
   <pre>
     {
       "version": "2.001",
@@ -31853,10 +31883,8 @@ curl -X POST \
       }
     }
   </pre>
-</details>
 
-<details>
-  <summary>Response Payload</summary>
+  <h4>Response</h4>
   <pre>
     {
       "airReservation": {
@@ -32396,7 +32424,7 @@ curl -X POST \
               "multimedia": [],
               "bookingReferenceID": [],
               "id": "1385531",
-              "tpaExtensions": {
+              "tpaextensions": {
                 "orderInfo": {
                   "action": "CREATE_BOOKING",
                   "currencyCode": "SAR",
@@ -32418,10 +32446,11 @@ curl -X POST \
 
 <br>
 
-#### AirBookRQ for Round trip
+#### Payload AirBookRQ for Round trip
 
 <details>
-  <summary>Request Payload</summary>
+  <summary><b>Payload</b></summary>
+  <h4>Request</h4>
   <pre>
     {
         "version": "2.001",
@@ -32733,8 +32762,7 @@ curl -X POST \
                     },
                     "flightSegmentRPHs": {
                         "flightSegmentRPH": [
-                            "1",
-                            "2"
+                            "1","2"
                         ]
                     },
                     "passengerTypeCode": "ADT",
@@ -32744,10 +32772,8 @@ curl -X POST \
         }
     }
   </pre>
-</details>
 
-<details>
-  <summary>Response Payload</summary>
+  <h4>Response</h4>
   <pre>
     {
         "airReservation": {
@@ -33310,7 +33336,7 @@ curl -X POST \
                         "multimedia": [],
                         "bookingReferenceID": [],
                         "id": "1397127",
-                        "tpaExtensions": {
+                        "tpaextensions": {
                             "orderInfo": {
                                 "action": "CREATE_BOOKING",
                                 "currencyCode": "SAR",
@@ -33354,10 +33380,11 @@ curl -X POST \
     -H 'local-name: {local_name}' \
 ```
 
-#### AirPriceRQ for Oneway trip
+#### Payload AirPriceRQ for Oneway trip
 
 <details>
-  <summary>Request Payload</summary>
+  <summary><b>Payload</b></summary>
+  <h4>Request</h4>
   <pre>
     {
       "version": "2.001",
@@ -33367,7 +33394,7 @@ curl -X POST \
             "bookingChannel": {
               "type": "OTA"
             },
-            "isoCurrency": "SAR",
+            "isocurrency": "SAR",
             "requestorID": {
               "type": "5",
               "id": "{{agentId}}",
@@ -33455,10 +33482,8 @@ curl -X POST \
       }
     }
   </pre>
-</details>
 
-<details>
-  <summary>Response Payload</summary>
+  <h4>Response</h4>
   <pre>
     {
       "pricedItineraries": {
@@ -33696,7 +33721,7 @@ curl -X POST \
   </pre>
 </details>
 
-#### AirPriceRQ for Round trip
+#### Payload AirPriceRQ for Round trip
 
 <details>
   <summary><b>Payload</b></summary>
@@ -33710,7 +33735,7 @@ curl -X POST \
             "bookingChannel": {
               "type": "OTA"
             },
-            "isoCurrency": "SAR",
+            "isocurrency": "SAR",
             "requestorID": {
               "type": "5",
               "id": "{{agentId}}"
@@ -33846,10 +33871,8 @@ curl -X POST \
       }
     }  
   </pre>
-</details>
 
-<details>
-  <summary>Response Payload</summary>
+  <h4>Response</h4>
   <pre>
     {
       "bookingReferenceID": {
@@ -34235,6 +34258,8 @@ curl -X POST \
   </pre>
 </details>
 
+<br><br>
+
 ## Payment and Ticketing
 
 The purpose is to make a payment of existing booking in SMS.
@@ -34270,7 +34295,8 @@ curl -X POST \
 ```
 
 <details>
-  <summary>Request Payload</summary>
+  <summary><b>Payload</b></summary>
+  <h4>Request</h4>
   <pre>
     {
       "version": "2.001",
@@ -34287,7 +34313,7 @@ curl -X POST \
               "location": "CPH"
             },
             "isocountry": "US",
-            "isoCurrency": "SAR"
+            "isocurrency": "SAR"
           }
         ]
       },
@@ -34318,10 +34344,8 @@ curl -X POST \
       }
     }
   </pre>
-</details>
 
-<details>
-  <summary>Response Payload</summary>
+  <h4>Response</h4>
   <pre>
     {
       "success": {},
@@ -34452,6 +34476,8 @@ curl -X POST \
   </pre>
 </details>
 
+<br><br>
+
 ## Read booking
 
 ### Read the existing booking in SMS to display the booking information (ReadRQ)
@@ -34475,7 +34501,8 @@ curl -X POST \
 ```
 
 <details>
-  <summary>Request Payload</summary>
+  <summary><b>Payload</b></summary>
+  <h4>Request</h4>
   <pre>
     {
       "version": "2.001",
@@ -34485,7 +34512,7 @@ curl -X POST \
             "bookingChannel": {
               "type": "OTA"
             },
-            "isoCurrency": "SAR",
+            "isocurrency": "SAR",
             "requestorID": {
               "type": "5",
               "id": "{{agentId}}",
@@ -34507,9 +34534,8 @@ curl -X POST \
       }
     }
   </pre>
-</details>
-<details>
-  <summary>Response Payload</summary>
+
+  <h4>Response</h4>
   <pre>
     {
       "success": {},
@@ -34920,7 +34946,7 @@ curl -X POST \
             "ticketDocumentNbr": "3333330007692",
             "passengerTypeCode": "ADT",
             "miscTicketingCode": [],
-            "tpaExtensions": {
+            "tpaextensions": {
               "couponInfos": [
                 {
                   "flightRefRPH": "1",
@@ -34940,7 +34966,7 @@ curl -X POST \
             "ticketDocumentNbr": "3333330007693",
             "passengerTypeCode": "ADT",
             "miscTicketingCode": [],
-            "tpaExtensions": {
+            "tpaextensions": {
               "couponInfos": [
                 {
                   "flightRefRPH": "1",
@@ -34960,7 +34986,7 @@ curl -X POST \
             "ticketDocumentNbr": "3333330007694",
             "passengerTypeCode": "ADT",
             "miscTicketingCode": [],
-            "tpaExtensions": {
+            "tpaextensions": {
               "couponInfos": [
                 {
                   "flightRefRPH": "1",
@@ -34980,7 +35006,7 @@ curl -X POST \
             "ticketDocumentNbr": "3333330007695",
             "passengerTypeCode": "ADT",
             "miscTicketingCode": [],
-            "tpaExtensions": {
+            "tpaextensions": {
               "couponInfos": [
                 {
                   "flightRefRPH": "1",
@@ -35000,7 +35026,7 @@ curl -X POST \
             "ticketDocumentNbr": "3333330007696",
             "passengerTypeCode": "ADT",
             "miscTicketingCode": [],
-            "tpaExtensions": {
+            "tpaextensions": {
               "couponInfos": [
                 {
                   "flightRefRPH": "1",
@@ -35043,7 +35069,7 @@ curl -X POST \
               "multimedia": [],
               "bookingReferenceID": [],
               "id": "1385505",
-              "tpaExtensions": {
+              "tpaextensions": {
                 "orderInfo": {
                   "action": "CREATE_BOOKING",
                   "currencyCode": "SAR",
@@ -35065,22 +35091,15 @@ curl -X POST \
   </pre>
 </details>
 
+<br><br>
+
 ## Modify booking
 
-Supported modification types:
+`Changes to the passenger name are not permitted after the booking is paid and tickets are issued.`
 
-| Operation             | Type | Description                                                                                                                                                                  |
-|-----------------------|------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Cancel passenger      | 2    | Cancels individual passenger. See also [Cancel booking](#cancel-booking)                                                                                                     |
-| Change passenger name | 4    | Changes passenger name. This operation is essential for group bookings when passenger names are unknown at booking creation time and could be updated later after ticketing. |
-| Change passenger info | 40   | Changes other passenger information than name.                                                                                                                               |
-| Split booking         | 7    | Moves passenger or segment into a new booking.                                                                                                                               | 
-| Change contact        | 9    | Changes contact information such as email or pone number.                                                                                                                    |
-| Cancel segment        | 10   | Cancels individual segment. See also [Cancel booking](#cancel-booking)                                                                                                       |
-| Rebook segment        | 20   | This covers change of the flight or train, and upgrade of the booking class.                                                                                                 |
+### Modify the existing booking in SMS. Such as name change (OTA_AirBookModifyRQ)
 
-
-### Request Parameters
+### Request Parameters in the header (all required)
 
 | Parameter  | Type    | Description        | Example                  |
 | ---------- | ------- | ------------------ | ------------------------ |
@@ -35088,7 +35107,6 @@ Supported modification types:
 | local-name | Header  | Custom HTTP header | OTA_AirBookModifyRQ      |
 | agentId    | Payload | Custom HTTP header | ota                      |
 | agencyId   | Payload | Custom HTTP header | ota                      |
-
 
 #### Request
 
@@ -35099,14 +35117,11 @@ curl -X POST \
     -H 'local-name: {local_name}' \
 ```
 
-### Change passenger name
-`Changes to the passenger name may not permitted after the booking is paid and tickets are issued.`
-
-
-#### Change Passenger in One Way Booking
+#### Payload AirBookModifyRQ for Oneway trip
 
 <details>
-  <summary>Request Payload</summary>
+  <summary><b>Payload</b></summary>
+  <h4>Request</h4>
   <pre>
     {
       "version": "2.001",
@@ -35116,7 +35131,7 @@ curl -X POST \
             "bookingChannel": {
               "type": "OTA"
             },
-            "isoCurrency": "SAR",
+            "isocurrency": "SAR",
             "requestorID": {
               "type": "5",
               "id": "{{agentId}}",
@@ -35160,6 +35175,239 @@ curl -X POST \
                   }
                 ],
                 "rph": "1"
+              }
+            ]
+          }
+        },
+        "priceInfo": {
+          "itinTotalFare": [
+            {
+              "baseFare": {
+                "currencyCode": "SAR",
+                "amount": 10
+              },
+              "equivFare": [],
+              "taxes": {
+                "tax": [
+                  {
+                    "taxCode": "VAT",
+                    "currencyCode": "SAR",
+                    "amount": 1.5
+                  }
+                ],
+                "amount": 1.5
+              },
+              "fees": {
+                "fee": [
+                  {
+                    "feeCode": "FE1",
+                    "currencyCode": "SAR",
+                    "amount": 75
+                  },
+                  {
+                    "feeCode": "VAT",
+                    "currencyCode": "SAR",
+                    "amount": 11.25
+                  },
+                  {
+                    "feeCode": "VAT_VAT",
+                    "currencyCode": "SAR",
+                    "amount": 0
+                  }
+                ],
+                "amount": 86.25
+              },
+              "totalFare": {
+                "currencyCode": "SAR",
+                "amount": 97.75
+              },
+              "fareBaggageAllowance": [],
+              "remark": []
+            }
+          ],
+          "fareInfos": {
+            "fareInfo": [
+              {
+                "fareReference": [
+                  {
+                    "value": "ApplPayGreater"
+                  }
+                ],
+                "filingAirline": {
+                  "value": "HHR"
+                },
+                "marketingAirline": [],
+                "departureAirport": {
+                  "locationCode": "MKX"
+                },
+                "arrivalAirport": {
+                  "locationCode": "DMX"
+                },
+                "date": [],
+                "fareInfo": [],
+                "city": [],
+                "airport": [],
+                "rph": "1"
+              },
+              {
+                "fareReference": [
+                  {
+                    "value": "ApplPayGreater"
+                  }
+                ],
+                "marketingAirline": [],
+                "date": [],
+                "fareInfo": [],
+                "city": [],
+                "airport": [],
+                "rph": "2"
+              },
+              {
+                "fareReference": [
+                  {
+                    "value": "ApplPayGreater"
+                  }
+                ],
+                "marketingAirline": [],
+                "date": [],
+                "fareInfo": [],
+                "city": [],
+                "airport": [],
+                "rph": "3"
+              },
+              {
+                "fareReference": [
+                  {
+                    "value": "ApplPayGreater"
+                  }
+                ],
+                "marketingAirline": [],
+                "date": [],
+                "fareInfo": [],
+                "city": [],
+                "airport": [],
+                "rph": "4"
+              },
+              {
+                "fareReference": [
+                  {
+                    "value": "ApplPayGreater"
+                  }
+                ],
+                "marketingAirline": [],
+                "date": [],
+                "fareInfo": [],
+                "city": [],
+                "airport": [],
+                "rph": "5"
+              }
+            ]
+          },
+          "ptcfareBreakdowns": {
+            "ptcfareBreakdown": [
+              {
+                "passengerTypeQuantity": {
+                  "code": "ADT",
+                  "quantity": 5
+                },
+                "fareBasisCodes": {
+                  "fareBasisCode": [
+                    {
+                      "value": "ApplPayGreater",
+                      "flightSegmentRPH": "1"
+                    }
+                  ]
+                },
+                "passengerFare": [
+                  {
+                    "baseFare": {
+                      "currencyCode": "SAR",
+                      "amount": 10
+                    },
+                    "equivFare": [],
+                    "taxes": {
+                      "tax": [
+                        {
+                          "taxCode": "VAT",
+                          "taxName": "VAT",
+                          "currencyCode": "SAR",
+                          "amount": 1.5
+                        }
+                      ],
+                      "amount": 1.5
+                    },
+                    "fees": {
+                      "fee": [
+                        {
+                          "feeCode": "FE1",
+                          "currencyCode": "SAR",
+                          "amount": 75
+                        },
+                        {
+                          "feeCode": "VAT",
+                          "currencyCode": "SAR",
+                          "amount": 11.25
+                        },
+                        {
+                          "feeCode": "VAT_VAT",
+                          "currencyCode": "SAR",
+                          "amount": 0
+                        }
+                      ],
+                      "amount": 86.25
+                    },
+                    "totalFare": {
+                      "currencyCode": "SAR",
+                      "amount": 97.75
+                    },
+                    "fareBaggageAllowance": [],
+                    "remark": []
+                  }
+                ],
+                "travelerRefNumber": [
+                  {
+                    "rph": "1"
+                  },
+                  {
+                    "rph": "2"
+                  },
+                  {
+                    "rph": "3"
+                  },
+                  {
+                    "rph": "4"
+                  },
+                  {
+                    "rph": "5"
+                  }
+                ],
+                "ticketDesignators": {
+                  "ticketDesignator": [
+                    {
+                      "flightRefRPH": "1"
+                    }
+                  ]
+                },
+                "fareInfo": [
+                  {
+                    "fareReference": [
+                      {
+                        "value": "ApplPayGreater",
+                        "resBookDesigCode": "Y",
+                        "accountCode": "ApplPayGreater"
+                      }
+                    ],
+                    "marketingAirline": [],
+                    "date": [],
+                    "fareInfo": [],
+                    "city": [],
+                    "airport": []
+                  }
+                ],
+                "pricingUnit": [],
+                "flightRefNumberRPHList": [
+                  "1"
+                ]
               }
             ]
           }
@@ -35300,7 +35548,7 @@ curl -X POST \
             "ticketDocumentNbr": "3333330007692",
             "passengerTypeCode": "ADT",
             "miscTicketingCode": [],
-            "tpaExtensions": {
+            "tpaextensions": {
               "couponInfos": [
                 {
                   "flightRefRPH": "1",
@@ -35320,7 +35568,7 @@ curl -X POST \
             "ticketDocumentNbr": "3333330007693",
             "passengerTypeCode": "ADT",
             "miscTicketingCode": [],
-            "tpaExtensions": {
+            "tpaextensions": {
               "couponInfos": [
                 {
                   "flightRefRPH": "1",
@@ -35340,7 +35588,7 @@ curl -X POST \
             "ticketDocumentNbr": "3333330007694",
             "passengerTypeCode": "ADT",
             "miscTicketingCode": [],
-            "tpaExtensions": {
+            "tpaextensions": {
               "couponInfos": [
                 {
                   "flightRefRPH": "1",
@@ -35360,7 +35608,7 @@ curl -X POST \
             "ticketDocumentNbr": "3333330007695",
             "passengerTypeCode": "ADT",
             "miscTicketingCode": [],
-            "tpaExtensions": {
+            "tpaextensions": {
               "couponInfos": [
                 {
                   "flightRefRPH": "1",
@@ -35380,7 +35628,7 @@ curl -X POST \
             "ticketDocumentNbr": "3333330007696",
             "passengerTypeCode": "ADT",
             "miscTicketingCode": [],
-            "tpaExtensions": {
+            "tpaextensions": {
               "couponInfos": [
                 {
                   "flightRefRPH": "1",
@@ -35423,7 +35671,7 @@ curl -X POST \
               "multimedia": [],
               "bookingReferenceID": [],
               "id": "1385505",
-              "tpaExtensions": {
+              "tpaextensions": {
                 "orderInfo": {
                   "action": "CREATE_BOOKING",
                   "currencyCode": "SAR",
@@ -35702,9 +35950,8 @@ curl -X POST \
       }
     }
   </pre>
-</details>
-<details>
-  <summary>Response Payload</summary>
+
+  <h4>Response</h4>
   <pre>
     {
       "success": {},
@@ -36114,10 +36361,13 @@ curl -X POST \
   </pre>
 </details>
 
-#### Change Passenger in Round Trip Booking
+<br>
+
+#### Payload AirBookModifyRQ for Round trip
 
 <details>
-  <summary>Request Payload</summary>
+  <summary><b>Payload</b></summary>
+  <h4>Request</h4>
   <pre>
     {
       "version": "2.001",
@@ -36127,7 +36377,7 @@ curl -X POST \
             "bookingChannel": {
               "type": "OTA"
             },
-            "isoCurrency": "SAR",
+            "isocurrency": "SAR",
             "requestorID": {
               "type": "5",
               "id": "{{agentId}}"
@@ -36774,7 +37024,7 @@ curl -X POST \
             "ticketDocumentNbr": "3333330011359",
             "passengerTypeCode": "ADT",
             "miscTicketingCode": [],
-            "tpaExtensions": {
+            "tpaextensions": {
               "couponInfos": [
                 {
                   "flightRefRPH": "1",
@@ -36799,7 +37049,7 @@ curl -X POST \
             "ticketDocumentNbr": "3333330011360",
             "passengerTypeCode": "ADT",
             "miscTicketingCode": [],
-            "tpaExtensions": {
+            "tpaextensions": {
               "couponInfos": [
                 {
                   "flightRefRPH": "1",
@@ -36824,7 +37074,7 @@ curl -X POST \
             "ticketDocumentNbr": "3333330011361",
             "passengerTypeCode": "ADT",
             "miscTicketingCode": [],
-            "tpaExtensions": {
+            "tpaextensions": {
               "couponInfos": [
                 {
                   "flightRefRPH": "1",
@@ -36849,7 +37099,7 @@ curl -X POST \
             "ticketDocumentNbr": "3333330011362",
             "passengerTypeCode": "ADT",
             "miscTicketingCode": [],
-            "tpaExtensions": {
+            "tpaextensions": {
               "couponInfos": [
                 {
                   "flightRefRPH": "1",
@@ -36874,7 +37124,7 @@ curl -X POST \
             "ticketDocumentNbr": "3333330011363",
             "passengerTypeCode": "ADT",
             "miscTicketingCode": [],
-            "tpaExtensions": {
+            "tpaextensions": {
               "couponInfos": [
                 {
                   "flightRefRPH": "1",
@@ -36930,7 +37180,7 @@ curl -X POST \
               "multimedia": [],
               "bookingReferenceID": [],
               "id": "1393341",
-              "tpaExtensions": {
+              "tpaextensions": {
                 "orderInfo": {
                   "action": "CREATE_BOOKING",
                   "currencyCode": "SAR",
@@ -37208,9 +37458,8 @@ curl -X POST \
       }
     }
   </pre>
-</details>
-<details>
-  <summary>Response Payload</summary>
+
+  <h4>Response</h4>
   <pre>
     {
       "success": {},
@@ -37711,68 +37960,5 @@ curl -X POST \
       },
       "version": 2.001
     }
-  </pre>
-</details>
-
-### Cancel Booking
-
-This method cancels entire booking. In case you need to cancel individual passenger or segment use `OTA_AirBookingModifyRQ` and not `OTA_CancelRQ` message. 
-
-#### Request Parameters
-
-| Parameter    | Type    | Description        | Example                  |
-|--------------|---------|--------------------|--------------------------|
-| x-api-key    | Header  | Access Token       | [Access token](#api-key) |
-| local-name   | Header  | Custom HTTP header | OTA_CancelRQ             |
-| agentId      | Payload |                    | ota                      |
-| agencyId     | Payload |                    | ota                      |
-
-<details>
-  <summary><b>Request Payload</b></summary>
-  <pre>
-{
-  "version": "2.001",
-  "cancelType": "Commit",
-  "pos": {
-    "source": [
-      {
-        "isoCurrency": "SAR",
-        "requestorID": {
-          "type": "5",
-          "id": "{{ _.agentId }}",
-          "name": "{{ _.agencyId }}"
-        },
-        "bookingChannel": {
-          "type": "OTA"
-        }
-      }
-    ]
-  },
-  "uniqueID": [
-    {
-      "id": "6ZEFCG",
-      "type": "14"
-    }
-  ]
-}
-  </pre>
-</details>
-
-<details>
-  <summary><b>Response Payload</b></summary>
-  <pre>
-{
-  "success": {},
-  "uniqueID": [
-    {
-      "type": "14",
-      "id": "6ZEFCG"
-    }
-  ],
-  "segment": [],
-  "status": "CANCELLED",
-  "timeStamp": "2024-05-15T05:56:22.041Z",
-  "version": 2.001
-}
   </pre>
 </details>
