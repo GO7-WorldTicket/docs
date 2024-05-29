@@ -161,7 +161,7 @@ Replace all variables in curly braces with the actual values.
 <br><br>
 
 # Postman Collection
-[Download Postman Collection](/docs/assets/resources/ota-xmlbeans-2015B.zip)
+[Download Postman Collection](/docs/assets/resources/OTA_postman_collection.json)
 
 <br><br>
 
