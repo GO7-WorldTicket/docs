@@ -12,6 +12,8 @@ title: The Title of Your Page
 - [Authentication](#authentication)
   - [JWT](#jwt)
   - [API Key](#api-key)
+- [OTA XML Schema 2015](#ota-xml-schema-2015)
+- [Postman Collection](#postman-collection)
 - [Available Routes and Flights](#available-routes-and-flights)
   - [Routes](#routes)
   - [Calendar Availability](#calendar-availability)
@@ -49,6 +51,7 @@ title: The Title of Your Page
 | Update code mapping                                  | Arnon Ruangthanawes | 2024-05-13  |
 | Include error messages in Low Fare Search            | Arnon Ruangthanawes | 2024-05-14  |
 | Describe how to cancel booking entirely or partially | Sergii Poltorak     | 2024-05-22  |
+| Upload schema and postman files                      | Arnon Ruangthanawes | 2024-05-29  |
 
 # Introduction
 
@@ -150,6 +153,15 @@ Replace all variables in curly braces with the actual values.
     }
   </pre>
 </details>
+
+
+# OTA XML Schema 2015
+[Download OTA XML Schema 2015](/docs/assets/resources/ota-xmlbeans-2015B.zip)
+
+
+# Postman Collection
+[Download Postman Collection](/docs/assets/resources/OTA_postman_collection.json)
+
 
 # Available Routes and Flights
 
