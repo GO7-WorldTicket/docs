@@ -425,8 +425,8 @@ curl -X POST \
                       "isoCurrency": "SAR",
                       "requestorID": {
                           "type": "5",
-                          "id": {{agentId}},
-                          "name": {{agencyId}}
+                          "id": "<ins>agentId</ins>",
+                          "name": "<ins>agencyId</ins>"
                       },
                       "bookingChannel": {
                           "type": "OTA"
@@ -861,8 +861,8 @@ curl -X POST \
             "isoCurrency": "SAR",
             "requestorID": {
               "type": "5",
-              "id": "umrah",
-              "name": "umrah"
+              "id": "<ins>agentId</ins>",
+              "name": "<ins>agencyId</ins>"
             }
           }
         ]
@@ -1059,7 +1059,7 @@ curl -X POST \
                                 {
                                     "fareReference": [
                                         {
-                                            "value": "UMRAHBUSFMIN"
+                                            "value": "WTBUSFMIN"
                                         }
                                     ],
                                     "filingAirline": {
@@ -1089,7 +1089,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -1136,9 +1136,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -1161,7 +1161,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -1208,9 +1208,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -1366,7 +1366,7 @@ curl -X POST \
                                 {
                                     "fareReference": [
                                         {
-                                            "value": "UmrahBus"
+                                            "value": "WtBus"
                                         }
                                     ],
                                     "filingAirline": {
@@ -1396,7 +1396,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -1443,9 +1443,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -1468,7 +1468,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -1515,9 +1515,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -1980,7 +1980,7 @@ curl -X POST \
                                 {
                                     "fareReference": [
                                         {
-                                            "value": "UmrahEco"
+                                            "value": "WtEco"
                                         }
                                     ],
                                     "filingAirline": {
@@ -2010,7 +2010,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -2057,9 +2057,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -2082,7 +2082,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -2129,9 +2129,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -2287,7 +2287,7 @@ curl -X POST \
                                 {
                                     "fareReference": [
                                         {
-                                            "value": "UMRAHBUSFMIN"
+                                            "value": "WTBUSFMIN"
                                         }
                                     ],
                                     "filingAirline": {
@@ -2317,7 +2317,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -2364,9 +2364,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -2389,7 +2389,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -2436,9 +2436,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -2594,7 +2594,7 @@ curl -X POST \
                                 {
                                     "fareReference": [
                                         {
-                                            "value": "UmrahBus"
+                                            "value": "WtBus"
                                         }
                                     ],
                                     "filingAirline": {
@@ -2624,7 +2624,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -2671,9 +2671,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -2696,7 +2696,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -2743,9 +2743,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -3208,7 +3208,7 @@ curl -X POST \
                                 {
                                     "fareReference": [
                                         {
-                                            "value": "UmrahEco"
+                                            "value": "WtEco"
                                         }
                                     ],
                                     "filingAirline": {
@@ -3238,7 +3238,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -3285,9 +3285,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -3310,7 +3310,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -3357,9 +3357,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -3515,7 +3515,7 @@ curl -X POST \
                                 {
                                     "fareReference": [
                                         {
-                                            "value": "UMRAHBUSFMIN"
+                                            "value": "WTBUSFMIN"
                                         }
                                     ],
                                     "filingAirline": {
@@ -3545,7 +3545,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -3592,9 +3592,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -3617,7 +3617,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -3664,9 +3664,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -3822,7 +3822,7 @@ curl -X POST \
                                 {
                                     "fareReference": [
                                         {
-                                            "value": "UmrahBus"
+                                            "value": "WtBus"
                                         }
                                     ],
                                     "filingAirline": {
@@ -3852,7 +3852,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -3899,9 +3899,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -3924,7 +3924,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -3971,9 +3971,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -4436,7 +4436,7 @@ curl -X POST \
                                 {
                                     "fareReference": [
                                         {
-                                            "value": "UmrahEco"
+                                            "value": "WtEco"
                                         }
                                     ],
                                     "filingAirline": {
@@ -4466,7 +4466,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -4513,9 +4513,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -4538,7 +4538,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -4585,9 +4585,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -4743,7 +4743,7 @@ curl -X POST \
                                 {
                                     "fareReference": [
                                         {
-                                            "value": "UMRAHBUSFMIN"
+                                            "value": "WTBUSFMIN"
                                         }
                                     ],
                                     "filingAirline": {
@@ -4773,7 +4773,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -4820,9 +4820,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -4845,7 +4845,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -4892,9 +4892,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -5050,7 +5050,7 @@ curl -X POST \
                                 {
                                     "fareReference": [
                                         {
-                                            "value": "UmrahBus"
+                                            "value": "WtBus"
                                         }
                                     ],
                                     "filingAirline": {
@@ -5080,7 +5080,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -5127,9 +5127,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -5152,7 +5152,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -5199,9 +5199,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -5664,7 +5664,7 @@ curl -X POST \
                                 {
                                     "fareReference": [
                                         {
-                                            "value": "UmrahEco"
+                                            "value": "WtEco"
                                         }
                                     ],
                                     "filingAirline": {
@@ -5694,7 +5694,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -5741,9 +5741,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -5766,7 +5766,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -5813,9 +5813,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -5856,8 +5856,8 @@ curl -X POST \
                     "isoCurrency": "SAR",
                     "requestorID": {
                         "type": "5",
-                        "id": "{{agentId}}"
-                        "name": "{{agencyId}}"
+                        "id": "<ins>agentId</ins>",
+                        "name": "<ins>agencyId</ins>"
                     },
                     "bookingChannel": {
                         "type": "OTA"
@@ -8534,8 +8534,8 @@ curl -X POST \
             "isoCurrency": "SAR",
             "requestorID": {
               "type": "5",
-              "id": "umrah",
-              "name": "umrah"
+              "id": "<ins>agentId</ins>",
+              "name": "<ins>agencyId</ins>"
             }
           }
         ]
@@ -8796,7 +8796,7 @@ curl -X POST \
                                 {
                                     "fareReference": [
                                         {
-                                            "value": "UMRAHBUSFMIN"
+                                            "value": "WTBUSFMIN"
                                         }
                                     ],
                                     "filingAirline": {
@@ -8817,7 +8817,7 @@ curl -X POST \
                                 {
                                     "fareReference": [
                                         {
-                                            "value": "UMRAHBUSFMIN"
+                                            "value": "WTBUSFMIN"
                                         }
                                     ],
                                     "filingAirline": {
@@ -8847,7 +8847,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -8894,9 +8894,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -8919,7 +8919,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -8966,9 +8966,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -8991,7 +8991,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -9038,9 +9038,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -9063,7 +9063,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -9110,9 +9110,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -9135,7 +9135,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -9182,9 +9182,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -9207,7 +9207,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -9254,9 +9254,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -9279,7 +9279,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -9326,9 +9326,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -9351,7 +9351,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -9398,9 +9398,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -9423,7 +9423,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -9470,9 +9470,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -9495,7 +9495,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -9542,9 +9542,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -9567,7 +9567,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -9614,9 +9614,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -9639,7 +9639,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -9686,9 +9686,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -9892,7 +9892,7 @@ curl -X POST \
                                 {
                                     "fareReference": [
                                         {
-                                            "value": "UMRAHBUSFMIN"
+                                            "value": "WTBUSFMIN"
                                         }
                                     ],
                                     "filingAirline": {
@@ -9913,7 +9913,7 @@ curl -X POST \
                                 {
                                     "fareReference": [
                                         {
-                                            "value": "UMRAHBUSFMIN"
+                                            "value": "WTBUSFMIN"
                                         }
                                     ],
                                     "filingAirline": {
@@ -9943,7 +9943,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -9990,9 +9990,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -10015,7 +10015,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -10062,9 +10062,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -10087,7 +10087,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -10134,9 +10134,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -10159,7 +10159,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -10206,9 +10206,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -10231,7 +10231,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -10278,9 +10278,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -10303,7 +10303,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -10350,9 +10350,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -10375,7 +10375,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -10422,9 +10422,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -10447,7 +10447,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -10494,9 +10494,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -10519,7 +10519,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -10566,9 +10566,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -10591,7 +10591,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -10638,9 +10638,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -10663,7 +10663,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -10710,9 +10710,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -10735,7 +10735,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -10782,9 +10782,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -10988,7 +10988,7 @@ curl -X POST \
                                 {
                                     "fareReference": [
                                         {
-                                            "value": "UmrahBus"
+                                            "value": "WtBus"
                                         }
                                     ],
                                     "filingAirline": {
@@ -11009,7 +11009,7 @@ curl -X POST \
                                 {
                                     "fareReference": [
                                         {
-                                            "value": "UmrahBus"
+                                            "value": "WtBus"
                                         }
                                     ],
                                     "filingAirline": {
@@ -11039,7 +11039,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -11086,9 +11086,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -11111,7 +11111,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -11158,9 +11158,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -11183,7 +11183,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -11230,9 +11230,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -11255,7 +11255,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -11302,9 +11302,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -11327,7 +11327,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -11374,9 +11374,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -11399,7 +11399,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -11446,9 +11446,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -11471,7 +11471,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -11518,9 +11518,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -11543,7 +11543,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -11590,9 +11590,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -11615,7 +11615,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -11662,9 +11662,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -11687,7 +11687,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -11734,9 +11734,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -11759,7 +11759,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -11806,9 +11806,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -11831,7 +11831,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -11878,9 +11878,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -12084,7 +12084,7 @@ curl -X POST \
                                 {
                                     "fareReference": [
                                         {
-                                            "value": "UmrahBus"
+                                            "value": "WtBus"
                                         }
                                     ],
                                     "filingAirline": {
@@ -12105,7 +12105,7 @@ curl -X POST \
                                 {
                                     "fareReference": [
                                         {
-                                            "value": "UmrahBus"
+                                            "value": "WtBus"
                                         }
                                     ],
                                     "filingAirline": {
@@ -12135,7 +12135,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -12182,9 +12182,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -12207,7 +12207,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -12254,9 +12254,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -12279,7 +12279,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -12326,9 +12326,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -12351,7 +12351,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -12398,9 +12398,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -12423,7 +12423,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -12470,9 +12470,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -12495,7 +12495,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -12542,9 +12542,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -12567,7 +12567,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -12614,9 +12614,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -12639,7 +12639,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -12686,9 +12686,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -12711,7 +12711,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -12758,9 +12758,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -12783,7 +12783,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -12830,9 +12830,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -12855,7 +12855,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -12902,9 +12902,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -12927,7 +12927,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -12974,9 +12974,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -14276,7 +14276,7 @@ curl -X POST \
                                 {
                                     "fareReference": [
                                         {
-                                            "value": "UmrahEco"
+                                            "value": "WtEco"
                                         }
                                     ],
                                     "filingAirline": {
@@ -14297,7 +14297,7 @@ curl -X POST \
                                 {
                                     "fareReference": [
                                         {
-                                            "value": "UmrahEco"
+                                            "value": "WtEco"
                                         }
                                     ],
                                     "filingAirline": {
@@ -14327,7 +14327,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -14374,9 +14374,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -14399,7 +14399,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -14446,9 +14446,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -14471,7 +14471,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -14518,9 +14518,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -14543,7 +14543,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -14590,9 +14590,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -14615,7 +14615,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -14662,9 +14662,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -14687,7 +14687,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -14734,9 +14734,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -14759,7 +14759,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -14806,9 +14806,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -14831,7 +14831,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -14878,9 +14878,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -14903,7 +14903,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -14950,9 +14950,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -14975,7 +14975,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -15022,9 +15022,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -15047,7 +15047,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -15094,9 +15094,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -15119,7 +15119,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -15166,9 +15166,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -15372,7 +15372,7 @@ curl -X POST \
                                 {
                                     "fareReference": [
                                         {
-                                            "value": "UmrahEco"
+                                            "value": "WtEco"
                                         }
                                     ],
                                     "filingAirline": {
@@ -15393,7 +15393,7 @@ curl -X POST \
                                 {
                                     "fareReference": [
                                         {
-                                            "value": "UmrahEco"
+                                            "value": "WtEco"
                                         }
                                     ],
                                     "filingAirline": {
@@ -15423,7 +15423,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -15470,9 +15470,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -15495,7 +15495,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -15542,9 +15542,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -15567,7 +15567,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -15614,9 +15614,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -15639,7 +15639,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -15686,9 +15686,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -15711,7 +15711,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -15758,9 +15758,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -15783,7 +15783,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -15830,9 +15830,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -15855,7 +15855,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -15902,9 +15902,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -15927,7 +15927,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -15974,9 +15974,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -15999,7 +15999,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -16046,9 +16046,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -16071,7 +16071,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -16118,9 +16118,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -16143,7 +16143,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -16190,9 +16190,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -16215,7 +16215,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -16262,9 +16262,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -16459,7 +16459,7 @@ curl -X POST \
                                 {
                                     "fareReference": [
                                         {
-                                            "value": "UMRAHBUSFMIN"
+                                            "value": "WTBUSFMIN"
                                         }
                                     ],
                                     "filingAirline": {
@@ -16480,7 +16480,7 @@ curl -X POST \
                                 {
                                     "fareReference": [
                                         {
-                                            "value": "UMRAHBUSFMIN"
+                                            "value": "WTBUSFMIN"
                                         }
                                     ],
                                     "filingAirline": {
@@ -16510,7 +16510,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -16557,9 +16557,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -16582,7 +16582,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -16629,9 +16629,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -16654,7 +16654,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -16701,9 +16701,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -16726,7 +16726,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -16773,9 +16773,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -16798,7 +16798,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -16845,9 +16845,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -16870,7 +16870,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -16917,9 +16917,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -16942,7 +16942,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -16989,9 +16989,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -17014,7 +17014,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -17061,9 +17061,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -17086,7 +17086,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -17133,9 +17133,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -17158,7 +17158,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -17205,9 +17205,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -17230,7 +17230,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -17277,9 +17277,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -17302,7 +17302,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -17349,9 +17349,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -17546,7 +17546,7 @@ curl -X POST \
                                 {
                                     "fareReference": [
                                         {
-                                            "value": "UMRAHBUSFMIN"
+                                            "value": "WTBUSFMIN"
                                         }
                                     ],
                                     "filingAirline": {
@@ -17567,7 +17567,7 @@ curl -X POST \
                                 {
                                     "fareReference": [
                                         {
-                                            "value": "UMRAHBUSFMIN"
+                                            "value": "WTBUSFMIN"
                                         }
                                     ],
                                     "filingAirline": {
@@ -17597,7 +17597,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -17644,9 +17644,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -17669,7 +17669,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -17716,9 +17716,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -17741,7 +17741,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -17788,9 +17788,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -17813,7 +17813,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -17860,9 +17860,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -17885,7 +17885,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -17932,9 +17932,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -17957,7 +17957,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -18004,9 +18004,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -18029,7 +18029,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -18076,9 +18076,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -18101,7 +18101,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -18148,9 +18148,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -18173,7 +18173,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -18220,9 +18220,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -18245,7 +18245,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -18292,9 +18292,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -18317,7 +18317,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -18364,9 +18364,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -18389,7 +18389,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -18436,9 +18436,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -18633,7 +18633,7 @@ curl -X POST \
                                 {
                                     "fareReference": [
                                         {
-                                            "value": "UmrahBus"
+                                            "value": "WtBus"
                                         }
                                     ],
                                     "filingAirline": {
@@ -18654,7 +18654,7 @@ curl -X POST \
                                 {
                                     "fareReference": [
                                         {
-                                            "value": "UmrahBus"
+                                            "value": "WtBus"
                                         }
                                     ],
                                     "filingAirline": {
@@ -18684,7 +18684,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -18731,9 +18731,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -18756,7 +18756,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -18803,9 +18803,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -18828,7 +18828,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -18875,9 +18875,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -18900,7 +18900,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -18947,9 +18947,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -18972,7 +18972,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -19019,9 +19019,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -19044,7 +19044,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -19091,9 +19091,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -19116,7 +19116,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -19163,9 +19163,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -19188,7 +19188,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -19235,9 +19235,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -19260,7 +19260,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -19307,9 +19307,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -19332,7 +19332,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -19379,9 +19379,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -19404,7 +19404,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -19451,9 +19451,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -19476,7 +19476,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -19523,9 +19523,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -19720,7 +19720,7 @@ curl -X POST \
                                 {
                                     "fareReference": [
                                         {
-                                            "value": "UmrahBus"
+                                            "value": "WtBus"
                                         }
                                     ],
                                     "filingAirline": {
@@ -19741,7 +19741,7 @@ curl -X POST \
                                 {
                                     "fareReference": [
                                         {
-                                            "value": "UmrahBus"
+                                            "value": "WtBus"
                                         }
                                     ],
                                     "filingAirline": {
@@ -19771,7 +19771,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -19818,9 +19818,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -19843,7 +19843,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -19890,9 +19890,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -19915,7 +19915,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -19962,9 +19962,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -19987,7 +19987,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -20034,9 +20034,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -20059,7 +20059,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -20106,9 +20106,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -20131,7 +20131,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -20178,9 +20178,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -20203,7 +20203,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -20250,9 +20250,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -20275,7 +20275,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -20322,9 +20322,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -20347,7 +20347,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -20394,9 +20394,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -20419,7 +20419,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -20466,9 +20466,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -20491,7 +20491,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -20538,9 +20538,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -20563,7 +20563,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -20610,9 +20610,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -21894,7 +21894,7 @@ curl -X POST \
                                 {
                                     "fareReference": [
                                         {
-                                            "value": "UmrahEco"
+                                            "value": "WtEco"
                                         }
                                     ],
                                     "filingAirline": {
@@ -21915,7 +21915,7 @@ curl -X POST \
                                 {
                                     "fareReference": [
                                         {
-                                            "value": "UmrahEco"
+                                            "value": "WtEco"
                                         }
                                     ],
                                     "filingAirline": {
@@ -21945,7 +21945,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -21992,9 +21992,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -22017,7 +22017,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -22064,9 +22064,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -22089,7 +22089,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -22136,9 +22136,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -22161,7 +22161,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -22208,9 +22208,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -22233,7 +22233,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -22280,9 +22280,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -22305,7 +22305,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -22352,9 +22352,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -22377,7 +22377,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -22424,9 +22424,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -22449,7 +22449,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -22496,9 +22496,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -22521,7 +22521,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -22568,9 +22568,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -22593,7 +22593,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -22640,9 +22640,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -22665,7 +22665,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -22712,9 +22712,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -22737,7 +22737,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -22784,9 +22784,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -22981,7 +22981,7 @@ curl -X POST \
                                 {
                                     "fareReference": [
                                         {
-                                            "value": "UmrahEco"
+                                            "value": "WtEco"
                                         }
                                     ],
                                     "filingAirline": {
@@ -23002,7 +23002,7 @@ curl -X POST \
                                 {
                                     "fareReference": [
                                         {
-                                            "value": "UmrahEco"
+                                            "value": "WtEco"
                                         }
                                     ],
                                     "filingAirline": {
@@ -23032,7 +23032,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -23079,9 +23079,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -23104,7 +23104,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -23151,9 +23151,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -23176,7 +23176,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -23223,9 +23223,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -23248,7 +23248,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -23295,9 +23295,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -23320,7 +23320,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -23367,9 +23367,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -23392,7 +23392,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -23439,9 +23439,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -23464,7 +23464,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -23511,9 +23511,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -23536,7 +23536,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -23583,9 +23583,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -23608,7 +23608,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -23655,9 +23655,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -23680,7 +23680,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -23727,9 +23727,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -23752,7 +23752,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -23799,9 +23799,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -23824,7 +23824,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -23871,9 +23871,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -24068,7 +24068,7 @@ curl -X POST \
                                 {
                                     "fareReference": [
                                         {
-                                            "value": "UMRAHBUSFMIN"
+                                            "value": "WTBUSFMIN"
                                         }
                                     ],
                                     "filingAirline": {
@@ -24089,7 +24089,7 @@ curl -X POST \
                                 {
                                     "fareReference": [
                                         {
-                                            "value": "UMRAHBUSFMIN"
+                                            "value": "WTBUSFMIN"
                                         }
                                     ],
                                     "filingAirline": {
@@ -24119,7 +24119,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -24166,9 +24166,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -24191,7 +24191,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -24238,9 +24238,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -24263,7 +24263,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -24310,9 +24310,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -24335,7 +24335,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -24382,9 +24382,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -24407,7 +24407,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -24454,9 +24454,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -24479,7 +24479,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -24526,9 +24526,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -24551,7 +24551,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -24598,9 +24598,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -24623,7 +24623,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -24670,9 +24670,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -24695,7 +24695,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -24742,9 +24742,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -24767,7 +24767,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -24814,9 +24814,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -24839,7 +24839,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -24886,9 +24886,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -24911,7 +24911,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -24958,9 +24958,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -25155,7 +25155,7 @@ curl -X POST \
                                 {
                                     "fareReference": [
                                         {
-                                            "value": "UMRAHBUSFMIN"
+                                            "value": "WTBUSFMIN"
                                         }
                                     ],
                                     "filingAirline": {
@@ -25176,7 +25176,7 @@ curl -X POST \
                                 {
                                     "fareReference": [
                                         {
-                                            "value": "UMRAHBUSFMIN"
+                                            "value": "WTBUSFMIN"
                                         }
                                     ],
                                     "filingAirline": {
@@ -25206,7 +25206,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -25253,9 +25253,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -25278,7 +25278,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -25325,9 +25325,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -25350,7 +25350,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -25397,9 +25397,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -25422,7 +25422,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -25469,9 +25469,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -25494,7 +25494,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -25541,9 +25541,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -25566,7 +25566,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -25613,9 +25613,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -25638,7 +25638,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -25685,9 +25685,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -25710,7 +25710,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -25757,9 +25757,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -25782,7 +25782,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -25829,9 +25829,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -25854,7 +25854,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -25901,9 +25901,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -25926,7 +25926,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -25973,9 +25973,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -25998,7 +25998,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UMRAHBUSFMIN",
+                                                "value": "WTBUSFMIN",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -26045,9 +26045,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UMRAHBUSFMIN",
+                                                    "value": "WTBUSFMIN",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UMRAHBUSFMIN"
+                                                    "accountCode": "WTBUSFMIN"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -26242,7 +26242,7 @@ curl -X POST \
                                 {
                                     "fareReference": [
                                         {
-                                            "value": "UmrahBus"
+                                            "value": "WtBus"
                                         }
                                     ],
                                     "filingAirline": {
@@ -26263,7 +26263,7 @@ curl -X POST \
                                 {
                                     "fareReference": [
                                         {
-                                            "value": "UmrahBus"
+                                            "value": "WtBus"
                                         }
                                     ],
                                     "filingAirline": {
@@ -26293,7 +26293,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -26340,9 +26340,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -26365,7 +26365,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -26412,9 +26412,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -26437,7 +26437,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -26484,9 +26484,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -26509,7 +26509,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -26556,9 +26556,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -26581,7 +26581,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -26628,9 +26628,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -26653,7 +26653,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -26700,9 +26700,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -26725,7 +26725,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -26772,9 +26772,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -26797,7 +26797,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -26844,9 +26844,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -26869,7 +26869,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -26916,9 +26916,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -26941,7 +26941,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -26988,9 +26988,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -27013,7 +27013,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -27060,9 +27060,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -27085,7 +27085,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -27132,9 +27132,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -27329,7 +27329,7 @@ curl -X POST \
                                 {
                                     "fareReference": [
                                         {
-                                            "value": "UmrahBus"
+                                            "value": "WtBus"
                                         }
                                     ],
                                     "filingAirline": {
@@ -27350,7 +27350,7 @@ curl -X POST \
                                 {
                                     "fareReference": [
                                         {
-                                            "value": "UmrahBus"
+                                            "value": "WtBus"
                                         }
                                     ],
                                     "filingAirline": {
@@ -27380,7 +27380,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -27427,9 +27427,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -27452,7 +27452,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -27499,9 +27499,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -27524,7 +27524,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -27571,9 +27571,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -27596,7 +27596,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -27643,9 +27643,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -27668,7 +27668,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -27715,9 +27715,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -27740,7 +27740,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -27787,9 +27787,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -27812,7 +27812,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -27859,9 +27859,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -27884,7 +27884,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -27931,9 +27931,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -27956,7 +27956,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -28003,9 +28003,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -28028,7 +28028,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -28075,9 +28075,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -28100,7 +28100,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -28147,9 +28147,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -28172,7 +28172,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahBus",
+                                                "value": "WtBus",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -28219,9 +28219,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahBus",
+                                                    "value": "WtBus",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahBus"
+                                                    "accountCode": "WtBus"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -29503,7 +29503,7 @@ curl -X POST \
                                 {
                                     "fareReference": [
                                         {
-                                            "value": "UmrahEco"
+                                            "value": "WtEco"
                                         }
                                     ],
                                     "filingAirline": {
@@ -29524,7 +29524,7 @@ curl -X POST \
                                 {
                                     "fareReference": [
                                         {
-                                            "value": "UmrahEco"
+                                            "value": "WtEco"
                                         }
                                     ],
                                     "filingAirline": {
@@ -29554,7 +29554,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -29601,9 +29601,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -29626,7 +29626,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -29673,9 +29673,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -29698,7 +29698,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -29745,9 +29745,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -29770,7 +29770,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -29817,9 +29817,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -29842,7 +29842,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -29889,9 +29889,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -29914,7 +29914,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -29961,9 +29961,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -29986,7 +29986,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -30033,9 +30033,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -30058,7 +30058,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -30105,9 +30105,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -30130,7 +30130,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -30177,9 +30177,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -30202,7 +30202,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -30249,9 +30249,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -30274,7 +30274,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -30321,9 +30321,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -30346,7 +30346,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -30393,9 +30393,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -30590,7 +30590,7 @@ curl -X POST \
                                 {
                                     "fareReference": [
                                         {
-                                            "value": "UmrahEco"
+                                            "value": "WtEco"
                                         }
                                     ],
                                     "filingAirline": {
@@ -30611,7 +30611,7 @@ curl -X POST \
                                 {
                                     "fareReference": [
                                         {
-                                            "value": "UmrahEco"
+                                            "value": "WtEco"
                                         }
                                     ],
                                     "filingAirline": {
@@ -30641,7 +30641,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -30688,9 +30688,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -30713,7 +30713,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -30760,9 +30760,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -30785,7 +30785,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -30832,9 +30832,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -30857,7 +30857,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -30904,9 +30904,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -30929,7 +30929,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -30976,9 +30976,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -31001,7 +31001,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "1"
                                             }
                                         ]
@@ -31048,9 +31048,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -31073,7 +31073,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -31120,9 +31120,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -31145,7 +31145,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -31192,9 +31192,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -31217,7 +31217,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -31264,9 +31264,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "C",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -31289,7 +31289,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -31336,9 +31336,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -31361,7 +31361,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -31408,9 +31408,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -31433,7 +31433,7 @@ curl -X POST \
                                     "fareBasisCodes": {
                                         "fareBasisCode": [
                                             {
-                                                "value": "UmrahEco",
+                                                "value": "WtEco",
                                                 "flightSegmentRPH": "2"
                                             }
                                         ]
@@ -31480,9 +31480,9 @@ curl -X POST \
                                         {
                                             "fareReference": [
                                                 {
-                                                    "value": "UmrahEco",
+                                                    "value": "WtEco",
                                                     "resBookDesigCode": "Y",
-                                                    "accountCode": "UmrahEco"
+                                                    "accountCode": "WtEco"
                                                 }
                                             ],
                                             "marketingAirline": [],
@@ -31580,8 +31580,8 @@ curl -X POST \
             "isoCurrency": "SAR",
             "requestorID": {
               "type": "5",
-              "id": "{{agentId}}",
-              "name": "{{agencyId}}"
+              "id": "<ins>agentId</ins>",
+              "name": "<ins>agencyId</ins>"
             },
             "bookingChannel": {
               "type": "OTA"
@@ -32443,8 +32443,8 @@ curl -X POST \
                     "isoCurrency": "SAR",
                     "requestorID": {
                         "type": "5",
-                        "id": "{{agentId}}"
-                        "name": "{{agencyId}}"
+                        "id": "<ins>agentId</ins>",
+                        "name": "<ins>agencyId</ins>"
                     },
                     "bookingChannel": {
                         "type": "OTA"
@@ -33382,8 +33382,8 @@ curl -X POST \
             "isoCurrency": "SAR",
             "requestorID": {
               "type": "5",
-              "id": "{{agentId}}",
-              "name": "{{agencyId}}"
+              "id": "<ins>agentId</ins>",
+              "name": "<ins>agencyId</ins>"
             }
           }
         ]
@@ -33725,8 +33725,8 @@ curl -X POST \
             "isoCurrency": "SAR",
             "requestorID": {
               "type": "5",
-              "id": "{{agentId}}"
-              "name": "{{agencyId}}"
+              "id": "<ins>agentId</ins>",
+              "name": "<ins>agencyId</ins>"
             }
           }
         ]
@@ -34294,8 +34294,8 @@ curl -X POST \
             },
             "requestorID": {
               "type": "5",
-              "id": "{{agentId}}",
-              "name": "{{agencyId}}"
+              "id": "<ins>agentId</ins>",
+              "name": "<ins>agencyId</ins>"
               "location": "CPH"
             },
             "isocountry": "US",
@@ -34500,8 +34500,8 @@ curl -X POST \
             "isoCurrency": "SAR",
             "requestorID": {
               "type": "5",
-              "id": "{{agentId}}",
-              "name": "{{agencyId}}"
+              "id": "<ins>agentId</ins>",
+              "name": "<ins>agencyId</ins>"
               "location": "CPH"
             }
           }
@@ -35131,8 +35131,8 @@ curl -X POST \
             "isoCurrency": "SAR",
             "requestorID": {
               "type": "5",
-              "id": "{{agentId}}",
-              "name": "{{agencyId}}"
+              "id": "<ins>agentId</ins>",
+              "name": "<ins>agencyId</ins>"
               "location": "CPH"
             }
           }
@@ -36142,8 +36142,8 @@ curl -X POST \
             "isoCurrency": "SAR",
             "requestorID": {
               "type": "5",
-              "id": "{{agentId}}"
-              "name": "{{agentId}}"
+              "id": "<ins>agentId</ins>",
+              "name": "<ins>agencyId</ins>"
               "location": "CPH"
             }
           }
@@ -37751,8 +37751,8 @@ This method cancels entire booking. In case you need to cancel individual passen
         "isoCurrency": "SAR",
         "requestorID": {
           "type": "5",
-          "id": "{{ _.agentId }}",
-          "name": "{{ _.agencyId }}"
+          "id": "<ins>agentId</ins>",
+          "name": "<ins>agencyId</ins>"
         },
         "bookingChannel": {
           "type": "OTA"
