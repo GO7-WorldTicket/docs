@@ -161,7 +161,7 @@ Replace all variables in curly braces with the actual values.
 
 # Postman Collection
 [Download Postman Collection](/docs/assets/resources/OTA_postman_collection.json)
-
+Please update the variables in collection such as apiKey, agent_id, agent_name and teant.
 
 # Available Routes and Flights
 
