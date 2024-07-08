@@ -41,17 +41,19 @@ title: The Title of Your Page
     - [Modify booking for One-way trip](#payload-airbookmodifyrq-for-oneway-trip)
     - [Modify booking for Round trip](#payload-airbookmodifyrq-for-round-trip)
   - [Cancel booking](#cancel-booking)
+    - [Cancel Prolicy](#cancel-policy)
 
 ## Change Log
 
 | Change Description                                   | Changed By          | Change Date |
-|------------------------------------------------------|---------------------|-------------|
+| ---------------------------------------------------- | ------------------- | ----------- |
 | Initial creation of the document                     | Arnon Ruangthanawes | 2024-03-19  |
 | Update api urls, and add examples                    | Arnon Ruangthanawes | 2024-03-26  |
 | Update code mapping                                  | Arnon Ruangthanawes | 2024-05-13  |
 | Include error messages in Low Fare Search            | Arnon Ruangthanawes | 2024-05-14  |
 | Describe how to cancel booking entirely or partially | Sergii Poltorak     | 2024-05-22  |
 | Upload schema and postman files                      | Arnon Ruangthanawes | 2024-05-29  |
+| Add Cancel policy details                            | Arnon Ruangthanawes | 2024-07-08  |
 
 # Introduction
 
@@ -61,20 +63,19 @@ This document outlines the integration of the Booking API with HHR systems, leve
 
 ### Test Endpoints
 
-|                  | Test                                            |
-|------------------|-------------------------------------------------|
-| Auth API         | https://test-auth.worldticket.net/auth          |
-| OTA API          | https://test-api.worldticket.net/ota/v2015b/OTA |
-| REST API         | https://test-api.worldticket.net/{service-name} |
-
+|          | Test                                            |
+| -------- | ----------------------------------------------- |
+| Auth API | https://test-auth.worldticket.net/auth          |
+| OTA API  | https://test-api.worldticket.net/ota/v2015b/OTA |
+| REST API | https://test-api.worldticket.net/{service-name} |
 
 ### Production Endpoints
 
-|                  | Production                                            |
-|------------------|-------------------------------------------------------|
-| Auth API         | https://api.sar.worldticket.cloud/auth                |
-| OTA API          | https://api.sar.worldticket.cloud/ota/v2015b/OTA      |
-| REST API         | https://api.sar.worldticket.cloud/{service-name}      |
+|          | Production                                       |
+| -------- | ------------------------------------------------ |
+| Auth API | https://api.sar.worldticket.cloud/auth           |
+| OTA API  | https://api.sar.worldticket.cloud/ota/v2015b/OTA |
+| REST API | https://api.sar.worldticket.cloud/{service-name} |
 
 # Business Flow
 
@@ -154,12 +155,12 @@ Replace all variables in curly braces with the actual values.
   </pre>
 </details>
 
-
 # OTA XML Schema 2015
+
 [Download OTA XML Schema 2015](/docs/assets/resources/ota-xmlbeans-2015B.zip)
 
-
 # Postman Collection
+
 [Download Postman Collection](/docs/assets/resources/OTA_postman_collection.json)
 Please update the variables in collection such as apiKey, agent_id, agent_name and teant.
 
@@ -387,7 +388,6 @@ Please update the variables in collection such as apiKey, agent_id, agent_name a
 | ------- | ------------------------------------------------ | ----------------------------------------------- |
 | OTA API | https://api.sar.worldticket.cloud/ota/v2015b/OTA | https://test-api.worldticket.net/ota/v2015b/OTA |
 
-
 ## Low Fare Search
 
 AirLowFareSearch is used to get flight availability with the lowest fare options for the whole journey, or separately per direction (outbound or inbound).
@@ -397,7 +397,7 @@ AirLowFareSearch is used to get flight availability with the lowest fare options
 #### Request Parameters in the header (all required)
 
 | Parameter  | Type    | Description        | Example                  |
-|------------|---------|--------------------|--------------------------|
+| ---------- | ------- | ------------------ | ------------------------ |
 | x-api-key  | Header  | Access Token       | [Access token](#api-key) |
 | local-name | Header  | Custom HTTP header | OTA_AirLowFareSearchRQ   |
 | agentId    | Payload |                    | ota                      |
@@ -843,7 +843,6 @@ curl -X POST \
     }
   </pre>
 </details>
-
 
 #### AirLowFareSearchRQ for Oneway Trip with Booking Class Preference
 
@@ -35082,15 +35081,14 @@ curl -X POST \
 Supported modification types:
 
 | Operation             | Type | Description                                                                                                                                                                  |
-|-----------------------|------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| --------------------- | ---- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Cancel passenger      | 2    | Cancels individual passenger. See also [Cancel booking](#cancel-booking)                                                                                                     |
 | Change passenger name | 4    | Changes passenger name. This operation is essential for group bookings when passenger names are unknown at booking creation time and could be updated later after ticketing. |
 | Change passenger info | 40   | Changes other passenger information than name.                                                                                                                               |
-| Split booking         | 7    | Moves passenger or segment into a new booking.                                                                                                                               | 
+| Split booking         | 7    | Moves passenger or segment into a new booking.                                                                                                                               |
 | Change contact        | 9    | Changes contact information such as email or pone number.                                                                                                                    |
 | Cancel segment        | 10   | Cancels individual segment. See also [Cancel booking](#cancel-booking)                                                                                                       |
 | Rebook segment        | 20   | This covers change of the flight or train, and upgrade of the booking class.                                                                                                 |
-
 
 ### Request Parameters
 
@@ -35100,7 +35098,6 @@ Supported modification types:
 | local-name | Header  | Custom HTTP header | OTA_AirBookModifyRQ      |
 | agentId    | Payload | Custom HTTP header | ota                      |
 | agencyId   | Payload | Custom HTTP header | ota                      |
-
 
 #### Request
 
@@ -35112,8 +35109,8 @@ curl -X POST \
 ```
 
 ### Change passenger name
-`Changes to the passenger name may not permitted after the booking is paid and tickets are issued.`
 
+`Changes to the passenger name may not permitted after the booking is paid and tickets are issued.`
 
 #### Change Passenger in One Way Booking
 
@@ -37728,16 +37725,16 @@ curl -X POST \
 
 ### Cancel Booking
 
-This method cancels entire booking. In case you need to cancel individual passenger or segment use `OTA_AirBookingModifyRQ` and not `OTA_CancelRQ` message. 
+This method cancels entire booking. In case you need to cancel individual passenger or segment use `OTA_AirBookingModifyRQ` and not `OTA_CancelRQ` message.
 
 #### Request Parameters
 
-| Parameter    | Type    | Description        | Example                  |
-|--------------|---------|--------------------|--------------------------|
-| x-api-key    | Header  | Access Token       | [Access token](#api-key) |
-| local-name   | Header  | Custom HTTP header | OTA_CancelRQ             |
-| agentId      | Payload |                    | ota                      |
-| agencyId     | Payload |                    | ota                      |
+| Parameter  | Type    | Description        | Example                  |
+| ---------- | ------- | ------------------ | ------------------------ |
+| x-api-key  | Header  | Access Token       | [Access token](#api-key) |
+| local-name | Header  | Custom HTTP header | OTA_CancelRQ             |
+| agentId    | Payload |                    | ota                      |
+| agencyId   | Payload |                    | ota                      |
 
 <details>
   <summary><b>Request Payload</b></summary>
@@ -37787,4 +37784,46 @@ This method cancels entire booking. In case you need to cancel individual passen
   "version": 2.001
 }
   </pre>
+</details>
+
+#### Cancel Policy
+This section details the cancellation policy. It outlines the conditions under which you can cancel your reservation and the associated refund fees. The specific refund amount will be determined by the time remaining before your departure.
+
+<details>
+    <summary><b>Refund Policies</b></summary>
+    <pre>
+    order-management:
+        refund-policies:
+            policies:
+            default:
+                min-duration-before-departure: PT0M
+                max-duration-before-departure: PT0S # cover anything beyond
+                default-refund-fee: 100
+                refund-fee:
+                    Y: 100 # Not allow to refund
+                    C: 100 # Not allow to refund
+
+            agent-1:
+                - # Less than or equal to 20 minutes (0 hours)
+                min-duration-before-departthe original amounture: PT0M
+                max-duration-before-departure: PT20M # Minutes before departure
+                default-refund-fee: 100
+                refund-fee:
+                    Y: 100 # Not allow to refund
+                    C: 100 # Not allow to refund
+                - # Between 20 minutes and 48 hours
+                min-duration-before-departure: PT20M
+                max-duration-before-departure: PT48H
+                default-refund-fee: 55
+                refund-fee:
+                    Y: 50
+                    C: 35 # Refund Fee 35% of the ticket price
+                - # More than 48 hours
+                min-duration-before-departure: PT48H
+                max-duration-before-departure: PT0S # cover anything beyond
+                default-refund-fee: 0
+                refund-fee:
+                    Y: 20 # Refund Fee 20% of the ticket price
+                    C: 0 # No refund penalty applies
+            </pre>
 </details>
