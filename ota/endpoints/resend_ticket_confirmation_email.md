@@ -41,7 +41,7 @@ The request body must be in JSON format and include the following fields:
 
 ### Example Request Body
 
-<details>
+<details open>
   <summary>Request Payload</summary>
   <pre>
 {
