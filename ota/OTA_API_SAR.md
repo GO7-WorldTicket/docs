@@ -41,17 +41,19 @@ title: The Title of Your Page
     - [Modify booking for One-way trip](#payload-airbookmodifyrq-for-oneway-trip)
     - [Modify booking for Round trip](#payload-airbookmodifyrq-for-round-trip)
   - [Cancel booking](#cancel-booking)
+  - [Resend ticket confirmation email](resend_ticket_confirmation_email.md)
 
 ## Change Log
 
-| Change Description                                   | Changed By          | Change Date |
-|------------------------------------------------------|---------------------|-------------|
-| Initial creation of the document                     | Arnon Ruangthanawes | 2024-03-19  |
-| Update api urls, and add examples                    | Arnon Ruangthanawes | 2024-03-26  |
-| Update code mapping                                  | Arnon Ruangthanawes | 2024-05-13  |
-| Include error messages in Low Fare Search            | Arnon Ruangthanawes | 2024-05-14  |
-| Describe how to cancel booking entirely or partially | Sergii Poltorak     | 2024-05-22  |
-| Upload schema and postman files                      | Arnon Ruangthanawes | 2024-05-29  |
+| Change Description                                   | Changed By           | Change Date |
+|------------------------------------------------------|----------------------|-------------|
+| Initial creation of the document                     | Arnon Ruangthanawes  | 2024-03-19  |
+| Update api urls, and add examples                    | Arnon Ruangthanawes  | 2024-03-26  |
+| Update code mapping                                  | Arnon Ruangthanawes  | 2024-05-13  |
+| Include error messages in Low Fare Search            | Arnon Ruangthanawes  | 2024-05-14  |
+| Describe how to cancel booking entirely or partially | Sergii Poltorak      | 2024-05-22  |
+| Upload schema and postman files                      | Arnon Ruangthanawes  | 2024-05-29  |
+| Add resending email endpoint                         | Sittiwet Mahapratoom | 2024-07-12  |
 
 # Introduction
 
@@ -158,10 +160,9 @@ Replace all variables in curly braces with the actual values.
 # OTA XML Schema 2015
 [Download OTA XML Schema 2015](/docs/assets/resources/ota-xmlbeans-2015B.zip)
 
-
 # Postman Collection
 [Download Postman Collection](/docs/assets/resources/OTA_postman_collection.json)
-Please update the variables in collection such as apiKey, agent_id, agent_name and teant.
+Please update the variables in collection such as apiKey, agent_id, agent_name and tenant.
 
 # Available Routes and Flights
 
