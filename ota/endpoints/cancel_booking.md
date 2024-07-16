@@ -61,10 +61,32 @@ This method cancels entire booking. In case you need to cancel individual passen
   </pre>
 </details>
 
-#### Cancel Policy
+## Cancel Policy
+
+#### Cancel Duration Policy
+The HHR and ELM systems have conflicting cancellation policies. HHR allows cancellations up to 24 hours before departure, while ELM permits cancellations seven days in advance. To align with the stricter policy, we must enforce the cancellation rule for ELM customers.
+
+<details>
+  <pre>
+    hhr:
+      policy:
+        cancellation:
+          agents:
+            default:
+              name: "Default Policy"
+              description: "Default cancellation policy if none is specified."
+              min-duration-before-departure: "PT72H" # 72 hours
+            agent1:
+              name: "Agent 1 Policy"
+              description: "Cancellation policy for agent 1"
+              min-duration-before-departure: "PT72H" # 72 hours
+  </pre>
+</details>
+
+#### Cancel Refund Policy
 This section details the cancellation policy. It outlines the conditions under which you can cancel your reservation and the associated refund fees. The specific refund amount will be determined by the time remaining before your departure.
 
-<details open>
+<details>
     <summary><b>Refund Policies</b></summary>
     <pre>
     order-management:
