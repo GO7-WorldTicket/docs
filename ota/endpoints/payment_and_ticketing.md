@@ -214,3 +214,177 @@ curl -X POST \
     }
   </pre>
 </details>
+
+Note that for bookings with named passengers, the response will also contain download links for tickets in the booking  (see [Download Tickets](download_tickets.md) for more information).
+
+<details>
+  <summary>Response Payload (named passengers)</summary>
+  <pre>
+    {
+      "success": {},
+      "bookingReferenceID": {
+        "companyName": {
+          "companyShortName": "test-skywork-dev",
+          "code": "test-skywork-dev"
+        },
+        "type": "14",
+        "id": "QN6HQV"
+      },
+      "ticketItemInfo": [
+        {
+          "passengerName": {
+            "namePrefix": [
+              "MISS"
+            ],
+            "givenName": [
+              "JENNIFER LO"
+            ],
+            "middleName": [],
+            "surname": "STEWART",
+            "nameSuffix": [],
+            "nameTitle": [],
+            "passengerTypeCode": "ADT",
+            "tpaextensions": {
+              "urls": "https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=JENNIFER&lastName=STEWART&departure=MKX&arrival=DMX https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=JENNIFER&lastName=STEWART&departure=DMX&arrival=MKX"
+            }
+          },
+          "conjunctiveTicket": [],
+          "ticketNumber": "3333330058951",
+          "type": "E_TICKET",
+          "itemNumber": "",
+          "totalAmount": 460.00,
+          "paymentType": "4",
+          "netAmount": 400.00
+        },
+        {
+          "passengerName": {
+            "namePrefix": [
+              "MISS"
+            ],
+            "givenName": [
+              "MARY"
+            ],
+            "middleName": [],
+            "surname": "THOMSON",
+            "nameSuffix": [],
+            "nameTitle": [],
+            "passengerTypeCode": "ADT",
+            "tpaextensions": {
+              "urls": "https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=MARY&lastName=THOMSON&departure=MKX&arrival=DMX https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=MARY&lastName=THOMSON&departure=DMX&arrival=MKX"
+            }
+          },
+          "conjunctiveTicket": [],
+          "ticketNumber": "3333330058952",
+          "type": "E_TICKET",
+          "itemNumber": "",
+          "totalAmount": 460.00,
+          "paymentType": "4",
+          "netAmount": 400.00
+        },
+        {
+          "passengerName": {
+            "namePrefix": [
+              "MISS"
+            ],
+            "givenName": [
+              "ELIZABETH LILY"
+            ],
+            "middleName": [],
+            "surname": "ROBERTSON",
+            "nameSuffix": [],
+            "nameTitle": [],
+            "passengerTypeCode": "CHD",
+            "tpaextensions": {
+              "urls": "https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=ELIZABETH&lastName=ROBERTSON&departure=MKX&arrival=DMX https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=ELIZABETH&lastName=ROBERTSON&departure=DMX&arrival=MKX"
+            }
+          },
+          "conjunctiveTicket": [],
+          "ticketNumber": "3333330058953",
+          "type": "E_TICKET",
+          "itemNumber": "",
+          "totalAmount": 230.00,
+          "paymentType": "4",
+          "netAmount": 200.00
+        },
+        {
+          "passengerName": {
+            "namePrefix": [
+              "MR"
+            ],
+            "givenName": [
+              "PATRICIA"
+            ],
+            "middleName": [],
+            "surname": "ANDERSON",
+            "nameSuffix": [],
+            "nameTitle": [],
+            "passengerTypeCode": "CHD",
+            "tpaextensions": {
+              "urls": "https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=PATRICIA&lastName=ANDERSON&departure=MKX&arrival=DMX https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=PATRICIA&lastName=ANDERSON&departure=DMX&arrival=MKX"
+            }
+          },
+          "conjunctiveTicket": [],
+          "ticketNumber": "3333330058954",
+          "type": "E_TICKET",
+          "itemNumber": "",
+          "totalAmount": 230.00,
+          "paymentType": "4",
+          "netAmount": 200.00
+        },
+        {
+          "passengerName": {
+            "namePrefix": [
+              "MISS"
+            ],
+            "givenName": [
+              "LINDA"
+            ],
+            "middleName": [],
+            "surname": "SCOTT",
+            "nameSuffix": [],
+            "nameTitle": [],
+            "passengerTypeCode": "INF",
+            "tpaextensions": {
+              "urls": "https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=LINDA&lastName=SCOTT&departure=MKX&arrival=DMX https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=LINDA&lastName=SCOTT&departure=DMX&arrival=MKX"
+            }
+          },
+          "conjunctiveTicket": [],
+          "ticketNumber": "3333330058955",
+          "type": "E_TICKET",
+          "itemNumber": "",
+          "totalAmount": 46.00,
+          "paymentType": "4",
+          "netAmount": 40.00
+        },
+        {
+          "passengerName": {
+            "namePrefix": [
+              "MISS"
+            ],
+            "givenName": [
+              "BARBARA BROWN"
+            ],
+            "middleName": [],
+            "surname": "TAYLOR",
+            "nameSuffix": [],
+            "nameTitle": [],
+            "passengerTypeCode": "INF",
+            "tpaextensions": {
+              "urls": "https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=BARBARA&lastName=TAYLOR&departure=MKX&arrival=DMX https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=BARBARA&lastName=TAYLOR&departure=DMX&arrival=MKX"
+            }
+          },
+          "conjunctiveTicket": [],
+          "ticketNumber": "3333330058956",
+          "type": "E_TICKET",
+          "itemNumber": "",
+          "totalAmount": 46.00,
+          "paymentType": "4",
+          "netAmount": 40.00
+        }
+      ],
+      "timeStamp": "2024-07-03T08:43:25.130Z",
+      "version": 2.001,
+      "retransmissionIndicator": false
+    }
+  </pre>
+</details>

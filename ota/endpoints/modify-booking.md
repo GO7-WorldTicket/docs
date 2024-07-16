@@ -12,16 +12,14 @@ Supported modification types:
 | Cancel segment        | 10   | Cancels individual segment. See also [Cancel booking](#cancel-booking)                                                                                                       |
 | Rebook segment        | 20   | This covers change of the flight or train, and upgrade of the booking class.                                                                                                 |
 
-
 ### Request Parameters
 
 | Parameter  | Type    | Description        | Example                  |
-| ---------- | ------- | ------------------ | ------------------------ |
+|------------|---------|--------------------|--------------------------|
 | x-api-key  | Header  | Access Token       | [Access token](#api-key) |
 | local-name | Header  | Custom HTTP header | OTA_AirBookModifyRQ      |
 | agentId    | Payload | Custom HTTP header | ota                      |
 | agencyId   | Payload | Custom HTTP header | ota                      |
-
 
 #### Request
 
@@ -33,8 +31,8 @@ curl -X POST \
 ```
 
 ### Change passenger name
-`Changes to the passenger name may not permitted after the booking is paid and tickets are issued.`
 
+`Changes to the passenger name may not permitted after the booking is paid and tickets are issued.`
 
 #### Change Passenger in One Way Booking
 
@@ -2640,6 +2638,590 @@ curl -X POST \
           }
         ],
         "createDateTime": "2024-03-22T08:48:08.942Z",
+        "emdinfo": []
+      },
+      "version": 2.001
+    }
+  </pre>
+</details>
+
+Note that for paid bookings, the response will also contain links for downloading individual tickets (see [Download Tickets](download_tickets.md) for more information).
+
+<details>
+  <summary>Response Payload (paid booking)</summary>
+  <pre>
+    {
+      "success": {},
+      "airReservation": {
+        "airItinerary": {
+          "originDestinationOptions": {
+            "originDestinationOption": [
+              {
+                "flightSegment": [
+                  {
+                    "departureAirport": {
+                      "locationCode": "MKX"
+                    },
+                    "arrivalAirport": {
+                      "locationCode": "JXD"
+                    },
+                    "operatingAirline": {
+                      "code": "HHR",
+                      "flightNumber": "0141"
+                    },
+                    "equipment": [],
+                    "departureDateTime": "2024-07-15T16:30:00.000+03:00",
+                    "arrivalDateTime": "2024-07-15T17:00:00.000+03:00",
+                    "rph": "1",
+                    "marketingAirline": {
+                      "code": "HHR"
+                    },
+                    "flightNumber": "0141",
+                    "fareBasisCode": "UmrahEco",
+                    "resBookDesigCode": "Y",
+                    "bookingClassAvails": [],
+                    "comment": [],
+                    "stopLocation": [],
+                    "status": "30"
+                  }
+                ],
+                "rph": "1"
+              },
+              {
+                "flightSegment": [
+                  {
+                    "departureAirport": {
+                      "locationCode": "JXD"
+                    },
+                    "arrivalAirport": {
+                      "locationCode": "MKX"
+                    },
+                    "operatingAirline": {
+                      "code": "HHR",
+                      "flightNumber": "0191"
+                    },
+                    "equipment": [],
+                    "departureDateTime": "2024-07-16T21:21:00.000+03:00",
+                    "arrivalDateTime": "2024-07-16T21:55:00.000+03:00",
+                    "rph": "2",
+                    "marketingAirline": {
+                      "code": "HHR"
+                    },
+                    "flightNumber": "0191",
+                    "fareBasisCode": "UmrahEco",
+                    "resBookDesigCode": "Y",
+                    "bookingClassAvails": [],
+                    "comment": [],
+                    "stopLocation": [],
+                    "status": "30"
+                  }
+                ],
+                "rph": "2"
+              }
+            ]
+          }
+        },
+        "travelerInfo": {
+          "airTraveler": [
+            {
+              "personName": {
+                "namePrefix": [],
+                "givenName": [
+                  "TEST"
+                ],
+                "middleName": [],
+                "surname": "TESTER",
+                "nameSuffix": [],
+                "nameTitle": []
+              },
+              "telephone": [],
+              "email": [
+                {
+                  "value": "test@test.com",
+                  "defaultInd": true
+                }
+              ],
+              "address": [],
+              "custLoyalty": [],
+              "document": [],
+              "socialMediaInfo": [],
+              "passengerTypeCode": "CTC",
+              "comment": []
+            },
+            {
+              "personName": {
+                "namePrefix": [
+                  "MISS"
+                ],
+                "givenName": [
+                  "JENNIFER LO"
+                ],
+                "middleName": [],
+                "surname": "STEWART",
+                "nameSuffix": [],
+                "nameTitle": []
+              },
+              "telephone": [
+                {
+                  "countryAccessCode": "380",
+                  "phoneNumber": "741852369"
+                }
+              ],
+              "email": [],
+              "address": [],
+              "custLoyalty": [],
+              "document": [
+                {
+                  "docLimitations": [],
+                  "docID": "1111115",
+                  "docType": "5",
+                  "docHolderNationality": "SA",
+                  "birthDate": "2023-03-30",
+                  "expireDate": "2027-03-28"
+                }
+              ],
+              "travelerRefNumber": {
+                "rph": "1"
+              },
+              "flightSegmentRPHs": {
+                "flightSegmentRPH": [
+                  "1",
+                  "2"
+                ]
+              },
+              "socialMediaInfo": [],
+              "passengerTypeCode": "ADT",
+              "gender": "Female",
+              "comment": []
+            },
+            {
+              "personName": {
+                "namePrefix": [
+                  "MISS"
+                ],
+                "givenName": [
+                  "MARY"
+                ],
+                "middleName": [],
+                "surname": "THOMSON",
+                "nameSuffix": [],
+                "nameTitle": []
+              },
+              "telephone": [
+                {
+                  "countryAccessCode": "380",
+                  "phoneNumber": "741852369"
+                }
+              ],
+              "email": [],
+              "address": [],
+              "custLoyalty": [],
+              "document": [
+                {
+                  "docLimitations": [],
+                  "docID": "1111116",
+                  "docType": "5",
+                  "docHolderNationality": "SA",
+                  "birthDate": "1988-03-31",
+                  "expireDate": "2027-03-29"
+                }
+              ],
+              "travelerRefNumber": {
+                "rph": "2"
+              },
+              "flightSegmentRPHs": {
+                "flightSegmentRPH": [
+                  "1",
+                  "2"
+                ]
+              },
+              "socialMediaInfo": [],
+              "passengerTypeCode": "ADT",
+              "gender": "Female",
+              "comment": []
+            },
+            {
+              "personName": {
+                "namePrefix": [
+                  "MISS"
+                ],
+                "givenName": [
+                  "ELIZABETH LILY"
+                ],
+                "middleName": [],
+                "surname": "ROBERTSON",
+                "nameSuffix": [],
+                "nameTitle": []
+              },
+              "telephone": [
+                {
+                  "countryAccessCode": "380",
+                  "phoneNumber": "741852369"
+                }
+              ],
+              "email": [],
+              "address": [],
+              "custLoyalty": [],
+              "document": [
+                {
+                  "docLimitations": [],
+                  "docID": "1111117",
+                  "docType": "5",
+                  "docHolderNationality": "SA",
+                  "birthDate": "2017-04-01",
+                  "expireDate": "2027-03-30"
+                }
+              ],
+              "travelerRefNumber": {
+                "rph": "3"
+              },
+              "flightSegmentRPHs": {
+                "flightSegmentRPH": [
+                  "1",
+                  "2"
+                ]
+              },
+              "socialMediaInfo": [],
+              "passengerTypeCode": "CHD",
+              "gender": "Female",
+              "comment": []
+            },
+            {
+              "personName": {
+                "namePrefix": [
+                  "MR"
+                ],
+                "givenName": [
+                  "PATRICIA"
+                ],
+                "middleName": [],
+                "surname": "ANDERSON",
+                "nameSuffix": [],
+                "nameTitle": []
+              },
+              "telephone": [
+                {
+                  "countryAccessCode": "380",
+                  "phoneNumber": "741852369"
+                }
+              ],
+              "email": [],
+              "address": [],
+              "custLoyalty": [],
+              "document": [
+                {
+                  "docLimitations": [],
+                  "docID": "1111118",
+                  "docType": "5",
+                  "docHolderNationality": "SA",
+                  "birthDate": "2017-04-02",
+                  "expireDate": "2027-03-31"
+                }
+              ],
+              "travelerRefNumber": {
+                "rph": "4"
+              },
+              "flightSegmentRPHs": {
+                "flightSegmentRPH": [
+                  "1",
+                  "2"
+                ]
+              },
+              "socialMediaInfo": [],
+              "passengerTypeCode": "CHD",
+              "gender": "Male",
+              "comment": []
+            },
+            {
+              "personName": {
+                "namePrefix": [
+                  "MISS"
+                ],
+                "givenName": [
+                  "LINDA"
+                ],
+                "middleName": [],
+                "surname": "SCOTT",
+                "nameSuffix": [],
+                "nameTitle": []
+              },
+              "telephone": [
+                {
+                  "countryAccessCode": "380",
+                  "phoneNumber": "741852369"
+                }
+              ],
+              "email": [],
+              "address": [],
+              "custLoyalty": [],
+              "document": [
+                {
+                  "docLimitations": [],
+                  "docID": "1111119",
+                  "docType": "5",
+                  "docHolderNationality": "SA",
+                  "birthDate": "2023-04-03",
+                  "expireDate": "2027-04-01"
+                }
+              ],
+              "travelerRefNumber": {
+                "rph": "5"
+              },
+              "flightSegmentRPHs": {
+                "flightSegmentRPH": [
+                  "1",
+                  "2"
+                ]
+              },
+              "socialMediaInfo": [],
+              "passengerTypeCode": "INF",
+              "gender": "Female",
+              "comment": [
+                {
+                  "value": "1",
+                  "name": "attendantRph"
+                }
+              ]
+            },
+            {
+              "personName": {
+                "namePrefix": [
+                  "MISS"
+                ],
+                "givenName": [
+                  "BARBARA BROWN"
+                ],
+                "middleName": [],
+                "surname": "TAYLOR",
+                "nameSuffix": [],
+                "nameTitle": []
+              },
+              "telephone": [
+                {
+                  "countryAccessCode": "380",
+                  "phoneNumber": "741852369"
+                }
+              ],
+              "email": [],
+              "address": [],
+              "custLoyalty": [],
+              "document": [
+                {
+                  "docLimitations": [],
+                  "docID": "1111120",
+                  "docType": "5",
+                  "docHolderNationality": "SA",
+                  "birthDate": "2023-04-04",
+                  "expireDate": "2027-04-02"
+                }
+              ],
+              "travelerRefNumber": {
+                "rph": "6"
+              },
+              "flightSegmentRPHs": {
+                "flightSegmentRPH": [
+                  "1",
+                  "2"
+                ]
+              },
+              "socialMediaInfo": [],
+              "passengerTypeCode": "INF",
+              "gender": "Female",
+              "comment": [
+                {
+                  "value": "2",
+                  "name": "attendantRph"
+                }
+              ]
+            }
+          ],
+          "specialReqDetails": []
+        },
+        "ticketing": [
+          {
+            "ticketAdvisory": [],
+            "ticketType": "E_TICKET",
+            "flightSegmentRefNumber": [],
+            "travelerRefNumber": [
+              "1"
+            ],
+            "ticketDocumentNbr": "3333330058327",
+            "miscTicketingCode": [],
+            "tpaextensions": {
+              "url": "https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/6AAY88/download/passenger-segment?firstName=JENNIFER&lastName=STEWART&departure=MKX&arrival=JXD"
+            }
+          },
+          {
+            "ticketAdvisory": [],
+            "ticketType": "E_TICKET",
+            "flightSegmentRefNumber": [],
+            "travelerRefNumber": [
+              "2"
+            ],
+            "ticketDocumentNbr": "3333330058328",
+            "miscTicketingCode": [],
+            "tpaextensions": {
+              "url": "https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/6AAY88/download/passenger-segment?firstName=MARY&lastName=THOMSON&departure=MKX&arrival=JXD"
+            }
+          },
+          {
+            "ticketAdvisory": [],
+            "ticketType": "E_TICKET",
+            "flightSegmentRefNumber": [],
+            "travelerRefNumber": [
+              "3"
+            ],
+            "ticketDocumentNbr": "3333330058329",
+            "miscTicketingCode": [],
+            "tpaextensions": {
+              "url": "https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/6AAY88/download/passenger-segment?firstName=ELIZABETH&lastName=ROBERTSON&departure=MKX&arrival=JXD"
+            }
+          },
+          {
+            "ticketAdvisory": [],
+            "ticketType": "E_TICKET",
+            "flightSegmentRefNumber": [],
+            "travelerRefNumber": [
+              "4"
+            ],
+            "ticketDocumentNbr": "3333330058330",
+            "miscTicketingCode": [],
+            "tpaextensions": {
+              "url": "https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/6AAY88/download/passenger-segment?firstName=PATRICIA&lastName=ANDERSON&departure=MKX&arrival=JXD"
+            }
+          },
+          {
+            "ticketAdvisory": [],
+            "ticketType": "E_TICKET",
+            "flightSegmentRefNumber": [],
+            "travelerRefNumber": [
+              "5"
+            ],
+            "ticketDocumentNbr": "3333330058331",
+            "miscTicketingCode": [],
+            "tpaextensions": {
+              "url": "https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/6AAY88/download/passenger-segment?firstName=LINDA&lastName=SCOTT&departure=MKX&arrival=JXD"
+            }
+          },
+          {
+            "ticketAdvisory": [],
+            "ticketType": "E_TICKET",
+            "flightSegmentRefNumber": [],
+            "travelerRefNumber": [
+              "6"
+            ],
+            "ticketDocumentNbr": "3333330058332",
+            "miscTicketingCode": [],
+            "tpaextensions": {
+              "url": "https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/6AAY88/download/passenger-segment?firstName=BARBARA&lastName=TAYLOR&departure=MKX&arrival=JXD"
+            }
+          },
+          {
+            "ticketAdvisory": [],
+            "ticketType": "E_TICKET",
+            "flightSegmentRefNumber": [],
+            "travelerRefNumber": [
+              "1"
+            ],
+            "ticketDocumentNbr": "3333330058327",
+            "miscTicketingCode": [],
+            "tpaextensions": {
+              "url": "https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/6AAY88/download/passenger-segment?firstName=JENNIFER&lastName=STEWART&departure=JXD&arrival=MKX"
+            }
+          },
+          {
+            "ticketAdvisory": [],
+            "ticketType": "E_TICKET",
+            "flightSegmentRefNumber": [],
+            "travelerRefNumber": [
+              "2"
+            ],
+            "ticketDocumentNbr": "3333330058328",
+            "miscTicketingCode": [],
+            "tpaextensions": {
+              "url": "https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/6AAY88/download/passenger-segment?firstName=MARY&lastName=THOMSON&departure=JXD&arrival=MKX"
+            }
+          },
+          {
+            "ticketAdvisory": [],
+            "ticketType": "E_TICKET",
+            "flightSegmentRefNumber": [],
+            "travelerRefNumber": [
+              "3"
+            ],
+            "ticketDocumentNbr": "3333330058329",
+            "miscTicketingCode": [],
+            "tpaextensions": {
+              "url": "https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/6AAY88/download/passenger-segment?firstName=ELIZABETH&lastName=ROBERTSON&departure=JXD&arrival=MKX"
+            }
+          },
+          {
+            "ticketAdvisory": [],
+            "ticketType": "E_TICKET",
+            "flightSegmentRefNumber": [],
+            "travelerRefNumber": [
+              "4"
+            ],
+            "ticketDocumentNbr": "3333330058330",
+            "miscTicketingCode": [],
+            "tpaextensions": {
+              "url": "https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/6AAY88/download/passenger-segment?firstName=PATRICIA&lastName=ANDERSON&departure=JXD&arrival=MKX"
+            }
+          },
+          {
+            "ticketAdvisory": [],
+            "ticketType": "E_TICKET",
+            "flightSegmentRefNumber": [],
+            "travelerRefNumber": [
+              "5"
+            ],
+            "ticketDocumentNbr": "3333330058331",
+            "miscTicketingCode": [],
+            "tpaextensions": {
+              "url": "https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/6AAY88/download/passenger-segment?firstName=LINDA&lastName=SCOTT&departure=JXD&arrival=MKX"
+            }
+          },
+          {
+            "ticketAdvisory": [],
+            "ticketType": "E_TICKET",
+            "flightSegmentRefNumber": [],
+            "travelerRefNumber": [
+              "6"
+            ],
+            "ticketDocumentNbr": "3333330058332",
+            "miscTicketingCode": [],
+            "tpaextensions": {
+              "url": "https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/6AAY88/download/passenger-segment?firstName=BARBARA&lastName=TAYLOR&departure=JXD&arrival=MKX"
+            }
+          }
+        ],
+        "bookingReferenceID": [
+          {
+            "companyName": {
+              "code": "W1"
+            },
+            "type": "14",
+            "id": "6AAY88",
+            "flightRefNumberRPHList": []
+          },
+          {
+            "companyName": {
+              "code": "HHR"
+            },
+            "type": "14",
+            "id": "A47013469",
+            "flightRefNumberRPHList": []
+          },
+          {
+            "companyName": {
+              "code": "HHR"
+            },
+            "type": "14",
+            "id": "ADBBEE380",
+            "flightRefNumberRPHList": []
+          }
+        ],
+        "createDateTime": "2024-07-02T09:20:59.342Z",
         "emdinfo": []
       },
       "version": 2.001
