@@ -17,10 +17,10 @@ The following endpoint can be used to download a zip file containing all tickets
 
 #### Request Parameters (all required)
 
-| Parameter        | Type   | Description       | Example                  |
-|------------------|--------|-------------------|--------------------------|
-| x-api-key        | Header | Access Token      | [Access token](#api-key) |
-| bookingReference | Path   | Booking reference | O8ZKAK                   |
+| Parameter        | Type   | Description       | Example                                |
+|------------------|--------|-------------------|----------------------------------------|
+| x-api-key        | Header | Access Token      | [Access token](../OTA_API_SAR#api-key) |
+| bookingReference | Path   | Booking reference | O8ZKAK                                 |
 
 #### Request
 
@@ -32,7 +32,7 @@ curl '{base_url}/tickets/confirmation/{bookingReference}/download' \
 
 ### Download a specific ticket
 
-The following endpoint can be used to download a ticket (pdf file) of a ticket within a booking.
+The following endpoint can be used to download a ticket (pdf file) within a booking.
 
 **Endpoint:** `/tickets/confirmation/{bookingReference}/download/passenger-segment`   
 **Method:** `GET`  
