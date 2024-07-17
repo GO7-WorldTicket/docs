@@ -34,6 +34,7 @@ title: The Title of Your Page
 | Add resending email endpoint                         | Sittiwet Mahapratoom | 2024-07-12  |
 | Revise document structures                           | Arnon Ruangthanawes  | 2024-07-12  |
 | Add cancel duration policy                           | Arnon Ruangthanawes  | 2024-07-16  |
+| Add download ticket endpoints                        | Duangtida Athakravi  | 2024-07-16  |
 
 <br />
 
@@ -212,3 +213,4 @@ Please update the variables in collection such as apiKey, agent_id, agent_name a
     - [Cancel Duration Prolicy](endpoints/cancel_booking#cancel-policy)
     - [Cancel Refund Policy](endpoints/cancel_booking#cancel-refund-policy)
 - [Resend ticket confirmation email](endpoints/resend_ticket_confirmation_email)
+- [Download tickets](endpoints/download_tickets)
