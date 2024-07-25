@@ -1,4 +1,4 @@
-### Cancel Booking
+## Cancel Booking
 
 This method cancels entire booking. In case you need to cancel individual passenger or segment use `OTA_AirBookingModifyRQ` and not `OTA_CancelRQ` message. 
 
@@ -61,7 +61,7 @@ This method cancels entire booking. In case you need to cancel individual passen
   </pre>
 </details>
 
-## Cancel Policy
+### Cancel Policy
 
 #### Cancel Duration Policy
 The HHR and ELM systems have conflicting cancellation policies. HHR allows cancellations up to 24 hours before departure, while ELM permits cancellations seven days in advance. To align with the stricter policy, we must enforce the cancellation rule for ELM customers.
@@ -124,3 +124,36 @@ This section details the cancellation policy. It outlines the conditions under w
                     C: 0 # No refund penalty applies
             </pre>
 </details>
+
+### Cancellation email
+Support sending cancellation email automatically after HHR success cancelled the booking or segment
+
+![Alt text](../../images/example_cancelEmail.png "Example of Cancellation email")
+
+#### Configuration
+Required configuration to process sending cancellation email.
+
+- reservation-service
+    <details>
+    <pre>
+    reservation.tenants.${tenant_name}:
+        send-cancelled-email-enabled: true
+    reservation.providers.configurable.hhr.additional-supported-change-operation:
+        - add_remark
+        - add_ssrs </pre>
+    </details>
+
+- order-management-service
+    <details>
+    <pre>
+    order-management.tenants.${tenant_name}:
+        send-cancelled-email-enabled: true
+        sender-email: example@email.com
+        default-language: en
+    order-management.events.out.send-mail: activemq:send-mail</pre>
+    </details>
+
+#### Email template
+The email template is stored in localization database and can amend via SMS5-UI by searching keyword below.
+- Mail subject: "mail.hhr.cancellation.subject"
+- Mail body: "mail.hhr.cancellation.body"
