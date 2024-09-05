@@ -69,31 +69,3 @@ The system will automatically verify the cancellation and refund rules for each 
 Support sending cancellation email automatically after HHR success cancelled the booking or segment
 
 ![Alt text](../../images/example_cancelEmail.png "Example of Cancellation email")
-
-#### Configuration
-Required configuration to process sending cancellation email.
-
-- reservation-service
-    <details>
-    <pre>
-    reservation.tenants.${tenant_name}:
-        send-cancelled-email-enabled: true
-    reservation.providers.configurable.hhr.additional-supported-change-operation:
-        - add_remark
-        - add_ssrs </pre>
-    </details>
-
-- order-management-service
-    <details>
-    <pre>
-    order-management.tenants.${tenant_name}:
-        send-cancelled-email-enabled: true
-        sender-email: example@email.com
-        default-language: en
-    order-management.events.out.send-mail: activemq:send-mail</pre>
-    </details>
-
-#### Email template
-The email template is stored in localization database and can amend via SMS5-UI by searching keyword below.
-- Mail subject: "mail.hhr.cancellation.subject"
-- Mail body: "mail.hhr.cancellation.body"
