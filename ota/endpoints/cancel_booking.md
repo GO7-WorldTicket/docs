@@ -61,69 +61,9 @@ This method cancels entire booking. In case you need to cancel individual passen
   </pre>
 </details>
 
-### Cancel Policy
-
-#### Cancel Duration Policy
-The HHR and ELM systems have conflicting cancellation policies. HHR allows cancellations up to 24 hours before departure, while ELM permits cancellations seven days in advance. To align with the stricter policy, we must enforce the cancellation rule for ELM customers.
-
-<details>
-  <pre>
-    hhr:
-      policy:
-        cancellation:
-          agents:
-            default:
-              name: "Default Policy"
-              description: "Default cancellation policy if none is specified."
-              min-duration-before-departure: "PT72H" # 72 hours
-            agent1:
-              name: "Agent 1 Policy"
-              description: "Cancellation policy for agent 1"
-              min-duration-before-departure: "PT72H" # 72 hours
-  </pre>
-</details>
-
-#### Cancel Refund Policy
-This section details the cancellation policy. It outlines the conditions under which you can cancel your reservation and the associated refund fees. The specific refund amount will be determined by the time remaining before your departure.
-
-<details>
-    <summary><b>Refund Policies</b></summary>
-    <pre>
-    order-management:
-        refund-policies:
-            policies:
-            default:
-                min-duration-before-departure: PT0M
-                max-duration-before-departure: PT0S # cover anything beyond
-                default-refund-fee: 100
-                refund-fee:
-                    Y: 100 # Not allow to refund
-                    C: 100 # Not allow to refund
-
-            agent-1:
-                - # Less than or equal to 20 minutes (0 hours)
-                min-duration-before-departthe original amounture: PT0M
-                max-duration-before-departure: PT20M # Minutes before departure
-                default-refund-fee: 100
-                refund-fee:
-                    Y: 100 # Not allow to refund
-                    C: 100 # Not allow to refund
-                - # Between 20 minutes and 48 hours
-                min-duration-before-departure: PT20M
-                max-duration-before-departure: PT48H
-                default-refund-fee: 55
-                refund-fee:
-                    Y: 50
-                    C: 35 # Refund Fee 35% of the ticket price
-                - # More than 48 hours
-                min-duration-before-departure: PT48H
-                max-duration-before-departure: PT0S # cover anything beyond
-                default-refund-fee: 0
-                refund-fee:
-                    Y: 20 # Refund Fee 20% of the ticket price
-                    C: 0 # No refund penalty applies
-            </pre>
-</details>
+### Cancellation and Refund Penalty Policy
+This policy sets the rules for handling cancellations and refund penalties as per the commercial agreements between SAR and the OTA. The different terms and conditions will apply based on the fare class, booking channel, and specific contractual agreements.
+The system will automatically verify the cancellation and refund rules for each OTA based on their agreement and provide the appropriate result. Once the cancellation is successful, a cancelation email will be sent automatically.
 
 ### Cancellation email
 Support sending cancellation email automatically after HHR success cancelled the booking or segment
