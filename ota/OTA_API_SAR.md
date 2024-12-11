@@ -173,6 +173,8 @@ Please update the variables in collection such as apiKey, agent_id, agent_name a
 | ---- | ----------- |
 | 1    | Visa        |
 | 2    | Passport    |
+
+
 <br /><br />
 
 # Available Routes and Flights Calendar
