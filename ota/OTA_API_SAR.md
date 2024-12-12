@@ -171,8 +171,8 @@ Please update the variables in collection such as apiKey, agent_id, agent_name a
 
 | Code | Description |
 | ---- | ----------- |
-| 1    | Visa        |
 | 2    | Passport    |
+| 5    | National ID |
 
 
 <br /><br />
