@@ -4,10 +4,6 @@ actor "End customer" as customer
 
 box GO7 #lightblue
     participant "go7-gateway" as gateway
-    participant "search-service" as search_service
-    participant "calendar-service" as calendar_service
-    participant "offer-management-service" as offer_service
-    participant "order-management-service" as order_service
 end box
 
 box PSS #pink
@@ -24,8 +20,6 @@ note right
 Show the routes options
 Departure and Arrival airports
 end note
-gateway->search_service:Get routes
-search_service->gateway:Routes
 gateway->customer: List of available routes
 
 == Use case: Calendar Availability ==
@@ -34,9 +28,7 @@ note right
 Low fare calendar availability
 Lowest price per flight date
 end note
-gateway->calendar_service:Get calendar availabilities
-calendar_service->gateway:Calendar availabilities
-calendar_service->customer: List of calendar availabilities
+gateway->customer: List of calendar availabilities
 
 == Use case: Flight Offers Search ==
 customer->gateway: mutation: Flight Offers Search
@@ -44,12 +36,10 @@ note right
 Flight offers search
 Lists available flight offers
 end note
-gateway->offer_service:Get flight offers
 opt If no offers in cache
-offer_service->pss:Request flight offers
-pss->offer_service:Flight offers
+gateway->pss:Request flight offers
+pss->gateway:Flight offers
 end
-offer_service->gateway:Flight offers
 gateway->customer: List of flight offers
 
 == Use case: Create Order ==
@@ -58,9 +48,19 @@ note right
 Create order for selected offer
 Order information
 end note
-gateway->order_service:Create order
-order_service->gateway:Order information
+gateway->pss:Create order
+pss->gateway: Order information
 gateway->customer: Order information
+
+== Use case: Update passenger information ==
+customer->gateway: mutation: Update passenger information
+note right
+Update passenger information for selected offer
+Order information
+end note
+gateway->pss:Update passenger information
+pss->gateway: Updated order information
+gateway->customer: Updated order information
 
 == Use case: Service Offers Search ==
 customer->gateway: mutation: Service Offers Search
@@ -68,13 +68,21 @@ note right
 Search service offers by flight offer
 Lists available service offers
 end note
-gateway->offer_service:Get service offers
 opt If no offers in cache
-offer_service->pss:Request service offers
-pss->offer_service:Service offers
+gateway->pss:Request service offers
+pss->gateway:Service offers
 end
-offer_service->gateway:Service offers
 gateway->customer: List of service offers
+
+== Use case: Reserve service ==
+customer->gateway: mutation: Reserve service
+note right
+Reserve service
+Order information
+end note
+gateway->pss:Reserve service
+pss->gateway:Order information with services
+gateway->customer: Order information with services
 
 == Use case: Seat Availability Search ==
 customer->gateway: mutation: Seat Availability Search
@@ -82,12 +90,10 @@ note right
 Search seat-map structure and seat offers
 Seat-map and seat offers
 end note
-gateway->offer_service:Get seat offers
 opt If no offers in cache
-offer_service->pss:Request seat offers
-pss->offer_service:Seat offers
+gateway->pss:Request seat offers
+pss->gateway:Seat offers
 end
-offer_service->gateway:Seat offers
 gateway->customer: List of seat offers
 
 == Use case: Reserve and Release Seat ==
@@ -96,8 +102,26 @@ note right
 Reserve/release seat
 Order structure
 end note
-gateway->offer_service:Reserve/release seat
-offer_service->gateway:Order structure
+gateway->pss:Reserve/release seat
+pss->gateway:Order structure
 gateway->customer: Order structure
+
+== Use case: Get payment options ==
+customer->gateway: mutation: Get payment options
+note right
+Get payment options
+Payment options list
+end note
+gateway->customer: Payment options
+
+== Use case: Confirm payment ==
+customer->gateway: mutation: Confirm payment
+note right
+Confirm payment for selected type
+Paid order information
+end note
+gateway->customer: Paid order information
+
+
 
 @enduml

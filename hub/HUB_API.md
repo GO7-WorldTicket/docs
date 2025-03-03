@@ -1,28 +1,28 @@
 ---
 layout: default
-title: Offer Context Flow API
+title: GO7 HUB API
 ---
 
-# HUB Offer Context API
+# GO7 HUB API
 
 ## Table of Contents
 
 - [Introduction](#introduction)
 - [Business Flow](#business-flow)
-- [Postman Collection](#postman-collection)
-- [Offer Context Flow API](#offer-context-flow-api)
+- [Insomnia Collection](#insomnia-collection)
+- [GO7 HUB API](#go7-hub-api)
 
 ## Change Log
 
-| Change Description                                   | Changed By            | Change Date |
-|------------------------------------------------------|-----------------------|-------------|
-| Initial creation of the document                     | Ruslan Miroshnychenko | 2025-02-28  |
+| Change Description                                   | Changed By | Change Date |
+|------------------------------------------------------|------------|-------------|
+| Initial creation of the document                     |            |             |
 
 <br />
 
 # Introduction
 
-This document outlines the integration of the HUB API for Offer Context functionality
+This document outlines the integration of the GO7 HUB API functionality
 
 ## Endpoints
 
@@ -41,13 +41,15 @@ This document outlines the integration of the HUB API for Offer Context function
 
 # Business Flow
 
-This diagram illustrates the API call sequence for searching available routes, request list of calendar items, find flight offers and service offers, request seat-map and reserve/release seat.
+This diagram illustrates the GO7 HUB API calls sequence for searching available routes, request list of calendar items, find flight offers and service offers, request seat-map and reserve/release seat.
+Create order, update passenger information and pay for order.
 
-![Alt text](diagrams/offer_context.svg "Business flow")
+![Alt text](diagrams/hub_basic_flow.svg "Business flow")
 
-# Postman Collection
+# Insomnia Collection
+Please make separate request for Insomnia collection
 
-# Offer Context Flow API
+# GO7 HUB API
 
 |       | Production | Test                                    |
 |-------|------------|-----------------------------------------|
@@ -60,4 +62,3 @@ This diagram illustrates the API call sequence for searching available routes, r
 - [Service Offers Search](endpoints/service_offers_search.md)
 - [Seat availability search](endpoints/seat_availability.md)
 - [Reserve and release seat](endpoints/reserve_release_seat.md)
-
