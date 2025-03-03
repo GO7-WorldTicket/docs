@@ -6,10 +6,10 @@
 
 | Parameter         | Type | Data Type | Description            | Example                  |
 |-------------------|------|-----------|------------------------|--------------------------|
-| departure.code    | C    | String    | Departure airport code | BER                      |
-| departure.context | C    | Enum      | Departure context      | [AIRPORT, CITY, COUNTRY] |
-| arrival.code      | C    | String    | Arrival airport code   | BCN                      |
-| arrival.context   | C    | Enum      | Arrival context        | [AIRPORT, CITY, COUNTRY] |
+| departure.code    | O    | String    | Departure airport code | BER                      |
+| departure.context | O    | Enum      | Departure context      | [AIRPORT, CITY, COUNTRY] |
+| arrival.code      | O    | String    | Arrival airport code   | BCN                      |
+| arrival.context   | O    | Enum      | Arrival context        | [AIRPORT, CITY, COUNTRY] |
 
 
 #### Request

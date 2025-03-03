@@ -39,53 +39,6 @@
                 price
             }
         }
-
-Mandatory fields:
-<table><tr><th>Field name</th>
-        <th>Field type</th>
-        <th>Example</th>
-      </tr>
-      <tr>
-        <td>departureDateFrom</td>
-        <td>LocalDate</td>
-        <td>2025-03-01</td>
-      </tr>
-      <tr>
-        <td>departureDateTo</td>
-        <td>LocalDate</td>
-        <td>2025-03-31</td>
-      </tr>
-      <tr>
-        <td>origin</td>
-        <td>String</td>
-        <td>BER</td>
-      </tr>
-      <tr>
-        <td>destination</td>
-        <td>String</td>
-        <td>BCN</td>
-      </tr>
-      <tr>
-        <td>journeyType</td>
-        <td>Enum</td>
-        <td>[ONE_WAY, ROUND_TRIP, CIRCLE_TRIP, OPEN_JAW]</td>
-      </tr>
-      <tr>
-        <td>originContext</td>
-        <td>Enum</td>
-        <td>[AIRPORT, CITY, COUNTRY]</td>
-      </tr>
-      <tr>
-        <td>destinationContext</td>
-        <td>Enum</td>
-        <td>[AIRPORT, CITY, COUNTRY]</td>
-      </tr>
-      <tr>
-        <td>passengerType</td>
-        <td>Enum</td>
-        <td>[ADULT, CHILD, INFANT, UNACCOMPINED_MINOR]</td>
-      </tr>
-</table>
   </pre>
 </details>
 

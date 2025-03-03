@@ -4,7 +4,7 @@
 
 | Parameter                       | Type | Data Type | Description                                      | Example                                                                   |
 |---------------------------------|------|-----------|--------------------------------------------------|---------------------------------------------------------------------------|
-| serviceQuery.currencyCode       | C    | String    | Request service offer currency code              | USD                                                                       |
+| serviceQuery.currencyCode       | O    | String    | Request service offer currency code              | USD                                                                       |
 | offerItemSearchKeys.offerId     | M    | Enum      | Offer id from flight offers search response      | a220060b-7820-49e9-ba1c-b02c9d299fd9                                      |
 | offerItemSearchKeys.offerItemId | M    | String    | Offer item id from flight offers search response | acc0342b-e71e-4018-b2f0-6c6526f5f4ae:2a0b507e-1943-4435-b433-50bad588f12e |
 
