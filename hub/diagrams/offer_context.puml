@@ -1,0 +1,103 @@
+@startuml
+
+actor "End customer" as customer
+
+box GO7 #lightblue
+    participant "go7-gateway" as gateway
+    participant "search-service" as search_service
+    participant "calendar-service" as calendar_service
+    participant "offer-management-service" as offer_service
+    participant "order-management-service" as order_service
+end box
+
+box PSS #pink
+  participant "PSS" as pss
+end box
+
+autonumber
+
+title Offer Context flow
+
+== Use case: Find Available Routes ==
+customer->gateway: query: Find Available Routes
+note right
+Show the routes options
+Departure and Arrival airports
+end note
+gateway->search_service:Get routes
+search_service->gateway:Routes
+gateway->customer: List of available routes
+
+== Use case: Calendar Availability ==
+customer->gateway: query: Calendar Availability
+note right
+Low fare calendar availability
+Lowest price per flight date
+end note
+gateway->calendar_service:Get calendar availabilities
+calendar_service->gateway:Calendar availabilities
+calendar_service->customer: List of calendar availabilities
+
+== Use case: Flight Offers Search ==
+customer->gateway: mutation: Flight Offers Search
+note right
+Flight offers search
+Lists available flight offers
+end note
+gateway->offer_service:Get flight offers
+opt If no offers in cache
+offer_service->pss:Request flight offers
+pss->offer_service:Flight offers
+end
+offer_service->gateway:Flight offers
+gateway->customer: List of flight offers
+
+== Use case: Create Order ==
+customer->gateway: mutation: Create order
+note right
+Create order for selected offer
+Order information
+end note
+gateway->order_service:Create order
+order_service->gateway:Order information
+gateway->customer: Order information
+
+== Use case: Service Offers Search ==
+customer->gateway: mutation: Service Offers Search
+note right
+Search service offers by flight offer
+Lists available service offers
+end note
+gateway->offer_service:Get service offers
+opt If no offers in cache
+offer_service->pss:Request service offers
+pss->offer_service:Service offers
+end
+offer_service->gateway:Service offers
+gateway->customer: List of service offers
+
+== Use case: Seat Availability Search ==
+customer->gateway: mutation: Seat Availability Search
+note right
+Search seat-map structure and seat offers
+Seat-map and seat offers
+end note
+gateway->offer_service:Get seat offers
+opt If no offers in cache
+offer_service->pss:Request seat offers
+pss->offer_service:Seat offers
+end
+offer_service->gateway:Seat offers
+gateway->customer: List of seat offers
+
+== Use case: Reserve and Release Seat ==
+customer->gateway: mutation: Reserve/release seat
+note right
+Reserve/release seat
+Order structure
+end note
+gateway->offer_service:Reserve/release seat
+offer_service->gateway:Order structure
+gateway->customer: Order structure
+
+@enduml
