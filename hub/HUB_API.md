@@ -62,3 +62,8 @@ Please make separate request for Insomnia collection
 - [Service Offers Search](endpoints/service_offers_search.md)
 - [Seat availability search](endpoints/seat_availability.md)
 - [Reserve and release seat](endpoints/reserve_release_seat.md)
+- [Get Order](endpoints/order/get_order.md)
+- [Create Order](endpoints/order/create_order.md)
+- [Update Passengers in Order](endpoints/order/update_passenger.md)
+- [Add Service to the Order](endpoints/order/add_service.md)
+- [Confirm Order](endpoints/order/confirm_order.md)
