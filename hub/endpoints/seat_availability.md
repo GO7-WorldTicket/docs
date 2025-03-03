@@ -5985,3 +5985,10 @@
 }
   </pre>
 </details>
+
+#### Error messages
+
+| Message                                              | Description                                                                                    |
+|------------------------------------------------------|------------------------------------------------------------------------------------------------|
+| Selected offer item with the given ID does not exist | Unable to find flight offer by provided offer id. Make sure that provided offer id is correct. |
+

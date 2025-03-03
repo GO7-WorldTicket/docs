@@ -2147,4 +2147,9 @@
   </pre>
 </details>
 
+#### Error messages
+
+| Message                                                  | Description                                                                                                   |
+|----------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
+| Offer with the given ID does not exist or expired            | Unable to find flight offer by provided offer id. Make sure that provided offer id is correct.                |
 

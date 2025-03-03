@@ -1098,4 +1098,13 @@ mutation {
   </pre>
 </details>
 
+#### Error messages
+
+| Message                                                                                                                           | Description                                                                             |
+|-----------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------|
+| Order with id {s} not found                                                                                                       | Unable to find order by provided order id. Make sure that provided order id is correct. |
+| Passenger with rph {n} already contains reserved seat {s}/{s} for segment with rph {n}. Release it first before reserving new one | Release already reserved seat before reserve new one                                    |
+| For given order items guarantee failed: {s}                                                                                       | Reserve/release operation failed on PSS side                                            |
+
+
 

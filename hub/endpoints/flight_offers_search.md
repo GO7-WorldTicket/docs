@@ -3677,9 +3677,10 @@
 
 #### Error messages
 
-| Message                                                | Description                                                                                                   |
-|--------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
-| Currency {requestedCurrency} is not supported          | Requested currency is not configured as supported.<br/>Try to use supported currency or configure it.         |
-| Travel classes {requestedTravelClass} is not supported | Requested travel class is not configured as supported.<br/>Try to use supported travel class or configure it. |
-
-
+| Message                                                  | Description                                                                                                   |
+|----------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
+| Currency {requestedCurrency} is not supported            | Requested currency is not configured as supported.<br/>Try to use supported currency or configure it.         |
+| Travel classes {requestedTravelClass} is not supported   | Requested travel class is not configured as supported.<br/>Try to use supported travel class or configure it. |
+| Route {route} is restricted                              | Route is restricted according to configuration.<br/>Enable it in configuration setup.                         |
+| UMNR service is not provided by the carrier              | UMNR service not allowed by PSS.                                                                              |
+| Max passengers quantity exceeded. Allowed {n} passengers | Max passengers quantity exceeded. Update it in configuration setup.                                           |
