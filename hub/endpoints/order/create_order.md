@@ -22,7 +22,7 @@
 <details>
   <summary><b>Request body</b></summary>
 
-````graphql
+<pre>
 mutation createOrder($offerId: String!) {
 	order: createOrder(createOrderRequest: { offerId: $offerId }) {
 		orderId
@@ -46,27 +46,13 @@ mutation createOrder($offerId: String!) {
 		}
 	}
 }
-````
+</pre>
 </details>
-
-  <pre>
-Mandatory fields:
-<table><tr><th>Field name</th>
-        <th>Field type</th>
-        <th>Example</th>
-      </tr>
-      <tr>
-        <td>offerId</td>
-        <td>String</td>
-        <td>395feee0-ce6c-491b-9644-b2c120d868d3</td>
-      </tr>
-</table>
-  </pre>
 
 <details>
   <summary><b>Response body</b></summary>
   
-````graphql
+<pre>
 {
 	"data": {
 		"order": {
@@ -90,5 +76,5 @@ Mandatory fields:
 		}
 	}
 }
-````
+</pre>
 </details>
