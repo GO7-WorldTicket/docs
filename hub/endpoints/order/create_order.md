@@ -21,7 +21,6 @@
 
 <details>
   <summary><b>Request body</b></summary>
-
 <pre>
 mutation createOrder($offerId: String!) {
 	order: createOrder(createOrderRequest: { offerId: $offerId }) {
@@ -51,7 +50,6 @@ mutation createOrder($offerId: String!) {
 
 <details>
   <summary><b>Response body</b></summary>
-  
 <pre>
 {
 	"data": {

@@ -21,8 +21,7 @@
 
 <details>
   <summary><b>Request body</b></summary>
-
-````graphql
+<pre>
 query getOrder($orderId: ID!) {
 	order: order(id: $orderId) {
 		orderId
@@ -280,27 +279,12 @@ query getOrder($orderId: ID!) {
 		}
 	}
 }
-````
+</pre>
 </details>
-
-  <pre>
-Mandatory fields:
-<table><tr><th>Field name</th>
-        <th>Field type</th>
-        <th>Example</th>
-      </tr>
-      <tr>
-        <td>orderId</td>
-        <td>String</td>
-        <td>506df3e6-55eb-4dcc-b9da-9dd7ea0bf94</td>
-      </tr>
-</table>
-  </pre>
 
 <details>
   <summary><b>Response body</b></summary>
-
-````graphql
+<pre>
 {
 	"data": {
 		"order": {
@@ -476,5 +460,5 @@ Mandatory fields:
 		}
 	}
 }
-````
+</pre>
 </details>

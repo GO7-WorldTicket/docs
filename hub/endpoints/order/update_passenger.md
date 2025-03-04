@@ -25,8 +25,7 @@
 
 <details>
   <summary><b>Request body</b></summary>
-
-````graphql
+<pre>
 mutation updatePassengers
 (
     $orderId: ID!,
@@ -112,13 +111,13 @@ mutation updatePassengers
         }
     }
 }
-````
+</pre>
+
 </details>
 
 <details>
   <summary><b>Response body</b></summary>
-
-````graphql
+<pre>
 {
 	"data": {
 		"order": {
@@ -142,5 +141,5 @@ mutation updatePassengers
 		}
 	}
 }
-````
+</pre>
 </details>

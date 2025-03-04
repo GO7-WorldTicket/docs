@@ -197,8 +197,7 @@ mutation (
 
 <details>
   <summary><b>Request body</b></summary>
-
-```json
+<pre>
 mutation (
     $orderId: ID!
     $total: BigDecimal!
@@ -332,12 +331,10 @@ mutation (
         }
     }
 }
-```
+</pre>
 </details>
 
 <details>
   <summary><b>Response body</b></summary>
-
-```graphql
-```
+<pre></pre>
 </details>
