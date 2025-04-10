@@ -23,7 +23,7 @@ curl -X POST \
 <details open>
   <summary>Request Payload</summary>
 
-```json
+  <pre><code>
 {
   "version": "2.001",
   "pos": {
@@ -53,7 +53,7 @@ curl -X POST \
     ]
   }
 }
-```
+  </code></pre>
 </details>
 
 #### Response
@@ -66,7 +66,7 @@ curl -X POST \
 <details>
   <summary>Response Payload</summary>
 
-```json
+  <pre><code>
 {
   "success": {},
   "airReservation": {
@@ -658,5 +658,5 @@ curl -X POST \
   },
   "version": 2.001
 }
-```
+  </code></pre>
 </details>
