@@ -54,6 +54,14 @@ curl -X POST \
     }
   </pre>
 </details>
+
+#### Response
+
+`OTA_AirBookRS` response contains:
+* **Itinerary**: segment information
+* **Traveler**: traveler information
+* **Ticketing**: ticket number, coupon status, ticket download URI etc
+
 <details>
   <summary>Response Payload</summary>
   <pre>
@@ -473,6 +481,14 @@ curl -X POST \
                   "number": "1",
                   "status": "O"
                 }
+              ],
+              "links": [
+                {
+                  "href" : "https://domain.com/tickets/download?ref=11",
+                  "rel" : "downloadTicket",
+                  "segmentRPH" : "1",
+                  "travelerRPH" : "1"
+                }
               ]
             }
           },
@@ -492,6 +508,14 @@ curl -X POST \
                   "flightRefRPH": "1",
                   "number": "1",
                   "status": "O"
+                }
+              ],
+              "links": [
+                {
+                  "href" : "https://domain.com/tickets/download?ref=12",
+                  "rel" : "downloadTicket",
+                  "segmentRPH" : "1",
+                  "travelerRPH" : "2"
                 }
               ]
             }
@@ -513,6 +537,14 @@ curl -X POST \
                   "number": "1",
                   "status": "O"
                 }
+              ],
+              "links": [
+                {
+                  "href" : "https://domain.com/tickets/download?ref=13",
+                  "rel" : "downloadTicket",
+                  "segmentRPH" : "1",
+                  "travelerRPH" : "3"
+                }
               ]
             }
           },
@@ -533,6 +565,14 @@ curl -X POST \
                   "number": "1",
                   "status": "O"
                 }
+              ],
+              "links": [
+                {
+                  "href" : "https://domain.com/tickets/download?ref=14",
+                  "rel" : "downloadTicket",
+                  "segmentRPH" : "1",
+                  "travelerRPH" : "4"
+                }
               ]
             }
           },
@@ -552,6 +592,14 @@ curl -X POST \
                   "flightRefRPH": "1",
                   "number": "1",
                   "status": "O"
+                }
+              ],
+              "links": [
+                {
+                  "href" : "https://domain.com/tickets/download?ref=15",
+                  "rel" : "downloadTicket",
+                  "segmentRPH" : "1",
+                  "travelerRPH" : "5"
                 }
               ]
             }
