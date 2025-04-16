@@ -23,20 +23,20 @@ title: The Title of Your Page
 
 ## Change Log
 
-| Change Description [Changelog](changelog.md)         | Changed By              | Change Date |
-|------------------------------------------------------|-------------------------|-------------|
-| Download Ticket URI (links introduced)               | Andrii Denysenko        | 2025-04-16  |
-| Initial creation of the document                     | Arnon Ruangthanawes     | 2024-03-19  |
-| Update api urls, and add examples                    | Arnon Ruangthanawes     | 2024-03-26  |
-| Update code mapping                                  | Arnon Ruangthanawes     | 2024-05-13  |
-| Include error messages in Low Fare Search            | Arnon Ruangthanawes     | 2024-05-14  |
-| Describe how to cancel booking entirely or partially | Sergii Poltorak         | 2024-05-22  |
-| Upload schema and postman files                      | Arnon Ruangthanawes     | 2024-05-29  |
-| Add resending email endpoint                         | Sittiwet Mahapratoom    | 2024-07-12  |
-| Revise document structures                           | Arnon Ruangthanawes     | 2024-07-12  |
-| Add cancel duration policy                           | Arnon Ruangthanawes     | 2024-07-16  |
-| Add download ticket endpoints                        | Duangtida Athakravi     | 2024-07-16  |
-| Add send cancelled email flow                        | Benjaporn Kunathanachot | 2024-07-24  |
+| Change Description                                                          | Changed By              | Change Date |
+|-----------------------------------------------------------------------------|-------------------------|-------------|
+| Download Ticket URI (links introduced) [Changelog](changelog.md#2025-04-16) | Andrii Denysenko        | 2025-04-16  |
+| Initial creation of the document                                            | Arnon Ruangthanawes     | 2024-03-19  |
+| Update api urls, and add examples                                           | Arnon Ruangthanawes     | 2024-03-26  |
+| Update code mapping                                                         | Arnon Ruangthanawes     | 2024-05-13  |
+| Include error messages in Low Fare Search                                   | Arnon Ruangthanawes     | 2024-05-14  |
+| Describe how to cancel booking entirely or partially                        | Sergii Poltorak         | 2024-05-22  |
+| Upload schema and postman files                                             | Arnon Ruangthanawes     | 2024-05-29  |
+| Add resending email endpoint                                                | Sittiwet Mahapratoom    | 2024-07-12  |
+| Revise document structures                                                  | Arnon Ruangthanawes     | 2024-07-12  |
+| Add cancel duration policy                                                  | Arnon Ruangthanawes     | 2024-07-16  |
+| Add download ticket endpoints                                               | Duangtida Athakravi     | 2024-07-16  |
+| Add send cancelled email flow                                               | Benjaporn Kunathanachot | 2024-07-24  |
 
 <br />
 
