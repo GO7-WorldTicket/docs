@@ -23,8 +23,9 @@ title: The Title of Your Page
 
 ## Change Log
 
-| Change Description                                   | Changed By              | Change Date |
+| Change Description [Changelog](changelog.md)         | Changed By              | Change Date |
 |------------------------------------------------------|-------------------------|-------------|
+| Download Ticket URI (links introduced)               | Andrii Denysenko        | 2025-04-16  |
 | Initial creation of the document                     | Arnon Ruangthanawes     | 2024-03-19  |
 | Update api urls, and add examples                    | Arnon Ruangthanawes     | 2024-03-26  |
 | Update code mapping                                  | Arnon Ruangthanawes     | 2024-05-13  |
