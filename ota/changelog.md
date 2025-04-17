@@ -4,8 +4,8 @@
 
 #### Improved documents URLs in `TPAExtension` for `OTA_AirDemandTicketRS` and `OTA_AirBookRS`
 
-To eliminate ambiguity in document download URLs and to simplify handling service responses, 
-the `links` block has been added instead of the string field `urls`. 
+To remove ambiguity in document download URLs and to simplify handling service responses, 
+the `links` element has been added instead of the string field `urls`. 
 The old field (`urls`) will remain for backward compatibility. 
 The new field will contain the actual URL (`href`), a relation type (`rel`), and **optional** `segmentRPH` and `travelerRPH`.
 
