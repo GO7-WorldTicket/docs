@@ -2706,3 +2706,41 @@ curl -X POST \
     }
   </pre>
 </details>
+---
+
+### ✅ Required Fields Summary
+
+This section lists the required fields for each booking type to help ensure proper request formatting.
+
+#### 🧍 Regular Booking (AirBookRQ)
+
+| Field                            | Location      | Description                           |
+|----------------------------------|---------------|---------------------------------------|
+| `version`                        | Root          | API version (e.g., "2.001")           |
+| `pos.source[].requestorID.id`    | Payload       | Agent ID                              |
+| `pos.source[].requestorID.name`  | Payload       | Agency ID                             |
+| `pos.source[].bookingChannel`    | Payload       | Must include `type: "OTA"`            |
+| `airItinerary.originDestinationOptions` | Payload | Flight segment details                |
+| `travelerInfo.airTraveler`       | Payload       | List of passengers with full details  |
+| `passengerTypeCode`              | Each traveler | E.g., "ADT", "CTC"                    |
+| `personName.givenName`, `surname`| Each traveler | Passenger name                        |
+| `document[]`                     | Each traveler | Passport or ID info (excluding CTC)   |
+| `telephone`, `email`             | Each traveler | Contact details                       |
+
+#### 👥 Group Booking (AirPriceRQ)
+
+| Field                                  | Location      | Description                             |
+|----------------------------------------|---------------|-----------------------------------------|
+| `version`                              | Root          | API version (e.g., "2.001")             |
+| `pos.source[].requestorID.id`          | Payload       | Agent ID                                |
+| `pos.source[].requestorID.name`        | Payload       | Agency ID                               |
+| `airItinerary.originDestinationOptions`| Payload       | Flight segment details                  |
+| `travelerInfoSummary.airTravelerAvail[].passengerTypeQuantity` | Payload | Required passenger quantities          |
+| `airTraveler.passengerTypeCode`        | Payload       | Must include a "CTC" contact passenger |
+| `personName.givenName`, `surname`      | CTC traveler  | Contact person name                     |
+| `email`, `telephone` (optional)        | CTC traveler  | Contact details                         |
+
+> 💡 *Note: The contact (CTC) passenger is required in both booking types for reference purposes.*
+
+#### Group Booking Completion Policy
+> **Note:** Group bookings can be created and confirmed on HHR, but ticket issuance requires passenger information. Customers must complete the booking within 72 hours.

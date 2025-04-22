@@ -3,3 +3,5 @@
 
 *.lock
 _site/
+/Gemfile
+/_config.yml
