@@ -23,23 +23,23 @@ title: The Title of Your Page
 
 ## Change Log
 
-| Change Description                                                          | Changed By              | Change Date |
-|-----------------------------------------------------------------------------|-------------------------|-------------|
-| Add group booking completion policy                                         | Sittiwet Mahapratoom    | 2025-04-22  |
-| Describe error response changes                                             | Sittiwet Mahapratoom    | 2025-04-22  |
-| Specify the required fields summary                                         | Sittiwet Mahapratoom    | 2025-04-22  |
-| Download Ticket URI (links introduced) [Changelog](changelog.md#2025-04-16) | Andrii Denysenko        | 2025-04-16  |
-| Add send cancelled email flow                                               | Benjaporn Kunathanachot | 2024-07-24  |
-| Add download ticket endpoints                                               | Duangtida Athakravi     | 2024-07-16  |
-| Add cancel duration policy                                                  | Arnon Ruangthanawes     | 2024-07-16  |
-| Add resending email endpoint                                                | Sittiwet Mahapratoom    | 2024-07-12  |
-| Revise document structures                                                  | Arnon Ruangthanawes     | 2024-07-12  |
-| Upload schema and postman files                                             | Arnon Ruangthanawes     | 2024-05-29  |
-| Describe how to cancel booking entirely or partially                        | Sergii Poltorak         | 2024-05-22  |
-| Include error messages in Low Fare Search                                   | Arnon Ruangthanawes     | 2024-05-14  |
-| Update code mapping                                                         | Arnon Ruangthanawes     | 2024-05-13  |
-| Update api urls, and add examples                                           | Arnon Ruangthanawes     | 2024-03-26  |
-| Initial creation of the document                                            | Arnon Ruangthanawes     | 2024-03-19  |
+| Change Description                                                                              | Changed By              | Change Date |
+|-------------------------------------------------------------------------------------------------|-------------------------|-------------|
+| [Add group booking completion policy](endpoints/create_booking#group-booking-completion-policy) | Sittiwet Mahapratoom    | 2025-04-22  |
+| [Describe error response changes](endpoints/error-response)                                     | Sittiwet Mahapratoom    | 2025-04-22  |
+| [Specify the required fields summary](endpoints/create_booking#-required-fields-summary)        | Sittiwet Mahapratoom    | 2025-04-22  |
+| [Download Ticket URI](changelog.md#2025-04-16)                   | Andrii Denysenko        | 2025-04-16  |
+| Add send cancelled email flow                                                                   | Benjaporn Kunathanachot | 2024-07-24  |
+| Add download ticket endpoints                                                                   | Duangtida Athakravi     | 2024-07-16  |
+| Add cancel duration policy                                                                      | Arnon Ruangthanawes     | 2024-07-16  |
+| Add resending email endpoint                                                                    | Sittiwet Mahapratoom    | 2024-07-12  |
+| Revise document structures                                                                      | Arnon Ruangthanawes     | 2024-07-12  |
+| Upload schema and postman files                                                                 | Arnon Ruangthanawes     | 2024-05-29  |
+| Describe how to cancel booking entirely or partially                                            | Sergii Poltorak         | 2024-05-22  |
+| Include error messages in Low Fare Search                                                       | Arnon Ruangthanawes     | 2024-05-14  |
+| Update code mapping                                                                             | Arnon Ruangthanawes     | 2024-05-13  |
+| Update api urls, and add examples                                                               | Arnon Ruangthanawes     | 2024-03-26  |
+| Initial creation of the document                                                                | Arnon Ruangthanawes     | 2024-03-19  |
 
 <br />
 
