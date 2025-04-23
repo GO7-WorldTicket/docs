@@ -25,10 +25,11 @@ title: The Title of Your Page
 
 | Change Description                                                                              | Changed By              | Change Date |
 |-------------------------------------------------------------------------------------------------|-------------------------|-------------|
+| [Error handling change](changelog.md#2025-04-23)                                                | Sittiwet Mahapratoom        | 2025-04-23  |
 | [Add group booking completion policy](endpoints/create_booking#group-booking-completion-policy) | Sittiwet Mahapratoom    | 2025-04-22  |
 | [Describe error response changes](endpoints/error-response)                                     | Sittiwet Mahapratoom    | 2025-04-22  |
 | [Specify the required fields summary](endpoints/create_booking#-required-fields-summary)        | Sittiwet Mahapratoom    | 2025-04-22  |
-| [Download Ticket URI](changelog.md#2025-04-16)                   | Andrii Denysenko        | 2025-04-16  |
+| [Download Ticket URI](changelog.md#2025-04-16)                                                  | Andrii Denysenko        | 2025-04-16  |
 | Add send cancelled email flow                                                                   | Benjaporn Kunathanachot | 2024-07-24  |
 | Add download ticket endpoints                                                                   | Duangtida Athakravi     | 2024-07-16  |
 | Add cancel duration policy                                                                      | Arnon Ruangthanawes     | 2024-07-16  |

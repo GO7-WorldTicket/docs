@@ -2757,13 +2757,13 @@ This section lists the required fields for each booking type to help ensure prop
 
 For each traveler (excluding the contact traveler, i.e., `CTC`), the following fields in the `document[]` array are required:
 
-| Field                   | Required | Description                                                                             |
-|-------------------------|----------|-----------------------------------------------------------------------------------------|
-| `docID`                 | ✅       | Passport or national ID number                                                          |
-| `docType`               | ✅       | Type of document (e.g., "2" for passport) [Document Type](../OTA_API_SAR#document-type) |
-| `docHolderNationality`  | ✅       | ISO country code (e.g., "SA" for Saudi Arabia)                                          |
-| `birthDate`             | ✅       | Traveler's birth date in `YYYY-MM-DD` format                                            |
-| `expireDate`            | ✅       | Document expiration date in `YYYY-MM-DD` format                                         |
+| Field                   | Required | Description                                       |
+|-------------------------|----------|---------------------------------------------------|
+| `docID`                 | ✅       | Passport or national ID number                    |
+| `docType`               | ✅       | [Type of document (e.g., "2" for passport)](../OTA_API_SAR#document-type) |
+| `docHolderNationality`  | ✅       | ISO country code (e.g., "SA" for Saudi Arabia)    |
+| `birthDate`             | ✅       | Traveler's birth date in `YYYY-MM-DD` format      |
+| `expireDate`            | ✅       | Document expiration date in `YYYY-MM-DD` format   |
 
 > 💡 *All fields must be present for each traveler except the contact (`CTC`) passenger.*
 
