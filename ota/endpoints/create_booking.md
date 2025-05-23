@@ -2714,42 +2714,42 @@ This section lists the required fields for each booking type to help ensure prop
 
 #### 🧍 Regular Booking (AirBookRQ)
 
-| Field                            | Location      | Description                                                       |
-|----------------------------------|---------------|-------------------------------------------------------------------|
-| `version`                        | Root          | API version (e.g., "2.001")                                       |
-| `pos.source[].requestorID.id`    | Payload       | Agent ID                                                          |
-| `pos.source[].requestorID.name`  | Payload       | Agency ID                                                         |
-| `pos.source[].bookingChannel`    | Payload       | Must include `type: "OTA"`                                        |
-| `airItinerary.originDestinationOptions` | Payload | Flight segment details                                            |
-| `travelerInfo.airTraveler`       | Payload       | List of passengers with full details                              |
-| `airTraveler.passengerTypeCode`        | Payload       | Must include a "CTC" contact passenger                            |
-| `personName.givenName`, `surname`      | CTC traveler  | Contact person name                                               |
-| `email`, `telephone` (optional)        | CTC traveler  | Contact details                                                   |
-| `passengerTypeCode`              | Each traveler | Passenger type code: “ADT” (Adult), “CHD” (Child), “INF” (Infant) |
-| `personName.givenName`, `surname`| Each traveler | Passenger name                                                    |
-| `document[]`                     | Each traveler | Document information                                              |
-| `email`, `telephone` (optional)              | Each traveler | Contact details                                                   |
+| Field                                      | Location      | Description                                                       |
+|--------------------------------------------|---------------|-------------------------------------------------------------------|
+| `version`                                  | Root          | API version (e.g., "2.001")                                       |
+| `pos.source[].requestorID.id`              | Payload       | Agent ID                                                          |
+| `pos.source[].requestorID.name`            | Payload       | Agency ID                                                         |
+| `pos.source[].bookingChannel`              | Payload       | Must include `type: "OTA"`                                        |
+| `airItinerary.originDestinationOptions`    | Payload | Flight segment details                                            |
+| `travelerInfo.airTraveler`                 | Payload       | List of passengers with full details                              |
+| `airTraveler.passengerTypeCode`            | Payload       | Must include a "CTC" contact passenger                            |
+| `personName.givenName`, `surname`          | CTC traveler  | Contact person name                                               |
+| `email`, `telephone` (optional)            | CTC traveler  | Contact details                                                   |
+| `passengerTypeCode`                        | Each traveler | Passenger type code: “ADT” (Adult), “CHD” (Child), “INF” (Infant) |
+| `personName.givenName`, `surname`, `gender` | Each traveler | Passenger name and gender                                         |
+| `document[]`                               | Each traveler | Document information                                              |
+| `email`, `telephone` (optional)            | Each traveler | Contact details                                                   |
 
 #### 👥 Group Booking (AirPriceRQ)
 
-| Field                                                                  | Location      | Description                            |
-|------------------------------------------------------------------------|---------------|----------------------------------------|
-| `version`                                                              | Root          | API version (e.g., "2.001")            |
-| `pos.source[].requestorID.id`                                          | Payload       | Agent ID                               |
-| `pos.source[].requestorID.name`                                        | Payload       | Agency ID                              |
-| `pos.source[].bookingChannel`                                          | Payload       | Must include `type: "OTA"`           |
-| `airItinerary.originDestinationOptions`                                | Payload       | Flight segment details                 |
-| `travelerInfoSummary.airTravelerAvail[].passengerTypeQuantity`         | Payload | Required passenger quantities including `code` and `quantity` |
-| `passengerTypeQuantity.code`                                           | Payload  | Passenger type code: "ADT" (Adult), "CHD" (Child), "INF" (Infant) |
-| `passengerTypeQuantity.quantity`                                       | Payload  | Number of passengers for the given type                        |
-| `travelerInfoSummary.airTravelerAvail[].airTraveler`                               | Payload       | List of passengers with full details |
-| `airTraveler.passengerTypeCode`        | Payload       | Must include a "CTC" contact passenger |
-| `personName.givenName`, `surname`                                      | CTC traveler  | Contact person name                    |
-| `email`, `telephone` (optional)                                        | CTC traveler  | Contact details                        |
-| `airTraveler.passengerTypeCode`                                        | Each traveler | Passenger type code: “ADT” (Adult), “CHD” (Child), “INF” (Infant)                   |
-| `personName.givenName`, `surname`                                      | Each traveler | Passenger name                       |
-| `document[]`                                                           | Each traveler | Document information  |
-| `email`, `telephone` (optional)                                        | Each traveler | Contact details                      |
+| Field                                                          | Location      | Description                                                       |
+|----------------------------------------------------------------|---------------|-------------------------------------------------------------------|
+| `version`                                                      | Root          | API version (e.g., "2.001")                                       |
+| `pos.source[].requestorID.id`                                  | Payload       | Agent ID                                                          |
+| `pos.source[].requestorID.name`                                | Payload       | Agency ID                                                         |
+| `pos.source[].bookingChannel`                                  | Payload       | Must include `type: "OTA"`                                        |
+| `airItinerary.originDestinationOptions`                        | Payload       | Flight segment details                                            |
+| `travelerInfoSummary.airTravelerAvail[].passengerTypeQuantity` | Payload | Required passenger quantities including `code` and `quantity`     |
+| `passengerTypeQuantity.code`                                   | Payload  | Passenger type code: "ADT" (Adult), "CHD" (Child), "INF" (Infant) |
+| `passengerTypeQuantity.quantity`                               | Payload  | Number of passengers for the given type                           |
+| `travelerInfoSummary.airTravelerAvail[].airTraveler`           | Payload       | List of passengers with full details                              |
+| `airTraveler.passengerTypeCode`                                | Payload       | Must include a "CTC" contact passenger                            |
+| `personName.givenName`, `surname`                              | CTC traveler  | Contact person name                                               |
+| `email`, `telephone` (optional)                                | CTC traveler  | Contact details                                                   |
+| `airTraveler.passengerTypeCode`                                | Each traveler | Passenger type code: “ADT” (Adult), “CHD” (Child), “INF” (Infant) |
+| `personName.givenName`, `surname`, `gender`                    | Each traveler | Passenger name and gender                                         |
+| `document[]`                                                   | Each traveler | Document information                                              |
+| `email`, `telephone` (optional)                                | Each traveler | Contact details                                                   |
 
 > 💡 *Note: The contact (CTC) passenger is required in both booking types for reference purposes.*
 
