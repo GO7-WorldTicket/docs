@@ -32,7 +32,7 @@ curl '{base_url}/tickets/confirmation/{bookingReference}/download' \
 
 ### Download a specific ticket
 
-The following endpoint can now be used to download a specific ticket PDF using the `ticketNumber` and `couponNumber`. 
+The following endpoint can now be used to download a specific ticket PDF using the `ticketNumber` and `couponNumber`. This change was introduced to support the ticket download for the group reservations when passenger names are unknown.
 
 > ⚠️ **Note:** Previous query parameters like `firstName`, `lastName`, `departure`, and `arrival` are still temporarily supported but deprecated. They will be removed in the near future. Please migrate to using `ticketNumber` and `couponNumber`.
 
