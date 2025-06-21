@@ -25,6 +25,7 @@ title: The Title of Your Page
 
 | Change Description                                                                              | Changed By              | Change Date |
 |-------------------------------------------------------------------------------------------------|-------------------------|-------------|
+| [Deprecate download endpoint using passenger details](changelog.md#2025-06-21) | Sittiwet Mahapratoom | 2025-06-21 |
 | [Error handling change](changelog.md#2025-04-23)                                                | Sittiwet Mahapratoom        | 2025-04-23  |
 | [Add group booking completion policy](endpoints/create_booking#group-booking-completion-policy) | Sittiwet Mahapratoom    | 2025-04-22  |
 | [Describe error response changes](endpoints/error-response)                                     | Sittiwet Mahapratoom    | 2025-04-22  |
