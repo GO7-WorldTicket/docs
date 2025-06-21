@@ -32,7 +32,11 @@ curl '{base_url}/tickets/confirmation/{bookingReference}/download' \
 
 ### Download a specific ticket
 
-The following endpoint can be used to download a ticket (pdf file) within a booking.
+The following endpoint can now be used to download a specific ticket PDF using the `ticketNumber` and `couponNumber`. This change was introduced to support the ticket download for the group reservations when passenger names are unknown.
+
+> ⚠️ **Note:** Previous query parameters like `firstName`, `lastName`, `departure`, and `arrival` are still temporarily supported but deprecated. They will be removed in the near future. Please migrate to using `ticketNumber` and `couponNumber`.
+
+The previous version of this endpoint using passenger name and flight route details is still temporarily available, but it is deprecated and will be removed in the near future. Please migrate to using `ticketNumber` and `couponNumber`.
 
 **Endpoint:** `/tickets/confirmation/{bookingReference}/download/passenger-segment`   
 **Method:** `GET`  
@@ -40,19 +44,24 @@ The following endpoint can be used to download a ticket (pdf file) within a book
 
 #### Request Parameters (all required)
 
-| Parameter        | Type   | Description               | Example                                |
-|------------------|--------|---------------------------|----------------------------------------|
-| x-api-key        | Header | Access Token              | [Access token](../OTA_API_SAR#api-key) |
-| bookingReference | Path   | Booking reference         | O8ZKAK                                 |
-| firstName        | Query  | Passenger first name      | JENNIFER                               |
-| lastName         | Query  | Passenger last name       | STEWART                                |
-| departure        | Query  | Departure airport/station | DMX                                    |
-| arrival          | Query  | Arrival airport/station   | JED                                    |
+| Parameter     | Type   | Description           | Example                                |
+|---------------|--------|-----------------------|----------------------------------------|
+| x-api-key     | Header | Access Token          | [Access token](../OTA_API_SAR#api-key) |
+| ticketNumber  | Query  | Ticket number         | 3333330292535                           |
+| couponNumber  | Query  | Coupon number         | 1                                      |
 
 #### Request
 
 ```
-curl '{base_url}/tickets/confirmation/{booking-reference}/download/passenger-segment?firstName={firstName}&lastName={lastName}&departure={departure}&arrival={arrival}' \
+curl '{base_url}/tickets/confirmation/{bookingReference}/download/passenger-segment?ticketNumber={ticketNumber}&couponNumber={couponNumber}' \
+    -H 'x-api-key: {api-key}' \
+    --output ticket.pdf
+```
+
+#### Deprecated Request (will be removed soon)
+
+```
+curl '{base_url}/tickets/confirmation/{bookingReference}/download/passenger-segment?firstName={firstName}&lastName={lastName}&departure={departure}&arrival={arrival}' \
     -H 'x-api-key: {api-key}' \
     --output ticket.pdf
 ```

@@ -1,3 +1,26 @@
+### 2025-06-21
+
+#### Deprecate download endpoint using passenger details and introduce the new one
+
+- Introduced new endpoint to download specific ticket using `ticketNumber` and `couponNumber`
+- Marked the existing endpoint using `firstName`, `lastName`, `departure`, and `arrival` as deprecated
+
+**Example**
+
+**Deprecated Request Format:**
+```bash
+curl '{base_url}/tickets/confirmation/{bookingReference}/download/passenger-segment?firstName=JENNIFER&lastName=STEWART&departure=MKX&arrival=DMX' \
+    -H 'x-api-key: {api-key}' \
+    --output ticket.pdf
+```
+
+**New Request Format:**
+```bash
+curl '{base_url}/tickets/confirmation/{bookingReference}/download/passenger-segment?ticketNumber=3333330292535&couponNumber=1' \
+    -H 'x-api-key: {api-key}' \
+    --output ticket.pdf
+```
+
 ## Changelog
 
 ### 2025-04-23
