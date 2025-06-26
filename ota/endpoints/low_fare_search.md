@@ -459,4998 +459,2473 @@ curl -X POST \
 
 <details>
   <summary>Request Payload</summary>
-  <pre>
-    {
-      "version": "2.001",
-      "pos": {
-        "source": [
-          {
-            "bookingChannel": {
-              "type": "OTA"
-            },
-            "isoCurrency": "SAR",
-            "requestorID": {
-              "type": "5",
-              "id": "<ins>agentId</ins>",
-              "name": "<ins>agencyId</ins>"
-            }
-          }
-        ]
-      },
-      "processingInfo": {
-        "displayOrder": "BY_PRICE_LOW_TO_HIGH",
-        "availabilityIndicator": true
-      },
-      "originDestinationInformation": [
-        {
-          "originLocation": {
-            "locationCode": "MKX"
-          },
-          "destinationLocation": {
-            "locationCode": "DMX"
-          },
-          "departureDateTime": {
-            "value": "2024-05-16",
-            "windowBefore": "P0D",
-            "windowAfter": "P0D"
-          }
+  <pre><code> {
+  "version": "2.001",
+  "pos": {
+    "source": [
+      {
+        "bookingChannel": {
+          "type": "OTA"
+        },
+        "isocurrency": "SAR",
+        "requestorID": {
+          "type": "5",
+          "id": "<ins>agentId</ins>",
+          "name": "<ins>agentId</ins>"
         }
-      ],
-      "specificFlightInfo": {
-        "bookingClassPref": [
-          {
-            "resBookDesigCode": "Y"
-          }
-        ]
+      }
+    ]
+  },
+  "processingInfo": {
+    "displayOrder": "BY_PRICE_LOW_TO_HIGH",
+    "availabilityIndicator": true
+  },
+  "originDestinationInformation": [
+    {
+      "originLocation": {
+        "locationCode": "MKX"
       },
-      "travelerInfoSummary": {
-        "airTravelerAvail": [
+      "destinationLocation": {
+        "locationCode": "JED"
+      },
+      "departureDateTime": {
+        "value": "2025-07-29",
+        "windowBefore": "P0D",
+        "windowAfter": "P0D"
+      }
+    }
+  ],
+  "specificFlightInfo": {
+    "bookingClassPref": [
+      {
+        "resBookDesigCode": "C"
+      },
+      {
+        "resBookDesigCode": "Y"
+      }
+    ]
+  },
+  "travelerInfoSummary": {
+    "airTravelerAvail": [
+      {
+        "passengerTypeQuantity": [
           {
-            "passengerTypeQuantity": [
-              {
-                "code": "ADT",
-                "quantity": 1
-              },
-              {
-                "code": "CHD",
-                "quantity": 0
-              },
-              {
-                "code": "INF",
-                "quantity": 0
-              }
-            ]
+            "code": "ADT",
+            "quantity": 1
+          },
+          {
+            "code": "CHD",
+            "quantity": 0
+          },
+          {
+            "code": "INF",
+            "quantity": 0
           }
         ]
       }
-    }
-  </pre>
+    ]
+  }
+} </code></pre>
 </details>
 
 <details>
   <summary>Response Payload</summary>
-  <pre>
-    {
-        "success": {},
-        "pricedItineraries": {
-            "pricedItinerary": [
-                {
-                    "airItinerary": {
-                        "originDestinationOptions": {
-                            "originDestinationOption": [
-                                {
-                                    "flightSegment": [
-                                        {
-                                            "departureAirport": {
-                                                "locationCode": "MKX"
-                                            },
-                                            "arrivalAirport": {
-                                                "locationCode": "DMX"
-                                            },
-                                            "operatingAirline": {
-                                                "code": "HHR",
-                                                "flightNumber": "0080"
-                                            },
-                                            "equipment": [],
-                                            "departureDateTime": "2024-05-16T08:00:00.000+03:00",
-                                            "arrivalDateTime": "2024-05-16T10:25:00.000+03:00",
-                                            "rph": "1",
-                                            "marketingAirline": {
-                                                "code": "HHR"
-                                            },
-                                            "flightNumber": "0080",
-                                            "resBookDesigCode": "C",
-                                            "bookingClassAvails": [
-                                                {
-                                                    "bookingClassAvail": [
-                                                        {
-                                                            "resBookDesigCode": "C",
-                                                            "resBookDesigQuantity": "55",
-                                                            "resBookDesigStatusCode": "A"
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "bookingClassAvail": [
-                                                        {
-                                                            "resBookDesigCode": "Y",
-                                                            "resBookDesigQuantity": "3",
-                                                            "resBookDesigStatusCode": "A"
-                                                        }
-                                                    ]
-                                                }
-                                            ],
-                                            "comment": [],
-                                            "stopLocation": []
-                                        }
-                                    ],
-                                    "rph": "1"
-                                }
-                            ]
-                        }
+  <pre><code>{
+  "success": {},
+  "pricedItineraries": {
+    "pricedItinerary": [
+      {
+        "airItinerary": {
+          "originDestinationOptions": {
+            "originDestinationOption": [
+              {
+                "flightSegment": [
+                  {
+                    "departureAirport": {
+                      "locationCode": "MKX"
                     },
-                    "airItineraryPricingInfo": {
-                        "itinTotalFare": [
-                            {
-                                "baseFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 200.0
-                                },
-                                "equivFare": [],
-                                "taxes": {
-                                    "tax": [
-                                        {
-                                            "taxCode": "VAT",
-                                            "amount": 30.0
-                                        }
-                                    ],
-                                    "amount": 30.0
-                                },
-                                "fees": {
-                                    "fee": [
-                                        {
-                                            "feeCode": "FE1",
-                                            "amount": 0.0
-                                        },
-                                        {
-                                            "feeCode": "VAT",
-                                            "amount": 0.0
-                                        }
-                                    ],
-                                    "currencyCode": "SAR",
-                                    "amount": 0.0
-                                },
-                                "totalFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 230.0
-                                },
-                                "fareBaggageAllowance": [],
-                                "remark": []
-                            },
-                            {
-                                "baseFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 200.0
-                                },
-                                "equivFare": [],
-                                "taxes": {
-                                    "tax": [
-                                        {
-                                            "taxCode": "VAT",
-                                            "amount": 30.0
-                                        }
-                                    ],
-                                    "amount": 30.0
-                                },
-                                "fees": {
-                                    "fee": [
-                                        {
-                                            "feeCode": "FE1",
-                                            "amount": 0.0
-                                        },
-                                        {
-                                            "feeCode": "VAT",
-                                            "amount": 0.0
-                                        }
-                                    ],
-                                    "currencyCode": "SAR",
-                                    "amount": 0.0
-                                },
-                                "totalFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 230.0
-                                },
-                                "fareBaggageAllowance": [],
-                                "remark": []
-                            }
-                        ],
-                        "fareInfos": {
-                            "fareInfo": [
-                                {
-                                    "fareReference": [
-                                        {
-                                            "value": "WTBUSFMIN"
-                                        }
-                                    ],
-                                    "filingAirline": {
-                                        "value": "HHR"
-                                    },
-                                    "marketingAirline": [],
-                                    "departureAirport": {
-                                        "locationCode": "MKX"
-                                    },
-                                    "arrivalAirport": {
-                                        "locationCode": "DMX"
-                                    },
-                                    "date": [],
-                                    "fareInfo": [],
-                                    "city": [],
-                                    "airport": []
-                                }
-                            ]
-                        },
-                        "ptcfareBreakdowns": {
-                            "ptcfareBreakdown": [
-                                {
-                                    "passengerTypeQuantity": {
-                                        "code": "ADT",
-                                        "quantity": 1
-                                    },
-                                    "fareBasisCodes": {
-                                        "fareBasisCode": [
-                                            {
-                                                "value": "WTBUSFMIN",
-                                                "flightSegmentRPH": "1"
-                                            }
-                                        ]
-                                    },
-                                    "passengerFare": [
-                                        {
-                                            "baseFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 200.0
-                                            },
-                                            "equivFare": [],
-                                            "taxes": {
-                                                "tax": [
-                                                    {
-                                                        "taxCode": "VAT",
-                                                        "amount": 30.0
-                                                    }
-                                                ],
-                                                "amount": 30.0
-                                            },
-                                            "fees": {
-                                                "fee": [
-                                                    {
-                                                        "feeCode": "FE1",
-                                                        "amount": 0.0
-                                                    },
-                                                    {
-                                                        "feeCode": "VAT",
-                                                        "amount": 0.0
-                                                    }
-                                                ],
-                                                "amount": 0.0
-                                            },
-                                            "totalFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 230.0
-                                            },
-                                            "fareBaggageAllowance": [],
-                                            "remark": []
-                                        }
-                                    ],
-                                    "travelerRefNumber": [],
-                                    "fareInfo": [
-                                        {
-                                            "fareReference": [
-                                                {
-                                                    "value": "WTBUSFMIN",
-                                                    "resBookDesigCode": "C",
-                                                    "accountCode": "WTBUSFMIN"
-                                                }
-                                            ],
-                                            "marketingAirline": [],
-                                            "date": [],
-                                            "fareInfo": [],
-                                            "city": [],
-                                            "airport": []
-                                        }
-                                    ],
-                                    "pricingUnit": [],
-                                    "flightRefNumberRPHList": [
-                                        "1"
-                                    ]
-                                },
-                                {
-                                    "passengerTypeQuantity": {
-                                        "code": "ADT",
-                                        "quantity": 1
-                                    },
-                                    "fareBasisCodes": {
-                                        "fareBasisCode": [
-                                            {
-                                                "value": "WTBUSFMIN",
-                                                "flightSegmentRPH": "1"
-                                            }
-                                        ]
-                                    },
-                                    "passengerFare": [
-                                        {
-                                            "baseFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 200.0
-                                            },
-                                            "equivFare": [],
-                                            "taxes": {
-                                                "tax": [
-                                                    {
-                                                        "taxCode": "VAT",
-                                                        "amount": 30.0
-                                                    }
-                                                ],
-                                                "amount": 30.0
-                                            },
-                                            "fees": {
-                                                "fee": [
-                                                    {
-                                                        "feeCode": "FE1",
-                                                        "amount": 0.0
-                                                    },
-                                                    {
-                                                        "feeCode": "VAT",
-                                                        "amount": 0.0
-                                                    }
-                                                ],
-                                                "amount": 0.0
-                                            },
-                                            "totalFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 230.0
-                                            },
-                                            "fareBaggageAllowance": [],
-                                            "remark": []
-                                        }
-                                    ],
-                                    "travelerRefNumber": [],
-                                    "fareInfo": [
-                                        {
-                                            "fareReference": [
-                                                {
-                                                    "value": "WTBUSFMIN",
-                                                    "resBookDesigCode": "Y",
-                                                    "accountCode": "WTBUSFMIN"
-                                                }
-                                            ],
-                                            "marketingAirline": [],
-                                            "date": [],
-                                            "fareInfo": [],
-                                            "city": [],
-                                            "airport": []
-                                        }
-                                    ],
-                                    "pricingUnit": [],
-                                    "flightRefNumberRPHList": [
-                                        "1"
-                                    ]
-                                }
-                            ]
-                        }
+                    "arrivalAirport": {
+                      "locationCode": "JED"
                     },
-                    "notes": [],
-                    "sequenceNumber": 1
-                },
-                {
-                    "airItinerary": {
-                        "originDestinationOptions": {
-                            "originDestinationOption": [
-                                {
-                                    "flightSegment": [
-                                        {
-                                            "departureAirport": {
-                                                "locationCode": "MKX"
-                                            },
-                                            "arrivalAirport": {
-                                                "locationCode": "DMX"
-                                            },
-                                            "operatingAirline": {
-                                                "code": "HHR",
-                                                "flightNumber": "0080"
-                                            },
-                                            "equipment": [],
-                                            "departureDateTime": "2024-05-16T08:00:00.000+03:00",
-                                            "arrivalDateTime": "2024-05-16T10:25:00.000+03:00",
-                                            "rph": "1",
-                                            "marketingAirline": {
-                                                "code": "HHR"
-                                            },
-                                            "flightNumber": "0080",
-                                            "resBookDesigCode": "C",
-                                            "bookingClassAvails": [
-                                                {
-                                                    "bookingClassAvail": [
-                                                        {
-                                                            "resBookDesigCode": "C",
-                                                            "resBookDesigQuantity": "55",
-                                                            "resBookDesigStatusCode": "A"
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "bookingClassAvail": [
-                                                        {
-                                                            "resBookDesigCode": "Y",
-                                                            "resBookDesigQuantity": "3",
-                                                            "resBookDesigStatusCode": "A"
-                                                        }
-                                                    ]
-                                                }
-                                            ],
-                                            "comment": [],
-                                            "stopLocation": []
-                                        }
-                                    ],
-                                    "rph": "1"
-                                }
-                            ]
-                        }
+                    "operatingAirline": {
+                      "code": "HHR",
+                      "flightNumber": "9090"
                     },
-                    "airItineraryPricingInfo": {
-                        "itinTotalFare": [
-                            {
-                                "baseFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 250.0
-                                },
-                                "equivFare": [],
-                                "taxes": {
-                                    "tax": [
-                                        {
-                                            "taxCode": "VAT",
-                                            "amount": 37.5
-                                        }
-                                    ],
-                                    "amount": 37.5
-                                },
-                                "fees": {
-                                    "fee": [
-                                        {
-                                            "feeCode": "FE1",
-                                            "amount": 0.0
-                                        },
-                                        {
-                                            "feeCode": "VAT",
-                                            "amount": 0.0
-                                        }
-                                    ],
-                                    "currencyCode": "SAR",
-                                    "amount": 0.0
-                                },
-                                "totalFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 287.5
-                                },
-                                "fareBaggageAllowance": [],
-                                "remark": []
-                            },
-                            {
-                                "baseFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 250.0
-                                },
-                                "equivFare": [],
-                                "taxes": {
-                                    "tax": [
-                                        {
-                                            "taxCode": "VAT",
-                                            "amount": 37.5
-                                        }
-                                    ],
-                                    "amount": 37.5
-                                },
-                                "fees": {
-                                    "fee": [
-                                        {
-                                            "feeCode": "FE1",
-                                            "amount": 0.0
-                                        },
-                                        {
-                                            "feeCode": "VAT",
-                                            "amount": 0.0
-                                        }
-                                    ],
-                                    "currencyCode": "SAR",
-                                    "amount": 0.0
-                                },
-                                "totalFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 287.5
-                                },
-                                "fareBaggageAllowance": [],
-                                "remark": []
-                            }
-                        ],
-                        "fareInfos": {
-                            "fareInfo": [
-                                {
-                                    "fareReference": [
-                                        {
-                                            "value": "WtBus"
-                                        }
-                                    ],
-                                    "filingAirline": {
-                                        "value": "HHR"
-                                    },
-                                    "marketingAirline": [],
-                                    "departureAirport": {
-                                        "locationCode": "MKX"
-                                    },
-                                    "arrivalAirport": {
-                                        "locationCode": "DMX"
-                                    },
-                                    "date": [],
-                                    "fareInfo": [],
-                                    "city": [],
-                                    "airport": []
-                                }
-                            ]
-                        },
-                        "ptcfareBreakdowns": {
-                            "ptcfareBreakdown": [
-                                {
-                                    "passengerTypeQuantity": {
-                                        "code": "ADT",
-                                        "quantity": 1
-                                    },
-                                    "fareBasisCodes": {
-                                        "fareBasisCode": [
-                                            {
-                                                "value": "WtBus",
-                                                "flightSegmentRPH": "1"
-                                            }
-                                        ]
-                                    },
-                                    "passengerFare": [
-                                        {
-                                            "baseFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 250.0
-                                            },
-                                            "equivFare": [],
-                                            "taxes": {
-                                                "tax": [
-                                                    {
-                                                        "taxCode": "VAT",
-                                                        "amount": 37.5
-                                                    }
-                                                ],
-                                                "amount": 37.5
-                                            },
-                                            "fees": {
-                                                "fee": [
-                                                    {
-                                                        "feeCode": "FE1",
-                                                        "amount": 0.0
-                                                    },
-                                                    {
-                                                        "feeCode": "VAT",
-                                                        "amount": 0.0
-                                                    }
-                                                ],
-                                                "amount": 0.0
-                                            },
-                                            "totalFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 287.5
-                                            },
-                                            "fareBaggageAllowance": [],
-                                            "remark": []
-                                        }
-                                    ],
-                                    "travelerRefNumber": [],
-                                    "fareInfo": [
-                                        {
-                                            "fareReference": [
-                                                {
-                                                    "value": "WtBus",
-                                                    "resBookDesigCode": "C",
-                                                    "accountCode": "WtBus"
-                                                }
-                                            ],
-                                            "marketingAirline": [],
-                                            "date": [],
-                                            "fareInfo": [],
-                                            "city": [],
-                                            "airport": []
-                                        }
-                                    ],
-                                    "pricingUnit": [],
-                                    "flightRefNumberRPHList": [
-                                        "1"
-                                    ]
-                                },
-                                {
-                                    "passengerTypeQuantity": {
-                                        "code": "ADT",
-                                        "quantity": 1
-                                    },
-                                    "fareBasisCodes": {
-                                        "fareBasisCode": [
-                                            {
-                                                "value": "WtBus",
-                                                "flightSegmentRPH": "1"
-                                            }
-                                        ]
-                                    },
-                                    "passengerFare": [
-                                        {
-                                            "baseFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 250.0
-                                            },
-                                            "equivFare": [],
-                                            "taxes": {
-                                                "tax": [
-                                                    {
-                                                        "taxCode": "VAT",
-                                                        "amount": 37.5
-                                                    }
-                                                ],
-                                                "amount": 37.5
-                                            },
-                                            "fees": {
-                                                "fee": [
-                                                    {
-                                                        "feeCode": "FE1",
-                                                        "amount": 0.0
-                                                    },
-                                                    {
-                                                        "feeCode": "VAT",
-                                                        "amount": 0.0
-                                                    }
-                                                ],
-                                                "amount": 0.0
-                                            },
-                                            "totalFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 287.5
-                                            },
-                                            "fareBaggageAllowance": [],
-                                            "remark": []
-                                        }
-                                    ],
-                                    "travelerRefNumber": [],
-                                    "fareInfo": [
-                                        {
-                                            "fareReference": [
-                                                {
-                                                    "value": "WtBus",
-                                                    "resBookDesigCode": "Y",
-                                                    "accountCode": "WtBus"
-                                                }
-                                            ],
-                                            "marketingAirline": [],
-                                            "date": [],
-                                            "fareInfo": [],
-                                            "city": [],
-                                            "airport": []
-                                        }
-                                    ],
-                                    "pricingUnit": [],
-                                    "flightRefNumberRPHList": [
-                                        "1"
-                                    ]
-                                }
-                            ]
-                        }
+                    "equipment": [],
+                    "departureDateTime": "2025-07-29T09:35:00.000+03:00",
+                    "arrivalDateTime": "2025-07-29T10:29:00.000+03:00",
+                    "rph": "1",
+                    "marketingAirline": {
+                      "code": "HHR"
                     },
-                    "notes": [],
-                    "sequenceNumber": 2
-                },
-                {
-                    "airItinerary": {
-                        "originDestinationOptions": {
-                            "originDestinationOption": [
-                                {
-                                    "flightSegment": [
-                                        {
-                                            "departureAirport": {
-                                                "locationCode": "MKX"
-                                            },
-                                            "arrivalAirport": {
-                                                "locationCode": "DMX"
-                                            },
-                                            "operatingAirline": {
-                                                "code": "HHR",
-                                                "flightNumber": "0080"
-                                            },
-                                            "equipment": [],
-                                            "departureDateTime": "2024-05-16T08:00:00.000+03:00",
-                                            "arrivalDateTime": "2024-05-16T10:25:00.000+03:00",
-                                            "rph": "1",
-                                            "marketingAirline": {
-                                                "code": "HHR"
-                                            },
-                                            "flightNumber": "0080",
-                                            "resBookDesigCode": "C",
-                                            "bookingClassAvails": [
-                                                {
-                                                    "bookingClassAvail": [
-                                                        {
-                                                            "resBookDesigCode": "C",
-                                                            "resBookDesigQuantity": "55",
-                                                            "resBookDesigStatusCode": "A"
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "bookingClassAvail": [
-                                                        {
-                                                            "resBookDesigCode": "Y",
-                                                            "resBookDesigQuantity": "3",
-                                                            "resBookDesigStatusCode": "A"
-                                                        }
-                                                    ]
-                                                }
-                                            ],
-                                            "comment": [],
-                                            "stopLocation": []
-                                        }
-                                    ],
-                                    "rph": "1"
-                                }
-                            ]
-                        }
-                    },
-                    "airItineraryPricingInfo": {
-                        "itinTotalFare": [
-                            {
-                                "baseFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 100.0
-                                },
-                                "equivFare": [],
-                                "taxes": {
-                                    "tax": [
-                                        {
-                                            "taxCode": "VAT",
-                                            "amount": 15.0
-                                        }
-                                    ],
-                                    "amount": 15.0
-                                },
-                                "fees": {
-                                    "fee": [
-                                        {
-                                            "feeCode": "FE1",
-                                            "amount": 0.0
-                                        },
-                                        {
-                                            "feeCode": "VAT",
-                                            "amount": 0.0
-                                        }
-                                    ],
-                                    "currencyCode": "SAR",
-                                    "amount": 0.0
-                                },
-                                "totalFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 115.0
-                                },
-                                "fareBaggageAllowance": [],
-                                "remark": []
-                            },
-                            {
-                                "baseFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 100.0
-                                },
-                                "equivFare": [],
-                                "taxes": {
-                                    "tax": [
-                                        {
-                                            "taxCode": "VAT",
-                                            "amount": 15.0
-                                        }
-                                    ],
-                                    "amount": 15.0
-                                },
-                                "fees": {
-                                    "fee": [
-                                        {
-                                            "feeCode": "FE1",
-                                            "amount": 0.0
-                                        },
-                                        {
-                                            "feeCode": "VAT",
-                                            "amount": 0.0
-                                        }
-                                    ],
-                                    "currencyCode": "SAR",
-                                    "amount": 0.0
-                                },
-                                "totalFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 115.0
-                                },
-                                "fareBaggageAllowance": [],
-                                "remark": []
-                            }
-                        ],
-                        "fareInfos": {
-                            "fareInfo": [
-                                {
-                                    "fareReference": [
-                                        {
-                                            "value": "PROMOECOU"
-                                        }
-                                    ],
-                                    "filingAirline": {
-                                        "value": "HHR"
-                                    },
-                                    "marketingAirline": [],
-                                    "departureAirport": {
-                                        "locationCode": "MKX"
-                                    },
-                                    "arrivalAirport": {
-                                        "locationCode": "DMX"
-                                    },
-                                    "date": [],
-                                    "fareInfo": [],
-                                    "city": [],
-                                    "airport": []
-                                }
-                            ]
-                        },
-                        "ptcfareBreakdowns": {
-                            "ptcfareBreakdown": [
-                                {
-                                    "passengerTypeQuantity": {
-                                        "code": "ADT",
-                                        "quantity": 1
-                                    },
-                                    "fareBasisCodes": {
-                                        "fareBasisCode": [
-                                            {
-                                                "value": "PROMOECOU",
-                                                "flightSegmentRPH": "1"
-                                            }
-                                        ]
-                                    },
-                                    "passengerFare": [
-                                        {
-                                            "baseFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 100.0
-                                            },
-                                            "equivFare": [],
-                                            "taxes": {
-                                                "tax": [
-                                                    {
-                                                        "taxCode": "VAT",
-                                                        "amount": 15.0
-                                                    }
-                                                ],
-                                                "amount": 15.0
-                                            },
-                                            "fees": {
-                                                "fee": [
-                                                    {
-                                                        "feeCode": "FE1",
-                                                        "amount": 0.0
-                                                    },
-                                                    {
-                                                        "feeCode": "VAT",
-                                                        "amount": 0.0
-                                                    }
-                                                ],
-                                                "amount": 0.0
-                                            },
-                                            "totalFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 115.0
-                                            },
-                                            "fareBaggageAllowance": [],
-                                            "remark": []
-                                        }
-                                    ],
-                                    "travelerRefNumber": [],
-                                    "fareInfo": [
-                                        {
-                                            "fareReference": [
-                                                {
-                                                    "value": "PROMOECOU",
-                                                    "resBookDesigCode": "C",
-                                                    "accountCode": "PROMOECOU"
-                                                }
-                                            ],
-                                            "marketingAirline": [],
-                                            "date": [],
-                                            "fareInfo": [],
-                                            "city": [],
-                                            "airport": []
-                                        }
-                                    ],
-                                    "pricingUnit": [],
-                                    "flightRefNumberRPHList": [
-                                        "1"
-                                    ]
-                                },
-                                {
-                                    "passengerTypeQuantity": {
-                                        "code": "ADT",
-                                        "quantity": 1
-                                    },
-                                    "fareBasisCodes": {
-                                        "fareBasisCode": [
-                                            {
-                                                "value": "PROMOECOU",
-                                                "flightSegmentRPH": "1"
-                                            }
-                                        ]
-                                    },
-                                    "passengerFare": [
-                                        {
-                                            "baseFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 100.0
-                                            },
-                                            "equivFare": [],
-                                            "taxes": {
-                                                "tax": [
-                                                    {
-                                                        "taxCode": "VAT",
-                                                        "amount": 15.0
-                                                    }
-                                                ],
-                                                "amount": 15.0
-                                            },
-                                            "fees": {
-                                                "fee": [
-                                                    {
-                                                        "feeCode": "FE1",
-                                                        "amount": 0.0
-                                                    },
-                                                    {
-                                                        "feeCode": "VAT",
-                                                        "amount": 0.0
-                                                    }
-                                                ],
-                                                "amount": 0.0
-                                            },
-                                            "totalFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 115.0
-                                            },
-                                            "fareBaggageAllowance": [],
-                                            "remark": []
-                                        }
-                                    ],
-                                    "travelerRefNumber": [],
-                                    "fareInfo": [
-                                        {
-                                            "fareReference": [
-                                                {
-                                                    "value": "PROMOECOU",
-                                                    "resBookDesigCode": "Y",
-                                                    "accountCode": "PROMOECOU"
-                                                }
-                                            ],
-                                            "marketingAirline": [],
-                                            "date": [],
-                                            "fareInfo": [],
-                                            "city": [],
-                                            "airport": []
-                                        }
-                                    ],
-                                    "pricingUnit": [],
-                                    "flightRefNumberRPHList": [
-                                        "1"
-                                    ]
-                                }
-                            ]
-                        }
-                    },
-                    "notes": [],
-                    "sequenceNumber": 3
-                },
-                {
-                    "airItinerary": {
-                        "originDestinationOptions": {
-                            "originDestinationOption": [
-                                {
-                                    "flightSegment": [
-                                        {
-                                            "departureAirport": {
-                                                "locationCode": "MKX"
-                                            },
-                                            "arrivalAirport": {
-                                                "locationCode": "DMX"
-                                            },
-                                            "operatingAirline": {
-                                                "code": "HHR",
-                                                "flightNumber": "0080"
-                                            },
-                                            "equipment": [],
-                                            "departureDateTime": "2024-05-16T08:00:00.000+03:00",
-                                            "arrivalDateTime": "2024-05-16T10:25:00.000+03:00",
-                                            "rph": "1",
-                                            "marketingAirline": {
-                                                "code": "HHR"
-                                            },
-                                            "flightNumber": "0080",
-                                            "resBookDesigCode": "C",
-                                            "bookingClassAvails": [
-                                                {
-                                                    "bookingClassAvail": [
-                                                        {
-                                                            "resBookDesigCode": "C",
-                                                            "resBookDesigQuantity": "55",
-                                                            "resBookDesigStatusCode": "A"
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "bookingClassAvail": [
-                                                        {
-                                                            "resBookDesigCode": "Y",
-                                                            "resBookDesigQuantity": "3",
-                                                            "resBookDesigStatusCode": "A"
-                                                        }
-                                                    ]
-                                                }
-                                            ],
-                                            "comment": [],
-                                            "stopLocation": []
-                                        }
-                                    ],
-                                    "rph": "1"
-                                }
-                            ]
-                        }
-                    },
-                    "airItineraryPricingInfo": {
-                        "itinTotalFare": [
-                            {
-                                "baseFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 200.0
-                                },
-                                "equivFare": [],
-                                "taxes": {
-                                    "tax": [
-                                        {
-                                            "taxCode": "VAT",
-                                            "amount": 30.0
-                                        }
-                                    ],
-                                    "amount": 30.0
-                                },
-                                "fees": {
-                                    "fee": [
-                                        {
-                                            "feeCode": "FE1",
-                                            "amount": 0.0
-                                        },
-                                        {
-                                            "feeCode": "VAT",
-                                            "amount": 0.0
-                                        }
-                                    ],
-                                    "currencyCode": "SAR",
-                                    "amount": 0.0
-                                },
-                                "totalFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 230.0
-                                },
-                                "fareBaggageAllowance": [],
-                                "remark": []
-                            },
-                            {
-                                "baseFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 200.0
-                                },
-                                "equivFare": [],
-                                "taxes": {
-                                    "tax": [
-                                        {
-                                            "taxCode": "VAT",
-                                            "amount": 30.0
-                                        }
-                                    ],
-                                    "amount": 30.0
-                                },
-                                "fees": {
-                                    "fee": [
-                                        {
-                                            "feeCode": "FE1",
-                                            "amount": 0.0
-                                        },
-                                        {
-                                            "feeCode": "VAT",
-                                            "amount": 0.0
-                                        }
-                                    ],
-                                    "currencyCode": "SAR",
-                                    "amount": 0.0
-                                },
-                                "totalFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 230.0
-                                },
-                                "fareBaggageAllowance": [],
-                                "remark": []
-                            }
-                        ],
-                        "fareInfos": {
-                            "fareInfo": [
-                                {
-                                    "fareReference": [
-                                        {
-                                            "value": "WtEco"
-                                        }
-                                    ],
-                                    "filingAirline": {
-                                        "value": "HHR"
-                                    },
-                                    "marketingAirline": [],
-                                    "departureAirport": {
-                                        "locationCode": "MKX"
-                                    },
-                                    "arrivalAirport": {
-                                        "locationCode": "DMX"
-                                    },
-                                    "date": [],
-                                    "fareInfo": [],
-                                    "city": [],
-                                    "airport": []
-                                }
-                            ]
-                        },
-                        "ptcfareBreakdowns": {
-                            "ptcfareBreakdown": [
-                                {
-                                    "passengerTypeQuantity": {
-                                        "code": "ADT",
-                                        "quantity": 1
-                                    },
-                                    "fareBasisCodes": {
-                                        "fareBasisCode": [
-                                            {
-                                                "value": "WtEco",
-                                                "flightSegmentRPH": "1"
-                                            }
-                                        ]
-                                    },
-                                    "passengerFare": [
-                                        {
-                                            "baseFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 200.0
-                                            },
-                                            "equivFare": [],
-                                            "taxes": {
-                                                "tax": [
-                                                    {
-                                                        "taxCode": "VAT",
-                                                        "amount": 30.0
-                                                    }
-                                                ],
-                                                "amount": 30.0
-                                            },
-                                            "fees": {
-                                                "fee": [
-                                                    {
-                                                        "feeCode": "FE1",
-                                                        "amount": 0.0
-                                                    },
-                                                    {
-                                                        "feeCode": "VAT",
-                                                        "amount": 0.0
-                                                    }
-                                                ],
-                                                "amount": 0.0
-                                            },
-                                            "totalFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 230.0
-                                            },
-                                            "fareBaggageAllowance": [],
-                                            "remark": []
-                                        }
-                                    ],
-                                    "travelerRefNumber": [],
-                                    "fareInfo": [
-                                        {
-                                            "fareReference": [
-                                                {
-                                                    "value": "WtEco",
-                                                    "resBookDesigCode": "C",
-                                                    "accountCode": "WtEco"
-                                                }
-                                            ],
-                                            "marketingAirline": [],
-                                            "date": [],
-                                            "fareInfo": [],
-                                            "city": [],
-                                            "airport": []
-                                        }
-                                    ],
-                                    "pricingUnit": [],
-                                    "flightRefNumberRPHList": [
-                                        "1"
-                                    ]
-                                },
-                                {
-                                    "passengerTypeQuantity": {
-                                        "code": "ADT",
-                                        "quantity": 1
-                                    },
-                                    "fareBasisCodes": {
-                                        "fareBasisCode": [
-                                            {
-                                                "value": "WtEco",
-                                                "flightSegmentRPH": "1"
-                                            }
-                                        ]
-                                    },
-                                    "passengerFare": [
-                                        {
-                                            "baseFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 200.0
-                                            },
-                                            "equivFare": [],
-                                            "taxes": {
-                                                "tax": [
-                                                    {
-                                                        "taxCode": "VAT",
-                                                        "amount": 30.0
-                                                    }
-                                                ],
-                                                "amount": 30.0
-                                            },
-                                            "fees": {
-                                                "fee": [
-                                                    {
-                                                        "feeCode": "FE1",
-                                                        "amount": 0.0
-                                                    },
-                                                    {
-                                                        "feeCode": "VAT",
-                                                        "amount": 0.0
-                                                    }
-                                                ],
-                                                "amount": 0.0
-                                            },
-                                            "totalFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 230.0
-                                            },
-                                            "fareBaggageAllowance": [],
-                                            "remark": []
-                                        }
-                                    ],
-                                    "travelerRefNumber": [],
-                                    "fareInfo": [
-                                        {
-                                            "fareReference": [
-                                                {
-                                                    "value": "WtEco",
-                                                    "resBookDesigCode": "Y",
-                                                    "accountCode": "WtEco"
-                                                }
-                                            ],
-                                            "marketingAirline": [],
-                                            "date": [],
-                                            "fareInfo": [],
-                                            "city": [],
-                                            "airport": []
-                                        }
-                                    ],
-                                    "pricingUnit": [],
-                                    "flightRefNumberRPHList": [
-                                        "1"
-                                    ]
-                                }
-                            ]
-                        }
-                    },
-                    "notes": [],
-                    "sequenceNumber": 4
-                },
-                {
-                    "airItinerary": {
-                        "originDestinationOptions": {
-                            "originDestinationOption": [
-                                {
-                                    "flightSegment": [
-                                        {
-                                            "departureAirport": {
-                                                "locationCode": "MKX"
-                                            },
-                                            "arrivalAirport": {
-                                                "locationCode": "DMX"
-                                            },
-                                            "operatingAirline": {
-                                                "code": "HHR",
-                                                "flightNumber": "0141"
-                                            },
-                                            "equipment": [],
-                                            "departureDateTime": "2024-05-16T16:30:00.000+03:00",
-                                            "arrivalDateTime": "2024-05-16T18:45:00.000+03:00",
-                                            "rph": "1",
-                                            "marketingAirline": {
-                                                "code": "HHR"
-                                            },
-                                            "flightNumber": "0141",
-                                            "resBookDesigCode": "C",
-                                            "bookingClassAvails": [
-                                                {
-                                                    "bookingClassAvail": [
-                                                        {
-                                                            "resBookDesigCode": "C",
-                                                            "resBookDesigQuantity": "109",
-                                                            "resBookDesigStatusCode": "A"
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "bookingClassAvail": [
-                                                        {
-                                                            "resBookDesigCode": "Y",
-                                                            "resBookDesigQuantity": "304",
-                                                            "resBookDesigStatusCode": "A"
-                                                        }
-                                                    ]
-                                                }
-                                            ],
-                                            "comment": [],
-                                            "stopLocation": []
-                                        }
-                                    ],
-                                    "rph": "1"
-                                }
-                            ]
-                        }
-                    },
-                    "airItineraryPricingInfo": {
-                        "itinTotalFare": [
-                            {
-                                "baseFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 200.0
-                                },
-                                "equivFare": [],
-                                "taxes": {
-                                    "tax": [
-                                        {
-                                            "taxCode": "VAT",
-                                            "amount": 30.0
-                                        }
-                                    ],
-                                    "amount": 30.0
-                                },
-                                "fees": {
-                                    "fee": [
-                                        {
-                                            "feeCode": "FE1",
-                                            "amount": 0.0
-                                        },
-                                        {
-                                            "feeCode": "VAT",
-                                            "amount": 0.0
-                                        }
-                                    ],
-                                    "currencyCode": "SAR",
-                                    "amount": 0.0
-                                },
-                                "totalFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 230.0
-                                },
-                                "fareBaggageAllowance": [],
-                                "remark": []
-                            },
-                            {
-                                "baseFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 200.0
-                                },
-                                "equivFare": [],
-                                "taxes": {
-                                    "tax": [
-                                        {
-                                            "taxCode": "VAT",
-                                            "amount": 30.0
-                                        }
-                                    ],
-                                    "amount": 30.0
-                                },
-                                "fees": {
-                                    "fee": [
-                                        {
-                                            "feeCode": "FE1",
-                                            "amount": 0.0
-                                        },
-                                        {
-                                            "feeCode": "VAT",
-                                            "amount": 0.0
-                                        }
-                                    ],
-                                    "currencyCode": "SAR",
-                                    "amount": 0.0
-                                },
-                                "totalFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 230.0
-                                },
-                                "fareBaggageAllowance": [],
-                                "remark": []
-                            }
-                        ],
-                        "fareInfos": {
-                            "fareInfo": [
-                                {
-                                    "fareReference": [
-                                        {
-                                            "value": "WTBUSFMIN"
-                                        }
-                                    ],
-                                    "filingAirline": {
-                                        "value": "HHR"
-                                    },
-                                    "marketingAirline": [],
-                                    "departureAirport": {
-                                        "locationCode": "MKX"
-                                    },
-                                    "arrivalAirport": {
-                                        "locationCode": "DMX"
-                                    },
-                                    "date": [],
-                                    "fareInfo": [],
-                                    "city": [],
-                                    "airport": []
-                                }
-                            ]
-                        },
-                        "ptcfareBreakdowns": {
-                            "ptcfareBreakdown": [
-                                {
-                                    "passengerTypeQuantity": {
-                                        "code": "ADT",
-                                        "quantity": 1
-                                    },
-                                    "fareBasisCodes": {
-                                        "fareBasisCode": [
-                                            {
-                                                "value": "WTBUSFMIN",
-                                                "flightSegmentRPH": "1"
-                                            }
-                                        ]
-                                    },
-                                    "passengerFare": [
-                                        {
-                                            "baseFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 200.0
-                                            },
-                                            "equivFare": [],
-                                            "taxes": {
-                                                "tax": [
-                                                    {
-                                                        "taxCode": "VAT",
-                                                        "amount": 30.0
-                                                    }
-                                                ],
-                                                "amount": 30.0
-                                            },
-                                            "fees": {
-                                                "fee": [
-                                                    {
-                                                        "feeCode": "FE1",
-                                                        "amount": 0.0
-                                                    },
-                                                    {
-                                                        "feeCode": "VAT",
-                                                        "amount": 0.0
-                                                    }
-                                                ],
-                                                "amount": 0.0
-                                            },
-                                            "totalFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 230.0
-                                            },
-                                            "fareBaggageAllowance": [],
-                                            "remark": []
-                                        }
-                                    ],
-                                    "travelerRefNumber": [],
-                                    "fareInfo": [
-                                        {
-                                            "fareReference": [
-                                                {
-                                                    "value": "WTBUSFMIN",
-                                                    "resBookDesigCode": "C",
-                                                    "accountCode": "WTBUSFMIN"
-                                                }
-                                            ],
-                                            "marketingAirline": [],
-                                            "date": [],
-                                            "fareInfo": [],
-                                            "city": [],
-                                            "airport": []
-                                        }
-                                    ],
-                                    "pricingUnit": [],
-                                    "flightRefNumberRPHList": [
-                                        "1"
-                                    ]
-                                },
-                                {
-                                    "passengerTypeQuantity": {
-                                        "code": "ADT",
-                                        "quantity": 1
-                                    },
-                                    "fareBasisCodes": {
-                                        "fareBasisCode": [
-                                            {
-                                                "value": "WTBUSFMIN",
-                                                "flightSegmentRPH": "1"
-                                            }
-                                        ]
-                                    },
-                                    "passengerFare": [
-                                        {
-                                            "baseFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 200.0
-                                            },
-                                            "equivFare": [],
-                                            "taxes": {
-                                                "tax": [
-                                                    {
-                                                        "taxCode": "VAT",
-                                                        "amount": 30.0
-                                                    }
-                                                ],
-                                                "amount": 30.0
-                                            },
-                                            "fees": {
-                                                "fee": [
-                                                    {
-                                                        "feeCode": "FE1",
-                                                        "amount": 0.0
-                                                    },
-                                                    {
-                                                        "feeCode": "VAT",
-                                                        "amount": 0.0
-                                                    }
-                                                ],
-                                                "amount": 0.0
-                                            },
-                                            "totalFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 230.0
-                                            },
-                                            "fareBaggageAllowance": [],
-                                            "remark": []
-                                        }
-                                    ],
-                                    "travelerRefNumber": [],
-                                    "fareInfo": [
-                                        {
-                                            "fareReference": [
-                                                {
-                                                    "value": "WTBUSFMIN",
-                                                    "resBookDesigCode": "Y",
-                                                    "accountCode": "WTBUSFMIN"
-                                                }
-                                            ],
-                                            "marketingAirline": [],
-                                            "date": [],
-                                            "fareInfo": [],
-                                            "city": [],
-                                            "airport": []
-                                        }
-                                    ],
-                                    "pricingUnit": [],
-                                    "flightRefNumberRPHList": [
-                                        "1"
-                                    ]
-                                }
-                            ]
-                        }
-                    },
-                    "notes": [],
-                    "sequenceNumber": 5
-                },
-                {
-                    "airItinerary": {
-                        "originDestinationOptions": {
-                            "originDestinationOption": [
-                                {
-                                    "flightSegment": [
-                                        {
-                                            "departureAirport": {
-                                                "locationCode": "MKX"
-                                            },
-                                            "arrivalAirport": {
-                                                "locationCode": "DMX"
-                                            },
-                                            "operatingAirline": {
-                                                "code": "HHR",
-                                                "flightNumber": "0141"
-                                            },
-                                            "equipment": [],
-                                            "departureDateTime": "2024-05-16T16:30:00.000+03:00",
-                                            "arrivalDateTime": "2024-05-16T18:45:00.000+03:00",
-                                            "rph": "1",
-                                            "marketingAirline": {
-                                                "code": "HHR"
-                                            },
-                                            "flightNumber": "0141",
-                                            "resBookDesigCode": "C",
-                                            "bookingClassAvails": [
-                                                {
-                                                    "bookingClassAvail": [
-                                                        {
-                                                            "resBookDesigCode": "C",
-                                                            "resBookDesigQuantity": "109",
-                                                            "resBookDesigStatusCode": "A"
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "bookingClassAvail": [
-                                                        {
-                                                            "resBookDesigCode": "Y",
-                                                            "resBookDesigQuantity": "304",
-                                                            "resBookDesigStatusCode": "A"
-                                                        }
-                                                    ]
-                                                }
-                                            ],
-                                            "comment": [],
-                                            "stopLocation": []
-                                        }
-                                    ],
-                                    "rph": "1"
-                                }
-                            ]
-                        }
-                    },
-                    "airItineraryPricingInfo": {
-                        "itinTotalFare": [
-                            {
-                                "baseFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 250.0
-                                },
-                                "equivFare": [],
-                                "taxes": {
-                                    "tax": [
-                                        {
-                                            "taxCode": "VAT",
-                                            "amount": 37.5
-                                        }
-                                    ],
-                                    "amount": 37.5
-                                },
-                                "fees": {
-                                    "fee": [
-                                        {
-                                            "feeCode": "FE1",
-                                            "amount": 0.0
-                                        },
-                                        {
-                                            "feeCode": "VAT",
-                                            "amount": 0.0
-                                        }
-                                    ],
-                                    "currencyCode": "SAR",
-                                    "amount": 0.0
-                                },
-                                "totalFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 287.5
-                                },
-                                "fareBaggageAllowance": [],
-                                "remark": []
-                            },
-                            {
-                                "baseFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 250.0
-                                },
-                                "equivFare": [],
-                                "taxes": {
-                                    "tax": [
-                                        {
-                                            "taxCode": "VAT",
-                                            "amount": 37.5
-                                        }
-                                    ],
-                                    "amount": 37.5
-                                },
-                                "fees": {
-                                    "fee": [
-                                        {
-                                            "feeCode": "FE1",
-                                            "amount": 0.0
-                                        },
-                                        {
-                                            "feeCode": "VAT",
-                                            "amount": 0.0
-                                        }
-                                    ],
-                                    "currencyCode": "SAR",
-                                    "amount": 0.0
-                                },
-                                "totalFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 287.5
-                                },
-                                "fareBaggageAllowance": [],
-                                "remark": []
-                            }
-                        ],
-                        "fareInfos": {
-                            "fareInfo": [
-                                {
-                                    "fareReference": [
-                                        {
-                                            "value": "WtBus"
-                                        }
-                                    ],
-                                    "filingAirline": {
-                                        "value": "HHR"
-                                    },
-                                    "marketingAirline": [],
-                                    "departureAirport": {
-                                        "locationCode": "MKX"
-                                    },
-                                    "arrivalAirport": {
-                                        "locationCode": "DMX"
-                                    },
-                                    "date": [],
-                                    "fareInfo": [],
-                                    "city": [],
-                                    "airport": []
-                                }
-                            ]
-                        },
-                        "ptcfareBreakdowns": {
-                            "ptcfareBreakdown": [
-                                {
-                                    "passengerTypeQuantity": {
-                                        "code": "ADT",
-                                        "quantity": 1
-                                    },
-                                    "fareBasisCodes": {
-                                        "fareBasisCode": [
-                                            {
-                                                "value": "WtBus",
-                                                "flightSegmentRPH": "1"
-                                            }
-                                        ]
-                                    },
-                                    "passengerFare": [
-                                        {
-                                            "baseFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 250.0
-                                            },
-                                            "equivFare": [],
-                                            "taxes": {
-                                                "tax": [
-                                                    {
-                                                        "taxCode": "VAT",
-                                                        "amount": 37.5
-                                                    }
-                                                ],
-                                                "amount": 37.5
-                                            },
-                                            "fees": {
-                                                "fee": [
-                                                    {
-                                                        "feeCode": "FE1",
-                                                        "amount": 0.0
-                                                    },
-                                                    {
-                                                        "feeCode": "VAT",
-                                                        "amount": 0.0
-                                                    }
-                                                ],
-                                                "amount": 0.0
-                                            },
-                                            "totalFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 287.5
-                                            },
-                                            "fareBaggageAllowance": [],
-                                            "remark": []
-                                        }
-                                    ],
-                                    "travelerRefNumber": [],
-                                    "fareInfo": [
-                                        {
-                                            "fareReference": [
-                                                {
-                                                    "value": "WtBus",
-                                                    "resBookDesigCode": "C",
-                                                    "accountCode": "WtBus"
-                                                }
-                                            ],
-                                            "marketingAirline": [],
-                                            "date": [],
-                                            "fareInfo": [],
-                                            "city": [],
-                                            "airport": []
-                                        }
-                                    ],
-                                    "pricingUnit": [],
-                                    "flightRefNumberRPHList": [
-                                        "1"
-                                    ]
-                                },
-                                {
-                                    "passengerTypeQuantity": {
-                                        "code": "ADT",
-                                        "quantity": 1
-                                    },
-                                    "fareBasisCodes": {
-                                        "fareBasisCode": [
-                                            {
-                                                "value": "WtBus",
-                                                "flightSegmentRPH": "1"
-                                            }
-                                        ]
-                                    },
-                                    "passengerFare": [
-                                        {
-                                            "baseFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 250.0
-                                            },
-                                            "equivFare": [],
-                                            "taxes": {
-                                                "tax": [
-                                                    {
-                                                        "taxCode": "VAT",
-                                                        "amount": 37.5
-                                                    }
-                                                ],
-                                                "amount": 37.5
-                                            },
-                                            "fees": {
-                                                "fee": [
-                                                    {
-                                                        "feeCode": "FE1",
-                                                        "amount": 0.0
-                                                    },
-                                                    {
-                                                        "feeCode": "VAT",
-                                                        "amount": 0.0
-                                                    }
-                                                ],
-                                                "amount": 0.0
-                                            },
-                                            "totalFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 287.5
-                                            },
-                                            "fareBaggageAllowance": [],
-                                            "remark": []
-                                        }
-                                    ],
-                                    "travelerRefNumber": [],
-                                    "fareInfo": [
-                                        {
-                                            "fareReference": [
-                                                {
-                                                    "value": "WtBus",
-                                                    "resBookDesigCode": "Y",
-                                                    "accountCode": "WtBus"
-                                                }
-                                            ],
-                                            "marketingAirline": [],
-                                            "date": [],
-                                            "fareInfo": [],
-                                            "city": [],
-                                            "airport": []
-                                        }
-                                    ],
-                                    "pricingUnit": [],
-                                    "flightRefNumberRPHList": [
-                                        "1"
-                                    ]
-                                }
-                            ]
-                        }
-                    },
-                    "notes": [],
-                    "sequenceNumber": 6
-                },
-                {
-                    "airItinerary": {
-                        "originDestinationOptions": {
-                            "originDestinationOption": [
-                                {
-                                    "flightSegment": [
-                                        {
-                                            "departureAirport": {
-                                                "locationCode": "MKX"
-                                            },
-                                            "arrivalAirport": {
-                                                "locationCode": "DMX"
-                                            },
-                                            "operatingAirline": {
-                                                "code": "HHR",
-                                                "flightNumber": "0141"
-                                            },
-                                            "equipment": [],
-                                            "departureDateTime": "2024-05-16T16:30:00.000+03:00",
-                                            "arrivalDateTime": "2024-05-16T18:45:00.000+03:00",
-                                            "rph": "1",
-                                            "marketingAirline": {
-                                                "code": "HHR"
-                                            },
-                                            "flightNumber": "0141",
-                                            "resBookDesigCode": "C",
-                                            "bookingClassAvails": [
-                                                {
-                                                    "bookingClassAvail": [
-                                                        {
-                                                            "resBookDesigCode": "C",
-                                                            "resBookDesigQuantity": "109",
-                                                            "resBookDesigStatusCode": "A"
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "bookingClassAvail": [
-                                                        {
-                                                            "resBookDesigCode": "Y",
-                                                            "resBookDesigQuantity": "304",
-                                                            "resBookDesigStatusCode": "A"
-                                                        }
-                                                    ]
-                                                }
-                                            ],
-                                            "comment": [],
-                                            "stopLocation": []
-                                        }
-                                    ],
-                                    "rph": "1"
-                                }
-                            ]
-                        }
-                    },
-                    "airItineraryPricingInfo": {
-                        "itinTotalFare": [
-                            {
-                                "baseFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 100.0
-                                },
-                                "equivFare": [],
-                                "taxes": {
-                                    "tax": [
-                                        {
-                                            "taxCode": "VAT",
-                                            "amount": 15.0
-                                        }
-                                    ],
-                                    "amount": 15.0
-                                },
-                                "fees": {
-                                    "fee": [
-                                        {
-                                            "feeCode": "FE1",
-                                            "amount": 0.0
-                                        },
-                                        {
-                                            "feeCode": "VAT",
-                                            "amount": 0.0
-                                        }
-                                    ],
-                                    "currencyCode": "SAR",
-                                    "amount": 0.0
-                                },
-                                "totalFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 115.0
-                                },
-                                "fareBaggageAllowance": [],
-                                "remark": []
-                            },
-                            {
-                                "baseFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 100.0
-                                },
-                                "equivFare": [],
-                                "taxes": {
-                                    "tax": [
-                                        {
-                                            "taxCode": "VAT",
-                                            "amount": 15.0
-                                        }
-                                    ],
-                                    "amount": 15.0
-                                },
-                                "fees": {
-                                    "fee": [
-                                        {
-                                            "feeCode": "FE1",
-                                            "amount": 0.0
-                                        },
-                                        {
-                                            "feeCode": "VAT",
-                                            "amount": 0.0
-                                        }
-                                    ],
-                                    "currencyCode": "SAR",
-                                    "amount": 0.0
-                                },
-                                "totalFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 115.0
-                                },
-                                "fareBaggageAllowance": [],
-                                "remark": []
-                            }
-                        ],
-                        "fareInfos": {
-                            "fareInfo": [
-                                {
-                                    "fareReference": [
-                                        {
-                                            "value": "PROMOECOU"
-                                        }
-                                    ],
-                                    "filingAirline": {
-                                        "value": "HHR"
-                                    },
-                                    "marketingAirline": [],
-                                    "departureAirport": {
-                                        "locationCode": "MKX"
-                                    },
-                                    "arrivalAirport": {
-                                        "locationCode": "DMX"
-                                    },
-                                    "date": [],
-                                    "fareInfo": [],
-                                    "city": [],
-                                    "airport": []
-                                }
-                            ]
-                        },
-                        "ptcfareBreakdowns": {
-                            "ptcfareBreakdown": [
-                                {
-                                    "passengerTypeQuantity": {
-                                        "code": "ADT",
-                                        "quantity": 1
-                                    },
-                                    "fareBasisCodes": {
-                                        "fareBasisCode": [
-                                            {
-                                                "value": "PROMOECOU",
-                                                "flightSegmentRPH": "1"
-                                            }
-                                        ]
-                                    },
-                                    "passengerFare": [
-                                        {
-                                            "baseFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 100.0
-                                            },
-                                            "equivFare": [],
-                                            "taxes": {
-                                                "tax": [
-                                                    {
-                                                        "taxCode": "VAT",
-                                                        "amount": 15.0
-                                                    }
-                                                ],
-                                                "amount": 15.0
-                                            },
-                                            "fees": {
-                                                "fee": [
-                                                    {
-                                                        "feeCode": "FE1",
-                                                        "amount": 0.0
-                                                    },
-                                                    {
-                                                        "feeCode": "VAT",
-                                                        "amount": 0.0
-                                                    }
-                                                ],
-                                                "amount": 0.0
-                                            },
-                                            "totalFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 115.0
-                                            },
-                                            "fareBaggageAllowance": [],
-                                            "remark": []
-                                        }
-                                    ],
-                                    "travelerRefNumber": [],
-                                    "fareInfo": [
-                                        {
-                                            "fareReference": [
-                                                {
-                                                    "value": "PROMOECOU",
-                                                    "resBookDesigCode": "C",
-                                                    "accountCode": "PROMOECOU"
-                                                }
-                                            ],
-                                            "marketingAirline": [],
-                                            "date": [],
-                                            "fareInfo": [],
-                                            "city": [],
-                                            "airport": []
-                                        }
-                                    ],
-                                    "pricingUnit": [],
-                                    "flightRefNumberRPHList": [
-                                        "1"
-                                    ]
-                                },
-                                {
-                                    "passengerTypeQuantity": {
-                                        "code": "ADT",
-                                        "quantity": 1
-                                    },
-                                    "fareBasisCodes": {
-                                        "fareBasisCode": [
-                                            {
-                                                "value": "PROMOECOU",
-                                                "flightSegmentRPH": "1"
-                                            }
-                                        ]
-                                    },
-                                    "passengerFare": [
-                                        {
-                                            "baseFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 100.0
-                                            },
-                                            "equivFare": [],
-                                            "taxes": {
-                                                "tax": [
-                                                    {
-                                                        "taxCode": "VAT",
-                                                        "amount": 15.0
-                                                    }
-                                                ],
-                                                "amount": 15.0
-                                            },
-                                            "fees": {
-                                                "fee": [
-                                                    {
-                                                        "feeCode": "FE1",
-                                                        "amount": 0.0
-                                                    },
-                                                    {
-                                                        "feeCode": "VAT",
-                                                        "amount": 0.0
-                                                    }
-                                                ],
-                                                "amount": 0.0
-                                            },
-                                            "totalFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 115.0
-                                            },
-                                            "fareBaggageAllowance": [],
-                                            "remark": []
-                                        }
-                                    ],
-                                    "travelerRefNumber": [],
-                                    "fareInfo": [
-                                        {
-                                            "fareReference": [
-                                                {
-                                                    "value": "PROMOECOU",
-                                                    "resBookDesigCode": "Y",
-                                                    "accountCode": "PROMOECOU"
-                                                }
-                                            ],
-                                            "marketingAirline": [],
-                                            "date": [],
-                                            "fareInfo": [],
-                                            "city": [],
-                                            "airport": []
-                                        }
-                                    ],
-                                    "pricingUnit": [],
-                                    "flightRefNumberRPHList": [
-                                        "1"
-                                    ]
-                                }
-                            ]
-                        }
-                    },
-                    "notes": [],
-                    "sequenceNumber": 7
-                },
-                {
-                    "airItinerary": {
-                        "originDestinationOptions": {
-                            "originDestinationOption": [
-                                {
-                                    "flightSegment": [
-                                        {
-                                            "departureAirport": {
-                                                "locationCode": "MKX"
-                                            },
-                                            "arrivalAirport": {
-                                                "locationCode": "DMX"
-                                            },
-                                            "operatingAirline": {
-                                                "code": "HHR",
-                                                "flightNumber": "0141"
-                                            },
-                                            "equipment": [],
-                                            "departureDateTime": "2024-05-16T16:30:00.000+03:00",
-                                            "arrivalDateTime": "2024-05-16T18:45:00.000+03:00",
-                                            "rph": "1",
-                                            "marketingAirline": {
-                                                "code": "HHR"
-                                            },
-                                            "flightNumber": "0141",
-                                            "resBookDesigCode": "C",
-                                            "bookingClassAvails": [
-                                                {
-                                                    "bookingClassAvail": [
-                                                        {
-                                                            "resBookDesigCode": "C",
-                                                            "resBookDesigQuantity": "109",
-                                                            "resBookDesigStatusCode": "A"
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "bookingClassAvail": [
-                                                        {
-                                                            "resBookDesigCode": "Y",
-                                                            "resBookDesigQuantity": "304",
-                                                            "resBookDesigStatusCode": "A"
-                                                        }
-                                                    ]
-                                                }
-                                            ],
-                                            "comment": [],
-                                            "stopLocation": []
-                                        }
-                                    ],
-                                    "rph": "1"
-                                }
-                            ]
-                        }
-                    },
-                    "airItineraryPricingInfo": {
-                        "itinTotalFare": [
-                            {
-                                "baseFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 200.0
-                                },
-                                "equivFare": [],
-                                "taxes": {
-                                    "tax": [
-                                        {
-                                            "taxCode": "VAT",
-                                            "amount": 30.0
-                                        }
-                                    ],
-                                    "amount": 30.0
-                                },
-                                "fees": {
-                                    "fee": [
-                                        {
-                                            "feeCode": "FE1",
-                                            "amount": 0.0
-                                        },
-                                        {
-                                            "feeCode": "VAT",
-                                            "amount": 0.0
-                                        }
-                                    ],
-                                    "currencyCode": "SAR",
-                                    "amount": 0.0
-                                },
-                                "totalFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 230.0
-                                },
-                                "fareBaggageAllowance": [],
-                                "remark": []
-                            },
-                            {
-                                "baseFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 200.0
-                                },
-                                "equivFare": [],
-                                "taxes": {
-                                    "tax": [
-                                        {
-                                            "taxCode": "VAT",
-                                            "amount": 30.0
-                                        }
-                                    ],
-                                    "amount": 30.0
-                                },
-                                "fees": {
-                                    "fee": [
-                                        {
-                                            "feeCode": "FE1",
-                                            "amount": 0.0
-                                        },
-                                        {
-                                            "feeCode": "VAT",
-                                            "amount": 0.0
-                                        }
-                                    ],
-                                    "currencyCode": "SAR",
-                                    "amount": 0.0
-                                },
-                                "totalFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 230.0
-                                },
-                                "fareBaggageAllowance": [],
-                                "remark": []
-                            }
-                        ],
-                        "fareInfos": {
-                            "fareInfo": [
-                                {
-                                    "fareReference": [
-                                        {
-                                            "value": "WtEco"
-                                        }
-                                    ],
-                                    "filingAirline": {
-                                        "value": "HHR"
-                                    },
-                                    "marketingAirline": [],
-                                    "departureAirport": {
-                                        "locationCode": "MKX"
-                                    },
-                                    "arrivalAirport": {
-                                        "locationCode": "DMX"
-                                    },
-                                    "date": [],
-                                    "fareInfo": [],
-                                    "city": [],
-                                    "airport": []
-                                }
-                            ]
-                        },
-                        "ptcfareBreakdowns": {
-                            "ptcfareBreakdown": [
-                                {
-                                    "passengerTypeQuantity": {
-                                        "code": "ADT",
-                                        "quantity": 1
-                                    },
-                                    "fareBasisCodes": {
-                                        "fareBasisCode": [
-                                            {
-                                                "value": "WtEco",
-                                                "flightSegmentRPH": "1"
-                                            }
-                                        ]
-                                    },
-                                    "passengerFare": [
-                                        {
-                                            "baseFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 200.0
-                                            },
-                                            "equivFare": [],
-                                            "taxes": {
-                                                "tax": [
-                                                    {
-                                                        "taxCode": "VAT",
-                                                        "amount": 30.0
-                                                    }
-                                                ],
-                                                "amount": 30.0
-                                            },
-                                            "fees": {
-                                                "fee": [
-                                                    {
-                                                        "feeCode": "FE1",
-                                                        "amount": 0.0
-                                                    },
-                                                    {
-                                                        "feeCode": "VAT",
-                                                        "amount": 0.0
-                                                    }
-                                                ],
-                                                "amount": 0.0
-                                            },
-                                            "totalFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 230.0
-                                            },
-                                            "fareBaggageAllowance": [],
-                                            "remark": []
-                                        }
-                                    ],
-                                    "travelerRefNumber": [],
-                                    "fareInfo": [
-                                        {
-                                            "fareReference": [
-                                                {
-                                                    "value": "WtEco",
-                                                    "resBookDesigCode": "C",
-                                                    "accountCode": "WtEco"
-                                                }
-                                            ],
-                                            "marketingAirline": [],
-                                            "date": [],
-                                            "fareInfo": [],
-                                            "city": [],
-                                            "airport": []
-                                        }
-                                    ],
-                                    "pricingUnit": [],
-                                    "flightRefNumberRPHList": [
-                                        "1"
-                                    ]
-                                },
-                                {
-                                    "passengerTypeQuantity": {
-                                        "code": "ADT",
-                                        "quantity": 1
-                                    },
-                                    "fareBasisCodes": {
-                                        "fareBasisCode": [
-                                            {
-                                                "value": "WtEco",
-                                                "flightSegmentRPH": "1"
-                                            }
-                                        ]
-                                    },
-                                    "passengerFare": [
-                                        {
-                                            "baseFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 200.0
-                                            },
-                                            "equivFare": [],
-                                            "taxes": {
-                                                "tax": [
-                                                    {
-                                                        "taxCode": "VAT",
-                                                        "amount": 30.0
-                                                    }
-                                                ],
-                                                "amount": 30.0
-                                            },
-                                            "fees": {
-                                                "fee": [
-                                                    {
-                                                        "feeCode": "FE1",
-                                                        "amount": 0.0
-                                                    },
-                                                    {
-                                                        "feeCode": "VAT",
-                                                        "amount": 0.0
-                                                    }
-                                                ],
-                                                "amount": 0.0
-                                            },
-                                            "totalFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 230.0
-                                            },
-                                            "fareBaggageAllowance": [],
-                                            "remark": []
-                                        }
-                                    ],
-                                    "travelerRefNumber": [],
-                                    "fareInfo": [
-                                        {
-                                            "fareReference": [
-                                                {
-                                                    "value": "WtEco",
-                                                    "resBookDesigCode": "Y",
-                                                    "accountCode": "WtEco"
-                                                }
-                                            ],
-                                            "marketingAirline": [],
-                                            "date": [],
-                                            "fareInfo": [],
-                                            "city": [],
-                                            "airport": []
-                                        }
-                                    ],
-                                    "pricingUnit": [],
-                                    "flightRefNumberRPHList": [
-                                        "1"
-                                    ]
-                                }
-                            ]
-                        }
-                    },
-                    "notes": [],
-                    "sequenceNumber": 8
-                },
-                {
-                    "airItinerary": {
-                        "originDestinationOptions": {
-                            "originDestinationOption": [
-                                {
-                                    "flightSegment": [
-                                        {
-                                            "departureAirport": {
-                                                "locationCode": "MKX"
-                                            },
-                                            "arrivalAirport": {
-                                                "locationCode": "DMX"
-                                            },
-                                            "operatingAirline": {
-                                                "code": "HHR",
-                                                "flightNumber": "0190"
-                                            },
-                                            "equipment": [],
-                                            "departureDateTime": "2024-05-16T19:00:00.000+03:00",
-                                            "arrivalDateTime": "2024-05-16T21:25:00.000+03:00",
-                                            "rph": "1",
-                                            "marketingAirline": {
-                                                "code": "HHR"
-                                            },
-                                            "flightNumber": "0190",
-                                            "resBookDesigCode": "C",
-                                            "bookingClassAvails": [
-                                                {
-                                                    "bookingClassAvail": [
-                                                        {
-                                                            "resBookDesigCode": "C",
-                                                            "resBookDesigQuantity": "55",
-                                                            "resBookDesigStatusCode": "A"
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "bookingClassAvail": [
-                                                        {
-                                                            "resBookDesigCode": "Y",
-                                                            "resBookDesigQuantity": "2",
-                                                            "resBookDesigStatusCode": "A"
-                                                        }
-                                                    ]
-                                                }
-                                            ],
-                                            "comment": [],
-                                            "stopLocation": []
-                                        }
-                                    ],
-                                    "rph": "1"
-                                }
-                            ]
-                        }
-                    },
-                    "airItineraryPricingInfo": {
-                        "itinTotalFare": [
-                            {
-                                "baseFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 200.0
-                                },
-                                "equivFare": [],
-                                "taxes": {
-                                    "tax": [
-                                        {
-                                            "taxCode": "VAT",
-                                            "amount": 30.0
-                                        }
-                                    ],
-                                    "amount": 30.0
-                                },
-                                "fees": {
-                                    "fee": [
-                                        {
-                                            "feeCode": "FE1",
-                                            "amount": 0.0
-                                        },
-                                        {
-                                            "feeCode": "VAT",
-                                            "amount": 0.0
-                                        }
-                                    ],
-                                    "currencyCode": "SAR",
-                                    "amount": 0.0
-                                },
-                                "totalFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 230.0
-                                },
-                                "fareBaggageAllowance": [],
-                                "remark": []
-                            },
-                            {
-                                "baseFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 200.0
-                                },
-                                "equivFare": [],
-                                "taxes": {
-                                    "tax": [
-                                        {
-                                            "taxCode": "VAT",
-                                            "amount": 30.0
-                                        }
-                                    ],
-                                    "amount": 30.0
-                                },
-                                "fees": {
-                                    "fee": [
-                                        {
-                                            "feeCode": "FE1",
-                                            "amount": 0.0
-                                        },
-                                        {
-                                            "feeCode": "VAT",
-                                            "amount": 0.0
-                                        }
-                                    ],
-                                    "currencyCode": "SAR",
-                                    "amount": 0.0
-                                },
-                                "totalFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 230.0
-                                },
-                                "fareBaggageAllowance": [],
-                                "remark": []
-                            }
-                        ],
-                        "fareInfos": {
-                            "fareInfo": [
-                                {
-                                    "fareReference": [
-                                        {
-                                            "value": "WTBUSFMIN"
-                                        }
-                                    ],
-                                    "filingAirline": {
-                                        "value": "HHR"
-                                    },
-                                    "marketingAirline": [],
-                                    "departureAirport": {
-                                        "locationCode": "MKX"
-                                    },
-                                    "arrivalAirport": {
-                                        "locationCode": "DMX"
-                                    },
-                                    "date": [],
-                                    "fareInfo": [],
-                                    "city": [],
-                                    "airport": []
-                                }
-                            ]
-                        },
-                        "ptcfareBreakdowns": {
-                            "ptcfareBreakdown": [
-                                {
-                                    "passengerTypeQuantity": {
-                                        "code": "ADT",
-                                        "quantity": 1
-                                    },
-                                    "fareBasisCodes": {
-                                        "fareBasisCode": [
-                                            {
-                                                "value": "WTBUSFMIN",
-                                                "flightSegmentRPH": "1"
-                                            }
-                                        ]
-                                    },
-                                    "passengerFare": [
-                                        {
-                                            "baseFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 200.0
-                                            },
-                                            "equivFare": [],
-                                            "taxes": {
-                                                "tax": [
-                                                    {
-                                                        "taxCode": "VAT",
-                                                        "amount": 30.0
-                                                    }
-                                                ],
-                                                "amount": 30.0
-                                            },
-                                            "fees": {
-                                                "fee": [
-                                                    {
-                                                        "feeCode": "FE1",
-                                                        "amount": 0.0
-                                                    },
-                                                    {
-                                                        "feeCode": "VAT",
-                                                        "amount": 0.0
-                                                    }
-                                                ],
-                                                "amount": 0.0
-                                            },
-                                            "totalFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 230.0
-                                            },
-                                            "fareBaggageAllowance": [],
-                                            "remark": []
-                                        }
-                                    ],
-                                    "travelerRefNumber": [],
-                                    "fareInfo": [
-                                        {
-                                            "fareReference": [
-                                                {
-                                                    "value": "WTBUSFMIN",
-                                                    "resBookDesigCode": "C",
-                                                    "accountCode": "WTBUSFMIN"
-                                                }
-                                            ],
-                                            "marketingAirline": [],
-                                            "date": [],
-                                            "fareInfo": [],
-                                            "city": [],
-                                            "airport": []
-                                        }
-                                    ],
-                                    "pricingUnit": [],
-                                    "flightRefNumberRPHList": [
-                                        "1"
-                                    ]
-                                },
-                                {
-                                    "passengerTypeQuantity": {
-                                        "code": "ADT",
-                                        "quantity": 1
-                                    },
-                                    "fareBasisCodes": {
-                                        "fareBasisCode": [
-                                            {
-                                                "value": "WTBUSFMIN",
-                                                "flightSegmentRPH": "1"
-                                            }
-                                        ]
-                                    },
-                                    "passengerFare": [
-                                        {
-                                            "baseFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 200.0
-                                            },
-                                            "equivFare": [],
-                                            "taxes": {
-                                                "tax": [
-                                                    {
-                                                        "taxCode": "VAT",
-                                                        "amount": 30.0
-                                                    }
-                                                ],
-                                                "amount": 30.0
-                                            },
-                                            "fees": {
-                                                "fee": [
-                                                    {
-                                                        "feeCode": "FE1",
-                                                        "amount": 0.0
-                                                    },
-                                                    {
-                                                        "feeCode": "VAT",
-                                                        "amount": 0.0
-                                                    }
-                                                ],
-                                                "amount": 0.0
-                                            },
-                                            "totalFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 230.0
-                                            },
-                                            "fareBaggageAllowance": [],
-                                            "remark": []
-                                        }
-                                    ],
-                                    "travelerRefNumber": [],
-                                    "fareInfo": [
-                                        {
-                                            "fareReference": [
-                                                {
-                                                    "value": "WTBUSFMIN",
-                                                    "resBookDesigCode": "Y",
-                                                    "accountCode": "WTBUSFMIN"
-                                                }
-                                            ],
-                                            "marketingAirline": [],
-                                            "date": [],
-                                            "fareInfo": [],
-                                            "city": [],
-                                            "airport": []
-                                        }
-                                    ],
-                                    "pricingUnit": [],
-                                    "flightRefNumberRPHList": [
-                                        "1"
-                                    ]
-                                }
-                            ]
-                        }
-                    },
-                    "notes": [],
-                    "sequenceNumber": 9
-                },
-                {
-                    "airItinerary": {
-                        "originDestinationOptions": {
-                            "originDestinationOption": [
-                                {
-                                    "flightSegment": [
-                                        {
-                                            "departureAirport": {
-                                                "locationCode": "MKX"
-                                            },
-                                            "arrivalAirport": {
-                                                "locationCode": "DMX"
-                                            },
-                                            "operatingAirline": {
-                                                "code": "HHR",
-                                                "flightNumber": "0190"
-                                            },
-                                            "equipment": [],
-                                            "departureDateTime": "2024-05-16T19:00:00.000+03:00",
-                                            "arrivalDateTime": "2024-05-16T21:25:00.000+03:00",
-                                            "rph": "1",
-                                            "marketingAirline": {
-                                                "code": "HHR"
-                                            },
-                                            "flightNumber": "0190",
-                                            "resBookDesigCode": "C",
-                                            "bookingClassAvails": [
-                                                {
-                                                    "bookingClassAvail": [
-                                                        {
-                                                            "resBookDesigCode": "C",
-                                                            "resBookDesigQuantity": "55",
-                                                            "resBookDesigStatusCode": "A"
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "bookingClassAvail": [
-                                                        {
-                                                            "resBookDesigCode": "Y",
-                                                            "resBookDesigQuantity": "2",
-                                                            "resBookDesigStatusCode": "A"
-                                                        }
-                                                    ]
-                                                }
-                                            ],
-                                            "comment": [],
-                                            "stopLocation": []
-                                        }
-                                    ],
-                                    "rph": "1"
-                                }
-                            ]
-                        }
-                    },
-                    "airItineraryPricingInfo": {
-                        "itinTotalFare": [
-                            {
-                                "baseFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 250.0
-                                },
-                                "equivFare": [],
-                                "taxes": {
-                                    "tax": [
-                                        {
-                                            "taxCode": "VAT",
-                                            "amount": 37.5
-                                        }
-                                    ],
-                                    "amount": 37.5
-                                },
-                                "fees": {
-                                    "fee": [
-                                        {
-                                            "feeCode": "FE1",
-                                            "amount": 0.0
-                                        },
-                                        {
-                                            "feeCode": "VAT",
-                                            "amount": 0.0
-                                        }
-                                    ],
-                                    "currencyCode": "SAR",
-                                    "amount": 0.0
-                                },
-                                "totalFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 287.5
-                                },
-                                "fareBaggageAllowance": [],
-                                "remark": []
-                            },
-                            {
-                                "baseFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 250.0
-                                },
-                                "equivFare": [],
-                                "taxes": {
-                                    "tax": [
-                                        {
-                                            "taxCode": "VAT",
-                                            "amount": 37.5
-                                        }
-                                    ],
-                                    "amount": 37.5
-                                },
-                                "fees": {
-                                    "fee": [
-                                        {
-                                            "feeCode": "FE1",
-                                            "amount": 0.0
-                                        },
-                                        {
-                                            "feeCode": "VAT",
-                                            "amount": 0.0
-                                        }
-                                    ],
-                                    "currencyCode": "SAR",
-                                    "amount": 0.0
-                                },
-                                "totalFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 287.5
-                                },
-                                "fareBaggageAllowance": [],
-                                "remark": []
-                            }
-                        ],
-                        "fareInfos": {
-                            "fareInfo": [
-                                {
-                                    "fareReference": [
-                                        {
-                                            "value": "WtBus"
-                                        }
-                                    ],
-                                    "filingAirline": {
-                                        "value": "HHR"
-                                    },
-                                    "marketingAirline": [],
-                                    "departureAirport": {
-                                        "locationCode": "MKX"
-                                    },
-                                    "arrivalAirport": {
-                                        "locationCode": "DMX"
-                                    },
-                                    "date": [],
-                                    "fareInfo": [],
-                                    "city": [],
-                                    "airport": []
-                                }
-                            ]
-                        },
-                        "ptcfareBreakdowns": {
-                            "ptcfareBreakdown": [
-                                {
-                                    "passengerTypeQuantity": {
-                                        "code": "ADT",
-                                        "quantity": 1
-                                    },
-                                    "fareBasisCodes": {
-                                        "fareBasisCode": [
-                                            {
-                                                "value": "WtBus",
-                                                "flightSegmentRPH": "1"
-                                            }
-                                        ]
-                                    },
-                                    "passengerFare": [
-                                        {
-                                            "baseFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 250.0
-                                            },
-                                            "equivFare": [],
-                                            "taxes": {
-                                                "tax": [
-                                                    {
-                                                        "taxCode": "VAT",
-                                                        "amount": 37.5
-                                                    }
-                                                ],
-                                                "amount": 37.5
-                                            },
-                                            "fees": {
-                                                "fee": [
-                                                    {
-                                                        "feeCode": "FE1",
-                                                        "amount": 0.0
-                                                    },
-                                                    {
-                                                        "feeCode": "VAT",
-                                                        "amount": 0.0
-                                                    }
-                                                ],
-                                                "amount": 0.0
-                                            },
-                                            "totalFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 287.5
-                                            },
-                                            "fareBaggageAllowance": [],
-                                            "remark": []
-                                        }
-                                    ],
-                                    "travelerRefNumber": [],
-                                    "fareInfo": [
-                                        {
-                                            "fareReference": [
-                                                {
-                                                    "value": "WtBus",
-                                                    "resBookDesigCode": "C",
-                                                    "accountCode": "WtBus"
-                                                }
-                                            ],
-                                            "marketingAirline": [],
-                                            "date": [],
-                                            "fareInfo": [],
-                                            "city": [],
-                                            "airport": []
-                                        }
-                                    ],
-                                    "pricingUnit": [],
-                                    "flightRefNumberRPHList": [
-                                        "1"
-                                    ]
-                                },
-                                {
-                                    "passengerTypeQuantity": {
-                                        "code": "ADT",
-                                        "quantity": 1
-                                    },
-                                    "fareBasisCodes": {
-                                        "fareBasisCode": [
-                                            {
-                                                "value": "WtBus",
-                                                "flightSegmentRPH": "1"
-                                            }
-                                        ]
-                                    },
-                                    "passengerFare": [
-                                        {
-                                            "baseFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 250.0
-                                            },
-                                            "equivFare": [],
-                                            "taxes": {
-                                                "tax": [
-                                                    {
-                                                        "taxCode": "VAT",
-                                                        "amount": 37.5
-                                                    }
-                                                ],
-                                                "amount": 37.5
-                                            },
-                                            "fees": {
-                                                "fee": [
-                                                    {
-                                                        "feeCode": "FE1",
-                                                        "amount": 0.0
-                                                    },
-                                                    {
-                                                        "feeCode": "VAT",
-                                                        "amount": 0.0
-                                                    }
-                                                ],
-                                                "amount": 0.0
-                                            },
-                                            "totalFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 287.5
-                                            },
-                                            "fareBaggageAllowance": [],
-                                            "remark": []
-                                        }
-                                    ],
-                                    "travelerRefNumber": [],
-                                    "fareInfo": [
-                                        {
-                                            "fareReference": [
-                                                {
-                                                    "value": "WtBus",
-                                                    "resBookDesigCode": "Y",
-                                                    "accountCode": "WtBus"
-                                                }
-                                            ],
-                                            "marketingAirline": [],
-                                            "date": [],
-                                            "fareInfo": [],
-                                            "city": [],
-                                            "airport": []
-                                        }
-                                    ],
-                                    "pricingUnit": [],
-                                    "flightRefNumberRPHList": [
-                                        "1"
-                                    ]
-                                }
-                            ]
-                        }
-                    },
-                    "notes": [],
-                    "sequenceNumber": 10
-                },
-                {
-                    "airItinerary": {
-                        "originDestinationOptions": {
-                            "originDestinationOption": [
-                                {
-                                    "flightSegment": [
-                                        {
-                                            "departureAirport": {
-                                                "locationCode": "MKX"
-                                            },
-                                            "arrivalAirport": {
-                                                "locationCode": "DMX"
-                                            },
-                                            "operatingAirline": {
-                                                "code": "HHR",
-                                                "flightNumber": "0190"
-                                            },
-                                            "equipment": [],
-                                            "departureDateTime": "2024-05-16T19:00:00.000+03:00",
-                                            "arrivalDateTime": "2024-05-16T21:25:00.000+03:00",
-                                            "rph": "1",
-                                            "marketingAirline": {
-                                                "code": "HHR"
-                                            },
-                                            "flightNumber": "0190",
-                                            "resBookDesigCode": "C",
-                                            "bookingClassAvails": [
-                                                {
-                                                    "bookingClassAvail": [
-                                                        {
-                                                            "resBookDesigCode": "C",
-                                                            "resBookDesigQuantity": "55",
-                                                            "resBookDesigStatusCode": "A"
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "bookingClassAvail": [
-                                                        {
-                                                            "resBookDesigCode": "Y",
-                                                            "resBookDesigQuantity": "2",
-                                                            "resBookDesigStatusCode": "A"
-                                                        }
-                                                    ]
-                                                }
-                                            ],
-                                            "comment": [],
-                                            "stopLocation": []
-                                        }
-                                    ],
-                                    "rph": "1"
-                                }
-                            ]
-                        }
-                    },
-                    "airItineraryPricingInfo": {
-                        "itinTotalFare": [
-                            {
-                                "baseFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 100.0
-                                },
-                                "equivFare": [],
-                                "taxes": {
-                                    "tax": [
-                                        {
-                                            "taxCode": "VAT",
-                                            "amount": 15.0
-                                        }
-                                    ],
-                                    "amount": 15.0
-                                },
-                                "fees": {
-                                    "fee": [
-                                        {
-                                            "feeCode": "FE1",
-                                            "amount": 0.0
-                                        },
-                                        {
-                                            "feeCode": "VAT",
-                                            "amount": 0.0
-                                        }
-                                    ],
-                                    "currencyCode": "SAR",
-                                    "amount": 0.0
-                                },
-                                "totalFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 115.0
-                                },
-                                "fareBaggageAllowance": [],
-                                "remark": []
-                            },
-                            {
-                                "baseFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 100.0
-                                },
-                                "equivFare": [],
-                                "taxes": {
-                                    "tax": [
-                                        {
-                                            "taxCode": "VAT",
-                                            "amount": 15.0
-                                        }
-                                    ],
-                                    "amount": 15.0
-                                },
-                                "fees": {
-                                    "fee": [
-                                        {
-                                            "feeCode": "FE1",
-                                            "amount": 0.0
-                                        },
-                                        {
-                                            "feeCode": "VAT",
-                                            "amount": 0.0
-                                        }
-                                    ],
-                                    "currencyCode": "SAR",
-                                    "amount": 0.0
-                                },
-                                "totalFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 115.0
-                                },
-                                "fareBaggageAllowance": [],
-                                "remark": []
-                            }
-                        ],
-                        "fareInfos": {
-                            "fareInfo": [
-                                {
-                                    "fareReference": [
-                                        {
-                                            "value": "PROMOECOU"
-                                        }
-                                    ],
-                                    "filingAirline": {
-                                        "value": "HHR"
-                                    },
-                                    "marketingAirline": [],
-                                    "departureAirport": {
-                                        "locationCode": "MKX"
-                                    },
-                                    "arrivalAirport": {
-                                        "locationCode": "DMX"
-                                    },
-                                    "date": [],
-                                    "fareInfo": [],
-                                    "city": [],
-                                    "airport": []
-                                }
-                            ]
-                        },
-                        "ptcfareBreakdowns": {
-                            "ptcfareBreakdown": [
-                                {
-                                    "passengerTypeQuantity": {
-                                        "code": "ADT",
-                                        "quantity": 1
-                                    },
-                                    "fareBasisCodes": {
-                                        "fareBasisCode": [
-                                            {
-                                                "value": "PROMOECOU",
-                                                "flightSegmentRPH": "1"
-                                            }
-                                        ]
-                                    },
-                                    "passengerFare": [
-                                        {
-                                            "baseFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 100.0
-                                            },
-                                            "equivFare": [],
-                                            "taxes": {
-                                                "tax": [
-                                                    {
-                                                        "taxCode": "VAT",
-                                                        "amount": 15.0
-                                                    }
-                                                ],
-                                                "amount": 15.0
-                                            },
-                                            "fees": {
-                                                "fee": [
-                                                    {
-                                                        "feeCode": "FE1",
-                                                        "amount": 0.0
-                                                    },
-                                                    {
-                                                        "feeCode": "VAT",
-                                                        "amount": 0.0
-                                                    }
-                                                ],
-                                                "amount": 0.0
-                                            },
-                                            "totalFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 115.0
-                                            },
-                                            "fareBaggageAllowance": [],
-                                            "remark": []
-                                        }
-                                    ],
-                                    "travelerRefNumber": [],
-                                    "fareInfo": [
-                                        {
-                                            "fareReference": [
-                                                {
-                                                    "value": "PROMOECOU",
-                                                    "resBookDesigCode": "C",
-                                                    "accountCode": "PROMOECOU"
-                                                }
-                                            ],
-                                            "marketingAirline": [],
-                                            "date": [],
-                                            "fareInfo": [],
-                                            "city": [],
-                                            "airport": []
-                                        }
-                                    ],
-                                    "pricingUnit": [],
-                                    "flightRefNumberRPHList": [
-                                        "1"
-                                    ]
-                                },
-                                {
-                                    "passengerTypeQuantity": {
-                                        "code": "ADT",
-                                        "quantity": 1
-                                    },
-                                    "fareBasisCodes": {
-                                        "fareBasisCode": [
-                                            {
-                                                "value": "PROMOECOU",
-                                                "flightSegmentRPH": "1"
-                                            }
-                                        ]
-                                    },
-                                    "passengerFare": [
-                                        {
-                                            "baseFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 100.0
-                                            },
-                                            "equivFare": [],
-                                            "taxes": {
-                                                "tax": [
-                                                    {
-                                                        "taxCode": "VAT",
-                                                        "amount": 15.0
-                                                    }
-                                                ],
-                                                "amount": 15.0
-                                            },
-                                            "fees": {
-                                                "fee": [
-                                                    {
-                                                        "feeCode": "FE1",
-                                                        "amount": 0.0
-                                                    },
-                                                    {
-                                                        "feeCode": "VAT",
-                                                        "amount": 0.0
-                                                    }
-                                                ],
-                                                "amount": 0.0
-                                            },
-                                            "totalFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 115.0
-                                            },
-                                            "fareBaggageAllowance": [],
-                                            "remark": []
-                                        }
-                                    ],
-                                    "travelerRefNumber": [],
-                                    "fareInfo": [
-                                        {
-                                            "fareReference": [
-                                                {
-                                                    "value": "PROMOECOU",
-                                                    "resBookDesigCode": "Y",
-                                                    "accountCode": "PROMOECOU"
-                                                }
-                                            ],
-                                            "marketingAirline": [],
-                                            "date": [],
-                                            "fareInfo": [],
-                                            "city": [],
-                                            "airport": []
-                                        }
-                                    ],
-                                    "pricingUnit": [],
-                                    "flightRefNumberRPHList": [
-                                        "1"
-                                    ]
-                                }
-                            ]
-                        }
-                    },
-                    "notes": [],
-                    "sequenceNumber": 11
-                },
-                {
-                    "airItinerary": {
-                        "originDestinationOptions": {
-                            "originDestinationOption": [
-                                {
-                                    "flightSegment": [
-                                        {
-                                            "departureAirport": {
-                                                "locationCode": "MKX"
-                                            },
-                                            "arrivalAirport": {
-                                                "locationCode": "DMX"
-                                            },
-                                            "operatingAirline": {
-                                                "code": "HHR",
-                                                "flightNumber": "0190"
-                                            },
-                                            "equipment": [],
-                                            "departureDateTime": "2024-05-16T19:00:00.000+03:00",
-                                            "arrivalDateTime": "2024-05-16T21:25:00.000+03:00",
-                                            "rph": "1",
-                                            "marketingAirline": {
-                                                "code": "HHR"
-                                            },
-                                            "flightNumber": "0190",
-                                            "resBookDesigCode": "C",
-                                            "bookingClassAvails": [
-                                                {
-                                                    "bookingClassAvail": [
-                                                        {
-                                                            "resBookDesigCode": "C",
-                                                            "resBookDesigQuantity": "55",
-                                                            "resBookDesigStatusCode": "A"
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "bookingClassAvail": [
-                                                        {
-                                                            "resBookDesigCode": "Y",
-                                                            "resBookDesigQuantity": "2",
-                                                            "resBookDesigStatusCode": "A"
-                                                        }
-                                                    ]
-                                                }
-                                            ],
-                                            "comment": [],
-                                            "stopLocation": []
-                                        }
-                                    ],
-                                    "rph": "1"
-                                }
-                            ]
-                        }
-                    },
-                    "airItineraryPricingInfo": {
-                        "itinTotalFare": [
-                            {
-                                "baseFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 200.0
-                                },
-                                "equivFare": [],
-                                "taxes": {
-                                    "tax": [
-                                        {
-                                            "taxCode": "VAT",
-                                            "amount": 30.0
-                                        }
-                                    ],
-                                    "amount": 30.0
-                                },
-                                "fees": {
-                                    "fee": [
-                                        {
-                                            "feeCode": "FE1",
-                                            "amount": 0.0
-                                        },
-                                        {
-                                            "feeCode": "VAT",
-                                            "amount": 0.0
-                                        }
-                                    ],
-                                    "currencyCode": "SAR",
-                                    "amount": 0.0
-                                },
-                                "totalFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 230.0
-                                },
-                                "fareBaggageAllowance": [],
-                                "remark": []
-                            },
-                            {
-                                "baseFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 200.0
-                                },
-                                "equivFare": [],
-                                "taxes": {
-                                    "tax": [
-                                        {
-                                            "taxCode": "VAT",
-                                            "amount": 30.0
-                                        }
-                                    ],
-                                    "amount": 30.0
-                                },
-                                "fees": {
-                                    "fee": [
-                                        {
-                                            "feeCode": "FE1",
-                                            "amount": 0.0
-                                        },
-                                        {
-                                            "feeCode": "VAT",
-                                            "amount": 0.0
-                                        }
-                                    ],
-                                    "currencyCode": "SAR",
-                                    "amount": 0.0
-                                },
-                                "totalFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 230.0
-                                },
-                                "fareBaggageAllowance": [],
-                                "remark": []
-                            }
-                        ],
-                        "fareInfos": {
-                            "fareInfo": [
-                                {
-                                    "fareReference": [
-                                        {
-                                            "value": "WtEco"
-                                        }
-                                    ],
-                                    "filingAirline": {
-                                        "value": "HHR"
-                                    },
-                                    "marketingAirline": [],
-                                    "departureAirport": {
-                                        "locationCode": "MKX"
-                                    },
-                                    "arrivalAirport": {
-                                        "locationCode": "DMX"
-                                    },
-                                    "date": [],
-                                    "fareInfo": [],
-                                    "city": [],
-                                    "airport": []
-                                }
-                            ]
-                        },
-                        "ptcfareBreakdowns": {
-                            "ptcfareBreakdown": [
-                                {
-                                    "passengerTypeQuantity": {
-                                        "code": "ADT",
-                                        "quantity": 1
-                                    },
-                                    "fareBasisCodes": {
-                                        "fareBasisCode": [
-                                            {
-                                                "value": "WtEco",
-                                                "flightSegmentRPH": "1"
-                                            }
-                                        ]
-                                    },
-                                    "passengerFare": [
-                                        {
-                                            "baseFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 200.0
-                                            },
-                                            "equivFare": [],
-                                            "taxes": {
-                                                "tax": [
-                                                    {
-                                                        "taxCode": "VAT",
-                                                        "amount": 30.0
-                                                    }
-                                                ],
-                                                "amount": 30.0
-                                            },
-                                            "fees": {
-                                                "fee": [
-                                                    {
-                                                        "feeCode": "FE1",
-                                                        "amount": 0.0
-                                                    },
-                                                    {
-                                                        "feeCode": "VAT",
-                                                        "amount": 0.0
-                                                    }
-                                                ],
-                                                "amount": 0.0
-                                            },
-                                            "totalFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 230.0
-                                            },
-                                            "fareBaggageAllowance": [],
-                                            "remark": []
-                                        }
-                                    ],
-                                    "travelerRefNumber": [],
-                                    "fareInfo": [
-                                        {
-                                            "fareReference": [
-                                                {
-                                                    "value": "WtEco",
-                                                    "resBookDesigCode": "C",
-                                                    "accountCode": "WtEco"
-                                                }
-                                            ],
-                                            "marketingAirline": [],
-                                            "date": [],
-                                            "fareInfo": [],
-                                            "city": [],
-                                            "airport": []
-                                        }
-                                    ],
-                                    "pricingUnit": [],
-                                    "flightRefNumberRPHList": [
-                                        "1"
-                                    ]
-                                },
-                                {
-                                    "passengerTypeQuantity": {
-                                        "code": "ADT",
-                                        "quantity": 1
-                                    },
-                                    "fareBasisCodes": {
-                                        "fareBasisCode": [
-                                            {
-                                                "value": "WtEco",
-                                                "flightSegmentRPH": "1"
-                                            }
-                                        ]
-                                    },
-                                    "passengerFare": [
-                                        {
-                                            "baseFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 200.0
-                                            },
-                                            "equivFare": [],
-                                            "taxes": {
-                                                "tax": [
-                                                    {
-                                                        "taxCode": "VAT",
-                                                        "amount": 30.0
-                                                    }
-                                                ],
-                                                "amount": 30.0
-                                            },
-                                            "fees": {
-                                                "fee": [
-                                                    {
-                                                        "feeCode": "FE1",
-                                                        "amount": 0.0
-                                                    },
-                                                    {
-                                                        "feeCode": "VAT",
-                                                        "amount": 0.0
-                                                    }
-                                                ],
-                                                "amount": 0.0
-                                            },
-                                            "totalFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 230.0
-                                            },
-                                            "fareBaggageAllowance": [],
-                                            "remark": []
-                                        }
-                                    ],
-                                    "travelerRefNumber": [],
-                                    "fareInfo": [
-                                        {
-                                            "fareReference": [
-                                                {
-                                                    "value": "WtEco",
-                                                    "resBookDesigCode": "Y",
-                                                    "accountCode": "WtEco"
-                                                }
-                                            ],
-                                            "marketingAirline": [],
-                                            "date": [],
-                                            "fareInfo": [],
-                                            "city": [],
-                                            "airport": []
-                                        }
-                                    ],
-                                    "pricingUnit": [],
-                                    "flightRefNumberRPHList": [
-                                        "1"
-                                    ]
-                                }
-                            ]
-                        }
-                    },
-                    "notes": [],
-                    "sequenceNumber": 12
-                },
-                {
-                    "airItinerary": {
-                        "originDestinationOptions": {
-                            "originDestinationOption": [
-                                {
-                                    "flightSegment": [
-                                        {
-                                            "departureAirport": {
-                                                "locationCode": "MKX"
-                                            },
-                                            "arrivalAirport": {
-                                                "locationCode": "DMX"
-                                            },
-                                            "operatingAirline": {
-                                                "code": "HHR",
-                                                "flightNumber": "0210"
-                                            },
-                                            "equipment": [],
-                                            "departureDateTime": "2024-05-16T21:00:00.000+03:00",
-                                            "arrivalDateTime": "2024-05-16T23:25:00.000+03:00",
-                                            "rph": "1",
-                                            "marketingAirline": {
-                                                "code": "HHR"
-                                            },
-                                            "flightNumber": "0210",
-                                            "resBookDesigCode": "C",
-                                            "bookingClassAvails": [
-                                                {
-                                                    "bookingClassAvail": [
-                                                        {
-                                                            "resBookDesigCode": "C",
-                                                            "resBookDesigQuantity": "55",
-                                                            "resBookDesigStatusCode": "A"
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "bookingClassAvail": [
-                                                        {
-                                                            "resBookDesigCode": "Y",
-                                                            "resBookDesigQuantity": "1",
-                                                            "resBookDesigStatusCode": "A"
-                                                        }
-                                                    ]
-                                                }
-                                            ],
-                                            "comment": [],
-                                            "stopLocation": []
-                                        }
-                                    ],
-                                    "rph": "1"
-                                }
-                            ]
-                        }
-                    },
-                    "airItineraryPricingInfo": {
-                        "itinTotalFare": [
-                            {
-                                "baseFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 200.0
-                                },
-                                "equivFare": [],
-                                "taxes": {
-                                    "tax": [
-                                        {
-                                            "taxCode": "VAT",
-                                            "amount": 30.0
-                                        }
-                                    ],
-                                    "amount": 30.0
-                                },
-                                "fees": {
-                                    "fee": [
-                                        {
-                                            "feeCode": "FE1",
-                                            "amount": 0.0
-                                        },
-                                        {
-                                            "feeCode": "VAT",
-                                            "amount": 0.0
-                                        }
-                                    ],
-                                    "currencyCode": "SAR",
-                                    "amount": 0.0
-                                },
-                                "totalFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 230.0
-                                },
-                                "fareBaggageAllowance": [],
-                                "remark": []
-                            },
-                            {
-                                "baseFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 200.0
-                                },
-                                "equivFare": [],
-                                "taxes": {
-                                    "tax": [
-                                        {
-                                            "taxCode": "VAT",
-                                            "amount": 30.0
-                                        }
-                                    ],
-                                    "amount": 30.0
-                                },
-                                "fees": {
-                                    "fee": [
-                                        {
-                                            "feeCode": "FE1",
-                                            "amount": 0.0
-                                        },
-                                        {
-                                            "feeCode": "VAT",
-                                            "amount": 0.0
-                                        }
-                                    ],
-                                    "currencyCode": "SAR",
-                                    "amount": 0.0
-                                },
-                                "totalFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 230.0
-                                },
-                                "fareBaggageAllowance": [],
-                                "remark": []
-                            }
-                        ],
-                        "fareInfos": {
-                            "fareInfo": [
-                                {
-                                    "fareReference": [
-                                        {
-                                            "value": "WTBUSFMIN"
-                                        }
-                                    ],
-                                    "filingAirline": {
-                                        "value": "HHR"
-                                    },
-                                    "marketingAirline": [],
-                                    "departureAirport": {
-                                        "locationCode": "MKX"
-                                    },
-                                    "arrivalAirport": {
-                                        "locationCode": "DMX"
-                                    },
-                                    "date": [],
-                                    "fareInfo": [],
-                                    "city": [],
-                                    "airport": []
-                                }
-                            ]
-                        },
-                        "ptcfareBreakdowns": {
-                            "ptcfareBreakdown": [
-                                {
-                                    "passengerTypeQuantity": {
-                                        "code": "ADT",
-                                        "quantity": 1
-                                    },
-                                    "fareBasisCodes": {
-                                        "fareBasisCode": [
-                                            {
-                                                "value": "WTBUSFMIN",
-                                                "flightSegmentRPH": "1"
-                                            }
-                                        ]
-                                    },
-                                    "passengerFare": [
-                                        {
-                                            "baseFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 200.0
-                                            },
-                                            "equivFare": [],
-                                            "taxes": {
-                                                "tax": [
-                                                    {
-                                                        "taxCode": "VAT",
-                                                        "amount": 30.0
-                                                    }
-                                                ],
-                                                "amount": 30.0
-                                            },
-                                            "fees": {
-                                                "fee": [
-                                                    {
-                                                        "feeCode": "FE1",
-                                                        "amount": 0.0
-                                                    },
-                                                    {
-                                                        "feeCode": "VAT",
-                                                        "amount": 0.0
-                                                    }
-                                                ],
-                                                "amount": 0.0
-                                            },
-                                            "totalFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 230.0
-                                            },
-                                            "fareBaggageAllowance": [],
-                                            "remark": []
-                                        }
-                                    ],
-                                    "travelerRefNumber": [],
-                                    "fareInfo": [
-                                        {
-                                            "fareReference": [
-                                                {
-                                                    "value": "WTBUSFMIN",
-                                                    "resBookDesigCode": "C",
-                                                    "accountCode": "WTBUSFMIN"
-                                                }
-                                            ],
-                                            "marketingAirline": [],
-                                            "date": [],
-                                            "fareInfo": [],
-                                            "city": [],
-                                            "airport": []
-                                        }
-                                    ],
-                                    "pricingUnit": [],
-                                    "flightRefNumberRPHList": [
-                                        "1"
-                                    ]
-                                },
-                                {
-                                    "passengerTypeQuantity": {
-                                        "code": "ADT",
-                                        "quantity": 1
-                                    },
-                                    "fareBasisCodes": {
-                                        "fareBasisCode": [
-                                            {
-                                                "value": "WTBUSFMIN",
-                                                "flightSegmentRPH": "1"
-                                            }
-                                        ]
-                                    },
-                                    "passengerFare": [
-                                        {
-                                            "baseFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 200.0
-                                            },
-                                            "equivFare": [],
-                                            "taxes": {
-                                                "tax": [
-                                                    {
-                                                        "taxCode": "VAT",
-                                                        "amount": 30.0
-                                                    }
-                                                ],
-                                                "amount": 30.0
-                                            },
-                                            "fees": {
-                                                "fee": [
-                                                    {
-                                                        "feeCode": "FE1",
-                                                        "amount": 0.0
-                                                    },
-                                                    {
-                                                        "feeCode": "VAT",
-                                                        "amount": 0.0
-                                                    }
-                                                ],
-                                                "amount": 0.0
-                                            },
-                                            "totalFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 230.0
-                                            },
-                                            "fareBaggageAllowance": [],
-                                            "remark": []
-                                        }
-                                    ],
-                                    "travelerRefNumber": [],
-                                    "fareInfo": [
-                                        {
-                                            "fareReference": [
-                                                {
-                                                    "value": "WTBUSFMIN",
-                                                    "resBookDesigCode": "Y",
-                                                    "accountCode": "WTBUSFMIN"
-                                                }
-                                            ],
-                                            "marketingAirline": [],
-                                            "date": [],
-                                            "fareInfo": [],
-                                            "city": [],
-                                            "airport": []
-                                        }
-                                    ],
-                                    "pricingUnit": [],
-                                    "flightRefNumberRPHList": [
-                                        "1"
-                                    ]
-                                }
-                            ]
-                        }
-                    },
-                    "notes": [],
-                    "sequenceNumber": 13
-                },
-                {
-                    "airItinerary": {
-                        "originDestinationOptions": {
-                            "originDestinationOption": [
-                                {
-                                    "flightSegment": [
-                                        {
-                                            "departureAirport": {
-                                                "locationCode": "MKX"
-                                            },
-                                            "arrivalAirport": {
-                                                "locationCode": "DMX"
-                                            },
-                                            "operatingAirline": {
-                                                "code": "HHR",
-                                                "flightNumber": "0210"
-                                            },
-                                            "equipment": [],
-                                            "departureDateTime": "2024-05-16T21:00:00.000+03:00",
-                                            "arrivalDateTime": "2024-05-16T23:25:00.000+03:00",
-                                            "rph": "1",
-                                            "marketingAirline": {
-                                                "code": "HHR"
-                                            },
-                                            "flightNumber": "0210",
-                                            "resBookDesigCode": "C",
-                                            "bookingClassAvails": [
-                                                {
-                                                    "bookingClassAvail": [
-                                                        {
-                                                            "resBookDesigCode": "C",
-                                                            "resBookDesigQuantity": "55",
-                                                            "resBookDesigStatusCode": "A"
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "bookingClassAvail": [
-                                                        {
-                                                            "resBookDesigCode": "Y",
-                                                            "resBookDesigQuantity": "1",
-                                                            "resBookDesigStatusCode": "A"
-                                                        }
-                                                    ]
-                                                }
-                                            ],
-                                            "comment": [],
-                                            "stopLocation": []
-                                        }
-                                    ],
-                                    "rph": "1"
-                                }
-                            ]
-                        }
-                    },
-                    "airItineraryPricingInfo": {
-                        "itinTotalFare": [
-                            {
-                                "baseFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 250.0
-                                },
-                                "equivFare": [],
-                                "taxes": {
-                                    "tax": [
-                                        {
-                                            "taxCode": "VAT",
-                                            "amount": 37.5
-                                        }
-                                    ],
-                                    "amount": 37.5
-                                },
-                                "fees": {
-                                    "fee": [
-                                        {
-                                            "feeCode": "FE1",
-                                            "amount": 0.0
-                                        },
-                                        {
-                                            "feeCode": "VAT",
-                                            "amount": 0.0
-                                        }
-                                    ],
-                                    "currencyCode": "SAR",
-                                    "amount": 0.0
-                                },
-                                "totalFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 287.5
-                                },
-                                "fareBaggageAllowance": [],
-                                "remark": []
-                            },
-                            {
-                                "baseFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 250.0
-                                },
-                                "equivFare": [],
-                                "taxes": {
-                                    "tax": [
-                                        {
-                                            "taxCode": "VAT",
-                                            "amount": 37.5
-                                        }
-                                    ],
-                                    "amount": 37.5
-                                },
-                                "fees": {
-                                    "fee": [
-                                        {
-                                            "feeCode": "FE1",
-                                            "amount": 0.0
-                                        },
-                                        {
-                                            "feeCode": "VAT",
-                                            "amount": 0.0
-                                        }
-                                    ],
-                                    "currencyCode": "SAR",
-                                    "amount": 0.0
-                                },
-                                "totalFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 287.5
-                                },
-                                "fareBaggageAllowance": [],
-                                "remark": []
-                            }
-                        ],
-                        "fareInfos": {
-                            "fareInfo": [
-                                {
-                                    "fareReference": [
-                                        {
-                                            "value": "WtBus"
-                                        }
-                                    ],
-                                    "filingAirline": {
-                                        "value": "HHR"
-                                    },
-                                    "marketingAirline": [],
-                                    "departureAirport": {
-                                        "locationCode": "MKX"
-                                    },
-                                    "arrivalAirport": {
-                                        "locationCode": "DMX"
-                                    },
-                                    "date": [],
-                                    "fareInfo": [],
-                                    "city": [],
-                                    "airport": []
-                                }
-                            ]
-                        },
-                        "ptcfareBreakdowns": {
-                            "ptcfareBreakdown": [
-                                {
-                                    "passengerTypeQuantity": {
-                                        "code": "ADT",
-                                        "quantity": 1
-                                    },
-                                    "fareBasisCodes": {
-                                        "fareBasisCode": [
-                                            {
-                                                "value": "WtBus",
-                                                "flightSegmentRPH": "1"
-                                            }
-                                        ]
-                                    },
-                                    "passengerFare": [
-                                        {
-                                            "baseFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 250.0
-                                            },
-                                            "equivFare": [],
-                                            "taxes": {
-                                                "tax": [
-                                                    {
-                                                        "taxCode": "VAT",
-                                                        "amount": 37.5
-                                                    }
-                                                ],
-                                                "amount": 37.5
-                                            },
-                                            "fees": {
-                                                "fee": [
-                                                    {
-                                                        "feeCode": "FE1",
-                                                        "amount": 0.0
-                                                    },
-                                                    {
-                                                        "feeCode": "VAT",
-                                                        "amount": 0.0
-                                                    }
-                                                ],
-                                                "amount": 0.0
-                                            },
-                                            "totalFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 287.5
-                                            },
-                                            "fareBaggageAllowance": [],
-                                            "remark": []
-                                        }
-                                    ],
-                                    "travelerRefNumber": [],
-                                    "fareInfo": [
-                                        {
-                                            "fareReference": [
-                                                {
-                                                    "value": "WtBus",
-                                                    "resBookDesigCode": "C",
-                                                    "accountCode": "WtBus"
-                                                }
-                                            ],
-                                            "marketingAirline": [],
-                                            "date": [],
-                                            "fareInfo": [],
-                                            "city": [],
-                                            "airport": []
-                                        }
-                                    ],
-                                    "pricingUnit": [],
-                                    "flightRefNumberRPHList": [
-                                        "1"
-                                    ]
-                                },
-                                {
-                                    "passengerTypeQuantity": {
-                                        "code": "ADT",
-                                        "quantity": 1
-                                    },
-                                    "fareBasisCodes": {
-                                        "fareBasisCode": [
-                                            {
-                                                "value": "WtBus",
-                                                "flightSegmentRPH": "1"
-                                            }
-                                        ]
-                                    },
-                                    "passengerFare": [
-                                        {
-                                            "baseFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 250.0
-                                            },
-                                            "equivFare": [],
-                                            "taxes": {
-                                                "tax": [
-                                                    {
-                                                        "taxCode": "VAT",
-                                                        "amount": 37.5
-                                                    }
-                                                ],
-                                                "amount": 37.5
-                                            },
-                                            "fees": {
-                                                "fee": [
-                                                    {
-                                                        "feeCode": "FE1",
-                                                        "amount": 0.0
-                                                    },
-                                                    {
-                                                        "feeCode": "VAT",
-                                                        "amount": 0.0
-                                                    }
-                                                ],
-                                                "amount": 0.0
-                                            },
-                                            "totalFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 287.5
-                                            },
-                                            "fareBaggageAllowance": [],
-                                            "remark": []
-                                        }
-                                    ],
-                                    "travelerRefNumber": [],
-                                    "fareInfo": [
-                                        {
-                                            "fareReference": [
-                                                {
-                                                    "value": "WtBus",
-                                                    "resBookDesigCode": "Y",
-                                                    "accountCode": "WtBus"
-                                                }
-                                            ],
-                                            "marketingAirline": [],
-                                            "date": [],
-                                            "fareInfo": [],
-                                            "city": [],
-                                            "airport": []
-                                        }
-                                    ],
-                                    "pricingUnit": [],
-                                    "flightRefNumberRPHList": [
-                                        "1"
-                                    ]
-                                }
-                            ]
-                        }
-                    },
-                    "notes": [],
-                    "sequenceNumber": 14
-                },
-                {
-                    "airItinerary": {
-                        "originDestinationOptions": {
-                            "originDestinationOption": [
-                                {
-                                    "flightSegment": [
-                                        {
-                                            "departureAirport": {
-                                                "locationCode": "MKX"
-                                            },
-                                            "arrivalAirport": {
-                                                "locationCode": "DMX"
-                                            },
-                                            "operatingAirline": {
-                                                "code": "HHR",
-                                                "flightNumber": "0210"
-                                            },
-                                            "equipment": [],
-                                            "departureDateTime": "2024-05-16T21:00:00.000+03:00",
-                                            "arrivalDateTime": "2024-05-16T23:25:00.000+03:00",
-                                            "rph": "1",
-                                            "marketingAirline": {
-                                                "code": "HHR"
-                                            },
-                                            "flightNumber": "0210",
-                                            "resBookDesigCode": "C",
-                                            "bookingClassAvails": [
-                                                {
-                                                    "bookingClassAvail": [
-                                                        {
-                                                            "resBookDesigCode": "C",
-                                                            "resBookDesigQuantity": "55",
-                                                            "resBookDesigStatusCode": "A"
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "bookingClassAvail": [
-                                                        {
-                                                            "resBookDesigCode": "Y",
-                                                            "resBookDesigQuantity": "1",
-                                                            "resBookDesigStatusCode": "A"
-                                                        }
-                                                    ]
-                                                }
-                                            ],
-                                            "comment": [],
-                                            "stopLocation": []
-                                        }
-                                    ],
-                                    "rph": "1"
-                                }
-                            ]
-                        }
-                    },
-                    "airItineraryPricingInfo": {
-                        "itinTotalFare": [
-                            {
-                                "baseFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 100.0
-                                },
-                                "equivFare": [],
-                                "taxes": {
-                                    "tax": [
-                                        {
-                                            "taxCode": "VAT",
-                                            "amount": 15.0
-                                        }
-                                    ],
-                                    "amount": 15.0
-                                },
-                                "fees": {
-                                    "fee": [
-                                        {
-                                            "feeCode": "FE1",
-                                            "amount": 0.0
-                                        },
-                                        {
-                                            "feeCode": "VAT",
-                                            "amount": 0.0
-                                        }
-                                    ],
-                                    "currencyCode": "SAR",
-                                    "amount": 0.0
-                                },
-                                "totalFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 115.0
-                                },
-                                "fareBaggageAllowance": [],
-                                "remark": []
-                            },
-                            {
-                                "baseFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 100.0
-                                },
-                                "equivFare": [],
-                                "taxes": {
-                                    "tax": [
-                                        {
-                                            "taxCode": "VAT",
-                                            "amount": 15.0
-                                        }
-                                    ],
-                                    "amount": 15.0
-                                },
-                                "fees": {
-                                    "fee": [
-                                        {
-                                            "feeCode": "FE1",
-                                            "amount": 0.0
-                                        },
-                                        {
-                                            "feeCode": "VAT",
-                                            "amount": 0.0
-                                        }
-                                    ],
-                                    "currencyCode": "SAR",
-                                    "amount": 0.0
-                                },
-                                "totalFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 115.0
-                                },
-                                "fareBaggageAllowance": [],
-                                "remark": []
-                            }
-                        ],
-                        "fareInfos": {
-                            "fareInfo": [
-                                {
-                                    "fareReference": [
-                                        {
-                                            "value": "PROMOECOU"
-                                        }
-                                    ],
-                                    "filingAirline": {
-                                        "value": "HHR"
-                                    },
-                                    "marketingAirline": [],
-                                    "departureAirport": {
-                                        "locationCode": "MKX"
-                                    },
-                                    "arrivalAirport": {
-                                        "locationCode": "DMX"
-                                    },
-                                    "date": [],
-                                    "fareInfo": [],
-                                    "city": [],
-                                    "airport": []
-                                }
-                            ]
-                        },
-                        "ptcfareBreakdowns": {
-                            "ptcfareBreakdown": [
-                                {
-                                    "passengerTypeQuantity": {
-                                        "code": "ADT",
-                                        "quantity": 1
-                                    },
-                                    "fareBasisCodes": {
-                                        "fareBasisCode": [
-                                            {
-                                                "value": "PROMOECOU",
-                                                "flightSegmentRPH": "1"
-                                            }
-                                        ]
-                                    },
-                                    "passengerFare": [
-                                        {
-                                            "baseFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 100.0
-                                            },
-                                            "equivFare": [],
-                                            "taxes": {
-                                                "tax": [
-                                                    {
-                                                        "taxCode": "VAT",
-                                                        "amount": 15.0
-                                                    }
-                                                ],
-                                                "amount": 15.0
-                                            },
-                                            "fees": {
-                                                "fee": [
-                                                    {
-                                                        "feeCode": "FE1",
-                                                        "amount": 0.0
-                                                    },
-                                                    {
-                                                        "feeCode": "VAT",
-                                                        "amount": 0.0
-                                                    }
-                                                ],
-                                                "amount": 0.0
-                                            },
-                                            "totalFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 115.0
-                                            },
-                                            "fareBaggageAllowance": [],
-                                            "remark": []
-                                        }
-                                    ],
-                                    "travelerRefNumber": [],
-                                    "fareInfo": [
-                                        {
-                                            "fareReference": [
-                                                {
-                                                    "value": "PROMOECOU",
-                                                    "resBookDesigCode": "C",
-                                                    "accountCode": "PROMOECOU"
-                                                }
-                                            ],
-                                            "marketingAirline": [],
-                                            "date": [],
-                                            "fareInfo": [],
-                                            "city": [],
-                                            "airport": []
-                                        }
-                                    ],
-                                    "pricingUnit": [],
-                                    "flightRefNumberRPHList": [
-                                        "1"
-                                    ]
-                                },
-                                {
-                                    "passengerTypeQuantity": {
-                                        "code": "ADT",
-                                        "quantity": 1
-                                    },
-                                    "fareBasisCodes": {
-                                        "fareBasisCode": [
-                                            {
-                                                "value": "PROMOECOU",
-                                                "flightSegmentRPH": "1"
-                                            }
-                                        ]
-                                    },
-                                    "passengerFare": [
-                                        {
-                                            "baseFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 100.0
-                                            },
-                                            "equivFare": [],
-                                            "taxes": {
-                                                "tax": [
-                                                    {
-                                                        "taxCode": "VAT",
-                                                        "amount": 15.0
-                                                    }
-                                                ],
-                                                "amount": 15.0
-                                            },
-                                            "fees": {
-                                                "fee": [
-                                                    {
-                                                        "feeCode": "FE1",
-                                                        "amount": 0.0
-                                                    },
-                                                    {
-                                                        "feeCode": "VAT",
-                                                        "amount": 0.0
-                                                    }
-                                                ],
-                                                "amount": 0.0
-                                            },
-                                            "totalFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 115.0
-                                            },
-                                            "fareBaggageAllowance": [],
-                                            "remark": []
-                                        }
-                                    ],
-                                    "travelerRefNumber": [],
-                                    "fareInfo": [
-                                        {
-                                            "fareReference": [
-                                                {
-                                                    "value": "PROMOECOU",
-                                                    "resBookDesigCode": "Y",
-                                                    "accountCode": "PROMOECOU"
-                                                }
-                                            ],
-                                            "marketingAirline": [],
-                                            "date": [],
-                                            "fareInfo": [],
-                                            "city": [],
-                                            "airport": []
-                                        }
-                                    ],
-                                    "pricingUnit": [],
-                                    "flightRefNumberRPHList": [
-                                        "1"
-                                    ]
-                                }
-                            ]
-                        }
-                    },
-                    "notes": [],
-                    "sequenceNumber": 15
-                },
-                {
-                    "airItinerary": {
-                        "originDestinationOptions": {
-                            "originDestinationOption": [
-                                {
-                                    "flightSegment": [
-                                        {
-                                            "departureAirport": {
-                                                "locationCode": "MKX"
-                                            },
-                                            "arrivalAirport": {
-                                                "locationCode": "DMX"
-                                            },
-                                            "operatingAirline": {
-                                                "code": "HHR",
-                                                "flightNumber": "0210"
-                                            },
-                                            "equipment": [],
-                                            "departureDateTime": "2024-05-16T21:00:00.000+03:00",
-                                            "arrivalDateTime": "2024-05-16T23:25:00.000+03:00",
-                                            "rph": "1",
-                                            "marketingAirline": {
-                                                "code": "HHR"
-                                            },
-                                            "flightNumber": "0210",
-                                            "resBookDesigCode": "C",
-                                            "bookingClassAvails": [
-                                                {
-                                                    "bookingClassAvail": [
-                                                        {
-                                                            "resBookDesigCode": "C",
-                                                            "resBookDesigQuantity": "55",
-                                                            "resBookDesigStatusCode": "A"
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "bookingClassAvail": [
-                                                        {
-                                                            "resBookDesigCode": "Y",
-                                                            "resBookDesigQuantity": "1",
-                                                            "resBookDesigStatusCode": "A"
-                                                        }
-                                                    ]
-                                                }
-                                            ],
-                                            "comment": [],
-                                            "stopLocation": []
-                                        }
-                                    ],
-                                    "rph": "1"
-                                }
-                            ]
-                        }
-                    },
-                    "airItineraryPricingInfo": {
-                        "itinTotalFare": [
-                            {
-                                "baseFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 200.0
-                                },
-                                "equivFare": [],
-                                "taxes": {
-                                    "tax": [
-                                        {
-                                            "taxCode": "VAT",
-                                            "amount": 30.0
-                                        }
-                                    ],
-                                    "amount": 30.0
-                                },
-                                "fees": {
-                                    "fee": [
-                                        {
-                                            "feeCode": "FE1",
-                                            "amount": 0.0
-                                        },
-                                        {
-                                            "feeCode": "VAT",
-                                            "amount": 0.0
-                                        }
-                                    ],
-                                    "currencyCode": "SAR",
-                                    "amount": 0.0
-                                },
-                                "totalFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 230.0
-                                },
-                                "fareBaggageAllowance": [],
-                                "remark": []
-                            },
-                            {
-                                "baseFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 200.0
-                                },
-                                "equivFare": [],
-                                "taxes": {
-                                    "tax": [
-                                        {
-                                            "taxCode": "VAT",
-                                            "amount": 30.0
-                                        }
-                                    ],
-                                    "amount": 30.0
-                                },
-                                "fees": {
-                                    "fee": [
-                                        {
-                                            "feeCode": "FE1",
-                                            "amount": 0.0
-                                        },
-                                        {
-                                            "feeCode": "VAT",
-                                            "amount": 0.0
-                                        }
-                                    ],
-                                    "currencyCode": "SAR",
-                                    "amount": 0.0
-                                },
-                                "totalFare": {
-                                    "currencyCode": "SAR",
-                                    "amount": 230.0
-                                },
-                                "fareBaggageAllowance": [],
-                                "remark": []
-                            }
-                        ],
-                        "fareInfos": {
-                            "fareInfo": [
-                                {
-                                    "fareReference": [
-                                        {
-                                            "value": "WtEco"
-                                        }
-                                    ],
-                                    "filingAirline": {
-                                        "value": "HHR"
-                                    },
-                                    "marketingAirline": [],
-                                    "departureAirport": {
-                                        "locationCode": "MKX"
-                                    },
-                                    "arrivalAirport": {
-                                        "locationCode": "DMX"
-                                    },
-                                    "date": [],
-                                    "fareInfo": [],
-                                    "city": [],
-                                    "airport": []
-                                }
-                            ]
-                        },
-                        "ptcfareBreakdowns": {
-                            "ptcfareBreakdown": [
-                                {
-                                    "passengerTypeQuantity": {
-                                        "code": "ADT",
-                                        "quantity": 1
-                                    },
-                                    "fareBasisCodes": {
-                                        "fareBasisCode": [
-                                            {
-                                                "value": "WtEco",
-                                                "flightSegmentRPH": "1"
-                                            }
-                                        ]
-                                    },
-                                    "passengerFare": [
-                                        {
-                                            "baseFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 200.0
-                                            },
-                                            "equivFare": [],
-                                            "taxes": {
-                                                "tax": [
-                                                    {
-                                                        "taxCode": "VAT",
-                                                        "amount": 30.0
-                                                    }
-                                                ],
-                                                "amount": 30.0
-                                            },
-                                            "fees": {
-                                                "fee": [
-                                                    {
-                                                        "feeCode": "FE1",
-                                                        "amount": 0.0
-                                                    },
-                                                    {
-                                                        "feeCode": "VAT",
-                                                        "amount": 0.0
-                                                    }
-                                                ],
-                                                "amount": 0.0
-                                            },
-                                            "totalFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 230.0
-                                            },
-                                            "fareBaggageAllowance": [],
-                                            "remark": []
-                                        }
-                                    ],
-                                    "travelerRefNumber": [],
-                                    "fareInfo": [
-                                        {
-                                            "fareReference": [
-                                                {
-                                                    "value": "WtEco",
-                                                    "resBookDesigCode": "C",
-                                                    "accountCode": "WtEco"
-                                                }
-                                            ],
-                                            "marketingAirline": [],
-                                            "date": [],
-                                            "fareInfo": [],
-                                            "city": [],
-                                            "airport": []
-                                        }
-                                    ],
-                                    "pricingUnit": [],
-                                    "flightRefNumberRPHList": [
-                                        "1"
-                                    ]
-                                },
-                                {
-                                    "passengerTypeQuantity": {
-                                        "code": "ADT",
-                                        "quantity": 1
-                                    },
-                                    "fareBasisCodes": {
-                                        "fareBasisCode": [
-                                            {
-                                                "value": "WtEco",
-                                                "flightSegmentRPH": "1"
-                                            }
-                                        ]
-                                    },
-                                    "passengerFare": [
-                                        {
-                                            "baseFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 200.0
-                                            },
-                                            "equivFare": [],
-                                            "taxes": {
-                                                "tax": [
-                                                    {
-                                                        "taxCode": "VAT",
-                                                        "amount": 30.0
-                                                    }
-                                                ],
-                                                "amount": 30.0
-                                            },
-                                            "fees": {
-                                                "fee": [
-                                                    {
-                                                        "feeCode": "FE1",
-                                                        "amount": 0.0
-                                                    },
-                                                    {
-                                                        "feeCode": "VAT",
-                                                        "amount": 0.0
-                                                    }
-                                                ],
-                                                "amount": 0.0
-                                            },
-                                            "totalFare": {
-                                                "currencyCode": "SAR",
-                                                "amount": 230.0
-                                            },
-                                            "fareBaggageAllowance": [],
-                                            "remark": []
-                                        }
-                                    ],
-                                    "travelerRefNumber": [],
-                                    "fareInfo": [
-                                        {
-                                            "fareReference": [
-                                                {
-                                                    "value": "WtEco",
-                                                    "resBookDesigCode": "Y",
-                                                    "accountCode": "WtEco"
-                                                }
-                                            ],
-                                            "marketingAirline": [],
-                                            "date": [],
-                                            "fareInfo": [],
-                                            "city": [],
-                                            "airport": []
-                                        }
-                                    ],
-                                    "pricingUnit": [],
-                                    "flightRefNumberRPHList": [
-                                        "1"
-                                    ]
-                                }
-                            ]
-                        }
-                    },
-                    "notes": [],
-                    "sequenceNumber": 16
-                }
+                    "flightNumber": "9090",
+                    "resBookDesigCode": "C",
+                    "bookingClassAvails": [
+                      {
+                        "bookingClassAvail": [
+                          {
+                            "resBookDesigCode": "C",
+                            "resBookDesigQuantity": "75",
+                            "resBookDesigStatusCode": "A"
+                          }
+                        ]
+                      },
+                      {
+                        "bookingClassAvail": [
+                          {
+                            "resBookDesigCode": "Y",
+                            "resBookDesigQuantity": "230",
+                            "resBookDesigStatusCode": "A"
+                          }
+                        ]
+                      }
+                    ],
+                    "comment": [],
+                    "stopLocation": []
+                  }
+                ],
+                "rph": "1"
+              }
             ]
+          }
         },
-        "timeStamp": "2024-05-13T09:08:52.129Z"
-    }
-  </pre>
+        "airItineraryPricingInfo": {
+          "itinTotalFare": [
+            {
+              "baseFare": {
+                "currencyCode": "SAR",
+                "amount": 97.0
+              },
+              "equivFare": [],
+              "taxes": {
+                "tax": [
+                  {
+                    "taxCode": "VAT",
+                    "amount": 14.55
+                  }
+                ],
+                "amount": 14.55
+              },
+              "fees": {
+                "fee": [
+                  {
+                    "feeCode": "FE1",
+                    "amount": 0.0
+                  },
+                  {
+                    "feeCode": "VAT",
+                    "amount": 0.0
+                  }
+                ],
+                "currencyCode": "SAR",
+                "amount": 0.0
+              },
+              "totalFare": {
+                "currencyCode": "SAR",
+                "amount": 111.55
+              },
+              "fareBaggageAllowance": [],
+              "remark": []
+            }
+          ],
+          "fareInfos": {
+            "fareInfo": [
+              {
+                "fareReference": [
+                  {
+                    "value": "BELMOWM"
+                  }
+                ],
+                "filingAirline": {
+                  "value": "HHR"
+                },
+                "marketingAirline": [],
+                "departureAirport": {
+                  "locationCode": "MKX"
+                },
+                "arrivalAirport": {
+                  "locationCode": "JED"
+                },
+                "date": [],
+                "fareInfo": [],
+                "city": [],
+                "airport": []
+              }
+            ]
+          },
+          "ptcfareBreakdowns": {
+            "ptcfareBreakdown": [
+              {
+                "passengerTypeQuantity": {
+                  "code": "ADT",
+                  "quantity": 1
+                },
+                "fareBasisCodes": {
+                  "fareBasisCode": [
+                    {
+                      "value": "BELMOWM",
+                      "flightSegmentRPH": "1"
+                    }
+                  ]
+                },
+                "passengerFare": [
+                  {
+                    "baseFare": {
+                      "currencyCode": "SAR",
+                      "amount": 97.0
+                    },
+                    "equivFare": [],
+                    "taxes": {
+                      "tax": [
+                        {
+                          "taxCode": "VAT",
+                          "amount": 14.55
+                        }
+                      ],
+                      "amount": 14.55
+                    },
+                    "fees": {
+                      "fee": [
+                        {
+                          "feeCode": "FE1",
+                          "amount": 0.0
+                        },
+                        {
+                          "feeCode": "VAT",
+                          "amount": 0.0
+                        }
+                      ],
+                      "amount": 0.0
+                    },
+                    "totalFare": {
+                      "currencyCode": "SAR",
+                      "amount": 111.55
+                    },
+                    "fareBaggageAllowance": [],
+                    "remark": []
+                  }
+                ],
+                "travelerRefNumber": [],
+                "fareInfo": [
+                  {
+                    "fareReference": [
+                      {
+                        "value": "BELMOWM",
+                        "resBookDesigCode": "C",
+                        "accountCode": "BELMOWM"
+                      }
+                    ],
+                    "marketingAirline": [],
+                    "date": [],
+                    "fareInfo": [],
+                    "city": [],
+                    "airport": []
+                  }
+                ],
+                "pricingUnit": [],
+                "flightRefNumberRPHList": [
+                  "1"
+                ]
+              }
+            ]
+          }
+        },
+        "notes": [],
+        "sequenceNumber": 1
+      },
+      {
+        "airItinerary": {
+          "originDestinationOptions": {
+            "originDestinationOption": [
+              {
+                "flightSegment": [
+                  {
+                    "departureAirport": {
+                      "locationCode": "MKX"
+                    },
+                    "arrivalAirport": {
+                      "locationCode": "JED"
+                    },
+                    "operatingAirline": {
+                      "code": "HHR",
+                      "flightNumber": "9090"
+                    },
+                    "equipment": [],
+                    "departureDateTime": "2025-07-29T09:35:00.000+03:00",
+                    "arrivalDateTime": "2025-07-29T10:29:00.000+03:00",
+                    "rph": "1",
+                    "marketingAirline": {
+                      "code": "HHR"
+                    },
+                    "flightNumber": "9090",
+                    "resBookDesigCode": "Y",
+                    "bookingClassAvails": [
+                      {
+                        "bookingClassAvail": [
+                          {
+                            "resBookDesigCode": "C",
+                            "resBookDesigQuantity": "75",
+                            "resBookDesigStatusCode": "A"
+                          }
+                        ]
+                      },
+                      {
+                        "bookingClassAvail": [
+                          {
+                            "resBookDesigCode": "Y",
+                            "resBookDesigQuantity": "230",
+                            "resBookDesigStatusCode": "A"
+                          }
+                        ]
+                      }
+                    ],
+                    "comment": [],
+                    "stopLocation": []
+                  }
+                ],
+                "rph": "1"
+              }
+            ]
+          }
+        },
+        "airItineraryPricingInfo": {
+          "itinTotalFare": [
+            {
+              "baseFare": {
+                "currencyCode": "SAR",
+                "amount": 60.0
+              },
+              "equivFare": [],
+              "taxes": {
+                "tax": [
+                  {
+                    "taxCode": "VAT",
+                    "amount": 9.0
+                  }
+                ],
+                "amount": 9.0
+              },
+              "fees": {
+                "fee": [
+                  {
+                    "feeCode": "FE1",
+                    "amount": 0.0
+                  },
+                  {
+                    "feeCode": "VAT",
+                    "amount": 0.0
+                  }
+                ],
+                "currencyCode": "SAR",
+                "amount": 0.0
+              },
+              "totalFare": {
+                "currencyCode": "SAR",
+                "amount": 69.0
+              },
+              "fareBaggageAllowance": [],
+              "remark": []
+            }
+          ],
+          "fareInfos": {
+            "fareInfo": [
+              {
+                "fareReference": [
+                  {
+                    "value": "PruebaRTCancel"
+                  }
+                ],
+                "filingAirline": {
+                  "value": "HHR"
+                },
+                "marketingAirline": [],
+                "departureAirport": {
+                  "locationCode": "MKX"
+                },
+                "arrivalAirport": {
+                  "locationCode": "JED"
+                },
+                "date": [],
+                "fareInfo": [],
+                "city": [],
+                "airport": []
+              }
+            ]
+          },
+          "ptcfareBreakdowns": {
+            "ptcfareBreakdown": [
+              {
+                "passengerTypeQuantity": {
+                  "code": "ADT",
+                  "quantity": 1
+                },
+                "fareBasisCodes": {
+                  "fareBasisCode": [
+                    {
+                      "value": "PruebaRTCancel",
+                      "flightSegmentRPH": "1"
+                    }
+                  ]
+                },
+                "passengerFare": [
+                  {
+                    "baseFare": {
+                      "currencyCode": "SAR",
+                      "amount": 60.0
+                    },
+                    "equivFare": [],
+                    "taxes": {
+                      "tax": [
+                        {
+                          "taxCode": "VAT",
+                          "amount": 9.0
+                        }
+                      ],
+                      "amount": 9.0
+                    },
+                    "fees": {
+                      "fee": [
+                        {
+                          "feeCode": "FE1",
+                          "amount": 0.0
+                        },
+                        {
+                          "feeCode": "VAT",
+                          "amount": 0.0
+                        }
+                      ],
+                      "amount": 0.0
+                    },
+                    "totalFare": {
+                      "currencyCode": "SAR",
+                      "amount": 69.0
+                    },
+                    "fareBaggageAllowance": [],
+                    "remark": []
+                  }
+                ],
+                "travelerRefNumber": [],
+                "fareInfo": [
+                  {
+                    "fareReference": [
+                      {
+                        "value": "PruebaRTCancel",
+                        "resBookDesigCode": "Y",
+                        "accountCode": "PruebaRTCancel"
+                      }
+                    ],
+                    "marketingAirline": [],
+                    "date": [],
+                    "fareInfo": [],
+                    "city": [],
+                    "airport": []
+                  }
+                ],
+                "pricingUnit": [],
+                "flightRefNumberRPHList": [
+                  "1"
+                ]
+              }
+            ]
+          }
+        },
+        "notes": [],
+        "sequenceNumber": 2
+      },
+      {
+        "airItinerary": {
+          "originDestinationOptions": {
+            "originDestinationOption": [
+              {
+                "flightSegment": [
+                  {
+                    "departureAirport": {
+                      "locationCode": "MKX"
+                    },
+                    "arrivalAirport": {
+                      "locationCode": "JED"
+                    },
+                    "operatingAirline": {
+                      "code": "HHR",
+                      "flightNumber": "9090"
+                    },
+                    "equipment": [],
+                    "departureDateTime": "2025-07-29T09:35:00.000+03:00",
+                    "arrivalDateTime": "2025-07-29T10:29:00.000+03:00",
+                    "rph": "1",
+                    "marketingAirline": {
+                      "code": "HHR"
+                    },
+                    "flightNumber": "9090",
+                    "resBookDesigCode": "Y",
+                    "bookingClassAvails": [
+                      {
+                        "bookingClassAvail": [
+                          {
+                            "resBookDesigCode": "C",
+                            "resBookDesigQuantity": "75",
+                            "resBookDesigStatusCode": "A"
+                          }
+                        ]
+                      },
+                      {
+                        "bookingClassAvail": [
+                          {
+                            "resBookDesigCode": "Y",
+                            "resBookDesigQuantity": "230",
+                            "resBookDesigStatusCode": "A"
+                          }
+                        ]
+                      }
+                    ],
+                    "comment": [],
+                    "stopLocation": []
+                  }
+                ],
+                "rph": "1"
+              }
+            ]
+          }
+        },
+        "airItineraryPricingInfo": {
+          "itinTotalFare": [
+            {
+              "baseFare": {
+                "currencyCode": "SAR",
+                "amount": 60.0
+              },
+              "equivFare": [],
+              "taxes": {
+                "tax": [
+                  {
+                    "taxCode": "VAT",
+                    "amount": 9.0
+                  }
+                ],
+                "amount": 9.0
+              },
+              "fees": {
+                "fee": [
+                  {
+                    "feeCode": "FE1",
+                    "amount": 0.0
+                  },
+                  {
+                    "feeCode": "VAT",
+                    "amount": 0.0
+                  }
+                ],
+                "currencyCode": "SAR",
+                "amount": 0.0
+              },
+              "totalFare": {
+                "currencyCode": "SAR",
+                "amount": 69.0
+              },
+              "fareBaggageAllowance": [],
+              "remark": []
+            }
+          ],
+          "fareInfos": {
+            "fareInfo": [
+              {
+                "fareReference": [
+                  {
+                    "value": "PruebaRTNoCance"
+                  }
+                ],
+                "filingAirline": {
+                  "value": "HHR"
+                },
+                "marketingAirline": [],
+                "departureAirport": {
+                  "locationCode": "MKX"
+                },
+                "arrivalAirport": {
+                  "locationCode": "JED"
+                },
+                "date": [],
+                "fareInfo": [],
+                "city": [],
+                "airport": []
+              }
+            ]
+          },
+          "ptcfareBreakdowns": {
+            "ptcfareBreakdown": [
+              {
+                "passengerTypeQuantity": {
+                  "code": "ADT",
+                  "quantity": 1
+                },
+                "fareBasisCodes": {
+                  "fareBasisCode": [
+                    {
+                      "value": "PruebaRTNoCance",
+                      "flightSegmentRPH": "1"
+                    }
+                  ]
+                },
+                "passengerFare": [
+                  {
+                    "baseFare": {
+                      "currencyCode": "SAR",
+                      "amount": 60.0
+                    },
+                    "equivFare": [],
+                    "taxes": {
+                      "tax": [
+                        {
+                          "taxCode": "VAT",
+                          "amount": 9.0
+                        }
+                      ],
+                      "amount": 9.0
+                    },
+                    "fees": {
+                      "fee": [
+                        {
+                          "feeCode": "FE1",
+                          "amount": 0.0
+                        },
+                        {
+                          "feeCode": "VAT",
+                          "amount": 0.0
+                        }
+                      ],
+                      "amount": 0.0
+                    },
+                    "totalFare": {
+                      "currencyCode": "SAR",
+                      "amount": 69.0
+                    },
+                    "fareBaggageAllowance": [],
+                    "remark": []
+                  }
+                ],
+                "travelerRefNumber": [],
+                "fareInfo": [
+                  {
+                    "fareReference": [
+                      {
+                        "value": "PruebaRTNoCance",
+                        "resBookDesigCode": "Y",
+                        "accountCode": "PruebaRTNoCance"
+                      }
+                    ],
+                    "marketingAirline": [],
+                    "date": [],
+                    "fareInfo": [],
+                    "city": [],
+                    "airport": []
+                  }
+                ],
+                "pricingUnit": [],
+                "flightRefNumberRPHList": [
+                  "1"
+                ]
+              }
+            ]
+          }
+        },
+        "notes": [],
+        "sequenceNumber": 3
+      },
+      {
+        "airItinerary": {
+          "originDestinationOptions": {
+            "originDestinationOption": [
+              {
+                "flightSegment": [
+                  {
+                    "departureAirport": {
+                      "locationCode": "MKX"
+                    },
+                    "arrivalAirport": {
+                      "locationCode": "JED"
+                    },
+                    "operatingAirline": {
+                      "code": "HHR",
+                      "flightNumber": "9090"
+                    },
+                    "equipment": [],
+                    "departureDateTime": "2025-07-29T09:35:00.000+03:00",
+                    "arrivalDateTime": "2025-07-29T10:29:00.000+03:00",
+                    "rph": "1",
+                    "marketingAirline": {
+                      "code": "HHR"
+                    },
+                    "flightNumber": "9090",
+                    "resBookDesigCode": "Y",
+                    "bookingClassAvails": [
+                      {
+                        "bookingClassAvail": [
+                          {
+                            "resBookDesigCode": "C",
+                            "resBookDesigQuantity": "75",
+                            "resBookDesigStatusCode": "A"
+                          }
+                        ]
+                      },
+                      {
+                        "bookingClassAvail": [
+                          {
+                            "resBookDesigCode": "Y",
+                            "resBookDesigQuantity": "230",
+                            "resBookDesigStatusCode": "A"
+                          }
+                        ]
+                      }
+                    ],
+                    "comment": [],
+                    "stopLocation": []
+                  }
+                ],
+                "rph": "1"
+              }
+            ]
+          }
+        },
+        "airItineraryPricingInfo": {
+          "itinTotalFare": [
+            {
+              "baseFare": {
+                "currencyCode": "SAR",
+                "amount": 60.0
+              },
+              "equivFare": [],
+              "taxes": {
+                "tax": [
+                  {
+                    "taxCode": "VAT",
+                    "amount": 9.0
+                  }
+                ],
+                "amount": 9.0
+              },
+              "fees": {
+                "fee": [
+                  {
+                    "feeCode": "FE1",
+                    "amount": 0.0
+                  },
+                  {
+                    "feeCode": "VAT",
+                    "amount": 0.0
+                  }
+                ],
+                "currencyCode": "SAR",
+                "amount": 0.0
+              },
+              "totalFare": {
+                "currencyCode": "SAR",
+                "amount": 69.0
+              },
+              "fareBaggageAllowance": [],
+              "remark": []
+            }
+          ],
+          "fareInfos": {
+            "fareInfo": [
+              {
+                "fareReference": [
+                  {
+                    "value": "PruebaCancel1"
+                  }
+                ],
+                "filingAirline": {
+                  "value": "HHR"
+                },
+                "marketingAirline": [],
+                "departureAirport": {
+                  "locationCode": "MKX"
+                },
+                "arrivalAirport": {
+                  "locationCode": "JED"
+                },
+                "date": [],
+                "fareInfo": [],
+                "city": [],
+                "airport": []
+              }
+            ]
+          },
+          "ptcfareBreakdowns": {
+            "ptcfareBreakdown": [
+              {
+                "passengerTypeQuantity": {
+                  "code": "ADT",
+                  "quantity": 1
+                },
+                "fareBasisCodes": {
+                  "fareBasisCode": [
+                    {
+                      "value": "PruebaCancel1",
+                      "flightSegmentRPH": "1"
+                    }
+                  ]
+                },
+                "passengerFare": [
+                  {
+                    "baseFare": {
+                      "currencyCode": "SAR",
+                      "amount": 60.0
+                    },
+                    "equivFare": [],
+                    "taxes": {
+                      "tax": [
+                        {
+                          "taxCode": "VAT",
+                          "amount": 9.0
+                        }
+                      ],
+                      "amount": 9.0
+                    },
+                    "fees": {
+                      "fee": [
+                        {
+                          "feeCode": "FE1",
+                          "amount": 0.0
+                        },
+                        {
+                          "feeCode": "VAT",
+                          "amount": 0.0
+                        }
+                      ],
+                      "amount": 0.0
+                    },
+                    "totalFare": {
+                      "currencyCode": "SAR",
+                      "amount": 69.0
+                    },
+                    "fareBaggageAllowance": [],
+                    "remark": []
+                  }
+                ],
+                "travelerRefNumber": [],
+                "fareInfo": [
+                  {
+                    "fareReference": [
+                      {
+                        "value": "PruebaCancel1",
+                        "resBookDesigCode": "Y",
+                        "accountCode": "PruebaCancel1"
+                      }
+                    ],
+                    "marketingAirline": [],
+                    "date": [],
+                    "fareInfo": [],
+                    "city": [],
+                    "airport": []
+                  }
+                ],
+                "pricingUnit": [],
+                "flightRefNumberRPHList": [
+                  "1"
+                ]
+              }
+            ]
+          }
+        },
+        "notes": [],
+        "sequenceNumber": 4
+      },
+      {
+        "airItinerary": {
+          "originDestinationOptions": {
+            "originDestinationOption": [
+              {
+                "flightSegment": [
+                  {
+                    "departureAirport": {
+                      "locationCode": "MKX"
+                    },
+                    "arrivalAirport": {
+                      "locationCode": "JED"
+                    },
+                    "operatingAirline": {
+                      "code": "HHR",
+                      "flightNumber": "9090"
+                    },
+                    "equipment": [],
+                    "departureDateTime": "2025-07-29T09:35:00.000+03:00",
+                    "arrivalDateTime": "2025-07-29T10:29:00.000+03:00",
+                    "rph": "1",
+                    "marketingAirline": {
+                      "code": "HHR"
+                    },
+                    "flightNumber": "9090",
+                    "resBookDesigCode": "Y",
+                    "bookingClassAvails": [
+                      {
+                        "bookingClassAvail": [
+                          {
+                            "resBookDesigCode": "C",
+                            "resBookDesigQuantity": "75",
+                            "resBookDesigStatusCode": "A"
+                          }
+                        ]
+                      },
+                      {
+                        "bookingClassAvail": [
+                          {
+                            "resBookDesigCode": "Y",
+                            "resBookDesigQuantity": "230",
+                            "resBookDesigStatusCode": "A"
+                          }
+                        ]
+                      }
+                    ],
+                    "comment": [],
+                    "stopLocation": []
+                  }
+                ],
+                "rph": "1"
+              }
+            ]
+          }
+        },
+        "airItineraryPricingInfo": {
+          "itinTotalFare": [
+            {
+              "baseFare": {
+                "currencyCode": "SAR",
+                "amount": 60.0
+              },
+              "equivFare": [],
+              "taxes": {
+                "tax": [
+                  {
+                    "taxCode": "VAT",
+                    "amount": 9.0
+                  }
+                ],
+                "amount": 9.0
+              },
+              "fees": {
+                "fee": [
+                  {
+                    "feeCode": "FE1",
+                    "amount": 0.0
+                  },
+                  {
+                    "feeCode": "VAT",
+                    "amount": 0.0
+                  }
+                ],
+                "currencyCode": "SAR",
+                "amount": 0.0
+              },
+              "totalFare": {
+                "currencyCode": "SAR",
+                "amount": 69.0
+              },
+              "fareBaggageAllowance": [],
+              "remark": []
+            }
+          ],
+          "fareInfos": {
+            "fareInfo": [
+              {
+                "fareReference": [
+                  {
+                    "value": "PruebaNoCancel1"
+                  }
+                ],
+                "filingAirline": {
+                  "value": "HHR"
+                },
+                "marketingAirline": [],
+                "departureAirport": {
+                  "locationCode": "MKX"
+                },
+                "arrivalAirport": {
+                  "locationCode": "JED"
+                },
+                "date": [],
+                "fareInfo": [],
+                "city": [],
+                "airport": []
+              }
+            ]
+          },
+          "ptcfareBreakdowns": {
+            "ptcfareBreakdown": [
+              {
+                "passengerTypeQuantity": {
+                  "code": "ADT",
+                  "quantity": 1
+                },
+                "fareBasisCodes": {
+                  "fareBasisCode": [
+                    {
+                      "value": "PruebaNoCancel1",
+                      "flightSegmentRPH": "1"
+                    }
+                  ]
+                },
+                "passengerFare": [
+                  {
+                    "baseFare": {
+                      "currencyCode": "SAR",
+                      "amount": 60.0
+                    },
+                    "equivFare": [],
+                    "taxes": {
+                      "tax": [
+                        {
+                          "taxCode": "VAT",
+                          "amount": 9.0
+                        }
+                      ],
+                      "amount": 9.0
+                    },
+                    "fees": {
+                      "fee": [
+                        {
+                          "feeCode": "FE1",
+                          "amount": 0.0
+                        },
+                        {
+                          "feeCode": "VAT",
+                          "amount": 0.0
+                        }
+                      ],
+                      "amount": 0.0
+                    },
+                    "totalFare": {
+                      "currencyCode": "SAR",
+                      "amount": 69.0
+                    },
+                    "fareBaggageAllowance": [],
+                    "remark": []
+                  }
+                ],
+                "travelerRefNumber": [],
+                "fareInfo": [
+                  {
+                    "fareReference": [
+                      {
+                        "value": "PruebaNoCancel1",
+                        "resBookDesigCode": "Y",
+                        "accountCode": "PruebaNoCancel1"
+                      }
+                    ],
+                    "marketingAirline": [],
+                    "date": [],
+                    "fareInfo": [],
+                    "city": [],
+                    "airport": []
+                  }
+                ],
+                "pricingUnit": [],
+                "flightRefNumberRPHList": [
+                  "1"
+                ]
+              }
+            ]
+          }
+        },
+        "notes": [],
+        "sequenceNumber": 5
+      },
+      {
+        "airItinerary": {
+          "originDestinationOptions": {
+            "originDestinationOption": [
+              {
+                "flightSegment": [
+                  {
+                    "departureAirport": {
+                      "locationCode": "MKX"
+                    },
+                    "arrivalAirport": {
+                      "locationCode": "JED"
+                    },
+                    "operatingAirline": {
+                      "code": "HHR",
+                      "flightNumber": "9090"
+                    },
+                    "equipment": [],
+                    "departureDateTime": "2025-07-29T09:35:00.000+03:00",
+                    "arrivalDateTime": "2025-07-29T10:29:00.000+03:00",
+                    "rph": "1",
+                    "marketingAirline": {
+                      "code": "HHR"
+                    },
+                    "flightNumber": "9090",
+                    "resBookDesigCode": "Y",
+                    "bookingClassAvails": [
+                      {
+                        "bookingClassAvail": [
+                          {
+                            "resBookDesigCode": "C",
+                            "resBookDesigQuantity": "75",
+                            "resBookDesigStatusCode": "A"
+                          }
+                        ]
+                      },
+                      {
+                        "bookingClassAvail": [
+                          {
+                            "resBookDesigCode": "Y",
+                            "resBookDesigQuantity": "230",
+                            "resBookDesigStatusCode": "A"
+                          }
+                        ]
+                      }
+                    ],
+                    "comment": [],
+                    "stopLocation": []
+                  }
+                ],
+                "rph": "1"
+              }
+            ]
+          }
+        },
+        "airItineraryPricingInfo": {
+          "itinTotalFare": [
+            {
+              "baseFare": {
+                "currencyCode": "SAR",
+                "amount": 60.0
+              },
+              "equivFare": [],
+              "taxes": {
+                "tax": [
+                  {
+                    "taxCode": "VAT",
+                    "amount": 9.0
+                  }
+                ],
+                "amount": 9.0
+              },
+              "fees": {
+                "fee": [
+                  {
+                    "feeCode": "FE1",
+                    "amount": 0.0
+                  },
+                  {
+                    "feeCode": "VAT",
+                    "amount": 0.0
+                  }
+                ],
+                "currencyCode": "SAR",
+                "amount": 0.0
+              },
+              "totalFare": {
+                "currencyCode": "SAR",
+                "amount": 69.0
+              },
+              "fareBaggageAllowance": [],
+              "remark": []
+            }
+          ],
+          "fareInfos": {
+            "fareInfo": [
+              {
+                "fareReference": [
+                  {
+                    "value": "EELMOWMC"
+                  }
+                ],
+                "filingAirline": {
+                  "value": "HHR"
+                },
+                "marketingAirline": [],
+                "departureAirport": {
+                  "locationCode": "MKX"
+                },
+                "arrivalAirport": {
+                  "locationCode": "JED"
+                },
+                "date": [],
+                "fareInfo": [],
+                "city": [],
+                "airport": []
+              }
+            ]
+          },
+          "ptcfareBreakdowns": {
+            "ptcfareBreakdown": [
+              {
+                "passengerTypeQuantity": {
+                  "code": "ADT",
+                  "quantity": 1
+                },
+                "fareBasisCodes": {
+                  "fareBasisCode": [
+                    {
+                      "value": "EELMOWMC",
+                      "flightSegmentRPH": "1"
+                    }
+                  ]
+                },
+                "passengerFare": [
+                  {
+                    "baseFare": {
+                      "currencyCode": "SAR",
+                      "amount": 60.0
+                    },
+                    "equivFare": [],
+                    "taxes": {
+                      "tax": [
+                        {
+                          "taxCode": "VAT",
+                          "amount": 9.0
+                        }
+                      ],
+                      "amount": 9.0
+                    },
+                    "fees": {
+                      "fee": [
+                        {
+                          "feeCode": "FE1",
+                          "amount": 0.0
+                        },
+                        {
+                          "feeCode": "VAT",
+                          "amount": 0.0
+                        }
+                      ],
+                      "amount": 0.0
+                    },
+                    "totalFare": {
+                      "currencyCode": "SAR",
+                      "amount": 69.0
+                    },
+                    "fareBaggageAllowance": [],
+                    "remark": []
+                  }
+                ],
+                "travelerRefNumber": [],
+                "fareInfo": [
+                  {
+                    "fareReference": [
+                      {
+                        "value": "EELMOWMC",
+                        "resBookDesigCode": "Y",
+                        "accountCode": "EELMOWMC"
+                      }
+                    ],
+                    "marketingAirline": [],
+                    "date": [],
+                    "fareInfo": [],
+                    "city": [],
+                    "airport": []
+                  }
+                ],
+                "pricingUnit": [],
+                "flightRefNumberRPHList": [
+                  "1"
+                ]
+              }
+            ]
+          }
+        },
+        "notes": [],
+        "sequenceNumber": 6
+      },
+      {
+        "airItinerary": {
+          "originDestinationOptions": {
+            "originDestinationOption": [
+              {
+                "flightSegment": [
+                  {
+                    "departureAirport": {
+                      "locationCode": "MKX"
+                    },
+                    "arrivalAirport": {
+                      "locationCode": "JED"
+                    },
+                    "operatingAirline": {
+                      "code": "HHR",
+                      "flightNumber": "9170"
+                    },
+                    "equipment": [],
+                    "departureDateTime": "2025-07-29T17:35:00.000+03:00",
+                    "arrivalDateTime": "2025-07-29T18:29:00.000+03:00",
+                    "rph": "1",
+                    "marketingAirline": {
+                      "code": "HHR"
+                    },
+                    "flightNumber": "9170",
+                    "resBookDesigCode": "C",
+                    "bookingClassAvails": [
+                      {
+                        "bookingClassAvail": [
+                          {
+                            "resBookDesigCode": "C",
+                            "resBookDesigQuantity": "75",
+                            "resBookDesigStatusCode": "A"
+                          }
+                        ]
+                      },
+                      {
+                        "bookingClassAvail": [
+                          {
+                            "resBookDesigCode": "Y",
+                            "resBookDesigQuantity": "238",
+                            "resBookDesigStatusCode": "A"
+                          }
+                        ]
+                      }
+                    ],
+                    "comment": [],
+                    "stopLocation": []
+                  }
+                ],
+                "rph": "1"
+              }
+            ]
+          }
+        },
+        "airItineraryPricingInfo": {
+          "itinTotalFare": [
+            {
+              "baseFare": {
+                "currencyCode": "SAR",
+                "amount": 97.0
+              },
+              "equivFare": [],
+              "taxes": {
+                "tax": [
+                  {
+                    "taxCode": "VAT",
+                    "amount": 14.55
+                  }
+                ],
+                "amount": 14.55
+              },
+              "fees": {
+                "fee": [
+                  {
+                    "feeCode": "FE1",
+                    "amount": 0.0
+                  },
+                  {
+                    "feeCode": "VAT",
+                    "amount": 0.0
+                  }
+                ],
+                "currencyCode": "SAR",
+                "amount": 0.0
+              },
+              "totalFare": {
+                "currencyCode": "SAR",
+                "amount": 111.55
+              },
+              "fareBaggageAllowance": [],
+              "remark": []
+            }
+          ],
+          "fareInfos": {
+            "fareInfo": [
+              {
+                "fareReference": [
+                  {
+                    "value": "BELMOWM"
+                  }
+                ],
+                "filingAirline": {
+                  "value": "HHR"
+                },
+                "marketingAirline": [],
+                "departureAirport": {
+                  "locationCode": "MKX"
+                },
+                "arrivalAirport": {
+                  "locationCode": "JED"
+                },
+                "date": [],
+                "fareInfo": [],
+                "city": [],
+                "airport": []
+              }
+            ]
+          },
+          "ptcfareBreakdowns": {
+            "ptcfareBreakdown": [
+              {
+                "passengerTypeQuantity": {
+                  "code": "ADT",
+                  "quantity": 1
+                },
+                "fareBasisCodes": {
+                  "fareBasisCode": [
+                    {
+                      "value": "BELMOWM",
+                      "flightSegmentRPH": "1"
+                    }
+                  ]
+                },
+                "passengerFare": [
+                  {
+                    "baseFare": {
+                      "currencyCode": "SAR",
+                      "amount": 97.0
+                    },
+                    "equivFare": [],
+                    "taxes": {
+                      "tax": [
+                        {
+                          "taxCode": "VAT",
+                          "amount": 14.55
+                        }
+                      ],
+                      "amount": 14.55
+                    },
+                    "fees": {
+                      "fee": [
+                        {
+                          "feeCode": "FE1",
+                          "amount": 0.0
+                        },
+                        {
+                          "feeCode": "VAT",
+                          "amount": 0.0
+                        }
+                      ],
+                      "amount": 0.0
+                    },
+                    "totalFare": {
+                      "currencyCode": "SAR",
+                      "amount": 111.55
+                    },
+                    "fareBaggageAllowance": [],
+                    "remark": []
+                  }
+                ],
+                "travelerRefNumber": [],
+                "fareInfo": [
+                  {
+                    "fareReference": [
+                      {
+                        "value": "BELMOWM",
+                        "resBookDesigCode": "C",
+                        "accountCode": "BELMOWM"
+                      }
+                    ],
+                    "marketingAirline": [],
+                    "date": [],
+                    "fareInfo": [],
+                    "city": [],
+                    "airport": []
+                  }
+                ],
+                "pricingUnit": [],
+                "flightRefNumberRPHList": [
+                  "1"
+                ]
+              }
+            ]
+          }
+        },
+        "notes": [],
+        "sequenceNumber": 7
+      },
+      {
+        "airItinerary": {
+          "originDestinationOptions": {
+            "originDestinationOption": [
+              {
+                "flightSegment": [
+                  {
+                    "departureAirport": {
+                      "locationCode": "MKX"
+                    },
+                    "arrivalAirport": {
+                      "locationCode": "JED"
+                    },
+                    "operatingAirline": {
+                      "code": "HHR",
+                      "flightNumber": "9170"
+                    },
+                    "equipment": [],
+                    "departureDateTime": "2025-07-29T17:35:00.000+03:00",
+                    "arrivalDateTime": "2025-07-29T18:29:00.000+03:00",
+                    "rph": "1",
+                    "marketingAirline": {
+                      "code": "HHR"
+                    },
+                    "flightNumber": "9170",
+                    "resBookDesigCode": "Y",
+                    "bookingClassAvails": [
+                      {
+                        "bookingClassAvail": [
+                          {
+                            "resBookDesigCode": "C",
+                            "resBookDesigQuantity": "75",
+                            "resBookDesigStatusCode": "A"
+                          }
+                        ]
+                      },
+                      {
+                        "bookingClassAvail": [
+                          {
+                            "resBookDesigCode": "Y",
+                            "resBookDesigQuantity": "238",
+                            "resBookDesigStatusCode": "A"
+                          }
+                        ]
+                      }
+                    ],
+                    "comment": [],
+                    "stopLocation": []
+                  }
+                ],
+                "rph": "1"
+              }
+            ]
+          }
+        },
+        "airItineraryPricingInfo": {
+          "itinTotalFare": [
+            {
+              "baseFare": {
+                "currencyCode": "SAR",
+                "amount": 60.0
+              },
+              "equivFare": [],
+              "taxes": {
+                "tax": [
+                  {
+                    "taxCode": "VAT",
+                    "amount": 9.0
+                  }
+                ],
+                "amount": 9.0
+              },
+              "fees": {
+                "fee": [
+                  {
+                    "feeCode": "FE1",
+                    "amount": 0.0
+                  },
+                  {
+                    "feeCode": "VAT",
+                    "amount": 0.0
+                  }
+                ],
+                "currencyCode": "SAR",
+                "amount": 0.0
+              },
+              "totalFare": {
+                "currencyCode": "SAR",
+                "amount": 69.0
+              },
+              "fareBaggageAllowance": [],
+              "remark": []
+            }
+          ],
+          "fareInfos": {
+            "fareInfo": [
+              {
+                "fareReference": [
+                  {
+                    "value": "PruebaRTCancel"
+                  }
+                ],
+                "filingAirline": {
+                  "value": "HHR"
+                },
+                "marketingAirline": [],
+                "departureAirport": {
+                  "locationCode": "MKX"
+                },
+                "arrivalAirport": {
+                  "locationCode": "JED"
+                },
+                "date": [],
+                "fareInfo": [],
+                "city": [],
+                "airport": []
+              }
+            ]
+          },
+          "ptcfareBreakdowns": {
+            "ptcfareBreakdown": [
+              {
+                "passengerTypeQuantity": {
+                  "code": "ADT",
+                  "quantity": 1
+                },
+                "fareBasisCodes": {
+                  "fareBasisCode": [
+                    {
+                      "value": "PruebaRTCancel",
+                      "flightSegmentRPH": "1"
+                    }
+                  ]
+                },
+                "passengerFare": [
+                  {
+                    "baseFare": {
+                      "currencyCode": "SAR",
+                      "amount": 60.0
+                    },
+                    "equivFare": [],
+                    "taxes": {
+                      "tax": [
+                        {
+                          "taxCode": "VAT",
+                          "amount": 9.0
+                        }
+                      ],
+                      "amount": 9.0
+                    },
+                    "fees": {
+                      "fee": [
+                        {
+                          "feeCode": "FE1",
+                          "amount": 0.0
+                        },
+                        {
+                          "feeCode": "VAT",
+                          "amount": 0.0
+                        }
+                      ],
+                      "amount": 0.0
+                    },
+                    "totalFare": {
+                      "currencyCode": "SAR",
+                      "amount": 69.0
+                    },
+                    "fareBaggageAllowance": [],
+                    "remark": []
+                  }
+                ],
+                "travelerRefNumber": [],
+                "fareInfo": [
+                  {
+                    "fareReference": [
+                      {
+                        "value": "PruebaRTCancel",
+                        "resBookDesigCode": "Y",
+                        "accountCode": "PruebaRTCancel"
+                      }
+                    ],
+                    "marketingAirline": [],
+                    "date": [],
+                    "fareInfo": [],
+                    "city": [],
+                    "airport": []
+                  }
+                ],
+                "pricingUnit": [],
+                "flightRefNumberRPHList": [
+                  "1"
+                ]
+              }
+            ]
+          }
+        },
+        "notes": [],
+        "sequenceNumber": 8
+      },
+      {
+        "airItinerary": {
+          "originDestinationOptions": {
+            "originDestinationOption": [
+              {
+                "flightSegment": [
+                  {
+                    "departureAirport": {
+                      "locationCode": "MKX"
+                    },
+                    "arrivalAirport": {
+                      "locationCode": "JED"
+                    },
+                    "operatingAirline": {
+                      "code": "HHR",
+                      "flightNumber": "9170"
+                    },
+                    "equipment": [],
+                    "departureDateTime": "2025-07-29T17:35:00.000+03:00",
+                    "arrivalDateTime": "2025-07-29T18:29:00.000+03:00",
+                    "rph": "1",
+                    "marketingAirline": {
+                      "code": "HHR"
+                    },
+                    "flightNumber": "9170",
+                    "resBookDesigCode": "Y",
+                    "bookingClassAvails": [
+                      {
+                        "bookingClassAvail": [
+                          {
+                            "resBookDesigCode": "C",
+                            "resBookDesigQuantity": "75",
+                            "resBookDesigStatusCode": "A"
+                          }
+                        ]
+                      },
+                      {
+                        "bookingClassAvail": [
+                          {
+                            "resBookDesigCode": "Y",
+                            "resBookDesigQuantity": "238",
+                            "resBookDesigStatusCode": "A"
+                          }
+                        ]
+                      }
+                    ],
+                    "comment": [],
+                    "stopLocation": []
+                  }
+                ],
+                "rph": "1"
+              }
+            ]
+          }
+        },
+        "airItineraryPricingInfo": {
+          "itinTotalFare": [
+            {
+              "baseFare": {
+                "currencyCode": "SAR",
+                "amount": 60.0
+              },
+              "equivFare": [],
+              "taxes": {
+                "tax": [
+                  {
+                    "taxCode": "VAT",
+                    "amount": 9.0
+                  }
+                ],
+                "amount": 9.0
+              },
+              "fees": {
+                "fee": [
+                  {
+                    "feeCode": "FE1",
+                    "amount": 0.0
+                  },
+                  {
+                    "feeCode": "VAT",
+                    "amount": 0.0
+                  }
+                ],
+                "currencyCode": "SAR",
+                "amount": 0.0
+              },
+              "totalFare": {
+                "currencyCode": "SAR",
+                "amount": 69.0
+              },
+              "fareBaggageAllowance": [],
+              "remark": []
+            }
+          ],
+          "fareInfos": {
+            "fareInfo": [
+              {
+                "fareReference": [
+                  {
+                    "value": "PruebaRTNoCance"
+                  }
+                ],
+                "filingAirline": {
+                  "value": "HHR"
+                },
+                "marketingAirline": [],
+                "departureAirport": {
+                  "locationCode": "MKX"
+                },
+                "arrivalAirport": {
+                  "locationCode": "JED"
+                },
+                "date": [],
+                "fareInfo": [],
+                "city": [],
+                "airport": []
+              }
+            ]
+          },
+          "ptcfareBreakdowns": {
+            "ptcfareBreakdown": [
+              {
+                "passengerTypeQuantity": {
+                  "code": "ADT",
+                  "quantity": 1
+                },
+                "fareBasisCodes": {
+                  "fareBasisCode": [
+                    {
+                      "value": "PruebaRTNoCance",
+                      "flightSegmentRPH": "1"
+                    }
+                  ]
+                },
+                "passengerFare": [
+                  {
+                    "baseFare": {
+                      "currencyCode": "SAR",
+                      "amount": 60.0
+                    },
+                    "equivFare": [],
+                    "taxes": {
+                      "tax": [
+                        {
+                          "taxCode": "VAT",
+                          "amount": 9.0
+                        }
+                      ],
+                      "amount": 9.0
+                    },
+                    "fees": {
+                      "fee": [
+                        {
+                          "feeCode": "FE1",
+                          "amount": 0.0
+                        },
+                        {
+                          "feeCode": "VAT",
+                          "amount": 0.0
+                        }
+                      ],
+                      "amount": 0.0
+                    },
+                    "totalFare": {
+                      "currencyCode": "SAR",
+                      "amount": 69.0
+                    },
+                    "fareBaggageAllowance": [],
+                    "remark": []
+                  }
+                ],
+                "travelerRefNumber": [],
+                "fareInfo": [
+                  {
+                    "fareReference": [
+                      {
+                        "value": "PruebaRTNoCance",
+                        "resBookDesigCode": "Y",
+                        "accountCode": "PruebaRTNoCance"
+                      }
+                    ],
+                    "marketingAirline": [],
+                    "date": [],
+                    "fareInfo": [],
+                    "city": [],
+                    "airport": []
+                  }
+                ],
+                "pricingUnit": [],
+                "flightRefNumberRPHList": [
+                  "1"
+                ]
+              }
+            ]
+          }
+        },
+        "notes": [],
+        "sequenceNumber": 9
+      },
+      {
+        "airItinerary": {
+          "originDestinationOptions": {
+            "originDestinationOption": [
+              {
+                "flightSegment": [
+                  {
+                    "departureAirport": {
+                      "locationCode": "MKX"
+                    },
+                    "arrivalAirport": {
+                      "locationCode": "JED"
+                    },
+                    "operatingAirline": {
+                      "code": "HHR",
+                      "flightNumber": "9170"
+                    },
+                    "equipment": [],
+                    "departureDateTime": "2025-07-29T17:35:00.000+03:00",
+                    "arrivalDateTime": "2025-07-29T18:29:00.000+03:00",
+                    "rph": "1",
+                    "marketingAirline": {
+                      "code": "HHR"
+                    },
+                    "flightNumber": "9170",
+                    "resBookDesigCode": "Y",
+                    "bookingClassAvails": [
+                      {
+                        "bookingClassAvail": [
+                          {
+                            "resBookDesigCode": "C",
+                            "resBookDesigQuantity": "75",
+                            "resBookDesigStatusCode": "A"
+                          }
+                        ]
+                      },
+                      {
+                        "bookingClassAvail": [
+                          {
+                            "resBookDesigCode": "Y",
+                            "resBookDesigQuantity": "238",
+                            "resBookDesigStatusCode": "A"
+                          }
+                        ]
+                      }
+                    ],
+                    "comment": [],
+                    "stopLocation": []
+                  }
+                ],
+                "rph": "1"
+              }
+            ]
+          }
+        },
+        "airItineraryPricingInfo": {
+          "itinTotalFare": [
+            {
+              "baseFare": {
+                "currencyCode": "SAR",
+                "amount": 60.0
+              },
+              "equivFare": [],
+              "taxes": {
+                "tax": [
+                  {
+                    "taxCode": "VAT",
+                    "amount": 9.0
+                  }
+                ],
+                "amount": 9.0
+              },
+              "fees": {
+                "fee": [
+                  {
+                    "feeCode": "FE1",
+                    "amount": 0.0
+                  },
+                  {
+                    "feeCode": "VAT",
+                    "amount": 0.0
+                  }
+                ],
+                "currencyCode": "SAR",
+                "amount": 0.0
+              },
+              "totalFare": {
+                "currencyCode": "SAR",
+                "amount": 69.0
+              },
+              "fareBaggageAllowance": [],
+              "remark": []
+            }
+          ],
+          "fareInfos": {
+            "fareInfo": [
+              {
+                "fareReference": [
+                  {
+                    "value": "PruebaCancel1"
+                  }
+                ],
+                "filingAirline": {
+                  "value": "HHR"
+                },
+                "marketingAirline": [],
+                "departureAirport": {
+                  "locationCode": "MKX"
+                },
+                "arrivalAirport": {
+                  "locationCode": "JED"
+                },
+                "date": [],
+                "fareInfo": [],
+                "city": [],
+                "airport": []
+              }
+            ]
+          },
+          "ptcfareBreakdowns": {
+            "ptcfareBreakdown": [
+              {
+                "passengerTypeQuantity": {
+                  "code": "ADT",
+                  "quantity": 1
+                },
+                "fareBasisCodes": {
+                  "fareBasisCode": [
+                    {
+                      "value": "PruebaCancel1",
+                      "flightSegmentRPH": "1"
+                    }
+                  ]
+                },
+                "passengerFare": [
+                  {
+                    "baseFare": {
+                      "currencyCode": "SAR",
+                      "amount": 60.0
+                    },
+                    "equivFare": [],
+                    "taxes": {
+                      "tax": [
+                        {
+                          "taxCode": "VAT",
+                          "amount": 9.0
+                        }
+                      ],
+                      "amount": 9.0
+                    },
+                    "fees": {
+                      "fee": [
+                        {
+                          "feeCode": "FE1",
+                          "amount": 0.0
+                        },
+                        {
+                          "feeCode": "VAT",
+                          "amount": 0.0
+                        }
+                      ],
+                      "amount": 0.0
+                    },
+                    "totalFare": {
+                      "currencyCode": "SAR",
+                      "amount": 69.0
+                    },
+                    "fareBaggageAllowance": [],
+                    "remark": []
+                  }
+                ],
+                "travelerRefNumber": [],
+                "fareInfo": [
+                  {
+                    "fareReference": [
+                      {
+                        "value": "PruebaCancel1",
+                        "resBookDesigCode": "Y",
+                        "accountCode": "PruebaCancel1"
+                      }
+                    ],
+                    "marketingAirline": [],
+                    "date": [],
+                    "fareInfo": [],
+                    "city": [],
+                    "airport": []
+                  }
+                ],
+                "pricingUnit": [],
+                "flightRefNumberRPHList": [
+                  "1"
+                ]
+              }
+            ]
+          }
+        },
+        "notes": [],
+        "sequenceNumber": 10
+      },
+      {
+        "airItinerary": {
+          "originDestinationOptions": {
+            "originDestinationOption": [
+              {
+                "flightSegment": [
+                  {
+                    "departureAirport": {
+                      "locationCode": "MKX"
+                    },
+                    "arrivalAirport": {
+                      "locationCode": "JED"
+                    },
+                    "operatingAirline": {
+                      "code": "HHR",
+                      "flightNumber": "9170"
+                    },
+                    "equipment": [],
+                    "departureDateTime": "2025-07-29T17:35:00.000+03:00",
+                    "arrivalDateTime": "2025-07-29T18:29:00.000+03:00",
+                    "rph": "1",
+                    "marketingAirline": {
+                      "code": "HHR"
+                    },
+                    "flightNumber": "9170",
+                    "resBookDesigCode": "Y",
+                    "bookingClassAvails": [
+                      {
+                        "bookingClassAvail": [
+                          {
+                            "resBookDesigCode": "C",
+                            "resBookDesigQuantity": "75",
+                            "resBookDesigStatusCode": "A"
+                          }
+                        ]
+                      },
+                      {
+                        "bookingClassAvail": [
+                          {
+                            "resBookDesigCode": "Y",
+                            "resBookDesigQuantity": "238",
+                            "resBookDesigStatusCode": "A"
+                          }
+                        ]
+                      }
+                    ],
+                    "comment": [],
+                    "stopLocation": []
+                  }
+                ],
+                "rph": "1"
+              }
+            ]
+          }
+        },
+        "airItineraryPricingInfo": {
+          "itinTotalFare": [
+            {
+              "baseFare": {
+                "currencyCode": "SAR",
+                "amount": 60.0
+              },
+              "equivFare": [],
+              "taxes": {
+                "tax": [
+                  {
+                    "taxCode": "VAT",
+                    "amount": 9.0
+                  }
+                ],
+                "amount": 9.0
+              },
+              "fees": {
+                "fee": [
+                  {
+                    "feeCode": "FE1",
+                    "amount": 0.0
+                  },
+                  {
+                    "feeCode": "VAT",
+                    "amount": 0.0
+                  }
+                ],
+                "currencyCode": "SAR",
+                "amount": 0.0
+              },
+              "totalFare": {
+                "currencyCode": "SAR",
+                "amount": 69.0
+              },
+              "fareBaggageAllowance": [],
+              "remark": []
+            }
+          ],
+          "fareInfos": {
+            "fareInfo": [
+              {
+                "fareReference": [
+                  {
+                    "value": "PruebaNoCancel1"
+                  }
+                ],
+                "filingAirline": {
+                  "value": "HHR"
+                },
+                "marketingAirline": [],
+                "departureAirport": {
+                  "locationCode": "MKX"
+                },
+                "arrivalAirport": {
+                  "locationCode": "JED"
+                },
+                "date": [],
+                "fareInfo": [],
+                "city": [],
+                "airport": []
+              }
+            ]
+          },
+          "ptcfareBreakdowns": {
+            "ptcfareBreakdown": [
+              {
+                "passengerTypeQuantity": {
+                  "code": "ADT",
+                  "quantity": 1
+                },
+                "fareBasisCodes": {
+                  "fareBasisCode": [
+                    {
+                      "value": "PruebaNoCancel1",
+                      "flightSegmentRPH": "1"
+                    }
+                  ]
+                },
+                "passengerFare": [
+                  {
+                    "baseFare": {
+                      "currencyCode": "SAR",
+                      "amount": 60.0
+                    },
+                    "equivFare": [],
+                    "taxes": {
+                      "tax": [
+                        {
+                          "taxCode": "VAT",
+                          "amount": 9.0
+                        }
+                      ],
+                      "amount": 9.0
+                    },
+                    "fees": {
+                      "fee": [
+                        {
+                          "feeCode": "FE1",
+                          "amount": 0.0
+                        },
+                        {
+                          "feeCode": "VAT",
+                          "amount": 0.0
+                        }
+                      ],
+                      "amount": 0.0
+                    },
+                    "totalFare": {
+                      "currencyCode": "SAR",
+                      "amount": 69.0
+                    },
+                    "fareBaggageAllowance": [],
+                    "remark": []
+                  }
+                ],
+                "travelerRefNumber": [],
+                "fareInfo": [
+                  {
+                    "fareReference": [
+                      {
+                        "value": "PruebaNoCancel1",
+                        "resBookDesigCode": "Y",
+                        "accountCode": "PruebaNoCancel1"
+                      }
+                    ],
+                    "marketingAirline": [],
+                    "date": [],
+                    "fareInfo": [],
+                    "city": [],
+                    "airport": []
+                  }
+                ],
+                "pricingUnit": [],
+                "flightRefNumberRPHList": [
+                  "1"
+                ]
+              }
+            ]
+          }
+        },
+        "notes": [],
+        "sequenceNumber": 11
+      },
+      {
+        "airItinerary": {
+          "originDestinationOptions": {
+            "originDestinationOption": [
+              {
+                "flightSegment": [
+                  {
+                    "departureAirport": {
+                      "locationCode": "MKX"
+                    },
+                    "arrivalAirport": {
+                      "locationCode": "JED"
+                    },
+                    "operatingAirline": {
+                      "code": "HHR",
+                      "flightNumber": "9170"
+                    },
+                    "equipment": [],
+                    "departureDateTime": "2025-07-29T17:35:00.000+03:00",
+                    "arrivalDateTime": "2025-07-29T18:29:00.000+03:00",
+                    "rph": "1",
+                    "marketingAirline": {
+                      "code": "HHR"
+                    },
+                    "flightNumber": "9170",
+                    "resBookDesigCode": "Y",
+                    "bookingClassAvails": [
+                      {
+                        "bookingClassAvail": [
+                          {
+                            "resBookDesigCode": "C",
+                            "resBookDesigQuantity": "75",
+                            "resBookDesigStatusCode": "A"
+                          }
+                        ]
+                      },
+                      {
+                        "bookingClassAvail": [
+                          {
+                            "resBookDesigCode": "Y",
+                            "resBookDesigQuantity": "238",
+                            "resBookDesigStatusCode": "A"
+                          }
+                        ]
+                      }
+                    ],
+                    "comment": [],
+                    "stopLocation": []
+                  }
+                ],
+                "rph": "1"
+              }
+            ]
+          }
+        },
+        "airItineraryPricingInfo": {
+          "itinTotalFare": [
+            {
+              "baseFare": {
+                "currencyCode": "SAR",
+                "amount": 60.0
+              },
+              "equivFare": [],
+              "taxes": {
+                "tax": [
+                  {
+                    "taxCode": "VAT",
+                    "amount": 9.0
+                  }
+                ],
+                "amount": 9.0
+              },
+              "fees": {
+                "fee": [
+                  {
+                    "feeCode": "FE1",
+                    "amount": 0.0
+                  },
+                  {
+                    "feeCode": "VAT",
+                    "amount": 0.0
+                  }
+                ],
+                "currencyCode": "SAR",
+                "amount": 0.0
+              },
+              "totalFare": {
+                "currencyCode": "SAR",
+                "amount": 69.0
+              },
+              "fareBaggageAllowance": [],
+              "remark": []
+            }
+          ],
+          "fareInfos": {
+            "fareInfo": [
+              {
+                "fareReference": [
+                  {
+                    "value": "EELMOWMC"
+                  }
+                ],
+                "filingAirline": {
+                  "value": "HHR"
+                },
+                "marketingAirline": [],
+                "departureAirport": {
+                  "locationCode": "MKX"
+                },
+                "arrivalAirport": {
+                  "locationCode": "JED"
+                },
+                "date": [],
+                "fareInfo": [],
+                "city": [],
+                "airport": []
+              }
+            ]
+          },
+          "ptcfareBreakdowns": {
+            "ptcfareBreakdown": [
+              {
+                "passengerTypeQuantity": {
+                  "code": "ADT",
+                  "quantity": 1
+                },
+                "fareBasisCodes": {
+                  "fareBasisCode": [
+                    {
+                      "value": "EELMOWMC",
+                      "flightSegmentRPH": "1"
+                    }
+                  ]
+                },
+                "passengerFare": [
+                  {
+                    "baseFare": {
+                      "currencyCode": "SAR",
+                      "amount": 60.0
+                    },
+                    "equivFare": [],
+                    "taxes": {
+                      "tax": [
+                        {
+                          "taxCode": "VAT",
+                          "amount": 9.0
+                        }
+                      ],
+                      "amount": 9.0
+                    },
+                    "fees": {
+                      "fee": [
+                        {
+                          "feeCode": "FE1",
+                          "amount": 0.0
+                        },
+                        {
+                          "feeCode": "VAT",
+                          "amount": 0.0
+                        }
+                      ],
+                      "amount": 0.0
+                    },
+                    "totalFare": {
+                      "currencyCode": "SAR",
+                      "amount": 69.0
+                    },
+                    "fareBaggageAllowance": [],
+                    "remark": []
+                  }
+                ],
+                "travelerRefNumber": [],
+                "fareInfo": [
+                  {
+                    "fareReference": [
+                      {
+                        "value": "EELMOWMC",
+                        "resBookDesigCode": "Y",
+                        "accountCode": "EELMOWMC"
+                      }
+                    ],
+                    "marketingAirline": [],
+                    "date": [],
+                    "fareInfo": [],
+                    "city": [],
+                    "airport": []
+                  }
+                ],
+                "pricingUnit": [],
+                "flightRefNumberRPHList": [
+                  "1"
+                ]
+              }
+            ]
+          }
+        },
+        "notes": [],
+        "sequenceNumber": 12
+      }
+    ]
+  },
+  "timeStamp": "2025-06-26T07:16:47.182Z"
+}</code></pre>
 </details>
 
 #### AirLowFareSearchRQ for Round Trip
