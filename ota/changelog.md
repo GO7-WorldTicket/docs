@@ -1,3 +1,12 @@
+
+## Changelog
+
+### 2025-06-26
+
+#### Clarify request and response for AirLowFareSearch (one-way with booking class)
+
+ - Updated sample request and response to reflect actual structure and booking class usage ([See more details](endpoints/low_fare_search.md#airlowfaresearchrq-for-oneway-trip-with-booking-class-preference))
+
 ### 2025-06-21
 
 #### Deprecate download endpoint using passenger details and introduce the new one
@@ -20,8 +29,6 @@ curl '{base_url}/tickets/confirmation/{bookingReference}/download/passenger-segm
     -H 'x-api-key: {api-key}' \
     --output ticket.pdf
 ```
-
-## Changelog
 
 ### 2025-04-23
 
