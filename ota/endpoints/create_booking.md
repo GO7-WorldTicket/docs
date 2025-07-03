@@ -2041,7 +2041,14 @@ curl -X POST \
                     "date": [],
                     "fareInfo": [],
                     "city": [],
-                    "airport": []
+                    "airport": [],
+                    "ruleInfo":{
+                      "tpaextensions": {
+                        "updateTravellersTimeLimit": "2024-03-22T10:20:40+03:00",
+                        "confirmationTimeLimit": "2024-03-22T10:49:40+03:00",
+                        "cancellationTimeLimit": "2024-03-22T08:40:57+03:00"
+                      }
+                    }
                   }
                 ]
               },
@@ -2478,7 +2485,14 @@ curl -X POST \
                     "date": [],
                     "fareInfo": [],
                     "city": [],
-                    "airport": []
+                    "airport": [],
+                    "ruleInfo":{
+                      "tpaextensions": {
+                        "updateTravellersTimeLimit": "2024-04-18T10:20:40+03:00",
+                        "confirmationTimeLimit": "2024-04-18T10:49:40+03:00",
+                        "cancellationTimeLimit": "2024-04-18T08:40:57+03:00"
+                      }
+                    }
                   },
                   {
                     "fareReference": [
@@ -2499,7 +2513,14 @@ curl -X POST \
                     "date": [],
                     "fareInfo": [],
                     "city": [],
-                    "airport": []
+                    "airport": [],
+                    "ruleInfo":{
+                      "tpaextensions": {
+                        "updateTravellersTimeLimit": "2024-04-18T10:20:40+03:00",
+                        "confirmationTimeLimit": "2024-04-18T10:49:40+03:00",
+                        "cancellationTimeLimit": "2024-04-18T08:40:57+03:00"
+                      }
+                    }
                   }
                 ]
               },

@@ -1,6 +1,47 @@
 
 ## Changelog
 
+### 2025-07-02
+
+#### Add policy for OTA_AirBookRS, OTA_AirPriceRS
+
+- Add policy information in /airReservation/priceInfo/fareInfos/fareInfo/ruleInfo/tpaextensions.
+  ```json
+            "fareInfos": {
+                "fareInfo": [
+                    {
+                        "fareReference": [
+                            {
+                                "value": "EELMOWMC"
+                            }
+                        ],
+                        "ruleInfo": {
+                            "tpaextensions": {
+                                "cancellationTimeLimit": "2026-07-01T10:11:07Z",
+                                "confirmationTimeLimit": "2025-07-01T10:40:55Z",
+                                "updateTravellersTimeLimit": "2025-07-26T07:50:00Z"
+                            }
+                        },
+                        "filingAirline": {
+                            "value": "HHR"
+                        },
+                        "marketingAirline": [],
+                        "departureAirport": {
+                            "locationCode": "JED"
+                        },
+                        "arrivalAirport": {
+                            "locationCode": "DMX"
+                        },
+                        "date": [],
+                        "fareInfo": [],
+                        "city": [],
+                        "airport": [],
+                        "rph": "1"
+                    }
+                ]
+            }
+  ```
+  
 ### 2025-06-26
 
 #### Clarify request and response for AirLowFareSearch (one-way with booking class)

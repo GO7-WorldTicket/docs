@@ -175,6 +175,13 @@ curl -X POST \
             "fareInfo": [],
             "city": [],
             "airport": [],
+            "ruleInfo":{
+              "tpaextensions": {
+                "updateTravellersTimeLimit": "2024-04-12T10:20:40+03:00",
+                "confirmationTimeLimit": "2024-04-12T10:49:40+03:00",
+                "cancellationTimeLimit": "2024-04-12T08:40:57+03:00"
+              }
+            },
             "rph": "1"
           },
           {
