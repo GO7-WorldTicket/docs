@@ -2485,7 +2485,7 @@ curl -X POST \
                     "date": [],
                     "fareInfo": [],
                     "city": [],
-                    "airport": []`,
+                    "airport": [],
                     "ruleInfo":{
                       "tpaextensions": {
                         "updateTravellersTimeLimit": "2024-04-18T10:20:00Z",
