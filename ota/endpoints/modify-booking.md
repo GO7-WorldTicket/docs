@@ -1207,9 +1207,9 @@ curl -X POST \
                 "airport": [],
                 "ruleInfo":{
                   "tpaextensions": {
-                    "updateTravellersTimeLimit": "2024-04-12T10:20:40+03:00",
-                    "confirmationTimeLimit": "2024-04-12T10:49:40+03:00",
-                    "cancellationTimeLimit": "2024-04-12T08:40:57+03:00"
+                    "updateTravellersTimeLimit": "2024-04-12T10:20:00Z",
+                    "confirmationTimeLimit": "2024-04-12T10:49:00Z",
+                    "cancellationTimeLimit": "2024-04-12T08:40:00Z"
                   }
                 },
                 "rph": "1"
@@ -1236,9 +1236,9 @@ curl -X POST \
                 "airport": [],
                 "ruleInfo":{
                   "tpaextensions": {
-                    "updateTravellersTimeLimit": "2024-04-12T10:20:40+03:00",
-                    "confirmationTimeLimit": "2024-04-12T10:49:40+03:00",
-                    "cancellationTimeLimit": "2024-04-12T08:40:57+03:00"
+                    "updateTravellersTimeLimit": "2024-04-12T10:20:00Z",
+                    "confirmationTimeLimit": "2024-04-12T10:49:00Z",
+                    "cancellationTimeLimit": "2024-04-12T08:40:00Z"
                   }
                 },
                 "rph": "2"

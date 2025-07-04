@@ -2044,9 +2044,9 @@ curl -X POST \
                     "airport": [],
                     "ruleInfo":{
                       "tpaextensions": {
-                        "updateTravellersTimeLimit": "2024-03-22T10:20:40+03:00",
-                        "confirmationTimeLimit": "2024-03-22T10:49:40+03:00",
-                        "cancellationTimeLimit": "2024-03-22T08:40:57+03:00"
+                        "updateTravellersTimeLimit": "2024-03-22T10:20:00Z",
+                        "confirmationTimeLimit": "2024-03-22T10:49:00Z",
+                        "cancellationTimeLimit": "2024-03-22T08:40:00Z"
                       }
                     }
                   }
@@ -2488,11 +2488,11 @@ curl -X POST \
                     "airport": [],
                     "ruleInfo":{
                       "tpaextensions": {
-                        "updateTravellersTimeLimit": "2024-04-18T10:20:40+03:00",
-                        "confirmationTimeLimit": "2024-04-18T10:49:40+03:00",
-                        "cancellationTimeLimit": "2024-04-18T08:40:57+03:00"
+                        "updateTravellersTimeLimit": "2024-04-18T10:20:00Z",
+                        "confirmationTimeLimit": "2024-04-18T10:49:00Z",
+                        "cancellationTimeLimit": "2024-04-18T08:40:00Z"
                       }
-                    }
+                    }`
                   },
                   {
                     "fareReference": [
@@ -2516,9 +2516,9 @@ curl -X POST \
                     "airport": [],
                     "ruleInfo":{
                       "tpaextensions": {
-                        "updateTravellersTimeLimit": "2024-04-18T10:20:40+03:00",
-                        "confirmationTimeLimit": "2024-04-18T10:49:40+03:00",
-                        "cancellationTimeLimit": "2024-04-18T08:40:57+03:00"
+                        "updateTravellersTimeLimit": "2024-04-18T10:20:00Z",
+                        "confirmationTimeLimit": "2024-04-18T10:49:00Z",
+                        "cancellationTimeLimit": "2024-04-18T08:40:00Z"
                       }
                     }
                   }
