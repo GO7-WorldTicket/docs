@@ -41,7 +41,7 @@ The request body may include the following field:
   - `flightDesignator` (String): The code of the flight
   - `departure` (String): Three letters code of the departure airport/station
   - `arrival` (String): Three letters code of the arrival airport/station
-  - `departureDate` (String): Departure date of the segment in YYY-MM-DD format
+  - `departureDate` (String): Departure date of the segment in YYYY-MM-DD format
 
 In the case where no `segment` is provided, an email will be sent with information of all cancelled segments within the booking.
 
