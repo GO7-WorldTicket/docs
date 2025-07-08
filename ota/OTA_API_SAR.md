@@ -25,9 +25,10 @@ title: The Title of Your Page
 
 | Change Description                                                                                        | Changed By              | Change Date |
 |-----------------------------------------------------------------------------------------------------------|-------------------------|-------------|
+| [Add resend cancellation email endpoint](endpoints/resend_cancellation_email)                             | Duangtida Athakravi     | 2025-07-08  |
 | [Add policy for OTA_AirBookRS, OTA_AirPriceRS](changelog.md#2025-07-02)                                   | Thotsaphorn Phonlabutr  | 2025-06-26  |
 | [Clarify request and response for AirLowFareSearch (one-way with booking class)](changelog.md#2025-06-26) | Sittiwet Mahapratoom    | 2025-06-26  |
-| [Deprecate download endpoint using passenger details](changelog.md#2025-06-21)                            | Sittiwet Mahapratoom    | 2025-06-21 |
+| [Deprecate download endpoint using passenger details](changelog.md#2025-06-21)                            | Sittiwet Mahapratoom    | 2025-06-21  |
 | [Error handling change](changelog.md#2025-04-23)                                                          | Sittiwet Mahapratoom    | 2025-04-23  |
 | [Add group booking completion policy](endpoints/create_booking#group-booking-completion-policy)           | Sittiwet Mahapratoom    | 2025-04-22  |
 | [Describe error response changes](endpoints/error-response)                                               | Sittiwet Mahapratoom    | 2025-04-22  |
@@ -227,5 +228,6 @@ Please update the variables in collection such as apiKey, agent_id, agent_name a
     - [Cancel Duration Policy](endpoints/cancel_booking#cancel-duration-policy)
     - [Cancel Refund Policy](endpoints/cancel_booking#cancel-refund-policy)
   - [Cancellation email](endpoints/cancel_booking#cancellation-email)
+  - [Resend cancellation email](endpoints/resend_cancellation_email)
 - [Resend ticket confirmation email](endpoints/resend_ticket_confirmation_email)
 - [Download tickets](endpoints/download_tickets)
