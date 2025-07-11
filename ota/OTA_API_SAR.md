@@ -25,7 +25,7 @@ title: The Title of Your Page
 
 | Change Description                                                                                        | Changed By              | Change Date |
 |-----------------------------------------------------------------------------------------------------------|-------------------------|-------------|
-| [Update error message for sold-out segment](endpoints/error-response)                                     | Thotsaphorn Phonlabutr     | 2025-07-11  |
+| [Update error message for sold-out segment](changelog.md#2025-07-11)                                      | Thotsaphorn Phonlabutr     | 2025-07-11  |
 | [Add resend cancellation email endpoint](endpoints/resend_cancellation_email)                             | Duangtida Athakravi     | 2025-07-08  |
 | [Add policy for OTA_AirBookRS, OTA_AirPriceRS](changelog.md#2025-07-02)                                   | Thotsaphorn Phonlabutr  | 2025-06-26  |
 | [Clarify request and response for AirLowFareSearch (one-way with booking class)](changelog.md#2025-06-26) | Sittiwet Mahapratoom    | 2025-06-26  |

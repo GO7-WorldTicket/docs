@@ -1,5 +1,9 @@
 
 ## Changelog
+### 2025-07-11
+
+#### Update error message for sold-out segment
+- Updated error message when booking sold-out segment ([See more details](endpoints/error-response))
 
 ### 2025-07-02
 
