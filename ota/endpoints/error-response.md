@@ -220,7 +220,7 @@ Error responses contain specific details for investigating issues. The main reas
 | 450        | Unable to process                                        |
 | 458        | Date outside inventory period                            |
 | 497        | Authorization error                                      |
-| 499        | Flight number and origin/destination cities do not match |
+| 499        | The selected train, segment, or fare is no longer available |
 | 501        | Invalid date for flight requested                        |
 | 508        | Invalid/missing reservation booking designator           |
 | 523        | Surname too long                                         |
