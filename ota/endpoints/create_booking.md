@@ -437,7 +437,14 @@ curl -X POST \
                 "date": [],
                 "fareInfo": [],
                 "city": [],
-                "airport": []
+                "airport": [],
+                "ruleInfo":{
+                  "tpaextensions": {
+                    "updateTravellersTimeLimit": "2024-03-22T10:20:00Z",
+                    "confirmationTimeLimit": "2024-03-22T10:49:00Z",
+                    "cancellationTimeLimit": "2024-03-22T08:40:00Z"
+                  }
+                }
               }
             ]
           },
@@ -1328,7 +1335,14 @@ curl -X POST \
                             "date": [],
                             "fareInfo": [],
                             "city": [],
-                            "airport": []
+                            "airport": [],
+                            "ruleInfo":{
+                              "tpaextensions": {
+                                "updateTravellersTimeLimit": "2024-03-22T10:20:00Z",
+                                "confirmationTimeLimit": "2024-03-22T10:49:00Z",
+                                "cancellationTimeLimit": "2024-03-22T08:40:00Z"
+                              }
+                            }
                         }
                     ]
                 },
