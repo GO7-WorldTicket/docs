@@ -1,6 +1,6 @@
 ## Cancel Booking by Segments with Automatic Refund.
 
-This method cancels booking by its segments together with refunding.
+This method cancels specific segment(s) within a booking together with refunding.
 
 #### Request Parameters
 
@@ -13,8 +13,8 @@ This method cancels booking by its segments together with refunding.
 
 The request payload is composed of these following fields:
 * **pos**: PoS information
-* **airReservation**: the whole airReservation getting from ([OTA_ReadRQ](read_booking))
-* **airBookModifyRQ**: contains "modificationType":"10" together with "airItinerary" from ([OTA_ReadRQ](read_booking)) to be cancelled.
+* **airReservation**: the whole airReservation gotten from ([OTA_ReadRQ](read_booking))
+* **airBookModifyRQ**: contains "modificationType":"10" together with "airItinerary" from ([OTA_ReadRQ](read_booking)) containing the flight segment(s) to be cancelled.
 
 <details open>
   <summary><b>Request Payload</b></summary>

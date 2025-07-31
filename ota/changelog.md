@@ -3,7 +3,7 @@
 ### 2025-07-11
 
 #### Segments cancellation with automatic refund
-- Add a new feature of cancellation based on flight segments with automatic refund. ([See more details](endpoints/segments_cancellation))
+- Added a new feature of cancellation based on flight segments with automatic refund. ([See more details](endpoints/segments_cancellation))
 
 #### Update error message for sold-out segment
 - Updated error message when booking sold-out segment ([See more details](endpoints/error-response))
