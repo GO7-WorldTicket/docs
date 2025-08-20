@@ -21,6 +21,287 @@ curl -X POST \
     -H 'x-api-key: {api-key}' \
     -H 'local-name: {local_name}' \
 ```
+#### AirLowFareSearchRQ for Sold-out Segments
+<details>
+  <summary>Request Payload</summary>
+  <pre>
+    {
+        "version": "2.001",
+        "pos": {
+            "source": [
+                {
+                    "bookingChannel": {
+                        "type": "OTA"
+                    },
+                    "isocurrency": "SAR",
+                    "requestorID": {
+                        "type": "5",
+                        "id": "umrahme",
+                        "name": "umrahme"
+                    }
+                }
+            ]
+        },
+        "processingInfo": {
+            "displayOrder": "BY_PRICE_LOW_TO_HIGH",
+            "availabilityIndicator": true
+        },
+        "originDestinationInformation": [
+            {
+                "originLocation": {
+                    "locationCode": "JED"
+                },
+                "destinationLocation": {
+                    "locationCode": "MKX"
+                },
+                "departureDateTime": {
+                    "value": "2025-07-21",
+                    "windowBefore": "P0D",
+                    "windowAfter": "P0D"
+                }
+            }
+        ],
+        "specificFlightInfo": {
+            "bookingClassPref": [
+                {
+                    "resBookDesigCode": "Y"
+                },
+                {
+                    "resBookDesigCode": "C"
+                }
+            ]
+        },
+        "travelerInfoSummary": {
+            "airTravelerAvail": [
+                {
+                    "passengerTypeQuantity": [
+                        {
+                            "code": "ADT",
+                            "quantity": 2
+                        },
+                        {
+                            "code": "CHD",
+                            "quantity": 2
+                        },
+                        {
+                            "code": "INF",
+                            "quantity": 2
+                        }
+                    ]
+                }
+            ]
+        },
+        "availableFlightsOnly": false
+    }
+  </pre>
+</details>
+<details>
+  <summary>Response Payload</summary>
+  <pre>
+    {
+        "availability": {
+            "referenceId": "1f316261-6c8a-44e6-991f-2701e55e2aae",
+            "travellers": [
+                {
+                    "profileId": 1,
+                    "quantity": 2
+                }
+            ],
+            "segments": [
+                {
+                    "id": 1,
+                    "offers": [
+                        {
+                            "transport": {
+                                "id": "53820000000000",
+                                "code": "06011",
+                                "type": 3,
+                                "journeyDate": "2025-05-31",
+                                "departureStation": "JED",
+                                "arrivalStation": "MKX",
+                                "departureStationId": 3,
+                                "arrivalStationId": 1,
+                                "departureTime": "2025-05-30T22:35:00Z",
+                                "arrivalTime": "2025-05-30T23:22:00Z",
+                                "categories": [
+                                    {
+                                        "class": "P",
+                                        "availableQty": 23
+                                    },
+                                    {
+                                        "class": "T",
+                                        "availableQty": 0
+                                    }
+                                ]
+                            },
+                            "pricing": [
+                                {
+                                    "class": "P",
+                                    "currency": "SAR",
+                                    "fares": [
+                                        {
+                                            "id": "BWTOWX",
+                                            "description": "Business",
+                                            "contractId": 3552,
+                                            "base": 304.00,
+                                            "tax": 45.60,
+                                            "total": 349.60,
+                                            "profiles": [
+                                                {
+                                                    "id": 1,
+                                                    "quantity": 2,
+                                                    "base": 304.00,
+                                                    "tax": 45.60,
+                                                    "total": 349.60,
+                                                    "details": [
+                                                        {
+                                                            "type": "fare",
+                                                            "code": "BWTOWX",
+                                                            "quantity": 2,
+                                                            "base": 304.00,
+                                                            "vat": 15.00,
+                                                            "tax": 45.60,
+                                                            "total": 349.60
+                                                        },
+                                                        {
+                                                            "type": "fee",
+                                                            "code": "FE1",
+                                                            "quantity": 2,
+                                                            "base": 0.00,
+                                                            "vat": 15.00,
+                                                            "tax": 0.00,
+                                                            "total": 0.00
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "transport": {
+                                "id": "49680000000000",
+                                "code": "05231",
+                                "type": 3,
+                                "journeyDate": "2025-05-31",
+                                "departureStation": "JED",
+                                "arrivalStation": "MKX",
+                                "departureStationId": 3,
+                                "arrivalStationId": 1,
+                                "departureTime": "2025-05-31T20:35:00Z",
+                                "arrivalTime": "2025-05-31T21:29:00Z",
+                                "categories": [
+                                    {
+                                        "class": "P",
+                                        "availableQty": 49
+                                    },
+                                    {
+                                        "class": "T",
+                                        "availableQty": 244
+                                    }
+                                ]
+                            },
+                            "pricing": [
+                                {
+                                    "class": "P",
+                                    "currency": "SAR",
+                                    "fares": [
+                                        {
+                                            "id": "BWTOWI",
+                                            "description": "Business",
+                                            "contractId": 3550,
+                                            "base": 304.00,
+                                            "tax": 45.60,
+                                            "total": 349.60,
+                                            "profiles": [
+                                                {
+                                                    "id": 1,
+                                                    "quantity": 2,
+                                                    "base": 304.00,
+                                                    "tax": 45.60,
+                                                    "total": 349.60,
+                                                    "details": [
+                                                        {
+                                                            "type": "fare",
+                                                            "code": "BWTOWI",
+                                                            "quantity": 2,
+                                                            "base": 304.00,
+                                                            "vat": 15.00,
+                                                            "tax": 45.60,
+                                                            "total": 349.60
+                                                        },
+                                                        {
+                                                            "type": "fee",
+                                                            "code": "FE1",
+                                                            "quantity": 2,
+                                                            "base": 0.00,
+                                                            "vat": 15.00,
+                                                            "tax": 0.00,
+                                                            "total": 0.00
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "class": "T",
+                                    "currency": "SAR",
+                                    "fares": [
+                                        {
+                                            "id": "EWTOWM2",
+                                            "description": "Economy t",
+                                            "contractId": 4975,
+                                            "base": 150.00,
+                                            "tax": 22.50,
+                                            "total": 172.50,
+                                            "profiles": [
+                                                {
+                                                    "id": 1,
+                                                    "quantity": 2,
+                                                    "base": 150.00,
+                                                    "tax": 22.50,
+                                                    "total": 172.50,
+                                                    "details": [
+                                                        {
+                                                            "type": "fare",
+                                                            "code": "EWTOWM2",
+                                                            "quantity": 2,
+                                                            "base": 150.00,
+                                                            "vat": 15.00,
+                                                            "tax": 22.50,
+                                                            "total": 172.50
+                                                        },
+                                                        {
+                                                            "type": "fee",
+                                                            "code": "FE1",
+                                                            "quantity": 2,
+                                                            "base": 0.00,
+                                                            "vat": 15.00,
+                                                            "tax": 0.00,
+                                                            "total": 0.00
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "policies": {
+                "reservationTimeLimit": "2025-05-21T08:25:33Z"
+            }
+        }
+    }
+  </pre>
+</details>
 
 #### AirLowFareSearchRQ for Oneway Trip
 
