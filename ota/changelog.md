@@ -5,7 +5,15 @@
 #### Segments cancellation with automatic refund
 - Added a new feature of cancellation based on flight segments with automatic refund. ([See more details](endpoints/segments_cancellation))
 
-#### Update error message for sold-out segment
+#### Add sold-out segment for OTA_AirLowFareSearchRS
+- Flag attribute named "availableFlightOnly" to "false" in the OTA_AirLowfareSearchRQ to get sold-out segments in the response.
+  ```json
+  {
+    "availableFlightsOnly": false
+  }
+  ```
+- Updated sample request and response to reflect actual structure ([See more details](endpoints/low_fare_search.md#airlowfaresearchrq-for-sold-out-segments))
+
 - Updated error message when booking sold-out segment ([See more details](endpoints/error-response))
 
 ### 2025-07-02
