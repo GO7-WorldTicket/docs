@@ -25,7 +25,7 @@ title: OTA API Generic Integration Guide
 
 | Change Description | Changed By | Change Date |
 |-------------------|------------|-------------|
-| Initial creation of generic OTA documentation | Claude | 2025-01-15 |
+| Initial creation of generic OTA documentation | Sittiwet Mahapratoom | 2025-01-15 |
 
 For detailed changelog see: [Generic Changelog](generic-changelog.md)
 
@@ -57,7 +57,80 @@ This document outlines the generic integration of Booking API with airline syste
 
 This diagram illustrates the API call sequence for searching available flights, creating a reservation, and the intermediate steps required to issue tickets.
 
-![Alt text](../images/business_flow.svg "Business flow")
+```mermaid
+sequenceDiagram
+    autonumber
+    participant Customer as End Customer
+    participant Application as Airline Application
+    participant OTA
+    participant SMS5
+
+    rect rgba(255, 221, 221, 0.3)
+        Note over Application: 3rd party
+    end
+    rect rgba(173, 216, 230, 0.3)
+        Note over OTA, SMS5: Worldticket
+    end
+
+    Note over Customer, SMS5: Use Case: landing page
+    Note over Application: Show the route options.<br/>Departure and Arrival airport
+    Customer->>+Application: open web/app
+    Application->>+SMS5: GET /routes
+    SMS5-->>-Application: airport list
+    Application-->>-Customer: show origin/destination list
+
+    Note over Customer, SMS5: Use case: show flight availability on calendar
+    Customer->>+Application: select origin/destination
+    Note right of Application: (origin, destination,<br/>number of pax, pax type)
+    Application->>+OTA: OTA_AirAvailRQ
+    OTA-->>-Application: OTA_AirAvailRS
+    Note right of Application: flight availability<br/>on each RBD
+    Application-->>-Customer: show calendar with availability
+
+    Note over Customer, SMS5: Use case: Flight search
+    Customer->>+Application: (origin, destination,<br/>number of pax, pax type)
+    Application->>+OTA: OTA_AirLowFareSearchRQ
+    OTA-->>-Application: OTA_AirLowFareSearchRS
+    Application-->>-Customer: flight list with lowest price
+
+    Note over Customer, SMS5: Use case: User select flight and fare
+    Customer->>+Application: select fare
+    Application->>+OTA: OTA_AirPriceRQ
+    OTA-->>-Application: OTA_AirPriceRS
+    Note right of Application: Price break down<br/>and Fare rules
+    Application-->>-Customer: show fare break down<br/>and price detail
+
+    Note over Customer, SMS5: Use case: Make reservation
+    Customer->>+Application: Booking information
+    Note right of Application: Pax name, addr,<br/>phone no., CTC, etc.
+    Application->>+OTA: OTA_AirBookRQ
+    OTA-->>-Application: OTA_AirBookRS
+    Note right of Application: Success: Booking information<br/>PNR Record Locator
+    Application-->>-Customer: show booking detail
+
+    alt modify booking
+        Customer->>+Application: RepriceRequired="true"
+        Note right of Customer: Modification can be<br/>- change name<br/>- SSR<br/>- rebook<br/>- etc
+        Note right of Application: RepriceRequired="true"<br/>get price not modify
+        Application->>+OTA: OTA_AirBookModifyRQ
+        OTA-->>-Application: OTA_AirBookModifyRS
+        Note right of Application: Service fee/charge<br/>for booking modification
+        Application-->>-Customer: show fee/charge<br/>for booking modify
+        Customer->>+Application: default or RepriceRequired="false"
+        Application->>+OTA: OTA_AirBookModifyRQ
+        Note right of OTA: modify booking
+        OTA-->>-Application: OTA_AirBookModifyRS
+        Application-->>-Customer: show booking modify
+    end
+
+    Note over Customer, SMS5: Use case: issue e ticket
+    Customer->>+Application: Pay
+    Application->>Application: Process payment
+    Application->>+OTA: OTA_AirDemandTicketRQ
+    OTA-->>-Application: OTA_AirDemandTicketRS
+    Note right of Application: Success: ticket information
+    Application-->>-Customer: booking confirmed
+```
 
 # Authentication
 

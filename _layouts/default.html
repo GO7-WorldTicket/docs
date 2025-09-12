@@ -5,6 +5,8 @@
 <!--    <title>{{ page.title }}</title>-->
     <link rel="stylesheet" href="/docs/assets/style.css">
     <link rel="stylesheet" href="/docs/assets/orginal-style.css">
+    <!-- Mermaid.js for diagram rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
 </head>
 <body>
 <header class="go-7-header">
@@ -15,5 +17,34 @@
 </header>
 <div class="container-lg px-3 my-5 markdown-body">{{ content }}</div>
 <footer></footer>
+<script>
+    // Initialize Mermaid to render diagrams
+    mermaid.initialize({ 
+        startOnLoad: true,
+        theme: 'default',
+        securityLevel: 'loose'
+    });
+    
+    // Convert code blocks with language-mermaid class to mermaid diagrams
+    document.addEventListener('DOMContentLoaded', function() {
+        const mermaidBlocks = document.querySelectorAll('pre code.language-mermaid');
+        mermaidBlocks.forEach(function(block, index) {
+            const graphDefinition = block.textContent;
+            const graphId = 'mermaid-' + index;
+            
+            // Create a div to replace the code block
+            const mermaidDiv = document.createElement('div');
+            mermaidDiv.className = 'mermaid';
+            mermaidDiv.id = graphId;
+            mermaidDiv.innerHTML = graphDefinition;
+            
+            // Replace the pre element with the mermaid div
+            block.parentNode.parentNode.replaceChild(mermaidDiv, block.parentNode);
+        });
+        
+        // Re-initialize mermaid for the new elements
+        mermaid.init();
+    });
+</script>
 </body>
 </html>

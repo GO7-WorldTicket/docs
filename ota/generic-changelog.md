@@ -7,9 +7,9 @@ title: OTA API Generic - Change Log
 
 ## Version History
 
-| Change Description                                                    | Changed By | Change Date |
-|---------------------------------------------------------------------- |------------|-------------|
-| Initial creation of generic OTA documentation based on PDF source    | Claude     | 2025-01-15  |
+| Change Description                                                    | Changed By           | Change Date |
+|---------------------------------------------------------------------- |----------------------|-------------|
+| Initial creation of generic OTA documentation based on PDF source    | Sittiwet Mahapratoom | 2025-01-15  |
 
 ## Version 1.0 - Initial Release (2025-01-15)
 

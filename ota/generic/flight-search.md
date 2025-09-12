@@ -22,6 +22,40 @@ The purpose is to list all the fares and display them to the user. AirLowFareSea
 | access_token | Access Token | Bearer {access_token} or X-API-Key: {api_key} |
 | local-name | Custom HTTP header | OTA_AirLowFareSearchRQ |
 
+## Flight Search Workflow
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant Customer as End Customer
+    participant Application as Airline Application
+    participant OTA
+
+    rect rgba(255, 221, 221, 0.3)
+        Note over Application: 3rd party
+    end
+    rect rgba(173, 216, 230, 0.3)
+        Note over OTA: Worldticket
+    end
+
+    Note over Customer, OTA: Flight Search Process
+    Customer->>+Application: Search flights<br/>(origin, destination, date, passengers)
+    Application->>+OTA: OTA_AirLowFareSearchRQ
+    Note right of OTA: Search for available flights<br/>with lowest fares
+    OTA-->>-Application: OTA_AirLowFareSearchRS
+    Note right of Application: Flight options with pricing<br/>and availability
+    Application-->>-Customer: Display flight results<br/>with fare breakdown
+
+    alt Customer wants fare details
+        Customer->>+Application: Select specific flight
+        Application->>+OTA: OTA_AirPriceRQ
+        Note right of OTA: Get detailed pricing<br/>and fare rules
+        OTA-->>-Application: OTA_AirPriceRS
+        Note right of Application: Detailed fare breakdown<br/>taxes, rules, restrictions
+        Application-->>-Customer: Show fare details<br/>and booking conditions
+    end
+```
+
 ## Basic Request Format
 
 ```bash

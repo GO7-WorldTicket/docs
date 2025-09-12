@@ -23,6 +23,48 @@ The purpose is to create the booking in the airline system by providing a specif
 | agentId    | Payload | Agent identifier   | {agent_id}               |
 | agencyId   | Payload | Agency identifier  | {agency_id}              |
 
+## Regular Booking Workflow
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant Customer as End Customer
+    participant Application as Airline Application
+    participant OTA
+
+    rect rgba(255, 221, 221, 0.3)
+        Note over Application: 3rd party
+    end
+    rect rgba(173, 216, 230, 0.3)
+        Note over OTA: Worldticket
+    end
+
+    Note over Customer, OTA: Regular Booking Process
+    Customer->>+Application: Provide booking information<br/>(passenger details, flight selection)
+    Note right of Application: Passenger name, address,<br/>phone, email, document details
+    Application->>+OTA: OTA_AirBookRQ
+    Note right of OTA: Create booking in airline system<br/>assign record locator
+    OTA-->>-Application: OTA_AirBookRS
+    Note right of Application: Success: Booking information<br/>PNR Record Locator
+    Application-->>-Customer: Show booking details<br/>with confirmation
+
+    alt Booking modification required
+        Customer->>+Application: Request modification<br/>(RepriceRequired="true")
+        Note right of Customer: Modifications:<br/>- Change name<br/>- Add SSR<br/>- Rebook segment
+        Application->>+OTA: OTA_AirBookModifyRQ
+        Note right of OTA: Calculate modification<br/>fees and charges
+        OTA-->>-Application: OTA_AirBookModifyRS
+        Note right of Application: Service fee/charge<br/>for booking modification
+        Application-->>-Customer: Show modification costs
+
+        Customer->>+Application: Confirm modification<br/>(RepriceRequired="false")
+        Application->>+OTA: OTA_AirBookModifyRQ
+        Note right of OTA: Apply booking<br/>modifications
+        OTA-->>-Application: OTA_AirBookModifyRS
+        Application-->>-Customer: Show updated booking
+    end
+```
+
 ## Request Format
 
 ```bash

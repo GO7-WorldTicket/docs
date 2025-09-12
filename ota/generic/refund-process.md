@@ -23,6 +23,65 @@ The refund process handles both voluntary and involuntary refunds through a stru
 | Production | https://{api-domain}/{service-name} |
 | Test | https://{test-api-domain}/{service-name} |
 
+## Refund Process Workflow
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant Customer as End Customer
+    participant Application as Airline Application
+    participant RefundService as Refund Service
+    participant PaymentGateway as Payment Gateway
+
+    rect rgba(255, 221, 221, 0.3)
+        Note over Application: 3rd party
+    end
+    rect rgba(173, 216, 230, 0.3)
+        Note over RefundService: Worldticket
+    end
+    rect rgba(144, 238, 144, 0.3)
+        Note over PaymentGateway: External Service
+    end
+
+    Note over Customer, PaymentGateway: Refund Request and Processing
+    Customer->>+Application: Request refund
+    Note right of Customer: Provide booking details<br/>and refund reason
+
+    Application->>+RefundService: GET /refund-reasons
+    RefundService-->>-Application: Available refund reasons
+    Application-->>Customer: Show refund reason options
+
+    Customer->>Application: Select reason and submit request
+    Application->>+RefundService: POST /refund-requests
+    Note right of RefundService: Create refund request<br/>assign request number
+    RefundService-->>-Application: Request number and status
+    Application-->>-Customer: Refund request submitted
+
+    alt Documentation required
+        Customer->>+Application: Upload supporting documents
+        Application->>+RefundService: POST /refund-requests/{id}/attachments
+        Note right of RefundService: Store documents<br/>for review process
+        RefundService-->>-Application: Upload confirmation
+        Application-->>-Customer: Documents uploaded
+    end
+
+    Note over RefundService: Administrative Review Process
+    RefundService->>RefundService: Review request and documents
+    Note right of RefundService: Status: NEW → REVIEWED → VERIFIED
+
+    alt Request approved
+        RefundService->>RefundService: Approve refund
+        Note right of RefundService: Calculate refund amount<br/>minus fees and penalties
+        RefundService->>+PaymentGateway: Process refund to original payment method
+        PaymentGateway-->>-RefundService: Refund processed
+        RefundService->>+Application: Webhook: refund.status.updated
+        Application-->>-Customer: Refund approved and processed
+    else Request refused
+        RefundService->>+Application: Webhook: refund.refused
+        Application-->>-Customer: Refund request denied<br/>with reason
+    end
+```
+
 ## Refund Request APIs
 
 ### 1. Retrieve Refund Request List
