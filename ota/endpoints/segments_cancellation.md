@@ -40,12 +40,271 @@ The request payload is composed of these following fields:
     "airReservation": "{<ins>airReservation from OTA_ReadRQ response</ins>}",
     "airBookModifyRQ": {
         "modificationType": "10",
-        "airItinerary": "{<ins>airItinerary from OTA_ReadRQ response with only the specific `flightSegment`s to be cancelled</ins>}"
+        "airItinerary": "{<ins>airItinerary from OTA_ReadRQ response with only the specific `item in originDestinationOption[]`s to be cancelled</ins>}"
     }
 }
 </pre>
 </details>
 
+<details open>
+<summary><b>Request Payload Schema</b></summary>
+<pre>
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "OTA_AirBookModifyRQ",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "string",
+      "example": "2.001"
+    },
+    "pos": {
+      "type": "object",
+      "properties": {
+        "source": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "bookingChannel": {
+                "type": "object",
+                "properties": {
+                  "type": { "type": "string" }
+                },
+                "required": ["type"]
+              },
+              "isocurrency": { "type": "string" },
+              "requestorID": {
+                "type": "object",
+                "properties": {
+                  "type": { "type": "string" },
+                  "id": { "type": "string" },
+                  "name": { "type": "string" },
+                  "location": { "type": "string" }
+                },
+                "required": ["type", "id", "name"]
+              }
+            },
+            "required": ["bookingChannel", "isocurrency", "requestorID"]
+          }
+        }
+      },
+      "required": ["source"]
+    },
+    "airReservation": {
+      "type": "object",
+      "properties": {
+        "airItinerary": {
+          "type": "object",
+          "properties": {
+            "originDestinationOptions": {
+              "type": "object",
+              "properties": {
+                "originDestinationOption": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "rph": { "type": "string" },
+                      "flightSegment": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "departureAirport": {
+                              "type": "object",
+                              "properties": {
+                                "locationCode": { "type": "string" }
+                              },
+                              "required": ["locationCode"]
+                            },
+                            "arrivalAirport": {
+                              "type": "object",
+                              "properties": {
+                                "locationCode": { "type": "string" }
+                              },
+                              "required": ["locationCode"]
+                            },
+                            "operatingAirline": {
+                              "type": "object",
+                              "properties": {
+                                "code": { "type": "string" },
+                                "flightNumber": { "type": "string" }
+                              },
+                              "required": ["code", "flightNumber"]
+                            },
+                            "marketingAirline": {
+                              "type": "object",
+                              "properties": {
+                                "code": { "type": "string" }
+                              },
+                              "required": ["code"]
+                            },
+                            "departureDateTime": { "type": "string", "format": "date-time" },
+                            "arrivalDateTime": { "type": "string", "format": "date-time" },
+                            "flightNumber": { "type": "string" },
+                            "fareBasisCode": { "type": "string" },
+                            "resBookDesigCode": { "type": "string" },
+                            "status": { "type": "string" }
+                          },
+                          "required": [
+                            "departureAirport",
+                            "arrivalAirport",
+                            "operatingAirline",
+                            "marketingAirline",
+                            "departureDateTime",
+                            "arrivalDateTime",
+                            "flightNumber"
+                          ]
+                        }
+                      }
+                    },
+                    "required": ["flightSegment", "rph"]
+                  }
+                }
+              },
+              "required": ["originDestinationOption"]
+            }
+          },
+          "required": ["originDestinationOptions"]
+        },
+        "travelerInfo": {
+          "type": "object",
+          "properties": {
+            "airTraveler": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "personName": {
+                    "type": "object",
+                    "properties": {
+                      "givenName": { "type": "array", "items": { "type": "string" } },
+                      "surname": { "type": "string" }
+                    },
+                    "required": ["givenName", "surname"]
+                  },
+                  "telephone": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "countryAccessCode": { "type": "string" },
+                        "phoneNumber": { "type": "string" }
+                      }
+                    }
+                  },
+                  "email": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "value": { "type": "string", "format": "email" }
+                      },
+                      "required": ["value"]
+                    }
+                  },
+                  "passengerTypeCode": { "type": "string" }
+                },
+                "required": ["personName", "passengerTypeCode"]
+              }
+            }
+          }
+        }
+      },
+      "required": ["airItinerary", "travelerInfo"]
+    },
+    "airBookModifyRQ": {
+      "type": "object",
+      "properties": {
+        "modificationType": { "type": "string" },
+        "airItinerary": { "$ref": "#/properties/airReservation/properties/airItinerary" }
+      },
+      "required": ["modificationType", "airItinerary"]
+    }
+  },
+  "required": ["version", "pos", "airReservation", "airBookModifyRQ"]
+}
+</pre>
+</details>
+
+<b>This diagram illustrates the API call sequence</b>
+![Alt text](../../images/airmodify.png "Business flow")
+
+<details open>
+<summary><b>Python code snippet to build request payload</b></summary>
+<pre>
+    #agentId = ...
+    #agencyId = ...
+    #otaReadRQResponseBody = `response from OTA_ReadRQ`
+
+    """
+        Cancel all segments
+    """
+    cancelAllSegmentsRequest = {
+        "version": "2.001",
+        "pos": {
+            "source": [
+                {
+                    "bookingChannel": {
+                        "type": "OTA"
+                    },
+                    "isocurrency": "SAR",
+                    "requestorID": {
+                        "type": "5",
+                        "id": agentId,
+                        "name": agencyId,
+                        "location": "CPH"
+                    }
+                }
+            ]
+        },
+        "airReservation": otaReadRQResponseBody.get("airReservation"),
+        "airBookModifyRQ": {
+            "modificationType": "10",
+            "airItinerary": otaReadRQResponseBody.get("airReservation", {}).get("airItinerary")
+        }
+    }
+
+
+    """
+        Only cancel the first segment
+    """
+    air_itinerary = otaReadRQResponseBody.get("airReservation", {}).get("airItinerary", {})
+
+    origin_options = air_itinerary.get("originDestinationOptions", {}).get("originDestinationOption", [])
+    if origin_options:
+        air_itinerary = {
+                "originDestinationOptions": {
+                "originDestinationOption": [origin_options[0]]  # only the first segment
+            }
+        }
+
+    cancelFirstSegmentRequest = {
+        "version": "2.001",
+        "pos": {
+            "source": [
+                {
+                    "bookingChannel": {"type": "OTA"},
+                    "isocurrency": "SAR",
+                    "requestorID": {
+                        "type": "5",
+                        "id": agentId,
+                        "name": agencyId,
+                        "location": "CPH"
+                    }
+                }
+            ]
+        },
+        "airReservation": otaReadRQResponseBody.get("airReservation"),
+        "airBookModifyRQ": {
+            "modificationType": "10",
+            "airItinerary": air_itinerary
+        }
+    }
+
+</pre>
+</details>
 <details>
   <summary><b>Example of Request Payload(Outbound Segment)</b></summary>
   <pre>
