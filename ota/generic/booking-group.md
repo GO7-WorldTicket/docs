@@ -14,21 +14,41 @@ When making a group booking, passenger names are not known yet. In AirPriceRQ, p
 | Production | https://api.worldticket.net/ota/v2015b/OTA |
 | Test | https://test-api.worldticket.net/ota/v2015b/OTA |
 
-## Request Parameters (All Required)
+## HTTP Headers (All Required)
 
-| Parameter | Description | Example |
-|-----------|-------------|----------|
-| base_url | Base URL | https://test-api.worldticket.net/ota/v2015b/OTA |
-| access_token | Access Token | Bearer {access_token} |
-| local-name | Custom HTTP header | OTA_AirPriceRQ |
+| Header | Description | Example |
+|--------|-------------|---------|
+| Authorization | Bearer token for JWT authentication | Bearer {access_token} |
+| X-API-Key | API key for key-based authentication | {api_key} |
+| Local-Name | OTA operation identifier | OTA_AirPriceRQ |
+| Content-Type | Request content type | application/xml |
+
+**Note:** Use either `Authorization` (for JWT) OR `X-API-Key` (for API key authentication), not both.
+
+## Request Parameters
+
+| Parameter | Location | Required | Description | Example |
+|-----------|----------|----------|-------------|---------|
+| base_url | Endpoint | Yes | Base URL for the request | https://test-api.worldticket.net/ota/v2015b/OTA |
 
 ## Request Format
 
+### With JWT Authentication
 ```bash
 curl -X POST \
-    {base_url} \
+    https://test-api.worldticket.net/ota/v2015b/OTA \
     -H 'Authorization: Bearer {access_token}' \
-    -H 'local-name: OTA_AirPriceRQ' \
+    -H 'Local-Name: OTA_AirPriceRQ' \
+    -H 'Content-Type: application/xml' \
+    -d @AirPriceRQ.xml
+```
+
+### With API Key Authentication
+```bash
+curl -X POST \
+    https://test-api.worldticket.net/ota/v2015b/OTA \
+    -H 'X-API-Key: {api_key}' \
+    -H 'Local-Name: OTA_AirPriceRQ' \
     -H 'Content-Type: application/xml' \
     -d @AirPriceRQ.xml
 ```

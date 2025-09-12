@@ -88,28 +88,37 @@ sequenceDiagram
 
 Get all refund requests based on search criteria.
 
+#### HTTP Headers
+
+| Header | Description | Example |
+|--------|-------------|---------|
+| Authorization | Bearer token for JWT authentication | Bearer {access_token} |
+| X-API-Key | API key for key-based authentication | {api_key} |
+
+**Note:** Use either `Authorization` (for JWT) OR `X-API-Key` (for API key authentication), not both.
+
 #### Request
 
 ```bash
 GET https://test-api.worldticket.net/refund-service/refund-requests
 ```
 
-#### Parameters (All Optional)
+#### Request Parameters
 
-| Parameter | Type | Description | Example |
-|-----------|------|-------------|---------|
-| record_locator | string | Booking record locator | WT01C5 |
-| request_number | number | Refund request number | 255 |
-| ticket_number | string | Ticket number | 10263259688333 |
-| passenger_lname | string | Passenger last name | Smith |
-| flight_designator | string | Flight number | FL123 |
-| departure_from | string | Departure date from | 2023-01-15 |
-| departure_to | string | Departure date to | 2023-01-16 |
-| request_from | string | Request date from | 2023-04-09T00:00:00+07:00 |
-| request_to | string | Request date to | 2023-04-10T23:59:59+07:00 |
-| segment | string | Route segment | JFK-LAX |
-| category | string | Refund category | VOLUNTARY, INVOLUNTARY |
-| statuses | List<string> | Request statuses | NEW, REVIEWED, VERIFIED, REFUNDED, REFUSED |
+| Parameter | Location | Required | Type | Description | Example |
+|-----------|----------|----------|------|-------------|---------|
+| record_locator | Query | No | string | Booking record locator | WT01C5 |
+| request_number | Query | No | number | Refund request number | 255 |
+| ticket_number | Query | No | string | Ticket number | 10263259688333 |
+| passenger_lname | Query | No | string | Passenger last name | Smith |
+| flight_designator | Query | No | string | Flight number | FL123 |
+| departure_from | Query | No | string | Departure date from | 2023-01-15 |
+| departure_to | Query | No | string | Departure date to | 2023-01-16 |
+| request_from | Query | No | string | Request date from | 2023-04-09T00:00:00+07:00 |
+| request_to | Query | No | string | Request date to | 2023-04-10T23:59:59+07:00 |
+| segment | Query | No | string | Route segment | JFK-LAX |
+| category | Query | No | string | Refund category | VOLUNTARY, INVOLUNTARY |
+| statuses | Query | No | List<string> | Request statuses | NEW, REVIEWED, VERIFIED, REFUNDED, REFUSED |
 
 #### Response
 
