@@ -7,6 +7,15 @@ title: Flight Availability
 
 This section covers APIs for retrieving available routes, calendar availability, and detailed flight information.
 
+## Table of Contents
+
+- [Endpoints](#endpoints)
+- [Routes](#routes)
+- [Calendar Availability](#calendar-availability)
+- [Air Availability (AirAvailRQ/RS)](#air-availability-airavailrqrs)
+- [SSR Availability and Pricing](#ssr-availability-and-pricing)
+- [Error Responses](#error-responses)
+
 ## Base URLs
 
 | Environment | URL |
@@ -14,24 +23,43 @@ This section covers APIs for retrieving available routes, calendar availability,
 | Production  | https://api.worldticket.net/sms5 |
 | Test        | https://test-api.worldticket.net/sms5 |
 
+## Endpoints
+
+- Method: `GET` — Path: `/sms5/schedule/routes`
+- Method: `GET` — Path: `/sms5/schedule/calendar/availability`
+- Method: `POST` — OTA: `OTA_AirAvailRQ` (Air availability)
+
 ## Routes
 
 Lists all possible city pairs selling by the airline.
 
-### Request
+### Basic Request Format
 
+#### With JWT Authentication
 ```bash
-GET https://test-api.worldticket.net/sms5/schedule/routes?sales_channel=OTA
+curl -X GET \
+  'https://test-api.worldticket.net/sms5/schedule/routes?sales_channel=OTA' \
+  -H 'Authorization: Bearer {access_token}'
 ```
 
-### HTTP Headers
+#### With API Key Authentication
+```bash
+curl -X GET \
+  'https://test-api.worldticket.net/sms5/schedule/routes?sales_channel=OTA' \
+  -H 'X-API-Key: {api_key}'
+```
 
-| Header | Description | Example |
-|--------|-------------|---------|
-| Authorization | Bearer token for JWT authentication | Bearer {access_token} |
-| X-API-Key | API key for key-based authentication | {api_key} |
+## HTTP Headers
 
-**Note:** Use either `Authorization` (for JWT) OR `X-API-Key` (for API key authentication), not both.
+Attach the following headers to OTA requests.
+
+| Header        | Description                         | Example                   |
+|---------------|-------------------------------------|---------------------------|
+| Authorization | Bearer token for JWT authentication | Bearer {access_token}     |
+| X-API-Key     | API key for key-based authentication| {api_key}                 |
+| Content-Type  | Request content type                | application/json          |
+
+Note: Use either `Authorization` (JWT) OR `X-API-Key` (API key), not both.
 
 ### Request Parameters
 
@@ -43,6 +71,10 @@ GET https://test-api.worldticket.net/sms5/schedule/routes?sales_channel=OTA
 
 The response contains an array of available route objects with origin and destination airport codes.
 
+<details>
+<summary><strong>✅ Example</strong></summary>
+<div markdown="1">
+
 ```json
 [
   {
@@ -51,21 +83,37 @@ The response contains an array of available route objects with origin and destin
     "active": true
   },
   {
-    "origin": "LAX", 
+    "origin": "LAX",
     "destination": "JFK",
     "active": true
   }
 ]
 ```
 
+</div>
+
+</details>
+
 ## Calendar Availability
 
 Lists available dates per route. Usually used in calendar picker implementations.
 
-### Request
+### Basic Request Format
 
+#### With JWT Authentication
 ```bash
-GET https://test-api.worldticket.net/sms5/schedule/calendar/availability?start_date={start_date}&end_date={end_date}&departure_airport_code={departure_code}&arrival_airport_code={arrival_code}
+curl -X GET \
+  'https://test-api.worldticket.net/sms5/schedule/calendar/availability?start_date={start_date}&end_date={end_date}&departure_airport_code={departure_code}&arrival_airport_code={arrival_code}' \
+  -H 'Authorization: Bearer {access_token}' \
+  -H 'X-Realm: {tenant-name}'
+```
+
+#### With API Key Authentication
+```bash
+curl -X GET \
+  'https://test-api.worldticket.net/sms5/schedule/calendar/availability?start_date={start_date}&end_date={end_date}&departure_airport_code={departure_code}&arrival_airport_code={arrival_code}' \
+  -H 'X-API-Key: {api_key}' \
+  -H 'X-Realm: {tenant-name}'
 ```
 
 ### HTTP Headers
@@ -89,6 +137,10 @@ GET https://test-api.worldticket.net/sms5/schedule/calendar/availability?start_d
 
 ### Response
 
+<details>
+<summary><strong>✅ Example</strong></summary>
+<div markdown="1">
+
 ```json
 {
   "availability": [
@@ -105,7 +157,7 @@ GET https://test-api.worldticket.net/sms5/schedule/calendar/availability?start_d
       ]
     },
     {
-      "date": "2023-12-04", 
+      "date": "2023-12-04",
       "available": false,
       "flights": []
     }
@@ -113,130 +165,15 @@ GET https://test-api.worldticket.net/sms5/schedule/calendar/availability?start_d
 }
 ```
 
-## AirAvail RQ/RS
+</div>
+
+</details>
+
+## Air Availability (AirAvailRQ/RS)
 
 A flight availability request is performed to receive airline-specific flight inventory for a requested city pair on a specific date.
 
-### Request Headers
-
-| Header | Description | Example |
-|--------|-------------|---------|
-| X-Realm | Airline realm identifier | {tenant-name} |
-| X-API-Key | API access token | {api-key} |
-| Content-Type | Request content type | application/xml or application/json |
-| Local-Name | OTA method name | OTA_AirAvailRQ |
-
-### XML Request Example
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<OTA_AirAvailRQ xmlns="http://www.opentravel.org/OTA/2003/05" Version="2.001">
-    <POS>
-        <Source>
-            <RequestorID Type="5" ID="{agent_id}" ID_Context="{agency_id}"/>
-        </Source>
-    </POS>
-    <OriginDestinationInformation>
-        <DepartureDateTime>{departure_date}</DepartureDateTime>
-        <OriginLocation LocationCode="{origin_code}"/>
-        <DestinationLocation LocationCode="{destination_code}"/>
-    </OriginDestinationInformation>
-    <TravelPreferences>
-        <CabinPref Cabin="{cabin_class}"/>
-    </TravelPreferences>
-    <TravelerInfoSummary>
-        <AirTravelerAvail>
-            <PassengerTypeQuantity Code="ADT" Quantity="{adult_count}"/>
-            <PassengerTypeQuantity Code="CHD" Quantity="{child_count}"/>
-            <PassengerTypeQuantity Code="INF" Quantity="{infant_count}"/>
-        </AirTravelerAvail>
-    </TravelerInfoSummary>
-</OTA_AirAvailRQ>
-```
-
-### JSON Request Example
-
-```json
-{
-  "version": "2.001",
-  "pos": {
-    "source": [
-      {
-        "requestorID": {
-          "type": "5",
-          "id": "{agent_id}",
-          "name": "{agency_id}"
-        }
-      }
-    ]
-  },
-  "originDestinationInformation": [
-    {
-      "departureDateTime": "{departure_date}",
-      "originLocation": {
-        "locationCode": "{origin_code}"
-      },
-      "destinationLocation": {
-        "locationCode": "{destination_code}"
-      }
-    }
-  ],
-  "travelPreferences": {
-    "cabinPref": {
-      "cabin": "{cabin_class}"
-    }
-  },
-  "travelerInfoSummary": {
-    "airTravelerAvail": {
-      "passengerTypeQuantity": [
-        {
-          "code": "ADT",
-          "quantity": "{adult_count}"
-        },
-        {
-          "code": "CHD", 
-          "quantity": "{child_count}"
-        },
-        {
-          "code": "INF",
-          "quantity": "{infant_count}"
-        }
-      ]
-    }
-  }
-}
-```
-
-### XML Response Example
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<OTA_AirAvailRS xmlns="http://www.opentravel.org/OTA/2003/05" Version="2.001">
-    <Success/>
-    <OriginDestinationOptions>
-        <OriginDestinationOption>
-            <FlightSegment DepartureDateTime="{departure_datetime}" 
-                          ArrivalDateTime="{arrival_datetime}"
-                          FlightNumber="{flight_number}"
-                          ResBookDesigCode="{booking_class}">
-                <DepartureAirport LocationCode="{origin_code}"/>
-                <ArrivalAirport LocationCode="{destination_code}"/>
-                <MarketingAirline Code="{airline_code}"/>
-                <BookingClassAvails>
-                    <BookingClassAvail ResBookDesigCode="Y" 
-                                     ResBookDesigQuantity="{available_seats}"
-                                     RPH="1"/>
-                    <BookingClassAvail ResBookDesigCode="C" 
-                                     ResBookDesigQuantity="{available_seats}"
-                                     RPH="2"/>
-                </BookingClassAvails>
-            </FlightSegment>
-        </OriginDestinationOption>
-    </OriginDestinationOptions>
-</OTA_AirAvailRS>
-```
-
-### JSON Response Example
+### JSON Response
 
 ```json
 {
@@ -284,12 +221,15 @@ A flight availability request is performed to receive airline-specific flight in
 
 The API returns both Special Service Request (SSR) availability and pricing information.
 
-### Request Headers
+### HTTP Headers
 
 | Header | Description | Example |
 |--------|-------------|---------|
+| Authorization | Bearer token for JWT authentication | Bearer {access_token} |
+| X-API-Key | API key for key-based authentication | {api_key} |
 | X-Realm | Airline realm identifier | {tenant-name} |
-| X-API-Key | API access token | {api-key} |
+
+**Note:** Use either `Authorization` (for JWT) OR `X-API-Key` (for API key authentication), not both.
 
 ### Request Parameters (All Required)
 
@@ -301,10 +241,13 @@ The API returns both Special Service Request (SSR) availability and pricing info
 | departure_date | Departure date | 2023-12-22 |
 | currency_code | ISO Currency Code | USD |
 
-### Request
+### Basic Request Format
 
 ```bash
-GET /{service-name}/ssr-configurations?flight_designator={flight_designator}&departure_airport_code={departure_airport_code}&arrival_airport_code={arrival_airport_code}&departure_date={departure_date}&currency_code={currency_code}
+curl -X GET \
+  '/{service-name}/ssr-configurations?flight_designator={flight_designator}&departure_airport_code={departure_airport_code}&arrival_airport_code={arrival_airport_code}&departure_date={departure_date}&currency_code={currency_code}' \
+  -H 'X-Realm: {tenant-name}' \
+  -H 'X-API-Key: {api_key}'
 ```
 
 ### Response
@@ -342,14 +285,16 @@ Common error responses for flight availability requests:
 
 ### No Availability
 
-```xml
-<OTA_AirAvailRS>
-    <Errors>
-        <Error Code="NO_AVAILABILITY" ShortText="No flights available">
-            No flights available for the requested route and date.
-        </Error>
-    </Errors>
-</OTA_AirAvailRS>
+```json
+{
+  "errors": [
+    {
+      "code": "NO_AVAILABILITY",
+      "message": "No flights available",
+      "details": "No flights available for the requested route and date."
+    }
+  ]
+}
 ```
 
 ### Invalid Route

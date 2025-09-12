@@ -10,6 +10,7 @@ title: OTA API Generic Integration Guide
 - [Introduction](#introduction)
 - [Business Flow](#business-flow)
 - [Base URLs](#base-urls)
+- [HTTP Headers](#http-headers)
 - [Authentication](generic/authentication)
 - [OTA XML Schema 2015](#ota-xml-schema-2015)
 - [Postman Collection](#postman-collection)
@@ -17,7 +18,6 @@ title: OTA API Generic Integration Guide
   - [Booking Class](#booking-class)
   - [Passenger Type](#passenger-type)
   - [Document Type](#document-type)
-- [Available Routes and Flights](#available-routes-and-flights)
 - [OTA for Reservation workflow](#ota-for-reservation-workflow)
 
 ## Change Log
@@ -167,16 +167,6 @@ Please update the variables in collection such as apiKey, agent_id, agent_name a
 | 2    | Passport    |
 | 5    | National ID |
 
-<br /><br />
-
-# Available Routes and Flights
-
-|                  | Production                               | Test                                             |
-| ---------------- | ---------------------------------------- | ------------------------------------------------ |
-| Routes & Flights | https://api.worldticket.net/sms5        | https://test-api.worldticket.net/sms5            |
-
-- [Routes](generic/flight-availability#routes)
-- [Calendar Availability](generic/flight-availability#calendar-availability)
 <br /><br />
 
 # OTA for Reservation workflow

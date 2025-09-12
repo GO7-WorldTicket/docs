@@ -82,6 +82,17 @@ curl -X POST \
     -d @AirLowFareSearchRQ.json
 ```
 
+### HTTP Headers
+
+| Header | Description | Example |
+|--------|-------------|---------|
+| Authorization | Bearer token for JWT authentication | Bearer {access_token} |
+| X-API-Key | API key for key-based authentication | {api_key} |
+| X-Realm | Airline realm identifier | {tenant-name} |
+
+**Note:** Use either `Authorization` (for JWT) OR `X-API-Key` (for API key authentication), not both.
+
+
 ## AirLowFareSearchRQ for One-way Trip
 
 <details>
