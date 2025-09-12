@@ -182,6 +182,7 @@ Please update the variables in collection such as apiKey, agent_id, agent_name a
   - [Round trip](generic/flight-search#airlowfaresearchrq-for-round-trip)
   - [Round trip with booking class](generic/flight-search#airlowfaresearchrq-for-round-trip-with-booking-class-preference)
   - [Discount functionality](generic/flight-search#discount-functionality)
+- [Price Check](generic/price-check.md)
 - [Regular Booking](generic/booking-regular)
   - [Regular booking for One-way trip](generic/booking-regular#airbookrq-for-oneway-trip)
   - [Regular booking for Round trip](generic/booking-regular#airbookrq-for-round-trip)

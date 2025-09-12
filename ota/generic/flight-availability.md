@@ -256,6 +256,44 @@ curl -X POST \
 
 ### JSON Response
 
+<details>
+<summary><strong>✅ Example</strong></summary>
+<div markdown="1">
+
+```json
+{
+  "version": "2.001",
+  "pos": {
+    "source": [
+      {
+        "requestorID": { "type": "5", "id": "AGENT123", "name": "AGENCY1" }
+      }
+    ]
+  },
+  "originDestinationInformation": [
+    {
+      "departureDateTime": "2024-12-25",
+      "originLocation": { "locationCode": "JED" },
+      "destinationLocation": { "locationCode": "XMK" }
+    }
+  ],
+  "travelPreferences": { "cabinPref": { "cabin": "ECONOMY" } },
+  "travelerInfoSummary": {
+    "airTravelerAvail": {
+      "passengerTypeQuantity": [
+        { "code": "ADT", "quantity": 2 },
+        { "code": "CHD", "quantity": 1 },
+        { "code": "INF", "quantity": 0 }
+      ]
+    }
+  }
+}
+```
+
+</div>
+
+</details>
+
 ```json
 {
   "version": "2.001",
