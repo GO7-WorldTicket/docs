@@ -14,13 +14,22 @@ The purpose is to modify existing bookings. Supported modifications include name
 | Production | https://api.worldticket.net/ota/v2015b/OTA |
 | Test | https://test-api.worldticket.net/ota/v2015b/OTA |
 
+## HTTP Headers (All Required)
+
+| Header | Description | Example |
+|--------|-------------|---------|
+| Authorization | Bearer token for JWT authentication | Bearer {access_token} |
+| X-API-Key | API key for key-based authentication | {api_key} |
+| Local-Name | OTA operation identifier | OTA_AirBookModifyRQ |
+| Content-Type | Request content type | application/xml |
+
+**Note:** Use either `Authorization` (for JWT) OR `X-API-Key` (for API key authentication), not both.
+
 ## Request Parameters
 
-| Parameter | Description | Example |
-|-----------|-------------|----------|
-| base_url | Base URL | https://test-api.worldticket.net/ota/v2015b/OTA |
-| access_token | Access Token | Bearer {access_token} |
-| local-name | Custom HTTP header | OTA_AirBookModifyRQ |
+| Parameter | Location | Required | Description | Example |
+|-----------|----------|----------|-------------|---------|
+| base_url | Endpoint | Yes | Base URL for the request | https://test-api.worldticket.net/ota/v2015b/OTA |
 
 ## Booking Modification Workflow
 

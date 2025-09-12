@@ -14,14 +14,23 @@ The purpose is to create the booking in the airline system by providing a specif
 | Production | https://api.worldticket.net/ota/v2015b/OTA |
 | Test | https://test-api.worldticket.net/ota/v2015b/OTA |
 
-## Request Parameters in the Header (All Required)
+## HTTP Headers (All Required)
 
-| Parameter  | Type    | Description        | Example                  |
-| ---------- | ------- | ------------------ | ------------------------ |
-| x-api-key  | Header  | Access Token       | {api-key} |
-| local-name | Header  | Custom HTTP header | OTA_AirBookRQ            |
-| agentId    | Payload | Agent identifier   | {agent_id}               |
-| agencyId   | Payload | Agency identifier  | {agency_id}              |
+| Header | Description | Example |
+|--------|-------------|---------|
+| Authorization | Bearer token for JWT authentication | Bearer {access_token} |
+| X-API-Key | API key for key-based authentication | {api_key} |
+| Local-Name | OTA operation identifier | OTA_AirBookRQ |
+| Content-Type | Request content type | application/xml |
+
+**Note:** Use either `Authorization` (for JWT) OR `X-API-Key` (for API key authentication), not both.
+
+## Request Parameters
+
+| Parameter | Location | Required | Description | Example |
+|-----------|----------|----------|-------------|---------|
+| agentId | XML Body | Yes | Agent identifier | {agent_id} |
+| agencyId | XML Body | Yes | Agency identifier | {agency_id} |
 
 ## Regular Booking Workflow
 
@@ -67,11 +76,22 @@ sequenceDiagram
 
 ## Request Format
 
+### With JWT Authentication
 ```bash
 curl -X POST \
-    {base_url} \
-    -H 'x-api-key: {api-key}' \
-    -H 'local-name: OTA_AirBookRQ' \
+    https://test-api.worldticket.net/ota/v2015b/OTA \
+    -H 'Authorization: Bearer {access_token}' \
+    -H 'Local-Name: OTA_AirBookRQ' \
+    -H 'Content-Type: application/xml' \
+    -d @AirBookRQ.xml
+```
+
+### With API Key Authentication
+```bash
+curl -X POST \
+    https://test-api.worldticket.net/ota/v2015b/OTA \
+    -H 'X-API-Key: {api_key}' \
+    -H 'Local-Name: OTA_AirBookRQ' \
     -H 'Content-Type: application/xml' \
     -d @AirBookRQ.xml
 ```

@@ -35,11 +35,29 @@ Replace all variables in curly braces with the actual values provided by your ai
 
 ### JWT Token Request
 
-#### Request
+#### HTTP Headers
+
+| Header | Description | Example |
+|--------|-------------|---------|
+| Content-Type | Request content type | application/x-www-form-urlencoded |
+
+#### Request Parameters
+
+| Parameter | Location | Required | Description | Example |
+|-----------|----------|----------|-------------|---------|
+| base_url | Endpoint | Yes | Identity provider URL | https://test-api.worldticket.net/auth |
+| tenant | URL Path | Yes | Short airline name (realm) | {tenant-name} |
+| grant_type | Body | Yes | OAuth2 grant type | password |
+| client_id | Body | Yes | Application ID | {client-id} |
+| client_secret | Body | Yes | Application secret | {client-secret} |
+| username | Body | Yes | User login | {username} |
+| password | Body | Yes | User password | {password} |
+
+#### Request Example
 
 ```bash
 curl -X POST \
-    {base_url}/realms/{tenant}/protocol/openid-connect/token \
+    https://test-api.worldticket.net/auth/realms/{tenant}/protocol/openid-connect/token \
     -H 'Content-Type: application/x-www-form-urlencoded' \
     -d 'grant_type=password&client_id={client_id}&client_secret={client_secret}&username={username}&password={password}'
 ```
@@ -61,40 +79,49 @@ curl -X POST \
 
 ### Using JWT Token
 
-In the response, you will get `access_token` and `refresh_token` to be sent along with any further requests as HTTP headers `Authorization` and `X-Refresh-Token` correspondingly.
+In the response, you will get `access_token` and `refresh_token` to be sent along with any further requests.
+
+#### HTTP Headers for JWT Authentication
+
+| Header | Description | Example |
+|--------|-------------|---------|
+| Authorization | Bearer token from JWT response | Bearer {access_token} |
+| X-Refresh-Token | Refresh token from JWT response | {refresh_token} |
+| Content-Type | Request content type | application/xml |
+| Local-Name | OTA operation identifier | OTA_AirLowFareSearchRQ |
 
 #### Example OTA Request with JWT
 
 ```bash
 curl -X POST \
-    {base_url}/ota/v2015b/OTA \
+    https://test-api.worldticket.net/ota/v2015b/OTA \
     -H 'Authorization: Bearer {access_token}' \
     -H 'X-Refresh-Token: {refresh_token}' \
     -H 'Content-Type: application/xml' \
-    -H 'local-name: OTA_AirLowFareSearchRQ' \
+    -H 'Local-Name: OTA_AirLowFareSearchRQ' \
     -d @request.xml
 ```
 
 ## API Key Authentication
 
-The API key should be attached to the HTTP request as `X-API-Key` HTTP header.
-
 ⚠️ **Security Warning**: Never deploy your key in client-side applications like browsers or mobile apps as it allows malicious users to take that key and make requests on your behalf.
 
-### API Key Format
+### HTTP Headers for API Key Authentication
 
-| API KEY                        |
-| ------------------------------ |
-| {your-api-key}                 |
+| Header | Description | Example |
+|--------|-------------|---------|
+| X-API-Key | API key for authentication | {your-api-key} |
+| Content-Type | Request content type | application/xml |
+| Local-Name | OTA operation identifier | OTA_AirLowFareSearchRQ |
 
-### API Key Request Example
+### Example OTA Request with API Key
 
 ```bash
 curl -X POST \
-    {base_url}/ota/v2015b/OTA \
+    https://test-api.worldticket.net/ota/v2015b/OTA \
     -H 'X-API-Key: {api_key}' \
     -H 'Content-Type: application/xml' \
-    -H 'local-name: OTA_AirLowFareSearchRQ' \
+    -H 'Local-Name: OTA_AirLowFareSearchRQ' \
     -d @request.xml
 ```
 
@@ -105,10 +132,10 @@ When using OTA API, the following headers are required:
 ### JSON Format
 ```
 Content-Type: application/json
-local-name: {ota-method}
+Local-Name: {ota-method}
 ```
 
-Example: `local-name: OTA_AirLowFareSearchRQ`
+Example: `Local-Name: OTA_AirLowFareSearchRQ`
 
 ### XML Format
 ```

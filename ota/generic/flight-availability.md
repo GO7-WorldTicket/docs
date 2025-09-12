@@ -24,11 +24,20 @@ Lists all possible city pairs selling by the airline.
 GET https://test-api.worldticket.net/sms5/schedule/routes?sales_channel=OTA
 ```
 
-### Headers
+### HTTP Headers
 
 | Header | Description | Example |
 |--------|-------------|---------|
-| Authorization | Bearer token or API key | Bearer {access_token} or X-API-Key: {api_key} |
+| Authorization | Bearer token for JWT authentication | Bearer {access_token} |
+| X-API-Key | API key for key-based authentication | {api_key} |
+
+**Note:** Use either `Authorization` (for JWT) OR `X-API-Key` (for API key authentication), not both.
+
+### Request Parameters
+
+| Parameter | Location | Required | Description | Example |
+|-----------|----------|----------|-------------|---------|
+| sales_channel | Query | Yes | Sales channel identifier | OTA |
 
 ### Response
 
@@ -59,21 +68,24 @@ Lists available dates per route. Usually used in calendar picker implementations
 GET https://test-api.worldticket.net/sms5/schedule/calendar/availability?start_date={start_date}&end_date={end_date}&departure_airport_code={departure_code}&arrival_airport_code={arrival_code}
 ```
 
-### Parameters
-
-| Parameter | Required | Description | Format | Example |
-|-----------|----------|-------------|--------|---------|
-| start_date | Yes | Start date for availability check | ISO 8601 | 2023-12-03T00:00:00 |
-| end_date | Yes | End date for availability check | ISO 8601 | 2023-12-28T00:00:00 |
-| departure_airport_code | Yes | Departure airport IATA code | String | JFK |
-| arrival_airport_code | Yes | Arrival airport IATA code | String | LAX |
-
-### Headers
+### HTTP Headers
 
 | Header | Description | Example |
 |--------|-------------|---------|
-| Authorization | Bearer token or API key | Bearer {access_token} |
-| X-REALM | Airline realm identifier | {tenant-name} |
+| Authorization | Bearer token for JWT authentication | Bearer {access_token} |
+| X-API-Key | API key for key-based authentication | {api_key} |
+| X-Realm | Airline realm identifier | {tenant-name} |
+
+**Note:** Use either `Authorization` (for JWT) OR `X-API-Key` (for API key authentication), not both.
+
+### Request Parameters
+
+| Parameter | Location | Required | Description | Format | Example |
+|-----------|----------|----------|-------------|--------|---------|
+| start_date | Query | Yes | Start date for availability check | ISO 8601 | 2023-12-03T00:00:00 |
+| end_date | Query | Yes | End date for availability check | ISO 8601 | 2023-12-28T00:00:00 |
+| departure_airport_code | Query | Yes | Departure airport IATA code | String | JFK |
+| arrival_airport_code | Query | Yes | Arrival airport IATA code | String | LAX |
 
 ### Response
 
@@ -109,10 +121,10 @@ A flight availability request is performed to receive airline-specific flight in
 
 | Header | Description | Example |
 |--------|-------------|---------|
-| X-REALM | Airline realm identifier | {tenant-name} |
-| x-api-key | API access token | {api-key} |
+| X-Realm | Airline realm identifier | {tenant-name} |
+| X-API-Key | API access token | {api-key} |
 | Content-Type | Request content type | application/xml or application/json |
-| local-name | OTA method name | OTA_AirAvailRQ |
+| Local-Name | OTA method name | OTA_AirAvailRQ |
 
 ### XML Request Example
 
@@ -276,8 +288,8 @@ The API returns both Special Service Request (SSR) availability and pricing info
 
 | Header | Description | Example |
 |--------|-------------|---------|
-| X-REALM | Airline realm identifier | {tenant-name} |
-| x-api-key | API access token | {api-key} |
+| X-Realm | Airline realm identifier | {tenant-name} |
+| X-API-Key | API access token | {api-key} |
 
 ### Request Parameters (All Required)
 
