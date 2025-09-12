@@ -35,23 +35,17 @@ For detailed changelog see: [Generic Changelog](generic-changelog.md)
 
 This document outlines the generic integration of Booking API with airline systems, leveraging OTA API standards. This guide provides airline-agnostic documentation that can be adapted for any airline implementation.
 
-## Endpoints
+## Base URLs
 
-### Test Endpoints
+For WorldTicket implementation, use the following base URLs:
 
-|                  | Test                                            |
-|------------------|-------------------------------------------------|
-| Auth API         | https://{test-auth-domain}/auth                 |
-| OTA API          | https://{test-api-domain}/ota/v2015b/OTA        |
-| REST API         | https://{test-api-domain}/{service-name}       |
+|                  | Production                                      | Test                                            |
+|------------------|------------------------------------------------|-------------------------------------------------|
+| Auth API         | https://api.worldticket.net/auth               | https://test-api.worldticket.net/auth           |
+| OTA API          | https://api.worldticket.net/ota/v2015b/OTA     | https://test-api.worldticket.net/ota/v2015b/OTA |
+| REST API         | https://api.worldticket.net/{service-name}     | https://test-api.worldticket.net/{service-name} |
 
-### Production Endpoints
-
-|                  | Production                                      |
-|------------------|-------------------------------------------------|
-| Auth API         | https://{auth-domain}/auth                      |
-| OTA API          | https://{api-domain}/ota/v2015b/OTA             |
-| REST API         | https://{api-domain}/{service-name}             |
+**Note:** Replace `{service-name}` with the specific service endpoint (e.g., `refund-service`, `sms5`).
 
 # Business Flow
 
@@ -162,22 +156,22 @@ curl -X POST \
 
 ## JWT
 
-|                   | Production                    | Test                          |
-| ----------------- | ----------------------------- | ----------------------------- |
-| Identity Provider | https://{auth-domain}/auth    | https://{test-auth-domain}/auth |
+|                   | Production                           | Test                                     |
+| ----------------- | ------------------------------------ | ---------------------------------------- |
+| Identity Provider | https://api.worldticket.net/auth     | https://test-api.worldticket.net/auth    |
 
 Before calling any OTA method it's mandatory to get access and refresh tokens from the Identity Provider.
 
 Replace all variables in curly braces with the actual values.
 
-| Variable      | Description                         | Example                        |
-| ------------- | ----------------------------------- | ------------------------------ |
-| base_url      | Identity provider URL               | https://{test-auth-domain}/auth |
-| tenant        | Short airline name stands for realm | {tenant-name}                  |
-| client_id     | Application ID                      | {client-id}                    |
-| client_secret | Application secret                  | {client-secret}                |
-| username      | User login                          | {username}                     |
-| password      | User password                       | {password}                     |
+| Variable      | Description                         | Example                                   |
+| ------------- | ----------------------------------- | ----------------------------------------- |
+| base_url      | Identity provider URL               | https://test-api.worldticket.net/auth     |
+| tenant        | Short airline name stands for realm | {tenant-name}                            |
+| client_id     | Application ID                      | {client-id}                              |
+| client_secret | Application secret                  | {client-secret}                          |
+| username      | User login                          | {username}                               |
+| password      | User password                       | {password}                               |
 
 <details>
   <summary><b>Authentication Request and Response</b></summary>
@@ -242,9 +236,9 @@ Please update the variables in collection such as apiKey, agent_id, agent_name a
 
 # Available Routes and Flights
 
-|                  | Production                                | Test                                    |
-| ---------------- | ----------------------------------------- | --------------------------------------- |
-| Routes & Flights | https://{api-domain}/{service-name}      | https://{test-api-domain}/{service-name} |
+|                  | Production                               | Test                                             |
+| ---------------- | ---------------------------------------- | ------------------------------------------------ |
+| Routes & Flights | https://api.worldticket.net/sms5        | https://test-api.worldticket.net/sms5            |
 
 - [Routes](generic/flight-availability#routes)
 - [Calendar Availability](generic/flight-availability#calendar-availability)
@@ -252,9 +246,9 @@ Please update the variables in collection such as apiKey, agent_id, agent_name a
 
 # OTA for Reservation workflow
 
-|         | Production                              | Test                                    |
-| ------- | --------------------------------------- | --------------------------------------- |
-| OTA API | https://{api-domain}/ota/v2015b/OTA     | https://{test-api-domain}/ota/v2015b/OTA |
+|         | Production                                     | Test                                           |
+| ------- | ---------------------------------------------- | ---------------------------------------------- |
+| OTA API | https://api.worldticket.net/ota/v2015b/OTA     | https://test-api.worldticket.net/ota/v2015b/OTA |
 
 - [Authentication](generic/authentication)
 - [Flight Availability](generic/flight-availability)

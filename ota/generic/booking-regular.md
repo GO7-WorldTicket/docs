@@ -11,8 +11,8 @@ The purpose is to create the booking in the airline system by providing a specif
 
 | Environment | URL |
 |-------------|-----|
-| Production | https://{api-domain}/ota/v2015b/OTA |
-| Test | https://{test-api-domain}/ota/v2015b/OTA |
+| Production | https://api.worldticket.net/ota/v2015b/OTA |
+| Test | https://test-api.worldticket.net/ota/v2015b/OTA |
 
 ## Request Parameters in the Header (All Required)
 

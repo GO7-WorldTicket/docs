@@ -20,8 +20,8 @@ The refund process handles both voluntary and involuntary refunds through a stru
 
 | Environment | URL |
 |-------------|-----|
-| Production | https://{api-domain}/{service-name} |
-| Test | https://{test-api-domain}/{service-name} |
+| Production | https://api.worldticket.net/refund-service |
+| Test | https://test-api.worldticket.net/refund-service |
 
 ## Refund Process Workflow
 
@@ -91,7 +91,7 @@ Get all refund requests based on search criteria.
 #### Request
 
 ```bash
-GET /{service-name}/refund-requests
+GET https://test-api.worldticket.net/refund-service/refund-requests
 ```
 
 #### Parameters (All Optional)
@@ -151,7 +151,7 @@ Get available refund reasons for user selection.
 #### Request
 
 ```bash
-GET /{service-name}/refund-reasons
+GET https://test-api.worldticket.net/refund-service/refund-reasons
 ```
 
 #### Response
@@ -191,7 +191,7 @@ Submit new refund request with passenger and booking details.
 #### Request
 
 ```bash
-POST /{service-name}/refund-requests
+POST https://test-api.worldticket.net/refund-service/refund-requests
 ```
 
 #### Request Body
@@ -249,7 +249,7 @@ Upload supporting documents for refund requests.
 #### Request
 
 ```bash
-POST /{service-name}/refund-requests/{request_number}/attachments
+POST https://test-api.worldticket.net/refund-service/refund-requests/{request_number}/attachments
 ```
 
 **Content-Type:** `multipart/form-data`

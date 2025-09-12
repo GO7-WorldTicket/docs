@@ -11,14 +11,14 @@ The purpose is to list all the fares and display them to the user. AirLowFareSea
 
 | Environment | URL |
 |-------------|-----|
-| Production | https://{api-domain}/ota/v2015b/OTA |
-| Test | https://{test-api-domain}/ota/v2015b/OTA |
+| Production | https://api.worldticket.net/ota/v2015b/OTA |
+| Test | https://test-api.worldticket.net/ota/v2015b/OTA |
 
 ## Request Parameters (All Required)
 
 | Parameter | Description | Example |
 |-----------|-------------|---------|
-| base_url | Base URL | https://{test-api-domain}/ota/v2015b/OTA |
+| base_url | Base URL | https://test-api.worldticket.net/ota/v2015b/OTA |
 | access_token | Access Token | Bearer {access_token} or X-API-Key: {api_key} |
 | local-name | Custom HTTP header | OTA_AirLowFareSearchRQ |
 
