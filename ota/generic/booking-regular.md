@@ -7,12 +7,30 @@ title: Regular Booking (AirBookRQ)
 
 The purpose is to create the booking in the airline system by providing a specific flight and fare in the request.
 
+## Table of Contents
+
+- [Endpoints](#endpoints)
+- [Regular Booking Workflow](#regular-booking-workflow)
+- [Basic Request Format](#basic-request-format)
+- [AirBookRQ for One-way Trip](#airbookrq-for-one-way-trip)
+- [AirBookRQ for Round Trip](#airbookrq-for-round-trip)
+- [Special Service Requests (SSR)](#special-service-requests-ssr)
+- [Payment Details](#payment-details)
+- [Payment Types](#payment-types)
+- [Response Structure](#response-structure)
+- [Booking Status Codes](#booking-status-codes)
+- [Error Responses](#error-responses)
+
 ## Base URLs
 
 | Environment | URL |
 |-------------|-----|
 | Production | https://api.worldticket.net/ota/v2015b/OTA |
 | Test | https://test-api.worldticket.net/ota/v2015b/OTA |
+
+## Endpoints
+
+- Method: `POST` — Path: `/ota/v2015b/OTA` — Local-Name: `OTA_AirBookRQ`
 
 ## HTTP Headers (All Required)
 
@@ -21,16 +39,9 @@ The purpose is to create the booking in the airline system by providing a specif
 | Authorization | Bearer token for JWT authentication | Bearer {access_token} |
 | X-API-Key | API key for key-based authentication | {api_key} |
 | Local-Name | OTA operation identifier | OTA_AirBookRQ |
-| Content-Type | Request content type | application/xml |
+| Content-Type | Request content type | application/json |
 
 **Note:** Use either `Authorization` (for JWT) OR `X-API-Key` (for API key authentication), not both.
-
-## Request Parameters
-
-| Parameter | Location | Required | Description | Example |
-|-----------|----------|----------|-------------|---------|
-| agentId | XML Body | Yes | Agent identifier | {agent_id} |
-| agencyId | XML Body | Yes | Agency identifier | {agency_id} |
 
 ## Regular Booking Workflow
 
@@ -74,7 +85,7 @@ sequenceDiagram
     end
 ```
 
-## Request Format
+## Basic Request Format
 
 ### With JWT Authentication
 ```bash
@@ -82,8 +93,8 @@ curl -X POST \
     https://test-api.worldticket.net/ota/v2015b/OTA \
     -H 'Authorization: Bearer {access_token}' \
     -H 'Local-Name: OTA_AirBookRQ' \
-    -H 'Content-Type: application/xml' \
-    -d @AirBookRQ.xml
+    -H 'Content-Type: application/json' \
+    -d @AirBookRQ.json
 ```
 
 ### With API Key Authentication
@@ -92,8 +103,8 @@ curl -X POST \
     https://test-api.worldticket.net/ota/v2015b/OTA \
     -H 'X-API-Key: {api_key}' \
     -H 'Local-Name: OTA_AirBookRQ' \
-    -H 'Content-Type: application/xml' \
-    -d @AirBookRQ.xml
+    -H 'Content-Type: application/json' \
+    -d @AirBookRQ.json
 ```
 
 ## AirBookRQ for One-way Trip
@@ -104,52 +115,11 @@ Some details can be provided optionally:
 - Special Service Requests (SSR)
 - Payment details
 
-### XML Request Example
+<!-- XML request removed to keep JSON-only documentation -->
 
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<OTA_AirBookRQ xmlns="http://www.opentravel.org/OTA/2003/05" Version="2.001">
-    <POS>
-        <Source>
-            <RequestorID Type="5" ID="{agent_id}" ID_Context="{agency_id}"/>
-        </Source>
-    </POS>
-    <AirItinerary>
-        <OriginDestinationOptions>
-            <OriginDestinationOption>
-                <FlightSegment DepartureDateTime="{departure_datetime}" 
-                              ArrivalDateTime="{arrival_datetime}"
-                              FlightNumber="{flight_number}"
-                              ResBookDesigCode="{booking_class}"
-                              NumberInParty="{total_passengers}">
-                    <DepartureAirport LocationCode="{origin_code}"/>
-                    <ArrivalAirport LocationCode="{destination_code}"/>
-                    <MarketingAirline Code="{airline_code}"/>
-                </FlightSegment>
-            </OriginDestinationOption>
-        </OriginDestinationOptions>
-    </AirItinerary>
-    <TravelerInfo>
-        <AirTraveler>
-            <PersonName>
-                <GivenName>{first_name}</GivenName>
-                <Surname>{last_name}</Surname>
-            </PersonName>
-            <Document DocType="{document_type}" DocID="{document_number}" ExpireDate="{expiry_date}"/>
-            <TravelerRefNumber RPH="1"/>
-        </AirTraveler>
-    </TravelerInfo>
-    <Fulfillment>
-        <PaymentDetails>
-            <PaymentDetail PaymentType="{payment_type}">
-                <DirectBill DirectBillID="{account_id}"/>
-            </PaymentDetail>
-        </PaymentDetails>
-    </Fulfillment>
-</OTA_AirBookRQ>
-```
-
-### JSON Request Example
+<details>
+<summary><strong>📋 JSON Request Template</strong></summary>
+<div markdown="1">
 
 ```json
 {
@@ -223,60 +193,67 @@ Some details can be provided optionally:
 }
 ```
 
-## AirBookRQ for Round Trip
+</div>
 
-### XML Request Example
+</details>
 
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<OTA_AirBookRQ xmlns="http://www.opentravel.org/OTA/2003/05" Version="2.001">
-    <POS>
-        <Source>
-            <RequestorID Type="5" ID="{agent_id}" ID_Context="{agency_id}"/>
-        </Source>
-    </POS>
-    <AirItinerary>
-        <OriginDestinationOptions>
-            <!-- Outbound Flight -->
-            <OriginDestinationOption>
-                <FlightSegment DepartureDateTime="{outbound_departure_datetime}" 
-                              ArrivalDateTime="{outbound_arrival_datetime}"
-                              FlightNumber="{outbound_flight_number}"
-                              ResBookDesigCode="{booking_class}"
-                              NumberInParty="{total_passengers}">
-                    <DepartureAirport LocationCode="{origin_code}"/>
-                    <ArrivalAirport LocationCode="{destination_code}"/>
-                    <MarketingAirline Code="{airline_code}"/>
-                </FlightSegment>
-            </OriginDestinationOption>
-            <!-- Inbound Flight -->
-            <OriginDestinationOption>
-                <FlightSegment DepartureDateTime="{inbound_departure_datetime}" 
-                              ArrivalDateTime="{inbound_arrival_datetime}"
-                              FlightNumber="{inbound_flight_number}"
-                              ResBookDesigCode="{booking_class}"
-                              NumberInParty="{total_passengers}">
-                    <DepartureAirport LocationCode="{destination_code}"/>
-                    <ArrivalAirport LocationCode="{origin_code}"/>
-                    <MarketingAirline Code="{airline_code}"/>
-                </FlightSegment>
-            </OriginDestinationOption>
-        </OriginDestinationOptions>
-    </AirItinerary>
-    <TravelerInfo>
-        <AirTraveler>
-            <PersonName>
-                <GivenName>{first_name}</GivenName>
-                <Surname>{last_name}</Surname>
-            </PersonName>
-            <Document DocType="{document_type}" DocID="{document_number}" ExpireDate="{expiry_date}"/>
-            <TravelerRefNumber RPH="1"/>
-        </AirTraveler>
-    </TravelerInfo>
-</OTA_AirBookRQ>
+<details>
+<summary><strong>✅ Example</strong></summary>
+<div markdown="1">
+
+```json
+{
+  "version": "2.001",
+  "pos": {
+    "source": [
+      {
+        "isoCurrency": "USD",
+        "requestorID": { "type": "5", "id": "AGENT123", "name": "AGENCY1" },
+        "bookingChannel": { "type": "OTA" }
+      }
+    ]
+  },
+  "airItinerary": {
+    "originDestinationOptions": [
+      {
+        "flightSegment": {
+          "departureDateTime": "2024-12-25T08:00:00",
+          "arrivalDateTime": "2024-12-25T11:30:00",
+          "flightNumber": "WT100",
+          "resBookDesigCode": "Y",
+          "numberInParty": "1",
+          "departureAirport": { "locationCode": "JED" },
+          "arrivalAirport": { "locationCode": "XMK" },
+          "marketingAirline": { "code": "WT" }
+        }
+      }
+    ]
+  },
+  "travelerInfo": [
+    {
+      "airTraveler": {
+        "personName": { "givenName": "JOHN", "surname": "DOE" },
+        "telephone": [ { "phoneNumber": "+15551234567", "phoneTechType": "Voice" } ],
+        "email": [ { "emailAddress": "john.doe@example.com" } ],
+        "document": { "docType": "P", "docID": "X1234567", "expireDate": "2030-12-31" },
+        "travelerRefNumber": { "rph": "1" }
+      }
+    }
+  ]
+}
 ```
 
-### JSON Request Example
+</div>
+
+</details>
+
+## AirBookRQ for Round Trip
+
+<!-- XML request removed to keep JSON-only documentation -->
+
+<details>
+<summary><strong>📋 JSON Request Template</strong></summary>
+<div markdown="1">
 
 ```json
 {
@@ -357,57 +334,128 @@ Some details can be provided optionally:
 }
 ```
 
-## Required Fields Summary
+</div>
 
-| Field | Required | Description |
-|-------|----------|-------------|
-| `personName.givenName` | ✅ | Passenger first name |
-| `personName.surname` | ✅ | Passenger last name |
-| `document.docType` | ✅ | Type of document (e.g., "2" for passport) |
-| `document.docID` | ✅ | Document number |
-| `document.expireDate` | ✅ | Document expiry date |
-| `telephone.phoneNumber` | ✅ | Contact phone number |
-| `email.emailAddress` | ✅ | Contact email address |
-| `flightSegment.departureDateTime` | ✅ | Flight departure date and time |
-| `flightSegment.flightNumber` | ✅ | Flight number |
-| `flightSegment.resBookDesigCode` | ✅ | Booking class code |
+</details>
+
+<details>
+<summary><strong>✅ Example</strong></summary>
+<div markdown="1">
+
+```json
+{
+  "version": "2.001",
+  "pos": {
+    "source": [
+      {
+        "isoCurrency": "USD",
+        "requestorID": { "type": "5", "id": "AGENT123", "name": "AGENCY1" },
+        "bookingChannel": { "type": "OTA" }
+      }
+    ]
+  },
+  "airItinerary": {
+    "originDestinationOptions": [
+      {
+        "flightSegment": {
+          "departureDateTime": "2024-12-25T08:00:00",
+          "arrivalDateTime": "2024-12-25T11:30:00",
+          "flightNumber": "WT100",
+          "resBookDesigCode": "Y",
+          "numberInParty": "1",
+          "departureAirport": { "locationCode": "JED" },
+          "arrivalAirport": { "locationCode": "XMK" },
+          "marketingAirline": { "code": "WT" }
+        }
+      },
+      {
+        "flightSegment": {
+          "departureDateTime": "2025-01-02T16:00:00",
+          "arrivalDateTime": "2025-01-02T19:30:00",
+          "flightNumber": "WT101",
+          "resBookDesigCode": "Y",
+          "numberInParty": "1",
+          "departureAirport": { "locationCode": "XMK" },
+          "arrivalAirport": { "locationCode": "JED" },
+          "marketingAirline": { "code": "WT" }
+        }
+      }
+    ]
+  },
+  "travelerInfo": [
+    {
+      "airTraveler": {
+        "personName": { "givenName": "JOHN", "surname": "DOE" },
+        "document": { "docType": "P", "docID": "X1234567", "expireDate": "2030-12-31" },
+        "travelerRefNumber": { "rph": "1" }
+      }
+    }
+  ]
+}
+```
+
+</div>
+
+</details>
 
 ## Special Service Requests (SSR)
 
 ### Adding SSR to Booking Request
 
-```xml
-<TravelerInfo>
-    <AirTraveler>
-        <PersonName>
-            <GivenName>{first_name}</GivenName>
-            <Surname>{last_name}</Surname>
-        </PersonName>
-        <Document DocType="{document_type}" DocID="{document_number}" ExpireDate="{expiry_date}"/>
-        <TravelerRefNumber RPH="1"/>
-        <SpecialServiceRequests>
-            <SpecialServiceRequest SSRCode="MEAL" ServiceQuantity="1" Status="Requested">
-                <Text>Vegetarian meal</Text>
-            </SpecialServiceRequest>
-            <SpecialServiceRequest SSRCode="SEAT" ServiceQuantity="1" Status="Requested">
-                <Text>Aisle seat preference</Text>
-            </SpecialServiceRequest>
-        </SpecialServiceRequests>
-    </AirTraveler>
-</TravelerInfo>
+```json
+{
+  "travelerInfo": [
+    {
+      "airTraveler": {
+        "personName": {
+          "givenName": "{first_name}",
+          "surname": "{last_name}"
+        },
+        "document": {
+          "docType": "{document_type}",
+          "docID": "{document_number}",
+          "expireDate": "{expiry_date}"
+        },
+        "travelerRefNumber": {
+          "rph": "1"
+        },
+        "specialServiceRequests": [
+          {
+            "ssrCode": "MEAL",
+            "serviceQuantity": 1,
+            "status": "Requested",
+            "text": "Vegetarian meal"
+          },
+          {
+            "ssrCode": "SEAT",
+            "serviceQuantity": 1,
+            "status": "Requested",
+            "text": "Aisle seat preference"
+          }
+        ]
+      }
+    }
+  ]
+}
 ```
 
 ## Payment Details
 
 ### Including Payment Information
 
-```xml
-<Fulfillment>
-    <PaymentDetails>
-        <PaymentDetail PaymentType="1">
-            <DirectBill DirectBillID="{account_id}"/>
-        </PaymentDetail>
-    </Fulfillment>
+```json
+{
+  "fulfillment": {
+    "paymentDetails": {
+      "paymentDetail": {
+        "paymentType": "1",
+        "directBill": {
+          "directBillID": "{account_id}"
+        }
+      }
+    }
+  }
+}
 ```
 
 ### Payment Types
@@ -422,56 +470,7 @@ Some details can be provided optionally:
 
 ## Response Structure
 
-### XML Response
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<OTA_AirBookRS xmlns="http://www.opentravel.org/OTA/2003/05" Version="2.001">
-    <Success/>
-    <AirReservation>
-        <BookingReferenceID ID="{record_locator}" Type="14">
-            <CompanyName Code="{airline_code}"/>
-        </BookingReferenceID>
-        <AirItinerary>
-            <OriginDestinationOptions>
-                <OriginDestinationOption>
-                    <FlightSegment DepartureDateTime="{departure_datetime}" 
-                                  ArrivalDateTime="{arrival_datetime}"
-                                  FlightNumber="{flight_number}"
-                                  ResBookDesigCode="{booking_class}"
-                                  Status="HK">
-                        <DepartureAirport LocationCode="{origin_code}"/>
-                        <ArrivalAirport LocationCode="{destination_code}"/>
-                        <MarketingAirline Code="{airline_code}"/>
-                        <BookingClassAvails>
-                            <BookingClassAvail ResBookDesigCode="{booking_class}"/>
-                        </BookingClassAvails>
-                    </FlightSegment>
-                </OriginDestinationOption>
-            </OriginDestinationOptions>
-        </AirItinerary>
-        <TravelerInfo>
-            <AirTraveler>
-                <PersonName>
-                    <GivenName>{first_name}</GivenName>
-                    <Surname>{last_name}</Surname>
-                </PersonName>
-                <TravelerRefNumber RPH="1"/>
-            </AirTraveler>
-        </TravelerInfo>
-        <PriceInfo>
-            <ItinTotalFare>
-                <BaseFare Amount="{base_fare}" CurrencyCode="{currency_code}"/>
-                <Taxes>
-                    <Tax Amount="{tax_amount}" CurrencyCode="{currency_code}"/>
-                </Taxes>
-                <TotalFare Amount="{total_fare}" CurrencyCode="{currency_code}"/>
-            </ItinTotalFare>
-        </PriceInfo>
-        <TicketingInfo TicketTimeLimit="{ticket_time_limit}"/>
-    </AirReservation>
-</OTA_AirBookRS>
-```
+<!-- XML response removed to keep JSON-only documentation -->
 
 ### JSON Response
 
@@ -560,14 +559,16 @@ Some details can be provided optionally:
 
 ### Seat Not Available
 
-```xml
-<OTA_AirBookRS>
-    <Errors>
-        <Error Code="SEAT_NOT_AVAILABLE" ShortText="Seat not available">
-            The requested seat is no longer available for booking.
-        </Error>
-    </Errors>
-</OTA_AirBookRS>
+```json
+{
+  "errors": [
+    {
+      "code": "SEAT_NOT_AVAILABLE",
+      "message": "Seat not available",
+      "details": "The requested seat is no longer available for booking."
+    }
+  ]
+}
 ```
 
 ### Invalid Passenger Data
