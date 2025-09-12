@@ -7,6 +7,11 @@ title: Flight Search (Low Fare Search)
 
 The purpose is to list all the fares and display them to the user. AirLowFareSearch is used to get flight availability with the lowest fare options for the whole journey, or separately per direction (outbound or inbound).
 
+## Table of Contents
+
+- TOC
+{:toc}
+
 ## Base URLs
 
 | Environment | URL |
@@ -86,57 +91,59 @@ curl -X POST \
 
 ## AirLowFareSearchRQ for One-way Trip
 
-<details open>
+<details>
 <summary><strong>📋 Request Template</strong></summary>
 <div markdown="1">
 
 ```json
 {
+  "target": "Production",
   "version": "2.001",
   "pos": {
     "source": [
       {
-        "requestorID": {
-          "type": "5",
-          "id": "{agent_id}",
-          "name": "{agency_id}"
-        }
+        "isocurrency": "USD"
       }
     ]
   },
+  "processingInfo": {
+    "displayOrder": "BY_PRICE_LOW_TO_HIGH",
+    "availabilityIndicator": true
+  },
   "originDestinationInformation": [
     {
-      "departureDateTime": "{departure_date}",
       "originLocation": {
         "locationCode": "{origin_code}"
       },
       "destinationLocation": {
         "locationCode": "{destination_code}"
+      },
+      "departureDateTime": {
+        "value": "{departure_date}",
+        "windowBefore": "P0D",
+        "windowAfter": "P0D"
       }
     }
   ],
-  "travelPreferences": {
-    "cabinPref": {
-      "cabin": "{cabin_preference}"
-    }
-  },
   "travelerInfoSummary": {
-    "airTravelerAvail": {
-      "passengerTypeQuantity": [
-        {
-          "code": "ADT",
-          "quantity": "{adult_count}"
-        },
-        {
-          "code": "CHD",
-          "quantity": "{child_count}"
-        },
-        {
-          "code": "INF",
-          "quantity": "{infant_count}"
-        }
-      ]
-    }
+    "airTravelerAvail": [
+      {
+        "passengerTypeQuantity": [
+          {
+            "code": "ADT",
+            "quantity": "{adult_count}"
+          },
+          {
+            "code": "CHD",
+            "quantity": "{child_count}"
+          },
+          {
+            "code": "INF",
+            "quantity": "{infant_count}"
+          }
+        ]
+      }
+    ]
   }
 }
 ```
@@ -151,51 +158,53 @@ curl -X POST \
 
 ```json
 {
+  "target": "Production",
   "version": "2.001",
   "pos": {
     "source": [
       {
-        "requestorID": {
-          "type": "5",
-          "id": "AGENT001",
-          "name": "AGENCY123"
-        }
+        "isocurrency": "USD"
       }
     ]
   },
+  "processingInfo": {
+    "displayOrder": "BY_PRICE_LOW_TO_HIGH",
+    "availabilityIndicator": true
+  },
   "originDestinationInformation": [
     {
-      "departureDateTime": "2024-12-25T00:00:00",
       "originLocation": {
-        "locationCode": "BKK"
+        "locationCode": "JED"
       },
       "destinationLocation": {
-        "locationCode": "NRT"
+        "locationCode": "XMK"
+      },
+      "departureDateTime": {
+        "value": "2024-12-25",
+        "windowBefore": "P0D",
+        "windowAfter": "P0D"
       }
     }
   ],
-  "travelPreferences": {
-    "cabinPref": {
-      "cabin": "Y"
-    }
-  },
   "travelerInfoSummary": {
-    "airTravelerAvail": {
-      "passengerTypeQuantity": [
-        {
-          "code": "ADT",
-          "quantity": "2"
-        },
-        {
-          "code": "CHD",
-          "quantity": "1"
-        },
-        {
-          "code": "INF",
-          "quantity": "0"
-        }
-      ]
-    }
+    "airTravelerAvail": [
+      {
+        "passengerTypeQuantity": [
+          {
+            "code": "ADT",
+            "quantity": 2
+          },
+          {
+            "code": "CHD",
+            "quantity": 1
+          },
+          {
+            "code": "INF",
+            "quantity": 0
+          }
+        ]
+      }
+    ]
   }
 }
 ```
@@ -203,73 +212,75 @@ curl -X POST \
 </div>
 
 </details>
-
-## AirLowFareSearchRQ for One-way Trip with Booking Class Preference
-
-To receive outbound and inbound fares separately, specify FareRestriction "OUT" or "IN" before TravelerInfoSummary element.
 
 ## AirLowFareSearchRQ for Round Trip
 
-<details open>
+<details>
 <summary><strong>📋 Request Template</strong></summary>
 <div markdown="1">
 
 ```json
 {
+  "target": "Production",
   "version": "2.001",
   "pos": {
     "source": [
       {
-        "requestorID": {
-          "type": "5",
-          "id": "{agent_id}",
-          "name": "{agency_id}"
-        }
+        "isocurrency": "USD"
       }
     ]
   },
+  "processingInfo": {
+    "displayOrder": "BY_PRICE_LOW_TO_HIGH",
+    "availabilityIndicator": true
+  },
   "originDestinationInformation": [
     {
-      "departureDateTime": "{outbound_date}",
       "originLocation": {
         "locationCode": "{origin_code}"
       },
       "destinationLocation": {
         "locationCode": "{destination_code}"
+      },
+      "departureDateTime": {
+        "value": "{outbound_date}",
+        "windowBefore": "P0D",
+        "windowAfter": "P0D"
       }
     },
     {
-      "departureDateTime": "{inbound_date}",
       "originLocation": {
         "locationCode": "{destination_code}"
       },
       "destinationLocation": {
         "locationCode": "{origin_code}"
+      },
+      "departureDateTime": {
+        "value": "{inbound_date}",
+        "windowBefore": "P0D",
+        "windowAfter": "P0D"
       }
     }
   ],
-  "travelPreferences": {
-    "cabinPref": {
-      "cabin": "{cabin_preference}"
-    }
-  },
   "travelerInfoSummary": {
-    "airTravelerAvail": {
-      "passengerTypeQuantity": [
-        {
-          "code": "ADT",
-          "quantity": "{adult_count}"
-        },
-        {
-          "code": "CHD",
-          "quantity": "{child_count}"
-        },
-        {
-          "code": "INF",
-          "quantity": "{infant_count}"
-        }
-      ]
-    }
+    "airTravelerAvail": [
+      {
+        "passengerTypeQuantity": [
+          {
+            "code": "ADT",
+            "quantity": "{adult_count}"
+          },
+          {
+            "code": "CHD",
+            "quantity": "{child_count}"
+          },
+          {
+            "code": "INF",
+            "quantity": "{infant_count}"
+          }
+        ]
+      }
+    ]
   }
 }
 ```
@@ -284,60 +295,66 @@ To receive outbound and inbound fares separately, specify FareRestriction "OUT" 
 
 ```json
 {
+  "target": "Production",
   "version": "2.001",
   "pos": {
     "source": [
       {
-        "requestorID": {
-          "type": "5",
-          "id": "AGENT001",
-          "name": "AGENCY123"
-        }
+        "isocurrency": "USD"
       }
     ]
   },
+  "processingInfo": {
+    "displayOrder": "BY_PRICE_LOW_TO_HIGH",
+    "availabilityIndicator": true
+  },
   "originDestinationInformation": [
     {
-      "departureDateTime": "2024-12-25T00:00:00",
       "originLocation": {
-        "locationCode": "BKK"
+        "locationCode": "JED"
       },
       "destinationLocation": {
-        "locationCode": "NRT"
+        "locationCode": "XMK"
+      },
+      "departureDateTime": {
+        "value": "2024-12-25",
+        "windowBefore": "P0D",
+        "windowAfter": "P0D"
       }
     },
     {
-      "departureDateTime": "2025-01-02T00:00:00",
       "originLocation": {
-        "locationCode": "NRT"
+        "locationCode": "XMK"
       },
       "destinationLocation": {
-        "locationCode": "BKK"
+        "locationCode": "JED"
+      },
+      "departureDateTime": {
+        "value": "2025-01-02",
+        "windowBefore": "P0D",
+        "windowAfter": "P0D"
       }
     }
   ],
-  "travelPreferences": {
-    "cabinPref": {
-      "cabin": "Y"
-    }
-  },
   "travelerInfoSummary": {
-    "airTravelerAvail": {
-      "passengerTypeQuantity": [
-        {
-          "code": "ADT",
-          "quantity": "2"
-        },
-        {
-          "code": "CHD",
-          "quantity": "1"
-        },
-        {
-          "code": "INF",
-          "quantity": "0"
-        }
-      ]
-    }
+    "airTravelerAvail": [
+      {
+        "passengerTypeQuantity": [
+          {
+            "code": "ADT",
+            "quantity": 2
+          },
+          {
+            "code": "CHD",
+            "quantity": 1
+          },
+          {
+            "code": "INF",
+            "quantity": 0
+          }
+        ]
+      }
+    ]
   }
 }
 ```
@@ -346,37 +363,151 @@ To receive outbound and inbound fares separately, specify FareRestriction "OUT" 
 
 </details>
 
-## AirLowFareSearchRQ for Round Trip with Booking Class Preference
+## AirLowFareSearchRQ for Round Trip with Fare Restriction
 
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<OTA_AirLowFareSearchRQ xmlns="http://www.opentravel.org/OTA/2003/05" Version="2.001">
-    <POS>
-        <Source>
-            <RequestorID Type="5" ID="{agent_id}" ID_Context="{agency_id}"/>
-        </Source>
-    </POS>
-    <OriginDestinationInformation>
-        <DepartureDateTime>{outbound_date}</DepartureDateTime>
-        <OriginLocation LocationCode="{origin_code}"/>
-        <DestinationLocation LocationCode="{destination_code}"/>
-    </OriginDestinationInformation>
-    <OriginDestinationInformation>
-        <DepartureDateTime>{inbound_date}</DepartureDateTime>
-        <OriginLocation LocationCode="{destination_code}"/>
-        <DestinationLocation LocationCode="{origin_code}"/>
-    </OriginDestinationInformation>
-    <TravelPreferences>
-        <FareRestrictPref FareRestriction="OUT"/>
-        <CabinPref Cabin="{cabin_preference}"/>
-    </TravelPreferences>
-    <TravelerInfoSummary>
-        <AirTravelerAvail>
-            <PassengerTypeQuantity Code="ADT" Quantity="{adult_count}"/>
-        </AirTravelerAvail>
-    </TravelerInfoSummary>
-</OTA_AirLowFareSearchRQ>
+To receive outbound and inbound fares separately, specify FareRestriction `OUT` or `IN` in the travelPreferences section before TravelerInfoSummary element.
+
+<details>
+<summary><strong>✅ Outbound Fare Restriction (OUT)</strong></summary>
+<div markdown="1">
+
+```json
+{
+  "target": "Production",
+  "version": "2.001",
+  "pos": {
+    "source": [
+      {
+        "isocurrency": "USD"
+      }
+    ]
+  },
+  "processingInfo": {
+    "displayOrder": "BY_PRICE_LOW_TO_HIGH",
+    "availabilityIndicator": true
+  },
+  "originDestinationInformation": [
+    {
+      "originLocation": {
+        "locationCode": "JED"
+      },
+      "destinationLocation": {
+        "locationCode": "XMK"
+      },
+      "departureDateTime": {
+        "value": "2024-12-25",
+        "windowBefore": "P0D",
+        "windowAfter": "P0D"
+      }
+    },
+    {
+      "originLocation": {
+        "locationCode": "XMK"
+      },
+      "destinationLocation": {
+        "locationCode": "JED"
+      },
+      "departureDateTime": {
+        "value": "2025-01-02",
+        "windowBefore": "P0D",
+        "windowAfter": "P0D"
+      }
+    }
+  ],
+  "travelPreferences": {
+    "fareRestrictPref": {
+      "fareRestriction": "OUT"
+    }
+  },
+  "travelerInfoSummary": {
+    "airTravelerAvail": [
+      {
+        "passengerTypeQuantity": [
+          {
+            "code": "ADT",
+            "quantity": 2
+          }
+        ]
+      }
+    ]
+  }
+}
 ```
+
+</div>
+
+</details>
+
+<details>
+<summary><strong>✅ Inbound Fare Restriction (IN)</strong></summary>
+<div markdown="1">
+
+```json
+{
+  "target": "Production",
+  "version": "2.001",
+  "pos": {
+    "source": [
+      {
+        "isocurrency": "USD"
+      }
+    ]
+  },
+  "processingInfo": {
+    "displayOrder": "BY_PRICE_LOW_TO_HIGH",
+    "availabilityIndicator": true
+  },
+  "originDestinationInformation": [
+    {
+      "originLocation": {
+        "locationCode": "JED"
+      },
+      "destinationLocation": {
+        "locationCode": "XMK"
+      },
+      "departureDateTime": {
+        "value": "2024-12-25",
+        "windowBefore": "P0D",
+        "windowAfter": "P0D"
+      }
+    },
+    {
+      "originLocation": {
+        "locationCode": "XMK"
+      },
+      "destinationLocation": {
+        "locationCode": "JED"
+      },
+      "departureDateTime": {
+        "value": "2025-01-02",
+        "windowBefore": "P0D",
+        "windowAfter": "P0D"
+      }
+    }
+  ],
+  "travelPreferences": {
+    "fareRestrictPref": {
+      "fareRestriction": "IN"
+    }
+  },
+  "travelerInfoSummary": {
+    "airTravelerAvail": [
+      {
+        "passengerTypeQuantity": [
+          {
+            "code": "ADT",
+            "quantity": 2
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+</div>
+
+</details>
 
 ## Response Structure
 
@@ -466,49 +597,51 @@ To receive outbound and inbound fares separately, specify FareRestriction "OUT" 
 
 LowFareSearch supports discount functionality. When a discount is applied, the response will include both discounted amount and original fare amount.
 
-<details open>
+<details>
 <summary><strong>📋 Request Template</strong></summary>
 <div markdown="1">
 
 ```json
 {
+  "target": "Production",
   "version": "2.001",
   "pos": {
     "source": [
       {
-        "requestorID": {
-          "type": "5",
-          "id": "{agent_id}",
-          "name": "{agency_id}"
-        }
+        "isocurrency": "USD"
       }
     ]
   },
+  "processingInfo": {
+    "displayOrder": "BY_PRICE_LOW_TO_HIGH",
+    "availabilityIndicator": true
+  },
   "originDestinationInformation": [
     {
-      "departureDateTime": "{departure_date}",
       "originLocation": {
         "locationCode": "{origin_code}"
       },
       "destinationLocation": {
         "locationCode": "{destination_code}"
+      },
+      "departureDateTime": {
+        "value": "{departure_date}",
+        "windowBefore": "P0D",
+        "windowAfter": "P0D"
       }
     }
   ],
-  "travelPreferences": {
-    "cabinPref": {
-      "cabin": "{cabin_preference}"
-    }
-  },
   "travelerInfoSummary": {
-    "airTravelerAvail": {
-      "passengerTypeQuantity": [
-        {
-          "code": "ADT",
-          "quantity": "{adult_count}"
-        }
-      ]
-    },
+    "airTravelerAvail": [
+      {
+        "passengerTypeQuantity": [
+          {
+            "code": "ADT",
+            "quantity": "{adult_count}"
+          }
+        ]
+      }
+    ],
     "priceRequestInformation": {
       "tpaExtensions": {
         "discountPricing": {
@@ -531,43 +664,45 @@ LowFareSearch supports discount functionality. When a discount is applied, the r
 
 ```json
 {
+  "target": "Production",
   "version": "2.001",
   "pos": {
     "source": [
       {
-        "requestorID": {
-          "type": "5",
-          "id": "AGENT001",
-          "name": "AGENCY123"
-        }
+        "isocurrency": "USD"
       }
     ]
   },
+  "processingInfo": {
+    "displayOrder": "BY_PRICE_LOW_TO_HIGH",
+    "availabilityIndicator": true
+  },
   "originDestinationInformation": [
     {
-      "departureDateTime": "2024-12-25T00:00:00",
       "originLocation": {
-        "locationCode": "BKK"
+        "locationCode": "JED"
       },
       "destinationLocation": {
-        "locationCode": "NRT"
+        "locationCode": "XMK"
+      },
+      "departureDateTime": {
+        "value": "2024-12-25",
+        "windowBefore": "P0D",
+        "windowAfter": "P0D"
       }
     }
   ],
-  "travelPreferences": {
-    "cabinPref": {
-      "cabin": "Y"
-    }
-  },
   "travelerInfoSummary": {
-    "airTravelerAvail": {
-      "passengerTypeQuantity": [
-        {
-          "code": "ADT",
-          "quantity": "1"
-        }
-      ]
-    },
+    "airTravelerAvail": [
+      {
+        "passengerTypeQuantity": [
+          {
+            "code": "ADT",
+            "quantity": 1
+          }
+        ]
+      }
+    ],
     "priceRequestInformation": {
       "tpaExtensions": {
         "discountPricing": {
@@ -584,66 +719,36 @@ LowFareSearch supports discount functionality. When a discount is applied, the r
 
 </details>
 
-### Response with Discount (XML)
-
-```xml
-<PricedItinerary SequenceNumber="1">
-    <AirItineraryPricingInfo>
-        <ItinTotalFare>
-            <BaseFare Amount="{discounted_base_fare}" CurrencyCode="{currency_code}"/>
-            <TotalFare Amount="{discounted_total_fare}" CurrencyCode="{currency_code}"/>
-        </ItinTotalFare>
-        <ItinTotalFareOriginal>
-            <BaseFare Amount="{original_base_fare}" CurrencyCode="{currency_code}"/>
-            <TotalFare Amount="{original_total_fare}" CurrencyCode="{currency_code}"/>
-        </ItinTotalFareOriginal>
-    </AirItineraryPricingInfo>
-</PricedItinerary>
-```
-
-## Low Fare Search Error Messages
-
-### No Flights Available
-
-```xml
-<OTA_AirLowFareSearchRS>
-    <Errors>
-        <Error Code="NO_FLIGHTS" ShortText="No flights available">
-            No flights available for the requested criteria.
-        </Error>
-    </Errors>
-</OTA_AirLowFareSearchRS>
-```
-
-### Invalid Date Range
+### JSON Response
 
 ```json
 {
-  "errors": [
+  "pricedItineraries": [
     {
-      "code": "INVALID_DATE",
-      "message": "Departure date must be in the future",
-      "field": "departureDateTime"
+      "sequenceNumber": "1",
+      "airItineraryPricingInfo": {
+        "itinTotalFare": {
+          "baseFare": {
+            "amount": "{discounted_base_fare}",
+            "currencyCode": "{currency_code}"
+          },
+          "totalFare": {
+            "amount": "{discounted_total_fare}",
+            "currencyCode": "{currency_code}"
+          }
+        },
+        "itinTotalFareOriginal": {
+          "baseFare": {
+            "amount": "{original_base_fare}",
+            "currencyCode": "{currency_code}"
+          },
+          "totalFare": {
+            "amount": "{original_total_fare}",
+            "currencyCode": "{currency_code}"
+          }
+        }
+      }
     }
   ]
 }
-```
-
-### Sold Out Segments
-
-When flights are sold out, they may still appear in search results with appropriate indicators:
-
-```xml
-<FlightSegment DepartureDateTime="{departure_datetime}" 
-               ArrivalDateTime="{arrival_datetime}"
-               FlightNumber="{flight_number}"
-               ResBookDesigCode="{booking_class}"
-               Status="SoldOut">
-    <DepartureAirport LocationCode="{origin_code}"/>
-    <ArrivalAirport LocationCode="{destination_code}"/>
-    <MarketingAirline Code="{airline_code}"/>
-    <TPA_Extensions>
-        <SoldOutIndicator>true</SoldOutIndicator>
-    </TPA_Extensions>
-</FlightSegment>
 ```
