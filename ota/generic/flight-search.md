@@ -16,8 +16,8 @@ The purpose is to list all the fares and display them to the user. AirLowFareSea
 
 | Environment | URL |
 |-------------|-----|
-| Production | https://api.worldticket.net/ota/v2015b/AirLowFareSearch |
-| Test | https://test-api.worldticket.net/ota/v2015b/AirLowFareSearch |
+| Production | https://api.worldticket.net |
+| Test | https://test-api.worldticket.net |
 
 ## HTTP Headers (All Required)
 
@@ -29,11 +29,11 @@ The purpose is to list all the fares and display them to the user. AirLowFareSea
 
 **Note:** Use either `Authorization` (for JWT) OR `X-API-Key` (for API key authentication), not both.
 
-## Request Parameters
+## Endpoint
 
-| Parameter | Location | Required | Description | Example |
-|-----------|----------|----------|-------------|---------|
-| base_url | Endpoint | Yes | Base URL for the request | https://test-api.worldticket.net/ota/v2015b/AirLowFareSearch |
+- Method: `POST`
+- Path: `/ota/v2015b/AirLowFareSearch`
+- Full URL: `{base_url}/ota/v2015b/AirLowFareSearch` (choose base URL per environment above)
 
 ## Flight Search Workflow
 
