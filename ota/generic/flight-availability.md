@@ -173,6 +173,87 @@ curl -X GET \
 
 A flight availability request is performed to receive airline-specific flight inventory for a requested city pair on a specific date.
 
+### Basic Request Format
+
+#### With JWT Authentication
+```bash
+curl -X POST \
+  '{base_url}/ota/v2015b/OTA' \
+  -H 'Authorization: Bearer {access_token}' \
+  -H 'Local-Name: OTA_AirAvailRQ' \
+  -H 'Content-Type: application/json' \
+  -d @AirAvailRQ.json
+```
+
+#### With API Key Authentication
+```bash
+curl -X POST \
+  '{base_url}/ota/v2015b/OTA' \
+  -H 'X-API-Key: {api_key}' \
+  -H 'Local-Name: OTA_AirAvailRQ' \
+  -H 'Content-Type: application/json' \
+  -d @AirAvailRQ.json
+```
+
+<details>
+<summary><strong>📋 JSON Request Template</strong></summary>
+<div markdown="1">
+
+```json
+{
+  "version": "2.001",
+  "pos": {
+    "source": [
+      {
+        "requestorID": {
+          "type": "5",
+          "id": "{agent_id}",
+          "name": "{agency_id}"
+        }
+      }
+    ]
+  },
+  "originDestinationInformation": [
+    {
+      "departureDateTime": "{departure_date}",
+      "originLocation": {
+        "locationCode": "{origin_code}"
+      },
+      "destinationLocation": {
+        "locationCode": "{destination_code}"
+      }
+    }
+  ],
+  "travelPreferences": {
+    "cabinPref": {
+      "cabin": "{cabin_class}"
+    }
+  },
+  "travelerInfoSummary": {
+    "airTravelerAvail": {
+      "passengerTypeQuantity": [
+        {
+          "code": "ADT",
+          "quantity": "{adult_count}"
+        },
+        {
+          "code": "CHD",
+          "quantity": "{child_count}"
+        },
+        {
+          "code": "INF",
+          "quantity": "{infant_count}"
+        }
+      ]
+    }
+  }
+}
+```
+
+</div>
+
+</details>
+
 ### JSON Response
 
 ```json
