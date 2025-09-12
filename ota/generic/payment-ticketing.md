@@ -24,6 +24,59 @@ The purpose is to make a payment for existing booking and issue tickets.
 | Debit credit account | 4 | Airline account payment |
 | Invoice | 40 | Invoice payment |
 
+## Payment and Ticketing Workflow
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant Customer as End Customer
+    participant Application as Airline Application
+    participant OTA
+    participant PaymentGateway as Payment Gateway
+
+    rect rgba(255, 221, 221, 0.3)
+        Note over Application: 3rd party
+    end
+    rect rgba(173, 216, 230, 0.3)
+        Note over OTA: Worldticket
+    end
+    rect rgba(144, 238, 144, 0.3)
+        Note over PaymentGateway: External Service
+    end
+
+    Note over Customer, PaymentGateway: Payment and Ticket Issuance
+    Customer->>+Application: Make payment request
+    Note right of Application: Payment details and<br/>booking confirmation
+    
+    alt External Payment (with redirect)
+        Application->>+PaymentGateway: Request payment URL
+        PaymentGateway-->>-Application: Payment redirect URL
+        Application-->>Customer: Redirect to payment page
+        Customer->>+PaymentGateway: Complete payment
+        PaymentGateway-->>-Customer: Payment confirmation
+        Customer->>Application: Return with payment status
+        Application->>+PaymentGateway: Verify payment status
+        PaymentGateway-->>-Application: Payment confirmed
+    else Direct Payment (Credit Card/Account)
+        Application->>Application: Process payment directly
+        Note right of Application: Credit card or<br/>debit-credit account
+    end
+
+    Application->>+OTA: OTA_AirDemandTicketRQ
+    Note right of OTA: Issue electronic tickets<br/>after successful payment
+    OTA-->>-Application: OTA_AirDemandTicketRS
+    Note right of Application: Success: Ticket information<br/>with ticket numbers
+    Application-->>-Customer: Booking confirmed<br/>with e-tickets
+
+    alt Issue EMDs for ancillaries
+        Customer->>+Application: Request ancillary services
+        Application->>+OTA: OTA_AirDemandTicketRQ<br/>(with ancillary services)
+        Note right of OTA: Issue EMDs for<br/>additional services
+        OTA-->>-Application: OTA_AirDemandTicketRS<br/>(with EMD numbers)
+        Application-->>-Customer: EMDs issued
+    end
+```
+
 ## Make Payment for Issuing a Ticket
 
 ### Request Parameters (All Required)

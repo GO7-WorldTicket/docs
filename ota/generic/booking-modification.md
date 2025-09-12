@@ -22,6 +22,52 @@ The purpose is to modify existing bookings. Supported modifications include name
 | access_token | Access Token | Bearer {access_token} |
 | local-name | Custom HTTP header | OTA_AirBookModifyRQ |
 
+## Booking Modification Workflow
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant Customer as End Customer
+    participant Application as Airline Application
+    participant OTA
+
+    rect rgba(255, 221, 221, 0.3)
+        Note over Application: 3rd party
+    end
+    rect rgba(173, 216, 230, 0.3)
+        Note over OTA: Worldticket
+    end
+
+    Note over Customer, OTA: Booking Modification Process
+    Customer->>+Application: Request booking modification
+    Note right of Customer: Modification types:<br/>- Change name<br/>- Add SSR<br/>- Change date<br/>- Cancel segment/passenger
+
+    alt Price check required (date/segment change)
+        Application->>+OTA: OTA_AirBookModifyRQ<br/>(RepriceRequired="true")
+        Note right of OTA: Calculate modification fees<br/>and price differences
+        OTA-->>-Application: OTA_AirBookModifyRS<br/>(with price difference)
+        Note right of Application: Service fee/charge<br/>for booking modification
+        Application-->>Customer: Show modification costs
+        
+        Customer->>Application: Confirm or cancel modification
+        alt Customer confirms
+            Application->>+OTA: OTA_AirBookModifyRQ<br/>(RepriceRequired="false")
+            Note right of OTA: Apply booking<br/>modifications
+            OTA-->>-Application: OTA_AirBookModifyRS
+            Note right of Application: Updated booking<br/>with modifications
+            Application-->>-Customer: Show updated booking
+        else Customer cancels
+            Application-->>-Customer: Modification cancelled
+        end
+    else Simple modification (name/SSR)
+        Application->>+OTA: OTA_AirBookModifyRQ
+        Note right of OTA: Apply simple<br/>modifications directly
+        OTA-->>-Application: OTA_AirBookModifyRS
+        Note right of Application: Updated booking<br/>with modifications
+        Application-->>-Customer: Show updated booking
+    end
+```
+
 ## Add SSR
 
 Add Special Service Requests to an existing booking.
