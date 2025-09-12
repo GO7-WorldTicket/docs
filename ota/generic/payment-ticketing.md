@@ -11,8 +11,8 @@ The purpose is to make a payment for existing booking and issue tickets.
 
 | Environment | URL |
 |-------------|-----|
-| Production | https://{api-domain}/ota/v2015b/OTA |
-| Test | https://{test-api-domain}/ota/v2015b/OTA |
+| Production | https://api.worldticket.net/ota/v2015b/OTA |
+| Test | https://test-api.worldticket.net/ota/v2015b/OTA |
 
 ## Supported Payment Types
 
@@ -83,7 +83,7 @@ sequenceDiagram
 
 | Parameter | Description | Example |
 |-----------|-------------|----------|
-| base_url | Base URL | https://{test-api-domain}/ota/v2015b/OTA |
+| base_url | Base URL | https://test-api.worldticket.net/ota/v2015b/OTA |
 | access_token | Access Token | Bearer {access_token} |
 | local-name | Custom HTTP header | OTA_AirDemandTicketRQ |
 
@@ -164,8 +164,8 @@ curl -X POST \
 ### Get Available Debit-Credit Accounts
 
 ```bash
-GET https://{test-api-domain}/{service-name}/debit-credit/accounts HTTP/1.1
-Host: {test-api-domain}
+GET https://test-api.worldticket.net/payment-service/debit-credit/accounts HTTP/1.1
+Host: test-api.worldticket.net
 Authorization: Bearer {access_token}
 ```
 
@@ -214,7 +214,7 @@ For asynchronous payment processing where customers are redirected to payment pr
 #### Request
 
 ```bash
-POST https://{api-domain}/payment-service/payments/{tenant}
+POST https://api.worldticket.net/payment-service/payments/{tenant}
 ```
 
 #### Request Body
@@ -316,7 +316,7 @@ Payment currency can be different from booking currency.
 ### Get Conversion Rate
 
 ```bash
-GET https://{test-api-domain}/{service-name}/currencies/convert?currency_from={from_currency}&currency_to={to_currency}&amount={amount}
+GET https://test-api.worldticket.net/payment-service/currencies/convert?currency_from={from_currency}&currency_to={to_currency}&amount={amount}
 Authorization: Bearer {access_token}
 ```
 

@@ -10,11 +10,13 @@ This section provides the procedures necessary for authorized access to the OTA 
 - [JWT Authentication](#jwt-authentication)
 - [API Key Authentication](#api-key-authentication)
 
-## JWT Authentication
+## Base URLs
 
-|                   | Production                    | Test                          |
-| ----------------- | ----------------------------- | ----------------------------- |
-| Identity Provider | https://{auth-domain}/auth    | https://{test-auth-domain}/auth |
+|                   | Production                           | Test                                     |
+| ----------------- | ------------------------------------ | ---------------------------------------- |
+| Identity Provider | https://api.worldticket.net/auth     | https://test-api.worldticket.net/auth    |
+
+## JWT Authentication
 
 Before calling any OTA method, it's mandatory to get access and refresh tokens from the Identity Provider.
 
@@ -22,14 +24,14 @@ Before calling any OTA method, it's mandatory to get access and refresh tokens f
 
 Replace all variables in curly braces with the actual values provided by your airline integration.
 
-| Variable      | Description                         | Example                        |
-| ------------- | ----------------------------------- | ------------------------------ |
-| base_url      | Identity provider URL               | https://{test-auth-domain}/auth |
-| tenant        | Short airline name (realm)          | {tenant-name}                  |
-| client_id     | Application ID                      | {client-id}                    |
-| client_secret | Application secret                  | {client-secret}                |
-| username      | User login                          | {username}                     |
-| password      | User password                       | {password}                     |
+| Variable      | Description                         | Example                                   |
+| ------------- | ----------------------------------- | ----------------------------------------- |
+| base_url      | Identity provider URL               | https://test-api.worldticket.net/auth     |
+| tenant        | Short airline name (realm)          | {tenant-name}                            |
+| client_id     | Application ID                      | {client-id}                              |
+| client_secret | Application secret                  | {client-secret}                          |
+| username      | User login                          | {username}                               |
+| password      | User password                       | {password}                               |
 
 ### JWT Token Request
 

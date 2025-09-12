@@ -11,8 +11,8 @@ This section covers APIs for retrieving available routes, calendar availability,
 
 | Environment | URL |
 |-------------|-----|
-| Production  | https://{api-domain}/{service-name} |
-| Test        | https://{test-api-domain}/{service-name} |
+| Production  | https://api.worldticket.net/sms5 |
+| Test        | https://test-api.worldticket.net/sms5 |
 
 ## Routes
 
@@ -21,7 +21,7 @@ Lists all possible city pairs selling by the airline.
 ### Request
 
 ```bash
-GET /{service-name}/schedule/routes?sales_channel=OTA
+GET https://test-api.worldticket.net/sms5/schedule/routes?sales_channel=OTA
 ```
 
 ### Headers
@@ -56,7 +56,7 @@ Lists available dates per route. Usually used in calendar picker implementations
 ### Request
 
 ```bash
-GET /{service-name}/schedule/calendar/availability?start_date={start_date}&end_date={end_date}&departure_airport_code={departure_code}&arrival_airport_code={arrival_code}
+GET https://test-api.worldticket.net/sms5/schedule/calendar/availability?start_date={start_date}&end_date={end_date}&departure_airport_code={departure_code}&arrival_airport_code={arrival_code}
 ```
 
 ### Parameters

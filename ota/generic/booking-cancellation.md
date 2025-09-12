@@ -11,8 +11,8 @@ The purpose is to cancel entire bookings or specific segments/passengers.
 
 | Environment | URL |
 |-------------|-----|
-| Production | https://{api-domain}/ota/v2015b/OTA |
-| Test | https://{test-api-domain}/ota/v2015b/OTA |
+| Production | https://api.worldticket.net/ota/v2015b/OTA |
+| Test | https://test-api.worldticket.net/ota/v2015b/OTA |
 
 ## Full Booking Cancellation
 
@@ -22,7 +22,7 @@ Cancel the entire booking and all associated passengers.
 
 | Parameter | Description | Example |
 |-----------|-------------|----------|
-| base_url | Base URL | https://{test-api-domain}/ota/v2015b/OTA |
+| base_url | Base URL | https://test-api.worldticket.net/ota/v2015b/OTA |
 | access_token | Access Token | Bearer {access_token} |
 | local-name | Custom HTTP header | OTA_CancelRQ |
 

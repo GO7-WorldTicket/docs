@@ -11,14 +11,14 @@ When making a group booking, passenger names are not known yet. In AirPriceRQ, p
 
 | Environment | URL |
 |-------------|-----|
-| Production | https://{api-domain}/ota/v2015b/OTA |
-| Test | https://{test-api-domain}/ota/v2015b/OTA |
+| Production | https://api.worldticket.net/ota/v2015b/OTA |
+| Test | https://test-api.worldticket.net/ota/v2015b/OTA |
 
 ## Request Parameters (All Required)
 
 | Parameter | Description | Example |
 |-----------|-------------|----------|
-| base_url | Base URL | https://{test-api-domain}/ota/v2015b/OTA |
+| base_url | Base URL | https://test-api.worldticket.net/ota/v2015b/OTA |
 | access_token | Access Token | Bearer {access_token} |
 | local-name | Custom HTTP header | OTA_AirPriceRQ |
 
