@@ -9,9 +9,8 @@ title: OTA API Generic Integration Guide
 
 - [Introduction](#introduction)
 - [Business Flow](#business-flow)
-- [Authentication](#authentication)
-  - [JWT](#jwt)
-  - [API Key](#api-key)
+- [Base URLs](#base-urls)
+- [Authentication](generic/authentication)
 - [OTA XML Schema 2015](#ota-xml-schema-2015)
 - [Postman Collection](#postman-collection)
 - [Code Lists](#code-lists)
@@ -37,15 +36,24 @@ This document outlines the generic integration of Booking API with airline syste
 
 ## Base URLs
 
-For WorldTicket implementation, use the following base URLs:
+Use these hosts with the OTA paths documented per endpoint (for example `/ota/v2015b/AirLowFareSearch`).
 
-|                  | Production                                      | Test                                            |
-|------------------|------------------------------------------------|-------------------------------------------------|
-| Auth API         | https://api.worldticket.net/auth               | https://test-api.worldticket.net/auth           |
-| OTA API          | https://api.worldticket.net/ota/v2015b/OTA     | https://test-api.worldticket.net/ota/v2015b/OTA |
-| REST API         | https://api.worldticket.net/{service-name}     | https://test-api.worldticket.net/{service-name} |
+| Environment | Base URL                      |
+|-------------|-------------------------------|
+| Production  | https://api.worldticket.net   |
+| Test        | https://test-api.worldticket.net |
 
-**Note:** Replace `{service-name}` with the specific service endpoint (e.g., `refund-service`, `sms5`).
+## HTTP Headers
+
+Attach the following headers to OTA requests.
+
+| Header        | Description                         | Example                   |
+|---------------|-------------------------------------|---------------------------|
+| Authorization | Bearer token for JWT authentication | Bearer {access_token}     |
+| X-API-Key     | API key for key-based authentication| {api_key}                 |
+| Content-Type  | Request content type                | application/json          |
+
+Note: Use either `Authorization` (JWT) OR `X-API-Key` (API key), not both.
 
 # Business Flow
 
@@ -126,79 +134,6 @@ sequenceDiagram
     Application-->>-Customer: booking confirmed
 ```
 
-# Authentication
-
-This section provides the procedures necessary for authorized access. Refer to this section for credentials information and endpoints for the authentication.
-
-There are two authentication types:
-
-- [API Key](#api-key)
-- [JWT](#jwt)
-
-## API KEY
-
-The API key should be attached to the HTTP request as `X-API-Key` HTTP header.
-
-`Never deploy your key in client-side like browsers or mobile apps as it allows malicious users to take that key and make requests on your behalf.`
-
-| API KEY                        |
-| ------------------------------ |
-| {your-api-key}                 |
-
-#### Request
-
-```
-curl -X POST \
-    {base_url} \
-    -H 'x-api-key: {api_key}' \
-    -H 'local-name: {local_name}'
-```
-
-## JWT
-
-|                   | Production                           | Test                                     |
-| ----------------- | ------------------------------------ | ---------------------------------------- |
-| Identity Provider | https://api.worldticket.net/auth     | https://test-api.worldticket.net/auth    |
-
-Before calling any OTA method it's mandatory to get access and refresh tokens from the Identity Provider.
-
-Replace all variables in curly braces with the actual values.
-
-| Variable      | Description                         | Example                                   |
-| ------------- | ----------------------------------- | ----------------------------------------- |
-| base_url      | Identity provider URL               | https://test-api.worldticket.net/auth     |
-| tenant        | Short airline name stands for realm | {tenant-name}                            |
-| client_id     | Application ID                      | {client-id}                              |
-| client_secret | Application secret                  | {client-secret}                          |
-| username      | User login                          | {username}                               |
-| password      | User password                       | {password}                               |
-
-<details>
-  <summary><b>Authentication Request and Response</b></summary>
-  <h4>Request</h4>
-  <pre>
-    curl -X POST \
-    {base_url}/realms/{tenant}/protocol/openid-connect/token \
-    -H 'Content-Type: application/x-www-form-urlencoded' \
-    -d 'grant_type=password&client_id={client_id}&client_secret={client_secret}&username={username}&password={password}'
-  </pre>
-
-  <h4>Response</h4>
-  <pre>
-    {
-      "access_token": "eyJhbGciOiJSU...",
-      "expires_in": 7200,
-      "refresh_expires_in": 14400,
-      "refresh_token": "eyJhbGciOiJ...",
-      "token_type": "bearer",
-      "id_token": "eyJhbGciOiJ...",
-      "not-before-policy": 1565113348,
-      "session_state": "89fde8f3-39ff-436e-9dce-99387c591fda"
-    }
-  </pre>
-</details>
-<br /><br />
-
 # OTA XML Schema 2015
 [Download OTA XML Schema 2015](/docs/assets/resources/ota-xmlbeans-2015B.zip)
 <br />
@@ -250,7 +185,6 @@ Please update the variables in collection such as apiKey, agent_id, agent_name a
 | ------- | ---------------------------------------------- | ---------------------------------------------- |
 | OTA API | https://api.worldticket.net/ota/v2015b/OTA     | https://test-api.worldticket.net/ota/v2015b/OTA |
 
-- [Authentication](generic/authentication)
 - [Flight Availability](generic/flight-availability)
 - [Flight Search](generic/flight-search)
   - [One-way trip](generic/flight-search#airlowfaresearchrq-for-oneway-trip)

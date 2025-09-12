@@ -9,25 +9,18 @@ The purpose is to list all the fares and display them to the user. AirLowFareSea
 
 ## Table of Contents
 
-- TOC
-{:toc}
-
-## Base URLs
-
-| Environment | URL |
-|-------------|-----|
-| Production | https://api.worldticket.net |
-| Test | https://test-api.worldticket.net |
-
-## HTTP Headers (All Required)
-
-| Header | Description | Example |
-|--------|-------------|---------|
-| Authorization | Bearer token for JWT authentication | Bearer {access_token} |
-| X-API-Key | API key for key-based authentication | {api_key} |
-| Content-Type | Request content type | application/json |
-
-**Note:** Use either `Authorization` (for JWT) OR `X-API-Key` (for API key authentication), not both.
+- [Endpoint](#endpoint)
+- [Flight Search Workflow](#flight-search-workflow)
+- [Basic Request Format](#basic-request-format)
+  - [With JWT Authentication](#with-jwt-authentication)
+  - [With API Key Authentication](#with-api-key-authentication)
+- [AirLowFareSearchRQ for One-way Trip](#airlowfaresearchrq-for-one-way-trip)
+- [AirLowFareSearchRQ for Round Trip](#airlowfaresearchrq-for-round-trip)
+- [AirLowFareSearchRQ for Round Trip with Fare Restriction](#airlowfaresearchrq-for-round-trip-with-fare-restriction)
+- [Response Structure](#response-structure)
+  - [JSON Response](#json-response)
+- [Discount Functionality](#discount-functionality)
+  - [JSON Response](#json-response-1)
 
 ## Endpoint
 
