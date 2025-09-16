@@ -1,5 +1,9 @@
 
 ## Changelog
+### 2025-09-12
+#### Segments cancellation with automatic refund
+- Updated document add json schema for request, diagram and code snippet to explain how to build the payload request ([See more details](endpoints/segments_cancellation))
+
 ### 2025-07-11
 
 #### Segments cancellation with automatic refund

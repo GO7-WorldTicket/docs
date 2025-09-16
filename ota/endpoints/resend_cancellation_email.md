@@ -30,18 +30,18 @@ This endpoint does not accept any parameters in the URL. All necessary data shou
 
 The request body must be in JSON format. The following fields must be included in the body:
 
-- `emails` (Array of strings): List of email addresses to send the email to.
-- `ccEmails` (Array of strings): List of email addresses to send a carbon copy (CC) to.
-- `bccEmails` (Array of strings): List of email addresses to send a blind carbon copy (BCC) to.
-- `recordLocator` (String): The record locator or booking reference.
+- `emails` (Array of strings - mandatory): List of email addresses to send the email to.
+- `ccEmails` (Array of strings - optional): List of email addresses to send a carbon copy (CC) to.
+- `bccEmails` (Array of strings - optional): List of email addresses to send a blind carbon copy (BCC) to.
+- `recordLocator` (String - mandatory): The record locator or booking reference.
 
 The request body may include the following field:
 
-- `segments` (Array of segment information): List of specific cancelled segment within the booking to include in the email. Each segment must include the following information:
-  - `flightDesignator` (String): The code of the flight
-  - `departure` (String): Three letters code of the departure airport/station
-  - `arrival` (String): Three letters code of the arrival airport/station
-  - `departureDate` (String): Departure date of the segment in YYYY-MM-DD format
+- `segments` (Array of segment information - mandatory): List of specific cancelled segment within the booking to include in the email. Each segment must include the following information:
+  - `flightDesignator` (String - mandatory): The code of the flight
+  - `departure` (String - mandatory): Three letters code of the departure airport/station
+  - `arrival` (String - mandatory): Three letters code of the arrival airport/station
+  - `departureDate` (String - mandatory): Departure date of the segment in YYYY-MM-DD format
 
 In the case where no `segment` is provided, an email will be sent with information of all cancelled segments within the booking.
 
