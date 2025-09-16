@@ -228,6 +228,82 @@ The request payload is composed of these following fields:
 </pre>
 </details>
 
+# AirBookModifyRQ
+
+| Field            | Type   | Required | Description |
+|------------------|--------|----------|-------------|
+| `version`        | String | Yes      | API schema version |
+| `pos`            | Object | Yes      | Point of Sale details (booking source) |
+| `airReservation` | Object | Yes      | Main reservation data (itinerary, pricing, travelers, tickets) |
+| `airBookModifyRQ`| Object | Yes      | Request for modification of booking |
+
+---
+
+# POS → Source
+
+| Field                    | Type   | Required | Description |
+|---------------------------|--------|----------|-------------|
+| `bookingChannel.type`     | String | Yes      | Booking channel type (e.g., OTA) |
+| `isocurrency`             | String | Yes      | ISO currency code (e.g., SAR) |
+| `requestorID.type`        | String | Yes      | Requestor type identifier |
+| `requestorID.id`          | String | Yes      | Agent ID |
+| `requestorID.name`        | String | Yes      | Agency ID |
+| `requestorID.location`    | String | No       | Requestor location |
+
+---
+
+# AirReservation → FlightSegment
+
+| Field                          | Type    | Required | Description |
+|--------------------------------|---------|----------|-------------|
+| `departureAirport.locationCode`| String  | Yes      | Departure airport code |
+| `arrivalAirport.locationCode`  | String  | Yes      | Arrival airport code |
+| `operatingAirline.code`        | String  | Yes      | Operating airline code |
+| `operatingAirline.flightNumber`| String  | Yes      | Operating flight number |
+| `marketingAirline.code`        | String  | No       | Marketing airline code |
+| `flightNumber`                 | String  | Yes      | Flight number (marketing or operating) |
+| `fareBasisCode`                | String  | No       | Fare basis code |
+| `resBookDesigCode`             | String  | No       | Reservation booking designator |
+| `departureDateTime`            | String (date-time) | Yes | Departure date/time |
+| `arrivalDateTime`              | String (date-time) | Yes | Arrival date/time |
+| `status`                       | String  | No       | Segment status code |
+
+---
+
+# TravelerInfo → AirTraveler
+
+| Field                        | Type              | Required | Description |
+|------------------------------|-------------------|----------|-------------|
+| `personName.givenName`       | Array of String   | Yes      | Traveler’s given/first name(s) |
+| `personName.surname`         | String            | Yes      | Traveler’s surname |
+| `telephone.countryAccessCode`| String            | Yes      | Country code for phone |
+| `telephone.phoneNumber`      | String            | Yes      | Phone number |
+| `email.value`                | String            | Yes      | Email address |
+| `address.cityName`           | String            | No       | City name |
+| `address.countryName.code`   | String            | No       | ISO country code |
+| `document.docID`             | String            | No       | Document ID (passport, ID, etc.) |
+| `document.docType`           | String            | No       | Document type code |
+| `document.expireDate`        | String (date)     | No       | Document expiration date |
+| `travelerRefNumber.rph`      | String            | No       | Traveler reference pointer |
+| `passengerTypeCode`          | String            | Yes      | Passenger type code (ADT, CHD, INF, etc.) |
+| `gender`                     | String            | No       | Traveler’s gender |
+
+---
+
+# Ticketing
+
+| Field                          | Type    | Required | Description |
+|--------------------------------|---------|----------|-------------|
+| `ticketType`                   | String  | Yes      | Type of ticket (E_TICKET, PAPER, etc.) |
+| `flightSegmentRefNumber`       | Array of String | Yes | References to flight segments |
+| `travelerRefNumber`            | Array of String | Yes | References to traveler(s) |
+| `ticketDocumentNbr`            | String  | Yes      | Ticket document number |
+| `passengerTypeCode`            | String  | Yes      | Passenger type (ADT, CHD, INF, etc.) |
+| `tpaextensions.couponInfos`    | Array   | No       | Coupon info details |
+| `tpaextensions.couponProviderDetails` | Array | No  | Provider coupon/ticket mapping |
+| `tpaextensions.links`          | Array   | No       | Download links for tickets |
+| `tpaextensions.urls`           | String  | No       | Ticket URLs (space-separated) |
+
 <b>This diagram illustrates the API call sequence</b>
 ![Alt text](../../images/airmodify.png "Business flow")
 
