@@ -24,8 +24,8 @@ The Air-Price Request message requests pricing information for specific flights 
 
 | Environment | URL |
 |-------------|-----|
-| Production  | https://api.worldticket.net/ota/v2015b/OTA |
-| Test        | https://test-api.worldticket.net/ota/v2015b/OTA |
+| Production  | https://api.worldticket.net |
+| Test        | https://test-api.worldticket.net |
 
 ## Endpoints
 

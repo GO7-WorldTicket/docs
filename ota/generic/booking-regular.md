@@ -25,21 +25,22 @@ The purpose is to create the booking in the airline system by providing a specif
 
 | Environment | URL |
 |-------------|-----|
-| Production | https://api.worldticket.net/ota/v2015b/OTA |
-| Test | https://test-api.worldticket.net/ota/v2015b/OTA |
+| Production | https://api.worldticket.net |
+| Test | https://test-api.worldticket.net |
 
-## Endpoints
+## Endpoint
 
-- Method: `POST` — Path: `/ota/v2015b/OTA` — Local-Name: `OTA_AirBookRQ`
+- Method: `POST`
+- Path: `/ota/v2015b/OTA_AirBookRQ`
+- Full URL: `{base_url}/ota/v2015b/OTA_AirBookRQ` (choose base URL per environment above)
 
-## HTTP Headers (All Required)
+## HTTP Headers
 
 | Header | Description | Example |
 |--------|-------------|---------|
 | Authorization | Bearer token for JWT authentication | Bearer {access_token} |
 | X-API-Key | API key for key-based authentication | {api_key} |
-| Local-Name | OTA operation identifier | OTA_AirBookRQ |
-| Content-Type | Request content type | application/json |
+| X-Realm | Airline realm identifier | {tenant-name} |
 
 **Note:** Use either `Authorization` (for JWT) OR `X-API-Key` (for API key authentication), not both.
 
@@ -90,9 +91,8 @@ sequenceDiagram
 ### With JWT Authentication
 ```bash
 curl -X POST \
-    https://test-api.worldticket.net/ota/v2015b/OTA \
+    https://test-api.worldticket.net/ota/v2015b/OTA_AirBookRQ \
     -H 'Authorization: Bearer {access_token}' \
-    -H 'Local-Name: OTA_AirBookRQ' \
     -H 'Content-Type: application/json' \
     -d @AirBookRQ.json
 ```
@@ -100,9 +100,8 @@ curl -X POST \
 ### With API Key Authentication
 ```bash
 curl -X POST \
-    https://test-api.worldticket.net/ota/v2015b/OTA \
+    https://test-api.worldticket.net/ota/v2015b/OTA_AirBookRQ \
     -H 'X-API-Key: {api_key}' \
-    -H 'Local-Name: OTA_AirBookRQ' \
     -H 'Content-Type: application/json' \
     -d @AirBookRQ.json
 ```

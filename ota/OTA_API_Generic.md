@@ -190,6 +190,7 @@ Please update the variables in collection such as apiKey, agent_id, agent_name a
   - [Group booking for One-way trip](generic/booking-group#airpricerq-for-oneway-trip)
   - [Group booking for Round trip](generic/booking-group#airpricerq-for-round-trip)
   - [Group booking completion policy](generic/booking-group#group-booking-completion-policy)
+- [Read Booking](generic/read-booking.md)
 - [Payment and Ticketing](generic/payment-ticketing)
   - [External Payment](generic/payment-ticketing#external-payment)
   - [Credit Card Payment](generic/payment-ticketing#credit-card-payment)
