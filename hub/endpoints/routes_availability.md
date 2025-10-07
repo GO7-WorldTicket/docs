@@ -77,339 +77,405 @@
 <details open>
   <summary><b>Response body</b></summary>
   <pre>
-    {
-    "data": {
-        "routes": [
+{
+  "data": {
+    "routes": [
+      {
+        "arrival": {
+          "airportCode": {
+            "code": "BCN",
+            "name": null
+          },
+          "cityCode": {
+            "code": "BCN",
+            "name": null
+          },
+          "countryCode": {
+            "code": "ES"
+          },
+          "landmarks": [],
+          "name": "Barcelona-El Prat Airport",
+          "tenant": "polar"
+        },
+        "departure": {
+          "airportCode": {
+            "code": "BER",
+            "name": null
+          },
+          "cityCode": {
+            "code": "BER",
+            "name": null
+          },
+          "countryCode": {
+            "code": "DE"
+          },
+          "landmarks": [],
+          "name": "Berlin Brandenburg Airport",
+          "tenant": "polar"
+        },
+        "tenant": "polar"
+      },
+      {
+        "arrival": {
+          "airportCode": {
+            "code": "JFK",
+            "name": null
+          },
+          "cityCode": {
+            "code": "NYC",
+            "name": null
+          },
+          "countryCode": {
+            "code": "US"
+          },
+          "landmarks": [
             {
-                "numberOfStops": 0,
-                "arrival": {
-                    "airportCode": {
-                        "code": "BCN",
-                        "name": null
-                    },
-                    "cityCode": {
-                        "code": "BCN",
-                        "name": null
-                    },
-                    "countryCode": {
-                        "code": "ES"
-                    },
-                    "landmarks": [],
-                    "name": "Barcelona-El Prat Airport",
-                    "tenant": "polar"
-                },
-                "departure": {
-                    "airportCode": {
-                        "code": "BER",
-                        "name": null
-                    },
-                    "cityCode": {
-                        "code": "BER",
-                        "name": null
-                    },
-                    "countryCode": {
-                        "code": "DE"
-                    },
-                    "landmarks": [],
-                    "name": "Berlin Brandenburg Airport",
-                    "tenant": "polar"
-                },
-                "tenant": "polar"
-            },
-            {
-                "numberOfStops": 1,
-                "arrival": {
-                    "airportCode": {
-                        "code": "JFK",
-                        "name": null
-                    },
-                    "cityCode": {
-                        "code": "NYC",
-                        "name": null
-                    },
-                    "countryCode": {
-                        "code": "US"
-                    },
-                    "landmarks": [
-                        {
-                            "name": "New York Hall of Science"
-                        }
-                    ],
-                    "name": "New York/Kennedy",
-                    "tenant": "polar"
-                },
-                "departure": {
-                    "airportCode": {
-                        "code": "TLV",
-                        "name": null
-                    },
-                    "cityCode": {
-                        "code": "TLV",
-                        "name": null
-                    },
-                    "countryCode": {
-                        "code": "IL"
-                    },
-                    "landmarks": [
-                        {
-                            "name": "Sea"
-                        }
-                    ],
-                    "name": "Tel Aviv/Ben Gurion",
-                    "tenant": "polar"
-                },
-                "tenant": "polar"
-            },
-            {
-                "numberOfStops": 0,
-                "arrival": {
-                    "airportCode": {
-                        "code": "BER",
-                        "name": null
-                    },
-                    "cityCode": {
-                        "code": "BER",
-                        "name": null
-                    },
-                    "countryCode": {
-                        "code": "DE"
-                    },
-                    "landmarks": [],
-                    "name": "Berlin Brandenburg Airport",
-                    "tenant": "polar"
-                },
-                "departure": {
-                    "airportCode": {
-                        "code": "BCN",
-                        "name": null
-                    },
-                    "cityCode": {
-                        "code": "BCN",
-                        "name": null
-                    },
-                    "countryCode": {
-                        "code": "ES"
-                    },
-                    "landmarks": [],
-                    "name": "Barcelona-El Prat Airport",
-                    "tenant": "polar"
-                },
-                "tenant": "polar"
-            },
-            {
-                "numberOfStops": 0,
-                "arrival": {
-                    "airportCode": {
-                        "code": "JFK",
-                        "name": null
-                    },
-                    "cityCode": {
-                        "code": "NYC",
-                        "name": null
-                    },
-                    "countryCode": {
-                        "code": "US"
-                    },
-                    "landmarks": [
-                        {
-                            "name": "New York Hall of Science"
-                        }
-                    ],
-                    "name": "New York/Kennedy",
-                    "tenant": "polar"
-                },
-                "departure": {
-                    "airportCode": {
-                        "code": "ZRH",
-                        "name": null
-                    },
-                    "cityCode": {
-                        "code": "ZRH",
-                        "name": null
-                    },
-                    "countryCode": {
-                        "code": "CH"
-                    },
-                    "landmarks": [
-                        {
-                            "name": "Grossmünster"
-                        }
-                    ],
-                    "name": "Zurich Airport",
-                    "tenant": "polar"
-                },
-                "tenant": "polar"
-            },
-            {
-                "numberOfStops": 1,
-                "arrival": {
-                    "airportCode": {
-                        "code": "TLV",
-                        "name": null
-                    },
-                    "cityCode": {
-                        "code": "TLV",
-                        "name": null
-                    },
-                    "countryCode": {
-                        "code": "IL"
-                    },
-                    "landmarks": [
-                        {
-                            "name": "Sea"
-                        }
-                    ],
-                    "name": "Tel Aviv/Ben Gurion",
-                    "tenant": "polar"
-                },
-                "departure": {
-                    "airportCode": {
-                        "code": "JFK",
-                        "name": null
-                    },
-                    "cityCode": {
-                        "code": "NYC",
-                        "name": null
-                    },
-                    "countryCode": {
-                        "code": "US"
-                    },
-                    "landmarks": [
-                        {
-                            "name": "New York Hall of Science"
-                        }
-                    ],
-                    "name": "New York/Kennedy",
-                    "tenant": "polar"
-                },
-                "tenant": "polar"
-            },
-            {
-                "numberOfStops": 1,
-                "arrival": {
-                    "airportCode": {
-                        "code": "TLV",
-                        "name": null
-                    },
-                    "cityCode": {
-                        "code": "TLV",
-                        "name": null
-                    },
-                    "countryCode": {
-                        "code": "IL"
-                    },
-                    "landmarks": [
-                        {
-                            "name": "Sea"
-                        }
-                    ],
-                    "name": "Tel Aviv/Ben Gurion",
-                    "tenant": "polar"
-                },
-                "departure": {
-                    "airportCode": {
-                        "code": "ZRH",
-                        "name": null
-                    },
-                    "cityCode": {
-                        "code": "ZRH",
-                        "name": null
-                    },
-                    "countryCode": {
-                        "code": "CH"
-                    },
-                    "landmarks": [
-                        {
-                            "name": "Grossmünster"
-                        }
-                    ],
-                    "name": "Zurich Airport",
-                    "tenant": "polar"
-                },
-                "tenant": "polar"
-            },
-            {
-                "numberOfStops": 0,
-                "arrival": {
-                    "airportCode": {
-                        "code": "FLL",
-                        "name": null
-                    },
-                    "cityCode": {
-                        "code": "FLL",
-                        "name": null
-                    },
-                    "countryCode": {
-                        "code": "US"
-                    },
-                    "landmarks": [],
-                    "name": "Fort Lauderdale (FLL)",
-                    "tenant": "polar"
-                },
-                "departure": {
-                    "airportCode": {
-                        "code": "JFK",
-                        "name": null
-                    },
-                    "cityCode": {
-                        "code": "NYC",
-                        "name": null
-                    },
-                    "countryCode": {
-                        "code": "US"
-                    },
-                    "landmarks": [
-                        {
-                            "name": "New York Hall of Science"
-                        }
-                    ],
-                    "name": "New York/Kennedy",
-                    "tenant": "polar"
-                },
-                "tenant": "polar"
-            },
-            {
-                "numberOfStops": 0,
-                "arrival": {
-                    "airportCode": {
-                        "code": "FLL",
-                        "name": null
-                    },
-                    "cityCode": {
-                        "code": "FLL",
-                        "name": null
-                    },
-                    "countryCode": {
-                        "code": "US"
-                    },
-                    "landmarks": [],
-                    "name": "Fort Lauderdale (FLL)",
-                    "tenant": "polar"
-                },
-                "departure": {
-                    "airportCode": {
-                        "code": "TLV",
-                        "name": null
-                    },
-                    "cityCode": {
-                        "code": "TLV",
-                        "name": null
-                    },
-                    "countryCode": {
-                        "code": "IL"
-                    },
-                    "landmarks": [
-                        {
-                            "name": "Sea"
-                        }
-                    ],
-                    "name": "Tel Aviv/Ben Gurion",
-                    "tenant": "polar"
-                },
-                "tenant": "polar"
+              "name": "New York Hall of Science"
             }
+          ],
+          "name": "New York/Kennedy"
+        },
+        "departure": {
+          "airportCode": {
+            "code": "TLV",
+            "name": null
+          },
+          "cityCode": {
+            "code": "TLV",
+            "name": null
+          },
+          "countryCode": {
+            "code": "IL"
+          },
+          "landmarks": [
+            {
+              "name": "Sea"
+            }
+          ],
+          "name": "Tel Aviv/Ben Gurion"
+        },
+        "tenant": "polar",
+        "connections": [
+          {
+            "agreementId": "1cab6da7-11ec-4714-a107-88274acacc88",
+            "routes": [
+              {
+                "arrival": {
+                  "airportCode": {
+                    "code": "BER",
+                    "name": null
+                  },
+                  "cityCode": {
+                    "code": "BER",
+                    "name": null
+                  },
+                  "countryCode": {
+                    "code": "GE"
+                  },
+                  "landmarks": [],
+                  "name": "Berlin Brandenburg Airport"
+                },
+                "departure": {
+                  "airportCode": {
+                    "code": "TLV",
+                    "name": null
+                  },
+                  "cityCode": {
+                    "code": "TLV",
+                    "name": null
+                  },
+                  "countryCode": {
+                    "code": "IL"
+                  },
+                  "name": "Tel Aviv/Ben Gurion"
+                },
+                "tenant": "polar"
+              },
+              {
+                "arrival": {
+                  "airportCode": {
+                    "code": "JFK",
+                    "name": null
+                  },
+                  "cityCode": {
+                    "code": "NYC",
+                    "name": null
+                  },
+                  "countryCode": {
+                    "code": "US"
+                  },
+                  "landmarks": [
+                    {
+                      "name": "New York Hall of Science"
+                    }
+                  ],
+                  "name": "New York/Kennedy"
+                },
+                "departure": {
+                  "airportCode": {
+                    "code": "BER",
+                    "name": null
+                  },
+                  "cityCode": {
+                    "code": "BER",
+                    "name": null
+                  },
+                  "countryCode": {
+                    "code": "GE"
+                  },
+                  "landmarks": [],
+                  "name": "Berlin Brandenburg Airport"
+                },
+                "tenant": "sky"
+              }
+            ]
+          }
         ]
-    }
+      },
+      {
+        "arrival": {
+          "airportCode": {
+            "code": "BER",
+            "name": null
+          },
+          "cityCode": {
+            "code": "BER",
+            "name": null
+          },
+          "countryCode": {
+            "code": "DE"
+          },
+          "landmarks": [],
+          "name": "Berlin Brandenburg Airport",
+          "tenant": "polar"
+        },
+        "departure": {
+          "airportCode": {
+            "code": "BCN",
+            "name": null
+          },
+          "cityCode": {
+            "code": "BCN",
+            "name": null
+          },
+          "countryCode": {
+            "code": "ES"
+          },
+          "landmarks": [],
+          "name": "Barcelona-El Prat Airport",
+          "tenant": "polar"
+        },
+        "tenant": "polar"
+      },
+      {
+        "arrival": {
+          "airportCode": {
+            "code": "JFK",
+            "name": null
+          },
+          "cityCode": {
+            "code": "NYC",
+            "name": null
+          },
+          "countryCode": {
+            "code": "US"
+          },
+          "landmarks": [
+            {
+              "name": "New York Hall of Science"
+            }
+          ],
+          "name": "New York/Kennedy",
+          "tenant": "polar"
+        },
+        "departure": {
+          "airportCode": {
+            "code": "ZRH",
+            "name": null
+          },
+          "cityCode": {
+            "code": "ZRH",
+            "name": null
+          },
+          "countryCode": {
+            "code": "CH"
+          },
+          "landmarks": [
+            {
+              "name": "Grossmünster"
+            }
+          ],
+          "name": "Zurich Airport",
+          "tenant": "polar"
+        },
+        "tenant": "polar"
+      },
+      {
+        "arrival": {
+          "airportCode": {
+            "code": "TLV",
+            "name": null
+          },
+          "cityCode": {
+            "code": "TLV",
+            "name": null
+          },
+          "countryCode": {
+            "code": "IL"
+          },
+          "landmarks": [
+            {
+              "name": "Sea"
+            }
+          ],
+          "name": "Tel Aviv/Ben Gurion",
+          "tenant": "polar"
+        },
+        "departure": {
+          "airportCode": {
+            "code": "JFK",
+            "name": null
+          },
+          "cityCode": {
+            "code": "NYC",
+            "name": null
+          },
+          "countryCode": {
+            "code": "US"
+          },
+          "landmarks": [
+            {
+              "name": "New York Hall of Science"
+            }
+          ],
+          "name": "New York/Kennedy",
+          "tenant": "polar"
+        },
+        "tenant": "polar"
+      },
+      {
+        "arrival": {
+          "airportCode": {
+            "code": "TLV",
+            "name": null
+          },
+          "cityCode": {
+            "code": "TLV",
+            "name": null
+          },
+          "countryCode": {
+            "code": "IL"
+          },
+          "landmarks": [
+            {
+              "name": "Sea"
+            }
+          ],
+          "name": "Tel Aviv/Ben Gurion",
+          "tenant": "polar"
+        },
+        "departure": {
+          "airportCode": {
+            "code": "ZRH",
+            "name": null
+          },
+          "cityCode": {
+            "code": "ZRH",
+            "name": null
+          },
+          "countryCode": {
+            "code": "CH"
+          },
+          "landmarks": [
+            {
+              "name": "Grossmünster"
+            }
+          ],
+          "name": "Zurich Airport",
+          "tenant": "polar"
+        },
+        "tenant": "polar"
+      },
+      {
+        "arrival": {
+          "airportCode": {
+            "code": "FLL",
+            "name": null
+          },
+          "cityCode": {
+            "code": "FLL",
+            "name": null
+          },
+          "countryCode": {
+            "code": "US"
+          },
+          "landmarks": [],
+          "name": "Fort Lauderdale (FLL)",
+          "tenant": "polar"
+        },
+        "departure": {
+          "airportCode": {
+            "code": "JFK",
+            "name": null
+          },
+          "cityCode": {
+            "code": "NYC",
+            "name": null
+          },
+          "countryCode": {
+            "code": "US"
+          },
+          "landmarks": [
+            {
+              "name": "New York Hall of Science"
+            }
+          ],
+          "name": "New York/Kennedy",
+          "tenant": "polar"
+        },
+        "tenant": "polar"
+      },
+      {
+        "arrival": {
+          "airportCode": {
+            "code": "FLL",
+            "name": null
+          },
+          "cityCode": {
+            "code": "FLL",
+            "name": null
+          },
+          "countryCode": {
+            "code": "US"
+          },
+          "landmarks": [],
+          "name": "Fort Lauderdale (FLL)",
+          "tenant": "polar"
+        },
+        "departure": {
+          "airportCode": {
+            "code": "TLV",
+            "name": null
+          },
+          "cityCode": {
+            "code": "TLV",
+            "name": null
+          },
+          "countryCode": {
+            "code": "IL"
+          },
+          "landmarks": [
+            {
+              "name": "Sea"
+            }
+          ],
+          "name": "Tel Aviv/Ben Gurion",
+          "tenant": "polar"
+        },
+        "tenant": "polar"
+      }
+    ]
+  }
 }
   </pre>
 </details>
