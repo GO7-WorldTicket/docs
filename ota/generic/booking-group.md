@@ -54,64 +54,19 @@ curl -X POST \
 ```
 
 ## AirPriceRQ for One-way Trip
-
-### XML Request Example
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<OTA_AirPriceRQ xmlns="http://www.opentravel.org/OTA/2003/05" Version="2.001">
-    <POS>
-        <Source>
-            <RequestorID Type="5" ID="{agent_id}" ID_Context="{agency_id}"/>
-        </Source>
-    </POS>
-    <AirItinerary>
-        <OriginDestinationOptions>
-            <OriginDestinationOption>
-                <FlightSegment DepartureDateTime="{departure_datetime}" 
-                              ArrivalDateTime="{arrival_datetime}"
-                              FlightNumber="{flight_number}"
-                              ResBookDesigCode="{booking_class}"
-                              NumberInParty="{total_passengers}">
-                    <DepartureAirport LocationCode="{origin_code}"/>
-                    <ArrivalAirport LocationCode="{destination_code}"/>
-                    <MarketingAirline Code="{airline_code}"/>
-                </FlightSegment>
-            </OriginDestinationOption>
-        </OriginDestinationOptions>
-    </AirItinerary>
-    <TravelerInfoSummary>
-        <AirTravelerAvail>
-            <PassengerTypeQuantity Code="ADT" Quantity="{adult_count}"/>
-            <PassengerTypeQuantity Code="CHD" Quantity="{child_count}"/>
-            <PassengerTypeQuantity Code="INF" Quantity="{infant_count}"/>
-        </AirTravelerAvail>
-    </TravelerInfoSummary>
-    <PriceRequestInformation>
-        <TPA_Extensions>
-            <GroupBooking GroupName="{group_name}">
-                <ContactInfo>
-                    <PersonName>
-                        <GivenName>{contact_first_name}</GivenName>
-                        <Surname>{contact_last_name}</Surname>
-                    </PersonName>
-                    <Telephone PhoneNumber="{contact_phone}"/>
-                    <Email>{contact_email}</Email>
-                </ContactInfo>
-            </GroupBooking>
-        </TPA_Extensions>
-    </PriceRequestInformation>
-</OTA_AirPriceRQ>
-```
-
-### JSON Request Example
-
+<details>
+<summary><strong>📋 JSON Request Template</strong></summary>
+<div markdown="1">
 ```json
 {
   "version": "2.001",
   "pos": {
     "source": [
       {
+        "bookingChannel": {
+          "type": "OTA"
+        },
+        "isocurrency": "{currency_code}",
         "requestorID": {
           "type": "5",
           "id": "{agent_id}",
@@ -121,44 +76,61 @@ curl -X POST \
     ]
   },
   "airItinerary": {
-    "originDestinationOptions": [
-      {
-        "flightSegment": {
-          "departureDateTime": "{departure_datetime}",
-          "arrivalDateTime": "{arrival_datetime}",
-          "flightNumber": "{flight_number}",
-          "resBookDesigCode": "{booking_class}",
-          "numberInParty": "{total_passengers}",
-          "departureAirport": {
-            "locationCode": "{origin_code}"
-          },
-          "arrivalAirport": {
-            "locationCode": "{destination_code}"
-          },
-          "marketingAirline": {
-            "code": "{airline_code}"
-          }
-        }
-      }
-    ]
-  },
-  "travelerInfoSummary": {
-    "airTravelerAvail": {
-      "passengerTypeQuantity": [
+    "originDestinationOptions": {
+      "originDestinationOption": [
         {
-          "code": "ADT",
-          "quantity": "{adult_count}"
-        },
-        {
-          "code": "CHD",
-          "quantity": "{child_count}"
-        },
-        {
-          "code": "INF",
-          "quantity": "{infant_count}"
+          "flightSegment": [
+            {
+              "departureAirport": {
+                "locationCode": "{origin_code}"
+              },
+              "arrivalAirport": {
+                "locationCode": "{destination_code}"
+              },
+              "operatingAirline": {
+                "code": "{airline_code}",
+                "flightNumber": "{flight_no}"
+              },
+              "equipment": [],
+              "departureDateTime": "{departure_datetime}",
+              "rph": "1",
+              "marketingAirline": {
+                "code": "{airline_code}"
+              },
+              "flightNumber": "{flight_no}",
+              "resBookDesigCode": "Y",
+              "fareBasisCode": "{fare_basis_code}",
+              "status": "30"
+            }
+          ]
         }
       ]
     }
+  },
+  "travelerInfoSummary": {
+    "airTravelerAvail": [
+      {
+        "passengerTypeQuantity": [
+          {
+            "code": "{ADT|CHD|INF}",
+            "quantity": 1
+          }
+        ],
+        "airTraveler": {
+          "personName": {
+            "givenName": [
+              "{passenger_name}"
+            ],
+            "surname": "{passenger_surname}"
+          },
+          "travelerRefNumber": {
+            "rph": "1"
+          },
+          "passengerTypeCode": "{ADT|CHD|INF}",
+          "gender": "{gender}"
+        }
+      }
+    ]
   },
   "priceRequestInformation": {
     "tpa_Extensions": {
@@ -177,199 +149,394 @@ curl -X POST \
       }
     }
   }
+
 }
 ```
+</div>
+</details>
+
+
+<details>
+<summary><strong>✅ Example</strong></summary>
+<div markdown="1">
+```json
+{
+  "version": "2.001",
+  "pos": {
+    "source": [
+      {
+        "isoCurrency": "USD",
+        "requestorID": { "type": "5", "id": "AGENT123", "name": "AGENCY1" },
+        "bookingChannel": { "type": "OTA" }
+      }
+    ]
+  },
+  "airItinerary": {
+    "originDestinationOptions": {
+      "originDestinationOption": [
+        {
+          "flightSegment": [
+            {
+              "departureAirport": {
+                "locationCode": "CPH"
+              },
+              "arrivalAirport": {
+                "locationCode": "RNN"
+              },
+              "departureDateTime": "2019-06-14T07:00:00",
+              "arrivalDateTime": "2019-06-14T07:30:00",
+              "rph": "1",
+              "marketingAirline": {
+                "code": "DX"
+              },
+              "flightNumber": "100",
+              "resBookDesigCode": "M",
+              "status": "30",
+              "tpaextensions": {
+                "fareBasis": "MDXGOD"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "travelerInfoSummary": {
+    "airTravelerAvail": [
+      {
+        "passengerTypeQuantity": [
+          {
+            "code": "ADT",
+            "quantity": 1
+          }
+        ],
+        "airTraveler": {
+          "personName": {
+            "givenName": [
+              "Passenger1"
+            ],
+            "surname": "Traveler"
+          },
+          "travelerRefNumber": {
+            "rph": "1"
+          },
+          "passengerTypeCode": "ADT",
+          "gender": "Unknown"
+        }
+      }
+    ]
+  }
+}
+```
+</div>
+</details>
+
 
 ## AirPriceRQ for Round Trip
 
-### XML Request Example
+<details>
+<summary><strong>📋 JSON Request Template</strong></summary>
+<div markdown="1">
+```json
+{
+  "version": "2.001",
+  "pos": {
+    "source": [
+      {
+        "bookingChannel": {
+          "type": "OTA"
+        },
+        "isocurrency": "{currency_code}",
+        "requestorID": {
+          "type": "5",
+          "id": "{agent_id}",
+          "name": "{agency_id}"
+        }
+      }
+    ]
+  },
+  "airItinerary": {
+    "originDestinationOptions": {
+      "originDestinationOption": [
+        {
+          "flightSegment": [
+            {
+              "departureAirport": {
+                "locationCode": "{origin_code}"
+              },
+              "arrivalAirport": {
+                "locationCode": "{destination_code}"
+              },
+              "operatingAirline": {
+                "code": "{airline_code}",
+                "flightNumber": "{flight_no}"
+              },
+              "equipment": [],
+              "departureDateTime": "{departure_datetime}",
+              "rph": "1",
+              "marketingAirline": {
+                "code": "{airline_code}"
+              },
+              "flightNumber": "{flight_no}",
+              "resBookDesigCode": "Y",
+              "fareBasisCode": "{fare_basis_code}",
+              "status": "30"
+            }
+          ]
+        },
+        {
+          "flightSegment": [
+            {
+              "departureAirport": {
+                "locationCode": "{origin_code}"
+              },
+              "arrivalAirport": {
+                "locationCode": "{destination_code}"
+              },
+              "operatingAirline": {
+                "code": "{airline_code}",
+                "flightNumber": "{flight_no}"
+              },
+              "equipment": [],
+              "departureDateTime": "{departure_datetime}",
+              "rph": "1",
+              "marketingAirline": {
+                "code": "{airline_code}"
+              },
+              "flightNumber": "{flight_no}",
+              "resBookDesigCode": "Y",
+              "fareBasisCode": "{fare_basis_code}",
+              "status": "30"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "travelerInfoSummary": {
+    "airTravelerAvail": [
+      {
+        "passengerTypeQuantity": [
+          {
+            "code": "{ADT|CHD|INF}",
+            "quantity": 1
+          }
+        ],
+        "airTraveler": {
+          "personName": {
+            "givenName": [
+              "{passenger_name}"
+            ],
+            "surname": "{passenger_surname}"
+          },
+          "travelerRefNumber": {
+            "rph": "1"
+          },
+          "passengerTypeCode": "{ADT|CHD|INF}",
+          "gender": "{gender}"
+        }
+      }
+    ]
+  },
+  "priceRequestInformation": {
+    "tpa_Extensions": {
+      "groupBooking": {
+        "groupName": "{group_name}",
+        "contactInfo": {
+          "personName": {
+            "givenName": "{contact_first_name}",
+            "surname": "{contact_last_name}"
+          },
+          "telephone": {
+            "phoneNumber": "{contact_phone}"
+          },
+          "email": "{contact_email}"
+        }
+      }
+    }
+  }
 
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<OTA_AirPriceRQ xmlns="http://www.opentravel.org/OTA/2003/05" Version="2.001">
-    <POS>
-        <Source>
-            <RequestorID Type="5" ID="{agent_id}" ID_Context="{agency_id}"/>
-        </Source>
-    </POS>
-    <AirItinerary>
-        <OriginDestinationOptions>
-            <!-- Outbound Flight -->
-            <OriginDestinationOption>
-                <FlightSegment DepartureDateTime="{outbound_departure_datetime}" 
-                              ArrivalDateTime="{outbound_arrival_datetime}"
-                              FlightNumber="{outbound_flight_number}"
-                              ResBookDesigCode="{booking_class}"
-                              NumberInParty="{total_passengers}">
-                    <DepartureAirport LocationCode="{origin_code}"/>
-                    <ArrivalAirport LocationCode="{destination_code}"/>
-                    <MarketingAirline Code="{airline_code}"/>
-                </FlightSegment>
-            </OriginDestinationOption>
-            <!-- Inbound Flight -->
-            <OriginDestinationOption>
-                <FlightSegment DepartureDateTime="{inbound_departure_datetime}" 
-                              ArrivalDateTime="{inbound_arrival_datetime}"
-                              FlightNumber="{inbound_flight_number}"
-                              ResBookDesigCode="{booking_class}"
-                              NumberInParty="{total_passengers}">
-                    <DepartureAirport LocationCode="{destination_code}"/>
-                    <ArrivalAirport LocationCode="{origin_code}"/>
-                    <MarketingAirline Code="{airline_code}"/>
-                </FlightSegment>
-            </OriginDestinationOption>
-        </OriginDestinationOptions>
-    </AirItinerary>
-    <TravelerInfoSummary>
-        <AirTravelerAvail>
-            <PassengerTypeQuantity Code="ADT" Quantity="{adult_count}"/>
-            <PassengerTypeQuantity Code="CHD" Quantity="{child_count}"/>
-            <PassengerTypeQuantity Code="INF" Quantity="{infant_count}"/>
-        </AirTravelerAvail>
-    </TravelerInfoSummary>
-    <PriceRequestInformation>
-        <TPA_Extensions>
-            <GroupBooking GroupName="{group_name}">
-                <ContactInfo>
-                    <PersonName>
-                        <GivenName>{contact_first_name}</GivenName>
-                        <Surname>{contact_last_name}</Surname>
-                    </PersonName>
-                    <Telephone PhoneNumber="{contact_phone}"/>
-                    <Email>{contact_email}</Email>
-                </ContactInfo>
-            </GroupBooking>
-        </TPA_Extensions>
-    </PriceRequestInformation>
-</OTA_AirPriceRQ>
+}
 ```
+</div>
+</details>
+
+<details>
+<summary><strong>✅ Example</strong></summary>
+<div markdown="1">
+```json
+{
+  "version": "2.001",
+  "pos": {
+    "source": [
+      {
+        "isoCurrency": "USD",
+        "requestorID": { "type": "5", "id": "AGENT123", "name": "AGENCY1" },
+        "bookingChannel": { "type": "OTA" }
+      }
+    ]
+  },
+  "airItinerary": {
+    "originDestinationOptions": {
+      "originDestinationOption": [
+        {
+          "flightSegment": [
+            {
+              "departureAirport": {
+                "locationCode": "CPH"
+              },
+              "arrivalAirport": {
+                "locationCode": "RNN"
+              },
+              "departureDateTime": "2019-06-14T07:00:00",
+              "arrivalDateTime": "2019-06-14T07:30:00",
+              "rph": "1",
+              "marketingAirline": {
+                "code": "DX"
+              },
+              "flightNumber": "100",
+              "resBookDesigCode": "M",
+              "status": "30",
+              "tpaextensions": {
+                "fareBasis": "MDXGOD"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "travelerInfoSummary": {
+    "airTravelerAvail": [
+      {
+        "passengerTypeQuantity": [
+          {
+            "code": "ADT",
+            "quantity": 1
+          }
+        ],
+        "airTraveler": {
+          "personName": {
+            "givenName": [
+              "Passenger1"
+            ],
+            "surname": "Traveler"
+          },
+          "travelerRefNumber": {
+            "rph": "1"
+          },
+          "passengerTypeCode": "ADT",
+          "gender": "Unknown"
+        }
+      }
+    ]
+  }
+}
+```
+</div>
+</details>
 
 ## Response Structure
 
 AirPriceRS response contains a record locator in "quoteID" field.
 
-### XML Response
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<OTA_AirPriceRS xmlns="http://www.opentravel.org/OTA/2003/05" Version="2.001">
-    <Success/>
-    <PricedItinerary QuoteID="{quote_id}">
-        <AirItinerary>
-            <OriginDestinationOptions>
-                <OriginDestinationOption>
-                    <FlightSegment DepartureDateTime="{departure_datetime}" 
-                                  ArrivalDateTime="{arrival_datetime}"
-                                  FlightNumber="{flight_number}"
-                                  ResBookDesigCode="{booking_class}">
-                        <DepartureAirport LocationCode="{origin_code}"/>
-                        <ArrivalAirport LocationCode="{destination_code}"/>
-                        <MarketingAirline Code="{airline_code}"/>
-                    </FlightSegment>
-                </OriginDestinationOption>
-            </OriginDestinationOptions>
-        </AirItinerary>
-        <AirItineraryPricingInfo>
-            <ItinTotalFare>
-                <BaseFare Amount="{base_fare}" CurrencyCode="{currency_code}"/>
-                <Taxes>
-                    <Tax Amount="{tax_amount}" CurrencyCode="{currency_code}"/>
-                </Taxes>
-                <TotalFare Amount="{total_fare}" CurrencyCode="{currency_code}"/>
-            </ItinTotalFare>
-            <PTC_FareBreakdowns>
-                <PTC_FareBreakdown>
-                    <PassengerTypeQuantity Code="ADT" Quantity="{adult_count}"/>
-                    <PassengerFare>
-                        <BaseFare Amount="{adult_base_fare}" CurrencyCode="{currency_code}"/>
-                        <Taxes>
-                            <Tax Amount="{adult_tax}" CurrencyCode="{currency_code}"/>
-                        </Taxes>
-                        <TotalFare Amount="{adult_total_fare}" CurrencyCode="{currency_code}"/>
-                    </PassengerFare>
-                </PTC_FareBreakdown>
-            </PTC_FareBreakdowns>
-        </AirItineraryPricingInfo>
-        <TicketingInfo TicketTimeLimit="{ticket_time_limit}"/>
-    </PricedItinerary>
-</OTA_AirPriceRS>
-```
-
 ### JSON Response
 
 ```json
 {
-  "version": "2.001",
-  "success": {},
-  "pricedItinerary": {
-    "quoteID": "{quote_id}",
-    "airItinerary": {
-      "originDestinationOptions": [
-        {
-          "flightSegment": {
-            "departureDateTime": "{departure_datetime}",
-            "arrivalDateTime": "{arrival_datetime}",
-            "flightNumber": "{flight_number}",
-            "resBookDesigCode": "{booking_class}",
-            "departureAirport": {
-              "locationCode": "{origin_code}"
-            },
-            "arrivalAirport": {
-              "locationCode": "{destination_code}"
-            },
-            "marketingAirline": {
-              "code": "{airline_code}"
-            }
-          }
-        }
-      ]
-    },
-    "airItineraryPricingInfo": {
-      "itinTotalFare": {
-        "baseFare": {
-          "amount": "{base_fare}",
-          "currencyCode": "{currency_code}"
-        },
-        "taxes": [
-          {
-            "amount": "{tax_amount}",
-            "currencyCode": "{currency_code}"
-          }
-        ],
-        "totalFare": {
-          "amount": "{total_fare}",
-          "currencyCode": "{currency_code}"
-        }
-      },
-      "ptc_FareBreakdowns": [
-        {
-          "passengerTypeQuantity": {
-            "code": "ADT",
-            "quantity": "{adult_count}"
-          },
-          "passengerFare": {
-            "baseFare": {
-              "amount": "{adult_base_fare}",
-              "currencyCode": "{currency_code}"
-            },
-            "taxes": [
+  "pricedItineraries": {
+    "pricedItinerary": [
+      {
+        "airItinerary": {
+          "originDestinationOptions": {
+            "originDestinationOption": [
               {
-                "amount": "{adult_tax}",
-                "currencyCode": "{currency_code}"
+                "flightSegment": [
+                  {
+                    "departureAirport": {
+                      "locationCode": "JED"
+                    },
+                    "arrivalAirport": {
+                      "locationCode": "XMD"
+                    },
+                    "equipment": [],
+                    "departureDateTime": "2023-03-29T06:30:00.000+03:00",
+                    "arrivalDateTime": "2023-03-29T07:00:00.000+03:00",
+                    "rph": "1",
+                    "flightNumber": "HHR7212",
+                    "fareBasisCode": "YECOSTD",
+                    "resBookDesigCode": "Y",
+                    "bookingClassAvails": [],
+                    "comment": [],
+                    "stopLocation": [],
+                    "numberInParty": 1,
+                    "status": "30"
+                  },
+                  {
+                    "departureAirport": {
+                      "locationCode": "XMD"
+                    },
+                    "arrivalAirport": {
+                      "locationCode": "JED"
+                    },
+                    "equipment": [],
+                    "departureDateTime": "2023-04-10T18:00:00.000+03:00",
+                    "arrivalDateTime": "2023-04-10T19:54:00.000+03:00",
+                    "rph": "2",
+                    "flightNumber": "HHR7211",
+                    "fareBasisCode": "YECOSTD",
+                    "resBookDesigCode": "Y",
+                    "bookingClassAvails": [],
+                    "comment": [],
+                    "stopLocation": [],
+                    "numberInParty": 1,
+                    "status": "30"
+                  }
+                ]
               }
-            ],
-            "totalFare": {
-              "amount": "{adult_total_fare}",
-              "currencyCode": "{currency_code}"
-            }
+            ]
           }
-        }
-      ]
-    },
-    "ticketingInfo": {
-      "ticketTimeLimit": "{ticket_time_limit}"
-    }
-  }
+        },
+        "airItineraryPricingInfo": {
+          "itinTotalFare": [
+            {
+              "baseFare": {
+                "currencyCode": "SAR",
+                "amount": 895.98
+              },
+              "equivFare": [],
+              "taxes": {
+                "tax": [
+                  {
+                    "taxCode": "YQ",
+                    "currencyCode": "SAR",
+                    "amount": 14.42
+                  },
+                  {
+                    "taxCode": "VAT",
+                    "currencyCode": "SAR",
+                    "amount": 89.60
+                  }
+                ]
+              },
+              "totalFare": {
+                "currencyCode": "SAR",
+                "amount": 1000.00
+              },
+              "fareBaggageAllowance": [],
+              "remark": []
+            }
+          ],
+          "quoteID": "AKMFS9"
+        },
+        "notes": []
+      }
+    ]
+  },
+  "correlationID": "4f4dad22-9432-4c5f-ab0c-994cdd0a992e",
+  "target": "Production",
+  "primaryLangID": "en",
+  "version": 2.001
 }
 ```
 

@@ -81,12 +81,12 @@ sequenceDiagram
 
 ### HTTP Headers (All Required)
 
-| Header | Description | Example |
-|--------|-------------|---------|
+| Header        | Description | Example               |
+|---------------|-------------|-----------------------|
 | Authorization | Bearer token for JWT authentication | Bearer {access_token} |
-| X-API-Key | API key for key-based authentication | {api_key} |
-| Local-Name | OTA operation identifier | OTA_AirDemandTicketRQ |
-| Content-Type | Request content type | application/xml |
+| x-api-key     | API key for key-based authentication | {api_key}             |
+| local-name    | OTA operation identifier | OTA_AirDemandTicketRQ |
+| Content-Type  | Request content type | application/json      |
 
 **Note:** Use either `Authorization` (for JWT) OR `X-API-Key` (for API key authentication), not both.
 
@@ -103,81 +103,196 @@ sequenceDiagram
 curl -X POST \
     https://test-api.worldticket.net/ota/v2015b/OTA \
     -H 'Authorization: Bearer {access_token}' \
-    -H 'Local-Name: OTA_AirDemandTicketRQ' \
-    -H 'Content-Type: application/xml' \
-    -d @AirDemandTicketRQ.xml
+    -H 'local-name: OTA_AirDemandTicketRQ' \
+    -H 'Content-Type: application/json' \
+    -d @AirDemandTicketRQ.json
 ```
 
 #### With API Key Authentication
 ```bash
 curl -X POST \
     https://test-api.worldticket.net/ota/v2015b/OTA \
-    -H 'X-API-Key: {api_key}' \
-    -H 'Local-Name: OTA_AirDemandTicketRQ' \
-    -H 'Content-Type: application/xml' \
-    -d @AirDemandTicketRQ.xml
+    -H 'x-api-key: {api_key}' \
+    -H 'local-name: OTA_AirDemandTicketRQ' \
+    -H 'Content-Type: application/json' \
+    -d @AirDemandTicketRQ.json
 ```
 
-### XML Request Example
+<details>
+<summary><strong>✅ JSON Request Example</strong></summary>
+<div markdown="1">
 
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<OTA_AirDemandTicketRQ xmlns="http://www.opentravel.org/OTA/2003/05" Version="2.001">
-    <POS>
-        <Source>
-            <RequestorID Type="5" ID="{agent_id}" ID_Context="{agency_id}"/>
-        </Source>
-    </POS>
-    <DemandTicketDetail>
-        <BookingReferenceID ID="{record_locator}" Type="14">
-            <CompanyName Code="{airline_code}"/>
-        </BookingReferenceID>
-        <PaymentInfo PaymentType="5">
-            <PaymentCard CardType="VI" CardNumber="{card_number}" ExpireDate="{expiry_date}">
-                <CardHolderName>{cardholder_name}</CardHolderName>
-                <Address>
-                    <StreetNmbr>{street_address}</StreetNmbr>
-                    <CityName>{city}</CityName>
-                    <PostalCode>{postal_code}</PostalCode>
-                    <CountryName Code="{country_code}"/>
-                </Address>
-            </PaymentCard>
-        </PaymentInfo>
-        <TicketingInfo TicketType="eTicket">
-            <DeliveryInfo DeliveryMethod="Email">
-                <Email>{delivery_email}</Email>
-            </DeliveryInfo>
-        </TicketingInfo>
-    </DemandTicketDetail>
-</OTA_AirDemandTicketRQ>
+```json
+{
+  "pos": {
+    "source": [
+      {
+        "requestorID": {
+          "type": "5",
+          "id": "35896241"
+        },
+        "bookingChannel": {
+          "type": "COM"
+        },
+        "agentSine": "2BB",
+        "pseudoCityCode": "ATL",
+        "airlineVendorID": "1P",
+        "isocountry": "US",
+        "isocurrency": "EUR",
+        "erspuserID": "1#Preved"
+      }
+    ]
+  },
+  "demandTicketDetail": {
+    "messageFunction": [
+      {
+        "function": "ET"
+      }
+    ],
+    "bookingReferenceID": {
+      "companyName": {
+        "companyShortName": "test-saudia",
+        "code": "HHR"
+      },
+      "type": "14",
+      "id": "6UETLG"
+    },
+    "paymentInfo": [
+      {
+        "passengerRPH": [
+          "1",
+          "2",
+          "3"
+        ],
+        "paymentType": "32",
+        "text": "2364103918",
+        "currencyCode": "EUR",
+        "amount": 392.64
+      }
+    ],
+    "passengerName": [
+      {
+        "namePrefix": [
+          "Mr."
+        ],
+        "givenName": [
+          "First"
+        ],
+        "surname": "WorldTicket",
+        "rph": "1"
+      },
+      {
+        "namePrefix": [
+          "Mr."
+        ],
+        "givenName": [
+          "Second"
+        ],
+        "surname": "WorldTicket",
+        "rph": "2"
+      },
+      {
+        "namePrefix": [
+          "Mr."
+        ],
+        "givenName": [
+          "Third"
+        ],
+        "surname": "WorldTicket",
+        "rph": "3"
+      }
+    ]
+  },
+  "echoToken": "456789",
+  "timeStamp": 1158337833000,
+  "target": "Production",
+  "version": 2.001,
+  "sequenceNmbr": 1
+}
 ```
+</div>
+</details>
 
-### XML Response Example
+<details>
+<summary><strong>✅ JSON Response Example</strong></summary>
+<div markdown="1">
 
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<OTA_AirDemandTicketRS xmlns="http://www.opentravel.org/OTA/2003/05" Version="2.001">
-    <Success/>
-    <BookingReferenceID ID="{record_locator}" Type="14">
-        <CompanyName Code="{airline_code}"/>
-    </BookingReferenceID>
-    <TicketItemInfo NetAmount="{net_amount}" PaymentType="5" TotalAmount="{total_amount}" 
-                    ItemNumber="1" Type="eTicket" TicketNumber="{ticket_number}">
-        <PassengerName>
-            <GivenName>{first_name}</GivenName>
-            <Surname>{last_name}</Surname>
-        </PassengerName>
-        <FlightSegmentInfo>
-            <FlightSegment DepartureDateTime="{departure_datetime}" 
-                          ArrivalDateTime="{arrival_datetime}"
-                          FlightNumber="{flight_number}">
-                <DepartureAirport LocationCode="{origin_code}"/>
-                <ArrivalAirport LocationCode="{destination_code}"/>
-            </FlightSegment>
-        </FlightSegmentInfo>
-    </TicketItemInfo>
-</OTA_AirDemandTicketRS>
+```json
+{
+  "success": {},
+  "bookingReferenceID": {
+    "companyName": {
+      "code": "ST"
+    },
+    "type": "14",
+    "id": "11XS47"
+  },
+  "ticketItemInfo": [
+    {
+      "passengerName": {
+        "namePrefix": [
+          "Mr."
+        ],
+        "givenName": [
+          "First"
+        ],
+        "surname": "WorldTicket",
+        "passengerTypeCode": "ADT"
+      },
+      "ticketNumber": "2461118401858",
+      "type": "E_TICKET",
+      "itemNumber": "1",
+      "totalAmount": 392.64,
+      "paymentType": "32",
+      "netAmount": 350.56
+    },
+    {
+      "passengerName": {
+        "namePrefix": [
+          "Mr."
+        ],
+        "givenName": [
+          "Third"
+        ],
+        "surname": "WorldTicket",
+        "passengerTypeCode": "INF"
+      },
+      "ticketNumber": "2461118401859",
+      "type": "E_TICKET",
+      "itemNumber": "2",
+      "totalAmount": 392.64,
+      "paymentType": "32",
+      "netAmount": 350.56
+    },
+    {
+      "passengerName": {
+        "namePrefix": [
+          "Mr."
+        ],
+        "givenName": [
+          "Second"
+        ],
+        "surname": "WorldTicket",
+        "passengerTypeCode": "CHD"
+      },
+      "ticketNumber": "2461118401860",
+      "type": "E_TICKET",
+      "itemNumber": "3",
+      "totalAmount": 392.64,
+      "paymentType": "32",
+      "netAmount": 350.56
+    }
+  ],
+  "echoToken": "456789",
+  "timeStamp": 1549277371340,
+  "target": "Production",
+  "version": 2.001,
+  "sequenceNmbr": 1,
+  "retransmissionIndicator": false
+}
 ```
+</div>
+</details>
 
 ## Payment with Debit-Credit Account
 
@@ -189,45 +304,183 @@ Host: test-api.worldticket.net
 Authorization: Bearer {access_token}
 ```
 
-### Response
+<details>
+<summary><strong>✅ Available Debit-Credit Accounts Response Example</strong></summary>
+<div markdown="1">
+```json
+[
+  {
+    "id": 3,
+    "accountName": "admin-account",
+    "ownerId": 10,
+    "umOwnerId": 8454770,
+    "umOwnerType": "UserEntity",
+    "ownerName": "admin admin",
+    "active": true,
+    "status": "ACTIVE",
+    "currencyCode": "SAR",
+    "creditLimit": 999999.00000,
+    "availableCredit": 997999.00000,
+    "balance": -2000.00,
+    "amountToBeInvoiced": 0,
+    "handlers": [
+      {
+        "handlerId": 8454770,
+        "handlerName": "admin admin",
+        "handlerType": "USER"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "accountName": "system",
+    "ownerId": 1,
+    "umOwnerId": 8454770,
+    "umOwnerType": "UserEntity",
+    "ownerName": "",
+    "active": false,
+    "status": "INACTIVE",
+    "currencyCode": "SAR",
+    "creditLimit": 8888.00000,
+    "availableCredit": 8888.00000,
+    "balance": 0.00,
+    "amountToBeInvoiced": 0,
+    "handlers": []
+  }
+]
+```
+</div>
+</details>
+
+### Payment with Debit-Credit Account
+In the message sample below PaymentType="4" stands for debit-credit payment type, CardHolderName holds debit-credit account name.
+
+<details>
+<summary><strong>✅ Payment with Debit-Credit Account JSON Request Example</strong></summary>
+<div markdown="1">
 
 ```json
 {
-  "accounts": [
-    {
-      "accountId": "{account_id}",
-      "accountName": "{account_name}",
-      "balance": {
-        "amount": "{balance_amount}",
-        "currency": "{currency_code}"
-      },
-      "status": "active"
-    }
-  ]
+    "target": "Production",
+    "version": 1.000,
+    "demandTicketDetail": {
+        "messageFunction": [
+            {
+                "function": "ET"
+            }
+        ],
+        "bookingReferenceID": {
+            "companyName": {
+                "companyShortName": "test-saudia",
+                "code": "DX"
+            },
+            "type": "14",
+            "id": "000001"
+        },
+        "paymentInfo": [
+            {
+                "creditCardInfo": [
+                    {
+                        "cardHolderName": "admin-account"
+                    }
+                ],
+                "passengerRPH": [
+                    "1",
+                    "2"
+                ],
+                "paymentType": "4"
+            }
+        ],
+        "passengerName": [
+            {
+                "namePrefix": [
+                    "Mr"
+                ],
+                "givenName": [
+                    "HOMER"
+                ],
+                "surname": "SIMPSON",
+                "rph": "1"
+            }
+        ]
+    },
+    "sequenceNmbr": 1,
+    "echoToken": "223344",
+    "timeStamp": 1158337833000
 }
 ```
+</div>
+</details>
 
-### Payment with Debit-Credit Account
+<details>
+<summary><strong>✅ Payment with Debit-Credit Account JSON Response Example</strong></summary>
+<div markdown="1">
 
-```xml
-<PaymentInfo PaymentType="4">
-    <DirectBill DirectBillID="{account_id}">
-        <CompanyName Code="{airline_code}"/>
-    </DirectBill>
-    <PaymentAmount Amount="{payment_amount}" CurrencyCode="{currency_code}"/>
-</PaymentInfo>
+```json
+{
+    "success": {},
+    "bookingReferenceID": {
+        "companyName": {
+            "code": "DX"
+        },
+        "type": "14",
+        "id": "000001"
+    },
+    "ticketItemInfo": [
+        {
+            "passengerName": {
+                "givenName": [
+                    "Homer"
+                ],
+                "surname": "Simpson"
+            },
+            "ticketNumber": "1252420000001",
+            "type": "E_TICKET",
+            "itemNumber": "1",
+            "totalAmount": 3101,
+            "paymentType": "4",
+            "netAmount": 2819
+        }
+    ],
+    "echoToken": "223344",
+    "target": "Production",
+    "version": 2.0,
+    "sequenceNmbr": 1,
+    "retransmissionIndicator": false
+}
 ```
-
+</div>
+</details>
 ## Payment with Redirect
 
-For asynchronous payment processing where customers are redirected to payment provider websites.
-
+When asynchronous payment type is used when a customer redirected to a payment provider website, then two requests should be made:
 ### Payment Flow
 
 1. **Payment Request**: Initiate payment and receive redirect URL
 2. **Customer Redirect**: Customer completes payment on provider site
 3. **Return to Merchant**: Customer returns with payment confirmation
 4. **Ticket Demand**: Request tickets after successful payment
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant Customer as Customer
+    box SMS
+        participant PaymentService as Payment Service
+        participant OTAService as OTA Service
+    end
+    participant PaymentProvider as Payment Provider
+    Customer ->> PaymentService: Payment request
+    PaymentService ->> PaymentProvider: Authorize
+    PaymentProvider -->> PaymentService: 
+    PaymentService -->> Customer: Redirect URL
+    Customer ->> PaymentProvider: Submits a payment form
+    PaymentProvider -->> Customer: Returns to merchant site
+    PaymentProvider -->> PaymentService: Payment result
+
+    Customer ->> OTAService: Request tickets
+    OTAService -->> Customer: Tickets
+```
 
 ### Get Payment URL
 
@@ -237,160 +490,339 @@ For asynchronous payment processing where customers are redirected to payment pr
 POST https://api.worldticket.net/payment-service/payments/{tenant}
 ```
 
-#### Request Body
+<details>
+<summary><strong>✅ Get Payment JSON Request Example</strong></summary>
+<div markdown="1">
 
 ```json
 {
-  "orderId": "{record_locator}",
+  "tenant": "test-tenant",
+  "orderId": "9KEOQC",
   "paymentInfo": {
-    "method": "credit_card",
-    "provider": "stripe"
+    "paymentMethod": "credit_card",
+    "psp": "d2_async",
+    "providerName": "dibs"
   },
   "buyerInfo": {
-    "firstName": "{first_name}",
-    "lastName": "{last_name}",
-    "email": "{email}",
-    "phone": "{phone}"
+    "firstName": "Victor",
+    "secondName": "Doom",
+    "city": "IEV",
+    "country": "AU",
+    "address": "chavdar 34",
+    "email": "qawt@ciklum.net",
+    "phone": "+49 151 20974332",
+    "zipCode": "02141",
+    "preferredLanguage": "en"
   },
-  "amount": "{total_amount}",
-  "currency": "{currency_code}"
+  "amount": 123.88,
+  "currency": "EUR",
+  "channel": "OTA"
 }
 ```
 
-#### Response
+</div>
+</details>
+
+<details>
+<summary><strong>✅ Get Payment JSON Response Example</strong></summary>
+<div markdown="1">
 
 ```json
 {
-  "paymentId": "{payment_id}",
-  "asynchronousRedirectUrl": "{redirect_url}",
-  "expiryTime": "{expiry_datetime}",
-  "status": "pending"
+  "status": "NEED_REDIRECT",
+  "transactionId": "1847468",
+  "provider": "d2_async",
+  "submitMethod": "POST",
+  "asynchronousRedirectUrl": "https://payment.architrade.com/paymentweb/start.action?accepturl=https://test-api.worldticket.net/payment-service/payments/test-tenant/providers/d2_async/confirmation&amp;cancelurl=https://test-api.worldticket.net/payment-service/payments/test-tenant/providers/d2_async/confirmation?orderid=9KEOQC:398253_1847468&amp;amount=12388¤cy=EUR&amp;merchant=90233698&amp;orderid=9KEOQC:398253_1847468&amp;lang&amp;ordertext=1847468&amp;test=1&amp;md5=09c96fb98b43f06f72703bd488c45c3f&amp;md5key=09c96fb98b43f06f72703bd488c45c3f&amp;decorator=responsive&amp;capturenow=true",
+  "asynchronousRequestData": {
+    "accepturl": "https://test-api.worldticket.net/payment-service/payments/test-tenant/providers/d2_async/confirmation",
+    "orderid": "9KEOQC:398253_1847468",
+    "orderId": "9KEOQC:398253_1847468",
+    "mid": "90233698",
+    "ordertext": "1847468",
+    "cancelUrl": "https://test-api.worldticket.net/payment-service/payments/test-tenant/providers/d2_async/confirmation?orderid=9KEOQC:398253_1847468",
+    "orderText": "1847468",
+    "orderAmount": "12388",
+    "requestUrl": "https://payment.architrade.com/paymentweb/start.action",
+    "testModeParam": "1",
+    "testMode": "test",
+    "currency": "EUR",
+    "confirmUrl": "https://test-api.worldticket.net/payment-service/payments/test-tenant/providers/d2_async/confirmation",
+    "md5key": "09c96fb98b43f06f72703bd488c45c3f",
+    "lang": "en",
+    "cancelurl": "https://test-api.worldticket.net/payment-service/payments/test-tenant/providers/d2_async/confirmation?orderid=9KEOQC:398253_1847468",
+    "md5": "09c96fb98b43f06f72703bd488c45c3f"
+  }
 }
 ```
 
-### Request Tickets (After Payment)
+</div>
+</details>
 
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<OTA_AirDemandTicketRQ xmlns="http://www.opentravel.org/OTA/2003/05" Version="2.001">
-    <POS>
-        <Source>
-            <RequestorID Type="5" ID="{agent_id}" ID_Context="{agency_id}"/>
-        </Source>
-    </POS>
-    <DemandTicketDetail>
-        <BookingReferenceID ID="{record_locator}" Type="14">
-            <CompanyName Code="{airline_code}"/>
-        </BookingReferenceID>
-        <!-- No payment info required - already paid -->
-        <TicketingInfo TicketType="eTicket">
-            <DeliveryInfo DeliveryMethod="Email">
-                <Email>{delivery_email}</Email>
-            </DeliveryInfo>
-        </TicketingInfo>
-    </DemandTicketDetail>
-</OTA_AirDemandTicketRQ>
+
+### Submit a payment form
+A customer should open asynchronousRedirectUrl from the response above and insert Credit Card data and pay.
+
+### Request tickets without payment info
+No payment info is required because tickets have been paid already.
+<details>
+<summary><strong>✅ Request tickets without payment info JSON Request Example</strong></summary>
+<div markdown="1">
+
+```json
+{
+  "demandTicketDetail": {
+    "messageFunction": [
+      {
+        "function": "ET"
+      }
+    ],
+    "bookingReferenceID": {
+      "companyName": {
+        "code": "test-tenant"
+      },
+      "type": "14",
+      "id": "9KEOQC"
+    }
+  },
+  "timeStamp": 1620804633000,
+  "target": "Production",
+  "version": 1.000,
+  "sequenceNmbr": 1,
+  "correlationID": "801e6c51-95e6-41b1-8ee3-cc265f3d930z"
+}
 ```
+</div>
+</details>
+<details>
+<summary><strong>✅ Request tickets without payment info JSON Response Example</strong></summary>
+<div markdown="1">
+```json
+{
+    "success": {},
+    "bookingReferenceID": {
+        "companyName": {
+            "code": "DX"
+        },
+        "type": "14",
+        "id": "9KEOQC"
+    },
+    "ticketItemInfo": [
+        {
+            "passengerName": {
+                "namePrefix": [
+                    "Mr"
+                ],
+                "givenName": [
+                    "John"
+                ],
+                "surname": "Doe",
+                "passengerTypeCode": "ADT"
+            },
+            "ticketNumber": "2461118530533",
+            "type": "E_TICKET",
+            "itemNumber": "1",
+            "totalAmount": 123.88,
+            "paymentType": "5",
+            "netAmount": 110.72
+        }
+    ],
+    "timeStamp": 1620807911520,
+    "target": "Production",
+    "version": 1.000,
+    "sequenceNmbr": 1,
+    "retransmissionIndicator": false
+}
+```
+</div>
+</details>
+
 
 ## Issue EMDs for Ancillaries
-
 Electronic Miscellaneous Documents (EMDs) for additional services.
 
-### Request
+<details>
+<summary><strong>✅ Issue EMDs for Ancillaries JSON Request Example</strong></summary>
+<div markdown="1">
 
-```xml
-<OTA_AirDemandTicketRQ>
-    <DemandTicketDetail>
-        <BookingReferenceID ID="{record_locator}" Type="14"/>
-        <AncillaryServices>
-            <AncillaryService ServiceType="Baggage" ServiceCode="BAGS" Quantity="1">
-                <Description>Extra Baggage - 20kg</Description>
-                <Price Amount="{service_price}" CurrencyCode="{currency_code}"/>
-            </AncillaryService>
-            <AncillaryService ServiceType="Meal" ServiceCode="MEAL" Quantity="1">
-                <Description>Special Meal</Description>
-                <Price Amount="{meal_price}" CurrencyCode="{currency_code}"/>
-            </AncillaryService>
-        </AncillaryServices>
-    </DemandTicketDetail>
-</OTA_AirDemandTicketRQ>
+```json
+{
+    "pos": {
+        "source": [
+            {
+                "requestorID": {
+                    "type": "5",
+                    "id": "35896241"
+                },
+                "bookingChannel": {
+                    "type": "COM"
+                },
+                "agentSine": "2BB",
+                "pseudoCityCode": "ATL",
+                "airlineVendorID": "1P",
+                "isocountry": "US",
+                "isocurrency": "EUR",
+                "erspuserID": "1#Preved"
+            }
+        ]
+    },
+    "demandTicketDetail": {
+        "messageFunction": [
+            {
+                "function": "EMD"
+            }
+        ],
+        "bookingReferenceID": {
+            "companyName": {
+                "code": "test-qa-rc"
+            },
+            "type": "14",
+            "id": "11XS47"
+        },
+        "paymentInfo": [
+            {
+                "creditCardInfo": [
+                    {
+                        "amount": 140.00
+                    }
+                ],
+                "paymentType": "1",
+                "text": "100001798",
+                "currencyCode": "EUR",
+                "amount": 140.00
+            }
+        ],
+        "passengerName": [
+            {
+                "namePrefix": [
+                    "Mr."
+                ],
+                "givenName": [
+                    "Second"
+                ],
+                "surname": "WorldTicket",
+                "rph": "3",
+                "passengerTypeCode": "CHD"
+            }
+        ],
+        "emdinfo": {
+            "baseFare": [
+                {
+                    "currencyCode": "EUR",
+                    "amount": 140.0
+                }
+            ],
+            "totalFare": [
+                {
+                    "currencyCode": "EUR",
+                    "amount": 140.0
+                }
+            ],
+            "ticketDocument": [
+                {
+                    "couponInfo": [
+                        {
+                            "reasonForIssuance": {
+                                "code": "C",
+                                "subCode": "0C3",
+                                "description": "Extra baggage 1 piece up to 23kg"
+                            },
+                            "filedFeeInfo": {
+                                "currencyCode": "EUR",
+                                "amount": 20,
+                                "bsrrate": 1
+                            },
+                            "number": 1,
+                            "inConnectionNbr": 1,
+                            "fareBasisCode": "GVDXSRP",
+                            "associateInd": true,
+                            "remark": "XBAG",
+                            "assocFareBasisCode": "GVDXSRP",
+                            "consumedAtIssuanceInd": false,
+                            "unitOfMeasureQuantity": 1
+                        },
+                        {
+                            "reasonForIssuance": {
+                                "code": "C",
+                                "subCode": "0PX",
+                                "description": "Ski equipment up to 15kg"
+                            },
+                            "filedFeeInfo": {
+                                "currencyCode": "EUR",
+                                "amount": 50,
+                                "bsrrate": 1
+                            },
+                            "number": 2,
+                            "inConnectionNbr": 2,
+                            "fareBasisCode": "LDXBED",
+                            "associateInd": true,
+                            "remark": "SPEQ",
+                            "assocFareBasisCode": "LDXBED",
+                            "consumedAtIssuanceInd": false,
+                            "unitOfMeasureQuantity": 1
+                        }
+                    ],
+                    "inConnectionDocNbr": "2461118401860"
+                }
+            ],
+            "totalFltSegQty": 1
+        }
+    },
+    "echoToken": "223344",
+    "timeStamp": 1158337833000,
+    "target": "Production",
+    "version": 1.000,
+    "sequenceNmbr": 1
+}
 ```
 
-### Response
+</div>
+</details>
 
-```xml
-<OTA_AirDemandTicketRS>
-    <Success/>
-    <EMDItemInfo EMDNumber="{emd_number}" NetAmount="{net_amount}" TotalAmount="{total_amount}">
-        <ServiceInfo ServiceType="Baggage" ServiceCode="BAGS">
-            <Description>Extra Baggage - 20kg</Description>
-        </ServiceInfo>
-    </EMDItemInfo>
-</OTA_AirDemandTicketRS>
+<details>
+<summary><strong>✅ Issue EMDs for Ancillaries JSON Response Example</strong></summary>
+<div markdown="1">
+
+```json
+{
+    "success": {},
+    "bookingReferenceID": {
+        "companyName": {
+            "code": "test-qa-rc"
+        },
+        "id": "11XS47"
+    },
+    "ticketItemInfo": [
+        {
+            "passengerName": {
+                "namePrefix": [
+                    "Mr."
+                ],
+                "givenName": [
+                    "Second"
+                ],
+                "surname": "WorldTicket"
+            },
+            "ticketNumber": "7776660003692",
+            "type": "E_TICKET",
+            "itemNumber": "1",
+            "totalAmount": 50.00000,
+            "paymentType": "4",
+            "netAmount": 50.00000
+        }
+    ]
+}
 ```
+</div>
+</details>
 
 ## Currency Conversion
 
-Payment currency can be different from booking currency.
+Payment currency can be different from the order currency. If so then OTA partner would need to convert an amount to be paid in another currency.
 
 ### Get Conversion Rate
 
 ```bash
 GET https://test-api.worldticket.net/payment-service/currencies/convert?currency_from={from_currency}&currency_to={to_currency}&amount={amount}
 Authorization: Bearer {access_token}
-```
-
-### Response
-
-```json
-{
-  "fromCurrency": "{from_currency}",
-  "toCurrency": "{to_currency}",
-  "originalAmount": "{original_amount}",
-  "convertedAmount": "{converted_amount}",
-  "exchangeRate": "{exchange_rate}",
-  "conversionDate": "{conversion_date}"
-}
-```
-
-## Error Responses
-
-### Payment Declined
-
-```xml
-<OTA_AirDemandTicketRS>
-    <Errors>
-        <Error Code="PAYMENT_DECLINED" ShortText="Payment declined">
-            The payment was declined by the card issuer. Please try a different card.
-        </Error>
-    </Errors>
-</OTA_AirDemandTicketRS>
-```
-
-### Insufficient Funds
-
-```json
-{
-  "errors": [
-    {
-      "code": "INSUFFICIENT_FUNDS",
-      "message": "Insufficient funds in debit-credit account",
-      "accountId": "{account_id}"
-    }
-  ]
-}
-```
-
-### Payment Timeout
-
-```json
-{
-  "errors": [
-    {
-      "code": "PAYMENT_TIMEOUT",
-      "message": "Payment processing timed out. Please try again.",
-      "paymentId": "{payment_id}"
-    }
-  ]
-}
 ```
