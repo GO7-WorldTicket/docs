@@ -22,9 +22,28 @@ The purpose is to make a payment for existing booking and issue tickets.
     - [JSON Request](#json-request)
     - [JSON Response](#json-response)
   - [Payment with Debit-Credit Account](#payment-with-debit-credit-account)
+    - [Get Available Debit-Credit Accounts](#get-available-debit-credit-accounts)
+    - [Response](#response)
+    - [Payment with Debit-Credit Account](#payment-with-debit-credit-account-1)
   - [Payment with Redirect](#payment-with-redirect)
+    - [Payment Flow](#payment-flow)
+    - [Payment with Redirect has 3 main steps:](#payment-with-redirect-has-3-main-steps)
+    - [Step 1: Get Payment URL](#step-1-get-payment-url)
+      - [Request Format](#request-format)
+      - [JSON Request Template](#json-request-template)
+      - [JSON Request Example](#json-request-example)
+      - [JSON Response Example](#json-response-example)
+    - [Step 2: Submit Payment Form](#step-2-submit-payment-form)
+    - [Step 3: Request Tickets without payment info](#step-3-request-tickets-without-payment-info)
+      - [Request Format](#request-format-1)
+      - [JSON Request Example](#json-request-example-1)
+      - [JSON Response Example](#json-response-example-1)
   - [Issue EMDs for Ancillaries](#issue-emds-for-ancillaries)
+    - [EMD Request](#emd-request)
+    - [EMD Response](#emd-response)
   - [Currency Conversion](#currency-conversion)
+    - [Get Conversion Rate](#get-conversion-rate)
+    - [Response](#response-1)
   - [Error Responses](#error-responses)
     - [Payment Declined](#payment-declined)
     - [Insufficient Funds](#insufficient-funds)
@@ -343,14 +362,29 @@ For asynchronous payment processing where customers are redirected to payment pr
 
 ### Payment Flow
 
-1. **Payment Request**: Initiate payment and receive redirect URL
-2. **Customer Redirect**: Customer completes payment on provider site
-3. **Return to Merchant**: Customer returns with payment confirmation
-4. **Ticket Demand**: Request tickets after successful payment
+```mermaid
+sequenceDiagram
+    actor Customer
+    participant PaymentService as Payment Service
+    participant OTAService as OTA Service
+    participant PaymentProvider as Payment Provider
 
-### Get Payment URL
+    Customer->>PaymentService: 1. Payment request
+    PaymentService->>OTAService: 2. Authorize
+    OTAService->>PaymentProvider: 3. Create payment session
+    PaymentProvider-->>Customer: 4. Redirect URL
+    Customer->>PaymentProvider: 5. Submit payment form
+    PaymentProvider-->>Customer: 6. Return to merchant site
+    PaymentProvider->>PaymentService: 7. Payment result
+    Customer->>OTAService: 8. Request tickets
+    OTAService-->>Customer: 9. Tickets
+```
 
-#### Request
+### Payment with Redirect has 3 main steps:
+
+### Step 1: Get Payment URL
+
+#### Request Format
 
 ```bash
 curl -X POST \
@@ -360,43 +394,139 @@ curl -X POST \
   -d @payment-request.json
 ```
 
-#### Request Body
+#### JSON Request Template
+
+<details>
+<summary><strong>📋 Template</strong></summary>
+<div markdown="1">
 
 ```json
 {
+  "tenant": "{tenant}",
   "orderId": "{record_locator}",
   "paymentInfo": {
-    "method": "credit_card",
-    "provider": "stripe"
+    "paymentMethod": "credit_card",
+    "psp": "d2_async",
+    "providerName": "dibs"
   },
   "buyerInfo": {
     "firstName": "{first_name}",
     "lastName": "{last_name}",
+    "city": "{city}",
+    "country": "{country}",
+    "address": "{address}",
     "email": "{email}",
-    "phone": "{phone}"
+    "phone": "{phone}",
+    "zipCode": "{zipCode}",
+    "preferredLanguage": "en"
   },
   "amount": "{total_amount}",
-  "currency": "{currency_code}"
+  "currency": "{currency_code}",
+  "channel": "{channel}"
 }
 ```
 
-#### Response
+</div>
+
+</details>
+
+#### JSON Request Example
+
+<details>
+<summary><strong>✅ Example</strong></summary>
+<div markdown="1">
 
 ```json
 {
-  "paymentId": "{payment_id}",
-  "asynchronousRedirectUrl": "{redirect_url}",
-  "expiryTime": "{expiry_datetime}",
-  "status": "pending"
+  "tenant": "test-tenant",
+  "orderId": "9KEOQC",
+  "paymentInfo": {
+    "paymentMethod": "credit_card",
+    "psp": "d2_async",
+    "providerName": "dibs"
+  },
+  "buyerInfo": {
+    "firstName": "Victor",
+    "lastName": "Doom",
+    "city": "IEV",
+    "country": "AU",
+    "address": "chavdar 34",
+    "email": "qawt@ciklum.net",
+    "phone": "+49 151 20974332",
+    "zipCode": "02141",
+    "preferredLanguage": "en"
+  },
+  "amount": 123.88,
+  "currency": "EUR",
+  "channel": "OTA"
 }
 ```
 
-### Request Tickets (After Payment)
+</div>
 
-When payment has already been completed via redirect, you can request tickets without payment information:
+</details>
+
+#### JSON Response Example
 
 <details>
-<summary><strong>✅ Request Example</strong></summary>
+<summary><strong>✅ Example</strong></summary>
+<div markdown="1">
+
+```json
+{
+  "status": "NEED_REDIRECT",
+  "transactionId": "1847468",
+  "provider": "d2_async",
+  "submitMethod": "POST",
+  "asynchronousRedirectUrl": "https://payment.architrade.com/paymentweb/start.action?accepturl=https://test-api.worldticket.net/payment-service/payments/test-tenant/providers/d2_async/confirmation&amp;cancelurl=https://test-api.worldticket.net/payment-service/payments/test-tenant/providers/d2_async/confirmation?orderid=9KEOQC:398253_1847468&amp;amount=12388¤cy=EUR&amp;merchant=90233698&amp;orderid=9KEOQC:398253_1847468&amp;lang&amp;ordertext=1847468&amp;test=1&amp;md5=09c96fb98b43f06f72703bd488c45c3f&amp;md5key=09c96fb98b43f06f72703bd488c45c3f&amp;decorator=responsive&amp;capturenow=true",
+  "asynchronousRequestData": {
+    "accepturl": "https://test-api.worldticket.net/payment-service/payments/test-tenant/providers/d2_async/confirmation",
+    "orderid": "9KEOQC:398253_1847468",
+    "orderId": "9KEOQC:398253_1847468",
+    "mid": "90233698",
+    "ordertext": "1847468",
+    "cancelUrl": "https://test-api.worldticket.net/payment-service/payments/test-tenant/providers/d2_async/confirmation?orderid=9KEOQC:398253_1847468",
+    "orderText": "1847468",
+    "orderAmount": "12388",
+    "requestUrl": "https://payment.architrade.com/paymentweb/start.action",
+    "testModeParam": "1",
+    "testMode": "test",
+    "currency": "EUR",
+    "confirmUrl": "https://test-api.worldticket.net/payment-service/payments/test-tenant/providers/d2_async/confirmation",
+    "md5key": "09c96fb98b43f06f72703bd488c45c3f",
+    "lang": "en",
+    "cancelurl": "https://test-api.worldticket.net/payment-service/payments/test-tenant/providers/d2_async/confirmation?orderid=9KEOQC:398253_1847468",
+    "md5": "09c96fb98b43f06f72703bd488c45c3f"
+  }
+}
+```
+
+</div>
+
+</details>
+
+### Step 2: Submit Payment Form
+
+A customer should open `asynchronousRedirectUrl` from the response above and insert Credit Card data and pay.
+
+### Step 3: Request Tickets without payment info
+
+No payment info is required because tickets have been paid already.
+
+#### Request Format
+
+```bash
+curl -X POST \
+  'https://test-api.worldticket.net/ota/v2015b/OTA_AirDemandTicketRQ' \
+  -H 'Authorization: Bearer {access_token}' \
+  -H 'Content-Type: application/json' \
+  -d @AirDemandTicketRQ.json
+```
+
+#### JSON Request Example
+
+<details>
+<summary><strong>✅ Example</strong></summary>
 <div markdown="1">
 
 ```json
@@ -410,8 +540,8 @@ When payment has already been completed via redirect, you can request tickets wi
         },
         "requestorID": {
           "type": "5",
-          "id": "{agent_id}",
-          "name": "{agency_id}"
+          "id": "AGENT123",
+          "name": "AGENCY1"
         },
         "isocountry": "US",
         "isoCurrency": "USD"
@@ -425,18 +555,63 @@ When payment has already been completed via redirect, you can request tickets wi
       }
     ],
     "bookingReferenceID": {
-      "id": "{record_locator}",
+      "id": "9KEOQC",
       "type": "14",
       "companyName": {
-        "code": "{airline_code}",
-        "companyShortName": "{airline_code}"
+        "companyShortName": "test-tenant"
       }
     }
   }
 }
 ```
 
-**Note:** No `paymentInfo` is required in the request since payment was already processed.
+**Note:** No `paymentInfo` is required since payment was already processed in Step 1-2.
+
+</div>
+
+</details>
+
+#### JSON Response Example
+
+<details>
+<summary><strong>✅ Example</strong></summary>
+<div markdown="1">
+
+```json
+{
+  "success": {},
+  "bookingReferenceID": {
+    "companyName": {
+      "code": "DX"
+    },
+    "type": "14",
+    "id": "9KEOQC"
+  },
+  "ticketItemInfo": [
+    {
+      "passengerName": {
+        "namePrefix": ["MR"],
+        "givenName": ["John"],
+        "middleName": [],
+        "surname": "Doe",
+        "nameSuffix": [],
+        "nameTitle": [],
+        "passengerTypeCode": "ADT"
+      },
+      "conjunctiveTicket": [],
+      "ticketNumber": "2461118530533",
+      "type": "E_TICKET",
+      "itemNumber": "1",
+      "totalAmount": 123.88,
+      "paymentType": "5",
+      "netAmount": 110.72
+    }
+  ],
+  "timeStamp": "2024-10-30T10:30:00.000Z",
+  "version": 2.001,
+  "retransmissionIndicator": false
+}
+```
 
 </div>
 
@@ -454,20 +629,27 @@ Electronic Miscellaneous Documents (EMDs) for additional services.
 
 ```json
 {
-  "version": "2.001",
+  "version": "1.000",
+  "echoToken": "223344",
+  "timeStamp": "2006-09-15T10:30:33-06:00",
+  "target": "Production",
+  "sequenceNmbr": "1",
   "pos": {
     "source": [
       {
-        "bookingChannel": {
-          "type": "OTA"
-        },
+        "erSPuserID": "1#Preved",
+        "agentSine": "2BB",
+        "pseudoCityCode": "ATL",
+        "isocountry": "US",
+        "isoCurrency": "EUR",
+        "airlineVendorID": "1P",
         "requestorID": {
           "type": "5",
-          "id": "{agent_id}",
-          "name": "{agency_id}"
+          "id": "35896241"
         },
-        "isocountry": "US",
-        "isoCurrency": "USD"
+        "bookingChannel": {
+          "type": "COM"
+        }
       }
     ]
   },
@@ -478,21 +660,95 @@ Electronic Miscellaneous Documents (EMDs) for additional services.
       }
     ],
     "bookingReferenceID": {
-      "id": "{record_locator}",
+      "id": "11XS47",
       "type": "14",
       "companyName": {
-        "code": "{airline_code}",
-        "companyShortName": "{airline_code}"
+        "code": "test-qa-rc"
       }
     },
     "paymentInfo": [
       {
-        "paymentType": "32",
-        "text": "{external_transaction_id}",
-        "currencyCode": "USD",
-        "amount": 50.00
+        "paymentType": "1",
+        "text": "100001798",
+        "currencyCode": "EUR",
+        "amount": 140.00,
+        "creditCardInfo": [
+          {
+            "amount": 140.00
+          }
+        ]
       }
-    ]
+    ],
+    "passengerName": [
+      {
+        "rph": "3",
+        "passengerTypeCode": "CHD",
+        "namePrefix": ["Mr."],
+        "givenName": ["Second"],
+        "middleName": [],
+        "surname": "WorldTicket",
+        "nameSuffix": [],
+        "nameTitle": []
+      }
+    ],
+    "emdInfo": {
+      "totalFltSegQty": "1",
+      "baseFare": {
+        "amount": 140.00,
+        "currencyCode": "EUR"
+      },
+      "totalFare": {
+        "amount": 140.00,
+        "currencyCode": "EUR"
+      },
+      "ticketDocument": [
+        {
+          "inConnectionDocNbr": "2461118401860",
+          "couponInfo": [
+            {
+              "number": "1",
+              "inConnectionNbr": "1",
+              "associateInd": true,
+              "consumedAtIssuanceInd": false,
+              "fareBasisCode": "GVDXSRP",
+              "assocFareBasisCode": "GVDXSRP",
+              "remark": "XBAG",
+              "unitOfMeasureQuantity": "1",
+              "reasonForIssuance": {
+                "code": "C",
+                "subCode": "0C3",
+                "description": "Extra baggage 1 piece up to 23kg"
+              },
+              "filedFeeInfo": {
+                "amount": 20.00,
+                "currencyCode": "EUR",
+                "bsrRate": "1"
+              }
+            },
+            {
+              "number": "2",
+              "inConnectionNbr": "2",
+              "associateInd": true,
+              "consumedAtIssuanceInd": false,
+              "fareBasisCode": "LDXBED",
+              "assocFareBasisCode": "LDXBED",
+              "remark": "SPEQ",
+              "unitOfMeasureQuantity": "1",
+              "reasonForIssuance": {
+                "code": "C",
+                "subCode": "0PX",
+                "description": "Ski equipment up to 15kg"
+              },
+              "filedFeeInfo": {
+                "amount": 50.00,
+                "currencyCode": "EUR",
+                "bsrRate": "1"
+              }
+            }
+          ]
+        }
+      ]
+    }
   }
 }
 ```
@@ -512,26 +768,32 @@ Electronic Miscellaneous Documents (EMDs) for additional services.
   "success": {},
   "bookingReferenceID": {
     "companyName": {
-      "companyShortName": "{airline_code}",
-      "code": "{airline_code}"
+      "code": "test-qa-rc"
     },
-    "type": "14",
-    "id": "{record_locator}"
+    "id": "11XS47"
   },
-  "emdItemInfo": [
+  "ticketItemInfo": [
     {
-      "emdNumber": "{emd_number}",
-      "netAmount": 45.00,
+      "ticketNumber": "7776660003692",
+      "type": "E_TICKET",
+      "itemNumber": "1",
       "totalAmount": 50.00,
-      "serviceInfo": {
-        "serviceType": "Baggage",
-        "serviceCode": "BAGS",
-        "description": "Extra Baggage - 20kg"
-      }
+      "paymentType": "4",
+      "netAmount": 50.00,
+      "passengerName": {
+        "namePrefix": ["Mr."],
+        "givenName": ["Second"],
+        "middleName": [],
+        "surname": "WorldTicket",
+        "nameSuffix": [],
+        "nameTitle": [],
+        "passengerTypeCode": "ADT"
+      },
+      "conjunctiveTicket": []
     }
   ],
   "timeStamp": "2024-10-30T10:00:00.000Z",
-  "version": 2.001,
+  "version": 1.000,
   "retransmissionIndicator": false
 }
 ```
@@ -572,31 +834,18 @@ Common error responses for payment and ticketing requests:
 
 ### Payment Declined
 
-<details>
-<summary><strong>❌ Error Example</strong></summary>
-<div markdown="1">
-
 ```json
 {
   "errors": [
     {
       "code": "PAYMENT_DECLINED",
-      "shortText": "Payment declined",
       "message": "The payment was declined by the card issuer. Please try a different card."
     }
   ]
 }
 ```
 
-</div>
-
-</details>
-
 ### Insufficient Funds
-
-<details>
-<summary><strong>❌ Error Example</strong></summary>
-<div markdown="1">
 
 ```json
 {
@@ -610,15 +859,7 @@ Common error responses for payment and ticketing requests:
 }
 ```
 
-</div>
-
-</details>
-
 ### Payment Timeout
-
-<details>
-<summary><strong>❌ Error Example</strong></summary>
-<div markdown="1">
 
 ```json
 {
@@ -631,7 +872,3 @@ Common error responses for payment and ticketing requests:
   ]
 }
 ```
-
-</div>
-
-</details>
