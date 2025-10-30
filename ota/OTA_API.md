@@ -7,11 +7,11 @@ title: OTA API Generic Integration Guide
 
 ## Table of Contents
 
+- [Change Log](#change-log)
 - [Introduction](#introduction)
+  - [Base URLs](#base-urls)
+  - [HTTP Headers](#http-headers)
 - [Business Flow](#business-flow)
-- [Base URLs](#base-urls)
-- [HTTP Headers](#http-headers)
-- [Authentication](generic/authentication)
 - [OTA XML Schema 2015](#ota-xml-schema-2015)
 - [Postman Collection](#postman-collection)
 - [Code Lists](#code-lists)
@@ -186,10 +186,10 @@ Please update the variables in collection such as apiKey, agent_id, agent_name a
 - [Regular Booking](generic/booking-regular)
   - [Regular booking for One-way trip](generic/booking-regular#airbookrq-for-oneway-trip)
   - [Regular booking for Round trip](generic/booking-regular#airbookrq-for-round-trip)
-- [Group Booking](generic/booking-group)
-  - [Group booking for One-way trip](generic/booking-group#airpricerq-for-oneway-trip)
-  - [Group booking for Round trip](generic/booking-group#airpricerq-for-round-trip)
-  - [Group booking completion policy](generic/booking-group#group-booking-completion-policy)
+<!-- - [Group Booking](generic/booking-group) -->
+  <!-- - [Group booking for One-way trip](generic/booking-group#airpricerq-for-oneway-trip) -->
+  <!-- - [Group booking for Round trip](generic/booking-group#airpricerq-for-round-trip) -->
+  <!-- - [Group booking completion policy](generic/booking-group#group-booking-completion-policy) -->
 - [Read Booking](generic/read-booking.md)
 - [Payment and Ticketing](generic/payment-ticketing)
   - [External Payment](generic/payment-ticketing#external-payment)

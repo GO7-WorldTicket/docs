@@ -9,16 +9,20 @@ The Air-Price Request message requests pricing information for specific flights 
 
 ## Table of Contents
 
-- [Base URLs](#base-urls)
-- [Endpoints](#endpoints)
-- [Basic Request Format](#basic-request-format)
-  - [With JWT Authentication](#with-jwt-authentication)
-  - [With API Key Authentication](#with-api-key-authentication)
-- [HTTP Headers](#http-headers)
-- [Request Parameters](#request-parameters)
-- [JSON Request](#json-request)
-- [JSON Response](#json-response)
-- [Error Responses](#error-responses)
+- [Price Check (AirPriceRQ)](#price-check-airpricerq)
+  - [Table of Contents](#table-of-contents)
+  - [Base URLs](#base-urls)
+  - [Endpoints](#endpoints)
+  - [Basic Request Format](#basic-request-format)
+    - [With JWT Authentication](#with-jwt-authentication)
+    - [With API Key Authentication](#with-api-key-authentication)
+  - [HTTP Headers](#http-headers)
+  - [JSON Request](#json-request)
+  - [JSON Response](#json-response)
+  - [Error Responses](#error-responses)
+    - [Price Not Available](#price-not-available)
+    - [Invalid Flight Segment](#invalid-flight-segment)
+    - [Fare Expired](#fare-expired)
 
 ## Base URLs
 
@@ -28,17 +32,17 @@ The Air-Price Request message requests pricing information for specific flights 
 | Test        | https://test-api.worldticket.net |
 
 ## Endpoints
-
-- Method: `POST` — Path: `/ota/v2015b/OTA` — Local-Name: `OTA_AirPriceRQ`
+- Method: `POST`
+- Path: `/ota/v2015b/OTA_AirPriceRQ`
+- Full URL: `{base_url}/ota/v2015b/OTA_AirPriceRQ` (choose base URL per environment above)
 
 ## Basic Request Format
 
 ### With JWT Authentication
 ```bash
 curl -X POST \
-  'https://test-api.worldticket.net/ota/v2015b/OTA' \
+  'https://test-api.worldticket.net/ota/v2015b/OTA_AirPriceRQ' \
   -H 'Authorization: Bearer {access_token}' \
-  -H 'Local-Name: OTA_AirPriceRQ' \
   -H 'Content-Type: application/json' \
   -d @AirPriceRQ.json
 ```
@@ -46,9 +50,8 @@ curl -X POST \
 ### With API Key Authentication
 ```bash
 curl -X POST \
-  'https://test-api.worldticket.net/ota/v2015b/OTA' \
+  'https://test-api.worldticket.net/ota/v2015b/OTA_AirPriceRQ' \
   -H 'X-API-Key: {api_key}' \
-  -H 'Local-Name: OTA_AirPriceRQ' \
   -H 'Content-Type: application/json' \
   -d @AirPriceRQ.json
 ```
@@ -61,20 +64,9 @@ Attach the following headers to OTA requests.
 |---------------|-------------------------------------|---------------------------|
 | Authorization | Bearer token for JWT authentication | Bearer {access_token}     |
 | X-API-Key     | API key for key-based authentication| {api_key}                 |
-| Local-Name    | OTA operation identifier            | OTA_AirPriceRQ           |
 | Content-Type  | Request content type                | application/json          |
 
 Note: Use either `Authorization` (JWT) OR `X-API-Key` (API key), not both.
-
-## Request Parameters
-
-All parameters are required for the AirPriceRQ request.
-
-| Parameter | Description | Example |
-|-----------|-------------|---------|
-| base_url | Base URL | https://test-api.worldticket.net/ota/v2015b/OTA |
-| access_token | Access Token | *** |
-| local-name | Custom HTTP header | OTA_AirPriceRQ |
 
 ## JSON Request
 

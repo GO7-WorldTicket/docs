@@ -9,17 +9,22 @@ The purpose is to read the existing booking in the airline system to display the
 
 ## Table of Contents
 
-- [Base URLs](#base-urls)
-- [Endpoints](#endpoints)
-- [Basic Request Format](#basic-request-format)
-  - [With JWT Authentication](#with-jwt-authentication)
-  - [With API Key Authentication](#with-api-key-authentication)
-- [HTTP Headers](#http-headers)
-- [Request Parameters](#request-parameters)
-- [JSON Request](#json-request)
-- [JSON Response](#json-response)
-- [Booking Status Codes](#booking-status-codes)
-- [Error Responses](#error-responses)
+- [Read Booking (ReadRQ)](#read-booking-readrq)
+  - [Table of Contents](#table-of-contents)
+  - [Base URLs](#base-urls)
+  - [Endpoint](#endpoint)
+  - [Basic Request Format](#basic-request-format)
+    - [With JWT Authentication](#with-jwt-authentication)
+    - [With API Key Authentication](#with-api-key-authentication)
+  - [HTTP Headers](#http-headers)
+  - [JSON Request](#json-request)
+  - [JSON Response](#json-response)
+  - [Booking Status Codes](#booking-status-codes)
+  - [Error Responses](#error-responses)
+    - [Booking Not Found](#booking-not-found)
+    - [Invalid Record Locator](#invalid-record-locator)
+    - [Booking Access Denied](#booking-access-denied)
+    - [Booking Expired](#booking-expired)
 
 ## Base URLs
 
@@ -65,15 +70,6 @@ Attach the following headers to OTA requests.
 | X-Realm | Airline realm identifier | {tenant-name} |
 
 **Note:** Use either `Authorization` (for JWT) OR `X-API-Key` (for API key authentication), not both.
-
-## Request Parameters
-
-All parameters are required for the ReadRQ request.
-
-| Parameter | Description | Example |
-|-----------|-------------|---------|
-| base_url | Base URL | https://test-api.worldticket.net/ota/v2015b/OTA_ReadRQ |
-| access_token | Access Token | *** |
 
 ## JSON Request
 
