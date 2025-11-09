@@ -141,7 +141,7 @@ Note: Use either `Authorization` (JWT) OR `X-API-Key` (API key), not both.
       "type": "14",
       "companyName": {
         "code": "{airline_code}",
-        "companyShortName": "{airline_code}"
+        "companyShortName": "{tenant_name}"
       }
     },
     "paymentInfo": [
@@ -370,11 +370,11 @@ sequenceDiagram
     participant PaymentProvider as Payment Provider
 
     Customer->>PaymentService: 1. Payment request
-    PaymentService->>OTAService: 2. Authorize
-    OTAService->>PaymentProvider: 3. Create payment session
-    PaymentProvider-->>Customer: 4. Redirect URL
-    Customer->>PaymentProvider: 5. Submit payment form
-    PaymentProvider-->>Customer: 6. Return to merchant site
+    PaymentService->>PaymentProvider: 2. Authorize
+    PaymentProvider-->>PaymentService: 3. Redirect URL
+    PaymentService-->>Customer: 4. Redirect URL
+    Customer->>PaymentProvider: 5. Submits a payment form
+    PaymentProvider-->>Customer: 6. Returns to merchant site
     PaymentProvider->>PaymentService: 7. Payment result
     Customer->>OTAService: 8. Request tickets
     OTAService-->>Customer: 9. Tickets
@@ -623,6 +623,14 @@ Electronic Miscellaneous Documents (EMDs) for additional services.
 
 ### EMD Request
 
+```bash
+curl -X POST \
+  'https://test-api.worldticket.net/ota/v2015b/OTA_AirDemandTicketRQ' \
+  -H 'Authorization: Bearer {access_token}' \
+  -H 'Content-Type: application/json' \
+  -d @AirDemandTicketRQ.json
+```
+
 <details>
 <summary><strong>✅ Example</strong></summary>
 <div markdown="1">
@@ -810,22 +818,17 @@ Payment currency can be different from booking currency.
 
 ```bash
 curl -X GET \
-  'https://test-api.worldticket.net/payment-service/currencies/convert?currency_from={from_currency}&currency_to={to_currency}&amount={amount}' \
+  'https://test-api.worldticket.net/sms-gateway/currencies/convert?currency_from={from_currency}&currency_to={to_currency}&amount={amount}' \
   -H 'Authorization: Bearer {access_token}' \
   -H 'Content-Type: application/json'
 ```
 
 ### Response
 
-```json
-{
-  "fromCurrency": "{from_currency}",
-  "toCurrency": "{to_currency}",
-  "originalAmount": "{original_amount}",
-  "convertedAmount": "{converted_amount}",
-  "exchangeRate": "{exchange_rate}",
-  "conversionDate": "{conversion_date}"
-}
+The endpoint returns the converted amount as a BigDecimal number:
+
+```text
+81.07
 ```
 
 ## Error Responses
