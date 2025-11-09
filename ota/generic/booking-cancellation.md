@@ -21,11 +21,13 @@ The purpose is to cancel entire bookings or specific segments/passengers.
     - [JSON Request](#json-request)
     - [JSON Response](#json-response)
   - [Cancel Specific Passengers](#cancel-specific-passengers)
-      - [Request Format](#request-format)
+    - [Request Format](#request-format)
     - [JSON Request](#json-request-1)
-  - [Cancel Specific Segments](#cancel-specific-segments)
-    - [JSON Request](#json-request-2)
     - [JSON Response](#json-response-1)
+  - [Cancel Specific Segments](#cancel-specific-segments)
+    - [Request Format](#request-format-1)
+    - [JSON Request](#json-request-2)
+    - [JSON Response](#json-response-2)
 
 ## Base URLs
 
@@ -196,7 +198,7 @@ Cancel the entire booking and all associated passengers.
 
 Remove individual passengers from group bookings.
 
-#### Request Format
+### Request Format
 
 ```bash
 curl -X POST \
@@ -1663,9 +1665,782 @@ curl -X POST \
 </div>
 </details>
 
+### JSON Response
+
+<details>
+<summary><strong>✅ Example</strong></summary>
+<div markdown="1">
+
+```json
+{
+  "success": {},
+  "airReservation": {
+    "airItinerary": {
+      "originDestinationOptions": {
+        "originDestinationOption": [
+          {
+            "flightSegment": [
+              {
+                "departureAirport": {
+                  "locationCode": "MKX"
+                },
+                "arrivalAirport": {
+                  "locationCode": "JXD"
+                },
+                "operatingAirline": {
+                  "code": "HHR",
+                  "flightNumber": "0121"
+                },
+                "equipment": [],
+                "departureDateTime": "2025-11-14T15:00:00.000+03:00",
+                "arrivalDateTime": "2025-11-14T15:30:00.000+03:00",
+                "rph": "1",
+                "marketingAirline": {
+                  "code": "HHR"
+                },
+                "flightNumber": "0121",
+                "fareBasisCode": "EWTOWM2",
+                "resBookDesigCode": "Y",
+                "bookingClassAvails": [],
+                "comment": [],
+                "stopLocation": [],
+                "status": "30"
+              }
+            ],
+            "rph": "1"
+          },
+          {
+            "flightSegment": [
+              {
+                "departureAirport": {
+                  "locationCode": "JXD"
+                },
+                "arrivalAirport": {
+                  "locationCode": "MKX"
+                },
+                "operatingAirline": {
+                  "code": "HHR",
+                  "flightNumber": "0081"
+                },
+                "equipment": [],
+                "departureDateTime": "2025-11-15T10:21:00.000+03:00",
+                "arrivalDateTime": "2025-11-15T10:55:00.000+03:00",
+                "rph": "2",
+                "marketingAirline": {
+                  "code": "HHR"
+                },
+                "flightNumber": "0081",
+                "fareBasisCode": "EELMOWX",
+                "resBookDesigCode": "Y",
+                "bookingClassAvails": [],
+                "comment": [],
+                "stopLocation": [],
+                "status": "16"
+              }
+            ],
+            "rph": "2"
+          }
+        ]
+      }
+    },
+    "priceInfo": {
+      "itinTotalFare": [
+        {
+          "baseFare": {
+            "currencyCode": "SAR",
+            "amount": 270
+          },
+          "equivFare": [],
+          "taxes": {
+            "tax": [
+              {
+                "taxCode": "VAT",
+                "currencyCode": "SAR",
+                "amount": 40.5
+              }
+            ],
+            "amount": 40.5
+          },
+          "fees": {
+            "fee": [
+              {
+                "feeCode": "VAT_VAT",
+                "currencyCode": "SAR",
+                "amount": 0
+              }
+            ],
+            "amount": 0
+          },
+          "totalFare": {
+            "currencyCode": "SAR",
+            "amount": 310.5
+          },
+          "fareBaggageAllowance": [],
+          "remark": []
+        },
+        {
+          "baseFare": {
+            "currencyCode": "SAR",
+            "amount": 0
+          },
+          "equivFare": [],
+          "taxes": {
+            "tax": [
+              {
+                "taxCode": "VAT",
+                "currencyCode": "SAR",
+                "amount": 0
+              }
+            ],
+            "amount": 0
+          },
+          "fees": {
+            "fee": [
+              {
+                "feeCode": "REFUND_PENALTY",
+                "feeTransactionType": "charge",
+                "currencyCode": "SAR",
+                "amount": 80
+              },
+              {
+                "feeCode": "REFUND_PENALTY_VAT",
+                "feeTransactionType": "charge",
+                "currencyCode": "SAR",
+                "amount": 12
+              }
+            ],
+            "currencyCode": "SAR",
+            "amount": 0
+          },
+          "totalFare": {
+            "currencyCode": "SAR",
+            "amount": 0
+          },
+          "fareBaggageAllowance": [],
+          "remark": [],
+          "usage": "refund"
+        }
+      ],
+      "fareInfos": {
+        "fareInfo": [
+          {
+            "fareReference": [
+              {
+                "value": "EWTOWM2",
+                "resBookDesigCode": "Y",
+                "accountCode": "EWTOWM2"
+              }
+            ],
+            "ruleInfo": {
+              "tpaextensions": {
+                "cancellationTimeLimit": "2025-11-12T12:00:00Z",
+                "confirmationTimeLimit": "2025-11-07T23:22:02Z",
+                "updateTravellersTimeLimit": "2025-11-11T12:00:00Z"
+              }
+            },
+            "filingAirline": {
+              "value": "HHR"
+            },
+            "marketingAirline": [],
+            "departureAirport": {
+              "locationCode": "MKX"
+            },
+            "arrivalAirport": {
+              "locationCode": "JXD"
+            },
+            "date": [],
+            "fareInfo": [],
+            "city": [],
+            "airport": [],
+            "rph": "1"
+          },
+          {
+            "fareReference": [
+              {
+                "value": "EELMOWX",
+                "resBookDesigCode": "Y",
+                "accountCode": "EELMOWX"
+              }
+            ],
+            "ruleInfo": {
+              "tpaextensions": {
+                "cancellationTimeLimit": "2025-11-12T12:00:00Z",
+                "confirmationTimeLimit": "2025-11-07T23:22:02Z",
+                "updateTravellersTimeLimit": "2025-11-11T12:00:00Z"
+              }
+            },
+            "filingAirline": {
+              "value": "HHR"
+            },
+            "marketingAirline": [],
+            "departureAirport": {
+              "locationCode": "JXD"
+            },
+            "arrivalAirport": {
+              "locationCode": "MKX"
+            },
+            "date": [],
+            "fareInfo": [],
+            "city": [],
+            "airport": [],
+            "rph": "2"
+          }
+        ]
+      },
+      "ptcfareBreakdowns": {
+        "ptcfareBreakdown": [
+          {
+            "passengerTypeQuantity": {
+              "code": "ADT",
+              "quantity": 2
+            },
+            "fareBasisCodes": {
+              "fareBasisCode": [
+                {
+                  "value": "EWTOWM2",
+                  "flightSegmentRPH": "1"
+                }
+              ]
+            },
+            "passengerFare": [
+              {
+                "baseFare": {
+                  "currencyCode": "SAR",
+                  "amount": 100
+                },
+                "equivFare": [],
+                "taxes": {
+                  "tax": [
+                    {
+                      "taxCode": "VAT",
+                      "taxName": "VAT",
+                      "currencyCode": "SAR",
+                      "amount": 15
+                    }
+                  ],
+                  "amount": 15
+                },
+                "fees": {
+                  "fee": [
+                    {
+                      "feeCode": "VAT_VAT",
+                      "currencyCode": "SAR",
+                      "amount": 0
+                    }
+                  ],
+                  "amount": 0
+                },
+                "totalFare": {
+                  "currencyCode": "SAR",
+                  "amount": 115
+                },
+                "fareBaggageAllowance": [],
+                "remark": []
+              }
+            ],
+            "travelerRefNumber": [
+              {
+                "rph": "1"
+              },
+              {
+                "rph": "2"
+              }
+            ],
+            "ticketDesignators": {
+              "ticketDesignator": [
+                {
+                  "flightRefRPH": "1"
+                }
+              ]
+            },
+            "fareInfo": [
+              {
+                "fareReference": [
+                  {
+                    "value": "EWTOWM2",
+                    "resBookDesigCode": "Y",
+                    "accountCode": "EWTOWM2"
+                  }
+                ],
+                "marketingAirline": [],
+                "date": [],
+                "fareInfo": [],
+                "city": [],
+                "airport": []
+              }
+            ],
+            "pricingUnit": [],
+            "flightRefNumberRPHList": [
+              "1"
+            ]
+          },
+          {
+            "passengerTypeQuantity": {
+              "code": "CHD",
+              "quantity": 2
+            },
+            "fareBasisCodes": {
+              "fareBasisCode": [
+                {
+                  "value": "EWTOWM2",
+                  "flightSegmentRPH": "1"
+                }
+              ]
+            },
+            "passengerFare": [
+              {
+                "baseFare": {
+                  "currencyCode": "SAR",
+                  "amount": 50
+                },
+                "equivFare": [],
+                "taxes": {
+                  "tax": [
+                    {
+                      "taxCode": "VAT",
+                      "taxName": "VAT",
+                      "currencyCode": "SAR",
+                      "amount": 7.5
+                    }
+                  ],
+                  "amount": 7.5
+                },
+                "fees": {
+                  "fee": [
+                    {
+                      "feeCode": "VAT_VAT",
+                      "currencyCode": "SAR",
+                      "amount": 0
+                    }
+                  ],
+                  "amount": 0
+                },
+                "totalFare": {
+                  "currencyCode": "SAR",
+                  "amount": 57.5
+                },
+                "fareBaggageAllowance": [],
+                "remark": []
+              }
+            ],
+            "travelerRefNumber": [
+              {
+                "rph": "3"
+              },
+              {
+                "rph": "4"
+              }
+            ],
+            "ticketDesignators": {
+              "ticketDesignator": [
+                {
+                  "flightRefRPH": "1"
+                }
+              ]
+            },
+            "fareInfo": [
+              {
+                "fareReference": [
+                  {
+                    "value": "EWTOWM2",
+                    "resBookDesigCode": "Y",
+                    "accountCode": "EWTOWM2"
+                  }
+                ],
+                "marketingAirline": [],
+                "date": [],
+                "fareInfo": [],
+                "city": [],
+                "airport": []
+              }
+            ],
+            "pricingUnit": [],
+            "flightRefNumberRPHList": [
+              "1"
+            ]
+          },
+          {
+            "passengerTypeQuantity": {
+              "code": "INF",
+              "quantity": 2
+            },
+            "fareBasisCodes": {
+              "fareBasisCode": [
+                {
+                  "value": "EWTOWM2",
+                  "flightSegmentRPH": "1"
+                }
+              ]
+            },
+            "passengerFare": [
+              {
+                "baseFare": {
+                  "currencyCode": "SAR",
+                  "amount": 0
+                },
+                "equivFare": [],
+                "taxes": {
+                  "tax": [
+                    {
+                      "taxCode": "VAT",
+                      "taxName": "VAT",
+                      "currencyCode": "SAR",
+                      "amount": 0
+                    }
+                  ],
+                  "amount": 0
+                },
+                "fees": {
+                  "fee": [],
+                  "amount": 0
+                },
+                "totalFare": {
+                  "currencyCode": "SAR",
+                  "amount": 0
+                },
+                "fareBaggageAllowance": [],
+                "remark": []
+              }
+            ],
+            "travelerRefNumber": [
+              {
+                "rph": "5"
+              },
+              {
+                "rph": "6"
+              }
+            ],
+            "ticketDesignators": {
+              "ticketDesignator": [
+                {
+                  "flightRefRPH": "1"
+                }
+              ]
+            },
+            "fareInfo": [
+              {
+                "fareReference": [
+                  {
+                    "value": "EWTOWM2",
+                    "resBookDesigCode": "Y",
+                    "accountCode": "EWTOWM2"
+                  }
+                ],
+                "marketingAirline": [],
+                "date": [],
+                "fareInfo": [],
+                "city": [],
+                "airport": []
+              }
+            ],
+            "pricingUnit": [],
+            "flightRefNumberRPHList": [
+              "1"
+            ]
+          }
+        ]
+      }
+    },
+    "travelerInfo": {
+      "airTraveler": [
+        {
+          "personName": {
+            "namePrefix": [],
+            "givenName": [
+              "CHRISTINE JLO"
+            ],
+            "middleName": [],
+            "surname": "SMITH",
+            "nameSuffix": [],
+            "nameTitle": []
+          },
+          "telephone": [],
+          "email": [
+            {
+              "value": "kmuangsamai@go7.io",
+              "defaultInd": true
+            }
+          ],
+          "address": [],
+          "custLoyalty": [],
+          "document": [],
+          "socialMediaInfo": [],
+          "passengerTypeCode": "CTC",
+          "comment": []
+        },
+        {
+          "personName": {
+            "namePrefix": [
+              "MISS"
+            ],
+            "givenName": [
+              "JENNIFER LO"
+            ],
+            "middleName": [],
+            "surname": "STEWART",
+            "nameSuffix": [],
+            "nameTitle": []
+          },
+          "telephone": [
+            {
+              "countryAccessCode": "380",
+              "phoneNumber": "741852369"
+            }
+          ],
+          "email": [],
+          "address": [],
+          "custLoyalty": [],
+          "document": [
+            {
+              "docLimitations": [],
+              "docID": "LELEM56682972",
+              "docType": "5",
+              "docHolderNationality": "SA",
+              "birthDate": "2023-03-30",
+              "expireDate": "2027-03-28"
+            }
+          ],
+          "travelerRefNumber": {
+            "rph": "1"
+          },
+          "flightSegmentRPHs": {
+            "flightSegmentRPH": [
+              "1",
+              "2"
+            ]
+          },
+          "socialMediaInfo": [],
+          "passengerTypeCode": "ADT",
+          "gender": "Female",
+          "comment": []
+        },
+        {
+          "personName": {
+            "namePrefix": [
+              "MISS"
+            ],
+            "givenName": [
+              "ELIZABETH LILY"
+            ],
+            "middleName": [],
+            "surname": "STEWART",
+            "nameSuffix": [],
+            "nameTitle": []
+          },
+          "telephone": [
+            {
+              "countryAccessCode": "380",
+              "phoneNumber": "741852369"
+            }
+          ],
+          "email": [],
+          "address": [],
+          "custLoyalty": [],
+          "document": [
+            {
+              "docLimitations": [],
+              "docID": "ZLGBN88395473",
+              "docType": "5",
+              "docHolderNationality": "SA",
+              "birthDate": "2021-05-15",
+              "expireDate": "2029-05-13"
+            }
+          ],
+          "travelerRefNumber": {
+            "rph": "2"
+          },
+          "flightSegmentRPHs": {
+            "flightSegmentRPH": [
+              "1",
+              "2"
+            ]
+          },
+          "socialMediaInfo": [],
+          "passengerTypeCode": "ADT",
+          "gender": "Female",
+          "comment": []
+        },
+        {
+          "personName": {
+            "namePrefix": [
+              "MISS"
+            ],
+            "givenName": [
+              "KATE JESSICA"
+            ],
+            "middleName": [],
+            "surname": "SMITH",
+            "nameSuffix": [],
+            "nameTitle": []
+          },
+          "telephone": [],
+          "email": [],
+          "address": [],
+          "custLoyalty": [],
+          "document": [
+            {
+              "docLimitations": [],
+              "docID": "XMHCN77284362",
+              "docType": "5",
+              "docHolderNationality": "SA",
+              "birthDate": "2019-01-10",
+              "expireDate": "2028-01-08"
+            }
+          ],
+          "travelerRefNumber": {
+            "rph": "3"
+          },
+          "flightSegmentRPHs": {
+            "flightSegmentRPH": [
+              "1",
+              "2"
+            ]
+          },
+          "socialMediaInfo": [],
+          "passengerTypeCode": "CHD",
+          "gender": "Female",
+          "comment": []
+        },
+        {
+          "personName": {
+            "namePrefix": [
+              "MASTER"
+            ],
+            "givenName": [
+              "JOHN DAVID"
+            ],
+            "middleName": [],
+            "surname": "STEWART",
+            "nameSuffix": [],
+            "nameTitle": []
+          },
+          "telephone": [],
+          "email": [],
+          "address": [],
+          "custLoyalty": [],
+          "document": [
+            {
+              "docLimitations": [],
+              "docID": "PNMKO99173251",
+              "docType": "5",
+              "docHolderNationality": "SA",
+              "birthDate": "2020-07-22",
+              "expireDate": "2029-07-20"
+            }
+          ],
+          "travelerRefNumber": {
+            "rph": "4"
+          },
+          "flightSegmentRPHs": {
+            "flightSegmentRPH": [
+              "1",
+              "2"
+            ]
+          },
+          "socialMediaInfo": [],
+          "passengerTypeCode": "CHD",
+          "gender": "Male",
+          "comment": []
+        },
+        {
+          "personName": {
+            "namePrefix": [],
+            "givenName": [
+              "BABY SARAH"
+            ],
+            "middleName": [],
+            "surname": "SMITH",
+            "nameSuffix": [],
+            "nameTitle": []
+          },
+          "telephone": [],
+          "email": [],
+          "address": [],
+          "custLoyalty": [],
+          "document": [
+            {
+              "docLimitations": [],
+              "docID": "JKDSO88273919",
+              "docType": "5",
+              "docHolderNationality": "SA",
+              "birthDate": "2024-03-15",
+              "expireDate": "2034-03-13"
+            }
+          ],
+          "travelerRefNumber": {
+            "rph": "5"
+          },
+          "flightSegmentRPHs": {
+            "flightSegmentRPH": [
+              "1",
+              "2"
+            ]
+          },
+          "socialMediaInfo": [],
+          "passengerTypeCode": "INF",
+          "comment": []
+        },
+        {
+          "personName": {
+            "namePrefix": [],
+            "givenName": [
+              "BABY RICHARD"
+            ],
+            "middleName": [],
+            "surname": "STEWART",
+            "nameSuffix": [],
+            "nameTitle": []
+          },
+          "telephone": [],
+          "email": [],
+          "address": [],
+          "custLoyalty": [],
+          "document": [
+            {
+              "docLimitations": [],
+              "docID": "MWHDK77162808",
+              "docType": "5",
+              "docHolderNationality": "SA",
+              "birthDate": "2024-11-01",
+              "expireDate": "2034-10-30"
+            }
+          ],
+          "travelerRefNumber": {
+            "rph": "6"
+          },
+          "flightSegmentRPHs": {
+            "flightSegmentRPH": [
+              "1",
+              "2"
+            ]
+          },
+          "socialMediaInfo": [],
+          "passengerTypeCode": "INF",
+          "comment": []
+        }
+      ],
+      "purchased": []
+    }
+  }
+}
+```
+
+</div>
+</details>
+
 ## Cancel Specific Segments
 
 For multi-segment bookings, cancel individual flights.
+
+### Request Format
+
+```bash
+curl -X POST \
+  'https://test-api.worldticket.net/ota/v2015b/OTA_AirBookModifyRQ' \
+  -H 'Authorization: Bearer {access_token}' \
+  -H 'Content-Type: application/json' \
+  -d @AirBookModifyRQ.json
+```
 
 ### JSON Request
 
