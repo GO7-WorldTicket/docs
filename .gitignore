@@ -1,5 +1,9 @@
 .DS_Store
 .idea/
+.playwright-mcp/
+.claude/
+tasks/
+trees/
 
 *.lock
 _site/
