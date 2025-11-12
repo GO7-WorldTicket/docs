@@ -14,20 +14,19 @@ This section covers APIs for retrieving available routes, calendar availability,
 - [Calendar Availability](#calendar-availability)
 - [Air Availability (AirAvailRQ/RS)](#air-availability-airavailrqrs)
 - [SSR Availability and Pricing](#ssr-availability-and-pricing)
-- [Error Responses](#error-responses)
 
 ## Base URLs
 
 | Environment | URL |
 |-------------|-----|
-| Production  | https://api.worldticket.net/sms5 |
-| Test        | https://test-api.worldticket.net/sms5 |
+| Production  | https://api.worldticket.net |
+| Test        | https://test-api.worldticket.net |
 
 ## Endpoints
 
-- Method: `GET` — Path: `/sms5/schedule/routes`
-- Method: `GET` — Path: `/sms5/schedule/calendar/availability`
-- Method: `POST` — OTA: `OTA_AirAvailRQ` (Air availability)
+- Method: `GET` — Path: `/sms-gateway/schedule/routes`
+- Method: `GET` — Path: `/sms-gateway/calendar/availability`
+- Method: `POST` — OTA: `/ota/v2015b/OTA_AirAvailRQ` (Air availability)
 
 ## Routes
 
@@ -38,14 +37,14 @@ Lists all possible city pairs selling by the airline.
 #### With JWT Authentication
 ```bash
 curl -X GET \
-  'https://test-api.worldticket.net/sms5/schedule/routes?sales_channel=OTA' \
+  'https://test-api.worldticket.net/sms-gateway/schedule/routes?sales_channel=OTA' \
   -H 'Authorization: Bearer {access_token}'
 ```
 
 #### With API Key Authentication
 ```bash
 curl -X GET \
-  'https://test-api.worldticket.net/sms5/schedule/routes?sales_channel=OTA' \
+  'https://test-api.worldticket.net/sms-gateway/schedule/routes?sales_channel=OTA' \
   -H 'X-API-Key: {api_key}'
 ```
 
@@ -103,7 +102,7 @@ Lists available dates per route. Usually used in calendar picker implementations
 #### With JWT Authentication
 ```bash
 curl -X GET \
-  'https://test-api.worldticket.net/sms5/schedule/calendar/availability?start_date={start_date}&end_date={end_date}&departure_airport_code={departure_code}&arrival_airport_code={arrival_code}' \
+  'https://test-api.worldticket.net/sms-gateway/schedule/calendar/availability?start_date={start_date}&end_date={end_date}&departure_airport_code={departure_code}&arrival_airport_code={arrival_code}' \
   -H 'Authorization: Bearer {access_token}' \
   -H 'X-Realm: {tenant-name}'
 ```
@@ -111,7 +110,7 @@ curl -X GET \
 #### With API Key Authentication
 ```bash
 curl -X GET \
-  'https://test-api.worldticket.net/sms5/schedule/calendar/availability?start_date={start_date}&end_date={end_date}&departure_airport_code={departure_code}&arrival_airport_code={arrival_code}' \
+  'https://test-api.worldticket.net/sms-gateway/schedule/calendar/availability?start_date={start_date}&end_date={end_date}&departure_airport_code={departure_code}&arrival_airport_code={arrival_code}' \
   -H 'X-API-Key: {api_key}' \
   -H 'X-Realm: {tenant-name}'
 ```
@@ -178,9 +177,8 @@ A flight availability request is performed to receive airline-specific flight in
 #### With JWT Authentication
 ```bash
 curl -X POST \
-  '{base_url}/ota/v2015b/OTA' \
+  '{base_url}/ota/v2015b/OTA_AirAvailRQ' \
   -H 'Authorization: Bearer {access_token}' \
-  -H 'Local-Name: OTA_AirAvailRQ' \
   -H 'Content-Type: application/json' \
   -d @AirAvailRQ.json
 ```
@@ -188,9 +186,8 @@ curl -X POST \
 #### With API Key Authentication
 ```bash
 curl -X POST \
-  '{base_url}/ota/v2015b/OTA' \
+  '{base_url}/ota/v2015b/OTA_AirAvailRQ' \
   -H 'X-API-Key: {api_key}' \
-  -H 'Local-Name: OTA_AirAvailRQ' \
   -H 'Content-Type: application/json' \
   -d @AirAvailRQ.json
 ```
@@ -393,38 +390,6 @@ curl -X GET \
       },
       "available": true,
       "maxQuantity": 1
-    }
-  ]
-}
-```
-
-## Error Responses
-
-Common error responses for flight availability requests:
-
-### No Availability
-
-```json
-{
-  "errors": [
-    {
-      "code": "NO_AVAILABILITY",
-      "message": "No flights available",
-      "details": "No flights available for the requested route and date."
-    }
-  ]
-}
-```
-
-### Invalid Route
-
-```json
-{
-  "errors": [
-    {
-      "code": "INVALID_ROUTE",
-      "message": "The requested route is not served by this airline",
-      "details": "Origin: {origin_code}, Destination: {destination_code}"
     }
   ]
 }

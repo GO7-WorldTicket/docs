@@ -7,7 +7,9 @@ title: OTA API Generic Integration Guide
 
 ## Table of Contents
 
-- [Change Log](#change-log)
+- [OTA API Generic Integration Guide](#ota-api-generic-integration-guide)
+  - [Table of Contents](#table-of-contents)
+  - [Change Log](#change-log)
 - [Introduction](#introduction)
   - [Base URLs](#base-urls)
   - [HTTP Headers](#http-headers)
@@ -27,8 +29,6 @@ title: OTA API Generic Integration Guide
 | Initial creation of generic OTA documentation | Sittiwet Mahapratoom | 2025-01-15 |
 
 For detailed changelog see: [Generic Changelog](generic-changelog.md)
-
-<br />
 
 # Introduction
 
@@ -136,12 +136,10 @@ sequenceDiagram
 
 # OTA XML Schema 2015
 [Download OTA XML Schema 2015](/docs/assets/resources/ota-xmlbeans-2015B.zip)
-<br />
 
 # Postman Collection
 [Download Postman Collection](/docs/assets/resources/OTA_postman_collection.json)
 Please update the variables in collection such as apiKey, agent_id, agent_name and tenant.
-<br /><br />
 
 # Code Lists
 
@@ -167,7 +165,6 @@ Please update the variables in collection such as apiKey, agent_id, agent_name a
 | 2    | Passport    |
 | 5    | National ID |
 
-<br /><br />
 
 # OTA for Reservation workflow
 
@@ -186,10 +183,6 @@ Please update the variables in collection such as apiKey, agent_id, agent_name a
 - [Regular Booking](generic/booking-regular)
   - [Regular booking for One-way trip](generic/booking-regular#airbookrq-for-oneway-trip)
   - [Regular booking for Round trip](generic/booking-regular#airbookrq-for-round-trip)
-<!-- - [Group Booking](generic/booking-group) -->
-  <!-- - [Group booking for One-way trip](generic/booking-group#airpricerq-for-oneway-trip) -->
-  <!-- - [Group booking for Round trip](generic/booking-group#airpricerq-for-round-trip) -->
-  <!-- - [Group booking completion policy](generic/booking-group#group-booking-completion-policy) -->
 - [Read Booking](generic/read-booking.md)
 - [Payment and Ticketing](generic/payment-ticketing)
   - [Base URLs](generic/payment-ticketing#base-urls)
@@ -201,12 +194,6 @@ Please update the variables in collection such as apiKey, agent_id, agent_name a
   - [Issue EMDs for Ancillaries](generic/payment-ticketing#issue-emds-for-ancillaries)
   - [Currency Conversion](generic/payment-ticketing#currency-conversion)
   - [Error Responses](generic/payment-ticketing#error-responses)
-- [Booking Modification](generic/booking-modification)
-  - [Add SSR](generic/booking-modification#add-ssr)
-  - [Change Name](generic/booking-modification#change-name)
-  - [Change Date](generic/booking-modification#change-date)
-  - [Cancel Segment](generic/booking-modification#cancel-segment)
-  - [Cancel Passenger](generic/booking-modification#cancel-passenger)
 - [Booking Cancellation](generic/booking-cancellation)
   - [Base URLs](generic/booking-cancellation#base-urls)
   - [Endpoints](generic/booking-cancellation#endpoints)
@@ -214,14 +201,3 @@ Please update the variables in collection such as apiKey, agent_id, agent_name a
   - [Full Booking Cancellation](generic/booking-cancellation#full-booking-cancellation)
   - [Cancel Specific Segments](generic/booking-cancellation#cancel-specific-segments)
   - [Cancel Specific Passengers](generic/booking-cancellation#cancel-specific-passengers)
-  - [Cancellation Policies](generic/booking-cancellation#cancellation-policies)
-  - [Automatic Refund Process](generic/booking-cancellation#automatic-refund-process)
-  - [Resend Cancellation Email](generic/booking-cancellation#resend-cancellation-email)
-  - [Error Responses](generic/booking-cancellation#error-responses)
-- [Refund Process](generic/refund-process)
-  - [Refund Request APIs](generic/refund-process#refund-request-apis)
-  - [Refund Reasons](generic/refund-process#refund-reasons)
-  - [Upload Attachments](generic/refund-process#upload-attachments)
-- [Error Handling](generic/error-handling)
-  - [Common Error Codes](generic/error-handling#common-error-codes)
-  - [Error Response Format](generic/error-handling#error-response-format)
