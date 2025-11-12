@@ -421,11 +421,13 @@ To receive outbound and inbound fares separately, specify FareRestriction `OUT` 
       }
     }
   ],
-  "travelPreferences": {
-    "fareRestrictPref": {
-      "fareRestriction": "OUT"
+  "travelPreferences": [
+    {
+      "fareRestrictPref": {
+        "fareRestriction": "OUT"
+      }
     }
-  },
+  ],
   "travelerInfoSummary": {
     "airTravelerAvail": [
       {
@@ -492,11 +494,13 @@ To receive outbound and inbound fares separately, specify FareRestriction `OUT` 
       }
     }
   ],
-  "travelPreferences": {
-    "fareRestrictPref": {
-      "fareRestriction": "IN"
+  "travelPreferences": [
+    {
+      "fareRestrictPref": {
+        "fareRestriction": "IN"
+      }
     }
-  },
+  ],
   "travelerInfoSummary": {
     "airTravelerAvail": [
       {
