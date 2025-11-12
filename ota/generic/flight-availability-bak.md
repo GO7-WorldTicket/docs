@@ -298,13 +298,13 @@ curl -X POST \
 {
   "version": "2.001",
   "success": {},
-  "originDestinationOptions": [
-    {
-      "originDestinationOption": [
-        {
-          "flightSegment": {
+  "originDestinationOptions": {
+    "originDestinationOption": [
+      {
+        "flightSegment": [
+          {
             "departureDateTime": "{departure_datetime}",
-            "arrivalDateTime": "{arrival_datetime}", 
+            "arrivalDateTime": "{arrival_datetime}",
             "flightNumber": "{flight_number}",
             "resBookDesigCode": "{booking_class}",
             "departureAirport": {
@@ -323,16 +323,16 @@ curl -X POST \
                 "rph": "1"
               },
               {
-                "resBookDesigCode": "C", 
+                "resBookDesigCode": "C",
                 "resBookDesigQuantity": "{available_seats}",
                 "rph": "2"
               }
             ]
           }
-        }
-      ]
-    }
-  ]
+        ]
+      }
+    ]
+  }
 }
 ```
 

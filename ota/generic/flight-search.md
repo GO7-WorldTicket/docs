@@ -528,27 +528,29 @@ To receive outbound and inbound fares separately, specify FareRestriction `OUT` 
     {
       "sequenceNumber": "1",
       "airItinerary": {
-        "originDestinationOptions": [
-          {
-            "flightSegments": [
-              {
-                "departureDateTime": "{departure_datetime}",
-                "arrivalDateTime": "{arrival_datetime}",
-                "flightNumber": "{flight_number}",
-                "resBookDesigCode": "{booking_class}",
-                "departureAirport": {
-                  "locationCode": "{origin_code}"
-                },
-                "arrivalAirport": {
-                  "locationCode": "{destination_code}"
-                },
-                "marketingAirline": {
-                  "code": "{airline_code}"
+        "originDestinationOptions": {
+          "originDestinationOption": [
+            {
+              "flightSegment": [
+                {
+                  "departureDateTime": "{departure_datetime}",
+                  "arrivalDateTime": "{arrival_datetime}",
+                  "flightNumber": "{flight_number}",
+                  "resBookDesigCode": "{booking_class}",
+                  "departureAirport": {
+                    "locationCode": "{origin_code}"
+                  },
+                  "arrivalAirport": {
+                    "locationCode": "{destination_code}"
+                  },
+                  "marketingAirline": {
+                    "code": "{airline_code}"
+                  }
                 }
-              }
-            ]
-          }
-        ]
+              ]
+            }
+          ]
+        }
       },
       "airItineraryPricingInfo": {
         "itinTotalFare": {

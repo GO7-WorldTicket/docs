@@ -80,6 +80,10 @@ Note: Use either `Authorization` (JWT) OR `X-API-Key` (API key), not both.
   "pos": {
     "source": [
       {
+        "bookingChannel": {
+          "type": "{booking_channel_type}"
+        },
+        "isocurrency": "{currency_code}",
         "requestorID": {
           "type": "5",
           "id": "{agent_id}",
@@ -89,45 +93,96 @@ Note: Use either `Authorization` (JWT) OR `X-API-Key` (API key), not both.
     ]
   },
   "airItinerary": {
-    "originDestinationOptions": [
-      {
-        "flightSegments": [
-          {
-            "departureDateTime": "{departure_datetime}",
-            "arrivalDateTime": "{arrival_datetime}",
-            "flightNumber": "{flight_number}",
-            "resBookDesigCode": "{booking_class}",
-            "departureAirport": {
-              "locationCode": "{origin_code}"
-            },
-            "arrivalAirport": {
-              "locationCode": "{destination_code}"
-            },
-            "marketingAirline": {
-              "code": "{airline_code}"
+    "originDestinationOptions": {
+      "originDestinationOption": [
+        {
+          "flightSegment": [
+            {
+              "departureAirport": {
+                "locationCode": "{origin_code}"
+              },
+              "arrivalAirport": {
+                "locationCode": "{destination_code}"
+              },
+              "operatingAirline": {
+                "code": "{airline_code}",
+                "flightNumber": "{flight_number}"
+              },
+              "equipment": [],
+              "departureDateTime": "{departure_datetime}",
+              "arrivalDateTime": "{arrival_datetime}",
+              "rph": "{segment_rph}",
+              "marketingAirline": {
+                "code": "{airline_code}"
+              },
+              "flightNumber": "{flight_number}",
+              "resBookDesigCode": "{booking_class}",
+              "fareBasisCode": "{fare_basis_code}",
+              "status": "{segment_status}"
             }
-          }
-        ]
-      }
-    ]
-  },
-  "travelerInfoSummary": {
-    "airTravelerAvail": {
-      "passengerTypeQuantity": [
-        {
-          "code": "ADT",
-          "quantity": "{adult_count}"
-        },
-        {
-          "code": "CHD",
-          "quantity": "{child_count}"
-        },
-        {
-          "code": "INF",
-          "quantity": "{infant_count}"
+          ]
         }
       ]
     }
+  },
+  "travelerInfoSummary": {
+    "pricingPref": [
+      {
+        "qualifier": "{pricing_qualifier}"
+      }
+    ],
+    "airTravelerAvail": [
+      {
+        "passengerTypeQuantity": [
+          {
+            "code": "ADT",
+            "quantity": "{adult_count}"
+          },
+          {
+            "code": "CHD",
+            "quantity": "{child_count}"
+          },
+          {
+            "code": "INF",
+            "quantity": "{infant_count}"
+          }
+        ]
+      },
+      {
+        "airTraveler": {
+          "passengerTypeCode": "CTC",
+          "personName": {
+            "givenName": ["{given_name}"],
+            "surname": "{surname}"
+          },
+          "email": [
+            {
+              "value": "{email_address}"
+            }
+          ],
+          "telephone": [
+            {
+              "countryAccessCode": "{country_code}",
+              "phoneNumber": "{phone_number}"
+            }
+          ],
+          "document": [
+            {
+              "docHolderNationality": "{nationality_code}",
+              "birthDate": "{birth_date}"
+            }
+          ],
+          "address": [
+            {
+              "cityName": "{city_name}",
+              "countryName": {
+                "code": "{country_code}"
+              }
+            }
+          ]
+        }
+      }
+    ]
   }
 }
 ```
@@ -146,6 +201,10 @@ Note: Use either `Authorization` (JWT) OR `X-API-Key` (API key), not both.
   "pos": {
     "source": [
       {
+        "bookingChannel": {
+          "type": "OTA"
+        },
+        "isocurrency": "USD",
         "requestorID": {
           "type": "5",
           "id": "AGENT123",
@@ -155,45 +214,96 @@ Note: Use either `Authorization` (JWT) OR `X-API-Key` (API key), not both.
     ]
   },
   "airItinerary": {
-    "originDestinationOptions": [
-      {
-        "flightSegments": [
-          {
-            "departureDateTime": "2024-12-25T08:00:00",
-            "arrivalDateTime": "2024-12-25T11:30:00",
-            "flightNumber": "FL123",
-            "resBookDesigCode": "Y",
-            "departureAirport": {
-              "locationCode": "JED"
-            },
-            "arrivalAirport": {
-              "locationCode": "XMK"
-            },
-            "marketingAirline": {
-              "code": "DX"
+    "originDestinationOptions": {
+      "originDestinationOption": [
+        {
+          "flightSegment": [
+            {
+              "departureAirport": {
+                "locationCode": "JED"
+              },
+              "arrivalAirport": {
+                "locationCode": "XMK"
+              },
+              "operatingAirline": {
+                "code": "DX",
+                "flightNumber": "FL123"
+              },
+              "equipment": [],
+              "departureDateTime": "2024-12-25T08:00:00",
+              "arrivalDateTime": "2024-12-25T11:30:00",
+              "rph": "1",
+              "marketingAirline": {
+                "code": "DX"
+              },
+              "flightNumber": "FL123",
+              "resBookDesigCode": "Y",
+              "fareBasisCode": "ECON",
+              "status": "30"
             }
-          }
-        ]
-      }
-    ]
-  },
-  "travelerInfoSummary": {
-    "airTravelerAvail": {
-      "passengerTypeQuantity": [
-        {
-          "code": "ADT",
-          "quantity": 2
-        },
-        {
-          "code": "CHD",
-          "quantity": 1
-        },
-        {
-          "code": "INF",
-          "quantity": 0
+          ]
         }
       ]
     }
+  },
+  "travelerInfoSummary": {
+    "pricingPref": [
+      {
+        "qualifier": "4"
+      }
+    ],
+    "airTravelerAvail": [
+      {
+        "passengerTypeQuantity": [
+          {
+            "code": "ADT",
+            "quantity": 2
+          },
+          {
+            "code": "CHD",
+            "quantity": 1
+          },
+          {
+            "code": "INF",
+            "quantity": 0
+          }
+        ]
+      },
+      {
+        "airTraveler": {
+          "passengerTypeCode": "CTC",
+          "personName": {
+            "givenName": ["John"],
+            "surname": "Doe"
+          },
+          "email": [
+            {
+              "value": "john.doe@example.com"
+            }
+          ],
+          "telephone": [
+            {
+              "countryAccessCode": "1",
+              "phoneNumber": "2025551234"
+            }
+          ],
+          "document": [
+            {
+              "docHolderNationality": "US",
+              "birthDate": "1980-05-15"
+            }
+          ],
+          "address": [
+            {
+              "cityName": "New York",
+              "countryName": {
+                "code": "US"
+              }
+            }
+          ]
+        }
+      }
+    ]
   }
 }
 ```
@@ -210,165 +320,157 @@ Note: Use either `Authorization` (JWT) OR `X-API-Key` (API key), not both.
 
 ```json
 {
-  "version": "2.001",
   "success": {},
-  "pricedItinerary": {
-    "sequenceNumber": "1",
-    "airItinerary": {
-      "originDestinationOptions": [
-        {
-          "flightSegments": [
-            {
-              "departureDateTime": "2024-12-25T08:00:00",
-              "arrivalDateTime": "2024-12-25T11:30:00",
-              "flightNumber": "FL123",
-              "resBookDesigCode": "Y",
-              "departureAirport": {
-                "locationCode": "JED"
-              },
-              "arrivalAirport": {
-                "locationCode": "XMK"
-              },
-              "marketingAirline": {
-                "code": "DX"
-              }
-            }
-          ]
-        }
-      ]
+  "pricingOverview": {
+    "fareInfo": {
+      "equivFare": [],
+      "fareBaggageAllowance": [],
+      "remark": [],
+      "tpaextensions": {
+        "taxInfo": []
+      }
     },
-    "airItineraryPricingInfo": {
-      "itinTotalFare": {
-        "baseFare": {
-          "amount": "250.00",
-          "currencyCode": "USD"
-        },
-        "taxes": [
-          {
-            "amount": "50.00",
-            "currencyCode": "USD",
-            "taxCode": "YQ"
-          }
-        ],
-        "totalFare": {
-          "amount": "300.00",
-          "currencyCode": "USD"
-        }
-      },
-      "ptc_FareBreakdowns": [
-        {
-          "passengerTypeQuantity": {
-            "code": "ADT",
-            "quantity": 2
-          },
-          "fareBasisCodes": [
-            "Y"
-          ],
-          "passengerFare": {
-            "baseFare": {
-              "amount": "100.00",
-              "currencyCode": "USD"
-            },
-            "taxes": [
+    "notes": [],
+    "account": [],
+    "pricingIndicator": []
+  },
+  "pricedItineraries": {
+    "pricedItinerary": [
+      {
+        "airItinerary": {
+          "originDestinationOptions": {
+            "originDestinationOption": [
               {
-                "amount": "20.00",
-                "currencyCode": "USD",
-                "taxCode": "YQ"
+                "flightSegment": [
+                  {
+                    "departureAirport": {
+                      "locationCode": "JED"
+                    },
+                    "arrivalAirport": {
+                      "locationCode": "XMK"
+                    },
+                    "equipment": [],
+                    "departureDateTime": "2024-12-25T08:00:00",
+                    "arrivalDateTime": "2024-12-25T11:30:00",
+                    "marketingAirline": {
+                      "code": "DX"
+                    },
+                    "flightNumber": "FL123",
+                    "resBookDesigCode": "Y",
+                    "bookingClassAvails": [],
+                    "comment": [],
+                    "stopLocation": [],
+                    "tpaextensions": {
+                      "fareBasis": "ECON",
+                      "priceGroup": "Economy",
+                      "fareRule": {
+                        "code": "ECON_RULE_001",
+                        "name": "Economy Fare Rules",
+                        "value": "Standard economy class fare rules and conditions apply."
+                      }
+                    }
+                  }
+                ]
               }
-            ],
-            "totalFare": {
-              "amount": "120.00",
-              "currencyCode": "USD"
-            }
+            ]
           }
         },
-        {
-          "passengerTypeQuantity": {
-            "code": "CHD",
-            "quantity": 1
-          },
-          "fareBasisCodes": [
-            "Y"
-          ],
-          "passengerFare": {
-            "baseFare": {
-              "amount": "50.00",
-              "currencyCode": "USD"
-            },
-            "taxes": [
-              {
-                "amount": "10.00",
+        "airItineraryPricingInfo": {
+          "itinTotalFare": [
+            {
+              "baseFare": {
                 "currencyCode": "USD",
-                "taxCode": "YQ"
-              }
-            ],
-            "totalFare": {
-              "amount": "60.00",
-              "currencyCode": "USD"
+                "amount": 250.00
+              },
+              "equivFare": [],
+              "taxes": {
+                "tax": [
+                  {
+                    "taxCode": "YQ",
+                    "currencyCode": "USD",
+                    "decimalPlaces": 2,
+                    "amount": 50.00
+                  }
+                ]
+              },
+              "fees": {
+                "fee": []
+              },
+              "totalFare": {
+                "currencyCode": "USD",
+                "amount": 300.00
+              },
+              "fareBaggageAllowance": [],
+              "remark": []
             }
+          ],
+          "ptcfareBreakdowns": {
+            "ptcfareBreakdown": [
+              {
+                "passengerTypeQuantity": {
+                  "code": "ADT",
+                  "quantity": 1
+                },
+                "fareBasisCodes": {
+                  "fareBasisCode": [
+                    {
+                      "value": "ECON"
+                    }
+                  ]
+                },
+                "passengerFare": [
+                  {
+                    "baseFare": {
+                      "currencyCode": "USD",
+                      "decimalPlaces": 2,
+                      "amount": 250.00
+                    },
+                    "equivFare": [],
+                    "taxes": {
+                      "tax": [
+                        {
+                          "taxCode": "YQ",
+                          "currencyCode": "USD",
+                          "decimalPlaces": 2,
+                          "amount": 50.00
+                        }
+                      ]
+                    },
+                    "fees": {
+                      "fee": []
+                    },
+                    "totalFare": {
+                      "currencyCode": "USD",
+                      "decimalPlaces": 2,
+                      "amount": 300.00
+                    },
+                    "fareBaggageAllowance": [],
+                    "remark": []
+                  }
+                ],
+                "travelerRefNumber": [
+                  {
+                    "rph": "1"
+                  }
+                ],
+                "fareInfo": [],
+                "pricingUnit": [],
+                "flightRefNumberRPHList": []
+              }
+            ]
           }
-        }
-      ],
-      "fareInfos": [
-        {
-          "fareReference": "Y_ECON",
-          "fareRuleInfo": {
-            "fareRuleRef": "Y_RULE_001",
-            "ruleName": "Economy Fare Rules"
-          }
-        }
-      ]
-    }
-  }
+        },
+        "notes": [],
+        "sequenceNumber": 1
+      }
+    ]
+  },
+  "timeStamp": "2024-12-25T08:30:00.000Z",
+  "version": 2.001,
+  "retransmissionIndicator": false
 }
 ```
 
 </div>
 
 </details>
-
-## Error Responses
-
-Common error responses for price check requests:
-
-### Price Not Available
-
-```json
-{
-  "errors": [
-    {
-      "code": "PRICE_NOT_AVAILABLE",
-      "message": "Pricing not available for requested flight",
-      "details": "The flight may no longer be available or the fare has changed."
-    }
-  ]
-}
-```
-
-### Invalid Flight Segment
-
-```json
-{
-  "errors": [
-    {
-      "code": "INVALID_FLIGHT_SEGMENT",
-      "message": "Invalid flight segment provided",
-      "details": "Flight number: {flight_number}, Date: {date}"
-    }
-  ]
-}
-```
-
-### Fare Expired
-
-```json
-{
-  "errors": [
-    {
-      "code": "FARE_EXPIRED",
-      "message": "The fare has expired",
-      "details": "Please perform a new search to get current pricing."
-    }
-  ]
-}
-```

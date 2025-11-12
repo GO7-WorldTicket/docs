@@ -139,26 +139,30 @@ Some details can be provided optionally:
     ]
   },
   "airItinerary": {
-    "originDestinationOptions": [
-      {
-        "flightSegment": {
-          "departureDateTime": "{departure_datetime}",
-          "arrivalDateTime": "{arrival_datetime}",
-          "flightNumber": "{flight_number}",
-          "resBookDesigCode": "{booking_class}",
-          "numberInParty": "{total_passengers}",
-          "departureAirport": {
-            "locationCode": "{origin_code}"
-          },
-          "arrivalAirport": {
-            "locationCode": "{destination_code}"
-          },
-          "marketingAirline": {
-            "code": "{airline_code}"
-          }
+    "originDestinationOptions": {
+      "originDestinationOption": [
+        {
+          "flightSegment": [
+            {
+              "departureDateTime": "{departure_datetime}",
+              "arrivalDateTime": "{arrival_datetime}",
+              "flightNumber": "{flight_number}",
+              "resBookDesigCode": "{booking_class}",
+              "numberInParty": "{total_passengers}",
+              "departureAirport": {
+                "locationCode": "{origin_code}"
+              },
+              "arrivalAirport": {
+                "locationCode": "{destination_code}"
+              },
+              "marketingAirline": {
+                "code": "{airline_code}"
+              }
+            }
+          ]
         }
-      }
-    ]
+      ]
+    }
   },
   "travelerInfo": [
     {
@@ -213,20 +217,24 @@ Some details can be provided optionally:
     ]
   },
   "airItinerary": {
-    "originDestinationOptions": [
-      {
-        "flightSegment": {
-          "departureDateTime": "2024-12-25T08:00:00",
-          "arrivalDateTime": "2024-12-25T11:30:00",
-          "flightNumber": "WT100",
-          "resBookDesigCode": "Y",
-          "numberInParty": "1",
-          "departureAirport": { "locationCode": "JED" },
-          "arrivalAirport": { "locationCode": "XMK" },
-          "marketingAirline": { "code": "WT" }
+    "originDestinationOptions": {
+      "originDestinationOption": [
+        {
+          "flightSegment": [
+            {
+              "departureDateTime": "2024-12-25T08:00:00",
+              "arrivalDateTime": "2024-12-25T11:30:00",
+              "flightNumber": "WT100",
+              "resBookDesigCode": "Y",
+              "numberInParty": "1",
+              "departureAirport": { "locationCode": "JED" },
+              "arrivalAirport": { "locationCode": "XMK" },
+              "marketingAirline": { "code": "WT" }
+            }
+          ]
         }
-      }
-    ]
+      ]
+    }
   },
   "travelerInfo": [
     {
@@ -273,44 +281,50 @@ Some details can be provided optionally:
     ]
   },
   "airItinerary": {
-    "originDestinationOptions": [
-      {
-        "flightSegment": {
-          "departureDateTime": "{outbound_departure_datetime}",
-          "arrivalDateTime": "{outbound_arrival_datetime}",
-          "flightNumber": "{outbound_flight_number}",
-          "resBookDesigCode": "{booking_class}",
-          "numberInParty": "{total_passengers}",
-          "departureAirport": {
-            "locationCode": "{origin_code}"
-          },
-          "arrivalAirport": {
-            "locationCode": "{destination_code}"
-          },
-          "marketingAirline": {
-            "code": "{airline_code}"
-          }
+    "originDestinationOptions": {
+      "originDestinationOption": [
+        {
+          "flightSegment": [
+            {
+              "departureDateTime": "{outbound_departure_datetime}",
+              "arrivalDateTime": "{outbound_arrival_datetime}",
+              "flightNumber": "{outbound_flight_number}",
+              "resBookDesigCode": "{booking_class}",
+              "numberInParty": "{total_passengers}",
+              "departureAirport": {
+                "locationCode": "{origin_code}"
+              },
+              "arrivalAirport": {
+                "locationCode": "{destination_code}"
+              },
+              "marketingAirline": {
+                "code": "{airline_code}"
+              }
+            }
+          ]
+        },
+        {
+          "flightSegment": [
+            {
+              "departureDateTime": "{inbound_departure_datetime}",
+              "arrivalDateTime": "{inbound_arrival_datetime}",
+              "flightNumber": "{inbound_flight_number}",
+              "resBookDesigCode": "{booking_class}",
+              "numberInParty": "{total_passengers}",
+              "departureAirport": {
+                "locationCode": "{destination_code}"
+              },
+              "arrivalAirport": {
+                "locationCode": "{origin_code}"
+              },
+              "marketingAirline": {
+                "code": "{airline_code}"
+              }
+            }
+          ]
         }
-      },
-      {
-        "flightSegment": {
-          "departureDateTime": "{inbound_departure_datetime}",
-          "arrivalDateTime": "{inbound_arrival_datetime}",
-          "flightNumber": "{inbound_flight_number}",
-          "resBookDesigCode": "{booking_class}",
-          "numberInParty": "{total_passengers}",
-          "departureAirport": {
-            "locationCode": "{destination_code}"
-          },
-          "arrivalAirport": {
-            "locationCode": "{origin_code}"
-          },
-          "marketingAirline": {
-            "code": "{airline_code}"
-          }
-        }
-      }
-    ]
+      ]
+    }
   },
   "travelerInfo": [
     {
@@ -354,32 +368,38 @@ Some details can be provided optionally:
     ]
   },
   "airItinerary": {
-    "originDestinationOptions": [
-      {
-        "flightSegment": {
-          "departureDateTime": "2024-12-25T08:00:00",
-          "arrivalDateTime": "2024-12-25T11:30:00",
-          "flightNumber": "WT100",
-          "resBookDesigCode": "Y",
-          "numberInParty": "1",
-          "departureAirport": { "locationCode": "JED" },
-          "arrivalAirport": { "locationCode": "XMK" },
-          "marketingAirline": { "code": "WT" }
+    "originDestinationOptions": {
+      "originDestinationOption": [
+        {
+          "flightSegment": [
+            {
+              "departureDateTime": "2024-12-25T08:00:00",
+              "arrivalDateTime": "2024-12-25T11:30:00",
+              "flightNumber": "WT100",
+              "resBookDesigCode": "Y",
+              "numberInParty": "1",
+              "departureAirport": { "locationCode": "JED" },
+              "arrivalAirport": { "locationCode": "XMK" },
+              "marketingAirline": { "code": "WT" }
+            }
+          ]
+        },
+        {
+          "flightSegment": [
+            {
+              "departureDateTime": "2025-01-02T16:00:00",
+              "arrivalDateTime": "2025-01-02T19:30:00",
+              "flightNumber": "WT101",
+              "resBookDesigCode": "Y",
+              "numberInParty": "1",
+              "departureAirport": { "locationCode": "XMK" },
+              "arrivalAirport": { "locationCode": "JED" },
+              "marketingAirline": { "code": "WT" }
+            }
+          ]
         }
-      },
-      {
-        "flightSegment": {
-          "departureDateTime": "2025-01-02T16:00:00",
-          "arrivalDateTime": "2025-01-02T19:30:00",
-          "flightNumber": "WT101",
-          "resBookDesigCode": "Y",
-          "numberInParty": "1",
-          "departureAirport": { "locationCode": "XMK" },
-          "arrivalAirport": { "locationCode": "JED" },
-          "marketingAirline": { "code": "WT" }
-        }
-      }
-    ]
+      ]
+    }
   },
   "travelerInfo": [
     {

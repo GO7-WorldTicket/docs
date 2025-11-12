@@ -121,26 +121,30 @@ curl -X POST \
     ]
   },
   "airItinerary": {
-    "originDestinationOptions": [
-      {
-        "flightSegment": {
-          "departureDateTime": "{departure_datetime}",
-          "arrivalDateTime": "{arrival_datetime}",
-          "flightNumber": "{flight_number}",
-          "resBookDesigCode": "{booking_class}",
-          "numberInParty": "{total_passengers}",
-          "departureAirport": {
-            "locationCode": "{origin_code}"
-          },
-          "arrivalAirport": {
-            "locationCode": "{destination_code}"
-          },
-          "marketingAirline": {
-            "code": "{airline_code}"
-          }
+    "originDestinationOptions": {
+      "originDestinationOption": [
+        {
+          "flightSegment": [
+            {
+              "departureDateTime": "{departure_datetime}",
+              "arrivalDateTime": "{arrival_datetime}",
+              "flightNumber": "{flight_number}",
+              "resBookDesigCode": "{booking_class}",
+              "numberInParty": "{total_passengers}",
+              "departureAirport": {
+                "locationCode": "{origin_code}"
+              },
+              "arrivalAirport": {
+                "locationCode": "{destination_code}"
+              },
+              "marketingAirline": {
+                "code": "{airline_code}"
+              }
+            }
+          ]
         }
-      }
-    ]
+      ]
+    }
   },
   "travelerInfoSummary": {
     "airTravelerAvail": {
@@ -304,25 +308,29 @@ AirPriceRS response contains a record locator in "quoteID" field.
   "pricedItinerary": {
     "quoteID": "{quote_id}",
     "airItinerary": {
-      "originDestinationOptions": [
-        {
-          "flightSegment": {
-            "departureDateTime": "{departure_datetime}",
-            "arrivalDateTime": "{arrival_datetime}",
-            "flightNumber": "{flight_number}",
-            "resBookDesigCode": "{booking_class}",
-            "departureAirport": {
-              "locationCode": "{origin_code}"
-            },
-            "arrivalAirport": {
-              "locationCode": "{destination_code}"
-            },
-            "marketingAirline": {
-              "code": "{airline_code}"
-            }
+      "originDestinationOptions": {
+        "originDestinationOption": [
+          {
+            "flightSegment": [
+              {
+                "departureDateTime": "{departure_datetime}",
+                "arrivalDateTime": "{arrival_datetime}",
+                "flightNumber": "{flight_number}",
+                "resBookDesigCode": "{booking_class}",
+                "departureAirport": {
+                  "locationCode": "{origin_code}"
+                },
+                "arrivalAirport": {
+                  "locationCode": "{destination_code}"
+                },
+                "marketingAirline": {
+                  "code": "{airline_code}"
+                }
+              }
+            ]
           }
-        }
-      ]
+        ]
+      }
     },
     "airItineraryPricingInfo": {
       "itinTotalFare": {
