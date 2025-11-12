@@ -178,7 +178,8 @@ Please update the variables in collection such as apiKey, agent_id, agent_name a
   - [One-way trip with booking class](generic/flight-search#airlowfaresearchrq-for-oneway-trip-with-booking-class-preference)
   - [Round trip](generic/flight-search#airlowfaresearchrq-for-round-trip)
   - [Round trip with booking class](generic/flight-search#airlowfaresearchrq-for-round-trip-with-booking-class-preference)
-  - [Discount functionality](generic/flight-search#discount-functionality)
+
+[//]: # (  - [Discount functionality]&#40;generic/flight-search#discount-functionality&#41;)
 - [Price Check](generic/price-check.md)
 - [Regular Booking](generic/booking-regular)
   - [Regular booking for One-way trip](generic/booking-regular#airbookrq-for-oneway-trip)
@@ -190,14 +191,25 @@ Please update the variables in collection such as apiKey, agent_id, agent_name a
   - [Supported Payment Types](generic/payment-ticketing#supported-payment-types)
   - [Make Payment for Issuing a Ticket](generic/payment-ticketing#make-payment-for-issuing-a-ticket)
   - [Payment with Debit-Credit Account](generic/payment-ticketing#payment-with-debit-credit-account)
-  - [Payment with Redirect](generic/payment-ticketing#payment-with-redirect)
-  - [Issue EMDs for Ancillaries](generic/payment-ticketing#issue-emds-for-ancillaries)
-  - [Currency Conversion](generic/payment-ticketing#currency-conversion)
-  - [Error Responses](generic/payment-ticketing#error-responses)
-- [Booking Cancellation](generic/booking-cancellation)
-  - [Base URLs](generic/booking-cancellation#base-urls)
-  - [Endpoints](generic/booking-cancellation#endpoints)
-  - [Basic Request Format](generic/booking-cancellation#basic-request-format)
-  - [Full Booking Cancellation](generic/booking-cancellation#full-booking-cancellation)
-  - [Cancel Specific Segments](generic/booking-cancellation#cancel-specific-segments)
-  - [Cancel Specific Passengers](generic/booking-cancellation#cancel-specific-passengers)
+
+[//]: # (  - [Payment with Redirect]&#40;generic/payment-ticketing#payment-with-redirect&#41;)
+
+[//]: # (  - [Issue EMDs for Ancillaries]&#40;generic/payment-ticketing#issue-emds-for-ancillaries&#41;)
+
+[//]: # (  - [Currency Conversion]&#40;generic/payment-ticketing#currency-conversion&#41;)
+
+[//]: # (  - [Error Responses]&#40;generic/payment-ticketing#error-responses&#41;)
+
+[//]: # (- [Booking Cancellation]&#40;generic/booking-cancellation&#41;)
+
+[//]: # (  - [Base URLs]&#40;generic/booking-cancellation#base-urls&#41;)
+
+[//]: # (  - [Endpoints]&#40;generic/booking-cancellation#endpoints&#41;)
+
+[//]: # (  - [Basic Request Format]&#40;generic/booking-cancellation#basic-request-format&#41;)
+
+[//]: # (  - [Full Booking Cancellation]&#40;generic/booking-cancellation#full-booking-cancellation&#41;)
+
+[//]: # (  - [Cancel Specific Segments]&#40;generic/booking-cancellation#cancel-specific-segments&#41;)
+
+[//]: # (  - [Cancel Specific Passengers]&#40;generic/booking-cancellation#cancel-specific-passengers&#41;)

@@ -9,24 +9,27 @@ The purpose is to list all the fares and display them to the user. AirLowFareSea
 
 ## Table of Contents
 
-- [Endpoint](#endpoint)
-- [Flight Search Workflow](#flight-search-workflow)
-- [Basic Request Format](#basic-request-format)
-  - [With JWT Authentication](#with-jwt-authentication)
-  - [With API Key Authentication](#with-api-key-authentication)
-- [AirLowFareSearchRQ for One-way Trip](#airlowfaresearchrq-for-one-way-trip)
-- [AirLowFareSearchRQ for Round Trip](#airlowfaresearchrq-for-round-trip)
-- [AirLowFareSearchRQ for Round Trip with Fare Restriction](#airlowfaresearchrq-for-round-trip-with-fare-restriction)
-- [Response Structure](#response-structure)
-  - [JSON Response](#json-response)
-- [Discount Functionality](#discount-functionality)
-  - [JSON Response](#json-response-1)
+- [Low Fare Search (AirLowFareSearchRQ)](#low-fare-search-airlowfaresearchrq)
+  - [Table of Contents](#table-of-contents)
+  - [Endpoint](#endpoint)
+  - [Flight Search Workflow](#flight-search-workflow)
+  - [Basic Request Format](#basic-request-format)
+    - [With JWT Authentication](#with-jwt-authentication)
+    - [With API Key Authentication](#with-api-key-authentication)
+    - [HTTP Headers](#http-headers)
+  - [AirLowFareSearchRQ for One-way Trip](#airlowfaresearchrq-for-one-way-trip)
+  - [AirLowFareSearchRQ for Round Trip](#airlowfaresearchrq-for-round-trip)
+  - [AirLowFareSearchRQ for Round Trip with Fare Restriction](#airlowfaresearchrq-for-round-trip-with-fare-restriction)
+  - [Response Structure](#response-structure)
+    - [JSON Response](#json-response)
+  - [Discount Functionality](#discount-functionality)
+    - [JSON Response](#json-response-1)
 
 ## Endpoint
 
 - Method: `POST`
-- Path: `/ota/v2015b/AirLowFareSearch`
-- Full URL: `{base_url}/ota/v2015b/AirLowFareSearch` (choose base URL per environment above)
+- Path: `/ota/v2015b/OTA_AirLowFareSearchRQ`
+- Full URL: `{base_url}/ota/v2015b/OTA_AirLowFareSearchRQ` (choose base URL per environment above)
 
 ## Flight Search Workflow
 
@@ -67,7 +70,7 @@ sequenceDiagram
 ### With JWT Authentication
 ```bash
 curl -X POST \
-    https://test-api.worldticket.net/ota/v2015b/AirLowFareSearch \
+    https://test-api.worldticket.net/ota/v2015b/OTA_AirLowFareSearchRQ \
     -H 'Authorization: Bearer {access_token}' \
     -H 'Content-Type: application/json' \
     -d @AirLowFareSearchRQ.json
@@ -76,7 +79,7 @@ curl -X POST \
 ### With API Key Authentication
 ```bash
 curl -X POST \
-    https://test-api.worldticket.net/ota/v2015b/AirLowFareSearch \
+    https://test-api.worldticket.net/ota/v2015b/OTA_AirLowFareSearchRQ \
     -H 'X-API-Key: {api_key}' \
     -H 'Content-Type: application/json' \
     -d @AirLowFareSearchRQ.json
