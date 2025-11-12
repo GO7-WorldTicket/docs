@@ -147,22 +147,24 @@ curl -X POST \
     }
   },
   "travelerInfoSummary": {
-    "airTravelerAvail": {
-      "passengerTypeQuantity": [
-        {
-          "code": "ADT",
-          "quantity": "{adult_count}"
-        },
-        {
-          "code": "CHD",
-          "quantity": "{child_count}"
-        },
-        {
-          "code": "INF",
-          "quantity": "{infant_count}"
-        }
-      ]
-    }
+    "airTravelerAvail": [
+      {
+        "passengerTypeQuantity": [
+          {
+            "code": "ADT",
+            "quantity": "{adult_count}"
+          },
+          {
+            "code": "CHD",
+            "quantity": "{child_count}"
+          },
+          {
+            "code": "INF",
+            "quantity": "{infant_count}"
+          }
+        ]
+      }
+    ]
   },
   "priceRequestInformation": {
     "tpa_Extensions": {

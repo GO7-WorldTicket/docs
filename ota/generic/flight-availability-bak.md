@@ -230,22 +230,24 @@ curl -X POST \
     }
   },
   "travelerInfoSummary": {
-    "airTravelerAvail": {
-      "passengerTypeQuantity": [
-        {
-          "code": "ADT",
-          "quantity": "{adult_count}"
-        },
-        {
-          "code": "CHD",
-          "quantity": "{child_count}"
-        },
-        {
-          "code": "INF",
-          "quantity": "{infant_count}"
-        }
-      ]
-    }
+    "airTravelerAvail": [
+      {
+        "passengerTypeQuantity": [
+          {
+            "code": "ADT",
+            "quantity": "{adult_count}"
+          },
+          {
+            "code": "CHD",
+            "quantity": "{child_count}"
+          },
+          {
+            "code": "INF",
+            "quantity": "{infant_count}"
+          }
+        ]
+      }
+    ]
   }
 }
 ```
@@ -279,13 +281,15 @@ curl -X POST \
   ],
   "travelPreferences": { "cabinPref": { "cabin": "ECONOMY" } },
   "travelerInfoSummary": {
-    "airTravelerAvail": {
-      "passengerTypeQuantity": [
-        { "code": "ADT", "quantity": 2 },
-        { "code": "CHD", "quantity": 1 },
-        { "code": "INF", "quantity": 0 }
-      ]
-    }
+    "airTravelerAvail": [
+      {
+        "passengerTypeQuantity": [
+          { "code": "ADT", "quantity": 2 },
+          { "code": "CHD", "quantity": 1 },
+          { "code": "INF", "quantity": 0 }
+        ]
+      }
+    ]
   }
 }
 ```
