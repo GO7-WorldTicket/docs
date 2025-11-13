@@ -161,28 +161,30 @@ Attach the following headers to OTA requests.
   "success": {},
   "airReservation": {
     "airItinerary": {
-      "originDestinationOptions": [
-        {
-          "flightSegments": [
-            {
-              "departureDateTime": "2024-12-25T08:00:00",
-              "arrivalDateTime": "2024-12-25T11:30:00",
-              "flightNumber": "FL123",
-              "resBookDesigCode": "Y",
-              "departureAirport": {
-                "locationCode": "JED"
-              },
-              "arrivalAirport": {
-                "locationCode": "XMK"
-              },
-              "marketingAirline": {
-                "code": "DX"
-              },
-              "bookingStatus": "HK"
-            }
-          ]
-        }
-      ]
+      "originDestinationOptions": {
+        "originDestinationOption": [
+          {
+            "flightSegment": [
+              {
+                "departureDateTime": "2024-12-25T08:00:00",
+                "arrivalDateTime": "2024-12-25T11:30:00",
+                "flightNumber": "FL123",
+                "resBookDesigCode": "Y",
+                "departureAirport": {
+                  "locationCode": "JED"
+                },
+                "arrivalAirport": {
+                  "locationCode": "XMK"
+                },
+                "marketingAirline": {
+                  "code": "DX"
+                },
+                "bookingStatus": "HK"
+              }
+            ]
+          }
+        ]
+      }
     },
     "travelerInfo": {
       "airTraveler": [
