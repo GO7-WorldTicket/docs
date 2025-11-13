@@ -401,30 +401,3 @@ Group bookings typically have specific policies for completion:
 5. **Payment**: Process payment according to group terms
 6. **Ticketing**: Issue tickets within the specified time limit
 
-## Error Responses
-
-### Group Size Limitations
-
-```xml
-<OTA_AirPriceRS>
-    <Errors>
-        <Error Code="GROUP_SIZE_EXCEEDED" ShortText="Group size exceeded">
-            The requested group size exceeds the maximum allowed for this flight.
-        </Error>
-    </Errors>
-</OTA_AirPriceRS>
-```
-
-### Missing Contact Information
-
-```json
-{
-  "errors": [
-    {
-      "code": "MISSING_CONTACT_INFO",
-      "message": "Group booking requires contact information",
-      "field": "contactInfo"
-    }
-  ]
-}
-```

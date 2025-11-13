@@ -20,11 +20,6 @@ The purpose is to read the existing booking in the airline system to display the
   - [JSON Request](#json-request)
   - [JSON Response](#json-response)
   - [Booking Status Codes](#booking-status-codes)
-  - [Error Responses](#error-responses)
-    - [Booking Not Found](#booking-not-found)
-    - [Invalid Record Locator](#invalid-record-locator)
-    - [Booking Access Denied](#booking-access-denied)
-    - [Booking Expired](#booking-expired)
 
 ## Base URLs
 
@@ -83,27 +78,23 @@ Attach the following headers to OTA requests.
   "pos": {
     "source": [
       {
-        "requestorID": {
-          "type": "5",
-          "id": "{agent_id}",
-          "name": "{agency_id}"
-        }
+        "bookingChannel": {
+          "type": "OTA"
+        },
+        "isoCurrency": "{currency_code}"
       }
     ]
   },
-  "readRequests": [
-    {
-      "bookingReferenceID": [
-        {
-          "type": "14",
+  "readRequests": {
+    "readRequest": [
+      {
+        "uniqueID": {
           "id": "{record_locator}",
-          "companyName": {
-            "code": "{airline_code}"
-          }
+          "type": "14"
         }
-      ]
-    }
-  ]
+      }
+    ]
+  }
 }
 ```
 
@@ -121,27 +112,23 @@ Attach the following headers to OTA requests.
   "pos": {
     "source": [
       {
-        "requestorID": {
-          "type": "5",
-          "id": "AGENT123",
-          "name": "AGENCY1"
-        }
+        "bookingChannel": {
+          "type": "OTA"
+        },
+        "isoCurrency": "USD"
       }
     ]
   },
-  "readRequests": [
-    {
-      "bookingReferenceID": [
-        {
-          "type": "14",
-          "id": "ABC123",
-          "companyName": {
-            "code": "DX"
-          }
+  "readRequests": {
+    "readRequest": [
+      {
+        "uniqueID": {
+          "id": "WHUXOV",
+          "type": "14"
         }
-      ]
-    }
-  ]
+      }
+    ]
+  }
 }
 ```
 
@@ -258,62 +245,3 @@ Common booking status codes returned in the response:
 | XX | Cancelled |
 | NO | No Action Taken |
 
-## Error Responses
-
-Common error responses for read booking requests:
-
-### Booking Not Found
-
-```json
-{
-  "errors": [
-    {
-      "code": "BOOKING_NOT_FOUND",
-      "message": "Booking not found",
-      "details": "No booking found with record locator: {record_locator}"
-    }
-  ]
-}
-```
-
-### Invalid Record Locator
-
-```json
-{
-  "errors": [
-    {
-      "code": "INVALID_RECORD_LOCATOR",
-      "message": "Invalid record locator format",
-      "details": "Record locator must be 6 alphanumeric characters"
-    }
-  ]
-}
-```
-
-### Booking Access Denied
-
-```json
-{
-  "errors": [
-    {
-      "code": "ACCESS_DENIED",
-      "message": "Access to booking denied",
-      "details": "You do not have permission to access this booking"
-    }
-  ]
-}
-```
-
-### Booking Expired
-
-```json
-{
-  "errors": [
-    {
-      "code": "BOOKING_EXPIRED",
-      "message": "Booking has expired",
-      "details": "The booking has passed its ticketing time limit and is no longer available"
-    }
-  ]
-}
-```

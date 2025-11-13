@@ -44,10 +44,6 @@ The purpose is to make a payment for existing booking and issue tickets.
   - [Currency Conversion](#currency-conversion)
     - [Get Conversion Rate](#get-conversion-rate)
     - [Response](#response-1)
-  - [Error Responses](#error-responses)
-    - [Payment Declined](#payment-declined)
-    - [Insufficient Funds](#insufficient-funds)
-    - [Payment Timeout](#payment-timeout)
 
 ## Base URLs
 
@@ -831,47 +827,3 @@ The endpoint returns the converted amount as a BigDecimal number:
 81.07
 ```
 
-## Error Responses
-
-Common error responses for payment and ticketing requests:
-
-### Payment Declined
-
-```json
-{
-  "errors": [
-    {
-      "code": "PAYMENT_DECLINED",
-      "message": "The payment was declined by the card issuer. Please try a different card."
-    }
-  ]
-}
-```
-
-### Insufficient Funds
-
-```json
-{
-  "errors": [
-    {
-      "code": "INSUFFICIENT_FUNDS",
-      "message": "Insufficient funds in debit-credit account",
-      "accountId": "{account_id}"
-    }
-  ]
-}
-```
-
-### Payment Timeout
-
-```json
-{
-  "errors": [
-    {
-      "code": "PAYMENT_TIMEOUT",
-      "message": "Payment processing timed out. Please try again.",
-      "paymentId": "{payment_id}"
-    }
-  ]
-}
-```

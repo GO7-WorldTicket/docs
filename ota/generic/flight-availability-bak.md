@@ -374,7 +374,7 @@ curl -X GET \
 ```
 
 ### Response
-
+[id_rsa](../../../../.ssh/id_rsa)
 ```json
 {
   "ssrConfigurations": [
