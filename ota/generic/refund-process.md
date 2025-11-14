@@ -59,7 +59,7 @@ sequenceDiagram
 
     alt Documentation required
         Customer->>+Application: Upload supporting documents
-        Application->>+RefundService: POST /refund-requests/{id}/attachments
+        Application->>+RefundService: POST /refund-requests/{{id}}/attachments
         Note right of RefundService: Store documents<br/>for review process
         RefundService-->>-Application: Upload confirmation
         Application-->>-Customer: Documents uploaded
@@ -92,8 +92,8 @@ Get all refund requests based on search criteria.
 
 | Header | Description | Example |
 |--------|-------------|---------|
-| Authorization | Bearer token for JWT authentication | Bearer {access_token} |
-| X-API-Key | API key for key-based authentication | {api_key} |
+| Authorization | Bearer token for JWT authentication | Bearer {{access_token}} |
+| X-API-Key | API key for key-based authentication | {{api_key}} |
 
 **Note:** Use either `Authorization` (for JWT) OR `X-API-Key` (for API key authentication), not both.
 
@@ -258,7 +258,7 @@ Upload supporting documents for refund requests.
 #### Request
 
 ```bash
-POST https://test-api.worldticket.net/refund-service/refund-requests/{request_number}/attachments
+POST https://test-api.worldticket.net/refund-service/refund-requests/{{request_number}}/attachments
 ```
 
 **Content-Type:** `multipart/form-data`

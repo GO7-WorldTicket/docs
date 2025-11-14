@@ -15,8 +15,8 @@ Comprehensive guide to OTA API error responses, codes, and handling strategies.
 <?xml version="1.0" encoding="UTF-8"?>
 <OTA_ErrorRS xmlns="http://www.opentravel.org/OTA/2003/05" Version="2.001">
     <Errors>
-        <Error Type="{error_type}" Code="{error_code}" ShortText="{short_description}">
-            {detailed_error_message}
+        <Error Type="{{error_type}}" Code="{{error_code}}" ShortText="{{short_description}}">
+            {{detailed_error_message}}
         </Error>
     </Errors>
 </OTA_ErrorRS>
@@ -28,14 +28,14 @@ Comprehensive guide to OTA API error responses, codes, and handling strategies.
 {
   "errors": [
     {
-      "type": "{error_type}",
-      "code": "{error_code}",
-      "message": "{detailed_error_message}",
-      "field": "{field_name}",
-      "timestamp": "{error_timestamp}"
+      "type": "{{error_type}}",
+      "code": "{{error_code}}",
+      "message": "{{detailed_error_message}}",
+      "field": "{{field_name}}",
+      "timestamp": "{{error_timestamp}}"
     }
   ],
-  "requestId": "{unique_request_id}"
+  "requestId": "{{unique_request_id}}"
 }
 ```
 
@@ -176,7 +176,7 @@ Comprehensive guide to OTA API error responses, codes, and handling strategies.
 
 ```xml
 <Error Code="INVALID_ROUTE" ShortText="Route not served">
-    The route from {origin} to {destination} is not served by this airline.
+    The route from {{origin}} to {{destination}} is not served by this airline.
     <AlternativeRoutes>
         <Route>JFK-ORD-LAX</Route>
         <Route>JFK-DFW-LAX</Route>

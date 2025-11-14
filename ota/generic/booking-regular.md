@@ -31,15 +31,15 @@ The purpose is to create the booking in the airline system by providing a specif
 
 - Method: `POST`
 - Path: `/ota/v2015b/OTA_AirBookRQ`
-- Full URL: `{base_url}/ota/v2015b/OTA_AirBookRQ` (choose base URL per environment above)
+- Full URL: `{{base_url}}/ota/v2015b/OTA_AirBookRQ` (choose base URL per environment above)
 
 ## HTTP Headers
 
 | Header | Description | Example |
 |--------|-------------|---------|
-| Authorization | Bearer token for JWT authentication | Bearer {access_token} |
-| X-API-Key | API key for key-based authentication | {api_key} |
-| X-Realm | Airline realm identifier | {tenant-name} |
+| Authorization | Bearer token for JWT authentication | Bearer {{access_token}} |
+| X-API-Key | API key for key-based authentication | {{api_key}} |
+| X-Realm | Airline realm identifier | {{tenant-name}} |
 
 **Note:** Use either `Authorization` (for JWT) OR `X-API-Key` (for API key authentication), not both.
 
@@ -91,7 +91,7 @@ sequenceDiagram
 ```bash
 curl -X POST \
     https://test-api.worldticket.net/ota/v2015b/OTA_AirBookRQ \
-    -H 'Authorization: Bearer {access_token}' \
+    -H 'Authorization: Bearer {{access_token}}' \
     -H 'Content-Type: application/json' \
     -d @AirBookRQ.json
 ```
@@ -100,7 +100,7 @@ curl -X POST \
 ```bash
 curl -X POST \
     https://test-api.worldticket.net/ota/v2015b/OTA_AirBookRQ \
-    -H 'X-API-Key: {api_key}' \
+    -H 'X-API-Key: {{api_key}}' \
     -H 'Content-Type: application/json' \
     -d @AirBookRQ.json
 ```
@@ -125,11 +125,11 @@ Some details can be provided optionally:
   "pos": {
     "source": [
       {
-        "isoCurrency": "{currency_code}",
+        "isoCurrency": "{{currency_code}}",
         "requestorID": {
           "type": "5",
-          "id": "{agent_id}",
-          "name": "{agency_id}"
+          "id": "{{agent_id}}",
+          "name": "{{agency_id}}"
         },
         "bookingChannel": {
           "type": "OTA"
@@ -143,19 +143,19 @@ Some details can be provided optionally:
         {
           "flightSegment": [
             {
-              "departureDateTime": "{departure_datetime}",
-              "arrivalDateTime": "{arrival_datetime}",
-              "flightNumber": "{flight_number}",
-              "resBookDesigCode": "{booking_class}",
-              "numberInParty": "{total_passengers}",
+              "departureDateTime": "{{departure_datetime}}",
+              "arrivalDateTime": "{{arrival_datetime}}",
+              "flightNumber": "{{flight_number}}",
+              "resBookDesigCode": "{{booking_class}}",
+              "numberInParty": "{{total_passengers}}",
               "departureAirport": {
-                "locationCode": "{origin_code}"
+                "locationCode": "{{origin_code}}"
               },
               "arrivalAirport": {
-                "locationCode": "{destination_code}"
+                "locationCode": "{{destination_code}}"
               },
               "marketingAirline": {
-                "code": "{airline_code}"
+                "code": "{{airline_code}}"
               }
             }
           ]
@@ -169,30 +169,30 @@ Some details can be provided optionally:
         "passengerTypeCode": "CTC",
         "personName": {
           "givenName": [
-            "{first_name}"
+            "{{first_name}}"
           ],
           "middleName": [
-            "{middle_name}"
+            "{{middle_name}}"
           ],
-          "surname": "{last_name}"
+          "surname": "{{last_name}}"
         },
         "email": [
           {
-            "value": "{email_address}"
+            "value": "{{email_address}}"
           }
         ],
         "telephone": [
           {
-            "countryAccessCode": "{country_code}",
-            "phoneNumber": "{phone_number}"
+            "countryAccessCode": "{{country_code}}",
+            "phoneNumber": "{{phone_number}}"
           }
         ],
         "address": [
           {
-            "cityName": "{city_name}",
+            "cityName": "{{city_name}}",
             "countryName": {
-              "value": "{country_name}",
-              "code": "{country_code}"
+              "value": "{{country_name}}",
+              "code": "{{country_code}}"
             }
           }
         ]
@@ -201,42 +201,42 @@ Some details can be provided optionally:
         "passengerTypeCode": "ADT",
         "personName": {
           "namePrefix": [
-            "{name_prefix}"
+            "{{name_prefix}}"
           ],
           "givenName": [
-            "{first_name}"
+            "{{first_name}}"
           ],
-          "surname": "{last_name}"
+          "surname": "{{last_name}}"
         },
         "telephone": [
           {
-            "countryAccessCode": "{country_code}",
-            "phoneNumber": "{phone_number}"
+            "countryAccessCode": "{{country_code}}",
+            "phoneNumber": "{{phone_number}}"
           }
         ],
         "email": [
           {
-            "value": "{email_address}"
+            "value": "{{email_address}}"
           }
         ],
         "document": [
           {
-            "docID": "{document_number}",
-            "docType": "{document_type}",
-            "docHolderNationality": "{nationality_code}",
-            "expireDate": "{expiry_date}",
-            "birthDate": "{birth_date}"
+            "docID": "{{document_number}}",
+            "docType": "{{document_type}}",
+            "docHolderNationality": "{{nationality_code}}",
+            "expireDate": "{{expiry_date}}",
+            "birthDate": "{{birth_date}}"
           }
         ],
         "travelerRefNumber": {
-          "rph": "{passenger_reference}"
+          "rph": "{{passenger_reference}}"
         },
         "flightSegmentRPHs": {
           "flightSegmentRPH": [
-            "{segment_reference}"
+            "{{segment_reference}}"
           ]
         },
-        "gender": "{gender}"
+        "gender": "{{gender}}"
       }
     ]
   }
@@ -361,11 +361,11 @@ Some details can be provided optionally:
   "pos": {
     "source": [
       {
-        "isoCurrency": "{currency_code}",
+        "isoCurrency": "{{currency_code}}",
         "requestorID": {
           "type": "5",
-          "id": "{agent_id}",
-          "name": "{agency_id}"
+          "id": "{{agent_id}}",
+          "name": "{{agency_id}}"
         },
         "bookingChannel": {
           "type": "OTA"
@@ -379,19 +379,19 @@ Some details can be provided optionally:
         {
           "flightSegment": [
             {
-              "departureDateTime": "{outbound_departure_datetime}",
-              "arrivalDateTime": "{outbound_arrival_datetime}",
-              "flightNumber": "{outbound_flight_number}",
-              "resBookDesigCode": "{booking_class}",
-              "numberInParty": "{total_passengers}",
+              "departureDateTime": "{{outbound_departure_datetime}}",
+              "arrivalDateTime": "{{outbound_arrival_datetime}}",
+              "flightNumber": "{{outbound_flight_number}}",
+              "resBookDesigCode": "{{booking_class}}",
+              "numberInParty": "{{total_passengers}}",
               "departureAirport": {
-                "locationCode": "{origin_code}"
+                "locationCode": "{{origin_code}}"
               },
               "arrivalAirport": {
-                "locationCode": "{destination_code}"
+                "locationCode": "{{destination_code}}"
               },
               "marketingAirline": {
-                "code": "{airline_code}"
+                "code": "{{airline_code}}"
               }
             }
           ]
@@ -399,19 +399,19 @@ Some details can be provided optionally:
         {
           "flightSegment": [
             {
-              "departureDateTime": "{inbound_departure_datetime}",
-              "arrivalDateTime": "{inbound_arrival_datetime}",
-              "flightNumber": "{inbound_flight_number}",
-              "resBookDesigCode": "{booking_class}",
-              "numberInParty": "{total_passengers}",
+              "departureDateTime": "{{inbound_departure_datetime}}",
+              "arrivalDateTime": "{{inbound_arrival_datetime}}",
+              "flightNumber": "{{inbound_flight_number}}",
+              "resBookDesigCode": "{{booking_class}}",
+              "numberInParty": "{{total_passengers}}",
               "departureAirport": {
-                "locationCode": "{destination_code}"
+                "locationCode": "{{destination_code}}"
               },
               "arrivalAirport": {
-                "locationCode": "{origin_code}"
+                "locationCode": "{{origin_code}}"
               },
               "marketingAirline": {
-                "code": "{airline_code}"
+                "code": "{{airline_code}}"
               }
             }
           ]
@@ -423,13 +423,13 @@ Some details can be provided optionally:
     {
       "airTraveler": {
         "personName": {
-          "givenName": "{first_name}",
-          "surname": "{last_name}"
+          "givenName": "{{first_name}}",
+          "surname": "{{last_name}}"
         },
         "document": {
-          "docType": "{document_type}",
-          "docID": "{document_number}",
-          "expireDate": "{expiry_date}"
+          "docType": "{{document_type}}",
+          "docID": "{{document_number}}",
+          "expireDate": "{{expiry_date}}"
         },
         "travelerRefNumber": {
           "rph": "1"
@@ -597,13 +597,13 @@ Some details can be provided optionally:
     {
       "airTraveler": {
         "personName": {
-          "givenName": "{first_name}",
-          "surname": "{last_name}"
+          "givenName": "{{first_name}}",
+          "surname": "{{last_name}}"
         },
         "document": {
-          "docType": "{document_type}",
-          "docID": "{document_number}",
-          "expireDate": "{expiry_date}"
+          "docType": "{{document_type}}",
+          "docID": "{{document_number}}",
+          "expireDate": "{{expiry_date}}"
         },
         "travelerRefNumber": {
           "rph": "1"
@@ -639,7 +639,7 @@ Some details can be provided optionally:
       "paymentDetail": {
         "paymentType": "1",
         "directBill": {
-          "directBillID": "{account_id}"
+          "directBillID": "{{account_id}}"
         }
       }
     }

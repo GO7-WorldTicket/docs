@@ -32,7 +32,7 @@ The purpose is to read the existing booking in the airline system to display the
 
 - Method: `POST`
 - Path: `/ota/v2015b/OTA_ReadRQ`
-- Full URL: `{base_url}/ota/v2015b/OTA_ReadRQ` (choose base URL per environment above)
+- Full URL: `{{base_url}}/ota/v2015b/OTA_ReadRQ` (choose base URL per environment above)
 
 ## Basic Request Format
 
@@ -40,7 +40,7 @@ The purpose is to read the existing booking in the airline system to display the
 ```bash
 curl -X POST \
     https://test-api.worldticket.net/ota/v2015b/OTA_ReadRQ \
-    -H 'Authorization: Bearer {access_token}' \
+    -H 'Authorization: Bearer {{access_token}}' \
     -H 'Content-Type: application/json' \
     -d @ReadRQ.json
 ```
@@ -49,7 +49,7 @@ curl -X POST \
 ```bash
 curl -X POST \
     https://test-api.worldticket.net/ota/v2015b/OTA_ReadRQ \
-    -H 'X-API-Key: {api_key}' \
+    -H 'X-API-Key: {{api_key}}' \
     -H 'Content-Type: application/json' \
     -d @ReadRQ.json
 ```
@@ -60,9 +60,9 @@ Attach the following headers to OTA requests.
 
 | Header | Description | Example |
 |--------|-------------|---------|
-| Authorization | Bearer token for JWT authentication | Bearer {access_token} |
-| X-API-Key | API key for key-based authentication | {api_key} |
-| X-Realm | Airline realm identifier | {tenant-name} |
+| Authorization | Bearer token for JWT authentication | Bearer {{access_token}} |
+| X-API-Key | API key for key-based authentication | {{api_key}} |
+| X-Realm | Airline realm identifier | {{tenant-name}} |
 
 **Note:** Use either `Authorization` (for JWT) OR `X-API-Key` (for API key authentication), not both.
 
@@ -81,7 +81,7 @@ Attach the following headers to OTA requests.
         "bookingChannel": {
           "type": "OTA"
         },
-        "isoCurrency": "{currency_code}"
+        "isoCurrency": "{{currency_code}}"
       }
     ]
   },
@@ -89,7 +89,7 @@ Attach the following headers to OTA requests.
     "readRequest": [
       {
         "uniqueID": {
-          "id": "{record_locator}",
+          "id": "{{record_locator}}",
           "type": "14"
         }
       }
