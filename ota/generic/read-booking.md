@@ -20,11 +20,6 @@ The purpose is to read the existing booking in the airline system to display the
   - [JSON Request](#json-request)
   - [JSON Response](#json-response)
   - [Booking Status Codes](#booking-status-codes)
-  - [Error Responses](#error-responses)
-    - [Booking Not Found](#booking-not-found)
-    - [Invalid Record Locator](#invalid-record-locator)
-    - [Booking Access Denied](#booking-access-denied)
-    - [Booking Expired](#booking-expired)
 
 ## Base URLs
 
@@ -37,7 +32,7 @@ The purpose is to read the existing booking in the airline system to display the
 
 - Method: `POST`
 - Path: `/ota/v2015b/OTA_ReadRQ`
-- Full URL: `{base_url}/ota/v2015b/OTA_ReadRQ` (choose base URL per environment above)
+- Full URL: `{{base_url}}/ota/v2015b/OTA_ReadRQ` (choose base URL per environment above)
 
 ## Basic Request Format
 
@@ -45,7 +40,7 @@ The purpose is to read the existing booking in the airline system to display the
 ```bash
 curl -X POST \
     https://test-api.worldticket.net/ota/v2015b/OTA_ReadRQ \
-    -H 'Authorization: Bearer {access_token}' \
+    -H 'Authorization: Bearer {{access_token}}' \
     -H 'Content-Type: application/json' \
     -d @ReadRQ.json
 ```
@@ -54,7 +49,7 @@ curl -X POST \
 ```bash
 curl -X POST \
     https://test-api.worldticket.net/ota/v2015b/OTA_ReadRQ \
-    -H 'X-API-Key: {api_key}' \
+    -H 'X-API-Key: {{api_key}}' \
     -H 'Content-Type: application/json' \
     -d @ReadRQ.json
 ```
@@ -65,9 +60,9 @@ Attach the following headers to OTA requests.
 
 | Header | Description | Example |
 |--------|-------------|---------|
-| Authorization | Bearer token for JWT authentication | Bearer {access_token} |
-| X-API-Key | API key for key-based authentication | {api_key} |
-| X-Realm | Airline realm identifier | {tenant-name} |
+| Authorization | Bearer token for JWT authentication | Bearer {{access_token}} |
+| X-API-Key | API key for key-based authentication | {{api_key}} |
+| X-Realm | Airline realm identifier | {{tenant-name}} |
 
 **Note:** Use either `Authorization` (for JWT) OR `X-API-Key` (for API key authentication), not both.
 
@@ -83,27 +78,23 @@ Attach the following headers to OTA requests.
   "pos": {
     "source": [
       {
-        "requestorID": {
-          "type": "5",
-          "id": "{agent_id}",
-          "name": "{agency_id}"
-        }
+        "bookingChannel": {
+          "type": "OTA"
+        },
+        "isoCurrency": "{{currency_code}}"
       }
     ]
   },
-  "readRequests": [
-    {
-      "bookingReferenceID": [
-        {
-          "type": "14",
-          "id": "{record_locator}",
-          "companyName": {
-            "code": "{airline_code}"
-          }
+  "readRequests": {
+    "readRequest": [
+      {
+        "uniqueID": {
+          "id": "{{record_locator}}",
+          "type": "14"
         }
-      ]
-    }
-  ]
+      }
+    ]
+  }
 }
 ```
 
@@ -121,27 +112,23 @@ Attach the following headers to OTA requests.
   "pos": {
     "source": [
       {
-        "requestorID": {
-          "type": "5",
-          "id": "AGENT123",
-          "name": "AGENCY1"
-        }
+        "bookingChannel": {
+          "type": "OTA"
+        },
+        "isoCurrency": "USD"
       }
     ]
   },
-  "readRequests": [
-    {
-      "bookingReferenceID": [
-        {
-          "type": "14",
-          "id": "ABC123",
-          "companyName": {
-            "code": "DX"
-          }
+  "readRequests": {
+    "readRequest": [
+      {
+        "uniqueID": {
+          "id": "WHUXOV",
+          "type": "14"
         }
-      ]
-    }
-  ]
+      }
+    ]
+  }
 }
 ```
 
@@ -258,62 +245,3 @@ Common booking status codes returned in the response:
 | XX | Cancelled |
 | NO | No Action Taken |
 
-## Error Responses
-
-Common error responses for read booking requests:
-
-### Booking Not Found
-
-```json
-{
-  "errors": [
-    {
-      "code": "BOOKING_NOT_FOUND",
-      "message": "Booking not found",
-      "details": "No booking found with record locator: {record_locator}"
-    }
-  ]
-}
-```
-
-### Invalid Record Locator
-
-```json
-{
-  "errors": [
-    {
-      "code": "INVALID_RECORD_LOCATOR",
-      "message": "Invalid record locator format",
-      "details": "Record locator must be 6 alphanumeric characters"
-    }
-  ]
-}
-```
-
-### Booking Access Denied
-
-```json
-{
-  "errors": [
-    {
-      "code": "ACCESS_DENIED",
-      "message": "Access to booking denied",
-      "details": "You do not have permission to access this booking"
-    }
-  ]
-}
-```
-
-### Booking Expired
-
-```json
-{
-  "errors": [
-    {
-      "code": "BOOKING_EXPIRED",
-      "message": "Booking has expired",
-      "details": "The booking has passed its ticketing time limit and is no longer available"
-    }
-  ]
-}
-```

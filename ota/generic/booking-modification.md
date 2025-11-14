@@ -18,8 +18,8 @@ The purpose is to modify existing bookings. Supported modifications include name
 
 | Header | Description | Example |
 |--------|-------------|---------|
-| Authorization | Bearer token for JWT authentication | Bearer {access_token} |
-| X-API-Key | API key for key-based authentication | {api_key} |
+| Authorization | Bearer token for JWT authentication | Bearer {{access_token}} |
+| X-API-Key | API key for key-based authentication | {{api_key}} |
 | Local-Name | OTA operation identifier | OTA_AirBookModifyRQ |
 | Content-Type | Request content type | application/xml |
 
@@ -88,12 +88,12 @@ Add Special Service Requests to an existing booking.
 <OTA_AirBookModifyRQ xmlns="http://www.opentravel.org/OTA/2003/05" Version="2.001">
     <POS>
         <Source>
-            <RequestorID Type="5" ID="{agent_id}" ID_Context="{agency_id}"/>
+            <RequestorID Type="5" ID="{{agent_id}}" ID_Context="{{agency_id}}"/>
         </Source>
     </POS>
     <AirReservation>
-        <BookingReferenceID ID="{record_locator}" Type="14">
-            <CompanyName Code="{airline_code}"/>
+        <BookingReferenceID ID="{{record_locator}}" Type="14">
+            <CompanyName Code="{{airline_code}}"/>
         </BookingReferenceID>
         <TravelerInfo>
             <AirTraveler>
@@ -123,17 +123,17 @@ Add Special Service Requests to an existing booking.
     "source": [{
       "requestorID": {
         "type": "5",
-        "id": "{agent_id}",
-        "name": "{agency_id}"
+        "id": "{{agent_id}}",
+        "name": "{{agency_id}}"
       }
     }]
   },
   "airReservation": {
     "bookingReferenceID": {
-      "id": "{record_locator}",
+      "id": "{{record_locator}}",
       "type": "14",
       "companyName": {
-        "code": "{airline_code}"
+        "code": "{{airline_code}}"
       }
     },
     "travelerInfo": [{
@@ -178,18 +178,18 @@ Modify passenger name in existing booking.
 <OTA_AirBookModifyRQ xmlns="http://www.opentravel.org/OTA/2003/05" Version="2.001">
     <POS>
         <Source>
-            <RequestorID Type="5" ID="{agent_id}" ID_Context="{agency_id}"/>
+            <RequestorID Type="5" ID="{{agent_id}}" ID_Context="{{agency_id}}"/>
         </Source>
     </POS>
     <AirReservation>
-        <BookingReferenceID ID="{record_locator}" Type="14">
-            <CompanyName Code="{airline_code}"/>
+        <BookingReferenceID ID="{{record_locator}}" Type="14">
+            <CompanyName Code="{{airline_code}}"/>
         </BookingReferenceID>
         <TravelerInfo>
             <AirTraveler>
                 <PersonName>
-                    <GivenName>{new_first_name}</GivenName>
-                    <Surname>{new_last_name}</Surname>
+                    <GivenName>{{new_first_name}}</GivenName>
+                    <Surname>{{new_last_name}}</Surname>
                 </PersonName>
                 <TravelerRefNumber RPH="1"/>
             </AirTraveler>
@@ -209,23 +209,23 @@ First, get the price difference between old and new segments:
 <OTA_AirBookModifyRQ xmlns="http://www.opentravel.org/OTA/2003/05" Version="2.001" RepriceRequired="true">
     <POS>
         <Source>
-            <RequestorID Type="5" ID="{agent_id}" ID_Context="{agency_id}"/>
+            <RequestorID Type="5" ID="{{agent_id}}" ID_Context="{{agency_id}}"/>
         </Source>
     </POS>
     <AirReservation>
-        <BookingReferenceID ID="{record_locator}" Type="14">
-            <CompanyName Code="{airline_code}"/>
+        <BookingReferenceID ID="{{record_locator}}" Type="14">
+            <CompanyName Code="{{airline_code}}"/>
         </BookingReferenceID>
         <AirItinerary>
             <OriginDestinationOptions>
                 <OriginDestinationOption>
-                    <FlightSegment DepartureDateTime="{new_departure_datetime}" 
-                                  ArrivalDateTime="{new_arrival_datetime}"
-                                  FlightNumber="{new_flight_number}"
-                                  ResBookDesigCode="{booking_class}">
-                        <DepartureAirport LocationCode="{origin_code}"/>
-                        <ArrivalAirport LocationCode="{destination_code}"/>
-                        <MarketingAirline Code="{airline_code}"/>
+                    <FlightSegment DepartureDateTime="{{new_departure_datetime}}" 
+                                  ArrivalDateTime="{{new_arrival_datetime}}"
+                                  FlightNumber="{{new_flight_number}}"
+                                  ResBookDesigCode="{{booking_class}}">
+                        <DepartureAirport LocationCode="{{origin_code}}"/>
+                        <ArrivalAirport LocationCode="{{destination_code}}"/>
+                        <MarketingAirline Code="{{airline_code}}"/>
                     </FlightSegment>
                 </OriginDestinationOption>
             </OriginDestinationOptions>
@@ -242,10 +242,10 @@ First, get the price difference between old and new segments:
     <AirReservation>
         <PriceInfo>
             <ItinTotalFare>
-                <TotalFare Amount="{new_total_fare}" CurrencyCode="{currency_code}"/>
+                <TotalFare Amount="{{new_total_fare}}" CurrencyCode="{{currency_code}}"/>
             </ItinTotalFare>
             <PriceDifference>
-                <Amount Amount="{price_difference}" CurrencyCode="{currency_code}"/>
+                <Amount Amount="{{price_difference}}" CurrencyCode="{{currency_code}}"/>
                 <Description>Additional charge for date change</Description>
             </PriceDifference>
         </PriceInfo>
@@ -262,30 +262,30 @@ After reviewing price difference, confirm the change:
 <OTA_AirBookModifyRQ xmlns="http://www.opentravel.org/OTA/2003/05" Version="2.001" RepriceRequired="false">
     <POS>
         <Source>
-            <RequestorID Type="5" ID="{agent_id}" ID_Context="{agency_id}"/>
+            <RequestorID Type="5" ID="{{agent_id}}" ID_Context="{{agency_id}}"/>
         </Source>
     </POS>
     <AirReservation>
-        <BookingReferenceID ID="{record_locator}" Type="14">
-            <CompanyName Code="{airline_code}"/>
+        <BookingReferenceID ID="{{record_locator}}" Type="14">
+            <CompanyName Code="{{airline_code}}"/>
         </BookingReferenceID>
         <AirItinerary>
             <OriginDestinationOptions>
                 <OriginDestinationOption>
-                    <FlightSegment DepartureDateTime="{new_departure_datetime}" 
-                                  ArrivalDateTime="{new_arrival_datetime}"
-                                  FlightNumber="{new_flight_number}"
-                                  ResBookDesigCode="{booking_class}">
-                        <DepartureAirport LocationCode="{origin_code}"/>
-                        <ArrivalAirport LocationCode="{destination_code}"/>
-                        <MarketingAirline Code="{airline_code}"/>
+                    <FlightSegment DepartureDateTime="{{new_departure_datetime}}" 
+                                  ArrivalDateTime="{{new_arrival_datetime}}"
+                                  FlightNumber="{{new_flight_number}}"
+                                  ResBookDesigCode="{{booking_class}}">
+                        <DepartureAirport LocationCode="{{origin_code}}"/>
+                        <ArrivalAirport LocationCode="{{destination_code}}"/>
+                        <MarketingAirline Code="{{airline_code}}"/>
                     </FlightSegment>
                 </OriginDestinationOption>
             </OriginDestinationOptions>
         </AirItinerary>
         <PaymentInfo PaymentType="5">
-            <PaymentCard CardType="VI" CardNumber="{card_number}" ExpireDate="{expiry_date}">
-                <CardHolderName>{cardholder_name}</CardHolderName>
+            <PaymentCard CardType="VI" CardNumber="{{card_number}}" ExpireDate="{{expiry_date}}">
+                <CardHolderName>{{cardholder_name}}</CardHolderName>
             </PaymentCard>
         </PaymentInfo>
     </AirReservation>
@@ -303,22 +303,22 @@ Cancel individual flight segments from a multi-segment booking.
 <OTA_AirBookModifyRQ xmlns="http://www.opentravel.org/OTA/2003/05" Version="2.001">
     <POS>
         <Source>
-            <RequestorID Type="5" ID="{agent_id}" ID_Context="{agency_id}"/>
+            <RequestorID Type="5" ID="{{agent_id}}" ID_Context="{{agency_id}}"/>
         </Source>
     </POS>
     <AirReservation>
-        <BookingReferenceID ID="{record_locator}" Type="14">
-            <CompanyName Code="{airline_code}"/>
+        <BookingReferenceID ID="{{record_locator}}" Type="14">
+            <CompanyName Code="{{airline_code}}"/>
         </BookingReferenceID>
         <AirItinerary>
             <OriginDestinationOptions>
                 <OriginDestinationOption>
-                    <FlightSegment DepartureDateTime="{departure_datetime}" 
-                                  FlightNumber="{flight_number}"
+                    <FlightSegment DepartureDateTime="{{departure_datetime}}" 
+                                  FlightNumber="{{flight_number}}"
                                   Status="Cancel">
-                        <DepartureAirport LocationCode="{origin_code}"/>
-                        <ArrivalAirport LocationCode="{destination_code}"/>
-                        <MarketingAirline Code="{airline_code}"/>
+                        <DepartureAirport LocationCode="{{origin_code}}"/>
+                        <ArrivalAirport LocationCode="{{destination_code}}"/>
+                        <MarketingAirline Code="{{airline_code}}"/>
                     </FlightSegment>
                 </OriginDestinationOption>
             </OriginDestinationOptions>
@@ -341,18 +341,18 @@ Remove individual passengers from booking.
 <OTA_AirBookModifyRQ xmlns="http://www.opentravel.org/OTA/2003/05" Version="2.001">
     <POS>
         <Source>
-            <RequestorID Type="5" ID="{agent_id}" ID_Context="{agency_id}"/>
+            <RequestorID Type="5" ID="{{agent_id}}" ID_Context="{{agency_id}}"/>
         </Source>
     </POS>
     <AirReservation>
-        <BookingReferenceID ID="{record_locator}" Type="14">
-            <CompanyName Code="{airline_code}"/>
+        <BookingReferenceID ID="{{record_locator}}" Type="14">
+            <CompanyName Code="{{airline_code}}"/>
         </BookingReferenceID>
         <TravelerInfo>
             <AirTraveler Status="Cancel">
                 <PersonName>
-                    <GivenName>{first_name}</GivenName>
-                    <Surname>{last_name}</Surname>
+                    <GivenName>{{first_name}}</GivenName>
+                    <Surname>{{last_name}}</Surname>
                 </PersonName>
                 <TravelerRefNumber RPH="2"/>
             </AirTraveler>
@@ -373,8 +373,8 @@ Remove individual passengers from booking.
 <OTA_AirBookModifyRS xmlns="http://www.opentravel.org/OTA/2003/05" Version="2.001">
     <Success/>
     <AirReservation>
-        <BookingReferenceID ID="{record_locator}" Type="14">
-            <CompanyName Code="{airline_code}"/>
+        <BookingReferenceID ID="{{record_locator}}" Type="14">
+            <CompanyName Code="{{airline_code}}"/>
         </BookingReferenceID>
         <ModificationSummary>
             <ModifiedItems>
@@ -388,14 +388,14 @@ Remove individual passengers from booking.
         </ModificationSummary>
         <PriceInfo>
             <ItinTotalFare>
-                <TotalFare Amount="{updated_total_fare}" CurrencyCode="{currency_code}"/>
+                <TotalFare Amount="{{updated_total_fare}}" CurrencyCode="{{currency_code}}"/>
             </ItinTotalFare>
             <ServiceFees>
-                <ServiceFee Type="NameChange" Amount="{name_change_fee}" CurrencyCode="{currency_code}"/>
-                <ServiceFee Type="DateChange" Amount="{date_change_fee}" CurrencyCode="{currency_code}"/>
+                <ServiceFee Type="NameChange" Amount="{{name_change_fee}}" CurrencyCode="{{currency_code}}"/>
+                <ServiceFee Type="DateChange" Amount="{{date_change_fee}}" CurrencyCode="{{currency_code}}"/>
             </ServiceFees>
         </PriceInfo>
-        <TicketingInfo TicketTimeLimit="{updated_time_limit}"/>
+        <TicketingInfo TicketTimeLimit="{{updated_time_limit}}"/>
     </AirReservation>
 </OTA_AirBookModifyRS>
 ```
@@ -408,10 +408,10 @@ Remove individual passengers from booking.
   "success": {},
   "airReservation": {
     "bookingReferenceID": {
-      "id": "{record_locator}",
+      "id": "{{record_locator}}",
       "type": "14",
       "companyName": {
-        "code": "{airline_code}"
+        "code": "{{airline_code}}"
       }
     },
     "modificationSummary": {
@@ -431,20 +431,20 @@ Remove individual passengers from booking.
     "priceInfo": {
       "itinTotalFare": {
         "totalFare": {
-          "amount": "{updated_total_fare}",
-          "currencyCode": "{currency_code}"
+          "amount": "{{updated_total_fare}}",
+          "currencyCode": "{{currency_code}}"
         }
       },
       "serviceFees": [
         {
           "type": "NameChange",
-          "amount": "{name_change_fee}",
-          "currencyCode": "{currency_code}"
+          "amount": "{{name_change_fee}}",
+          "currencyCode": "{{currency_code}}"
         }
       ]
     },
     "ticketingInfo": {
-      "ticketTimeLimit": "{updated_time_limit}"
+      "ticketTimeLimit": "{{updated_time_limit}}"
     }
   }
 }
@@ -467,31 +467,3 @@ Remove individual passengers from booking.
 - Most SSRs can be added post-booking
 - Some services may have availability limitations
 - Additional fees may apply for premium services
-
-## Error Responses
-
-### Modification Not Allowed
-
-```xml
-<OTA_AirBookModifyRS>
-    <Errors>
-        <Error Code="MODIFICATION_NOT_ALLOWED" ShortText="Modification not allowed">
-            The selected fare does not allow modifications.
-        </Error>
-    </Errors>
-</OTA_AirBookModifyRS>
-```
-
-### Flight Not Available
-
-```json
-{
-  "errors": [
-    {
-      "code": "FLIGHT_NOT_AVAILABLE",
-      "message": "The requested flight is not available for the selected date",
-      "flightNumber": "{flight_number}"
-    }
-  ]
-}
-```

@@ -19,7 +19,6 @@ The purpose is to create the booking in the airline system by providing a specif
 - [Payment Types](#payment-types)
 - [Response Structure](#response-structure)
 - [Booking Status Codes](#booking-status-codes)
-- [Error Responses](#error-responses)
 
 ## Base URLs
 
@@ -32,15 +31,15 @@ The purpose is to create the booking in the airline system by providing a specif
 
 - Method: `POST`
 - Path: `/ota/v2015b/OTA_AirBookRQ`
-- Full URL: `{base_url}/ota/v2015b/OTA_AirBookRQ` (choose base URL per environment above)
+- Full URL: `{{base_url}}/ota/v2015b/OTA_AirBookRQ` (choose base URL per environment above)
 
 ## HTTP Headers
 
 | Header | Description | Example |
 |--------|-------------|---------|
-| Authorization | Bearer token for JWT authentication | Bearer {access_token} |
-| X-API-Key | API key for key-based authentication | {api_key} |
-| X-Realm | Airline realm identifier | {tenant-name} |
+| Authorization | Bearer token for JWT authentication | Bearer {{access_token}} |
+| X-API-Key | API key for key-based authentication | {{api_key}} |
+| X-Realm | Airline realm identifier | {{tenant-name}} |
 
 **Note:** Use either `Authorization` (for JWT) OR `X-API-Key` (for API key authentication), not both.
 
@@ -92,7 +91,7 @@ sequenceDiagram
 ```bash
 curl -X POST \
     https://test-api.worldticket.net/ota/v2015b/OTA_AirBookRQ \
-    -H 'Authorization: Bearer {access_token}' \
+    -H 'Authorization: Bearer {{access_token}}' \
     -H 'Content-Type: application/json' \
     -d @AirBookRQ.json
 ```
@@ -101,7 +100,7 @@ curl -X POST \
 ```bash
 curl -X POST \
     https://test-api.worldticket.net/ota/v2015b/OTA_AirBookRQ \
-    -H 'X-API-Key: {api_key}' \
+    -H 'X-API-Key: {{api_key}}' \
     -H 'Content-Type: application/json' \
     -d @AirBookRQ.json
 ```
@@ -126,11 +125,11 @@ Some details can be provided optionally:
   "pos": {
     "source": [
       {
-        "isoCurrency": "{currency_code}",
+        "isoCurrency": "{{currency_code}}",
         "requestorID": {
           "type": "5",
-          "id": "{agent_id}",
-          "name": "{agency_id}"
+          "id": "{{agent_id}}",
+          "name": "{{agency_id}}"
         },
         "bookingChannel": {
           "type": "OTA"
@@ -144,19 +143,19 @@ Some details can be provided optionally:
         {
           "flightSegment": [
             {
-              "departureDateTime": "{departure_datetime}",
-              "arrivalDateTime": "{arrival_datetime}",
-              "flightNumber": "{flight_number}",
-              "resBookDesigCode": "{booking_class}",
-              "numberInParty": "{total_passengers}",
+              "departureDateTime": "{{departure_datetime}}",
+              "arrivalDateTime": "{{arrival_datetime}}",
+              "flightNumber": "{{flight_number}}",
+              "resBookDesigCode": "{{booking_class}}",
+              "numberInParty": "{{total_passengers}}",
               "departureAirport": {
-                "locationCode": "{origin_code}"
+                "locationCode": "{{origin_code}}"
               },
               "arrivalAirport": {
-                "locationCode": "{destination_code}"
+                "locationCode": "{{destination_code}}"
               },
               "marketingAirline": {
-                "code": "{airline_code}"
+                "code": "{{airline_code}}"
               }
             }
           ]
@@ -164,35 +163,83 @@ Some details can be provided optionally:
       ]
     }
   },
-  "travelerInfo": [
-    {
-      "airTraveler": {
+  "travelerInfo": {
+    "airTraveler": [
+      {
+        "passengerTypeCode": "CTC",
         "personName": {
-          "givenName": "{first_name}",
-          "surname": "{last_name}"
+          "givenName": [
+            "{{first_name}}"
+          ],
+          "middleName": [
+            "{{middle_name}}"
+          ],
+          "surname": "{{last_name}}"
+        },
+        "email": [
+          {
+            "value": "{{email_address}}"
+          }
+        ],
+        "telephone": [
+          {
+            "countryAccessCode": "{{country_code}}",
+            "phoneNumber": "{{phone_number}}"
+          }
+        ],
+        "address": [
+          {
+            "cityName": "{{city_name}}",
+            "countryName": {
+              "value": "{{country_name}}",
+              "code": "{{country_code}}"
+            }
+          }
+        ]
+      },
+      {
+        "passengerTypeCode": "ADT",
+        "personName": {
+          "namePrefix": [
+            "{{name_prefix}}"
+          ],
+          "givenName": [
+            "{{first_name}}"
+          ],
+          "surname": "{{last_name}}"
         },
         "telephone": [
           {
-            "phoneNumber": "{phone_number}",
-            "phoneTechType": "Voice"
+            "countryAccessCode": "{{country_code}}",
+            "phoneNumber": "{{phone_number}}"
           }
         ],
         "email": [
           {
-            "emailAddress": "{email_address}"
+            "value": "{{email_address}}"
           }
         ],
-        "document": {
-          "docType": "{document_type}",
-          "docID": "{document_number}",
-          "expireDate": "{expiry_date}"
-        },
+        "document": [
+          {
+            "docID": "{{document_number}}",
+            "docType": "{{document_type}}",
+            "docHolderNationality": "{{nationality_code}}",
+            "expireDate": "{{expiry_date}}",
+            "birthDate": "{{birth_date}}"
+          }
+        ],
         "travelerRefNumber": {
-          "rph": "1"
-        }
+          "rph": "{{passenger_reference}}"
+        },
+        "flightSegmentRPHs": {
+          "flightSegmentRPH": [
+            "{{segment_reference}}"
+          ]
+        },
+        "gender": "{{gender}}"
       }
-    }
-  ]
+    ]
+  }
 }
 ```
 
@@ -236,17 +283,63 @@ Some details can be provided optionally:
       ]
     }
   },
-  "travelerInfo": [
-    {
-      "airTraveler": {
-        "personName": { "givenName": "JOHN", "surname": "DOE" },
-        "telephone": [ { "phoneNumber": "+15551234567", "phoneTechType": "Voice" } ],
-        "email": [ { "emailAddress": "john.doe@example.com" } ],
-        "document": { "docType": "P", "docID": "X1234567", "expireDate": "2030-12-31" },
-        "travelerRefNumber": { "rph": "1" }
+  "travelerInfo": {
+    "airTraveler": [
+      {
+        "passengerTypeCode": "CTC",
+        "personName": {
+          "givenName": [ "QA" ],
+          "middleName": [ "TEST" ],
+          "surname": "TESTER"
+        },
+        "email": [ { "value": "tester@example.com" } ],
+        "telephone": [
+          {
+            "countryAccessCode": "1",
+            "phoneNumber": "5551234567"
+          }
+        ],
+        "address": [
+          {
+            "cityName": "New York",
+            "countryName": {
+              "value": "United States",
+              "code": "US"
+            }
+          }
+        ]
+      },
+      {
+        "passengerTypeCode": "ADT",
+        "personName": {
+          "namePrefix": [ "MR" ],
+          "givenName": [ "JOHN" ],
+          "surname": "DOE"
+        },
+        "telephone": [
+          {
+            "countryAccessCode": "1",
+            "phoneNumber": "5551234567"
+          }
+        ],
+        "email": [ { "value": "john.doe@example.com" } ],
+        "document": [
+          {
+            "docID": "X1234567",
+            "docType": "5",
+            "docHolderNationality": "US",
+            "expireDate": "2030-12-31",
+            "birthDate": "1990-01-15"
+          }
+        ],
+        "travelerRefNumber": { "rph": "1" },
+        "flightSegmentRPHs": {
+          "flightSegmentRPH": [ "1" ]
+        },
+        "gender": "Male"
       }
-    }
-  ]
+    ]
+  }
 }
 ```
 
@@ -268,11 +361,11 @@ Some details can be provided optionally:
   "pos": {
     "source": [
       {
-        "isoCurrency": "{currency_code}",
+        "isoCurrency": "{{currency_code}}",
         "requestorID": {
           "type": "5",
-          "id": "{agent_id}",
-          "name": "{agency_id}"
+          "id": "{{agent_id}}",
+          "name": "{{agency_id}}"
         },
         "bookingChannel": {
           "type": "OTA"
@@ -286,19 +379,19 @@ Some details can be provided optionally:
         {
           "flightSegment": [
             {
-              "departureDateTime": "{outbound_departure_datetime}",
-              "arrivalDateTime": "{outbound_arrival_datetime}",
-              "flightNumber": "{outbound_flight_number}",
-              "resBookDesigCode": "{booking_class}",
-              "numberInParty": "{total_passengers}",
+              "departureDateTime": "{{outbound_departure_datetime}}",
+              "arrivalDateTime": "{{outbound_arrival_datetime}}",
+              "flightNumber": "{{outbound_flight_number}}",
+              "resBookDesigCode": "{{booking_class}}",
+              "numberInParty": "{{total_passengers}}",
               "departureAirport": {
-                "locationCode": "{origin_code}"
+                "locationCode": "{{origin_code}}"
               },
               "arrivalAirport": {
-                "locationCode": "{destination_code}"
+                "locationCode": "{{destination_code}}"
               },
               "marketingAirline": {
-                "code": "{airline_code}"
+                "code": "{{airline_code}}"
               }
             }
           ]
@@ -306,19 +399,19 @@ Some details can be provided optionally:
         {
           "flightSegment": [
             {
-              "departureDateTime": "{inbound_departure_datetime}",
-              "arrivalDateTime": "{inbound_arrival_datetime}",
-              "flightNumber": "{inbound_flight_number}",
-              "resBookDesigCode": "{booking_class}",
-              "numberInParty": "{total_passengers}",
+              "departureDateTime": "{{inbound_departure_datetime}}",
+              "arrivalDateTime": "{{inbound_arrival_datetime}}",
+              "flightNumber": "{{inbound_flight_number}}",
+              "resBookDesigCode": "{{booking_class}}",
+              "numberInParty": "{{total_passengers}}",
               "departureAirport": {
-                "locationCode": "{destination_code}"
+                "locationCode": "{{destination_code}}"
               },
               "arrivalAirport": {
-                "locationCode": "{origin_code}"
+                "locationCode": "{{origin_code}}"
               },
               "marketingAirline": {
-                "code": "{airline_code}"
+                "code": "{{airline_code}}"
               }
             }
           ]
@@ -330,13 +423,13 @@ Some details can be provided optionally:
     {
       "airTraveler": {
         "personName": {
-          "givenName": "{first_name}",
-          "surname": "{last_name}"
+          "givenName": "{{first_name}}",
+          "surname": "{{last_name}}"
         },
         "document": {
-          "docType": "{document_type}",
-          "docID": "{document_number}",
-          "expireDate": "{expiry_date}"
+          "docType": "{{document_type}}",
+          "docID": "{{document_number}}",
+          "expireDate": "{{expiry_date}}"
         },
         "travelerRefNumber": {
           "rph": "1"
@@ -377,7 +470,7 @@ Some details can be provided optionally:
               "arrivalDateTime": "2024-12-25T11:30:00",
               "flightNumber": "WT100",
               "resBookDesigCode": "Y",
-              "numberInParty": "1",
+              "numberInParty": "2",
               "departureAirport": { "locationCode": "JED" },
               "arrivalAirport": { "locationCode": "XMK" },
               "marketingAirline": { "code": "WT" }
@@ -391,7 +484,7 @@ Some details can be provided optionally:
               "arrivalDateTime": "2025-01-02T19:30:00",
               "flightNumber": "WT101",
               "resBookDesigCode": "Y",
-              "numberInParty": "1",
+              "numberInParty": "2",
               "departureAirport": { "locationCode": "XMK" },
               "arrivalAirport": { "locationCode": "JED" },
               "marketingAirline": { "code": "WT" }
@@ -401,15 +494,92 @@ Some details can be provided optionally:
       ]
     }
   },
-  "travelerInfo": [
-    {
-      "airTraveler": {
-        "personName": { "givenName": "JOHN", "surname": "DOE" },
-        "document": { "docType": "P", "docID": "X1234567", "expireDate": "2030-12-31" },
-        "travelerRefNumber": { "rph": "1" }
+  "travelerInfo": {
+    "airTraveler": [
+      {
+        "passengerTypeCode": "CTC",
+        "personName": {
+          "givenName": [ "QA" ],
+          "middleName": [ "TEST" ],
+          "surname": "TESTER"
+        },
+        "email": [ { "value": "tester@example.com" } ],
+        "telephone": [
+          {
+            "countryAccessCode": "966",
+            "phoneNumber": "501234567"
+          }
+        ],
+        "address": [
+          {
+            "cityName": "Riyadh",
+            "countryName": {
+              "value": "Saudi Arabia",
+              "code": "SA"
+            }
+          }
+        ]
+      },
+      {
+        "passengerTypeCode": "ADT",
+        "personName": {
+          "namePrefix": [ "MR" ],
+          "givenName": [ "JOHN" ],
+          "surname": "PARKER"
+        },
+        "telephone": [
+          {
+            "countryAccessCode": "966",
+            "phoneNumber": "501234567"
+          }
+        ],
+        "email": [ { "value": "john.parker@example.com" } ],
+        "document": [
+          {
+            "docID": "1234567890",
+            "docType": "5",
+            "docHolderNationality": "SA",
+            "expireDate": "2027-12-12",
+            "birthDate": "1985-06-20"
+          }
+        ],
+        "travelerRefNumber": { "rph": "1" },
+        "flightSegmentRPHs": {
+          "flightSegmentRPH": [ "1", "2" ]
+        },
+        "gender": "Male"
+      },
+      {
+        "passengerTypeCode": "ADT",
+        "personName": {
+          "namePrefix": [ "MS" ],
+          "givenName": [ "JANE" ],
+          "surname": "PARKER"
+        },
+        "telephone": [
+          {
+            "countryAccessCode": "966",
+            "phoneNumber": "501234567"
+          }
+        ],
+        "email": [ { "value": "jane.parker@example.com" } ],
+        "document": [
+          {
+            "docID": "0987654321",
+            "docType": "5",
+            "docHolderNationality": "SA",
+            "expireDate": "2028-08-15",
+            "birthDate": "1988-03-10"
+          }
+        ],
+        "travelerRefNumber": { "rph": "2" },
+        "flightSegmentRPHs": {
+          "flightSegmentRPH": [ "1", "2" ]
+        },
+        "gender": "Female"
       }
-    }
-  ]
+    ]
+  }
 }
 ```
 
@@ -427,13 +597,13 @@ Some details can be provided optionally:
     {
       "airTraveler": {
         "personName": {
-          "givenName": "{first_name}",
-          "surname": "{last_name}"
+          "givenName": "{{first_name}}",
+          "surname": "{{last_name}}"
         },
         "document": {
-          "docType": "{document_type}",
-          "docID": "{document_number}",
-          "expireDate": "{expiry_date}"
+          "docType": "{{document_type}}",
+          "docID": "{{document_number}}",
+          "expireDate": "{{expiry_date}}"
         },
         "travelerRefNumber": {
           "rph": "1"
@@ -469,7 +639,7 @@ Some details can be provided optionally:
       "paymentDetail": {
         "paymentType": "1",
         "directBill": {
-          "directBillID": "{account_id}"
+          "directBillID": "{{account_id}}"
         }
       }
     }
@@ -499,67 +669,103 @@ Some details can be provided optionally:
   "success": {},
   "airReservation": {
     "bookingReferenceID": {
-      "id": "{record_locator}",
+      "id": "ABCDEF",
       "type": "14",
       "companyName": {
-        "code": "{airline_code}"
+        "code": "WT"
       }
     },
     "airItinerary": {
       "originDestinationOptions": [
         {
           "flightSegment": {
-            "departureDateTime": "{departure_datetime}",
-            "arrivalDateTime": "{arrival_datetime}",
-            "flightNumber": "{flight_number}",
-            "resBookDesigCode": "{booking_class}",
+            "departureDateTime": "2024-12-25T08:00:00",
+            "arrivalDateTime": "2024-12-25T11:30:00",
+            "flightNumber": "WT100",
+            "resBookDesigCode": "Y",
             "status": "HK",
             "departureAirport": {
-              "locationCode": "{origin_code}"
+              "locationCode": "JED"
             },
             "arrivalAirport": {
-              "locationCode": "{destination_code}"
+              "locationCode": "XMK"
             },
             "marketingAirline": {
-              "code": "{airline_code}"
+              "code": "WT"
             }
           }
         }
       ]
     },
-    "travelerInfo": [
-      {
-        "airTraveler": {
+    "travelerInfo": {
+      "airTraveler": [
+        {
+          "passengerTypeCode": "CTC",
           "personName": {
-            "givenName": "{first_name}",
-            "surname": "{last_name}"
+            "givenName": [ "QA" ],
+            "middleName": [ "TEST" ],
+            "surname": "TESTER"
           },
+          "email": [ { "value": "tester@example.com" } ],
+          "telephone": [
+            {
+              "countryAccessCode": "1",
+              "phoneNumber": "5551234567"
+            }
+          ],
+          "address": [
+            {
+              "cityName": "New York",
+              "countryName": {
+                "value": "United States",
+                "code": "US"
+              }
+            }
+          ]
+        },
+        {
+          "passengerTypeCode": "ADT",
+          "personName": {
+            "namePrefix": [ "MR" ],
+            "givenName": [ "JOHN" ],
+            "surname": "DOE"
+          },
+          "email": [ { "value": "john.doe@example.com" } ],
+          "document": [
+            {
+              "docID": "X1234567",
+              "docType": "5",
+              "docHolderNationality": "US",
+              "expireDate": "2030-12-31",
+              "birthDate": "1990-01-15"
+            }
+          ],
           "travelerRefNumber": {
             "rph": "1"
           }
         }
-      }
-    ],
+      ]
+    },
     "priceInfo": {
       "itinTotalFare": {
         "baseFare": {
-          "amount": "{base_fare}",
-          "currencyCode": "{currency_code}"
+          "amount": "250.00",
+          "currencyCode": "USD"
         },
         "taxes": [
           {
-            "amount": "{tax_amount}",
-            "currencyCode": "{currency_code}"
+            "amount": "50.00",
+            "currencyCode": "USD"
           }
         ],
         "totalFare": {
-          "amount": "{total_fare}",
-          "currencyCode": "{currency_code}"
+          "amount": "300.00",
+          "currencyCode": "USD"
         }
       }
     },
     "ticketingInfo": {
-      "ticketTimeLimit": "{ticket_time_limit}"
+      "ticketTimeLimit": "2024-12-23T23:59:59"
     }
   }
 }
@@ -573,33 +779,3 @@ Some details can be provided optionally:
 | UC | Unable to confirm |
 | UN | Unable - need |
 | WL | Waitlisted |
-
-## Error Responses
-
-### Seat Not Available
-
-```json
-{
-  "errors": [
-    {
-      "code": "SEAT_NOT_AVAILABLE",
-      "message": "Seat not available",
-      "details": "The requested seat is no longer available for booking."
-    }
-  ]
-}
-```
-
-### Invalid Passenger Data
-
-```json
-{
-  "errors": [
-    {
-      "code": "INVALID_PASSENGER_DATA",
-      "message": "Document expiry date must be in the future",
-      "field": "document.expireDate"
-    }
-  ]
-}
-```

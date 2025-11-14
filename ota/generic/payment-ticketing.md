@@ -44,10 +44,6 @@ The purpose is to make a payment for existing booking and issue tickets.
   - [Currency Conversion](#currency-conversion)
     - [Get Conversion Rate](#get-conversion-rate)
     - [Response](#response-1)
-  - [Error Responses](#error-responses)
-    - [Payment Declined](#payment-declined)
-    - [Insufficient Funds](#insufficient-funds)
-    - [Payment Timeout](#payment-timeout)
 
 ## Base URLs
 
@@ -59,7 +55,7 @@ The purpose is to make a payment for existing booking and issue tickets.
 ## Endpoints
 - Method: `POST`
 - Path: `/ota/v2015b/OTA_AirDemandTicketRQ`
-- Full URL: `{base_url}/ota/v2015b/OTA_AirDemandTicketRQ` (choose base URL per environment above)
+- Full URL: `{{base_url}}/ota/v2015b/OTA_AirDemandTicketRQ` (choose base URL per environment above)
 
 ## Supported Payment Types
 
@@ -79,7 +75,7 @@ The purpose is to make a payment for existing booking and issue tickets.
 ```bash
 curl -X POST \
   'https://test-api.worldticket.net/ota/v2015b/OTA_AirDemandTicketRQ' \
-  -H 'Authorization: Bearer {access_token}' \
+  -H 'Authorization: Bearer {{access_token}}' \
   -H 'Content-Type: application/json' \
   -d @AirDemandTicketRQ.json
 ```
@@ -88,7 +84,7 @@ curl -X POST \
 ```bash
 curl -X POST \
   'https://test-api.worldticket.net/ota/v2015b/OTA_AirDemandTicketRQ' \
-  -H 'X-API-Key: {api_key}' \
+  -H 'X-API-Key: {{api_key}}' \
   -H 'Content-Type: application/json' \
   -d @AirDemandTicketRQ.json
 ```
@@ -99,8 +95,8 @@ Attach the following headers to OTA requests.
 
 | Header        | Description                         | Example                   |
 |---------------|-------------------------------------|---------------------------|
-| Authorization | Bearer token for JWT authentication | Bearer {access_token}     |
-| X-API-Key     | API key for key-based authentication| {api_key}                 |
+| Authorization | Bearer token for JWT authentication | Bearer {{access_token}}     |
+| X-API-Key     | API key for key-based authentication| {{api_key}}                 |
 | Content-Type  | Request content type                | application/json          |
 
 Note: Use either `Authorization` (JWT) OR `X-API-Key` (API key), not both.
@@ -122,8 +118,8 @@ Note: Use either `Authorization` (JWT) OR `X-API-Key` (API key), not both.
         },
         "requestorID": {
           "type": "5",
-          "id": "{agent_id}",
-          "name": "{agency_id}"
+          "id": "{{agent_id}}",
+          "name": "{{agency_id}}"
         },
         "isocountry": "US",
         "isoCurrency": "USD"
@@ -137,11 +133,11 @@ Note: Use either `Authorization` (JWT) OR `X-API-Key` (API key), not both.
       }
     ],
     "bookingReferenceID": {
-      "id": "{record_locator}",
+      "id": "{{record_locator}}",
       "type": "14",
       "companyName": {
-        "code": "{airline_code}",
-        "companyShortName": "{tenant_name}"
+        "code": "{{airline_code}}",
+        "companyShortName": "{{tenant_name}}"
       }
     },
     "paymentInfo": [
@@ -149,7 +145,7 @@ Note: Use either `Authorization` (JWT) OR `X-API-Key` (API key), not both.
         "paymentType": "5",
         "creditCardInfo": [
           {
-            "cardHolderName": "{cardholder_name}"
+            "cardHolderName": "{{cardholder_name}}"
           }
         ],
         "currencyCode": "USD",
@@ -275,7 +271,7 @@ Note: Use either `Authorization` (JWT) OR `X-API-Key` (API key), not both.
 ```bash
 curl -X GET \
   'https://test-api.worldticket.net/payment-service/debit-credit/accounts' \
-  -H 'Authorization: Bearer {access_token}' \
+  -H 'Authorization: Bearer {{access_token}}' \
   -H 'Content-Type: application/json'
 ```
 
@@ -285,11 +281,11 @@ curl -X GET \
 {
   "accounts": [
     {
-      "accountId": "{account_id}",
-      "accountName": "{account_name}",
+      "accountId": "{{account_id}}",
+      "accountName": "{{account_name}}",
       "balance": {
-        "amount": "{balance_amount}",
-        "currency": "{currency_code}"
+        "amount": "{{balance_amount}}",
+        "currency": "{{currency_code}}"
       },
       "status": "active"
     }
@@ -314,8 +310,8 @@ curl -X GET \
         },
         "requestorID": {
           "type": "5",
-          "id": "{agent_id}",
-          "name": "{agency_id}"
+          "id": "{{agent_id}}",
+          "name": "{{agency_id}}"
         },
         "isocountry": "US",
         "isoCurrency": "USD"
@@ -329,11 +325,11 @@ curl -X GET \
       }
     ],
     "bookingReferenceID": {
-      "id": "{record_locator}",
+      "id": "{{record_locator}}",
       "type": "14",
       "companyName": {
-        "code": "{airline_code}",
-        "companyShortName": "{airline_code}"
+        "code": "{{airline_code}}",
+        "companyShortName": "{{airline_code}}"
       }
     },
     "paymentInfo": [
@@ -341,7 +337,7 @@ curl -X GET \
         "paymentType": "4",
         "creditCardInfo": [
           {
-            "cardHolderName": "{account_name}"
+            "cardHolderName": "{{account_name}}"
           }
         ],
         "currencyCode": "USD",
@@ -388,8 +384,8 @@ sequenceDiagram
 
 ```bash
 curl -X POST \
-  'https://api.worldticket.net/payment-service/payments/{tenant}' \
-  -H 'Authorization: Bearer {access_token}' \
+  'https://api.worldticket.net/payment-service/payments/{{tenant}}' \
+  -H 'Authorization: Bearer {{access_token}}' \
   -H 'Content-Type: application/json' \
   -d @payment-request.json
 ```
@@ -402,27 +398,27 @@ curl -X POST \
 
 ```json
 {
-  "tenant": "{tenant}",
-  "orderId": "{record_locator}",
+  "tenant": "{{tenant}}",
+  "orderId": "{{record_locator}}",
   "paymentInfo": {
     "paymentMethod": "credit_card",
     "psp": "d2_async",
     "providerName": "dibs"
   },
   "buyerInfo": {
-    "firstName": "{first_name}",
-    "lastName": "{last_name}",
-    "city": "{city}",
-    "country": "{country}",
-    "address": "{address}",
-    "email": "{email}",
-    "phone": "{phone}",
+    "firstName": "{{first_name}}",
+    "lastName": "{{last_name}}",
+    "city": "{{city}}",
+    "country": "{{country}}",
+    "address": "{{address}}",
+    "email": "{{email}}",
+    "phone": "{{phone}}",
     "zipCode": "{zipCode}",
     "preferredLanguage": "en"
   },
-  "amount": "{total_amount}",
-  "currency": "{currency_code}",
-  "channel": "{channel}"
+  "amount": "{{total_amount}}",
+  "currency": "{{currency_code}}",
+  "channel": "{{channel}}"
 }
 ```
 
@@ -518,7 +514,7 @@ No payment info is required because tickets have been paid already.
 ```bash
 curl -X POST \
   'https://test-api.worldticket.net/ota/v2015b/OTA_AirDemandTicketRQ' \
-  -H 'Authorization: Bearer {access_token}' \
+  -H 'Authorization: Bearer {{access_token}}' \
   -H 'Content-Type: application/json' \
   -d @AirDemandTicketRQ.json
 ```
@@ -626,7 +622,7 @@ Electronic Miscellaneous Documents (EMDs) for additional services.
 ```bash
 curl -X POST \
   'https://test-api.worldticket.net/ota/v2015b/OTA_AirDemandTicketRQ' \
-  -H 'Authorization: Bearer {access_token}' \
+  -H 'Authorization: Bearer {{access_token}}' \
   -H 'Content-Type: application/json' \
   -d @AirDemandTicketRQ.json
 ```
@@ -818,8 +814,8 @@ Payment currency can be different from booking currency.
 
 ```bash
 curl -X GET \
-  'https://test-api.worldticket.net/sms-gateway/currencies/convert?currency_from={from_currency}&currency_to={to_currency}&amount={amount}' \
-  -H 'Authorization: Bearer {access_token}' \
+  'https://test-api.worldticket.net/sms-gateway/currencies/convert?currency_from={{from_currency}}&currency_to={{to_currency}}&amount={{amount}}' \
+  -H 'Authorization: Bearer {{access_token}}' \
   -H 'Content-Type: application/json'
 ```
 
@@ -831,47 +827,3 @@ The endpoint returns the converted amount as a BigDecimal number:
 81.07
 ```
 
-## Error Responses
-
-Common error responses for payment and ticketing requests:
-
-### Payment Declined
-
-```json
-{
-  "errors": [
-    {
-      "code": "PAYMENT_DECLINED",
-      "message": "The payment was declined by the card issuer. Please try a different card."
-    }
-  ]
-}
-```
-
-### Insufficient Funds
-
-```json
-{
-  "errors": [
-    {
-      "code": "INSUFFICIENT_FUNDS",
-      "message": "Insufficient funds in debit-credit account",
-      "accountId": "{account_id}"
-    }
-  ]
-}
-```
-
-### Payment Timeout
-
-```json
-{
-  "errors": [
-    {
-      "code": "PAYMENT_TIMEOUT",
-      "message": "Payment processing timed out. Please try again.",
-      "paymentId": "{payment_id}"
-    }
-  ]
-}
-```

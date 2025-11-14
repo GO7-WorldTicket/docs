@@ -18,8 +18,8 @@ When making a group booking, passenger names are not known yet. In AirPriceRQ, p
 
 | Header | Description | Example |
 |--------|-------------|---------|
-| Authorization | Bearer token for JWT authentication | Bearer {access_token} |
-| X-API-Key | API key for key-based authentication | {api_key} |
+| Authorization | Bearer token for JWT authentication | Bearer {{access_token}} |
+| X-API-Key | API key for key-based authentication | {{api_key}} |
 | Local-Name | OTA operation identifier | OTA_AirPriceRQ |
 | Content-Type | Request content type | application/xml |
 
@@ -37,7 +37,7 @@ When making a group booking, passenger names are not known yet. In AirPriceRQ, p
 ```bash
 curl -X POST \
     https://test-api.worldticket.net/ota/v2015b/OTA \
-    -H 'Authorization: Bearer {access_token}' \
+    -H 'Authorization: Bearer {{access_token}}' \
     -H 'Local-Name: OTA_AirPriceRQ' \
     -H 'Content-Type: application/xml' \
     -d @AirPriceRQ.xml
@@ -47,7 +47,7 @@ curl -X POST \
 ```bash
 curl -X POST \
     https://test-api.worldticket.net/ota/v2015b/OTA \
-    -H 'X-API-Key: {api_key}' \
+    -H 'X-API-Key: {{api_key}}' \
     -H 'Local-Name: OTA_AirPriceRQ' \
     -H 'Content-Type: application/xml' \
     -d @AirPriceRQ.xml
@@ -62,41 +62,41 @@ curl -X POST \
 <OTA_AirPriceRQ xmlns="http://www.opentravel.org/OTA/2003/05" Version="2.001">
     <POS>
         <Source>
-            <RequestorID Type="5" ID="{agent_id}" ID_Context="{agency_id}"/>
+            <RequestorID Type="5" ID="{{agent_id}}" ID_Context="{{agency_id}}"/>
         </Source>
     </POS>
     <AirItinerary>
         <OriginDestinationOptions>
             <OriginDestinationOption>
-                <FlightSegment DepartureDateTime="{departure_datetime}" 
-                              ArrivalDateTime="{arrival_datetime}"
-                              FlightNumber="{flight_number}"
-                              ResBookDesigCode="{booking_class}"
-                              NumberInParty="{total_passengers}">
-                    <DepartureAirport LocationCode="{origin_code}"/>
-                    <ArrivalAirport LocationCode="{destination_code}"/>
-                    <MarketingAirline Code="{airline_code}"/>
+                <FlightSegment DepartureDateTime="{{departure_datetime}}" 
+                              ArrivalDateTime="{{arrival_datetime}}"
+                              FlightNumber="{{flight_number}}"
+                              ResBookDesigCode="{{booking_class}}"
+                              NumberInParty="{{total_passengers}}">
+                    <DepartureAirport LocationCode="{{origin_code}}"/>
+                    <ArrivalAirport LocationCode="{{destination_code}}"/>
+                    <MarketingAirline Code="{{airline_code}}"/>
                 </FlightSegment>
             </OriginDestinationOption>
         </OriginDestinationOptions>
     </AirItinerary>
     <TravelerInfoSummary>
         <AirTravelerAvail>
-            <PassengerTypeQuantity Code="ADT" Quantity="{adult_count}"/>
-            <PassengerTypeQuantity Code="CHD" Quantity="{child_count}"/>
-            <PassengerTypeQuantity Code="INF" Quantity="{infant_count}"/>
+            <PassengerTypeQuantity Code="ADT" Quantity="{{adult_count}}"/>
+            <PassengerTypeQuantity Code="CHD" Quantity="{{child_count}}"/>
+            <PassengerTypeQuantity Code="INF" Quantity="{{infant_count}}"/>
         </AirTravelerAvail>
     </TravelerInfoSummary>
     <PriceRequestInformation>
         <TPA_Extensions>
-            <GroupBooking GroupName="{group_name}">
+            <GroupBooking GroupName="{{group_name}}">
                 <ContactInfo>
                     <PersonName>
-                        <GivenName>{contact_first_name}</GivenName>
-                        <Surname>{contact_last_name}</Surname>
+                        <GivenName>{{contact_first_name}}</GivenName>
+                        <Surname>{{contact_last_name}}</Surname>
                     </PersonName>
-                    <Telephone PhoneNumber="{contact_phone}"/>
-                    <Email>{contact_email}</Email>
+                    <Telephone PhoneNumber="{{contact_phone}}"/>
+                    <Email>{{contact_email}}</Email>
                 </ContactInfo>
             </GroupBooking>
         </TPA_Extensions>
@@ -114,8 +114,8 @@ curl -X POST \
       {
         "requestorID": {
           "type": "5",
-          "id": "{agent_id}",
-          "name": "{agency_id}"
+          "id": "{{agent_id}}",
+          "name": "{{agency_id}}"
         }
       }
     ]
@@ -126,19 +126,19 @@ curl -X POST \
         {
           "flightSegment": [
             {
-              "departureDateTime": "{departure_datetime}",
-              "arrivalDateTime": "{arrival_datetime}",
-              "flightNumber": "{flight_number}",
-              "resBookDesigCode": "{booking_class}",
-              "numberInParty": "{total_passengers}",
+              "departureDateTime": "{{departure_datetime}}",
+              "arrivalDateTime": "{{arrival_datetime}}",
+              "flightNumber": "{{flight_number}}",
+              "resBookDesigCode": "{{booking_class}}",
+              "numberInParty": "{{total_passengers}}",
               "departureAirport": {
-                "locationCode": "{origin_code}"
+                "locationCode": "{{origin_code}}"
               },
               "arrivalAirport": {
-                "locationCode": "{destination_code}"
+                "locationCode": "{{destination_code}}"
               },
               "marketingAirline": {
-                "code": "{airline_code}"
+                "code": "{{airline_code}}"
               }
             }
           ]
@@ -152,15 +152,15 @@ curl -X POST \
         "passengerTypeQuantity": [
           {
             "code": "ADT",
-            "quantity": "{adult_count}"
+            "quantity": "{{adult_count}}"
           },
           {
             "code": "CHD",
-            "quantity": "{child_count}"
+            "quantity": "{{child_count}}"
           },
           {
             "code": "INF",
-            "quantity": "{infant_count}"
+            "quantity": "{{infant_count}}"
           }
         ]
       }
@@ -169,16 +169,16 @@ curl -X POST \
   "priceRequestInformation": {
     "tpa_Extensions": {
       "groupBooking": {
-        "groupName": "{group_name}",
+        "groupName": "{{group_name}}",
         "contactInfo": {
           "personName": {
-            "givenName": "{contact_first_name}",
-            "surname": "{contact_last_name}"
+            "givenName": "{{contact_first_name}}",
+            "surname": "{{contact_last_name}}"
           },
           "telephone": {
-            "phoneNumber": "{contact_phone}"
+            "phoneNumber": "{{contact_phone}}"
           },
-          "email": "{contact_email}"
+          "email": "{{contact_email}}"
         }
       }
     }
@@ -195,54 +195,54 @@ curl -X POST \
 <OTA_AirPriceRQ xmlns="http://www.opentravel.org/OTA/2003/05" Version="2.001">
     <POS>
         <Source>
-            <RequestorID Type="5" ID="{agent_id}" ID_Context="{agency_id}"/>
+            <RequestorID Type="5" ID="{{agent_id}}" ID_Context="{{agency_id}}"/>
         </Source>
     </POS>
     <AirItinerary>
         <OriginDestinationOptions>
             <!-- Outbound Flight -->
             <OriginDestinationOption>
-                <FlightSegment DepartureDateTime="{outbound_departure_datetime}" 
-                              ArrivalDateTime="{outbound_arrival_datetime}"
-                              FlightNumber="{outbound_flight_number}"
-                              ResBookDesigCode="{booking_class}"
-                              NumberInParty="{total_passengers}">
-                    <DepartureAirport LocationCode="{origin_code}"/>
-                    <ArrivalAirport LocationCode="{destination_code}"/>
-                    <MarketingAirline Code="{airline_code}"/>
+                <FlightSegment DepartureDateTime="{{outbound_departure_datetime}}" 
+                              ArrivalDateTime="{{outbound_arrival_datetime}}"
+                              FlightNumber="{{outbound_flight_number}}"
+                              ResBookDesigCode="{{booking_class}}"
+                              NumberInParty="{{total_passengers}}">
+                    <DepartureAirport LocationCode="{{origin_code}}"/>
+                    <ArrivalAirport LocationCode="{{destination_code}}"/>
+                    <MarketingAirline Code="{{airline_code}}"/>
                 </FlightSegment>
             </OriginDestinationOption>
             <!-- Inbound Flight -->
             <OriginDestinationOption>
-                <FlightSegment DepartureDateTime="{inbound_departure_datetime}" 
-                              ArrivalDateTime="{inbound_arrival_datetime}"
-                              FlightNumber="{inbound_flight_number}"
-                              ResBookDesigCode="{booking_class}"
-                              NumberInParty="{total_passengers}">
-                    <DepartureAirport LocationCode="{destination_code}"/>
-                    <ArrivalAirport LocationCode="{origin_code}"/>
-                    <MarketingAirline Code="{airline_code}"/>
+                <FlightSegment DepartureDateTime="{{inbound_departure_datetime}}" 
+                              ArrivalDateTime="{{inbound_arrival_datetime}}"
+                              FlightNumber="{{inbound_flight_number}}"
+                              ResBookDesigCode="{{booking_class}}"
+                              NumberInParty="{{total_passengers}}">
+                    <DepartureAirport LocationCode="{{destination_code}}"/>
+                    <ArrivalAirport LocationCode="{{origin_code}}"/>
+                    <MarketingAirline Code="{{airline_code}}"/>
                 </FlightSegment>
             </OriginDestinationOption>
         </OriginDestinationOptions>
     </AirItinerary>
     <TravelerInfoSummary>
         <AirTravelerAvail>
-            <PassengerTypeQuantity Code="ADT" Quantity="{adult_count}"/>
-            <PassengerTypeQuantity Code="CHD" Quantity="{child_count}"/>
-            <PassengerTypeQuantity Code="INF" Quantity="{infant_count}"/>
+            <PassengerTypeQuantity Code="ADT" Quantity="{{adult_count}}"/>
+            <PassengerTypeQuantity Code="CHD" Quantity="{{child_count}}"/>
+            <PassengerTypeQuantity Code="INF" Quantity="{{infant_count}}"/>
         </AirTravelerAvail>
     </TravelerInfoSummary>
     <PriceRequestInformation>
         <TPA_Extensions>
-            <GroupBooking GroupName="{group_name}">
+            <GroupBooking GroupName="{{group_name}}">
                 <ContactInfo>
                     <PersonName>
-                        <GivenName>{contact_first_name}</GivenName>
-                        <Surname>{contact_last_name}</Surname>
+                        <GivenName>{{contact_first_name}}</GivenName>
+                        <Surname>{{contact_last_name}}</Surname>
                     </PersonName>
-                    <Telephone PhoneNumber="{contact_phone}"/>
-                    <Email>{contact_email}</Email>
+                    <Telephone PhoneNumber="{{contact_phone}}"/>
+                    <Email>{{contact_email}}</Email>
                 </ContactInfo>
             </GroupBooking>
         </TPA_Extensions>
@@ -260,43 +260,43 @@ AirPriceRS response contains a record locator in "quoteID" field.
 <?xml version="1.0" encoding="UTF-8"?>
 <OTA_AirPriceRS xmlns="http://www.opentravel.org/OTA/2003/05" Version="2.001">
     <Success/>
-    <PricedItinerary QuoteID="{quote_id}">
+    <PricedItinerary QuoteID="{{quote_id}}">
         <AirItinerary>
             <OriginDestinationOptions>
                 <OriginDestinationOption>
-                    <FlightSegment DepartureDateTime="{departure_datetime}" 
-                                  ArrivalDateTime="{arrival_datetime}"
-                                  FlightNumber="{flight_number}"
-                                  ResBookDesigCode="{booking_class}">
-                        <DepartureAirport LocationCode="{origin_code}"/>
-                        <ArrivalAirport LocationCode="{destination_code}"/>
-                        <MarketingAirline Code="{airline_code}"/>
+                    <FlightSegment DepartureDateTime="{{departure_datetime}}" 
+                                  ArrivalDateTime="{{arrival_datetime}}"
+                                  FlightNumber="{{flight_number}}"
+                                  ResBookDesigCode="{{booking_class}}">
+                        <DepartureAirport LocationCode="{{origin_code}}"/>
+                        <ArrivalAirport LocationCode="{{destination_code}}"/>
+                        <MarketingAirline Code="{{airline_code}}"/>
                     </FlightSegment>
                 </OriginDestinationOption>
             </OriginDestinationOptions>
         </AirItinerary>
         <AirItineraryPricingInfo>
             <ItinTotalFare>
-                <BaseFare Amount="{base_fare}" CurrencyCode="{currency_code}"/>
+                <BaseFare Amount="{{base_fare}}" CurrencyCode="{{currency_code}}"/>
                 <Taxes>
-                    <Tax Amount="{tax_amount}" CurrencyCode="{currency_code}"/>
+                    <Tax Amount="{{tax_amount}}" CurrencyCode="{{currency_code}}"/>
                 </Taxes>
-                <TotalFare Amount="{total_fare}" CurrencyCode="{currency_code}"/>
+                <TotalFare Amount="{{total_fare}}" CurrencyCode="{{currency_code}}"/>
             </ItinTotalFare>
             <PTC_FareBreakdowns>
                 <PTC_FareBreakdown>
-                    <PassengerTypeQuantity Code="ADT" Quantity="{adult_count}"/>
+                    <PassengerTypeQuantity Code="ADT" Quantity="{{adult_count}}"/>
                     <PassengerFare>
-                        <BaseFare Amount="{adult_base_fare}" CurrencyCode="{currency_code}"/>
+                        <BaseFare Amount="{{adult_base_fare}}" CurrencyCode="{{currency_code}}"/>
                         <Taxes>
-                            <Tax Amount="{adult_tax}" CurrencyCode="{currency_code}"/>
+                            <Tax Amount="{{adult_tax}}" CurrencyCode="{{currency_code}}"/>
                         </Taxes>
-                        <TotalFare Amount="{adult_total_fare}" CurrencyCode="{currency_code}"/>
+                        <TotalFare Amount="{{adult_total_fare}}" CurrencyCode="{{currency_code}}"/>
                     </PassengerFare>
                 </PTC_FareBreakdown>
             </PTC_FareBreakdowns>
         </AirItineraryPricingInfo>
-        <TicketingInfo TicketTimeLimit="{ticket_time_limit}"/>
+        <TicketingInfo TicketTimeLimit="{{ticket_time_limit}}"/>
     </PricedItinerary>
 </OTA_AirPriceRS>
 ```
@@ -308,25 +308,25 @@ AirPriceRS response contains a record locator in "quoteID" field.
   "version": "2.001",
   "success": {},
   "pricedItinerary": {
-    "quoteID": "{quote_id}",
+    "quoteID": "{{quote_id}}",
     "airItinerary": {
       "originDestinationOptions": {
         "originDestinationOption": [
           {
             "flightSegment": [
               {
-                "departureDateTime": "{departure_datetime}",
-                "arrivalDateTime": "{arrival_datetime}",
-                "flightNumber": "{flight_number}",
-                "resBookDesigCode": "{booking_class}",
+                "departureDateTime": "{{departure_datetime}}",
+                "arrivalDateTime": "{{arrival_datetime}}",
+                "flightNumber": "{{flight_number}}",
+                "resBookDesigCode": "{{booking_class}}",
                 "departureAirport": {
-                  "locationCode": "{origin_code}"
+                  "locationCode": "{{origin_code}}"
                 },
                 "arrivalAirport": {
-                  "locationCode": "{destination_code}"
+                  "locationCode": "{{destination_code}}"
                 },
                 "marketingAirline": {
-                  "code": "{airline_code}"
+                  "code": "{{airline_code}}"
                 }
               }
             ]
@@ -337,47 +337,47 @@ AirPriceRS response contains a record locator in "quoteID" field.
     "airItineraryPricingInfo": {
       "itinTotalFare": {
         "baseFare": {
-          "amount": "{base_fare}",
-          "currencyCode": "{currency_code}"
+          "amount": "{{base_fare}}",
+          "currencyCode": "{{currency_code}}"
         },
         "taxes": [
           {
-            "amount": "{tax_amount}",
-            "currencyCode": "{currency_code}"
+            "amount": "{{tax_amount}}",
+            "currencyCode": "{{currency_code}}"
           }
         ],
         "totalFare": {
-          "amount": "{total_fare}",
-          "currencyCode": "{currency_code}"
+          "amount": "{{total_fare}}",
+          "currencyCode": "{{currency_code}}"
         }
       },
       "ptc_FareBreakdowns": [
         {
           "passengerTypeQuantity": {
             "code": "ADT",
-            "quantity": "{adult_count}"
+            "quantity": "{{adult_count}}"
           },
           "passengerFare": {
             "baseFare": {
-              "amount": "{adult_base_fare}",
-              "currencyCode": "{currency_code}"
+              "amount": "{{adult_base_fare}}",
+              "currencyCode": "{{currency_code}}"
             },
             "taxes": [
               {
-                "amount": "{adult_tax}",
-                "currencyCode": "{currency_code}"
+                "amount": "{{adult_tax}}",
+                "currencyCode": "{{currency_code}}"
               }
             ],
             "totalFare": {
-              "amount": "{adult_total_fare}",
-              "currencyCode": "{currency_code}"
+              "amount": "{{adult_total_fare}}",
+              "currencyCode": "{{currency_code}}"
             }
           }
         }
       ]
     },
     "ticketingInfo": {
-      "ticketTimeLimit": "{ticket_time_limit}"
+      "ticketTimeLimit": "{{ticket_time_limit}}"
     }
   }
 }
@@ -401,30 +401,3 @@ Group bookings typically have specific policies for completion:
 5. **Payment**: Process payment according to group terms
 6. **Ticketing**: Issue tickets within the specified time limit
 
-## Error Responses
-
-### Group Size Limitations
-
-```xml
-<OTA_AirPriceRS>
-    <Errors>
-        <Error Code="GROUP_SIZE_EXCEEDED" ShortText="Group size exceeded">
-            The requested group size exceeds the maximum allowed for this flight.
-        </Error>
-    </Errors>
-</OTA_AirPriceRS>
-```
-
-### Missing Contact Information
-
-```json
-{
-  "errors": [
-    {
-      "code": "MISSING_CONTACT_INFO",
-      "message": "Group booking requires contact information",
-      "field": "contactInfo"
-    }
-  ]
-}
-```
