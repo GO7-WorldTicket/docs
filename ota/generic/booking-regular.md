@@ -9,16 +9,20 @@ The purpose is to create the booking in the airline system by providing a specif
 
 ## Table of Contents
 
-- [Endpoints](#endpoints)
-- [Regular Booking Workflow](#regular-booking-workflow)
-- [Basic Request Format](#basic-request-format)
-- [AirBookRQ for One-way Trip](#airbookrq-for-one-way-trip)
-- [AirBookRQ for Round Trip](#airbookrq-for-round-trip)
-- [Special Service Requests (SSR)](#special-service-requests-ssr)
-- [Payment Details](#payment-details)
-- [Payment Types](#payment-types)
-- [Response Structure](#response-structure)
-- [Booking Status Codes](#booking-status-codes)
+- [Create a Regular Booking (AirBookRQ)](#create-a-regular-booking-airbookrq)
+  - [Table of Contents](#table-of-contents)
+  - [Base URLs](#base-urls)
+  - [Endpoint](#endpoint)
+  - [HTTP Headers](#http-headers)
+  - [Regular Booking Workflow](#regular-booking-workflow)
+  - [Basic Request Format](#basic-request-format)
+    - [With JWT Authentication](#with-jwt-authentication)
+    - [With API Key Authentication](#with-api-key-authentication)
+  - [AirBookRQ for One-way Trip](#airbookrq-for-one-way-trip)
+  - [AirBookRQ for Round Trip](#airbookrq-for-round-trip)
+  - [Response Structure](#response-structure)
+    - [JSON Response](#json-response)
+  - [Booking Status Codes](#booking-status-codes)
 
 ## Base URLs
 
@@ -31,15 +35,15 @@ The purpose is to create the booking in the airline system by providing a specif
 
 - Method: `POST`
 - Path: `/ota/v2015b/OTA_AirBookRQ`
-- Full URL: `{{base_url}}/ota/v2015b/OTA_AirBookRQ` (choose base URL per environment above)
+- Full URL: `{base_url}/ota/v2015b/OTA_AirBookRQ` (choose base URL per environment above)
 
 ## HTTP Headers
 
 | Header | Description | Example |
 |--------|-------------|---------|
-| Authorization | Bearer token for JWT authentication | Bearer {{access_token}} |
-| X-API-Key | API key for key-based authentication | {{api_key}} |
-| X-Realm | Airline realm identifier | {{tenant-name}} |
+| Authorization | Bearer token for JWT authentication | Bearer {access_token} |
+| X-API-Key | API key for key-based authentication | {api_key} |
+| X-Realm | Airline realm identifier | {tenant-name} |
 
 **Note:** Use either `Authorization` (for JWT) OR `X-API-Key` (for API key authentication), not both.
 
@@ -91,7 +95,7 @@ sequenceDiagram
 ```bash
 curl -X POST \
     https://test-api.worldticket.net/ota/v2015b/OTA_AirBookRQ \
-    -H 'Authorization: Bearer {{access_token}}' \
+    -H 'Authorization: Bearer {access_token}' \
     -H 'Content-Type: application/json' \
     -d @AirBookRQ.json
 ```
@@ -100,7 +104,7 @@ curl -X POST \
 ```bash
 curl -X POST \
     https://test-api.worldticket.net/ota/v2015b/OTA_AirBookRQ \
-    -H 'X-API-Key: {{api_key}}' \
+    -H 'X-API-Key: {api_key}' \
     -H 'Content-Type: application/json' \
     -d @AirBookRQ.json
 ```
@@ -108,12 +112,6 @@ curl -X POST \
 ## AirBookRQ for One-way Trip
 
 In AirBookRQ request, an itinerary and passenger names are mandatory.
-
-Some details can be provided optionally:
-- Special Service Requests (SSR)
-- Payment details
-
-<!-- XML request removed to keep JSON-only documentation -->
 
 <details>
 <summary><strong>📋 JSON Request Template</strong></summary>
@@ -125,11 +123,11 @@ Some details can be provided optionally:
   "pos": {
     "source": [
       {
-        "isoCurrency": "{{currency_code}}",
+        "isoCurrency": "{currency_code}",
         "requestorID": {
           "type": "5",
-          "id": "{{agent_id}}",
-          "name": "{{agency_id}}"
+          "id": "{agent_id}",
+          "name": "{agency_id}"
         },
         "bookingChannel": {
           "type": "OTA"
@@ -143,19 +141,19 @@ Some details can be provided optionally:
         {
           "flightSegment": [
             {
-              "departureDateTime": "{{departure_datetime}}",
-              "arrivalDateTime": "{{arrival_datetime}}",
-              "flightNumber": "{{flight_number}}",
-              "resBookDesigCode": "{{booking_class}}",
-              "numberInParty": "{{total_passengers}}",
+              "departureDateTime": "{departure_datetime}",
+              "arrivalDateTime": "{arrival_datetime}",
+              "flightNumber": "{flight_number}",
+              "resBookDesigCode": "{booking_class}",
+              "numberInParty": "{total_passengers}",
               "departureAirport": {
-                "locationCode": "{{origin_code}}"
+                "locationCode": "{origin_code}"
               },
               "arrivalAirport": {
-                "locationCode": "{{destination_code}}"
+                "locationCode": "{destination_code}"
               },
               "marketingAirline": {
-                "code": "{{airline_code}}"
+                "code": "{airline_code}"
               }
             }
           ]
@@ -169,30 +167,30 @@ Some details can be provided optionally:
         "passengerTypeCode": "CTC",
         "personName": {
           "givenName": [
-            "{{first_name}}"
+            "{first_name}"
           ],
           "middleName": [
-            "{{middle_name}}"
+            "{middle_name}"
           ],
-          "surname": "{{last_name}}"
+          "surname": "{last_name}"
         },
         "email": [
           {
-            "value": "{{email_address}}"
+            "value": "{email_address}"
           }
         ],
         "telephone": [
           {
-            "countryAccessCode": "{{country_code}}",
-            "phoneNumber": "{{phone_number}}"
+            "countryAccessCode": "{country_code}",
+            "phoneNumber": "{phone_number}"
           }
         ],
         "address": [
           {
-            "cityName": "{{city_name}}",
+            "cityName": "{city_name}",
             "countryName": {
-              "value": "{{country_name}}",
-              "code": "{{country_code}}"
+              "value": "{country_name}",
+              "code": "{country_code}"
             }
           }
         ]
@@ -201,42 +199,42 @@ Some details can be provided optionally:
         "passengerTypeCode": "ADT",
         "personName": {
           "namePrefix": [
-            "{{name_prefix}}"
+            "{name_prefix}"
           ],
           "givenName": [
-            "{{first_name}}"
+            "{first_name}"
           ],
-          "surname": "{{last_name}}"
+          "surname": "{last_name}"
         },
         "telephone": [
           {
-            "countryAccessCode": "{{country_code}}",
-            "phoneNumber": "{{phone_number}}"
+            "countryAccessCode": "{country_code}",
+            "phoneNumber": "{phone_number}"
           }
         ],
         "email": [
           {
-            "value": "{{email_address}}"
+            "value": "{email_address}"
           }
         ],
         "document": [
           {
-            "docID": "{{document_number}}",
-            "docType": "{{document_type}}",
-            "docHolderNationality": "{{nationality_code}}",
-            "expireDate": "{{expiry_date}}",
-            "birthDate": "{{birth_date}}"
+            "docID": "{document_number}",
+            "docType": "{document_type}",
+            "docHolderNationality": "{nationality_code}",
+            "expireDate": "{expiry_date}",
+            "birthDate": "{birth_date}"
           }
         ],
         "travelerRefNumber": {
-          "rph": "{{passenger_reference}}"
+          "rph": "{passenger_reference}"
         },
         "flightSegmentRPHs": {
           "flightSegmentRPH": [
-            "{{segment_reference}}"
+            "{segment_reference}"
           ]
         },
-        "gender": "{{gender}}"
+        "gender": "{gender}"
       }
     ]
   }
@@ -361,11 +359,11 @@ Some details can be provided optionally:
   "pos": {
     "source": [
       {
-        "isoCurrency": "{{currency_code}}",
+        "isoCurrency": "{currency_code}",
         "requestorID": {
           "type": "5",
-          "id": "{{agent_id}}",
-          "name": "{{agency_id}}"
+          "id": "{agent_id}",
+          "name": "{agency_id}"
         },
         "bookingChannel": {
           "type": "OTA"
@@ -379,19 +377,19 @@ Some details can be provided optionally:
         {
           "flightSegment": [
             {
-              "departureDateTime": "{{outbound_departure_datetime}}",
-              "arrivalDateTime": "{{outbound_arrival_datetime}}",
-              "flightNumber": "{{outbound_flight_number}}",
-              "resBookDesigCode": "{{booking_class}}",
-              "numberInParty": "{{total_passengers}}",
+              "departureDateTime": "{outbound_departure_datetime}",
+              "arrivalDateTime": "{outbound_arrival_datetime}",
+              "flightNumber": "{outbound_flight_number}",
+              "resBookDesigCode": "{booking_class}",
+              "numberInParty": "{total_passengers}",
               "departureAirport": {
-                "locationCode": "{{origin_code}}"
+                "locationCode": "{origin_code}"
               },
               "arrivalAirport": {
-                "locationCode": "{{destination_code}}"
+                "locationCode": "{destination_code}"
               },
               "marketingAirline": {
-                "code": "{{airline_code}}"
+                "code": "{airline_code}"
               }
             }
           ]
@@ -399,19 +397,19 @@ Some details can be provided optionally:
         {
           "flightSegment": [
             {
-              "departureDateTime": "{{inbound_departure_datetime}}",
-              "arrivalDateTime": "{{inbound_arrival_datetime}}",
-              "flightNumber": "{{inbound_flight_number}}",
-              "resBookDesigCode": "{{booking_class}}",
-              "numberInParty": "{{total_passengers}}",
+              "departureDateTime": "{inbound_departure_datetime}",
+              "arrivalDateTime": "{inbound_arrival_datetime}",
+              "flightNumber": "{inbound_flight_number}",
+              "resBookDesigCode": "{booking_class}",
+              "numberInParty": "{total_passengers}",
               "departureAirport": {
-                "locationCode": "{{destination_code}}"
+                "locationCode": "{destination_code}"
               },
               "arrivalAirport": {
-                "locationCode": "{{origin_code}}"
+                "locationCode": "{origin_code}"
               },
               "marketingAirline": {
-                "code": "{{airline_code}}"
+                "code": "{airline_code}"
               }
             }
           ]
@@ -423,13 +421,13 @@ Some details can be provided optionally:
     {
       "airTraveler": {
         "personName": {
-          "givenName": "{{first_name}}",
-          "surname": "{{last_name}}"
+          "givenName": "{first_name}",
+          "surname": "{last_name}"
         },
         "document": {
-          "docType": "{{document_type}}",
-          "docID": "{{document_number}}",
-          "expireDate": "{{expiry_date}}"
+          "docType": "{document_type}",
+          "docID": "{document_number}",
+          "expireDate": "{expiry_date}"
         },
         "travelerRefNumber": {
           "rph": "1"
@@ -587,79 +585,7 @@ Some details can be provided optionally:
 
 </details>
 
-## Special Service Requests (SSR)
-
-### Adding SSR to Booking Request
-
-```json
-{
-  "travelerInfo": [
-    {
-      "airTraveler": {
-        "personName": {
-          "givenName": "{{first_name}}",
-          "surname": "{{last_name}}"
-        },
-        "document": {
-          "docType": "{{document_type}}",
-          "docID": "{{document_number}}",
-          "expireDate": "{{expiry_date}}"
-        },
-        "travelerRefNumber": {
-          "rph": "1"
-        },
-        "specialServiceRequests": [
-          {
-            "ssrCode": "MEAL",
-            "serviceQuantity": 1,
-            "status": "Requested",
-            "text": "Vegetarian meal"
-          },
-          {
-            "ssrCode": "SEAT",
-            "serviceQuantity": 1,
-            "status": "Requested",
-            "text": "Aisle seat preference"
-          }
-        ]
-      }
-    }
-  ]
-}
-```
-
-## Payment Details
-
-### Including Payment Information
-
-```json
-{
-  "fulfillment": {
-    "paymentDetails": {
-      "paymentDetail": {
-        "paymentType": "1",
-        "directBill": {
-          "directBillID": "{{account_id}}"
-        }
-      }
-    }
-  }
-}
-```
-
-### Payment Types
-
-| Code | Payment Type |
-|------|--------------|
-| 1 | Cash |
-| 4 | Debit Credit Account |
-| 5 | Credit Card |
-| 32 | External Payment |
-| 40 | Invoice |
-
 ## Response Structure
-
-<!-- XML response removed to keep JSON-only documentation -->
 
 ### JSON Response
 
@@ -683,7 +609,7 @@ Some details can be provided optionally:
             "arrivalDateTime": "2024-12-25T11:30:00",
             "flightNumber": "WT100",
             "resBookDesigCode": "Y",
-            "status": "HK",
+            "status": "30",
             "departureAirport": {
               "locationCode": "JED"
             },
@@ -775,7 +701,6 @@ Some details can be provided optionally:
 
 | Status Code | Description |
 |-------------|-------------|
-| HK | Booking confirmed |
-| UC | Unable to confirm |
-| UN | Unable - need |
-| WL | Waitlisted |
+| 30 | Confirmed/successful segment |
+| 16 | Cancelled segment |
+| 31 | Have cancelled |
