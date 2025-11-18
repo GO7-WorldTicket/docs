@@ -19,10 +19,6 @@ The Air-Price Request message requests pricing information for specific flights 
   - [HTTP Headers](#http-headers)
   - [JSON Request](#json-request)
   - [JSON Response](#json-response)
-  - [Error Responses](#error-responses)
-    - [Price Not Available](#price-not-available)
-    - [Invalid Flight Segment](#invalid-flight-segment)
-    - [Fare Expired](#fare-expired)
 
 ## Base URLs
 
@@ -34,7 +30,7 @@ The Air-Price Request message requests pricing information for specific flights 
 ## Endpoints
 - Method: `POST`
 - Path: `/ota/v2015b/OTA_AirPriceRQ`
-- Full URL: `{{base_url}}/ota/v2015b/OTA_AirPriceRQ` (choose base URL per environment above)
+- Full URL: `{base_url}/ota/v2015b/OTA_AirPriceRQ` (choose base URL per environment above)
 
 ## Basic Request Format
 
@@ -42,7 +38,7 @@ The Air-Price Request message requests pricing information for specific flights 
 ```bash
 curl -X POST \
   'https://test-api.worldticket.net/ota/v2015b/OTA_AirPriceRQ' \
-  -H 'Authorization: Bearer {{access_token}}' \
+  -H 'Authorization: Bearer {access_token}' \
   -H 'Content-Type: application/json' \
   -d @AirPriceRQ.json
 ```
@@ -51,7 +47,7 @@ curl -X POST \
 ```bash
 curl -X POST \
   'https://test-api.worldticket.net/ota/v2015b/OTA_AirPriceRQ' \
-  -H 'X-API-Key: {{api_key}}' \
+  -H 'X-API-Key: {api_key}' \
   -H 'Content-Type: application/json' \
   -d @AirPriceRQ.json
 ```
@@ -62,8 +58,8 @@ Attach the following headers to OTA requests.
 
 | Header        | Description                         | Example                   |
 |---------------|-------------------------------------|---------------------------|
-| Authorization | Bearer token for JWT authentication | Bearer {{access_token}}     |
-| X-API-Key     | API key for key-based authentication| {{api_key}}                 |
+| Authorization | Bearer token for JWT authentication | Bearer {access_token}     |
+| X-API-Key     | API key for key-based authentication| {api_key}                 |
 | Content-Type  | Request content type                | application/json          |
 
 Note: Use either `Authorization` (JWT) OR `X-API-Key` (API key), not both.
@@ -81,13 +77,13 @@ Note: Use either `Authorization` (JWT) OR `X-API-Key` (API key), not both.
     "source": [
       {
         "bookingChannel": {
-          "type": "{{booking_channel_type}}"
+          "type": "{booking_channel_type}"
         },
-        "isocurrency": "{{currency_code}}",
+        "isocurrency": "{currency_code}",
         "requestorID": {
           "type": "5",
-          "id": "{{agent_id}}",
-          "name": "{{agency_id}}"
+          "id": "{agent_id}",
+          "name": "{agency_id}"
         }
       }
     ]
@@ -99,26 +95,26 @@ Note: Use either `Authorization` (JWT) OR `X-API-Key` (API key), not both.
           "flightSegment": [
             {
               "departureAirport": {
-                "locationCode": "{{origin_code}}"
+                "locationCode": "{origin_code}"
               },
               "arrivalAirport": {
-                "locationCode": "{{destination_code}}"
+                "locationCode": "{destination_code}"
               },
               "operatingAirline": {
-                "code": "{{airline_code}}",
-                "flightNumber": "{{flight_number}}"
+                "code": "{airline_code}",
+                "flightNumber": "{flight_number}"
               },
               "equipment": [],
-              "departureDateTime": "{{departure_datetime}}",
-              "arrivalDateTime": "{{arrival_datetime}}",
-              "rph": "{{segment_rph}}",
+              "departureDateTime": "{departure_datetime}",
+              "arrivalDateTime": "{arrival_datetime}",
+              "rph": "{segment_rph}",
               "marketingAirline": {
-                "code": "{{airline_code}}"
+                "code": "{airline_code}"
               },
-              "flightNumber": "{{flight_number}}",
-              "resBookDesigCode": "{{booking_class}}",
-              "fareBasisCode": "{{fare_basis_code}}",
-              "status": "{{segment_status}}"
+              "flightNumber": "{flight_number}",
+              "resBookDesigCode": "{booking_class}",
+              "fareBasisCode": "{fare_basis_code}",
+              "status": "{segment_status}"
             }
           ]
         }
@@ -128,7 +124,7 @@ Note: Use either `Authorization` (JWT) OR `X-API-Key` (API key), not both.
   "travelerInfoSummary": {
     "pricingPref": [
       {
-        "qualifier": "{{pricing_qualifier}}"
+        "qualifier": "{pricing_qualifier}"
       }
     ],
     "airTravelerAvail": [
@@ -136,15 +132,15 @@ Note: Use either `Authorization` (JWT) OR `X-API-Key` (API key), not both.
         "passengerTypeQuantity": [
           {
             "code": "ADT",
-            "quantity": "{{adult_count}}"
+            "quantity": "{adult_count}"
           },
           {
             "code": "CHD",
-            "quantity": "{{child_count}}"
+            "quantity": "{child_count}"
           },
           {
             "code": "INF",
-            "quantity": "{{infant_count}}"
+            "quantity": "{infant_count}"
           }
         ]
       },
@@ -152,31 +148,31 @@ Note: Use either `Authorization` (JWT) OR `X-API-Key` (API key), not both.
         "airTraveler": {
           "passengerTypeCode": "CTC",
           "personName": {
-            "givenName": ["{{given_name}}"],
-            "surname": "{{surname}}"
+            "givenName": ["{given_name}"],
+            "surname": "{surname}"
           },
           "email": [
             {
-              "value": "{{email_address}}"
+              "value": "{email_address}"
             }
           ],
           "telephone": [
             {
-              "countryAccessCode": "{{country_code}}",
-              "phoneNumber": "{{phone_number}}"
+              "countryAccessCode": "{country_code}",
+              "phoneNumber": "{phone_number}"
             }
           ],
           "document": [
             {
-              "docHolderNationality": "{{nationality_code}}",
-              "birthDate": "{{birth_date}}"
+              "docHolderNationality": "{nationality_code}",
+              "birthDate": "{birth_date}"
             }
           ],
           "address": [
             {
-              "cityName": "{{city_name}}",
+              "cityName": "{city_name}",
               "countryName": {
-                "code": "{{country_code}}"
+                "code": "{country_code}"
               }
             }
           ]

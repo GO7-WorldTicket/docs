@@ -40,7 +40,7 @@ The purpose is to cancel entire bookings or specific segments/passengers.
 
 - Method: `POST`
 - Path: `/ota/v2015b/OTA_CancelRQ`
-- Full URL: `{{base_url}}/ota/v2015b/OTA_CancelRQ` (choose base URL per environment above)
+- Full URL: `{base_url}/ota/v2015b/OTA_CancelRQ` (choose base URL per environment above)
 
 ## Basic Request Format
 
@@ -49,7 +49,7 @@ The purpose is to cancel entire bookings or specific segments/passengers.
 ```bash
 curl -X POST \
   'https://test-api.worldticket.net/ota/v2015b/OTA_CancelRQ' \
-  -H 'Authorization: Bearer {{access_token}}' \
+  -H 'Authorization: Bearer {access_token}' \
   -H 'Content-Type: application/json' \
   -d @OTA_CancelRQ.json
 ```
@@ -59,7 +59,7 @@ curl -X POST \
 ```bash
 curl -X POST \
   'https://test-api.worldticket.net/ota/v2015b/OTA_CancelRQ' \
-  -H 'X-API-Key: {{api_key}}' \
+  -H 'X-API-Key: {api_key}' \
   -H 'Content-Type: application/json' \
   -d @OTA_CancelRQ.json
 ```
@@ -70,8 +70,8 @@ Attach the following headers to OTA requests.
 
 | Header        | Description                         | Example                   |
 |---------------|-------------------------------------|---------------------------|
-| Authorization | Bearer token for JWT authentication | Bearer {{access_token}}     |
-| X-API-Key     | API key for key-based authentication| {{api_key}}                 |
+| Authorization | Bearer token for JWT authentication | Bearer {access_token}     |
+| X-API-Key     | API key for key-based authentication| {api_key}                 |
 | Content-Type  | Request content type                | application/json          |
 
 Note: Use either `Authorization` (JWT) OR `X-API-Key` (API key), not both.
@@ -88,23 +88,23 @@ Cancel the entire booking and all associated passengers.
 
 ```json
 {
-  "echoToken": "{{echo_token}}",
-  "timeStamp": "{{timestamp}}",
+  "echoToken": "{echo_token}",
+  "timeStamp": "{timestamp}",
   "target": "Production",
   "version": "2.001",
   "cancelType": "Commit",
   "pos": {
     "source": [
       {
-        "erSPUserID": "{{ersp_user_id}}",
-        "agentSine": "{{agent_sine}}",
-        "pseudoCityCode": "{{pseudo_city_code}}",
-        "isocountry": "{{iso_country}}",
-        "isoCurrency": "{{iso_currency}}",
-        "airlineVendorID": "{{airline_vendor_id}}",
+        "erSPUserID": "{ersp_user_id}",
+        "agentSine": "{agent_sine}",
+        "pseudoCityCode": "{pseudo_city_code}",
+        "isocountry": "{iso_country}",
+        "isoCurrency": "{iso_currency}",
+        "airlineVendorID": "{airline_vendor_id}",
         "requestorID": {
           "type": "5",
-          "id": "{{requestor_id}}"
+          "id": "{requestor_id}"
         },
         "bookingChannel": {
           "type": "COM"
@@ -114,12 +114,12 @@ Cancel the entire booking and all associated passengers.
   },
   "uniqueID": {
     "type": "14",
-    "id": "{{record_locator}}",
-    "idContext": "{{airline_code}}"
+    "id": "{record_locator}",
+    "idContext": "{airline_code}"
   },
   "verification": {
     "personName": {
-      "surname": "{{passenger_last_name}}"
+      "surname": "{passenger_last_name}"
     }
   }
 }
@@ -203,7 +203,7 @@ Remove individual passengers from group bookings.
 ```bash
 curl -X POST \
   'https://test-api.worldticket.net/ota/v2015b/OTA_AirBookModifyRQ' \
-  -H 'Authorization: Bearer {{access_token}}' \
+  -H 'Authorization: Bearer {access_token}' \
   -H 'Content-Type: application/json' \
   -d @AirBookModifyRQ.json
 ```
@@ -217,7 +217,7 @@ curl -X POST \
 ```json
 {
   "version": "2.001",
-  "pos": "{{pos}}",
+  "pos": "{pos}",
   "airReservation": "{airReservation}",
   "airBookModifyRQ": {
     "modificationType": "2",
@@ -2437,7 +2437,7 @@ For multi-segment bookings, cancel individual flights.
 ```bash
 curl -X POST \
   'https://test-api.worldticket.net/ota/v2015b/OTA_AirBookModifyRQ' \
-  -H 'Authorization: Bearer {{access_token}}' \
+  -H 'Authorization: Bearer {access_token}' \
   -H 'Content-Type: application/json' \
   -d @AirBookModifyRQ.json
 ```
@@ -2451,7 +2451,7 @@ curl -X POST \
 ```json
 {
   "version": "2.001",
-  "pos": "{{pos}}",
+  "pos": "{pos}",
   "airReservation": "{airReservation}",
   "airBookModifyRQ": {
     "modificationType": "10",

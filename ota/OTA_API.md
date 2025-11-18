@@ -174,15 +174,11 @@ Please update the variables in collection such as apiKey, agent_id, agent_name a
 
 - [Flight Availability](generic/flight-availability)
 - [Flight Search](generic/flight-search)
-  - [One-way trip](generic/flight-search#airlowfaresearchrq-for-oneway-trip)
-  - [One-way trip with booking class](generic/flight-search#airlowfaresearchrq-for-oneway-trip-with-booking-class-preference)
+  - [One-way trip](generic/flight-search#airlowfaresearchrq-for-one-way-trip)
   - [Round trip](generic/flight-search#airlowfaresearchrq-for-round-trip)
-  - [Round trip with booking class](generic/flight-search#airlowfaresearchrq-for-round-trip-with-booking-class-preference)
-
-[//]: # (  - [Discount functionality]&#40;generic/flight-search#discount-functionality&#41;)
 - [Price Check](generic/price-check.md)
 - [Regular Booking](generic/booking-regular)
-  - [Regular booking for One-way trip](generic/booking-regular#airbookrq-for-oneway-trip)
+  - [Regular booking for One-way trip](generic/booking-regular#airbookrq-for-one-way-trip)
   - [Regular booking for Round trip](generic/booking-regular#airbookrq-for-round-trip)
 - [Read Booking](generic/read-booking.md)
 - [Payment and Ticketing](generic/payment-ticketing)

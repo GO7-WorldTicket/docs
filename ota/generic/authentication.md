@@ -27,11 +27,11 @@ Replace all variables in curly braces with the actual values provided by your ai
 | Variable      | Description                         | Example                                   |
 | ------------- | ----------------------------------- | ----------------------------------------- |
 | base_url      | Identity provider URL               | https://test-api.worldticket.net/auth     |
-| tenant        | Short airline name (realm)          | {{tenant-name}}                            |
-| client_id     | Application ID                      | {{client-id}}                              |
-| client_secret | Application secret                  | {{client-secret}}                          |
-| username      | User login                          | {{username}}                               |
-| password      | User password                       | {{password}}                               |
+| tenant        | Short airline name (realm)          | {tenant-name}                            |
+| client_id     | Application ID                      | {client-id}                              |
+| client_secret | Application secret                  | {client-secret}                          |
+| username      | User login                          | {username}                               |
+| password      | User password                       | {password}                               |
 
 ### JWT Token Request
 
@@ -46,20 +46,20 @@ Replace all variables in curly braces with the actual values provided by your ai
 | Parameter | Location | Required | Description | Example |
 |-----------|----------|----------|-------------|---------|
 | base_url | Endpoint | Yes | Identity provider URL | https://test-api.worldticket.net/auth |
-| tenant | URL Path | Yes | Short airline name (realm) | {{tenant-name}} |
+| tenant | URL Path | Yes | Short airline name (realm) | {tenant-name} |
 | grant_type | Body | Yes | OAuth2 grant type | password |
-| client_id | Body | Yes | Application ID | {{client-id}} |
-| client_secret | Body | Yes | Application secret | {{client-secret}} |
-| username | Body | Yes | User login | {{username}} |
-| password | Body | Yes | User password | {{password}} |
+| client_id | Body | Yes | Application ID | {client-id} |
+| client_secret | Body | Yes | Application secret | {client-secret} |
+| username | Body | Yes | User login | {username} |
+| password | Body | Yes | User password | {password} |
 
 #### Request Example
 
 ```bash
 curl -X POST \
-    https://test-api.worldticket.net/auth/realms/{{tenant}}/protocol/openid-connect/token \
+    https://test-api.worldticket.net/auth/realms/{tenant}/protocol/openid-connect/token \
     -H 'Content-Type: application/x-www-form-urlencoded' \
-    -d 'grant_type=password&client_id={{client_id}}&client_secret={{client_secret}}&username={{username}}&password={{password}}'
+    -d 'grant_type=password&client_id={client_id}&client_secret={client_secret}&username={username}&password={password}'
 ```
 
 #### Response
@@ -85,8 +85,8 @@ In the response, you will get `access_token` and `refresh_token` to be sent alon
 
 | Header | Description | Example |
 |--------|-------------|---------|
-| Authorization | Bearer token from JWT response | Bearer {{access_token}} |
-| X-Refresh-Token | Refresh token from JWT response | {{refresh_token}} |
+| Authorization | Bearer token from JWT response | Bearer {access_token} |
+| X-Refresh-Token | Refresh token from JWT response | {refresh_token} |
 | Content-Type | Request content type | application/xml |
 | Local-Name | OTA operation identifier | OTA_AirLowFareSearchRQ |
 
@@ -95,8 +95,8 @@ In the response, you will get `access_token` and `refresh_token` to be sent alon
 ```bash
 curl -X POST \
     https://test-api.worldticket.net/ota/v2015b/OTA \
-    -H 'Authorization: Bearer {{access_token}}' \
-    -H 'X-Refresh-Token: {{refresh_token}}' \
+    -H 'Authorization: Bearer {access_token}' \
+    -H 'X-Refresh-Token: {refresh_token}' \
     -H 'Content-Type: application/xml' \
     -H 'Local-Name: OTA_AirLowFareSearchRQ' \
     -d @request.xml
@@ -110,7 +110,7 @@ curl -X POST \
 
 | Header | Description | Example |
 |--------|-------------|---------|
-| X-API-Key | API key for authentication | {{your-api-key}} |
+| X-API-Key | API key for authentication | {your-api-key} |
 | Content-Type | Request content type | application/xml |
 | Local-Name | OTA operation identifier | OTA_AirLowFareSearchRQ |
 
@@ -119,7 +119,7 @@ curl -X POST \
 ```bash
 curl -X POST \
     https://test-api.worldticket.net/ota/v2015b/OTA \
-    -H 'X-API-Key: {{api_key}}' \
+    -H 'X-API-Key: {api_key}' \
     -H 'Content-Type: application/xml' \
     -H 'Local-Name: OTA_AirLowFareSearchRQ' \
     -d @request.xml
@@ -132,7 +132,7 @@ When using OTA API, the following headers are required:
 ### JSON Format
 ```
 Content-Type: application/json
-Local-Name: {{ota-method}}
+Local-Name: {ota-method}
 ```
 
 Example: `Local-Name: OTA_AirLowFareSearchRQ`

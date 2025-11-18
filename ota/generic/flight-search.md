@@ -22,14 +22,12 @@ The purpose is to list all the fares and display them to the user. AirLowFareSea
   - [AirLowFareSearchRQ for Round Trip with Fare Restriction](#airlowfaresearchrq-for-round-trip-with-fare-restriction)
   - [Response Structure](#response-structure)
     - [JSON Response](#json-response)
-  - [Discount Functionality](#discount-functionality)
-    - [JSON Response](#json-response-1)
 
 ## Endpoint
 
 - Method: `POST`
 - Path: `/ota/v2015b/OTA_AirLowFareSearchRQ`
-- Full URL: `{{base_url}}/ota/v2015b/OTA_AirLowFareSearchRQ` (choose base URL per environment above)
+- Full URL: `{base_url}/ota/v2015b/OTA_AirLowFareSearchRQ` (choose base URL per environment above)
 
 ## Flight Search Workflow
 
@@ -71,7 +69,7 @@ sequenceDiagram
 ```bash
 curl -X POST \
     https://test-api.worldticket.net/ota/v2015b/OTA_AirLowFareSearchRQ \
-    -H 'Authorization: Bearer {{access_token}}' \
+    -H 'Authorization: Bearer {access_token}' \
     -H 'Content-Type: application/json' \
     -d @AirLowFareSearchRQ.json
 ```
@@ -80,7 +78,7 @@ curl -X POST \
 ```bash
 curl -X POST \
     https://test-api.worldticket.net/ota/v2015b/OTA_AirLowFareSearchRQ \
-    -H 'X-API-Key: {{api_key}}' \
+    -H 'X-API-Key: {api_key}' \
     -H 'Content-Type: application/json' \
     -d @AirLowFareSearchRQ.json
 ```
@@ -89,9 +87,9 @@ curl -X POST \
 
 | Header | Description | Example |
 |--------|-------------|---------|
-| Authorization | Bearer token for JWT authentication | Bearer {{access_token}} |
-| X-API-Key | API key for key-based authentication | {{api_key}} |
-| X-Realm | Airline realm identifier | {{tenant-name}} |
+| Authorization | Bearer token for JWT authentication | Bearer {access_token} |
+| X-API-Key | API key for key-based authentication | {api_key} |
+| X-Realm | Airline realm identifier | {tenant-name} |
 
 **Note:** Use either `Authorization` (for JWT) OR `X-API-Key` (for API key authentication), not both.
 
@@ -120,13 +118,13 @@ curl -X POST \
   "originDestinationInformation": [
     {
       "originLocation": {
-        "locationCode": "{{origin_code}}"
+        "locationCode": "{origin_code}"
       },
       "destinationLocation": {
-        "locationCode": "{{destination_code}}"
+        "locationCode": "{destination_code}"
       },
       "departureDateTime": {
-        "value": "{{departure_date}}",
+        "value": "{departure_date}",
         "windowBefore": "P0D",
         "windowAfter": "P0D"
       }
@@ -138,15 +136,15 @@ curl -X POST \
         "passengerTypeQuantity": [
           {
             "code": "ADT",
-            "quantity": "{{adult_count}}"
+            "quantity": "{adult_count}"
           },
           {
             "code": "CHD",
-            "quantity": "{{child_count}}"
+            "quantity": "{child_count}"
           },
           {
             "code": "INF",
-            "quantity": "{{infant_count}}"
+            "quantity": "{infant_count}"
           }
         ]
       }
@@ -244,26 +242,26 @@ curl -X POST \
   "originDestinationInformation": [
     {
       "originLocation": {
-        "locationCode": "{{origin_code}}"
+        "locationCode": "{origin_code}"
       },
       "destinationLocation": {
-        "locationCode": "{{destination_code}}"
+        "locationCode": "{destination_code}"
       },
       "departureDateTime": {
-        "value": "{{outbound_date}}",
+        "value": "{outbound_date}",
         "windowBefore": "P0D",
         "windowAfter": "P0D"
       }
     },
     {
       "originLocation": {
-        "locationCode": "{{destination_code}}"
+        "locationCode": "{destination_code}"
       },
       "destinationLocation": {
-        "locationCode": "{{origin_code}}"
+        "locationCode": "{origin_code}"
       },
       "departureDateTime": {
-        "value": "{{inbound_date}}",
+        "value": "{inbound_date}",
         "windowBefore": "P0D",
         "windowAfter": "P0D"
       }
@@ -275,15 +273,15 @@ curl -X POST \
         "passengerTypeQuantity": [
           {
             "code": "ADT",
-            "quantity": "{{adult_count}}"
+            "quantity": "{adult_count}"
           },
           {
             "code": "CHD",
-            "quantity": "{{child_count}}"
+            "quantity": "{child_count}"
           },
           {
             "code": "INF",
-            "quantity": "{{infant_count}}"
+            "quantity": "{infant_count}"
           }
         ]
       }
@@ -537,18 +535,18 @@ To receive outbound and inbound fares separately, specify FareRestriction `OUT` 
             {
               "flightSegment": [
                 {
-                  "departureDateTime": "{{departure_datetime}}",
-                  "arrivalDateTime": "{{arrival_datetime}}",
-                  "flightNumber": "{{flight_number}}",
-                  "resBookDesigCode": "{{booking_class}}",
+                  "departureDateTime": "{departure_datetime}",
+                  "arrivalDateTime": "{arrival_datetime}",
+                  "flightNumber": "{flight_number}",
+                  "resBookDesigCode": "{booking_class}",
                   "departureAirport": {
-                    "locationCode": "{{origin_code}}"
+                    "locationCode": "{origin_code}"
                   },
                   "arrivalAirport": {
-                    "locationCode": "{{destination_code}}"
+                    "locationCode": "{destination_code}"
                   },
                   "marketingAirline": {
-                    "code": "{{airline_code}}"
+                    "code": "{airline_code}"
                   }
                 }
               ]
@@ -559,207 +557,47 @@ To receive outbound and inbound fares separately, specify FareRestriction `OUT` 
       "airItineraryPricingInfo": {
         "itinTotalFare": {
           "baseFare": {
-            "amount": "{{base_fare}}",
-            "currencyCode": "{{currency_code}}"
+            "amount": "{base_fare}",
+            "currencyCode": "{currency_code}"
           },
           "taxes": [
             {
-              "amount": "{{tax_amount}}",
-              "currencyCode": "{{currency_code}}"
+              "amount": "{tax_amount}",
+              "currencyCode": "{currency_code}"
             }
           ],
           "totalFare": {
-            "amount": "{{total_fare}}",
-            "currencyCode": "{{currency_code}}"
+            "amount": "{total_fare}",
+            "currencyCode": "{currency_code}"
           }
         },
         "ptc_FareBreakdowns": [
           {
             "passengerTypeQuantity": {
               "code": "ADT",
-              "quantity": "{{adult_count}}"
+              "quantity": "{adult_count}"
             },
             "fareBasisCodes": [
-              "{{fare_basis_code}}"
+              "{fare_basis_code}"
             ],
             "passengerFare": {
               "baseFare": {
-                "amount": "{{passenger_base_fare}}",
-                "currencyCode": "{{currency_code}}"
+                "amount": "{passenger_base_fare}",
+                "currencyCode": "{currency_code}"
               },
               "taxes": [
                 {
-                  "amount": "{{passenger_tax}}",
-                  "currencyCode": "{{currency_code}}"
+                  "amount": "{passenger_tax}",
+                  "currencyCode": "{currency_code}"
                 }
               ],
               "totalFare": {
-                "amount": "{{passenger_total_fare}}",
-                "currencyCode": "{{currency_code}}"
+                "amount": "{passenger_total_fare}",
+                "currencyCode": "{currency_code}"
               }
             }
           }
         ]
-      }
-    }
-  ]
-}
-```
-
-## Discount Functionality
-
-LowFareSearch supports discount functionality. When a discount is applied, the response will include both discounted amount and original fare amount.
-
-<details>
-<summary><strong>📋 Request Template</strong></summary>
-<div markdown="1">
-
-```json
-{
-  "target": "Production",
-  "version": "2.001",
-  "pos": {
-    "source": [
-      {
-        "isocurrency": "USD"
-      }
-    ]
-  },
-  "processingInfo": {
-    "displayOrder": "BY_PRICE_LOW_TO_HIGH",
-    "availabilityIndicator": true
-  },
-  "originDestinationInformation": [
-    {
-      "originLocation": {
-        "locationCode": "{{origin_code}}"
-      },
-      "destinationLocation": {
-        "locationCode": "{{destination_code}}"
-      },
-      "departureDateTime": {
-        "value": "{{departure_date}}",
-        "windowBefore": "P0D",
-        "windowAfter": "P0D"
-      }
-    }
-  ],
-  "travelerInfoSummary": {
-    "airTravelerAvail": [
-      {
-        "passengerTypeQuantity": [
-          {
-            "code": "ADT",
-            "quantity": "{{adult_count}}"
-          }
-        ]
-      }
-    ],
-    "priceRequestInformation": {
-      "tpaExtensions": {
-        "discountPricing": {
-          "discountCode": "{{discount_code}}",
-          "discountPercent": "{{discount_percent}}"
-        }
-      }
-    }
-  }
-}
-```
-
-</div>
-
-</details>
-
-<details>
-<summary><strong>✅ Example</strong></summary>
-<div markdown="1">
-
-```json
-{
-  "target": "Production",
-  "version": "2.001",
-  "pos": {
-    "source": [
-      {
-        "isocurrency": "USD"
-      }
-    ]
-  },
-  "processingInfo": {
-    "displayOrder": "BY_PRICE_LOW_TO_HIGH",
-    "availabilityIndicator": true
-  },
-  "originDestinationInformation": [
-    {
-      "originLocation": {
-        "locationCode": "JED"
-      },
-      "destinationLocation": {
-        "locationCode": "XMK"
-      },
-      "departureDateTime": {
-        "value": "2024-12-25",
-        "windowBefore": "P0D",
-        "windowAfter": "P0D"
-      }
-    }
-  ],
-  "travelerInfoSummary": {
-    "airTravelerAvail": [
-      {
-        "passengerTypeQuantity": [
-          {
-            "code": "ADT",
-            "quantity": 1
-          }
-        ]
-      }
-    ],
-    "priceRequestInformation": {
-      "tpaExtensions": {
-        "discountPricing": {
-          "discountCode": "SAVE10",
-          "discountPercent": "10"
-        }
-      }
-    }
-  }
-}
-```
-
-</div>
-
-</details>
-
-### JSON Response
-
-```json
-{
-  "pricedItineraries": [
-    {
-      "sequenceNumber": "1",
-      "airItineraryPricingInfo": {
-        "itinTotalFare": {
-          "baseFare": {
-            "amount": "{{discounted_base_fare}}",
-            "currencyCode": "{{currency_code}}"
-          },
-          "totalFare": {
-            "amount": "{{discounted_total_fare}}",
-            "currencyCode": "{{currency_code}}"
-          }
-        },
-        "itinTotalFareOriginal": {
-          "baseFare": {
-            "amount": "{{original_base_fare}}",
-            "currencyCode": "{{currency_code}}"
-          },
-          "totalFare": {
-            "amount": "{{original_total_fare}}",
-            "currencyCode": "{{currency_code}}"
-          }
-        }
       }
     }
   ]
