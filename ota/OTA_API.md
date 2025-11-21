@@ -186,7 +186,7 @@ Please update the variables in collection such as apiKey, agent_id, agent_name a
   - [Endpoints](generic/payment-ticketing#endpoints)
   - [Supported Payment Types](generic/payment-ticketing#supported-payment-types)
   - [Make Payment for Issuing a Ticket](generic/payment-ticketing#make-payment-for-issuing-a-ticket)
-  - [Payment with Debit-Credit Account](generic/payment-ticketing#payment-with-debit-credit-account)
+  - [Payment with Cash](generic/payment-ticketing#payment-with-cash)
 
 [//]: # (  - [Payment with Redirect]&#40;generic/payment-ticketing#payment-with-redirect&#41;)
 

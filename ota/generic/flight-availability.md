@@ -79,14 +79,47 @@ The response contains an array of available route objects with origin and destin
 ```json
 [
   {
-    "origin": "JFK",
-    "destination": "LAX",
-    "active": true
+    "origin": {
+      "code": "AAC",
+      "name": "El Arish International Airport",
+      "cityName": "El Arish",
+      "cityCode": "AAC",
+      "country": "EG"
+    },
+    "destinations": [
+      {
+        "code": "AAL",
+        "name": "Aalborg Airport",
+        "cityName": "Aalborg",
+        "cityCode": "AAL",
+        "country": "DK"
+      },
+      {
+        "code": "AAH",
+        "name": "Aachen-Merzbrück Airport",
+        "cityName": "Aachen",
+        "cityCode": "AAH",
+        "country": "DE"
+      }
+    ]
   },
   {
-    "origin": "LAX",
-    "destination": "JFK",
-    "active": true
+    "origin": {
+      "code": "AAE",
+      "name": "Rabah Bitat Airport",
+      "cityName": "Annaba",
+      "cityCode": "AAE",
+      "country": "DZ"
+    },
+    "destinations": [
+      {
+        "code": "ARN",
+        "name": "Stockholm-Arlanda Airport",
+        "cityName": "Stockholm",
+        "cityCode": "STO",
+        "country": "SE"
+      }
+    ]
   }
 ]
 ```
@@ -129,13 +162,13 @@ curl -X GET \
 
 ### Request Parameters
 
-| Parameter | Location | Required | Description | Format | Example |
-|-----------|----------|----------|-------------|--------|---------|
-| start_date | Query | Yes | Start date for availability check | ISO 8601 | 2023-12-03T00:00:00 |
-| end_date | Query | Yes | End date for availability check | ISO 8601 | 2023-12-28T00:00:00 |
-| departure_airport | Query | Yes | Departure airport IATA code | String | XMD |
-| arrival_airport | Query | Yes | Arrival airport IATA code | String | JED |
-| direct | Query | No | Filter for direct flights only | Boolean | true |
+| Parameter | Location | Required | Description | Format | Example             |
+|-----------|----------|----------|-------------|--------|---------------------|
+| start_date | Query | Yes | Start date for availability check | ISO 8601 | 2025-12-01T00:00:00 |
+| end_date | Query | Yes | End date for availability check | ISO 8601 | 2025-12-30T00:00:00 |
+| departure_airport | Query | Yes | Departure airport IATA code | String | KRP                 |
+| arrival_airport | Query | Yes | Arrival airport IATA code | String | CPH                 |
+| direct | Query | No | Filter for direct flights only | Boolean | false                |
 
 ### Response
 
@@ -145,24 +178,41 @@ curl -X GET \
 
 ```json
 {
-  "availability": [
-    {
-      "date": "2023-12-03",
-      "available": true,
-      "flights": [
-        {
-          "flight_number": "FL123",
-          "departure_time": "08:00",
-          "arrival_time": "11:30",
-          "available_seats": 45
-        }
-      ]
-    },
-    {
-      "date": "2023-12-04",
-      "available": false,
-      "flights": []
-    }
+  "startDate": "2025-12-01",
+  "endDate": "2025-12-30",
+  "departureAirport": "KRP",
+  "arrivalAirport": "CPH",
+  "dates": [
+    "2025-12-30",
+    "2025-12-29",
+    "2025-12-28",
+    "2025-12-27",
+    "2025-12-26",
+    "2025-12-25",
+    "2025-12-24",
+    "2025-12-23",
+    "2025-12-22",
+    "2025-12-21",
+    "2025-12-20",
+    "2025-12-19",
+    "2025-12-18",
+    "2025-12-17",
+    "2025-12-16",
+    "2025-12-15",
+    "2025-12-14",
+    "2025-12-13",
+    "2025-12-12",
+    "2025-12-11",
+    "2025-12-10",
+    "2025-12-09",
+    "2025-12-08",
+    "2025-12-07",
+    "2025-12-06",
+    "2025-12-05",
+    "2025-12-04",
+    "2025-12-03",
+    "2025-12-02",
+    "2025-12-01"
   ]
 }
 ```
