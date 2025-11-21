@@ -64,6 +64,24 @@ Attach the following headers to OTA requests.
 
 Note: Use either `Authorization` (JWT) OR `X-API-Key` (API key), not both.
 
+## Pricing Qualifier Code
+
+Put pricing qualifier code in OTA requests inside node named "pricingPref".
+
+| Type          | Description   | Value |
+|---------------|---------------|------|
+| COPY          | Copy          | 1    |
+| MANUAL        | Manual        | 2    |
+| REMOVE        | Remove        | 3    |
+| QUOTE         | Quote         | 4    |
+| PRICE         | Price         | 5    |
+| REBOOK        | Rebook        | 6    |
+| DIRECT_ACCESS | Direct access | 7    |
+| SEAMLESS      | Seamless      | 8    |
+| CORE          | Core          | 9    |
+
+Note: Use same value for "type" and "qualifier".
+
 ## JSON Request
 
 <details>
@@ -79,12 +97,7 @@ Note: Use either `Authorization` (JWT) OR `X-API-Key` (API key), not both.
         "bookingChannel": {
           "type": "{booking_channel_type}"
         },
-        "isocurrency": "{currency_code}",
-        "requestorID": {
-          "type": "5",
-          "id": "{agent_id}",
-          "name": "{agency_id}"
-        }
+        "isocurrency": "{currency_code}"
       }
     ]
   },
@@ -113,8 +126,7 @@ Note: Use either `Authorization` (JWT) OR `X-API-Key` (API key), not both.
               },
               "flightNumber": "{flight_number}",
               "resBookDesigCode": "{booking_class}",
-              "fareBasisCode": "{fare_basis_code}",
-              "status": "{segment_status}"
+              "fareBasisCode": "{fare_basis_code}"
             }
           ]
         }
@@ -124,6 +136,7 @@ Note: Use either `Authorization` (JWT) OR `X-API-Key` (API key), not both.
   "travelerInfoSummary": {
     "pricingPref": [
       {
+        "type":"{pricing_type}",
         "qualifier": "{pricing_qualifier}"
       }
     ],
@@ -143,40 +156,6 @@ Note: Use either `Authorization` (JWT) OR `X-API-Key` (API key), not both.
             "quantity": "{infant_count}"
           }
         ]
-      },
-      {
-        "airTraveler": {
-          "passengerTypeCode": "CTC",
-          "personName": {
-            "givenName": ["{given_name}"],
-            "surname": "{surname}"
-          },
-          "email": [
-            {
-              "value": "{email_address}"
-            }
-          ],
-          "telephone": [
-            {
-              "countryAccessCode": "{country_code}",
-              "phoneNumber": "{phone_number}"
-            }
-          ],
-          "document": [
-            {
-              "docHolderNationality": "{nationality_code}",
-              "birthDate": "{birth_date}"
-            }
-          ],
-          "address": [
-            {
-              "cityName": "{city_name}",
-              "countryName": {
-                "code": "{country_code}"
-              }
-            }
-          ]
-        }
       }
     ]
   }
@@ -200,12 +179,7 @@ Note: Use either `Authorization` (JWT) OR `X-API-Key` (API key), not both.
         "bookingChannel": {
           "type": "OTA"
         },
-        "isocurrency": "USD",
-        "requestorID": {
-          "type": "5",
-          "id": "AGENT123",
-          "name": "AGENCY1"
-        }
+        "isocurrency": "USD"
       }
     ]
   },
@@ -216,26 +190,25 @@ Note: Use either `Authorization` (JWT) OR `X-API-Key` (API key), not both.
           "flightSegment": [
             {
               "departureAirport": {
-                "locationCode": "JED"
+                "locationCode": "KRP"
               },
               "arrivalAirport": {
-                "locationCode": "XMK"
+                "locationCode": "CPH"
               },
               "operatingAirline": {
                 "code": "DX",
-                "flightNumber": "FL123"
+                "flightNumber": "9901"
               },
               "equipment": [],
-              "departureDateTime": "2024-12-25T08:00:00",
-              "arrivalDateTime": "2024-12-25T11:30:00",
+              "departureDateTime": "2025-12-19T18:10:00",
+              "arrivalDateTime": "2025-12-19T19:00:00",
               "rph": "1",
               "marketingAirline": {
                 "code": "DX"
               },
-              "flightNumber": "FL123",
+              "flightNumber": "9901",
               "resBookDesigCode": "Y",
-              "fareBasisCode": "ECON",
-              "status": "30"
+              "fareBasisCode": "YDXBED"
             }
           ]
         }
@@ -245,7 +218,8 @@ Note: Use either `Authorization` (JWT) OR `X-API-Key` (API key), not both.
   "travelerInfoSummary": {
     "pricingPref": [
       {
-        "qualifier": "4"
+        "type":"5",
+        "qualifier": "5"
       }
     ],
     "airTravelerAvail": [
@@ -253,51 +227,17 @@ Note: Use either `Authorization` (JWT) OR `X-API-Key` (API key), not both.
         "passengerTypeQuantity": [
           {
             "code": "ADT",
-            "quantity": 2
+            "quantity": "1"
           },
           {
             "code": "CHD",
-            "quantity": 1
+            "quantity": "0"
           },
           {
             "code": "INF",
-            "quantity": 0
+            "quantity": "0"
           }
         ]
-      },
-      {
-        "airTraveler": {
-          "passengerTypeCode": "CTC",
-          "personName": {
-            "givenName": ["John"],
-            "surname": "Doe"
-          },
-          "email": [
-            {
-              "value": "john.doe@example.com"
-            }
-          ],
-          "telephone": [
-            {
-              "countryAccessCode": "1",
-              "phoneNumber": "2025551234"
-            }
-          ],
-          "document": [
-            {
-              "docHolderNationality": "US",
-              "birthDate": "1980-05-15"
-            }
-          ],
-          "address": [
-            {
-              "cityName": "New York",
-              "countryName": {
-                "code": "US"
-              }
-            }
-          ]
-        }
       }
     ]
   }
@@ -316,20 +256,31 @@ Note: Use either `Authorization` (JWT) OR `X-API-Key` (API key), not both.
 
 ```json
 {
-  "success": {},
   "pricingOverview": {
     "fareInfo": {
       "equivFare": [],
       "fareBaggageAllowance": [],
       "remark": [],
       "tpaextensions": {
-        "taxInfo": []
+        "taxInfo": [
+          {
+            "taxCode": "EU",
+            "taxName": "EU ETS CO2 emission tax",
+            "taxType": "Airport tax"
+          },
+          {
+            "taxCode": "DC",
+            "taxName": "DCAA Safety Contribution",
+            "taxType": "Airport tax"
+          }
+        ]
       }
     },
     "notes": [],
     "account": [],
     "pricingIndicator": []
   },
+  "success": {},
   "pricedItineraries": {
     "pricedItinerary": [
       {
@@ -340,29 +291,36 @@ Note: Use either `Authorization` (JWT) OR `X-API-Key` (API key), not both.
                 "flightSegment": [
                   {
                     "departureAirport": {
-                      "locationCode": "JED"
+                      "locationCode": "KRP"
                     },
                     "arrivalAirport": {
-                      "locationCode": "XMK"
+                      "locationCode": "CPH"
+                    },
+                    "operatingAirline": {
+                      "value": "",
+                      "code": "DX",
+                      "flightNumber": "9901"
                     },
                     "equipment": [],
-                    "departureDateTime": "2024-12-25T08:00:00",
-                    "arrivalDateTime": "2024-12-25T11:30:00",
+                    "departureDateTime": "2025-12-19T18:10:00",
+                    "arrivalDateTime": "2025-12-19T19:00:00",
+                    "rph": "1",
                     "marketingAirline": {
+                      "value": "",
                       "code": "DX"
                     },
-                    "flightNumber": "FL123",
+                    "flightNumber": "9901",
                     "resBookDesigCode": "Y",
                     "bookingClassAvails": [],
                     "comment": [],
                     "stopLocation": [],
                     "tpaextensions": {
-                      "fareBasis": "ECON",
-                      "priceGroup": "Economy",
+                      "fareBasis": "YDXBED",
+                      "priceGroup": "Bedre",
                       "fareRule": {
-                        "code": "ECON_RULE_001",
-                        "name": "Economy Fare Rules",
-                        "value": "Standard economy class fare rules and conditions apply."
+                        "code": "ECOBOW",
+                        "name": "BEDRE",
+                        "value": "Time/date can be changed prior to departure for a fee of DKK 200 per segment + fare difference. Cannot be rebooked to a less expensive fare. Name change for a fee of DKK 200 per segment. Refund not allowed. 1 piece (23 kg) checked-in luggage included. 8 kg of hand luggage included. 24 hour cancellation grace period after booking if departure is not within 24 hours. Children (2-15 years) pay 75% of the net fare (ex. taxes). Infants not requiring a separate seat can be added for free. An administration fee of DKK 95 per flight is charged for processing a refund. General terms and conditions also apply."
                       }
                     }
                   }
@@ -376,25 +334,41 @@ Note: Use either `Authorization` (JWT) OR `X-API-Key` (API key), not both.
             {
               "baseFare": {
                 "currencyCode": "USD",
-                "amount": 250.00
+                "amount": 31.76
               },
               "equivFare": [],
               "taxes": {
                 "tax": [
                   {
-                    "taxCode": "YQ",
+                    "value": "",
+                    "taxCode": "DC",
                     "currencyCode": "USD",
                     "decimalPlaces": 2,
-                    "amount": 50.00
+                    "amount": 2.04
+                  },
+                  {
+                    "value": "",
+                    "taxCode": "EU",
+                    "currencyCode": "USD",
+                    "decimalPlaces": 2,
+                    "amount": 4.07
                   }
                 ]
               },
               "fees": {
-                "fee": []
+                "fee": [
+                  {
+                    "value": "",
+                    "feeCode": "VAT_TOTAL",
+                    "currencyCode": "USD",
+                    "decimalPlaces": 2,
+                    "amount": 2.78
+                  }
+                ]
               },
               "totalFare": {
                 "currencyCode": "USD",
-                "amount": 300.00
+                "amount": 39.73
               },
               "fareBaggageAllowance": [],
               "remark": []
@@ -410,7 +384,7 @@ Note: Use either `Authorization` (JWT) OR `X-API-Key` (API key), not both.
                 "fareBasisCodes": {
                   "fareBasisCode": [
                     {
-                      "value": "ECON"
+                      "value": "YDXBED"
                     }
                   ]
                 },
@@ -419,26 +393,42 @@ Note: Use either `Authorization` (JWT) OR `X-API-Key` (API key), not both.
                     "baseFare": {
                       "currencyCode": "USD",
                       "decimalPlaces": 2,
-                      "amount": 250.00
+                      "amount": 31.76
                     },
                     "equivFare": [],
                     "taxes": {
                       "tax": [
                         {
-                          "taxCode": "YQ",
+                          "value": "",
+                          "taxCode": "DC",
                           "currencyCode": "USD",
                           "decimalPlaces": 2,
-                          "amount": 50.00
+                          "amount": 2.04
+                        },
+                        {
+                          "value": "",
+                          "taxCode": "EU",
+                          "currencyCode": "USD",
+                          "decimalPlaces": 2,
+                          "amount": 4.07
                         }
                       ]
                     },
                     "fees": {
-                      "fee": []
+                      "fee": [
+                        {
+                          "value": "",
+                          "feeCode": "VAT_TOTAL",
+                          "currencyCode": "USD",
+                          "decimalPlaces": 2,
+                          "amount": 2.86
+                        }
+                      ]
                     },
                     "totalFare": {
                       "currencyCode": "USD",
                       "decimalPlaces": 2,
-                      "amount": 300.00
+                      "amount": 40.73
                     },
                     "fareBaggageAllowance": [],
                     "remark": []
@@ -449,9 +439,18 @@ Note: Use either `Authorization` (JWT) OR `X-API-Key` (API key), not both.
                     "rph": "1"
                   }
                 ],
+                "ticketDesignators": {
+                  "ticketDesignator": [
+                    {
+                      "flightRefRPH": "1"
+                    }
+                  ]
+                },
                 "fareInfo": [],
                 "pricingUnit": [],
-                "flightRefNumberRPHList": []
+                "flightRefNumberRPHList": [
+                  "1"
+                ]
               }
             ]
           }
@@ -461,7 +460,7 @@ Note: Use either `Authorization` (JWT) OR `X-API-Key` (API key), not both.
       }
     ]
   },
-  "timeStamp": "2024-12-25T08:30:00.000Z",
+  "timeStamp": "2025-11-20T06:35:30.716Z",
   "version": 2.001,
   "retransmissionIndicator": false
 }

@@ -179,13 +179,13 @@ curl -X POST \
   "originDestinationInformation": [
     {
       "originLocation": {
-        "locationCode": "JED"
+        "locationCode": "KRP"
       },
       "destinationLocation": {
-        "locationCode": "XMK"
+        "locationCode": "CPH"
       },
       "departureDateTime": {
-        "value": "2024-12-25",
+        "value": "2025-12-19",
         "windowBefore": "P0D",
         "windowAfter": "P0D"
       }
@@ -197,15 +197,15 @@ curl -X POST \
         "passengerTypeQuantity": [
           {
             "code": "ADT",
-            "quantity": 2
+            "quantity": "1"
           },
           {
             "code": "CHD",
-            "quantity": 1
+            "quantity": "1"
           },
           {
             "code": "INF",
-            "quantity": 0
+            "quantity": "0"
           }
         ]
       }
@@ -316,26 +316,26 @@ curl -X POST \
   "originDestinationInformation": [
     {
       "originLocation": {
-        "locationCode": "JED"
+        "locationCode": "AAC"
       },
       "destinationLocation": {
-        "locationCode": "XMK"
+        "locationCode": "AAL"
       },
       "departureDateTime": {
-        "value": "2024-12-25",
+        "value": "2025-12-16",
         "windowBefore": "P0D",
         "windowAfter": "P0D"
       }
     },
     {
       "originLocation": {
-        "locationCode": "XMK"
+        "locationCode": "AAL"
       },
       "destinationLocation": {
-        "locationCode": "JED"
+        "locationCode": "AAC"
       },
       "departureDateTime": {
-        "value": "2025-01-02",
+        "value": "2025-12-17",
         "windowBefore": "P0D",
         "windowAfter": "P0D"
       }
@@ -347,15 +347,15 @@ curl -X POST \
         "passengerTypeQuantity": [
           {
             "code": "ADT",
-            "quantity": 2
+            "quantity": "1"
           },
           {
             "code": "CHD",
-            "quantity": 1
+            "quantity": "1"
           },
           {
             "code": "INF",
-            "quantity": 0
+            "quantity": "0"
           }
         ]
       }
@@ -394,26 +394,26 @@ To receive outbound and inbound fares separately, specify FareRestriction `OUT` 
   "originDestinationInformation": [
     {
       "originLocation": {
-        "locationCode": "JED"
+        "locationCode": "AAC"
       },
       "destinationLocation": {
-        "locationCode": "XMK"
+        "locationCode": "AAL"
       },
       "departureDateTime": {
-        "value": "2024-12-25",
+        "value": "2025-12-16",
         "windowBefore": "P0D",
         "windowAfter": "P0D"
       }
     },
     {
       "originLocation": {
-        "locationCode": "XMK"
+        "locationCode": "AAL"
       },
       "destinationLocation": {
-        "locationCode": "JED"
+        "locationCode": "AAC"
       },
       "departureDateTime": {
-        "value": "2025-01-02",
+        "value": "2025-12-17",
         "windowBefore": "P0D",
         "windowAfter": "P0D"
       }
@@ -432,7 +432,15 @@ To receive outbound and inbound fares separately, specify FareRestriction `OUT` 
         "passengerTypeQuantity": [
           {
             "code": "ADT",
-            "quantity": 2
+            "quantity": "1"
+          },
+          {
+            "code": "CHD",
+            "quantity": "1"
+          },
+          {
+            "code": "INF",
+            "quantity": "0"
           }
         ]
       }
@@ -467,26 +475,26 @@ To receive outbound and inbound fares separately, specify FareRestriction `OUT` 
   "originDestinationInformation": [
     {
       "originLocation": {
-        "locationCode": "JED"
+        "locationCode": "AAC"
       },
       "destinationLocation": {
-        "locationCode": "XMK"
+        "locationCode": "AAL"
       },
       "departureDateTime": {
-        "value": "2024-12-25",
+        "value": "2025-12-16",
         "windowBefore": "P0D",
         "windowAfter": "P0D"
       }
     },
     {
       "originLocation": {
-        "locationCode": "XMK"
+        "locationCode": "AAL"
       },
       "destinationLocation": {
-        "locationCode": "JED"
+        "locationCode": "AAC"
       },
       "departureDateTime": {
-        "value": "2025-01-02",
+        "value": "2025-12-17",
         "windowBefore": "P0D",
         "windowAfter": "P0D"
       }
@@ -505,7 +513,15 @@ To receive outbound and inbound fares separately, specify FareRestriction `OUT` 
         "passengerTypeQuantity": [
           {
             "code": "ADT",
-            "quantity": 2
+            "quantity": "1"
+          },
+          {
+            "code": "CHD",
+            "quantity": "1"
+          },
+          {
+            "code": "INF",
+            "quantity": "0"
           }
         ]
       }
@@ -524,82 +540,401 @@ To receive outbound and inbound fares separately, specify FareRestriction `OUT` 
 
 ```json
 {
-  "version": "2.001",
   "success": {},
-  "pricedItineraries": [
-    {
-      "sequenceNumber": "1",
-      "airItinerary": {
-        "originDestinationOptions": {
-          "originDestinationOption": [
-            {
-              "flightSegment": [
-                {
-                  "departureDateTime": "{departure_datetime}",
-                  "arrivalDateTime": "{arrival_datetime}",
-                  "flightNumber": "{flight_number}",
-                  "resBookDesigCode": "{booking_class}",
-                  "departureAirport": {
-                    "locationCode": "{origin_code}"
-                  },
-                  "arrivalAirport": {
-                    "locationCode": "{destination_code}"
-                  },
-                  "marketingAirline": {
-                    "code": "{airline_code}"
+  "pricedItineraries": {
+    "pricedItinerary": [
+      {
+        "airItinerary": {
+          "originDestinationOptions": {
+            "originDestinationOption": [
+              {
+                "flightSegment": [
+                  {
+                    "departureAirport": {
+                      "locationCode": "AAC"
+                    },
+                    "arrivalAirport": {
+                      "locationCode": "AAL"
+                    },
+                    "operatingAirline": {
+                      "value": "",
+                      "code": "DX",
+                      "flightNumber": "7878"
+                    },
+                    "equipment": [],
+                    "departureDateTime": "2025-12-16T10:00:00.000+02:00",
+                    "arrivalDateTime": "2025-12-16T12:00:00.000+01:00",
+                    "stopQuantity": 0,
+                    "rph": "1",
+                    "marketingAirline": {
+                      "value": "",
+                      "code": "DX"
+                    },
+                    "flightNumber": "7878",
+                    "resBookDesigCode": "Y",
+                    "bookingClassAvails": [
+                      {
+                        "bookingClassAvail": [
+                          {
+                            "resBookDesigCode": "Y",
+                            "resBookDesigQuantity": "42"
+                          }
+                        ],
+                        "cabinType": "ECONOMY"
+                      }
+                    ],
+                    "comment": [],
+                    "stopLocation": [],
+                    "status": "34",
+                    "tpaextensions": {
+                      "airEquipType": "AT4"
+                    }
                   }
-                }
-              ]
-            }
-          ]
-        }
-      },
-      "airItineraryPricingInfo": {
-        "itinTotalFare": {
-          "baseFare": {
-            "amount": "{base_fare}",
-            "currencyCode": "{currency_code}"
-          },
-          "taxes": [
-            {
-              "amount": "{tax_amount}",
-              "currencyCode": "{currency_code}"
-            }
-          ],
-          "totalFare": {
-            "amount": "{total_fare}",
-            "currencyCode": "{currency_code}"
+                ]
+              },
+              {
+                "flightSegment": [
+                  {
+                    "departureAirport": {
+                      "locationCode": "AAL"
+                    },
+                    "arrivalAirport": {
+                      "locationCode": "AAC"
+                    },
+                    "operatingAirline": {
+                      "value": "",
+                      "code": "DX",
+                      "flightNumber": "7879"
+                    },
+                    "equipment": [],
+                    "departureDateTime": "2025-12-17T12:30:00.000+01:00",
+                    "arrivalDateTime": "2025-12-17T14:30:00.000+02:00",
+                    "stopQuantity": 0,
+                    "rph": "2",
+                    "marketingAirline": {
+                      "value": "",
+                      "code": "DX"
+                    },
+                    "flightNumber": "7879",
+                    "resBookDesigCode": "Y",
+                    "bookingClassAvails": [
+                      {
+                        "bookingClassAvail": [
+                          {
+                            "resBookDesigCode": "Y",
+                            "resBookDesigQuantity": "40"
+                          }
+                        ],
+                        "cabinType": "ECONOMY"
+                      }
+                    ],
+                    "comment": [],
+                    "stopLocation": [],
+                    "status": "34",
+                    "tpaextensions": {
+                      "airEquipType": "AT4"
+                    }
+                  }
+                ]
+              }
+            ]
           }
         },
-        "ptc_FareBreakdowns": [
-          {
-            "passengerTypeQuantity": {
-              "code": "ADT",
-              "quantity": "{adult_count}"
-            },
-            "fareBasisCodes": [
-              "{fare_basis_code}"
-            ],
-            "passengerFare": {
+        "airItineraryPricingInfo": {
+          "itinTotalFare": [
+            {
               "baseFare": {
-                "amount": "{passenger_base_fare}",
-                "currencyCode": "{currency_code}"
+                "currencyCode": "USD",
+                "amount": 119.27
               },
-              "taxes": [
-                {
-                  "amount": "{passenger_tax}",
-                  "currencyCode": "{currency_code}"
-                }
-              ],
+              "equivFare": [],
+              "taxes": {
+                "tax": [
+                  {
+                    "value": "",
+                    "taxCode": "ZO",
+                    "taxName": "tax",
+                    "currencyCode": "USD",
+                    "amount": 14.05
+                  }
+                ]
+              },
               "totalFare": {
-                "amount": "{passenger_total_fare}",
-                "currencyCode": "{currency_code}"
-              }
+                "currencyCode": "USD",
+                "amount": 133.32
+              },
+              "fareBaggageAllowance": [],
+              "remark": []
             }
+          ],
+          "fareInfos": {
+            "fareInfo": [
+              {
+                "fareReference": [
+                  {
+                    "value": "YECOM"
+                  }
+                ],
+                "filingAirline": {
+                  "value": "DX"
+                },
+                "marketingAirline": [],
+                "departureAirport": {
+                  "value": "",
+                  "locationCode": "AAC"
+                },
+                "arrivalAirport": {
+                  "value": "",
+                  "locationCode": "AAL"
+                },
+                "date": [],
+                "fareInfo": [],
+                "city": [],
+                "airport": [],
+                "tpaextensions": {
+                  "priceGroup": "Economy"
+                }
+              },
+              {
+                "fareReference": [
+                  {
+                    "value": "YECOM"
+                  }
+                ],
+                "filingAirline": {
+                  "value": "DX"
+                },
+                "marketingAirline": [],
+                "departureAirport": {
+                  "value": "",
+                  "locationCode": "AAL"
+                },
+                "arrivalAirport": {
+                  "value": "",
+                  "locationCode": "AAC"
+                },
+                "date": [],
+                "fareInfo": [],
+                "city": [],
+                "airport": [],
+                "tpaextensions": {
+                  "priceGroup": "Economy"
+                }
+              }
+            ]
+          },
+          "ptcfareBreakdowns": {
+            "ptcfareBreakdown": [
+              {
+                "passengerTypeQuantity": {
+                  "code": "ADT",
+                  "quantity": 1
+                },
+                "fareBasisCodes": {
+                  "fareBasisCode": [
+                    {
+                      "value": "YECOM"
+                    }
+                  ]
+                },
+                "passengerFare": [
+                  {
+                    "baseFare": {
+                      "currencyCode": "USD",
+                      "decimalPlaces": 2,
+                      "amount": 33.33
+                    },
+                    "equivFare": [],
+                    "totalFare": {
+                      "currencyCode": "USD",
+                      "decimalPlaces": 2,
+                      "amount": 33.33
+                    },
+                    "fareBaggageAllowance": [],
+                    "remark": []
+                  }
+                ],
+                "travelerRefNumber": [
+                  {
+                    "rph": "1"
+                  }
+                ],
+                "ticketDesignators": {
+                  "ticketDesignator": [
+                    {
+                      "flightRefRPH": "1"
+                    }
+                  ]
+                },
+                "fareInfo": [],
+                "pricingUnit": [],
+                "flightRefNumberRPHList": [
+                  "1"
+                ]
+              },
+              {
+                "passengerTypeQuantity": {
+                  "code": "ADT",
+                  "quantity": 1
+                },
+                "fareBasisCodes": {
+                  "fareBasisCode": [
+                    {
+                      "value": "YECOM"
+                    }
+                  ]
+                },
+                "passengerFare": [
+                  {
+                    "baseFare": {
+                      "currencyCode": "USD",
+                      "decimalPlaces": 2,
+                      "amount": 33.33
+                    },
+                    "equivFare": [],
+                    "totalFare": {
+                      "currencyCode": "USD",
+                      "decimalPlaces": 2,
+                      "amount": 33.33
+                    },
+                    "fareBaggageAllowance": [],
+                    "remark": []
+                  }
+                ],
+                "travelerRefNumber": [
+                  {
+                    "rph": "1"
+                  }
+                ],
+                "ticketDesignators": {
+                  "ticketDesignator": [
+                    {
+                      "flightRefRPH": "2"
+                    }
+                  ]
+                },
+                "fareInfo": [],
+                "pricingUnit": [],
+                "flightRefNumberRPHList": [
+                  "2"
+                ]
+              },
+              {
+                "passengerTypeQuantity": {
+                  "code": "CHD",
+                  "quantity": 1
+                },
+                "fareBasisCodes": {
+                  "fareBasisCode": [
+                    {
+                      "value": "YECOM"
+                    }
+                  ]
+                },
+                "passengerFare": [
+                  {
+                    "baseFare": {
+                      "currencyCode": "USD",
+                      "decimalPlaces": 2,
+                      "amount": 33.33
+                    },
+                    "equivFare": [],
+                    "totalFare": {
+                      "currencyCode": "USD",
+                      "decimalPlaces": 2,
+                      "amount": 33.33
+                    },
+                    "fareBaggageAllowance": [],
+                    "remark": []
+                  }
+                ],
+                "travelerRefNumber": [
+                  {
+                    "rph": "2"
+                  }
+                ],
+                "ticketDesignators": {
+                  "ticketDesignator": [
+                    {
+                      "flightRefRPH": "1"
+                    }
+                  ]
+                },
+                "fareInfo": [],
+                "pricingUnit": [],
+                "flightRefNumberRPHList": [
+                  "1"
+                ]
+              },
+              {
+                "passengerTypeQuantity": {
+                  "code": "CHD",
+                  "quantity": 1
+                },
+                "fareBasisCodes": {
+                  "fareBasisCode": [
+                    {
+                      "value": "YECOM"
+                    }
+                  ]
+                },
+                "passengerFare": [
+                  {
+                    "baseFare": {
+                      "currencyCode": "USD",
+                      "decimalPlaces": 2,
+                      "amount": 19.28
+                    },
+                    "equivFare": [],
+                    "taxes": {
+                      "tax": [
+                        {
+                          "value": "",
+                          "taxCode": "ZO",
+                          "currencyCode": "USD",
+                          "decimalPlaces": 2,
+                          "amount": 14.05
+                        }
+                      ]
+                    },
+                    "totalFare": {
+                      "currencyCode": "USD",
+                      "decimalPlaces": 2,
+                      "amount": 33.33
+                    },
+                    "fareBaggageAllowance": [],
+                    "remark": []
+                  }
+                ],
+                "travelerRefNumber": [
+                  {
+                    "rph": "2"
+                  }
+                ],
+                "ticketDesignators": {
+                  "ticketDesignator": [
+                    {
+                      "flightRefRPH": "2"
+                    }
+                  ]
+                },
+                "fareInfo": [],
+                "pricingUnit": [],
+                "flightRefNumberRPHList": [
+                  "2"
+                ]
+              }
+            ]
           }
-        ]
+        },
+        "notes": [],
+        "sequenceNumber": 1
       }
-    }
-  ]
+    ]
+  },
+  "timeStamp": "2025-11-19T07:41:38.207Z",
+  "target": "Production",
+  "version": 2.001,
+  "retransmissionIndicator": false
 }
 ```

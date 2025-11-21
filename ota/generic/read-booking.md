@@ -123,7 +123,7 @@ Attach the following headers to OTA requests.
     "readRequest": [
       {
         "uniqueID": {
-          "id": "WHUXOV",
+          "id": "7YF3OW",
           "type": "14"
         }
       }
@@ -144,8 +144,6 @@ Attach the following headers to OTA requests.
 
 ```json
 {
-  "version": "2.001",
-  "success": {},
   "airReservation": {
     "airItinerary": {
       "originDestinationOptions": {
@@ -153,21 +151,210 @@ Attach the following headers to OTA requests.
           {
             "flightSegment": [
               {
-                "departureDateTime": "2024-12-25T08:00:00",
-                "arrivalDateTime": "2024-12-25T11:30:00",
-                "flightNumber": "FL123",
-                "resBookDesigCode": "Y",
                 "departureAirport": {
-                  "locationCode": "JED"
+                  "locationCode": "KRP"
                 },
                 "arrivalAirport": {
-                  "locationCode": "XMK"
+                  "locationCode": "CPH"
                 },
+                "operatingAirline": {
+                  "value": "",
+                  "code": "DX",
+                  "flightNumber": "9901"
+                },
+                "equipment": [],
+                "departureDateTime": "2025-11-29T18:10:00.000+01:00",
+                "arrivalDateTime": "2025-11-29T19:00:00.000+01:00",
+                "stopQuantity": 0,
+                "rph": "1",
                 "marketingAirline": {
+                  "value": "",
                   "code": "DX"
                 },
-                "bookingStatus": "HK"
+                "flightNumber": "9901",
+                "resBookDesigCode": "Y",
+                "bookingClassAvails": [],
+                "comment": [],
+                "stopLocation": [],
+                "status": "30",
+                "tpaextensions": {
+                  "fareBasis": "YDXBED",
+                  "priceGroup": "Bedre",
+                  "fareRule": {
+                    "code": "ECOBOW",
+                    "name": "BEDRE",
+                    "value": "Time/date can be changed prior to departure for a fee of DKK 200 per segment + fare difference. Cannot be rebooked to a less expensive fare. Name change for a fee of DKK 200 per segment. Refund not allowed. 1 piece (23 kg) checked-in luggage included. 8 kg of hand luggage included. 24 hour cancellation grace period after booking if departure is not within 24 hours. Children (2-15 years) pay 75% of the net fare (ex. taxes). Infants not requiring a separate seat can be added for free. An administration fee of DKK 95 per flight is charged for processing a refund. General terms and conditions also apply."
+                  },
+                  "operations": [
+                    {
+                      "modificationType": "10",
+                      "name": "CANCEL"
+                    },
+                    {
+                      "modificationType": "30",
+                      "name": "REBOOK"
+                    },
+                    {
+                      "modificationType": "3",
+                      "name": "CHANGE_NAME"
+                    }
+                  ]
+                }
               }
+            ]
+          }
+        ]
+      }
+    },
+    "priceInfo": {
+      "itinTotalFare": [
+        {
+          "baseFare": {
+            "currencyCode": "USD",
+            "amount": 31.76
+          },
+          "equivFare": [],
+          "taxes": {
+            "tax": [
+              {
+                "value": "",
+                "taxCode": "DC",
+                "currencyCode": "USD",
+                "decimalPlaces": 2,
+                "amount": 2.04
+              },
+              {
+                "value": "",
+                "taxCode": "EU",
+                "currencyCode": "USD",
+                "decimalPlaces": 2,
+                "amount": 4.07
+              }
+            ]
+          },
+          "fees": {
+            "fee": [
+              {
+                "value": "",
+                "feeCode": "VAT_DC",
+                "currencyCode": "USD",
+                "decimalPlaces": 2,
+                "amount": 0.00
+              },
+              {
+                "value": "",
+                "feeCode": "VAT_EU",
+                "currencyCode": "USD",
+                "decimalPlaces": 2,
+                "amount": 0.00
+              },
+              {
+                "value": "",
+                "feeCode": "VAT_NET",
+                "currencyCode": "USD",
+                "decimalPlaces": 2,
+                "amount": 2.78
+              }
+            ]
+          },
+          "totalFare": {
+            "currencyCode": "USD",
+            "amount": 39.73
+          },
+          "fareBaggageAllowance": [],
+          "remark": []
+        }
+      ],
+      "ptcfareBreakdowns": {
+        "ptcfareBreakdown": [
+          {
+            "passengerTypeQuantity": {
+              "code": "ADT",
+              "quantity": 1
+            },
+            "fareBasisCodes": {
+              "fareBasisCode": [
+                {
+                  "value": "YDXBED"
+                }
+              ]
+            },
+            "passengerFare": [
+              {
+                "baseFare": {
+                  "currencyCode": "USD",
+                  "decimalPlaces": 2,
+                  "amount": 31.76
+                },
+                "equivFare": [],
+                "taxes": {
+                  "tax": [
+                    {
+                      "value": "",
+                      "taxCode": "DC",
+                      "currencyCode": "USD",
+                      "decimalPlaces": 2,
+                      "amount": 2.04
+                    },
+                    {
+                      "value": "",
+                      "taxCode": "EU",
+                      "currencyCode": "USD",
+                      "decimalPlaces": 2,
+                      "amount": 4.07
+                    }
+                  ]
+                },
+                "fees": {
+                  "fee": [
+                    {
+                      "value": "",
+                      "feeCode": "VAT_DC",
+                      "currencyCode": "USD",
+                      "decimalPlaces": 2,
+                      "amount": 0.00
+                    },
+                    {
+                      "value": "",
+                      "feeCode": "VAT_EU",
+                      "currencyCode": "USD",
+                      "decimalPlaces": 2,
+                      "amount": 0.00
+                    },
+                    {
+                      "value": "",
+                      "feeCode": "VAT_NET",
+                      "currencyCode": "USD",
+                      "decimalPlaces": 2,
+                      "amount": 2.86
+                    }
+                  ]
+                },
+                "totalFare": {
+                  "currencyCode": "USD",
+                  "decimalPlaces": 2,
+                  "amount": 40.73
+                },
+                "fareBaggageAllowance": [],
+                "remark": []
+              }
+            ],
+            "travelerRefNumber": [
+              {
+                "rph": "1"
+              }
+            ],
+            "ticketDesignators": {
+              "ticketDesignator": [
+                {
+                  "flightRefRPH": "1"
+                }
+              ]
+            },
+            "fareInfo": [],
+            "pricingUnit": [],
+            "flightRefNumberRPHList": [
+              "1"
             ]
           }
         ]
@@ -177,54 +364,160 @@ Attach the following headers to OTA requests.
       "airTraveler": [
         {
           "personName": {
-            "givenName": "John",
-            "surname": "Doe"
+            "namePrefix": [
+              "MR"
+            ],
+            "givenName": [
+              "QA"
+            ],
+            "middleName": [],
+            "surname": "TESTER",
+            "nameSuffix": [],
+            "nameTitle": []
           },
-          "passengerTypeQuantity": {
-            "code": "ADT",
-            "quantity": 1
-          },
+          "telephone": [
+            {
+              "countryAccessCode": "66",
+              "phoneNumber": "78945612"
+            }
+          ],
+          "email": [
+            {
+              "value": "johndoe@example.com"
+            }
+          ],
+          "address": [],
+          "custLoyalty": [],
+          "document": [
+            {
+              "docLimitations": [],
+              "docID": "741852369",
+              "docType": "2",
+              "docHolderNationality": "TH",
+              "expireDate": "2025-12-31"
+            }
+          ],
           "travelerRefNumber": {
             "rph": "1"
+          },
+          "flightSegmentRPHs": {
+            "flightSegmentRPH": [
+              "1"
+            ]
+          },
+          "socialMediaInfo": [],
+          "passengerTypeCode": "ADT",
+          "gender": "Male",
+          "comment": []
+        }
+      ],
+      "specialReqDetails": [
+        {
+          "specialServiceRequests": {
+            "specialServiceRequest": [
+              {
+                "text": "PP 741852369",
+                "serviceQuantity": 1,
+                "status": "30",
+                "number": 1,
+                "travelerRefNumberRPHList": [
+                  "1"
+                ],
+                "flightRefNumberRPHList": [
+                  "1"
+                ],
+                "ssrcode": "FOID"
+              }
+            ]
+          },
+          "specialRemarks": {
+            "specialRemark": [
+              {
+                "travelerRefNumber": [
+                  {
+                    "rph": "1"
+                  }
+                ],
+                "flightRefNumber": [],
+                "text": "PREPAID",
+                "airline": [],
+                "remarkType": "9",
+                "id": "XBAG"
+              }
+            ]
           }
         }
       ]
     },
-    "bookingReferenceID": [
+    "ticketing": [
       {
-        "type": "14",
-        "id": "ABC123",
-        "companyName": {
-          "code": "DX"
+        "ticketAdvisory": [],
+        "ticketType": "E_TICKET",
+        "flightSegmentRefNumber": [],
+        "travelerRefNumber": [
+          "1"
+        ],
+        "ticketDocumentNbr": "2772770020247",
+        "passengerTypeCode": "ADT",
+        "miscTicketingCode": [],
+        "tpaextensions": {
+          "couponInfos": [
+            {
+              "flightRefRPH": "1",
+              "number": "1",
+              "status": "O"
+            }
+          ]
         }
       }
     ],
-    "airItineraryPricingInfo": {
-      "itinTotalFare": {
-        "baseFare": {
-          "amount": "250.00",
-          "currencyCode": "USD"
-        },
-        "taxes": [
-          {
-            "amount": "50.00",
-            "currencyCode": "USD",
-            "taxCode": "YQ"
-          }
-        ],
-        "totalFare": {
-          "amount": "300.00",
-          "currencyCode": "USD"
-        }
-      }
-    },
-    "ticketingInfo": [
+    "bookingReferenceID": [
       {
-        "ticketTimeLimit": "2024-12-20T23:59:00",
-        "ticketType": "eTicket"
+        "companyName": {
+          "value": "",
+          "code": "DX"
+        },
+        "type": "14",
+        "id": "7YF3OW",
+        "flightRefNumberRPHList": []
       }
-    ]
-  }
+    ],
+    "offer": {
+      "summary": [],
+      "priced": [
+        {
+          "shortDescription": [],
+          "longDescription": [],
+          "originDestination": [],
+          "otherServices": [],
+          "restriction": [],
+          "termsAndConditions": [],
+          "commission": [],
+          "multimedia": [],
+          "bookingReferenceID": [],
+          "id": "2166329",
+          "tpaextensions": {
+            "orderInfo": {
+              "action": "CREATE_BOOKING",
+              "currencyCode": "USD",
+              "direction": "PAYMENT",
+              "orderType": "BOOKING",
+              "paymentTransactionId": "2137168",
+              "status": "PAID",
+              "totalAmount": "39.73"
+            }
+          }
+        }
+      ],
+      "purchased": []
+    },
+    "createDateTime": "2025-11-19T10:03:37.000Z",
+    "emdinfo": []
+  },
+  "success": {},
+  "timeStamp": "2025-11-19T10:29:14.857Z",
+  "version": 2.001,
+  "retransmissionIndicator": false
 }
 ```
 

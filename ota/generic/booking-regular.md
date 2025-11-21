@@ -453,8 +453,9 @@ In AirBookRQ request, an itinerary and passenger names are mandatory.
     "source": [
       {
         "isoCurrency": "USD",
-        "requestorID": { "type": "5", "id": "AGENT123", "name": "AGENCY1" },
-        "bookingChannel": { "type": "OTA" }
+        "bookingChannel": {
+          "type": "OTA"
+        }
       }
     ]
   },
@@ -464,28 +465,40 @@ In AirBookRQ request, an itinerary and passenger names are mandatory.
         {
           "flightSegment": [
             {
-              "departureDateTime": "2024-12-25T08:00:00",
-              "arrivalDateTime": "2024-12-25T11:30:00",
-              "flightNumber": "WT100",
-              "resBookDesigCode": "Y",
-              "numberInParty": "2",
-              "departureAirport": { "locationCode": "JED" },
-              "arrivalAirport": { "locationCode": "XMK" },
-              "marketingAirline": { "code": "WT" }
+              "departureAirport": {
+                "locationCode": "AAC"
+              },
+              "arrivalAirport": {
+                "locationCode": "AAL"
+              },
+              "departureDateTime": "2025-11-29T09:20:00.000+02:00",
+              "arrivalDateTime": "2025-11-29T11:20:00.000+01:00",
+              "rph": "1",
+              "marketingAirline": {
+                "code": "DX"
+              },
+              "flightNumber": "7890",
+              "resBookDesigCode": "C"
             }
           ]
         },
         {
           "flightSegment": [
             {
-              "departureDateTime": "2025-01-02T16:00:00",
-              "arrivalDateTime": "2025-01-02T19:30:00",
-              "flightNumber": "WT101",
-              "resBookDesigCode": "Y",
-              "numberInParty": "2",
-              "departureAirport": { "locationCode": "XMK" },
-              "arrivalAirport": { "locationCode": "JED" },
-              "marketingAirline": { "code": "WT" }
+              "departureAirport": {
+                "locationCode": "AAL"
+              },
+              "arrivalAirport": {
+                "locationCode": "AAC"
+              },
+              "departureDateTime": "2025-11-30T12:30:00.000+01:00",
+              "arrivalDateTime": "2025-11-30T14:30:00.000+02:00",
+              "rph": "2",
+              "marketingAirline": {
+                "code": "DX"
+              },
+              "flightNumber": "7879",
+              "resBookDesigCode": "Y"
             }
           ]
         }
@@ -497,23 +510,31 @@ In AirBookRQ request, an itinerary and passenger names are mandatory.
       {
         "passengerTypeCode": "CTC",
         "personName": {
-          "givenName": [ "QA" ],
-          "middleName": [ "TEST" ],
+          "givenName": [
+            "QA"
+          ],
+          "middleName": [
+            "TEST"
+          ],
           "surname": "TESTER"
         },
-        "email": [ { "value": "tester@example.com" } ],
+        "email": [
+          {
+            "value": "kmuangsamai@go7.io"
+          }
+        ],
         "telephone": [
           {
-            "countryAccessCode": "966",
-            "phoneNumber": "501234567"
+            "countryAccessCode": "66",
+            "phoneNumber": "78945612"
           }
         ],
         "address": [
           {
-            "cityName": "Riyadh",
+            "cityName": "Bangkok",
             "countryName": {
-              "value": "Saudi Arabia",
-              "code": "SA"
+              "value": "Thailand",
+              "code": "TH"
             }
           }
         ]
@@ -521,60 +542,51 @@ In AirBookRQ request, an itinerary and passenger names are mandatory.
       {
         "passengerTypeCode": "ADT",
         "personName": {
-          "namePrefix": [ "MR" ],
-          "givenName": [ "JOHN" ],
-          "surname": "PARKER"
+          "namePrefix": [
+            "MR"
+          ],
+          "givenName": [
+            "QA"
+          ],
+          "surname": "TESTER"
         },
         "telephone": [
           {
-            "countryAccessCode": "966",
-            "phoneNumber": "501234567"
+            "countryAccessCode": "66",
+            "phoneNumber": "78945612"
           }
         ],
-        "email": [ { "value": "john.parker@example.com" } ],
+        "email": [
+          {
+            "value": "kmuangsamai@go7.io"
+          }
+        ],
         "document": [
           {
-            "docID": "1234567890",
-            "docType": "5",
-            "docHolderNationality": "SA",
-            "expireDate": "2027-12-12",
-            "birthDate": "1985-06-20"
+            "docID": "741852369",
+            "docType": "2",
+            "docHolderNationality": "TH",
+            "expireDate": "2025-12-31",
+            "birthDate": "1990-01-15"
           }
         ],
-        "travelerRefNumber": { "rph": "1" },
+        "travelerRefNumber": {
+          "rph": "1"
+        },
         "flightSegmentRPHs": {
-          "flightSegmentRPH": [ "1", "2" ]
+          "flightSegmentRPH": [
+            "1"
+          ]
         },
-        "gender": "Male"
-      },
-      {
-        "passengerTypeCode": "ADT",
-        "personName": {
-          "namePrefix": [ "MS" ],
-          "givenName": [ "JANE" ],
-          "surname": "PARKER"
-        },
-        "telephone": [
+        "gender": "Male",
+        "specialServiceRequests": [
           {
-            "countryAccessCode": "966",
-            "phoneNumber": "501234567"
+            "ssrCode": "VGML",
+            "serviceQuantity": 1,
+            "status": "Requested",
+            "text": "VEGITARIAN MEAL"
           }
-        ],
-        "email": [ { "value": "jane.parker@example.com" } ],
-        "document": [
-          {
-            "docID": "0987654321",
-            "docType": "5",
-            "docHolderNationality": "SA",
-            "expireDate": "2028-08-15",
-            "birthDate": "1988-03-10"
-          }
-        ],
-        "travelerRefNumber": { "rph": "2" },
-        "flightSegmentRPHs": {
-          "flightSegmentRPH": [ "1", "2" ]
-        },
-        "gender": "Female"
+        ]
       }
     ]
   }
@@ -591,109 +603,399 @@ In AirBookRQ request, an itinerary and passenger names are mandatory.
 
 ```json
 {
-  "version": "2.001",
-  "success": {},
   "airReservation": {
-    "bookingReferenceID": {
-      "id": "ABCDEF",
-      "type": "14",
-      "companyName": {
-        "code": "WT"
+    "airItinerary": {
+      "originDestinationOptions": {
+        "originDestinationOption": [
+          {
+            "flightSegment": [
+              {
+                "departureAirport": {
+                  "locationCode": "AAC"
+                },
+                "arrivalAirport": {
+                  "locationCode": "AAL"
+                },
+                "operatingAirline": {
+                  "value": "",
+                  "code": "DX",
+                  "flightNumber": "7890"
+                },
+                "equipment": [],
+                "departureDateTime": "2025-11-29T09:20:00.000+02:00",
+                "arrivalDateTime": "2025-11-29T11:20:00.000+01:00",
+                "stopQuantity": 0,
+                "rph": "1",
+                "marketingAirline": {
+                  "value": "",
+                  "code": "DX"
+                },
+                "flightNumber": "7890",
+                "resBookDesigCode": "C",
+                "bookingClassAvails": [],
+                "comment": [],
+                "stopLocation": [],
+                "status": "30",
+                "tpaextensions": {
+                  "fareBasis": "SIT_BUSINESS",
+                  "priceGroup": "Bedre",
+                  "fareRule": {
+                    "code": "SIT",
+                    "name": "SIT",
+                    "value": "For HUB system integration tests"
+                  },
+                  "operations": [
+                    {
+                      "modificationType": "10",
+                      "name": "CANCEL"
+                    },
+                    {
+                      "modificationType": "30",
+                      "name": "REBOOK"
+                    },
+                    {
+                      "modificationType": "3",
+                      "name": "CHANGE_NAME"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "flightSegment": [
+              {
+                "departureAirport": {
+                  "locationCode": "AAL",
+                  "terminal": "2B"
+                },
+                "arrivalAirport": {
+                  "locationCode": "AAC",
+                  "terminal": "1A"
+                },
+                "operatingAirline": {
+                  "value": "",
+                  "code": "DX",
+                  "flightNumber": "7879"
+                },
+                "equipment": [],
+                "departureDateTime": "2025-11-30T12:30:00.000+01:00",
+                "arrivalDateTime": "2025-11-30T14:30:00.000+02:00",
+                "stopQuantity": 0,
+                "rph": "2",
+                "marketingAirline": {
+                  "value": "",
+                  "code": "DX"
+                },
+                "flightNumber": "7879",
+                "resBookDesigCode": "Y",
+                "bookingClassAvails": [],
+                "comment": [],
+                "stopLocation": [],
+                "status": "30",
+                "tpaextensions": {
+                  "fareBasis": "ECOMSenior",
+                  "priceGroup": "Senior",
+                  "fareRule": {
+                    "code": "ESPERSENSENIOR",
+                    "name": "GOD",
+                    "value": "Discretions/Seniors\nValid for discretions/Seniors at the age of  60 (Denmark). Tickets will be charged upon ordering, alterations are permitted and refunds offered up to 30 days after scheduled departure date. An administration fee of DKK 95 per flight is charged for processing a refund. Checked baggage is limited to one piece of max 23 kgs and hand luggage one piece, max 8 kgs"
+                  },
+                  "operations": [
+                    {
+                      "modificationType": "10",
+                      "name": "CANCEL"
+                    },
+                    {
+                      "modificationType": "30",
+                      "name": "REBOOK"
+                    },
+                    {
+                      "modificationType": "3",
+                      "name": "CHANGE_NAME"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
       }
     },
-    "airItinerary": {
-      "originDestinationOptions": [
+    "priceInfo": {
+      "itinTotalFare": [
         {
-          "flightSegment": {
-            "departureDateTime": "2024-12-25T08:00:00",
-            "arrivalDateTime": "2024-12-25T11:30:00",
-            "flightNumber": "WT100",
-            "resBookDesigCode": "Y",
-            "status": "30",
-            "departureAirport": {
-              "locationCode": "JED"
-            },
-            "arrivalAirport": {
-              "locationCode": "XMK"
-            },
-            "marketingAirline": {
-              "code": "WT"
-            }
-          }
+          "baseFare": {
+            "currencyCode": "USD",
+            "amount": 33.10
+          },
+          "equivFare": [],
+          "totalFare": {
+            "currencyCode": "USD",
+            "amount": 33.10
+          },
+          "fareBaggageAllowance": [],
+          "remark": []
         }
-      ]
+      ],
+      "ptcfareBreakdowns": {
+        "ptcfareBreakdown": [
+          {
+            "passengerTypeQuantity": {
+              "code": "ADT",
+              "quantity": 1
+            },
+            "fareBasisCodes": {
+              "fareBasisCode": [
+                {
+                  "value": "SIT_BUSINESS"
+                }
+              ]
+            },
+            "passengerFare": [
+              {
+                "baseFare": {
+                  "currencyCode": "USD",
+                  "decimalPlaces": 2,
+                  "amount": 27.50
+                },
+                "equivFare": [],
+                "totalFare": {
+                  "currencyCode": "USD",
+                  "decimalPlaces": 2,
+                  "amount": 27.50
+                },
+                "fareBaggageAllowance": [],
+                "remark": []
+              }
+            ],
+            "travelerRefNumber": [
+              {
+                "rph": "1"
+              }
+            ],
+            "ticketDesignators": {
+              "ticketDesignator": [
+                {
+                  "flightRefRPH": "1"
+                }
+              ]
+            },
+            "fareInfo": [],
+            "pricingUnit": [],
+            "flightRefNumberRPHList": [
+              "1"
+            ]
+          },
+          {
+            "passengerTypeQuantity": {
+              "code": "ADT",
+              "quantity": 1
+            },
+            "fareBasisCodes": {
+              "fareBasisCode": [
+                {
+                  "value": "ECOMSenior"
+                }
+              ]
+            },
+            "passengerFare": [
+              {
+                "baseFare": {
+                  "currencyCode": "USD",
+                  "decimalPlaces": 2,
+                  "amount": 5.60
+                },
+                "equivFare": [],
+                "totalFare": {
+                  "currencyCode": "USD",
+                  "decimalPlaces": 2,
+                  "amount": 5.60
+                },
+                "fareBaggageAllowance": [],
+                "remark": []
+              }
+            ],
+            "travelerRefNumber": [
+              {
+                "rph": "1"
+              }
+            ],
+            "ticketDesignators": {
+              "ticketDesignator": [
+                {
+                  "flightRefRPH": "2"
+                }
+              ]
+            },
+            "fareInfo": [],
+            "pricingUnit": [],
+            "flightRefNumberRPHList": [
+              "2"
+            ]
+          }
+        ]
+      }
     },
     "travelerInfo": {
       "airTraveler": [
         {
-          "passengerTypeCode": "CTC",
           "personName": {
-            "givenName": [ "QA" ],
-            "middleName": [ "TEST" ],
-            "surname": "TESTER"
+            "namePrefix": [
+              "MR"
+            ],
+            "givenName": [
+              "QA"
+            ],
+            "middleName": [],
+            "surname": "TESTER",
+            "nameSuffix": [],
+            "nameTitle": []
           },
-          "email": [ { "value": "tester@example.com" } ],
           "telephone": [
             {
-              "countryAccessCode": "1",
-              "phoneNumber": "5551234567"
+              "countryAccessCode": "66",
+              "phoneNumber": "78945612"
             }
           ],
-          "address": [
+          "email": [
             {
-              "cityName": "New York",
-              "countryName": {
-                "value": "United States",
-                "code": "US"
-              }
+              "value": "kmuangsamai@go7.io"
             }
-          ]
-        },
-        {
-          "passengerTypeCode": "ADT",
-          "personName": {
-            "namePrefix": [ "MR" ],
-            "givenName": [ "JOHN" ],
-            "surname": "DOE"
-          },
-          "email": [ { "value": "john.doe@example.com" } ],
+          ],
+          "address": [],
+          "custLoyalty": [],
           "document": [
             {
-              "docID": "X1234567",
-              "docType": "5",
-              "docHolderNationality": "US",
-              "expireDate": "2030-12-31",
-              "birthDate": "1990-01-15"
+              "docLimitations": [],
+              "docID": "741852369",
+              "docType": "2",
+              "docHolderNationality": "TH",
+              "expireDate": "2025-12-31"
             }
           ],
           "travelerRefNumber": {
             "rph": "1"
+          },
+          "flightSegmentRPHs": {
+            "flightSegmentRPH": [
+              "1",
+              "2"
+            ]
+          },
+          "socialMediaInfo": [],
+          "passengerTypeCode": "ADT",
+          "gender": "Male",
+          "comment": []
+        }
+      ],
+      "specialReqDetails": [
+        {
+          "specialServiceRequests": {
+            "specialServiceRequest": [
+              {
+                "text": "PP 741852369",
+                "serviceQuantity": 1,
+                "status": "30",
+                "number": 1,
+                "travelerRefNumberRPHList": [
+                  "1"
+                ],
+                "flightRefNumberRPHList": [
+                  "1"
+                ],
+                "ssrcode": "FOID"
+              },
+              {
+                "text": "PP 741852369",
+                "serviceQuantity": 1,
+                "status": "30",
+                "number": 2,
+                "travelerRefNumberRPHList": [
+                  "1"
+                ],
+                "flightRefNumberRPHList": [
+                  "2"
+                ],
+                "ssrcode": "FOID"
+              }
+            ]
+          },
+          "specialRemarks": {
+            "specialRemark": [
+              {
+                "travelerRefNumber": [
+                  {
+                    "rph": "1"
+                  }
+                ],
+                "flightRefNumber": [],
+                "text": "PREPAID",
+                "airline": [],
+                "remarkType": "9",
+                "id": "XBAG"
+              }
+            ]
           }
         }
       ]
     },
-    "priceInfo": {
-      "itinTotalFare": {
-        "baseFare": {
-          "amount": "250.00",
-          "currencyCode": "USD"
-        },
-        "taxes": [
-          {
-            "amount": "50.00",
-            "currencyCode": "USD"
-          }
-        ],
-        "totalFare": {
-          "amount": "300.00",
-          "currencyCode": "USD"
-        }
+    "ticketing": [
+      {
+        "ticketAdvisory": [],
+        "ticketTimeLimit": "2025-11-20T13:51:55.677Z",
+        "ticketType": "E_TICKET",
+        "flightSegmentRefNumber": [],
+        "travelerRefNumber": [],
+        "miscTicketingCode": []
       }
+    ],
+    "bookingReferenceID": [
+      {
+        "companyName": {
+          "value": "",
+          "code": "DX"
+        },
+        "type": "14",
+        "id": "KHM653",
+        "flightRefNumberRPHList": []
+      }
+    ],
+    "offer": {
+      "summary": [],
+      "priced": [
+        {
+          "shortDescription": [],
+          "longDescription": [],
+          "originDestination": [],
+          "otherServices": [],
+          "restriction": [],
+          "termsAndConditions": [],
+          "commission": [],
+          "multimedia": [],
+          "bookingReferenceID": [],
+          "id": "2167010",
+          "tpaextensions": {
+            "orderInfo": {
+              "action": "CREATE_BOOKING",
+              "currencyCode": "USD",
+              "direction": "PAYMENT",
+              "orderType": "BOOKING",
+              "status": "PENDING",
+              "totalAmount": "33.10"
+            }
+          }
+        }
+      ],
+      "purchased": []
     },
-    "ticketingInfo": {
-      "ticketTimeLimit": "2024-12-23T23:59:59"
-    }
-  }
+    "createDateTime": "2025-11-20T13:21:55.000Z",
+    "emdinfo": []
+  },
+  "success": {},
+  "timeStamp": "2025-11-20T13:21:56.501Z",
+  "version": 2.001,
+  "retransmissionIndicator": false
 }
 ```
 
