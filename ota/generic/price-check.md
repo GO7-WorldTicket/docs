@@ -125,8 +125,7 @@ Note: Use same value for "type" and "qualifier".
                 "code": "{airline_code}"
               },
               "flightNumber": "{flight_number}",
-              "resBookDesigCode": "{booking_class}",
-              "fareBasisCode": "{fare_basis_code}"
+              "resBookDesigCode": "{booking_class}"
             }
           ]
         }
@@ -207,8 +206,7 @@ Note: Use same value for "type" and "qualifier".
                 "code": "DX"
               },
               "flightNumber": "9901",
-              "resBookDesigCode": "Y",
-              "fareBasisCode": "YDXBED"
+              "resBookDesigCode": "Y"
             }
           ]
         }

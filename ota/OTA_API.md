@@ -24,9 +24,10 @@ title: OTA API Generic Integration Guide
 
 ## Change Log
 
-| Change Description | Changed By | Change Date |
-|-------------------|------------|-------------|
-| Initial creation of generic OTA documentation | Sittiwet Mahapratoom | 2025-01-15 |
+| Change Description                                                         | Changed By             | Change Date |
+|----------------------------------------------------------------------------|------------------------|-------------|
+| Update request/response for all endpoints, postman collection for download | Thotsaphorn Phonlabutr | 2025-11-21  |
+| Initial creation of generic OTA documentation                              | Sittiwet Mahapratoom   | 2025-01-15  |
 
 For detailed changelog see: [Generic Changelog](generic-changelog.md)
 
