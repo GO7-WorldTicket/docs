@@ -256,8 +256,9 @@ In AirBookRQ request, an itinerary and passenger names are mandatory.
     "source": [
       {
         "isoCurrency": "USD",
-        "requestorID": { "type": "5", "id": "AGENT123", "name": "AGENCY1" },
-        "bookingChannel": { "type": "OTA" }
+        "bookingChannel": {
+          "type": "OTA"
+        }
       }
     ]
   },
@@ -267,14 +268,22 @@ In AirBookRQ request, an itinerary and passenger names are mandatory.
         {
           "flightSegment": [
             {
-              "departureDateTime": "2024-12-25T08:00:00",
-              "arrivalDateTime": "2024-12-25T11:30:00",
-              "flightNumber": "WT100",
-              "resBookDesigCode": "Y",
-              "numberInParty": "1",
-              "departureAirport": { "locationCode": "JED" },
-              "arrivalAirport": { "locationCode": "XMK" },
-              "marketingAirline": { "code": "WT" }
+              "departureAirport": {
+                "locationCode": "AAC"
+              },
+              "arrivalAirport": {
+                "locationCode": "AAL"
+              },
+              "departureDateTime": "2025-12-29T10:00:00.000+02:00",
+              "arrivalDateTime": "2025-12-29T12:00:00.000+01:00",
+              "stopQuantity": 0,
+              "rph": "1",
+              "marketingAirline": {
+                "value": "",
+                "code": "DX"
+              },
+              "flightNumber": "7878",
+              "resBookDesigCode": "Y"
             }
           ]
         }
@@ -286,23 +295,31 @@ In AirBookRQ request, an itinerary and passenger names are mandatory.
       {
         "passengerTypeCode": "CTC",
         "personName": {
-          "givenName": [ "QA" ],
-          "middleName": [ "TEST" ],
+          "givenName": [
+            "QA"
+          ],
+          "middleName": [
+            "TEST"
+          ],
           "surname": "TESTER"
         },
-        "email": [ { "value": "tester@example.com" } ],
+        "email": [
+          {
+            "value": "qa@example.com"
+          }
+        ],
         "telephone": [
           {
-            "countryAccessCode": "1",
-            "phoneNumber": "5551234567"
+            "countryAccessCode": "66",
+            "phoneNumber": "78945612"
           }
         ],
         "address": [
           {
-            "cityName": "New York",
+            "cityName": "Bangkok",
             "countryName": {
-              "value": "United States",
-              "code": "US"
+              "value": "Thailand",
+              "code": "TH"
             }
           }
         ]
@@ -310,29 +327,41 @@ In AirBookRQ request, an itinerary and passenger names are mandatory.
       {
         "passengerTypeCode": "ADT",
         "personName": {
-          "namePrefix": [ "MR" ],
-          "givenName": [ "JOHN" ],
-          "surname": "DOE"
+          "namePrefix": [
+            "MR"
+          ],
+          "givenName": [
+            "QA"
+          ],
+          "surname": "TESTER"
         },
         "telephone": [
           {
-            "countryAccessCode": "1",
-            "phoneNumber": "5551234567"
+            "countryAccessCode": "66",
+            "phoneNumber": "78945612"
           }
         ],
-        "email": [ { "value": "john.doe@example.com" } ],
+        "email": [
+          {
+            "value": "qa@example.com"
+          }
+        ],
         "document": [
           {
-            "docID": "X1234567",
-            "docType": "5",
-            "docHolderNationality": "US",
-            "expireDate": "2030-12-31",
+            "docID": "741852369",
+            "docType": "2",
+            "docHolderNationality": "TH",
+            "expireDate": "2025-12-31",
             "birthDate": "1990-01-15"
           }
         ],
-        "travelerRefNumber": { "rph": "1" },
+        "travelerRefNumber": {
+          "rph": "1"
+        },
         "flightSegmentRPHs": {
-          "flightSegmentRPH": [ "1" ]
+          "flightSegmentRPH": [
+            "1"
+          ]
         },
         "gender": "Male"
       }
@@ -471,14 +500,14 @@ In AirBookRQ request, an itinerary and passenger names are mandatory.
               "arrivalAirport": {
                 "locationCode": "AAL"
               },
-              "departureDateTime": "2025-11-29T09:20:00.000+02:00",
-              "arrivalDateTime": "2025-11-29T11:20:00.000+01:00",
+              "departureDateTime": "2025-12-29T10:00:00.000+02:00",
+              "arrivalDateTime": "2025-12-29T12:00:00.000+01:00",
               "rph": "1",
               "marketingAirline": {
                 "code": "DX"
               },
-              "flightNumber": "7890",
-              "resBookDesigCode": "C"
+              "flightNumber": "7878",
+              "resBookDesigCode": "Y"
             }
           ]
         },
@@ -491,8 +520,8 @@ In AirBookRQ request, an itinerary and passenger names are mandatory.
               "arrivalAirport": {
                 "locationCode": "AAC"
               },
-              "departureDateTime": "2025-11-30T12:30:00.000+01:00",
-              "arrivalDateTime": "2025-11-30T14:30:00.000+02:00",
+              "departureDateTime": "2025-12-31T12:30:00.000+01:00",
+              "arrivalDateTime": "2025-12-31T14:30:00.000+02:00",
               "rph": "2",
               "marketingAirline": {
                 "code": "DX"
@@ -597,9 +626,11 @@ In AirBookRQ request, an itinerary and passenger names are mandatory.
 
 </details>
 
-## Response Structure
+## JSON Response
 
-### JSON Response
+<details>
+<summary><strong>✅ Example</strong></summary>
+<div markdown="1">
 
 ```json
 {
@@ -611,38 +642,39 @@ In AirBookRQ request, an itinerary and passenger names are mandatory.
             "flightSegment": [
               {
                 "departureAirport": {
-                  "locationCode": "AAC"
+                  "locationCode": "AAC",
+                  "terminal": "1A"
                 },
                 "arrivalAirport": {
-                  "locationCode": "AAL"
+                  "locationCode": "AAL",
+                  "terminal": "2B"
                 },
                 "operatingAirline": {
                   "value": "",
                   "code": "DX",
-                  "flightNumber": "7890"
+                  "flightNumber": "7878"
                 },
                 "equipment": [],
-                "departureDateTime": "2025-11-29T09:20:00.000+02:00",
-                "arrivalDateTime": "2025-11-29T11:20:00.000+01:00",
+                "departureDateTime": "2025-12-29T10:00:00.000+02:00",
+                "arrivalDateTime": "2025-12-29T12:00:00.000+01:00",
                 "stopQuantity": 0,
                 "rph": "1",
                 "marketingAirline": {
                   "value": "",
                   "code": "DX"
                 },
-                "flightNumber": "7890",
-                "resBookDesigCode": "C",
+                "flightNumber": "7878",
+                "resBookDesigCode": "Y",
                 "bookingClassAvails": [],
                 "comment": [],
                 "stopLocation": [],
                 "status": "30",
                 "tpaextensions": {
-                  "fareBasis": "SIT_BUSINESS",
-                  "priceGroup": "Bedre",
+                  "fareBasis": "YID",
                   "fareRule": {
-                    "code": "SIT",
-                    "name": "SIT",
-                    "value": "For HUB system integration tests"
+                    "code": "ID",
+                    "name": "${[en]:pricing.farerules.general.name.ID}",
+                    "value": "Test ID fare"
                   },
                   "operations": [
                     {
@@ -679,8 +711,8 @@ In AirBookRQ request, an itinerary and passenger names are mandatory.
                   "flightNumber": "7879"
                 },
                 "equipment": [],
-                "departureDateTime": "2025-11-30T12:30:00.000+01:00",
-                "arrivalDateTime": "2025-11-30T14:30:00.000+02:00",
+                "departureDateTime": "2025-12-31T12:30:00.000+01:00",
+                "arrivalDateTime": "2025-12-31T14:30:00.000+02:00",
                 "stopQuantity": 0,
                 "rph": "2",
                 "marketingAirline": {
@@ -727,12 +759,48 @@ In AirBookRQ request, an itinerary and passenger names are mandatory.
         {
           "baseFare": {
             "currencyCode": "USD",
-            "amount": 33.10
+            "amount": 5.60
           },
           "equivFare": [],
+          "taxes": {
+            "tax": [
+              {
+                "value": "",
+                "taxCode": "MI",
+                "currencyCode": "USD",
+                "decimalPlaces": 2,
+                "amount": 0.76
+              }
+            ]
+          },
+          "fees": {
+            "fee": [
+              {
+                "value": "",
+                "feeCode": "VAT_MI",
+                "currencyCode": "USD",
+                "decimalPlaces": 2,
+                "amount": 0.00
+              },
+              {
+                "value": "",
+                "feeCode": "VAT_reservation",
+                "currencyCode": "USD",
+                "decimalPlaces": 2,
+                "amount": 0.00
+              },
+              {
+                "value": "",
+                "feeCode": "reservation",
+                "currencyCode": "USD",
+                "decimalPlaces": 2,
+                "amount": 4.48
+              }
+            ]
+          },
           "totalFare": {
             "currencyCode": "USD",
-            "amount": 33.10
+            "amount": 10.84
           },
           "fareBaggageAllowance": [],
           "remark": []
@@ -748,7 +816,7 @@ In AirBookRQ request, an itinerary and passenger names are mandatory.
             "fareBasisCodes": {
               "fareBasisCode": [
                 {
-                  "value": "SIT_BUSINESS"
+                  "value": "YID"
                 }
               ]
             },
@@ -757,13 +825,49 @@ In AirBookRQ request, an itinerary and passenger names are mandatory.
                 "baseFare": {
                   "currencyCode": "USD",
                   "decimalPlaces": 2,
-                  "amount": 27.50
+                  "amount": 0.00
                 },
                 "equivFare": [],
+                "taxes": {
+                  "tax": [
+                    {
+                      "value": "",
+                      "taxCode": "MI",
+                      "currencyCode": "USD",
+                      "decimalPlaces": 2,
+                      "amount": 0.76
+                    }
+                  ]
+                },
+                "fees": {
+                  "fee": [
+                    {
+                      "value": "",
+                      "feeCode": "VAT_MI",
+                      "currencyCode": "USD",
+                      "decimalPlaces": 2,
+                      "amount": 0.00
+                    },
+                    {
+                      "value": "",
+                      "feeCode": "VAT_reservation",
+                      "currencyCode": "USD",
+                      "decimalPlaces": 2,
+                      "amount": 0.00
+                    },
+                    {
+                      "value": "",
+                      "feeCode": "reservation",
+                      "currencyCode": "USD",
+                      "decimalPlaces": 2,
+                      "amount": 4.48
+                    }
+                  ]
+                },
                 "totalFare": {
                   "currencyCode": "USD",
                   "decimalPlaces": 2,
-                  "amount": 27.50
+                  "amount": 5.24
                 },
                 "fareBaggageAllowance": [],
                 "remark": []
@@ -943,7 +1047,7 @@ In AirBookRQ request, an itinerary and passenger names are mandatory.
     "ticketing": [
       {
         "ticketAdvisory": [],
-        "ticketTimeLimit": "2025-11-20T13:51:55.677Z",
+        "ticketTimeLimit": "2025-11-27T07:39:53.952Z",
         "ticketType": "E_TICKET",
         "flightSegmentRefNumber": [],
         "travelerRefNumber": [],
@@ -957,7 +1061,7 @@ In AirBookRQ request, an itinerary and passenger names are mandatory.
           "code": "DX"
         },
         "type": "14",
-        "id": "KHM653",
+        "id": "LARU3C",
         "flightRefNumberRPHList": []
       }
     ],
@@ -974,7 +1078,7 @@ In AirBookRQ request, an itinerary and passenger names are mandatory.
           "commission": [],
           "multimedia": [],
           "bookingReferenceID": [],
-          "id": "2167010",
+          "id": "2169490",
           "tpaextensions": {
             "orderInfo": {
               "action": "CREATE_BOOKING",
@@ -982,22 +1086,26 @@ In AirBookRQ request, an itinerary and passenger names are mandatory.
               "direction": "PAYMENT",
               "orderType": "BOOKING",
               "status": "PENDING",
-              "totalAmount": "33.10"
+              "totalAmount": "10.84"
             }
           }
         }
       ],
       "purchased": []
     },
-    "createDateTime": "2025-11-20T13:21:55.000Z",
+    "createDateTime": "2025-11-27T07:09:53.000Z",
     "emdinfo": []
   },
   "success": {},
-  "timeStamp": "2025-11-20T13:21:56.501Z",
+  "timeStamp": "2025-11-27T07:09:54.795Z",
   "version": 2.001,
   "retransmissionIndicator": false
 }
 ```
+
+</div>
+
+</details>
 
 ## Booking Status Codes
 

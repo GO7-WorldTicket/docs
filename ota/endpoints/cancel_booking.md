@@ -1,4 +1,4 @@
-## Cancel Booking
+## Full Booking Cancellation
 
 This method cancels entire booking. In case you need to cancel individual passenger or segment use `OTA_AirBookingModifyRQ` and not `OTA_CancelRQ` message. 
 
@@ -11,20 +11,58 @@ This method cancels entire booking. In case you need to cancel individual passen
 | agentId      | Payload |                    | ota                      |
 | agencyId     | Payload |                    | ota                      |
 
-<details open>
-  <summary><b>Request Payload</b></summary>
-  <pre>
+## JSON Request
+
+<details>
+<summary><strong>📋 JSON Request Template</strong></summary>
+<div markdown="1">
+
+```json
+{
+  "version": "2.001",
+  "pos": {
+    "source": [
+      {
+        "bookingChannel": {
+          "type": "OTA"
+        },
+        "isoCurrency": "{currency_code}"
+      }
+    ]
+  },
+  "readRequests": {
+    "readRequest": [
+      {
+        "uniqueID": {
+          "id": "{record_locator}",
+          "type": "14"
+        }
+      }
+    ]
+  }
+}
+```
+
+</div>
+
+</details>
+
+<details>
+<summary><strong>✅ Example</strong></summary>
+<div markdown="1">
+
+```json
 {
   "version": "2.001",
   "cancelType": "Commit",
   "pos": {
     "source": [
       {
-        "isoCurrency": "SAR",
+        "isoCurrency": "USD",
         "requestorID": {
           "type": "5",
-          "id": "<ins>agentId</ins>",
-          "name": "<ins>agencyId</ins>"
+          "id": "agentId",
+          "name": "agencyId"
         },
         "bookingChannel": {
           "type": "OTA"
@@ -34,31 +72,42 @@ This method cancels entire booking. In case you need to cancel individual passen
   },
   "uniqueID": [
     {
-      "id": "6ZEFCG",
+      "id": "VU7HQN",
       "type": "14"
     }
   ]
 }
-  </pre>
+```
+
+</div>
+
 </details>
 
-<details open>
-  <summary><b>Response Payload</b></summary>
-  <pre>
+## JSON Response
+
+<details>
+<summary><strong>✅ Example</strong></summary>
+<div markdown="1">
+
+```json
 {
   "success": {},
   "uniqueID": [
     {
       "type": "14",
-      "id": "6ZEFCG"
+      "id": "VU7HQN"
     }
   ],
   "segment": [],
   "status": "CANCELLED",
-  "timeStamp": "2024-05-15T05:56:22.041Z",
-  "version": 2.001
+  "timeStamp": "2025-11-25T04:14:27.963Z",
+  "version": 2.001,
+  "retransmissionIndicator": false
 }
-  </pre>
+```
+
+</div>
+
 </details>
 
 ### Cancellation and Refund Penalty Policy

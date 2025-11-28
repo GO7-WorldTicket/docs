@@ -20,16 +20,9 @@ The purpose is to modify existing bookings. Supported modifications include name
 |--------|-------------|---------|
 | Authorization | Bearer token for JWT authentication | Bearer {access_token} |
 | X-API-Key | API key for key-based authentication | {api_key} |
-| Local-Name | OTA operation identifier | OTA_AirBookModifyRQ |
 | Content-Type | Request content type | application/xml |
 
 **Note:** Use either `Authorization` (for JWT) OR `X-API-Key` (for API key authentication), not both.
-
-## Request Parameters
-
-| Parameter | Location | Required | Description | Example |
-|-----------|----------|----------|-------------|---------|
-| base_url | Endpoint | Yes | Base URL for the request | https://test-api.worldticket.net/ota/v2015b/OTA |
 
 ## Booking Modification Workflow
 
@@ -77,378 +70,2045 @@ sequenceDiagram
     end
 ```
 
+## Basic Request Format
+
+### With JWT Authentication
+```bash
+curl -X POST \
+    https://test-api.worldticket.net/ota/v2015b/OTA_AirBookModifyRQ \
+    -H 'Authorization: Bearer {access_token}' \
+    -H 'Content-Type: application/json' \
+    -d @AirBookModifyRQ.json
+```
+
+### With API Key Authentication
+```bash
+curl -X POST \
+    https://test-api.worldticket.net/ota/v2015b/OTA_AirBookModifyRQ \
+    -H 'X-API-Key: {api_key}' \
+    -H 'Content-Type: application/json' \
+    -d @AirBookModifyRQ.json
+```
+
 ## Add SSR
 
 Add Special Service Requests to an existing booking.
 
-### XML Request
+### JSON Request
 
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<OTA_AirBookModifyRQ xmlns="http://www.opentravel.org/OTA/2003/05" Version="2.001">
-    <POS>
-        <Source>
-            <RequestorID Type="5" ID="{agent_id}" ID_Context="{agency_id}"/>
-        </Source>
-    </POS>
-    <AirReservation>
-        <BookingReferenceID ID="{record_locator}" Type="14">
-            <CompanyName Code="{airline_code}"/>
-        </BookingReferenceID>
-        <TravelerInfo>
-            <AirTraveler>
-                <TravelerRefNumber RPH="1"/>
-                <SpecialServiceRequests>
-                    <SpecialServiceRequest SSRCode="MEAL" ServiceQuantity="1" Status="Requested">
-                        <Text>Vegetarian meal</Text>
-                        <FlightRefNumber RPH="1"/>
-                    </SpecialServiceRequest>
-                    <SpecialServiceRequest SSRCode="SEAT" ServiceQuantity="1" Status="Requested">
-                        <Text>Window seat preference</Text>
-                        <FlightRefNumber RPH="1"/>
-                    </SpecialServiceRequest>
-                </SpecialServiceRequests>
-            </AirTraveler>
-        </TravelerInfo>
-    </AirReservation>
-</OTA_AirBookModifyRQ>
+<details>
+<summary><strong>📋 JSON Request Template</strong></summary>
+<div markdown="1">
+
+```json
+{
+  "version": "2.001",
+  "pos": "{pos}",
+  "airReservation": "{airReservation}",
+  "airBookModifyRQ": {
+    "modificationType": "3",
+    "travelerInfo": {
+      "airTraveler": [
+        "{airTraveler}"
+      ]
+    }
+  }
+}
 ```
 
-### JSON Request
+</div>
+</details>
+
+<details>
+<summary><strong>✅ Example</strong></summary>
+<div markdown="1">
 
 ```json
 {
   "version": "2.001",
   "pos": {
-    "source": [{
-      "requestorID": {
-        "type": "5",
-        "id": "{agent_id}",
-        "name": "{agency_id}"
+    "source": [
+      {
+        "isoCurrency": "USD",
+        "bookingChannel": {
+          "type": "OTA"
+        }
       }
-    }]
+    ]
   },
   "airReservation": {
-    "bookingReferenceID": {
-      "id": "{record_locator}",
-      "type": "14",
-      "companyName": {
-        "code": "{airline_code}"
-      }
-    },
-    "travelerInfo": [{
-      "airTraveler": {
-        "travelerRefNumber": {
-          "rph": "1"
-        },
-        "specialServiceRequests": [
+    "airItinerary": {
+      "originDestinationOptions": {
+        "originDestinationOption": [
           {
-            "ssrCode": "MEAL",
-            "serviceQuantity": "1",
-            "status": "Requested",
-            "text": "Vegetarian meal",
-            "flightRefNumber": {
-              "rph": "1"
-            }
-          },
-          {
-            "ssrCode": "SEAT",
-            "serviceQuantity": "1", 
-            "status": "Requested",
-            "text": "Window seat preference",
-            "flightRefNumber": {
-              "rph": "1"
-            }
+            "flightSegment": [
+              {
+                "departureAirport": {
+                  "locationCode": "AAC",
+                  "terminal": "1A"
+                },
+                "arrivalAirport": {
+                  "locationCode": "AAL",
+                  "terminal": "2B"
+                },
+                "operatingAirline": {
+                  "value": "",
+                  "code": "DX",
+                  "flightNumber": "7878"
+                },
+                "equipment": [],
+                "departureDateTime": "2025-12-29T10:00:00.000+02:00",
+                "arrivalDateTime": "2025-12-29T12:00:00.000+01:00",
+                "stopQuantity": 0,
+                "rph": "1",
+                "marketingAirline": {
+                  "value": "",
+                  "code": "DX"
+                },
+                "flightNumber": "7878",
+                "resBookDesigCode": "Y",
+                "bookingClassAvails": [],
+                "comment": [],
+                "stopLocation": [],
+                "status": "30",
+                "tpaextensions": {
+                  "fareBasis": "YID",
+                  "fareRule": {
+                    "code": "ID",
+                    "name": "${[en]:pricing.farerules.general.name.ID}",
+                    "value": "Test ID fare"
+                  },
+                  "operations": [
+                    {
+                      "modificationType": "10",
+                      "name": "CANCEL"
+                    },
+                    {
+                      "modificationType": "30",
+                      "name": "REBOOK"
+                    },
+                    {
+                      "modificationType": "3",
+                      "name": "CHANGE_NAME"
+                    }
+                  ]
+                }
+              }
+            ]
           }
         ]
       }
-    }]
+    },
+    "travelerInfo": {
+      "airTraveler": [
+        {
+          "personName": {
+            "namePrefix": [
+              "MR"
+            ],
+            "givenName": [
+              "QA"
+            ],
+            "middleName": [],
+            "surname": "TESTER",
+            "nameSuffix": [],
+            "nameTitle": []
+          },
+          "telephone": [
+            {
+              "countryAccessCode": "66",
+              "phoneNumber": "78945612"
+            }
+          ],
+          "email": [
+            {
+              "value": "qa@example.com"
+            }
+          ],
+          "address": [],
+          "custLoyalty": [],
+          "document": [
+            {
+              "docLimitations": [],
+              "docID": "741852369",
+              "docType": "2",
+              "docHolderNationality": "TH",
+              "expireDate": "2025-12-31"
+            }
+          ],
+          "travelerRefNumber": {
+            "rph": "1"
+          },
+          "flightSegmentRPHs": {
+            "flightSegmentRPH": [
+              "1"
+            ]
+          },
+          "socialMediaInfo": [],
+          "passengerTypeCode": "ADT",
+          "gender": "Male",
+          "comment": []
+        }
+      ],
+      "specialReqDetails": [
+        {
+          "specialServiceRequests": {
+            "specialServiceRequest": [
+              {
+                "text": "PP 859361445",
+                "serviceQuantity": 1,
+                "status": "30",
+                "number": 1,
+                "travelerRefNumberRPHList": [
+                  "1"
+                ],
+                "flightRefNumberRPHList": [
+                  "1"
+                ],
+                "ssrcode": "FOID"
+              }
+            ]
+          },
+          "specialRemarks": {
+            "specialRemark": [
+              {
+                "travelerRefNumber": [
+                  {
+                    "rph": "1"
+                  }
+                ],
+                "flightRefNumber": [],
+                "text": "PREPAID",
+                "airline": [],
+                "remarkType": "9",
+                "id": "XBAG"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "bookingReferenceID": [
+      {
+        "companyName": {
+          "value": "",
+          "code": "DX"
+        },
+        "type": "14",
+        "id": "KEVHTZ",
+        "flightRefNumberRPHList": []
+      }
+    ]
+  },
+  "airBookModifyRQ": {
+    "modificationType": "5",
+    "travelerInfo": {
+      "specialReqDetails": [
+        {
+          "specialServiceRequests": {
+            "specialServiceRequest": [
+              {
+                "ssrCode": "SEAT",
+                "serviceQuantity": "1",
+                "status": "11",
+                "text": "Window seat preference",
+                "flightRefNumberRPHList": [
+                  "1"
+                ],
+                "travelerRefNumberRPHList": [
+                  "1"
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
   }
 }
 ```
+
+</div>
+</details>
+
+### JSON Response
+
+<details>
+<summary><strong>✅ Example</strong></summary>
+<div markdown="1">
+
+```json
+{
+  "airReservation": {
+    "airItinerary": {
+      "originDestinationOptions": {
+        "originDestinationOption": [
+          {
+            "flightSegment": [
+              {
+                "departureAirport": {
+                  "locationCode": "AAC",
+                  "terminal": "1A"
+                },
+                "arrivalAirport": {
+                  "locationCode": "AAL",
+                  "terminal": "2B"
+                },
+                "operatingAirline": {
+                  "value": "",
+                  "code": "DX",
+                  "flightNumber": "7878"
+                },
+                "equipment": [],
+                "departureDateTime": "2025-12-29T10:00:00.000+02:00",
+                "arrivalDateTime": "2025-12-29T12:00:00.000+01:00",
+                "stopQuantity": 0,
+                "rph": "1",
+                "marketingAirline": {
+                  "value": "",
+                  "code": "DX"
+                },
+                "flightNumber": "7878",
+                "resBookDesigCode": "Y",
+                "bookingClassAvails": [],
+                "comment": [],
+                "stopLocation": [],
+                "status": "30",
+                "tpaextensions": {
+                  "fareBasis": "YID",
+                  "fareRule": {
+                    "code": "ID",
+                    "name": "${[en]:pricing.farerules.general.name.ID}",
+                    "value": "Test ID fare"
+                  },
+                  "operations": [
+                    {
+                      "modificationType": "10",
+                      "name": "CANCEL"
+                    },
+                    {
+                      "modificationType": "30",
+                      "name": "REBOOK"
+                    },
+                    {
+                      "modificationType": "3",
+                      "name": "CHANGE_NAME"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "priceInfo": {
+      "itinTotalFare": [
+        {
+          "baseFare": {
+            "currencyCode": "USD",
+            "amount": 0.00
+          },
+          "equivFare": [],
+          "taxes": {
+            "tax": [
+              {
+                "value": "",
+                "taxCode": "MI",
+                "currencyCode": "USD",
+                "decimalPlaces": 2,
+                "amount": 0.76
+              }
+            ]
+          },
+          "fees": {
+            "fee": [
+              {
+                "value": "",
+                "feeCode": "VAT_MI",
+                "currencyCode": "USD",
+                "decimalPlaces": 2,
+                "amount": 0.00
+              },
+              {
+                "value": "",
+                "feeCode": "VAT_reservation",
+                "currencyCode": "USD",
+                "decimalPlaces": 2,
+                "amount": 0.00
+              },
+              {
+                "value": "",
+                "feeCode": "reservation",
+                "currencyCode": "USD",
+                "decimalPlaces": 2,
+                "amount": 4.48
+              }
+            ]
+          },
+          "totalFare": {
+            "currencyCode": "USD",
+            "amount": 5.24
+          },
+          "fareBaggageAllowance": [],
+          "remark": []
+        }
+      ],
+      "ptcfareBreakdowns": {
+        "ptcfareBreakdown": [
+          {
+            "passengerTypeQuantity": {
+              "code": "ADT",
+              "quantity": 1
+            },
+            "fareBasisCodes": {
+              "fareBasisCode": [
+                {
+                  "value": "YID"
+                }
+              ]
+            },
+            "passengerFare": [
+              {
+                "baseFare": {
+                  "currencyCode": "USD",
+                  "decimalPlaces": 2,
+                  "amount": 0.00
+                },
+                "equivFare": [],
+                "taxes": {
+                  "tax": [
+                    {
+                      "value": "",
+                      "taxCode": "MI",
+                      "currencyCode": "USD",
+                      "decimalPlaces": 2,
+                      "amount": 0.76
+                    }
+                  ]
+                },
+                "fees": {
+                  "fee": [
+                    {
+                      "value": "",
+                      "feeCode": "VAT_MI",
+                      "currencyCode": "USD",
+                      "decimalPlaces": 2,
+                      "amount": 0.00
+                    },
+                    {
+                      "value": "",
+                      "feeCode": "VAT_reservation",
+                      "currencyCode": "USD",
+                      "decimalPlaces": 2,
+                      "amount": 0.00
+                    },
+                    {
+                      "value": "",
+                      "feeCode": "reservation",
+                      "currencyCode": "USD",
+                      "decimalPlaces": 2,
+                      "amount": 4.48
+                    }
+                  ]
+                },
+                "totalFare": {
+                  "currencyCode": "USD",
+                  "decimalPlaces": 2,
+                  "amount": 5.24
+                },
+                "fareBaggageAllowance": [],
+                "remark": []
+              }
+            ],
+            "travelerRefNumber": [
+              {
+                "rph": "1"
+              }
+            ],
+            "ticketDesignators": {
+              "ticketDesignator": [
+                {
+                  "flightRefRPH": "1"
+                }
+              ]
+            },
+            "fareInfo": [],
+            "pricingUnit": [],
+            "flightRefNumberRPHList": [
+              "1"
+            ]
+          }
+        ]
+      }
+    },
+    "travelerInfo": {
+      "airTraveler": [
+        {
+          "personName": {
+            "namePrefix": [
+              "MR"
+            ],
+            "givenName": [
+              "QA"
+            ],
+            "middleName": [],
+            "surname": "TESTER",
+            "nameSuffix": [],
+            "nameTitle": []
+          },
+          "telephone": [
+            {
+              "countryAccessCode": "66",
+              "phoneNumber": "78945612"
+            }
+          ],
+          "email": [
+            {
+              "value": "qa@example.com"
+            }
+          ],
+          "address": [],
+          "custLoyalty": [],
+          "document": [
+            {
+              "docLimitations": [],
+              "docID": "741852369",
+              "docType": "2",
+              "docHolderNationality": "TH",
+              "expireDate": "2025-12-31"
+            }
+          ],
+          "travelerRefNumber": {
+            "rph": "1"
+          },
+          "flightSegmentRPHs": {
+            "flightSegmentRPH": [
+              "1"
+            ]
+          },
+          "socialMediaInfo": [],
+          "passengerTypeCode": "ADT",
+          "gender": "Male",
+          "comment": []
+        }
+      ],
+      "specialReqDetails": [
+        {
+          "specialServiceRequests": {
+            "specialServiceRequest": [
+              {
+                "text": "PP 741852369",
+                "serviceQuantity": 1,
+                "status": "30",
+                "number": 1,
+                "travelerRefNumberRPHList": [
+                  "1"
+                ],
+                "flightRefNumberRPHList": [
+                  "1"
+                ],
+                "ssrcode": "FOID"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "ticketing": [
+      {
+        "ticketAdvisory": [],
+        "ticketTimeLimit": "2025-11-27T07:34:29.000Z",
+        "ticketType": "E_TICKET",
+        "flightSegmentRefNumber": [],
+        "travelerRefNumber": [],
+        "miscTicketingCode": []
+      }
+    ],
+    "bookingReferenceID": [
+      {
+        "companyName": {
+          "value": "",
+          "code": "DX"
+        },
+        "type": "14",
+        "id": "KEVHTZ",
+        "flightRefNumberRPHList": []
+      }
+    ],
+    "offer": {
+      "summary": [],
+      "priced": [
+        {
+          "shortDescription": [],
+          "longDescription": [],
+          "originDestination": [],
+          "otherServices": [],
+          "restriction": [],
+          "termsAndConditions": [],
+          "commission": [],
+          "multimedia": [],
+          "bookingReferenceID": [],
+          "id": "2169489",
+          "tpaextensions": {
+            "orderInfo": {
+              "action": "CREATE_BOOKING",
+              "currencyCode": "USD",
+              "direction": "PAYMENT",
+              "orderType": "BOOKING",
+              "status": "PENDING",
+              "totalAmount": "5.24"
+            }
+          }
+        }
+      ],
+      "purchased": []
+    },
+    "createDateTime": "2025-11-27T07:04:29.000Z",
+    "emdinfo": []
+  },
+  "success": {},
+  "timeStamp": "2025-11-27T07:34:10.171Z",
+  "version": 2.001,
+  "retransmissionIndicator": false
+}
+```
+
+</div>
+</details>
 
 ## Change Name
 
 Modify passenger name in existing booking.
 
-### XML Request
+### JSON Request
 
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<OTA_AirBookModifyRQ xmlns="http://www.opentravel.org/OTA/2003/05" Version="2.001">
-    <POS>
-        <Source>
-            <RequestorID Type="5" ID="{agent_id}" ID_Context="{agency_id}"/>
-        </Source>
-    </POS>
-    <AirReservation>
-        <BookingReferenceID ID="{record_locator}" Type="14">
-            <CompanyName Code="{airline_code}"/>
-        </BookingReferenceID>
-        <TravelerInfo>
-            <AirTraveler>
-                <PersonName>
-                    <GivenName>{new_first_name}</GivenName>
-                    <Surname>{new_last_name}</Surname>
-                </PersonName>
-                <TravelerRefNumber RPH="1"/>
-            </AirTraveler>
-        </TravelerInfo>
-    </AirReservation>
-</OTA_AirBookModifyRQ>
-```
-
-## Change Date
-
-### Request to Display Price Difference
-
-First, get the price difference between old and new segments:
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<OTA_AirBookModifyRQ xmlns="http://www.opentravel.org/OTA/2003/05" Version="2.001" RepriceRequired="true">
-    <POS>
-        <Source>
-            <RequestorID Type="5" ID="{agent_id}" ID_Context="{agency_id}"/>
-        </Source>
-    </POS>
-    <AirReservation>
-        <BookingReferenceID ID="{record_locator}" Type="14">
-            <CompanyName Code="{airline_code}"/>
-        </BookingReferenceID>
-        <AirItinerary>
-            <OriginDestinationOptions>
-                <OriginDestinationOption>
-                    <FlightSegment DepartureDateTime="{new_departure_datetime}" 
-                                  ArrivalDateTime="{new_arrival_datetime}"
-                                  FlightNumber="{new_flight_number}"
-                                  ResBookDesigCode="{booking_class}">
-                        <DepartureAirport LocationCode="{origin_code}"/>
-                        <ArrivalAirport LocationCode="{destination_code}"/>
-                        <MarketingAirline Code="{airline_code}"/>
-                    </FlightSegment>
-                </OriginDestinationOption>
-            </OriginDestinationOptions>
-        </AirItinerary>
-    </AirReservation>
-</OTA_AirBookModifyRQ>
-```
-
-### Response with Price Difference
-
-```xml
-<OTA_AirBookModifyRS>
-    <Success/>
-    <AirReservation>
-        <PriceInfo>
-            <ItinTotalFare>
-                <TotalFare Amount="{new_total_fare}" CurrencyCode="{currency_code}"/>
-            </ItinTotalFare>
-            <PriceDifference>
-                <Amount Amount="{price_difference}" CurrencyCode="{currency_code}"/>
-                <Description>Additional charge for date change</Description>
-            </PriceDifference>
-        </PriceInfo>
-    </AirReservation>
-</OTA_AirBookModifyRS>
-```
-
-### Confirm Date Change
-
-After reviewing price difference, confirm the change:
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<OTA_AirBookModifyRQ xmlns="http://www.opentravel.org/OTA/2003/05" Version="2.001" RepriceRequired="false">
-    <POS>
-        <Source>
-            <RequestorID Type="5" ID="{agent_id}" ID_Context="{agency_id}"/>
-        </Source>
-    </POS>
-    <AirReservation>
-        <BookingReferenceID ID="{record_locator}" Type="14">
-            <CompanyName Code="{airline_code}"/>
-        </BookingReferenceID>
-        <AirItinerary>
-            <OriginDestinationOptions>
-                <OriginDestinationOption>
-                    <FlightSegment DepartureDateTime="{new_departure_datetime}" 
-                                  ArrivalDateTime="{new_arrival_datetime}"
-                                  FlightNumber="{new_flight_number}"
-                                  ResBookDesigCode="{booking_class}">
-                        <DepartureAirport LocationCode="{origin_code}"/>
-                        <ArrivalAirport LocationCode="{destination_code}"/>
-                        <MarketingAirline Code="{airline_code}"/>
-                    </FlightSegment>
-                </OriginDestinationOption>
-            </OriginDestinationOptions>
-        </AirItinerary>
-        <PaymentInfo PaymentType="5">
-            <PaymentCard CardType="VI" CardNumber="{card_number}" ExpireDate="{expiry_date}">
-                <CardHolderName>{cardholder_name}</CardHolderName>
-            </PaymentCard>
-        </PaymentInfo>
-    </AirReservation>
-</OTA_AirBookModifyRQ>
-```
-
-## Cancel Specific Segment
-
-Cancel individual flight segments from a multi-segment booking.
-
-### XML Request
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<OTA_AirBookModifyRQ xmlns="http://www.opentravel.org/OTA/2003/05" Version="2.001">
-    <POS>
-        <Source>
-            <RequestorID Type="5" ID="{agent_id}" ID_Context="{agency_id}"/>
-        </Source>
-    </POS>
-    <AirReservation>
-        <BookingReferenceID ID="{record_locator}" Type="14">
-            <CompanyName Code="{airline_code}"/>
-        </BookingReferenceID>
-        <AirItinerary>
-            <OriginDestinationOptions>
-                <OriginDestinationOption>
-                    <FlightSegment DepartureDateTime="{departure_datetime}" 
-                                  FlightNumber="{flight_number}"
-                                  Status="Cancel">
-                        <DepartureAirport LocationCode="{origin_code}"/>
-                        <ArrivalAirport LocationCode="{destination_code}"/>
-                        <MarketingAirline Code="{airline_code}"/>
-                    </FlightSegment>
-                </OriginDestinationOption>
-            </OriginDestinationOptions>
-        </AirItinerary>
-        <CancellationInfo>
-            <CancellationReason>Passenger request</CancellationReason>
-        </CancellationInfo>
-    </AirReservation>
-</OTA_AirBookModifyRQ>
-```
-
-## Cancel Specific Passenger
-
-Remove individual passengers from booking.
-
-### XML Request
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<OTA_AirBookModifyRQ xmlns="http://www.opentravel.org/OTA/2003/05" Version="2.001">
-    <POS>
-        <Source>
-            <RequestorID Type="5" ID="{agent_id}" ID_Context="{agency_id}"/>
-        </Source>
-    </POS>
-    <AirReservation>
-        <BookingReferenceID ID="{record_locator}" Type="14">
-            <CompanyName Code="{airline_code}"/>
-        </BookingReferenceID>
-        <TravelerInfo>
-            <AirTraveler Status="Cancel">
-                <PersonName>
-                    <GivenName>{first_name}</GivenName>
-                    <Surname>{last_name}</Surname>
-                </PersonName>
-                <TravelerRefNumber RPH="2"/>
-            </AirTraveler>
-        </TravelerInfo>
-        <CancellationInfo>
-            <CancellationReason>Passenger unable to travel</CancellationReason>
-        </CancellationInfo>
-    </AirReservation>
-</OTA_AirBookModifyRQ>
-```
-
-## Modification Response
-
-### Successful Modification
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<OTA_AirBookModifyRS xmlns="http://www.opentravel.org/OTA/2003/05" Version="2.001">
-    <Success/>
-    <AirReservation>
-        <BookingReferenceID ID="{record_locator}" Type="14">
-            <CompanyName Code="{airline_code}"/>
-        </BookingReferenceID>
-        <ModificationSummary>
-            <ModifiedItems>
-                <ModifiedItem Type="SSR" Status="Added">
-                    <Description>Special meal request added</Description>
-                </ModifiedItem>
-                <ModifiedItem Type="Name" Status="Changed">
-                    <Description>Passenger name updated</Description>
-                </ModifiedItem>
-            </ModifiedItems>
-        </ModificationSummary>
-        <PriceInfo>
-            <ItinTotalFare>
-                <TotalFare Amount="{updated_total_fare}" CurrencyCode="{currency_code}"/>
-            </ItinTotalFare>
-            <ServiceFees>
-                <ServiceFee Type="NameChange" Amount="{name_change_fee}" CurrencyCode="{currency_code}"/>
-                <ServiceFee Type="DateChange" Amount="{date_change_fee}" CurrencyCode="{currency_code}"/>
-            </ServiceFees>
-        </PriceInfo>
-        <TicketingInfo TicketTimeLimit="{updated_time_limit}"/>
-    </AirReservation>
-</OTA_AirBookModifyRS>
-```
-
-### JSON Response
+<details>
+<summary><strong>📋 JSON Request Template</strong></summary>
+<div markdown="1">
 
 ```json
 {
   "version": "2.001",
-  "success": {},
-  "airReservation": {
-    "bookingReferenceID": {
-      "id": "{record_locator}",
-      "type": "14",
-      "companyName": {
-        "code": "{airline_code}"
-      }
-    },
-    "modificationSummary": {
-      "modifiedItems": [
-        {
-          "type": "SSR",
-          "status": "Added",
-          "description": "Special meal request added"
-        },
-        {
-          "type": "Name",
-          "status": "Changed",
-          "description": "Passenger name updated"
-        }
+  "pos": "{pos}",
+  "airReservation": "{airReservation}",
+  "airBookModifyRQ": {
+    "modificationType": "3",
+    "travelerInfo": {
+      "airTraveler": [
+        "{airTraveler}"
       ]
-    },
-    "priceInfo": {
-      "itinTotalFare": {
-        "totalFare": {
-          "amount": "{updated_total_fare}",
-          "currencyCode": "{currency_code}"
-        }
-      },
-      "serviceFees": [
-        {
-          "type": "NameChange",
-          "amount": "{name_change_fee}",
-          "currencyCode": "{currency_code}"
-        }
-      ]
-    },
-    "ticketingInfo": {
-      "ticketTimeLimit": "{updated_time_limit}"
     }
   }
 }
 ```
+
+</div>
+</details>
+
+<details>
+<summary><strong>✅ Example</strong></summary>
+<div markdown="1">
+
+```json
+{
+  "version": "2.001",
+  "pos": {
+    "source": [
+      {
+        "isoCurrency": "USD",
+        "bookingChannel": {
+          "type": "OTA"
+        }
+      }
+    ]
+  },
+  "airReservation": {
+    "airItinerary": {
+      "originDestinationOptions": {
+        "originDestinationOption": [
+          {
+            "flightSegment": [
+              {
+                "departureAirport": {
+                  "locationCode": "AAC",
+                  "terminal": "1A"
+                },
+                "arrivalAirport": {
+                  "locationCode": "AAL",
+                  "terminal": "2B"
+                },
+                "operatingAirline": {
+                  "value": "",
+                  "code": "DX",
+                  "flightNumber": "7878"
+                },
+                "equipment": [],
+                "departureDateTime": "2025-12-29T10:00:00.000+02:00",
+                "arrivalDateTime": "2025-12-29T12:00:00.000+01:00",
+                "stopQuantity": 0,
+                "rph": "1",
+                "marketingAirline": {
+                  "value": "",
+                  "code": "DX"
+                },
+                "flightNumber": "7878",
+                "resBookDesigCode": "Y",
+                "bookingClassAvails": [],
+                "comment": [],
+                "stopLocation": [],
+                "status": "30",
+                "tpaextensions": {
+                  "fareBasis": "YID",
+                  "fareRule": {
+                    "code": "ID",
+                    "name": "${[en]:pricing.farerules.general.name.ID}",
+                    "value": "Test ID fare"
+                  },
+                  "operations": [
+                    {
+                      "modificationType": "10",
+                      "name": "CANCEL"
+                    },
+                    {
+                      "modificationType": "30",
+                      "name": "REBOOK"
+                    },
+                    {
+                      "modificationType": "3",
+                      "name": "CHANGE_NAME"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "priceInfo": {
+      "itinTotalFare": [
+        {
+          "baseFare": {
+            "currencyCode": "USD",
+            "amount": 0.00
+          },
+          "equivFare": [],
+          "taxes": {
+            "tax": [
+              {
+                "value": "",
+                "taxCode": "MI",
+                "currencyCode": "USD",
+                "decimalPlaces": 2,
+                "amount": 0.76
+              }
+            ]
+          },
+          "fees": {
+            "fee": [
+              {
+                "value": "",
+                "feeCode": "VAT_MI",
+                "currencyCode": "USD",
+                "decimalPlaces": 2,
+                "amount": 0.00
+              },
+              {
+                "value": "",
+                "feeCode": "VAT_reservation",
+                "currencyCode": "USD",
+                "decimalPlaces": 2,
+                "amount": 0.00
+              },
+              {
+                "value": "",
+                "feeCode": "reservation",
+                "currencyCode": "USD",
+                "decimalPlaces": 2,
+                "amount": 4.48
+              }
+            ]
+          },
+          "totalFare": {
+            "currencyCode": "USD",
+            "amount": 5.24
+          },
+          "fareBaggageAllowance": [],
+          "remark": []
+        }
+      ],
+      "ptcfareBreakdowns": {
+        "ptcfareBreakdown": [
+          {
+            "passengerTypeQuantity": {
+              "code": "ADT",
+              "quantity": 1
+            },
+            "fareBasisCodes": {
+              "fareBasisCode": [
+                {
+                  "value": "YID"
+                }
+              ]
+            },
+            "passengerFare": [
+              {
+                "baseFare": {
+                  "currencyCode": "USD",
+                  "decimalPlaces": 2,
+                  "amount": 0.00
+                },
+                "equivFare": [],
+                "taxes": {
+                  "tax": [
+                    {
+                      "value": "",
+                      "taxCode": "MI",
+                      "currencyCode": "USD",
+                      "decimalPlaces": 2,
+                      "amount": 0.76
+                    }
+                  ]
+                },
+                "fees": {
+                  "fee": [
+                    {
+                      "value": "",
+                      "feeCode": "VAT_MI",
+                      "currencyCode": "USD",
+                      "decimalPlaces": 2,
+                      "amount": 0.00
+                    },
+                    {
+                      "value": "",
+                      "feeCode": "VAT_reservation",
+                      "currencyCode": "USD",
+                      "decimalPlaces": 2,
+                      "amount": 0.00
+                    },
+                    {
+                      "value": "",
+                      "feeCode": "reservation",
+                      "currencyCode": "USD",
+                      "decimalPlaces": 2,
+                      "amount": 4.48
+                    }
+                  ]
+                },
+                "totalFare": {
+                  "currencyCode": "USD",
+                  "decimalPlaces": 2,
+                  "amount": 5.24
+                },
+                "fareBaggageAllowance": [],
+                "remark": []
+              }
+            ],
+            "travelerRefNumber": [
+              {
+                "rph": "1"
+              }
+            ],
+            "ticketDesignators": {
+              "ticketDesignator": [
+                {
+                  "flightRefRPH": "1"
+                }
+              ]
+            },
+            "fareInfo": [],
+            "pricingUnit": [],
+            "flightRefNumberRPHList": [
+              "1"
+            ]
+          }
+        ]
+      }
+    },
+    "travelerInfo": {
+      "airTraveler": [
+        {
+          "personName": {
+            "namePrefix": [
+              "MR"
+            ],
+            "givenName": [
+              "QA"
+            ],
+            "middleName": [],
+            "surname": "TESTER",
+            "nameSuffix": [],
+            "nameTitle": []
+          },
+          "telephone": [
+            {
+              "countryAccessCode": "66",
+              "phoneNumber": "78945612"
+            }
+          ],
+          "email": [
+            {
+              "value": "qa@example.com"
+            }
+          ],
+          "address": [],
+          "custLoyalty": [],
+          "document": [
+            {
+              "docLimitations": [],
+              "docID": "741852369",
+              "docType": "2",
+              "docHolderNationality": "TH",
+              "expireDate": "2025-12-31"
+            }
+          ],
+          "travelerRefNumber": {
+            "rph": "1"
+          },
+          "flightSegmentRPHs": {
+            "flightSegmentRPH": [
+              "1"
+            ]
+          },
+          "socialMediaInfo": [],
+          "passengerTypeCode": "ADT",
+          "gender": "Male",
+          "comment": []
+        }
+      ],
+      "specialReqDetails": [
+        {
+          "specialServiceRequests": {
+            "specialServiceRequest": [
+              {
+                "text": "PP 741852369",
+                "serviceQuantity": 1,
+                "status": "30",
+                "number": 1,
+                "travelerRefNumberRPHList": [
+                  "1"
+                ],
+                "flightRefNumberRPHList": [
+                  "1"
+                ],
+                "ssrcode": "FOID"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "ticketing": [
+      {
+        "ticketAdvisory": [],
+        "ticketTimeLimit": "2025-11-27T08:30:16.077Z",
+        "ticketType": "E_TICKET",
+        "flightSegmentRefNumber": [],
+        "travelerRefNumber": [],
+        "miscTicketingCode": []
+      }
+    ],
+    "bookingReferenceID": [
+      {
+        "companyName": {
+          "value": "",
+          "code": "DX"
+        },
+        "type": "14",
+        "id": "N6RHD3",
+        "flightRefNumberRPHList": []
+      }
+    ],
+    "offer": {
+      "summary": [],
+      "priced": [
+        {
+          "shortDescription": [],
+          "longDescription": [],
+          "originDestination": [],
+          "otherServices": [],
+          "restriction": [],
+          "termsAndConditions": [],
+          "commission": [],
+          "multimedia": [],
+          "bookingReferenceID": [],
+          "id": "2169493",
+          "tpaextensions": {
+            "orderInfo": {
+              "action": "CREATE_BOOKING",
+              "currencyCode": "USD",
+              "direction": "PAYMENT",
+              "orderType": "BOOKING",
+              "status": "PENDING",
+              "totalAmount": "5.24"
+            }
+          }
+        }
+      ],
+      "purchased": []
+    },
+    "createDateTime": "2025-11-27T08:00:16.000Z",
+    "emdinfo": []
+  },
+  "airBookModifyRQ": {
+    "modificationType": "3",
+    "travelerInfo": {
+      "airTraveler": [
+        {
+          "personName": {
+            "namePrefix": [
+              "MR"
+            ],
+            "givenName": [
+              "QA2"
+            ],
+            "middleName": [],
+            "surname": "TESTER",
+            "nameSuffix": [],
+            "nameTitle": []
+          },
+          "telephone": [
+            {
+              "countryAccessCode": "66",
+              "phoneNumber": "859361445"
+            }
+          ],
+          "email": [
+            {
+              "value": "qa2@example.com"
+            }
+          ],
+          "address": [],
+          "custLoyalty": [],
+          "document": [
+            {
+              "docLimitations": [],
+              "docID": "859361445",
+              "docType": "2",
+              "docHolderNationality": "TH",
+              "expireDate": "2025-12-31"
+            }
+          ],
+          "travelerRefNumber": {
+            "rph": "1"
+          },
+          "flightSegmentRPHs": {
+            "flightSegmentRPH": [
+              "1"
+            ]
+          },
+          "socialMediaInfo": [],
+          "passengerTypeCode": "ADT",
+          "gender": "Male",
+          "comment": []
+        }
+      ]
+    }
+  }
+}
+```
+
+</div>
+</details>
+
+### JSON Response
+
+<details>
+<summary><strong>✅ Example</strong></summary>
+<div markdown="1">
+
+```json
+{
+  "airReservation": {
+    "airItinerary": {
+      "originDestinationOptions": {
+        "originDestinationOption": [
+          {
+            "flightSegment": [
+              {
+                "departureAirport": {
+                  "locationCode": "AAC",
+                  "terminal": "1A"
+                },
+                "arrivalAirport": {
+                  "locationCode": "AAL",
+                  "terminal": "2B"
+                },
+                "operatingAirline": {
+                  "value": "",
+                  "code": "DX",
+                  "flightNumber": "7878"
+                },
+                "equipment": [],
+                "departureDateTime": "2025-12-29T10:00:00.000+02:00",
+                "arrivalDateTime": "2025-12-29T12:00:00.000+01:00",
+                "stopQuantity": 0,
+                "rph": "1",
+                "marketingAirline": {
+                  "value": "",
+                  "code": "DX"
+                },
+                "flightNumber": "7878",
+                "resBookDesigCode": "Y",
+                "bookingClassAvails": [],
+                "comment": [],
+                "stopLocation": [],
+                "status": "30",
+                "tpaextensions": {
+                  "fareBasis": "YID",
+                  "fareRule": {
+                    "code": "ID",
+                    "name": "${[en]:pricing.farerules.general.name.ID}",
+                    "value": "Test ID fare"
+                  },
+                  "operations": [
+                    {
+                      "modificationType": "10",
+                      "name": "CANCEL"
+                    },
+                    {
+                      "modificationType": "30",
+                      "name": "REBOOK"
+                    },
+                    {
+                      "modificationType": "3",
+                      "name": "CHANGE_NAME"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "priceInfo": {
+      "itinTotalFare": [
+        {
+          "baseFare": {
+            "currencyCode": "USD",
+            "amount": 0.00
+          },
+          "equivFare": [],
+          "taxes": {
+            "tax": [
+              {
+                "value": "",
+                "taxCode": "MI",
+                "currencyCode": "USD",
+                "decimalPlaces": 2,
+                "amount": 0.76
+              }
+            ]
+          },
+          "fees": {
+            "fee": [
+              {
+                "value": "",
+                "feeCode": "VAT_MI",
+                "currencyCode": "USD",
+                "decimalPlaces": 2,
+                "amount": 0.00
+              },
+              {
+                "value": "",
+                "feeCode": "VAT_reservation",
+                "currencyCode": "USD",
+                "decimalPlaces": 2,
+                "amount": 0.00
+              },
+              {
+                "value": "",
+                "feeCode": "reservation",
+                "currencyCode": "USD",
+                "decimalPlaces": 2,
+                "amount": 4.48
+              }
+            ]
+          },
+          "totalFare": {
+            "currencyCode": "USD",
+            "amount": 5.24
+          },
+          "fareBaggageAllowance": [],
+          "remark": []
+        }
+      ],
+      "ptcfareBreakdowns": {
+        "ptcfareBreakdown": [
+          {
+            "passengerTypeQuantity": {
+              "code": "ADT",
+              "quantity": 1
+            },
+            "fareBasisCodes": {
+              "fareBasisCode": [
+                {
+                  "value": "YID"
+                }
+              ]
+            },
+            "passengerFare": [
+              {
+                "baseFare": {
+                  "currencyCode": "USD",
+                  "decimalPlaces": 2,
+                  "amount": 0.00
+                },
+                "equivFare": [],
+                "taxes": {
+                  "tax": [
+                    {
+                      "value": "",
+                      "taxCode": "MI",
+                      "currencyCode": "USD",
+                      "decimalPlaces": 2,
+                      "amount": 0.76
+                    }
+                  ]
+                },
+                "fees": {
+                  "fee": [
+                    {
+                      "value": "",
+                      "feeCode": "VAT_MI",
+                      "currencyCode": "USD",
+                      "decimalPlaces": 2,
+                      "amount": 0.00
+                    },
+                    {
+                      "value": "",
+                      "feeCode": "VAT_reservation",
+                      "currencyCode": "USD",
+                      "decimalPlaces": 2,
+                      "amount": 0.00
+                    },
+                    {
+                      "value": "",
+                      "feeCode": "reservation",
+                      "currencyCode": "USD",
+                      "decimalPlaces": 2,
+                      "amount": 4.48
+                    }
+                  ]
+                },
+                "totalFare": {
+                  "currencyCode": "USD",
+                  "decimalPlaces": 2,
+                  "amount": 5.24
+                },
+                "fareBaggageAllowance": [],
+                "remark": []
+              }
+            ],
+            "travelerRefNumber": [
+              {
+                "rph": "1"
+              }
+            ],
+            "ticketDesignators": {
+              "ticketDesignator": [
+                {
+                  "flightRefRPH": "1"
+                }
+              ]
+            },
+            "fareInfo": [],
+            "pricingUnit": [],
+            "flightRefNumberRPHList": [
+              "1"
+            ]
+          }
+        ]
+      }
+    },
+    "travelerInfo": {
+      "airTraveler": [
+        {
+          "personName": {
+            "namePrefix": [
+              "MR"
+            ],
+            "givenName": [
+              "QA2"
+            ],
+            "middleName": [],
+            "surname": "TESTER",
+            "nameSuffix": [],
+            "nameTitle": []
+          },
+          "telephone": [
+            {
+              "countryAccessCode": "66",
+              "phoneNumber": "78945612"
+            },
+            {
+              "phoneTechType": "5",
+              "phoneNumber": "859361445"
+            }
+          ],
+          "email": [
+            {
+              "value": "qa2@example.com"
+            }
+          ],
+          "address": [],
+          "custLoyalty": [],
+          "document": [
+            {
+              "docLimitations": [],
+              "docID": "859361445",
+              "docType": "2",
+              "docHolderNationality": "TH",
+              "expireDate": "2025-12-31"
+            }
+          ],
+          "travelerRefNumber": {
+            "rph": "1"
+          },
+          "flightSegmentRPHs": {
+            "flightSegmentRPH": [
+              "1"
+            ]
+          },
+          "socialMediaInfo": [],
+          "passengerTypeCode": "ADT",
+          "gender": "Male",
+          "comment": []
+        }
+      ],
+      "specialReqDetails": [
+        {
+          "specialServiceRequests": {
+            "specialServiceRequest": [
+              {
+                "text": "PP 859361445",
+                "serviceQuantity": 1,
+                "status": "30",
+                "number": 1,
+                "travelerRefNumberRPHList": [
+                  "1"
+                ],
+                "flightRefNumberRPHList": [
+                  "1"
+                ],
+                "ssrcode": "FOID"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "ticketing": [
+      {
+        "ticketAdvisory": [],
+        "ticketTimeLimit": "2025-11-27T08:30:16.000Z",
+        "ticketType": "E_TICKET",
+        "flightSegmentRefNumber": [],
+        "travelerRefNumber": [],
+        "miscTicketingCode": []
+      }
+    ],
+    "bookingReferenceID": [
+      {
+        "companyName": {
+          "value": "",
+          "code": "DX"
+        },
+        "type": "14",
+        "id": "N6RHD3",
+        "flightRefNumberRPHList": []
+      }
+    ],
+    "offer": {
+      "summary": [],
+      "priced": [
+        {
+          "shortDescription": [],
+          "longDescription": [],
+          "originDestination": [],
+          "otherServices": [],
+          "restriction": [],
+          "termsAndConditions": [],
+          "commission": [],
+          "multimedia": [],
+          "bookingReferenceID": [],
+          "id": "2169493",
+          "tpaextensions": {
+            "orderInfo": {
+              "action": "CREATE_BOOKING",
+              "currencyCode": "USD",
+              "direction": "PAYMENT",
+              "orderType": "BOOKING",
+              "status": "PENDING",
+              "totalAmount": "5.24"
+            }
+          }
+        }
+      ],
+      "purchased": []
+    },
+    "createDateTime": "2025-11-27T08:00:16.000Z",
+    "emdinfo": []
+  },
+  "success": {},
+  "timeStamp": "2025-11-27T08:02:42.838Z",
+  "version": 2.001,
+  "retransmissionIndicator": false
+}
+```
+
+</div>
+</details>
+
+[//]: # ()
+[//]: # (## Change Date)
+
+[//]: # ()
+[//]: # (### Request to Display Price Difference)
+
+[//]: # ()
+[//]: # (First, get the price difference between old and new segments:)
+
+[//]: # ()
+[//]: # (### JSON Request)
+
+[//]: # ()
+[//]: # (<details>)
+
+[//]: # (<summary><strong>📋 JSON Request Template</strong></summary>)
+
+[//]: # (<div markdown="1">)
+
+[//]: # ()
+[//]: # (```json)
+
+[//]: # ({)
+
+[//]: # (  "version": "2.001",)
+
+[//]: # (  "pos": "{pos}",)
+
+[//]: # (  "airReservation": "{airReservation}",)
+
+[//]: # (  "airBookModifyRQ": {)
+
+[//]: # (    "modificationType": "3",)
+
+[//]: # (    "travelerInfo": {)
+
+[//]: # (      "airTraveler": [)
+
+[//]: # (        "{airTraveler}")
+
+[//]: # (      ])
+
+[//]: # (    })
+
+[//]: # (  })
+
+[//]: # (})
+
+[//]: # (```)
+
+[//]: # ()
+[//]: # (</div>)
+
+[//]: # (</details>)
+
+[//]: # ()
+[//]: # (<details>)
+
+[//]: # (<summary><strong>✅ Example</strong></summary>)
+
+[//]: # (<div markdown="1">)
+
+[//]: # ()
+[//]: # (```json)
+
+[//]: # ()
+[//]: # (```)
+
+[//]: # ()
+[//]: # (</div>)
+
+[//]: # (</details>)
+
+[//]: # ()
+[//]: # (### JSON Response)
+
+[//]: # ()
+[//]: # (<details>)
+
+[//]: # (<summary><strong>✅ Example</strong></summary>)
+
+[//]: # (<div markdown="1">)
+
+[//]: # ()
+[//]: # (```json)
+
+[//]: # ()
+[//]: # (```)
+
+[//]: # ()
+[//]: # (</div>)
+
+[//]: # (</details>)
+
+[//]: # ()
+[//]: # ()
+[//]: # (```xml)
+
+[//]: # ()
+[//]: # (<?xml version="1.0" encoding="UTF-8"?>)
+
+[//]: # ()
+[//]: # (<OTA_AirBookModifyRQ xmlns="http://www.opentravel.org/OTA/2003/05" Version="2.001" RepriceRequired="true">)
+
+[//]: # ()
+[//]: # (    <POS>)
+
+[//]: # ()
+[//]: # (        <Source>)
+
+[//]: # ()
+[//]: # (            <RequestorID Type="5" ID="{agent_id}" ID_Context="{agency_id}"/>)
+
+[//]: # ()
+[//]: # (        </Source>)
+
+[//]: # ()
+[//]: # (    </POS>)
+
+[//]: # ()
+[//]: # (    <AirReservation>)
+
+[//]: # ()
+[//]: # (        <BookingReferenceID ID="{record_locator}" Type="14">)
+
+[//]: # ()
+[//]: # (            <CompanyName Code="{airline_code}"/>)
+
+[//]: # ()
+[//]: # (        </BookingReferenceID>)
+
+[//]: # ()
+[//]: # (        <AirItinerary>)
+
+[//]: # ()
+[//]: # (            <OriginDestinationOptions>)
+
+[//]: # ()
+[//]: # (                <OriginDestinationOption>)
+
+[//]: # ()
+[//]: # (                    <FlightSegment DepartureDateTime="{new_departure_datetime}" )
+
+[//]: # ()
+[//]: # (                                  ArrivalDateTime="{new_arrival_datetime}")
+
+[//]: # ()
+[//]: # (                                  FlightNumber="{new_flight_number}")
+
+[//]: # ()
+[//]: # (                                  ResBookDesigCode="{booking_class}">)
+
+[//]: # ()
+[//]: # (                        <DepartureAirport LocationCode="{origin_code}"/>)
+
+[//]: # ()
+[//]: # (                        <ArrivalAirport LocationCode="{destination_code}"/>)
+
+[//]: # ()
+[//]: # (                        <MarketingAirline Code="{airline_code}"/>)
+
+[//]: # ()
+[//]: # (                    </FlightSegment>)
+
+[//]: # ()
+[//]: # (                </OriginDestinationOption>)
+
+[//]: # ()
+[//]: # (            </OriginDestinationOptions>)
+
+[//]: # ()
+[//]: # (        </AirItinerary>)
+
+[//]: # ()
+[//]: # (    </AirReservation>)
+
+[//]: # ()
+[//]: # (</OTA_AirBookModifyRQ>)
+
+[//]: # ()
+[//]: # (```)
+
+[//]: # ()
+[//]: # ()
+[//]: # (### Response with Price Difference)
+
+[//]: # ()
+[//]: # ()
+[//]: # (```xml)
+
+[//]: # ()
+[//]: # (<OTA_AirBookModifyRS>)
+
+[//]: # ()
+[//]: # (    <Success/>)
+
+[//]: # ()
+[//]: # (    <AirReservation>)
+
+[//]: # ()
+[//]: # (        <PriceInfo>)
+
+[//]: # ()
+[//]: # (            <ItinTotalFare>)
+
+[//]: # ()
+[//]: # (                <TotalFare Amount="{new_total_fare}" CurrencyCode="{currency_code}"/>)
+
+[//]: # ()
+[//]: # (            </ItinTotalFare>)
+
+[//]: # ()
+[//]: # (            <PriceDifference>)
+
+[//]: # ()
+[//]: # (                <Amount Amount="{price_difference}" CurrencyCode="{currency_code}"/>)
+
+[//]: # ()
+[//]: # (                <Description>Additional charge for date change</Description>)
+
+[//]: # ()
+[//]: # (            </PriceDifference>)
+
+[//]: # ()
+[//]: # (        </PriceInfo>)
+
+[//]: # ()
+[//]: # (    </AirReservation>)
+
+[//]: # ()
+[//]: # (</OTA_AirBookModifyRS>)
+
+[//]: # ()
+[//]: # (```)
+
+[//]: # ()
+[//]: # ()
+[//]: # (### Confirm Date Change)
+
+[//]: # ()
+[//]: # ()
+[//]: # (After reviewing price difference, confirm the change:)
+
+[//]: # ()
+[//]: # ()
+[//]: # (```xml)
+
+[//]: # ()
+[//]: # (<?xml version="1.0" encoding="UTF-8"?>)
+
+[//]: # ()
+[//]: # (<OTA_AirBookModifyRQ xmlns="http://www.opentravel.org/OTA/2003/05" Version="2.001" RepriceRequired="false">)
+
+[//]: # ()
+[//]: # (    <POS>)
+
+[//]: # ()
+[//]: # (        <Source>)
+
+[//]: # ()
+[//]: # (            <RequestorID Type="5" ID="{agent_id}" ID_Context="{agency_id}"/>)
+
+[//]: # ()
+[//]: # (        </Source>)
+
+[//]: # ()
+[//]: # (    </POS>)
+
+[//]: # ()
+[//]: # (    <AirReservation>)
+
+[//]: # ()
+[//]: # (        <BookingReferenceID ID="{record_locator}" Type="14">)
+
+[//]: # ()
+[//]: # (            <CompanyName Code="{airline_code}"/>)
+
+[//]: # ()
+[//]: # (        </BookingReferenceID>)
+
+[//]: # ()
+[//]: # (        <AirItinerary>)
+
+[//]: # ()
+[//]: # (            <OriginDestinationOptions>)
+
+[//]: # ()
+[//]: # (                <OriginDestinationOption>)
+
+[//]: # ()
+[//]: # (                    <FlightSegment DepartureDateTime="{new_departure_datetime}" )
+
+[//]: # ()
+[//]: # (                                  ArrivalDateTime="{new_arrival_datetime}")
+
+[//]: # ()
+[//]: # (                                  FlightNumber="{new_flight_number}")
+
+[//]: # ()
+[//]: # (                                  ResBookDesigCode="{booking_class}">)
+
+[//]: # ()
+[//]: # (                        <DepartureAirport LocationCode="{origin_code}"/>)
+
+[//]: # ()
+[//]: # (                        <ArrivalAirport LocationCode="{destination_code}"/>)
+
+[//]: # ()
+[//]: # (                        <MarketingAirline Code="{airline_code}"/>)
+
+[//]: # ()
+[//]: # (                    </FlightSegment>)
+
+[//]: # ()
+[//]: # (                </OriginDestinationOption>)
+
+[//]: # ()
+[//]: # (            </OriginDestinationOptions>)
+
+[//]: # ()
+[//]: # (        </AirItinerary>)
+
+[//]: # ()
+[//]: # (        <PaymentInfo PaymentType="5">)
+
+[//]: # ()
+[//]: # (            <PaymentCard CardType="VI" CardNumber="{card_number}" ExpireDate="{expiry_date}">)
+
+[//]: # ()
+[//]: # (                <CardHolderName>{cardholder_name}</CardHolderName>)
+
+[//]: # ()
+[//]: # (            </PaymentCard>)
+
+[//]: # ()
+[//]: # (        </PaymentInfo>)
+
+[//]: # ()
+[//]: # (    </AirReservation>)
+
+[//]: # ()
+[//]: # (</OTA_AirBookModifyRQ>)
+
+[//]: # ()
+[//]: # (```)
+
+[//]: # (## Cancel Specific Segment)
+
+[//]: # ()
+[//]: # (Cancel individual flight segments from a multi-segment booking.)
+
+[//]: # ()
+[//]: # (### XML Request)
+
+[//]: # ()
+[//]: # (```xml)
+
+[//]: # (<?xml version="1.0" encoding="UTF-8"?>)
+
+[//]: # (<OTA_AirBookModifyRQ xmlns="http://www.opentravel.org/OTA/2003/05" Version="2.001">)
+
+[//]: # (    <POS>)
+
+[//]: # (        <Source>)
+
+[//]: # (            <RequestorID Type="5" ID="{agent_id}" ID_Context="{agency_id}"/>)
+
+[//]: # (        </Source>)
+
+[//]: # (    </POS>)
+
+[//]: # (    <AirReservation>)
+
+[//]: # (        <BookingReferenceID ID="{record_locator}" Type="14">)
+
+[//]: # (            <CompanyName Code="{airline_code}"/>)
+
+[//]: # (        </BookingReferenceID>)
+
+[//]: # (        <AirItinerary>)
+
+[//]: # (            <OriginDestinationOptions>)
+
+[//]: # (                <OriginDestinationOption>)
+
+[//]: # (                    <FlightSegment DepartureDateTime="{departure_datetime}" )
+
+[//]: # (                                  FlightNumber="{flight_number}")
+
+[//]: # (                                  Status="Cancel">)
+
+[//]: # (                        <DepartureAirport LocationCode="{origin_code}"/>)
+
+[//]: # (                        <ArrivalAirport LocationCode="{destination_code}"/>)
+
+[//]: # (                        <MarketingAirline Code="{airline_code}"/>)
+
+[//]: # (                    </FlightSegment>)
+
+[//]: # (                </OriginDestinationOption>)
+
+[//]: # (            </OriginDestinationOptions>)
+
+[//]: # (        </AirItinerary>)
+
+[//]: # (        <CancellationInfo>)
+
+[//]: # (            <CancellationReason>Passenger request</CancellationReason>)
+
+[//]: # (        </CancellationInfo>)
+
+[//]: # (    </AirReservation>)
+
+[//]: # (</OTA_AirBookModifyRQ>)
+
+[//]: # (```)
+
+[//]: # ()
+[//]: # (## Cancel Specific Passenger)
+
+[//]: # ()
+[//]: # (Remove individual passengers from booking.)
+
+[//]: # ()
+[//]: # (### XML Request)
+
+[//]: # ()
+[//]: # (```xml)
+
+[//]: # (<?xml version="1.0" encoding="UTF-8"?>)
+
+[//]: # (<OTA_AirBookModifyRQ xmlns="http://www.opentravel.org/OTA/2003/05" Version="2.001">)
+
+[//]: # (    <POS>)
+
+[//]: # (        <Source>)
+
+[//]: # (            <RequestorID Type="5" ID="{agent_id}" ID_Context="{agency_id}"/>)
+
+[//]: # (        </Source>)
+
+[//]: # (    </POS>)
+
+[//]: # (    <AirReservation>)
+
+[//]: # (        <BookingReferenceID ID="{record_locator}" Type="14">)
+
+[//]: # (            <CompanyName Code="{airline_code}"/>)
+
+[//]: # (        </BookingReferenceID>)
+
+[//]: # (        <TravelerInfo>)
+
+[//]: # (            <AirTraveler Status="Cancel">)
+
+[//]: # (                <PersonName>)
+
+[//]: # (                    <GivenName>{first_name}</GivenName>)
+
+[//]: # (                    <Surname>{last_name}</Surname>)
+
+[//]: # (                </PersonName>)
+
+[//]: # (                <TravelerRefNumber RPH="2"/>)
+
+[//]: # (            </AirTraveler>)
+
+[//]: # (        </TravelerInfo>)
+
+[//]: # (        <CancellationInfo>)
+
+[//]: # (            <CancellationReason>Passenger unable to travel</CancellationReason>)
+
+[//]: # (        </CancellationInfo>)
+
+[//]: # (    </AirReservation>)
+
+[//]: # (</OTA_AirBookModifyRQ>)
+
+[//]: # (```)
+
+[//]: # ()
+[//]: # (## Modification Response)
+
+[//]: # ()
+[//]: # (### Successful Modification)
+
+[//]: # ()
+[//]: # (```xml)
+
+[//]: # (<?xml version="1.0" encoding="UTF-8"?>)
+
+[//]: # (<OTA_AirBookModifyRS xmlns="http://www.opentravel.org/OTA/2003/05" Version="2.001">)
+
+[//]: # (    <Success/>)
+
+[//]: # (    <AirReservation>)
+
+[//]: # (        <BookingReferenceID ID="{record_locator}" Type="14">)
+
+[//]: # (            <CompanyName Code="{airline_code}"/>)
+
+[//]: # (        </BookingReferenceID>)
+
+[//]: # (        <ModificationSummary>)
+
+[//]: # (            <ModifiedItems>)
+
+[//]: # (                <ModifiedItem Type="SSR" Status="Added">)
+
+[//]: # (                    <Description>Special meal request added</Description>)
+
+[//]: # (                </ModifiedItem>)
+
+[//]: # (                <ModifiedItem Type="Name" Status="Changed">)
+
+[//]: # (                    <Description>Passenger name updated</Description>)
+
+[//]: # (                </ModifiedItem>)
+
+[//]: # (            </ModifiedItems>)
+
+[//]: # (        </ModificationSummary>)
+
+[//]: # (        <PriceInfo>)
+
+[//]: # (            <ItinTotalFare>)
+
+[//]: # (                <TotalFare Amount="{updated_total_fare}" CurrencyCode="{currency_code}"/>)
+
+[//]: # (            </ItinTotalFare>)
+
+[//]: # (            <ServiceFees>)
+
+[//]: # (                <ServiceFee Type="NameChange" Amount="{name_change_fee}" CurrencyCode="{currency_code}"/>)
+
+[//]: # (                <ServiceFee Type="DateChange" Amount="{date_change_fee}" CurrencyCode="{currency_code}"/>)
+
+[//]: # (            </ServiceFees>)
+
+[//]: # (        </PriceInfo>)
+
+[//]: # (        <TicketingInfo TicketTimeLimit="{updated_time_limit}"/>)
+
+[//]: # (    </AirReservation>)
+
+[//]: # (</OTA_AirBookModifyRS>)
+
+[//]: # (```)
+
+[//]: # ()
+[//]: # (### JSON Response)
+
+[//]: # ()
+[//]: # (```json)
+
+[//]: # ({)
+
+[//]: # (  "version": "2.001",)
+
+[//]: # (  "success": {},)
+
+[//]: # (  "airReservation": {)
+
+[//]: # (    "bookingReferenceID": {)
+
+[//]: # (      "id": "{record_locator}",)
+
+[//]: # (      "type": "14",)
+
+[//]: # (      "companyName": {)
+
+[//]: # (        "code": "{airline_code}")
+
+[//]: # (      })
+
+[//]: # (    },)
+
+[//]: # (    "modificationSummary": {)
+
+[//]: # (      "modifiedItems": [)
+
+[//]: # (        {)
+
+[//]: # (          "type": "SSR",)
+
+[//]: # (          "status": "Added",)
+
+[//]: # (          "description": "Special meal request added")
+
+[//]: # (        },)
+
+[//]: # (        {)
+
+[//]: # (          "type": "Name",)
+
+[//]: # (          "status": "Changed",)
+
+[//]: # (          "description": "Passenger name updated")
+
+[//]: # (        })
+
+[//]: # (      ])
+
+[//]: # (    },)
+
+[//]: # (    "priceInfo": {)
+
+[//]: # (      "itinTotalFare": {)
+
+[//]: # (        "totalFare": {)
+
+[//]: # (          "amount": "{updated_total_fare}",)
+
+[//]: # (          "currencyCode": "{currency_code}")
+
+[//]: # (        })
+
+[//]: # (      },)
+
+[//]: # (      "serviceFees": [)
+
+[//]: # (        {)
+
+[//]: # (          "type": "NameChange",)
+
+[//]: # (          "amount": "{name_change_fee}",)
+
+[//]: # (          "currencyCode": "{currency_code}")
+
+[//]: # (        })
+
+[//]: # (      ])
+
+[//]: # (    },)
+
+[//]: # (    "ticketingInfo": {)
+
+[//]: # (      "ticketTimeLimit": "{updated_time_limit}")
+
+[//]: # (    })
+
+[//]: # (  })
+
+[//]: # (})
+
+[//]: # (```)
 
 ## Modification Policies
 
@@ -457,11 +2117,15 @@ Remove individual passengers from booking.
 - Complete name changes may require documentation
 - Fees may apply based on fare rules
 
-### Date Change Policy  
-- Subject to seat availability on new flight
-- Price difference may apply
-- Change fees based on fare conditions
-- Some fares may not allow changes
+[//]: # (### Date Change Policy  )
+
+[//]: # (- Subject to seat availability on new flight)
+
+[//]: # (- Price difference may apply)
+
+[//]: # (- Change fees based on fare conditions)
+
+[//]: # (- Some fares may not allow changes)
 
 ### SSR Policy
 - Most SSRs can be added post-booking
