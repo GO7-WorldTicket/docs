@@ -1462,12 +1462,730 @@ Modify passenger name in existing booking.
 </div>
 </details>
 
+## Change Date
+
+First, get the old segment from the existing booking, then modify the date by providing a new flight segment.:
+
+### JSON Request
+
+<details>
+<summary><strong>📋 JSON Request Template</strong></summary>
+<div markdown="1">
+
+```json
+{
+  "version": "2.001",
+  "pos": "{pos}",
+  "airReservation": "{oldAirReservation}",
+  "airBookModifyRQ": {
+    "modificationType": "30",
+    "airItinerary": {
+      "originDestinationOptions": {
+        "originDestinationOption": [
+          {
+            "flightSegment": "{newFlightSegment}"
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+</div>
+</details>
+
+<details>
+<summary><strong>✅ Example</strong></summary>
+<div markdown="1">
+
+```json
+{
+    "version": "2.001",
+    "pos": {
+        "source": [
+            {
+                "isoCurrency": "USD",
+                "bookingChannel": {
+                    "type": "OTA"
+                }
+            }
+        ]
+    },
+    "airReservation": {
+        "airItinerary": {
+            "originDestinationOptions": {
+                "originDestinationOption": [
+                    {
+                        "flightSegment": [
+                            {
+                                "departureAirport": {
+                                    "locationCode": "AAC",
+                                    "terminal": "1A"
+                                },
+                                "arrivalAirport": {
+                                    "locationCode": "AAL",
+                                    "terminal": "2B"
+                                },
+                                "operatingAirline": {
+                                    "value": "",
+                                    "code": "DX",
+                                    "flightNumber": "7877"
+                                },
+                                "equipment": [],
+                                "departureDateTime": "2026-01-01T17:00:00.000+02:00",
+                                "arrivalDateTime": "2026-01-01T19:00:00.000+01:00",
+                                "stopQuantity": 0,
+                                "rph": "1",
+                                "marketingAirline": {
+                                    "value": "",
+                                    "code": "DX"
+                                },
+                                "flightNumber": "7877",
+                                "resBookDesigCode": "Y",
+                                "bookingClassAvails": [],
+                                "comment": [],
+                                "stopLocation": [],
+                                "status": "30",
+                                "tpaextensions": {
+                                    "fareBasis": "YID",
+                                    "fareRule": {
+                                        "code": "ID",
+                                        "name": "${[en]:pricing.farerules.general.name.ID}",
+                                        "value": "Test ID fare"
+                                    },
+                                    "operations": [
+                                        {
+                                            "modificationType": "10",
+                                            "name": "CANCEL"
+                                        },
+                                        {
+                                            "modificationType": "30",
+                                            "name": "REBOOK"
+                                        },
+                                        {
+                                            "modificationType": "3",
+                                            "name": "CHANGE_NAME"
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "priceInfo": {
+            "itinTotalFare": [
+                {
+                    "baseFare": {
+                        "currencyCode": "USD",
+                        "amount": 0.00
+                    },
+                    "equivFare": [],
+                    "fees": {
+                        "fee": [
+                            {
+                                "value": "",
+                                "feeCode": "VAT_reservation",
+                                "currencyCode": "USD",
+                                "decimalPlaces": 2,
+                                "amount": 0.00
+                            },
+                            {
+                                "value": "",
+                                "feeCode": "reservation",
+                                "currencyCode": "USD",
+                                "decimalPlaces": 2,
+                                "amount": 4.48
+                            }
+                        ]
+                    },
+                    "totalFare": {
+                        "currencyCode": "USD",
+                        "amount": 4.48
+                    },
+                    "fareBaggageAllowance": [],
+                    "remark": []
+                }
+            ],
+            "ptcfareBreakdowns": {
+                "ptcfareBreakdown": [
+                    {
+                        "passengerTypeQuantity": {
+                            "code": "ADT",
+                            "quantity": 1
+                        },
+                        "fareBasisCodes": {
+                            "fareBasisCode": [
+                                {
+                                    "value": "YID"
+                                }
+                            ]
+                        },
+                        "passengerFare": [
+                            {
+                                "baseFare": {
+                                    "currencyCode": "USD",
+                                    "decimalPlaces": 2,
+                                    "amount": 0.00
+                                },
+                                "equivFare": [],
+                                "fees": {
+                                    "fee": [
+                                        {
+                                            "value": "",
+                                            "feeCode": "VAT_reservation",
+                                            "currencyCode": "USD",
+                                            "decimalPlaces": 2,
+                                            "amount": 0.00
+                                        },
+                                        {
+                                            "value": "",
+                                            "feeCode": "reservation",
+                                            "currencyCode": "USD",
+                                            "decimalPlaces": 2,
+                                            "amount": 4.48
+                                        }
+                                    ]
+                                },
+                                "totalFare": {
+                                    "currencyCode": "USD",
+                                    "decimalPlaces": 2,
+                                    "amount": 4.48
+                                },
+                                "fareBaggageAllowance": [],
+                                "remark": []
+                            }
+                        ],
+                        "travelerRefNumber": [
+                            {
+                                "rph": "1"
+                            }
+                        ],
+                        "ticketDesignators": {
+                            "ticketDesignator": [
+                                {
+                                    "flightRefRPH": "1"
+                                }
+                            ]
+                        },
+                        "fareInfo": [],
+                        "pricingUnit": [],
+                        "flightRefNumberRPHList": [
+                            "1"
+                        ]
+                    }
+                ]
+            }
+        },
+        "travelerInfo": {
+            "airTraveler": [
+                {
+                    "personName": {
+                        "namePrefix": [
+                            "MR"
+                        ],
+                        "givenName": [
+                            "QA"
+                        ],
+                        "middleName": [],
+                        "surname": "TESTER",
+                        "nameSuffix": [],
+                        "nameTitle": []
+                    },
+                    "telephone": [
+                        {
+                            "countryAccessCode": "66",
+                            "phoneNumber": "78945612"
+                        }
+                    ],
+                    "email": [
+                        {
+                            "value": "qa@example.com"
+                        }
+                    ],
+                    "address": [],
+                    "custLoyalty": [],
+                    "document": [
+                        {
+                            "docLimitations": [],
+                            "docID": "741852369",
+                            "docType": "2",
+                            "docHolderNationality": "TH",
+                            "expireDate": "2025-12-31"
+                        }
+                    ],
+                    "travelerRefNumber": {
+                        "rph": "1"
+                    },
+                    "flightSegmentRPHs": {
+                        "flightSegmentRPH": [
+                            "1"
+                        ]
+                    },
+                    "socialMediaInfo": [],
+                    "passengerTypeCode": "ADT",
+                    "gender": "Male",
+                    "comment": []
+                }
+            ],
+            "specialReqDetails": [
+                {
+                    "specialServiceRequests": {
+                        "specialServiceRequest": [
+                            {
+                                "text": "PP 741852369",
+                                "serviceQuantity": 1,
+                                "status": "30",
+                                "number": 1,
+                                "travelerRefNumberRPHList": [
+                                    "1"
+                                ],
+                                "flightRefNumberRPHList": [
+                                    "1"
+                                ],
+                                "ssrcode": "FOID"
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "ticketing": [
+            {
+                "ticketAdvisory": [],
+                "ticketType": "E_TICKET",
+                "flightSegmentRefNumber": [],
+                "travelerRefNumber": [
+                    "1"
+                ],
+                "ticketDocumentNbr": "2772770020333",
+                "passengerTypeCode": "ADT",
+                "miscTicketingCode": [],
+                "tpaextensions": {
+                    "couponInfos": [
+                        {
+                            "flightRefRPH": "1",
+                            "number": "1",
+                            "status": "O"
+                        }
+                    ]
+                }
+            }
+        ],
+        "bookingReferenceID": [
+            {
+                "companyName": {
+                    "value": "",
+                    "code": "DX"
+                },
+                "type": "14",
+                "id": "OBYKHD",
+                "flightRefNumberRPHList": []
+            }
+        ],
+        "offer": {
+            "summary": [],
+            "priced": [
+                {
+                    "shortDescription": [],
+                    "longDescription": [],
+                    "originDestination": [],
+                    "otherServices": [],
+                    "restriction": [],
+                    "termsAndConditions": [],
+                    "commission": [],
+                    "multimedia": [],
+                    "bookingReferenceID": [],
+                    "id": "2169881",
+                    "tpaextensions": {
+                        "orderInfo": {
+                            "action": "CREATE_BOOKING",
+                            "currencyCode": "USD",
+                            "direction": "PAYMENT",
+                            "orderType": "BOOKING",
+                            "paymentTransactionId": "2137287",
+                            "status": "PAID",
+                            "totalAmount": "4.48"
+                        }
+                    }
+                }
+            ],
+            "purchased": []
+        },
+        "createDateTime": "2025-11-28T07:55:36.000Z",
+        "emdinfo": []
+    },
+    "airBookModifyRQ": {
+        "modificationType": "30",
+        "airItinerary": {
+            "originDestinationOptions": {
+                "originDestinationOption": [
+                    {
+                        "flightSegment": [
+                            {
+                                "departureAirport": {
+                                    "locationCode": "AAC"
+                                },
+                                "arrivalAirport": {
+                                    "locationCode": "AAL"
+                                },
+                                "operatingAirline": {
+                                    "value": "",
+                                    "code": "DX",
+                                    "flightNumber": "7877"
+                                },
+                                "equipment": [],
+                                "departureDateTime": "2026-01-02T17:00:00.000+02:00",
+                                "arrivalDateTime": "2026-01-02T19:00:00.000+01:00",
+                                "stopQuantity": 0,
+                                "rph": "3",
+                                "marketingAirline": {
+                                    "value": "",
+                                    "code": "DX"
+                                },
+                                "flightNumber": "7877",
+                                "resBookDesigCode": "C"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+}
+```
+
+</div>
+</details>
+
+### JSON Response
+
+<details>
+<summary><strong>✅ Example</strong></summary>
+<div markdown="1">
+
+```json
+{
+    "airReservation": {
+        "airItinerary": {
+            "originDestinationOptions": {
+                "originDestinationOption": [
+                    {
+                        "flightSegment": [
+                            {
+                                "departureAirport": {
+                                    "locationCode": "AAC",
+                                    "terminal": "1A"
+                                },
+                                "arrivalAirport": {
+                                    "locationCode": "AAL",
+                                    "terminal": "2B"
+                                },
+                                "operatingAirline": {
+                                    "value": "",
+                                    "code": "DX",
+                                    "flightNumber": "7877"
+                                },
+                                "equipment": [],
+                                "departureDateTime": "2026-01-02T17:00:00.000+02:00",
+                                "arrivalDateTime": "2026-01-02T19:00:00.000+01:00",
+                                "stopQuantity": 0,
+                                "rph": "4",
+                                "marketingAirline": {
+                                    "value": "",
+                                    "code": "DX"
+                                },
+                                "flightNumber": "7877",
+                                "resBookDesigCode": "Y",
+                                "bookingClassAvails": [],
+                                "comment": [],
+                                "stopLocation": [],
+                                "status": "30",
+                                "tpaextensions": {
+                                    "fareBasis": "YID",
+                                    "fareRule": {
+                                        "code": "ID",
+                                        "name": "${[en]:pricing.farerules.general.name.ID}",
+                                        "value": "Test ID fare"
+                                    },
+                                    "operations": [
+                                        {
+                                            "modificationType": "10",
+                                            "name": "CANCEL"
+                                        },
+                                        {
+                                            "modificationType": "30",
+                                            "name": "REBOOK"
+                                        },
+                                        {
+                                            "modificationType": "3",
+                                            "name": "CHANGE_NAME"
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "priceInfo": {
+            "itinTotalFare": [
+                {
+                    "baseFare": {
+                        "currencyCode": "USD",
+                        "amount": 0.00
+                    },
+                    "equivFare": [],
+                    "fees": {
+                        "fee": [
+                            {
+                                "value": "",
+                                "feeCode": "VAT_reservation",
+                                "currencyCode": "USD",
+                                "decimalPlaces": 2,
+                                "amount": 0.00
+                            },
+                            {
+                                "value": "",
+                                "feeCode": "reservation",
+                                "currencyCode": "USD",
+                                "decimalPlaces": 2,
+                                "amount": 4.48
+                            }
+                        ]
+                    },
+                    "totalFare": {
+                        "currencyCode": "USD",
+                        "amount": 4.48
+                    },
+                    "fareBaggageAllowance": [],
+                    "remark": []
+                }
+            ],
+            "ptcfareBreakdowns": {
+                "ptcfareBreakdown": [
+                    {
+                        "passengerTypeQuantity": {
+                            "code": "ADT",
+                            "quantity": 1
+                        },
+                        "fareBasisCodes": {
+                            "fareBasisCode": [
+                                {
+                                    "value": "YID"
+                                }
+                            ]
+                        },
+                        "passengerFare": [
+                            {
+                                "baseFare": {
+                                    "currencyCode": "USD",
+                                    "decimalPlaces": 2,
+                                    "amount": 0.00
+                                },
+                                "equivFare": [],
+                                "fees": {
+                                    "fee": [
+                                        {
+                                            "value": "",
+                                            "feeCode": "VAT_reservation",
+                                            "currencyCode": "USD",
+                                            "decimalPlaces": 2,
+                                            "amount": 0.00
+                                        },
+                                        {
+                                            "value": "",
+                                            "feeCode": "reservation",
+                                            "currencyCode": "USD",
+                                            "decimalPlaces": 2,
+                                            "amount": 4.48
+                                        }
+                                    ]
+                                },
+                                "totalFare": {
+                                    "currencyCode": "USD",
+                                    "decimalPlaces": 2,
+                                    "amount": 4.48
+                                },
+                                "fareBaggageAllowance": [],
+                                "remark": []
+                            }
+                        ],
+                        "travelerRefNumber": [
+                            {
+                                "rph": "1"
+                            }
+                        ],
+                        "ticketDesignators": {
+                            "ticketDesignator": [
+                                {
+                                    "flightRefRPH": "4"
+                                }
+                            ]
+                        },
+                        "fareInfo": [],
+                        "pricingUnit": [],
+                        "flightRefNumberRPHList": [
+                            "4"
+                        ]
+                    }
+                ]
+            }
+        },
+        "travelerInfo": {
+            "airTraveler": [
+                {
+                    "personName": {
+                        "namePrefix": [
+                            "MR"
+                        ],
+                        "givenName": [
+                            "QA"
+                        ],
+                        "middleName": [],
+                        "surname": "TESTER",
+                        "nameSuffix": [],
+                        "nameTitle": []
+                    },
+                    "telephone": [
+                        {
+                            "countryAccessCode": "66",
+                            "phoneNumber": "78945612"
+                        }
+                    ],
+                    "email": [
+                        {
+                            "value": "qa@example.com"
+                        }
+                    ],
+                    "address": [],
+                    "custLoyalty": [],
+                    "document": [
+                        {
+                            "docLimitations": [],
+                            "docID": "741852369",
+                            "docType": "2",
+                            "docHolderNationality": "TH",
+                            "expireDate": "2025-12-31"
+                        }
+                    ],
+                    "travelerRefNumber": {
+                        "rph": "1"
+                    },
+                    "flightSegmentRPHs": {
+                        "flightSegmentRPH": [
+                            "4"
+                        ]
+                    },
+                    "socialMediaInfo": [],
+                    "passengerTypeCode": "ADT",
+                    "gender": "Male",
+                    "comment": []
+                }
+            ],
+            "specialReqDetails": [
+                {
+                    "specialServiceRequests": {
+                        "specialServiceRequest": [
+                            {
+                                "text": "PP 741852369",
+                                "serviceQuantity": 1,
+                                "status": "30",
+                                "number": 1,
+                                "travelerRefNumberRPHList": [
+                                    "1"
+                                ],
+                                "flightRefNumberRPHList": [
+                                    "4"
+                                ],
+                                "ssrcode": "FOID"
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "ticketing": [
+            {
+                "ticketAdvisory": [],
+                "ticketType": "E_TICKET",
+                "flightSegmentRefNumber": [],
+                "travelerRefNumber": [
+                    "1"
+                ],
+                "ticketDocumentNbr": "2772770020333",
+                "passengerTypeCode": "ADT",
+                "miscTicketingCode": []
+            }
+        ],
+        "bookingReferenceID": [
+            {
+                "companyName": {
+                    "value": "",
+                    "code": "DX"
+                },
+                "type": "14",
+                "id": "OBYKHD",
+                "flightRefNumberRPHList": []
+            }
+        ],
+        "offer": {
+            "summary": [],
+            "priced": [
+                {
+                    "shortDescription": [],
+                    "longDescription": [],
+                    "originDestination": [],
+                    "otherServices": [],
+                    "restriction": [],
+                    "termsAndConditions": [],
+                    "commission": [],
+                    "multimedia": [],
+                    "bookingReferenceID": [],
+                    "id": "2169881",
+                    "tpaextensions": {
+                        "orderInfo": {
+                            "action": "CREATE_BOOKING",
+                            "currencyCode": "USD",
+                            "direction": "PAYMENT",
+                            "orderType": "BOOKING",
+                            "paymentTransactionId": "2137287",
+                            "status": "PAID",
+                            "totalAmount": "4.48"
+                        }
+                    }
+                }
+            ],
+            "purchased": []
+        },
+        "createDateTime": "2025-11-28T07:55:36.000Z",
+        "emdinfo": []
+    },
+    "success": {},
+    "timeStamp": "2025-11-28T08:16:34.756Z",
+    "version": 2.001,
+    "retransmissionIndicator": false
+}
+```
+
+</div>
+</details>
+
 ## Modification Policies
 
 ### Name Change Policy
 - Minor spelling corrections usually allowed
 - Complete name changes may require documentation
 - Fees may apply based on fare rules
+
+### Date Change Policy  
+- Subject to seat availability on new flight
+- Price difference may apply
+- Change fees based on fare conditions
+- Some fares may not allow changes
 
 ### SSR Policy
 - Most SSRs can be added post-booking
