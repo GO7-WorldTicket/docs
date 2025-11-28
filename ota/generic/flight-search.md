@@ -102,7 +102,6 @@ curl -X POST \
 
 ```json
 {
-  "target": "Production",
   "version": "2.001",
   "pos": {
     "source": [
@@ -163,7 +162,6 @@ curl -X POST \
 
 ```json
 {
-  "target": "Production",
   "version": "2.001",
   "pos": {
     "source": [
@@ -179,13 +177,88 @@ curl -X POST \
   "originDestinationInformation": [
     {
       "originLocation": {
-        "locationCode": "KRP"
+        "locationCode": "AAC"
       },
       "destinationLocation": {
-        "locationCode": "CPH"
+        "locationCode": "AAL"
       },
       "departureDateTime": {
-        "value": "2025-12-19",
+        "value": "2025-12-29",
+        "windowBefore": "P0D",
+        "windowAfter": "P0D"
+      }
+    }
+  ],
+  "travelerInfoSummary": {
+    "airTravelerAvail": [
+      {
+        "passengerTypeQuantity": [
+          {
+            "code": "ADT",
+            "quantity": "1"
+          },
+          {
+            "code": "CHD",
+            "quantity": "0"
+          },
+          {
+            "code": "INF",
+            "quantity": "0"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+</div>
+
+</details>
+
+## AirLowFareSearchRQ for Round Trip
+
+<details>
+<summary><strong>📋 Request Template</strong></summary>
+<div markdown="1">
+
+```json
+{
+  "version": "2.001",
+  "pos": {
+    "source": [
+      {
+        "isocurrency": "USD"
+      }
+    ]
+  },
+  "processingInfo": {
+    "displayOrder": "BY_PRICE_LOW_TO_HIGH",
+    "availabilityIndicator": true
+  },
+  "originDestinationInformation": [
+    {
+      "originLocation": {
+        "locationCode": "AAC"
+      },
+      "destinationLocation": {
+        "locationCode": "AAL"
+      },
+      "departureDateTime": {
+        "value": "2025-12-29",
+        "windowBefore": "P0D",
+        "windowAfter": "P0D"
+      }
+    },
+    {
+      "originLocation": {
+        "locationCode": "AAL"
+      },
+      "destinationLocation": {
+        "locationCode": "AAC"
+      },
+      "departureDateTime": {
+        "value": "2025-12-31",
         "windowBefore": "P0D",
         "windowAfter": "P0D"
       }
@@ -218,89 +291,12 @@ curl -X POST \
 
 </details>
 
-## AirLowFareSearchRQ for Round Trip
-
-<details>
-<summary><strong>📋 Request Template</strong></summary>
-<div markdown="1">
-
-```json
-{
-  "target": "Production",
-  "version": "2.001",
-  "pos": {
-    "source": [
-      {
-        "isocurrency": "USD"
-      }
-    ]
-  },
-  "processingInfo": {
-    "displayOrder": "BY_PRICE_LOW_TO_HIGH",
-    "availabilityIndicator": true
-  },
-  "originDestinationInformation": [
-    {
-      "originLocation": {
-        "locationCode": "{origin_code}"
-      },
-      "destinationLocation": {
-        "locationCode": "{destination_code}"
-      },
-      "departureDateTime": {
-        "value": "{outbound_date}",
-        "windowBefore": "P0D",
-        "windowAfter": "P0D"
-      }
-    },
-    {
-      "originLocation": {
-        "locationCode": "{destination_code}"
-      },
-      "destinationLocation": {
-        "locationCode": "{origin_code}"
-      },
-      "departureDateTime": {
-        "value": "{inbound_date}",
-        "windowBefore": "P0D",
-        "windowAfter": "P0D"
-      }
-    }
-  ],
-  "travelerInfoSummary": {
-    "airTravelerAvail": [
-      {
-        "passengerTypeQuantity": [
-          {
-            "code": "ADT",
-            "quantity": "{adult_count}"
-          },
-          {
-            "code": "CHD",
-            "quantity": "{child_count}"
-          },
-          {
-            "code": "INF",
-            "quantity": "{infant_count}"
-          }
-        ]
-      }
-    ]
-  }
-}
-```
-
-</div>
-
-</details>
-
 <details>
 <summary><strong>✅ Example</strong></summary>
 <div markdown="1">
 
 ```json
 {
-  "target": "Production",
   "version": "2.001",
   "pos": {
     "source": [
@@ -322,7 +318,7 @@ curl -X POST \
         "locationCode": "AAL"
       },
       "departureDateTime": {
-        "value": "2025-12-16",
+        "value": "2025-12-29",
         "windowBefore": "P0D",
         "windowAfter": "P0D"
       }
@@ -335,7 +331,7 @@ curl -X POST \
         "locationCode": "AAC"
       },
       "departureDateTime": {
-        "value": "2025-12-17",
+        "value": "2025-12-31",
         "windowBefore": "P0D",
         "windowAfter": "P0D"
       }
@@ -378,7 +374,6 @@ To receive outbound and inbound fares separately, specify FareRestriction `OUT` 
 
 ```json
 {
-  "target": "Production",
   "version": "2.001",
   "pos": {
     "source": [
@@ -400,7 +395,7 @@ To receive outbound and inbound fares separately, specify FareRestriction `OUT` 
         "locationCode": "AAL"
       },
       "departureDateTime": {
-        "value": "2025-12-16",
+        "value": "2025-12-29",
         "windowBefore": "P0D",
         "windowAfter": "P0D"
       }
@@ -413,34 +408,24 @@ To receive outbound and inbound fares separately, specify FareRestriction `OUT` 
         "locationCode": "AAC"
       },
       "departureDateTime": {
-        "value": "2025-12-17",
+        "value": "2025-12-30",
         "windowBefore": "P0D",
         "windowAfter": "P0D"
       }
     }
   ],
-  "travelPreferences": [
-    {
-      "fareRestrictPref": {
-        "fareRestriction": "OUT"
-      }
+  "travelPreferences": {
+    "fareRestrictPref": {
+      "fareRestriction": "OUT"
     }
-  ],
+  },
   "travelerInfoSummary": {
     "airTravelerAvail": [
       {
         "passengerTypeQuantity": [
           {
             "code": "ADT",
-            "quantity": "1"
-          },
-          {
-            "code": "CHD",
-            "quantity": "1"
-          },
-          {
-            "code": "INF",
-            "quantity": "0"
+            "quantity": 1
           }
         ]
       }
@@ -459,7 +444,6 @@ To receive outbound and inbound fares separately, specify FareRestriction `OUT` 
 
 ```json
 {
-  "target": "Production",
   "version": "2.001",
   "pos": {
     "source": [
@@ -481,7 +465,7 @@ To receive outbound and inbound fares separately, specify FareRestriction `OUT` 
         "locationCode": "AAL"
       },
       "departureDateTime": {
-        "value": "2025-12-16",
+        "value": "2025-12-29",
         "windowBefore": "P0D",
         "windowAfter": "P0D"
       }
@@ -494,34 +478,24 @@ To receive outbound and inbound fares separately, specify FareRestriction `OUT` 
         "locationCode": "AAC"
       },
       "departureDateTime": {
-        "value": "2025-12-17",
+        "value": "2025-12-30",
         "windowBefore": "P0D",
         "windowAfter": "P0D"
       }
     }
   ],
-  "travelPreferences": [
-    {
-      "fareRestrictPref": {
-        "fareRestriction": "IN"
-      }
+  "travelPreferences": {
+    "fareRestrictPref": {
+      "fareRestriction": "IN"
     }
-  ],
+  },
   "travelerInfoSummary": {
     "airTravelerAvail": [
       {
         "passengerTypeQuantity": [
           {
             "code": "ADT",
-            "quantity": "1"
-          },
-          {
-            "code": "CHD",
-            "quantity": "1"
-          },
-          {
-            "code": "INF",
-            "quantity": "0"
+            "quantity": 1
           }
         ]
       }
@@ -534,9 +508,11 @@ To receive outbound and inbound fares separately, specify FareRestriction `OUT` 
 
 </details>
 
-## Response Structure
+## JSON Response
 
-### JSON Response
+<details>
+<summary><strong>✅ Example</strong></summary>
+<div markdown="1">
 
 ```json
 {
@@ -562,8 +538,8 @@ To receive outbound and inbound fares separately, specify FareRestriction `OUT` 
                       "flightNumber": "7878"
                     },
                     "equipment": [],
-                    "departureDateTime": "2025-12-16T10:00:00.000+02:00",
-                    "arrivalDateTime": "2025-12-16T12:00:00.000+01:00",
+                    "departureDateTime": "2025-12-29T10:00:00.000+02:00",
+                    "arrivalDateTime": "2025-12-29T12:00:00.000+01:00",
                     "stopQuantity": 0,
                     "rph": "1",
                     "marketingAirline": {
@@ -577,7 +553,7 @@ To receive outbound and inbound fares separately, specify FareRestriction `OUT` 
                         "bookingClassAvail": [
                           {
                             "resBookDesigCode": "Y",
-                            "resBookDesigQuantity": "42"
+                            "resBookDesigQuantity": "37"
                           }
                         ],
                         "cabinType": "ECONOMY"
@@ -607,8 +583,8 @@ To receive outbound and inbound fares separately, specify FareRestriction `OUT` 
                       "flightNumber": "7879"
                     },
                     "equipment": [],
-                    "departureDateTime": "2025-12-17T12:30:00.000+01:00",
-                    "arrivalDateTime": "2025-12-17T14:30:00.000+02:00",
+                    "departureDateTime": "2025-12-31T12:30:00.000+01:00",
+                    "arrivalDateTime": "2025-12-31T14:30:00.000+02:00",
                     "stopQuantity": 0,
                     "rph": "2",
                     "marketingAirline": {
@@ -622,7 +598,7 @@ To receive outbound and inbound fares separately, specify FareRestriction `OUT` 
                         "bookingClassAvail": [
                           {
                             "resBookDesigCode": "Y",
-                            "resBookDesigQuantity": "40"
+                            "resBookDesigQuantity": "42"
                           }
                         ],
                         "cabinType": "ECONOMY"
@@ -645,7 +621,7 @@ To receive outbound and inbound fares separately, specify FareRestriction `OUT` 
             {
               "baseFare": {
                 "currencyCode": "USD",
-                "amount": 119.27
+                "amount": 0.00
               },
               "equivFare": [],
               "taxes": {
@@ -656,12 +632,29 @@ To receive outbound and inbound fares separately, specify FareRestriction `OUT` 
                     "taxName": "tax",
                     "currencyCode": "USD",
                     "amount": 14.05
+                  },
+                  {
+                    "value": "",
+                    "taxCode": "MI",
+                    "taxName": "surcharge",
+                    "currencyCode": "USD",
+                    "amount": 3.04
+                  }
+                ]
+              },
+              "fees": {
+                "fee": [
+                  {
+                    "value": "",
+                    "feeCode": "RES_FEE",
+                    "currencyCode": "USD",
+                    "amount": 17.92
                   }
                 ]
               },
               "totalFare": {
                 "currencyCode": "USD",
-                "amount": 133.32
+                "amount": 35.01
               },
               "fareBaggageAllowance": [],
               "remark": []
@@ -672,7 +665,7 @@ To receive outbound and inbound fares separately, specify FareRestriction `OUT` 
               {
                 "fareReference": [
                   {
-                    "value": "YECOM"
+                    "value": "YID"
                   }
                 ],
                 "filingAirline": {
@@ -690,15 +683,12 @@ To receive outbound and inbound fares separately, specify FareRestriction `OUT` 
                 "date": [],
                 "fareInfo": [],
                 "city": [],
-                "airport": [],
-                "tpaextensions": {
-                  "priceGroup": "Economy"
-                }
+                "airport": []
               },
               {
                 "fareReference": [
                   {
-                    "value": "YECOM"
+                    "value": "YID"
                   }
                 ],
                 "filingAirline": {
@@ -716,10 +706,7 @@ To receive outbound and inbound fares separately, specify FareRestriction `OUT` 
                 "date": [],
                 "fareInfo": [],
                 "city": [],
-                "airport": [],
-                "tpaextensions": {
-                  "priceGroup": "Economy"
-                }
+                "airport": []
               }
             ]
           },
@@ -733,7 +720,7 @@ To receive outbound and inbound fares separately, specify FareRestriction `OUT` 
                 "fareBasisCodes": {
                   "fareBasisCode": [
                     {
-                      "value": "YECOM"
+                      "value": "YID"
                     }
                   ]
                 },
@@ -742,13 +729,35 @@ To receive outbound and inbound fares separately, specify FareRestriction `OUT` 
                     "baseFare": {
                       "currencyCode": "USD",
                       "decimalPlaces": 2,
-                      "amount": 33.33
+                      "amount": 0.00
                     },
                     "equivFare": [],
+                    "taxes": {
+                      "tax": [
+                        {
+                          "value": "",
+                          "taxCode": "MI",
+                          "currencyCode": "USD",
+                          "decimalPlaces": 2,
+                          "amount": 0.76
+                        }
+                      ]
+                    },
+                    "fees": {
+                      "fee": [
+                        {
+                          "value": "",
+                          "feeCode": "reservation",
+                          "currencyCode": "USD",
+                          "decimalPlaces": 2,
+                          "amount": 4.48
+                        }
+                      ]
+                    },
                     "totalFare": {
                       "currencyCode": "USD",
                       "decimalPlaces": 2,
-                      "amount": 33.33
+                      "amount": 5.24
                     },
                     "fareBaggageAllowance": [],
                     "remark": []
@@ -780,7 +789,7 @@ To receive outbound and inbound fares separately, specify FareRestriction `OUT` 
                 "fareBasisCodes": {
                   "fareBasisCode": [
                     {
-                      "value": "YECOM"
+                      "value": "YID"
                     }
                   ]
                 },
@@ -789,13 +798,35 @@ To receive outbound and inbound fares separately, specify FareRestriction `OUT` 
                     "baseFare": {
                       "currencyCode": "USD",
                       "decimalPlaces": 2,
-                      "amount": 33.33
+                      "amount": 0.00
                     },
                     "equivFare": [],
+                    "taxes": {
+                      "tax": [
+                        {
+                          "value": "",
+                          "taxCode": "MI",
+                          "currencyCode": "USD",
+                          "decimalPlaces": 2,
+                          "amount": 0.76
+                        }
+                      ]
+                    },
+                    "fees": {
+                      "fee": [
+                        {
+                          "value": "",
+                          "feeCode": "reservation",
+                          "currencyCode": "USD",
+                          "decimalPlaces": 2,
+                          "amount": 4.48
+                        }
+                      ]
+                    },
                     "totalFare": {
                       "currencyCode": "USD",
                       "decimalPlaces": 2,
-                      "amount": 33.33
+                      "amount": 5.24
                     },
                     "fareBaggageAllowance": [],
                     "remark": []
@@ -827,7 +858,7 @@ To receive outbound and inbound fares separately, specify FareRestriction `OUT` 
                 "fareBasisCodes": {
                   "fareBasisCode": [
                     {
-                      "value": "YECOM"
+                      "value": "YID"
                     }
                   ]
                 },
@@ -836,13 +867,35 @@ To receive outbound and inbound fares separately, specify FareRestriction `OUT` 
                     "baseFare": {
                       "currencyCode": "USD",
                       "decimalPlaces": 2,
-                      "amount": 33.33
+                      "amount": 0.00
                     },
                     "equivFare": [],
+                    "taxes": {
+                      "tax": [
+                        {
+                          "value": "",
+                          "taxCode": "MI",
+                          "currencyCode": "USD",
+                          "decimalPlaces": 2,
+                          "amount": 0.76
+                        }
+                      ]
+                    },
+                    "fees": {
+                      "fee": [
+                        {
+                          "value": "",
+                          "feeCode": "reservation",
+                          "currencyCode": "USD",
+                          "decimalPlaces": 2,
+                          "amount": 4.48
+                        }
+                      ]
+                    },
                     "totalFare": {
                       "currencyCode": "USD",
                       "decimalPlaces": 2,
-                      "amount": 33.33
+                      "amount": 5.24
                     },
                     "fareBaggageAllowance": [],
                     "remark": []
@@ -874,7 +927,7 @@ To receive outbound and inbound fares separately, specify FareRestriction `OUT` 
                 "fareBasisCodes": {
                   "fareBasisCode": [
                     {
-                      "value": "YECOM"
+                      "value": "YID"
                     }
                   ]
                 },
@@ -883,11 +936,18 @@ To receive outbound and inbound fares separately, specify FareRestriction `OUT` 
                     "baseFare": {
                       "currencyCode": "USD",
                       "decimalPlaces": 2,
-                      "amount": 19.28
+                      "amount": 0.00
                     },
                     "equivFare": [],
                     "taxes": {
                       "tax": [
+                        {
+                          "value": "",
+                          "taxCode": "MI",
+                          "currencyCode": "USD",
+                          "decimalPlaces": 2,
+                          "amount": 0.76
+                        },
                         {
                           "value": "",
                           "taxCode": "ZO",
@@ -897,10 +957,21 @@ To receive outbound and inbound fares separately, specify FareRestriction `OUT` 
                         }
                       ]
                     },
+                    "fees": {
+                      "fee": [
+                        {
+                          "value": "",
+                          "feeCode": "reservation",
+                          "currencyCode": "USD",
+                          "decimalPlaces": 2,
+                          "amount": 4.48
+                        }
+                      ]
+                    },
                     "totalFare": {
                       "currencyCode": "USD",
                       "decimalPlaces": 2,
-                      "amount": 33.33
+                      "amount": 19.29
                     },
                     "fareBaggageAllowance": [],
                     "remark": []
@@ -932,9 +1003,12 @@ To receive outbound and inbound fares separately, specify FareRestriction `OUT` 
       }
     ]
   },
-  "timeStamp": "2025-11-19T07:41:38.207Z",
-  "target": "Production",
+  "timeStamp": "2025-11-27T06:56:23.222Z",
   "version": 2.001,
   "retransmissionIndicator": false
 }
 ```
+
+</div>
+
+</details>

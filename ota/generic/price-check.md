@@ -189,23 +189,23 @@ Note: Use same value for "type" and "qualifier".
           "flightSegment": [
             {
               "departureAirport": {
-                "locationCode": "KRP"
+                "locationCode": "AAC"
               },
               "arrivalAirport": {
-                "locationCode": "CPH"
+                "locationCode": "AAL"
               },
               "operatingAirline": {
                 "code": "DX",
                 "flightNumber": "9901"
               },
               "equipment": [],
-              "departureDateTime": "2025-12-19T18:10:00",
-              "arrivalDateTime": "2025-12-19T19:00:00",
+              "departureDateTime": "2025-12-29T10:00:00.000+02:00",
+              "arrivalDateTime": "2025-12-29T12:00:00.000+01:00",
               "rph": "1",
               "marketingAirline": {
                 "code": "DX"
               },
-              "flightNumber": "9901",
+              "flightNumber": "7878",
               "resBookDesigCode": "Y"
             }
           ]
@@ -216,7 +216,7 @@ Note: Use same value for "type" and "qualifier".
   "travelerInfoSummary": {
     "pricingPref": [
       {
-        "type":"5",
+        "type": "5",
         "qualifier": "5"
       }
     ],
@@ -233,7 +233,7 @@ Note: Use same value for "type" and "qualifier".
           },
           {
             "code": "INF",
-            "quantity": "0"
+            "quantity": "1"
           }
         ]
       }
@@ -254,31 +254,6 @@ Note: Use same value for "type" and "qualifier".
 
 ```json
 {
-  "pricingOverview": {
-    "fareInfo": {
-      "equivFare": [],
-      "fareBaggageAllowance": [],
-      "remark": [],
-      "tpaextensions": {
-        "taxInfo": [
-          {
-            "taxCode": "EU",
-            "taxName": "EU ETS CO2 emission tax",
-            "taxType": "Airport tax"
-          },
-          {
-            "taxCode": "DC",
-            "taxName": "DCAA Safety Contribution",
-            "taxType": "Airport tax"
-          }
-        ]
-      }
-    },
-    "notes": [],
-    "account": [],
-    "pricingIndicator": []
-  },
-  "success": {},
   "pricedItineraries": {
     "pricedItinerary": [
       {
@@ -289,10 +264,10 @@ Note: Use same value for "type" and "qualifier".
                 "flightSegment": [
                   {
                     "departureAirport": {
-                      "locationCode": "KRP"
+                      "locationCode": "AAC"
                     },
                     "arrivalAirport": {
-                      "locationCode": "CPH"
+                      "locationCode": "AAL"
                     },
                     "operatingAirline": {
                       "value": "",
@@ -300,25 +275,24 @@ Note: Use same value for "type" and "qualifier".
                       "flightNumber": "9901"
                     },
                     "equipment": [],
-                    "departureDateTime": "2025-12-19T18:10:00",
-                    "arrivalDateTime": "2025-12-19T19:00:00",
+                    "departureDateTime": "2025-12-29T10:00:00.000+02:00",
+                    "arrivalDateTime": "2025-12-29T12:00:00.000+01:00",
                     "rph": "1",
                     "marketingAirline": {
                       "value": "",
                       "code": "DX"
                     },
-                    "flightNumber": "9901",
+                    "flightNumber": "7878",
                     "resBookDesigCode": "Y",
                     "bookingClassAvails": [],
                     "comment": [],
                     "stopLocation": [],
                     "tpaextensions": {
-                      "fareBasis": "YDXBED",
-                      "priceGroup": "Bedre",
+                      "fareBasis": "YID",
                       "fareRule": {
-                        "code": "ECOBOW",
-                        "name": "BEDRE",
-                        "value": "Time/date can be changed prior to departure for a fee of DKK 200 per segment + fare difference. Cannot be rebooked to a less expensive fare. Name change for a fee of DKK 200 per segment. Refund not allowed. 1 piece (23 kg) checked-in luggage included. 8 kg of hand luggage included. 24 hour cancellation grace period after booking if departure is not within 24 hours. Children (2-15 years) pay 75% of the net fare (ex. taxes). Infants not requiring a separate seat can be added for free. An administration fee of DKK 95 per flight is charged for processing a refund. General terms and conditions also apply."
+                        "code": "ID",
+                        "name": "${[en]:pricing.farerules.general.name.ID}",
+                        "value": "Test ID fare"
                       }
                     }
                   }
@@ -332,24 +306,17 @@ Note: Use same value for "type" and "qualifier".
             {
               "baseFare": {
                 "currencyCode": "USD",
-                "amount": 31.76
+                "amount": 0.00
               },
               "equivFare": [],
               "taxes": {
                 "tax": [
                   {
                     "value": "",
-                    "taxCode": "DC",
+                    "taxCode": "MI",
                     "currencyCode": "USD",
                     "decimalPlaces": 2,
-                    "amount": 2.04
-                  },
-                  {
-                    "value": "",
-                    "taxCode": "EU",
-                    "currencyCode": "USD",
-                    "decimalPlaces": 2,
-                    "amount": 4.07
+                    "amount": 0.76
                   }
                 ]
               },
@@ -357,16 +324,16 @@ Note: Use same value for "type" and "qualifier".
                 "fee": [
                   {
                     "value": "",
-                    "feeCode": "VAT_TOTAL",
+                    "feeCode": "reservation",
                     "currencyCode": "USD",
                     "decimalPlaces": 2,
-                    "amount": 2.78
+                    "amount": 4.48
                   }
                 ]
               },
               "totalFare": {
                 "currencyCode": "USD",
-                "amount": 39.73
+                "amount": 5.24
               },
               "fareBaggageAllowance": [],
               "remark": []
@@ -382,7 +349,7 @@ Note: Use same value for "type" and "qualifier".
                 "fareBasisCodes": {
                   "fareBasisCode": [
                     {
-                      "value": "YDXBED"
+                      "value": "YID"
                     }
                   ]
                 },
@@ -391,24 +358,17 @@ Note: Use same value for "type" and "qualifier".
                     "baseFare": {
                       "currencyCode": "USD",
                       "decimalPlaces": 2,
-                      "amount": 31.76
+                      "amount": 0.00
                     },
                     "equivFare": [],
                     "taxes": {
                       "tax": [
                         {
                           "value": "",
-                          "taxCode": "DC",
+                          "taxCode": "MI",
                           "currencyCode": "USD",
                           "decimalPlaces": 2,
-                          "amount": 2.04
-                        },
-                        {
-                          "value": "",
-                          "taxCode": "EU",
-                          "currencyCode": "USD",
-                          "decimalPlaces": 2,
-                          "amount": 4.07
+                          "amount": 0.76
                         }
                       ]
                     },
@@ -416,17 +376,17 @@ Note: Use same value for "type" and "qualifier".
                       "fee": [
                         {
                           "value": "",
-                          "feeCode": "VAT_TOTAL",
+                          "feeCode": "reservation",
                           "currencyCode": "USD",
                           "decimalPlaces": 2,
-                          "amount": 2.86
+                          "amount": 4.48
                         }
                       ]
                     },
                     "totalFare": {
                       "currencyCode": "USD",
                       "decimalPlaces": 2,
-                      "amount": 40.73
+                      "amount": 5.24
                     },
                     "fareBaggageAllowance": [],
                     "remark": []
@@ -435,6 +395,53 @@ Note: Use same value for "type" and "qualifier".
                 "travelerRefNumber": [
                   {
                     "rph": "1"
+                  }
+                ],
+                "ticketDesignators": {
+                  "ticketDesignator": [
+                    {
+                      "flightRefRPH": "1"
+                    }
+                  ]
+                },
+                "fareInfo": [],
+                "pricingUnit": [],
+                "flightRefNumberRPHList": [
+                  "1"
+                ]
+              },
+              {
+                "passengerTypeQuantity": {
+                  "code": "INF",
+                  "quantity": 1
+                },
+                "fareBasisCodes": {
+                  "fareBasisCode": [
+                    {
+                      "value": "ECOMSenior"
+                    }
+                  ]
+                },
+                "passengerFare": [
+                  {
+                    "baseFare": {
+                      "currencyCode": "USD",
+                      "decimalPlaces": 2,
+                      "amount": 0.00
+                    },
+                    "equivFare": [],
+                    "totalFare": {
+                      "currencyCode": "USD",
+                      "decimalPlaces": 2,
+                      "amount": 0.00
+                    },
+                    "fareBaggageAllowance": [],
+                    "remark": []
+                  }
+                ],
+                "travelerRefNumber": [
+                  {
+                    "rph": "2"
                   }
                 ],
                 "ticketDesignators": {
@@ -458,7 +465,27 @@ Note: Use same value for "type" and "qualifier".
       }
     ]
   },
-  "timeStamp": "2025-11-20T06:35:30.716Z",
+  "success": {},
+  "pricingOverview": {
+    "fareInfo": {
+      "equivFare": [],
+      "fareBaggageAllowance": [],
+      "remark": [],
+      "tpaextensions": {
+        "taxInfo": [
+          {
+            "taxCode": "MI",
+            "taxName": "CCAA tax",
+            "taxType": "Surcharge"
+          }
+        ]
+      }
+    },
+    "notes": [],
+    "account": [],
+    "pricingIndicator": []
+  },
+  "timeStamp": "2025-11-27T07:25:39.066Z",
   "version": 2.001,
   "retransmissionIndicator": false
 }

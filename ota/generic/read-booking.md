@@ -123,7 +123,7 @@ Attach the following headers to OTA requests.
     "readRequest": [
       {
         "uniqueID": {
-          "id": "7YF3OW",
+          "id": "KEVHTZ",
           "type": "14"
         }
       }
@@ -152,38 +152,39 @@ Attach the following headers to OTA requests.
             "flightSegment": [
               {
                 "departureAirport": {
-                  "locationCode": "KRP"
+                  "locationCode": "AAC",
+                  "terminal": "1A"
                 },
                 "arrivalAirport": {
-                  "locationCode": "CPH"
+                  "locationCode": "AAL",
+                  "terminal": "2B"
                 },
                 "operatingAirline": {
                   "value": "",
                   "code": "DX",
-                  "flightNumber": "9901"
+                  "flightNumber": "7878"
                 },
                 "equipment": [],
-                "departureDateTime": "2025-11-29T18:10:00.000+01:00",
-                "arrivalDateTime": "2025-11-29T19:00:00.000+01:00",
+                "departureDateTime": "2025-12-29T10:00:00.000+02:00",
+                "arrivalDateTime": "2025-12-29T12:00:00.000+01:00",
                 "stopQuantity": 0,
                 "rph": "1",
                 "marketingAirline": {
                   "value": "",
                   "code": "DX"
                 },
-                "flightNumber": "9901",
+                "flightNumber": "7878",
                 "resBookDesigCode": "Y",
                 "bookingClassAvails": [],
                 "comment": [],
                 "stopLocation": [],
                 "status": "30",
                 "tpaextensions": {
-                  "fareBasis": "YDXBED",
-                  "priceGroup": "Bedre",
+                  "fareBasis": "YID",
                   "fareRule": {
-                    "code": "ECOBOW",
-                    "name": "BEDRE",
-                    "value": "Time/date can be changed prior to departure for a fee of DKK 200 per segment + fare difference. Cannot be rebooked to a less expensive fare. Name change for a fee of DKK 200 per segment. Refund not allowed. 1 piece (23 kg) checked-in luggage included. 8 kg of hand luggage included. 24 hour cancellation grace period after booking if departure is not within 24 hours. Children (2-15 years) pay 75% of the net fare (ex. taxes). Infants not requiring a separate seat can be added for free. An administration fee of DKK 95 per flight is charged for processing a refund. General terms and conditions also apply."
+                    "code": "ID",
+                    "name": "${[en]:pricing.farerules.general.name.ID}",
+                    "value": "Test ID fare"
                   },
                   "operations": [
                     {
@@ -211,24 +212,17 @@ Attach the following headers to OTA requests.
         {
           "baseFare": {
             "currencyCode": "USD",
-            "amount": 31.76
+            "amount": 0.00
           },
           "equivFare": [],
           "taxes": {
             "tax": [
               {
                 "value": "",
-                "taxCode": "DC",
+                "taxCode": "MI",
                 "currencyCode": "USD",
                 "decimalPlaces": 2,
-                "amount": 2.04
-              },
-              {
-                "value": "",
-                "taxCode": "EU",
-                "currencyCode": "USD",
-                "decimalPlaces": 2,
-                "amount": 4.07
+                "amount": 0.76
               }
             ]
           },
@@ -236,30 +230,30 @@ Attach the following headers to OTA requests.
             "fee": [
               {
                 "value": "",
-                "feeCode": "VAT_DC",
+                "feeCode": "VAT_MI",
                 "currencyCode": "USD",
                 "decimalPlaces": 2,
                 "amount": 0.00
               },
               {
                 "value": "",
-                "feeCode": "VAT_EU",
+                "feeCode": "VAT_reservation",
                 "currencyCode": "USD",
                 "decimalPlaces": 2,
                 "amount": 0.00
               },
               {
                 "value": "",
-                "feeCode": "VAT_NET",
+                "feeCode": "reservation",
                 "currencyCode": "USD",
                 "decimalPlaces": 2,
-                "amount": 2.78
+                "amount": 4.48
               }
             ]
           },
           "totalFare": {
             "currencyCode": "USD",
-            "amount": 39.73
+            "amount": 5.24
           },
           "fareBaggageAllowance": [],
           "remark": []
@@ -275,7 +269,7 @@ Attach the following headers to OTA requests.
             "fareBasisCodes": {
               "fareBasisCode": [
                 {
-                  "value": "YDXBED"
+                  "value": "YID"
                 }
               ]
             },
@@ -284,24 +278,17 @@ Attach the following headers to OTA requests.
                 "baseFare": {
                   "currencyCode": "USD",
                   "decimalPlaces": 2,
-                  "amount": 31.76
+                  "amount": 0.00
                 },
                 "equivFare": [],
                 "taxes": {
                   "tax": [
                     {
                       "value": "",
-                      "taxCode": "DC",
+                      "taxCode": "MI",
                       "currencyCode": "USD",
                       "decimalPlaces": 2,
-                      "amount": 2.04
-                    },
-                    {
-                      "value": "",
-                      "taxCode": "EU",
-                      "currencyCode": "USD",
-                      "decimalPlaces": 2,
-                      "amount": 4.07
+                      "amount": 0.76
                     }
                   ]
                 },
@@ -309,31 +296,31 @@ Attach the following headers to OTA requests.
                   "fee": [
                     {
                       "value": "",
-                      "feeCode": "VAT_DC",
+                      "feeCode": "VAT_MI",
                       "currencyCode": "USD",
                       "decimalPlaces": 2,
                       "amount": 0.00
                     },
                     {
                       "value": "",
-                      "feeCode": "VAT_EU",
+                      "feeCode": "VAT_reservation",
                       "currencyCode": "USD",
                       "decimalPlaces": 2,
                       "amount": 0.00
                     },
                     {
                       "value": "",
-                      "feeCode": "VAT_NET",
+                      "feeCode": "reservation",
                       "currencyCode": "USD",
                       "decimalPlaces": 2,
-                      "amount": 2.86
+                      "amount": 4.48
                     }
                   ]
                 },
                 "totalFare": {
                   "currencyCode": "USD",
                   "decimalPlaces": 2,
-                  "amount": 40.73
+                  "amount": 5.24
                 },
                 "fareBaggageAllowance": [],
                 "remark": []
@@ -383,7 +370,7 @@ Attach the following headers to OTA requests.
           ],
           "email": [
             {
-              "value": "johndoe@example.com"
+              "value": "qa@example.com"
             }
           ],
           "address": [],
@@ -429,22 +416,6 @@ Attach the following headers to OTA requests.
                 "ssrcode": "FOID"
               }
             ]
-          },
-          "specialRemarks": {
-            "specialRemark": [
-              {
-                "travelerRefNumber": [
-                  {
-                    "rph": "1"
-                  }
-                ],
-                "flightRefNumber": [],
-                "text": "PREPAID",
-                "airline": [],
-                "remarkType": "9",
-                "id": "XBAG"
-              }
-            ]
           }
         }
       ]
@@ -452,23 +423,11 @@ Attach the following headers to OTA requests.
     "ticketing": [
       {
         "ticketAdvisory": [],
+        "ticketTimeLimit": "2025-11-27T07:34:29.000Z",
         "ticketType": "E_TICKET",
         "flightSegmentRefNumber": [],
-        "travelerRefNumber": [
-          "1"
-        ],
-        "ticketDocumentNbr": "2772770020247",
-        "passengerTypeCode": "ADT",
-        "miscTicketingCode": [],
-        "tpaextensions": {
-          "couponInfos": [
-            {
-              "flightRefRPH": "1",
-              "number": "1",
-              "status": "O"
-            }
-          ]
-        }
+        "travelerRefNumber": [],
+        "miscTicketingCode": []
       }
     ],
     "bookingReferenceID": [
@@ -478,7 +437,7 @@ Attach the following headers to OTA requests.
           "code": "DX"
         },
         "type": "14",
-        "id": "7YF3OW",
+        "id": "KEVHTZ",
         "flightRefNumberRPHList": []
       }
     ],
@@ -495,27 +454,26 @@ Attach the following headers to OTA requests.
           "commission": [],
           "multimedia": [],
           "bookingReferenceID": [],
-          "id": "2166329",
+          "id": "2169489",
           "tpaextensions": {
             "orderInfo": {
               "action": "CREATE_BOOKING",
               "currencyCode": "USD",
               "direction": "PAYMENT",
               "orderType": "BOOKING",
-              "paymentTransactionId": "2137168",
-              "status": "PAID",
-              "totalAmount": "39.73"
+              "status": "PENDING",
+              "totalAmount": "5.24"
             }
           }
         }
       ],
       "purchased": []
     },
-    "createDateTime": "2025-11-19T10:03:37.000Z",
+    "createDateTime": "2025-11-27T07:04:29.000Z",
     "emdinfo": []
   },
   "success": {},
-  "timeStamp": "2025-11-19T10:29:14.857Z",
+  "timeStamp": "2025-11-27T07:16:41.588Z",
   "version": 2.001,
   "retransmissionIndicator": false
 }

@@ -24,6 +24,14 @@ The purpose is to make a payment for existing booking and issue tickets.
   - [Payment with Cash](#payment-with-cash)
     - [JSON Request Example](#json-request-example)
     - [JSON Response Example](#json-response-example)
+
+[//]: # (  - [Payment with Debit-Credit Account]&#40;#payment-with-debit-credit-account&#41;)
+
+[//]: # (    - [Get Available Debit-Credit Accounts]&#40;#get-available-debit-credit-accounts&#41;)
+
+[//]: # (    - [Response]&#40;#response&#41;)
+
+[//]: # (    - [Payment with Debit-Credit Account]&#40;#payment-with-debit-credit-account-1&#41;)
   - [Currency Conversion](#currency-conversion)
     - [Get Conversion Rate](#get-conversion-rate)
     - [Response](#response-1)
@@ -345,6 +353,245 @@ Note: Use either `Authorization` (JWT) OR `X-API-Key` (API key), not both.
 </div>
 
 </details>
+
+[//]: # ()
+[//]: # (## Payment with Debit-Credit Account)
+
+[//]: # ()
+[//]: # (### Get Available Debit-Credit Accounts)
+
+[//]: # ()
+[//]: # (```bash)
+
+[//]: # (curl -X GET )
+
+[//]: # ('https://test-api.worldticket.net/sms-gateway/debit-credit/accounts' )
+
+[//]: # (-H 'Authorization: Bearer {access_token}' )
+
+[//]: # (-H 'Content-Type: application/json')
+
+[//]: # (```)
+
+[//]: # ()
+[//]: # (### Response)
+
+[//]: # ()
+[//]: # (```json)
+
+[//]: # ([)
+
+[//]: # (  {)
+
+[//]: # (    "id": {account_id},)
+
+[//]: # (    "accountName": "{account_name}",)
+
+[//]: # (    "ownerId": {owner_id},)
+
+[//]: # (    "ownerName": "{owner_name}",)
+
+[//]: # (    "active": true,)
+
+[//]: # (    "status": "ACTIVE",)
+
+[//]: # (    "currencyCode": "{currency_code}",)
+
+[//]: # (    "creditLimit": {credit_limit},)
+
+[//]: # (    "availableCredit": {available_credit},)
+
+[//]: # (    "balance": {balance_amount},)
+
+[//]: # (    "amountToBeInvoiced": 0,)
+
+[//]: # (    "handlers": [)
+
+[//]: # (      {)
+
+[//]: # (        "handlerId": {handler_id},)
+
+[//]: # (        "handlerName": "{handler_name}",)
+
+[//]: # (        "handlerType": "OFFICE")
+
+[//]: # (      })
+
+[//]: # (    ])
+
+[//]: # (  })
+
+[//]: # (])
+
+[//]: # (```)
+
+[//]: # ()
+[//]: # (### Payment with Debit-Credit Account)
+
+[//]: # ()
+[//]: # (### JSON Request)
+
+[//]: # ()
+[//]: # (<details>)
+
+[//]: # (<summary><strong>✅ Example</strong></summary>)
+
+[//]: # (<div markdown="1">)
+
+[//]: # ()
+[//]: # (```json)
+
+[//]: # ({)
+
+[//]: # (  "version": "2.001",)
+
+[//]: # (  "pos": {)
+
+[//]: # (    "source": [)
+
+[//]: # (      {)
+
+[//]: # (        "bookingChannel": {)
+
+[//]: # (          "type": "OTA")
+
+[//]: # (        },)
+
+[//]: # (        "requestorID": {)
+
+[//]: # (          "type": "5",)
+
+[//]: # (          "id": "{agent_id}",)
+
+[//]: # (          "name": "{agency_id}")
+
+[//]: # (        },)
+
+[//]: # (        "isocountry": "US",)
+
+[//]: # (        "isoCurrency": "USD")
+
+[//]: # (      })
+
+[//]: # (    ])
+
+[//]: # (  },)
+
+[//]: # (  "demandTicketDetail": {)
+
+[//]: # (    "messageFunction": [)
+
+[//]: # (      {)
+
+[//]: # (        "function": "ET")
+
+[//]: # (      })
+
+[//]: # (    ],)
+
+[//]: # (    "bookingReferenceID": {)
+
+[//]: # (      "id": "{record_locator}",)
+
+[//]: # (      "type": "14",)
+
+[//]: # (      "companyName": {)
+
+[//]: # (        "code": "{airline_code}",)
+
+[//]: # (        "companyShortName": "{airline_code}")
+
+[//]: # (      })
+
+[//]: # (    },)
+
+[//]: # (    "paymentInfo": [)
+
+[//]: # (      {)
+
+[//]: # (        "paymentType": "4",)
+
+[//]: # (        "creditCardInfo": [)
+
+[//]: # (          {)
+
+[//]: # (            "cardHolderName": "{account_name}")
+
+[//]: # (          })
+
+[//]: # (        ],)
+
+[//]: # (        "currencyCode": "USD",)
+
+[//]: # (        "amount": 100.00)
+
+[//]: # (      })
+
+[//]: # (    ])
+
+[//]: # (  })
+
+[//]: # (})
+
+[//]: # (```)
+
+[//]: # ()
+[//]: # (</div>)
+
+[//]: # ()
+[//]: # (</details>)
+
+[//]: # ()
+[//]: # ()
+[//]: # (### JSON Response)
+
+[//]: # ()
+[//]: # (<details>)
+
+[//]: # (<summary><strong>✅ Example</strong></summary>)
+
+[//]: # (<div markdown="1">)
+
+[//]: # ()
+[//]: # (```json)
+
+[//]: # ({)
+
+[//]: # (  "success": {},)
+
+[//]: # (  "bookingReferenceID": {)
+
+[//]: # (    "companyName": {)
+
+[//]: # (      "companyShortName": "test-saudia",)
+
+[//]: # (      "code": "test-saudia")
+
+[//]: # (    },)
+
+[//]: # (    "type": "14",)
+
+[//]: # (    "id": "AL59WI")
+
+[//]: # (  },)
+
+[//]: # (  "ticketItemInfo": [],)
+
+[//]: # (  "timeStamp": "2023-12-08T18:07:40.328+07:00",)
+
+[//]: # (  "version": 2.001,)
+
+[//]: # (  "retransmissionIndicator": false)
+
+[//]: # (})
+
+[//]: # (```)
+
+[//]: # ()
+[//]: # (</div>)
+
+[//]: # ()
+[//]: # (</details>)
 
 ## Currency Conversion
 

@@ -182,12 +182,23 @@ Please update the variables in collection such as apiKey, agent_id, agent_name a
   - [Regular booking for One-way trip](generic/booking-regular#airbookrq-for-one-way-trip)
   - [Regular booking for Round trip](generic/booking-regular#airbookrq-for-round-trip)
 - [Read Booking](generic/read-booking.md)
+- [Modify Booking](generic/booking-modification)
+  - [Add SSR](generic/booking-modification#add-ssr)
+  - [Change Name](generic/booking-modification#change-name)
+
+[//]: # (  - [Change Date]&#40;generic/booking-modification#change-date&#41;)
 - [Payment and Ticketing](generic/payment-ticketing)
   - [Base URLs](generic/payment-ticketing#base-urls)
   - [Endpoints](generic/payment-ticketing#endpoints)
   - [Supported Payment Types](generic/payment-ticketing#supported-payment-types)
   - [Make Payment for Issuing a Ticket](generic/payment-ticketing#make-payment-for-issuing-a-ticket)
   - [Payment with Cash](generic/payment-ticketing#payment-with-cash)
+
+[//]: # (  - [Payment with Debit-Credit Account]&#40;generic/payment-ticketing#payment-with-debit-credit-account&#41;)
+- [Cancel Booking](generic/booking-cancellation#cancel-booking)
+  - [Full Booking Cancellation](generic/booking-cancellation#full-booking-cancellation)
+  - [Cancel Specific Passengers](generic/booking-cancellation#cancel-specific-passengers)
+  - [Cancel Specific Segments](generic/booking-cancellation#cancel-specific-segments)
 
 [//]: # (  - [Payment with Redirect]&#40;generic/payment-ticketing#payment-with-redirect&#41;)
 
@@ -205,8 +216,6 @@ Please update the variables in collection such as apiKey, agent_id, agent_name a
 
 [//]: # (  - [Basic Request Format]&#40;generic/booking-cancellation#basic-request-format&#41;)
 
-[//]: # (  - [Full Booking Cancellation]&#40;generic/booking-cancellation#full-booking-cancellation&#41;)
-
 [//]: # (  - [Cancel Specific Segments]&#40;generic/booking-cancellation#cancel-specific-segments&#41;)
 
-[//]: # (  - [Cancel Specific Passengers]&#40;generic/booking-cancellation#cancel-specific-passengers&#41;)
+  [//]: # (  - [Cancel Specific Passengers]&#40;generic/booking-cancellation#cancel-specific-passengers&#41;)
