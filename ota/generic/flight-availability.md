@@ -13,10 +13,6 @@ This section covers APIs for retrieving available routes, calendar availability,
 - [Routes](#routes)
 - [Calendar Availability](#calendar-availability)
 
-[//]: # (- [Air Availability &#40;AirAvailRQ/RS&#41;]&#40;#air-availability-airavailrqrs&#41;)
-
-[//]: # (- [SSR Availability and Pricing]&#40;#ssr-availability-and-pricing&#41;)
-
 ## Base URLs
 
 | Environment | URL |
