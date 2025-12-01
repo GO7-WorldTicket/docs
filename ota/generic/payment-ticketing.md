@@ -354,6 +354,150 @@ Note: Use either `Authorization` (JWT) OR `X-API-Key` (API key), not both.
 
 </details>
 
+
+## Payment with Debit-Credit Account
+
+### Get Available Debit-Credit Accounts
+
+```bash
+curl -X GET \
+  'https://test-api.worldticket.net/sms-gateway/debit-credit/accounts' \
+  -H 'Authorization: Bearer {access_token}' \
+  -H 'Content-Type: application/json'
+```
+
+### Response
+
+```json
+[
+  {
+    "id": 2,
+    "accountName": "W1 CPH Support",
+    "ownerId": 109148,
+    "ownerName": "W1 CPH Support",
+    "active": true,
+    "status": "ACTIVE",
+    "currencyCode": "DKK",
+    "creditLimit": 2000.00000,
+    "availableCredit": 6395.94000,
+    "balance": 4395.94,
+    "amountToBeInvoiced": 0,
+    "handlers": [
+      {
+        "handlerId": 292005,
+        "handlerName": "W1 CPH Support",
+        "handlerType": "OFFICE"
+      }
+    ]
+  }
+]
+```
+
+### Payment with Debit-Credit Account
+
+### JSON Request
+
+<details>
+<summary><strong>✅ Example</strong></summary>
+<div markdown="1">
+
+```json
+{
+  "version": "2.001",
+  "pos": {
+    "source": [
+      {
+        "bookingChannel": {
+          "type": "OTA"
+        },
+        "isocountry": "US",
+        "isoCurrency": "USD"
+      }
+    ]
+  },
+  "demandTicketDetail": {
+    "messageFunction": [
+      {
+        "function": "ET"
+      }
+    ],
+    "bookingReferenceID": {
+      "id": "4NE5AY",
+      "type": "14",
+      "companyName": {
+        "code": "DX",
+        "companyShortName": "DX"
+      }
+    },
+    "paymentInfo": [
+      {
+        "paymentType": "4",
+        "creditCardInfo": [
+          {
+            "cardHolderName": "dpa_dca"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+</div>
+
+</details>
+
+### JSON Response
+
+<details>
+<summary><strong>✅ Example</strong></summary>
+<div markdown="1">
+
+```json
+{
+    "success": {},
+    "bookingReferenceID": {
+        "companyName": {
+            "companyShortName": "DX",
+            "code": "DX"
+        },
+        "type": "14",
+        "id": "4NE5AY"
+    },
+    "ticketItemInfo": [
+        {
+            "passengerName": {
+                "namePrefix": [
+                    "MR"
+                ],
+                "givenName": [
+                    "QA"
+                ],
+                "middleName": [],
+                "surname": "TESTER",
+                "nameSuffix": [],
+                "nameTitle": [],
+                "passengerTypeCode": "ADT"
+            },
+            "conjunctiveTicket": [],
+            "ticketNumber": "2772770020361",
+            "type": "E_TICKET",
+            "itemNumber": "",
+            "totalAmount": 4.48,
+            "paymentType": "17",
+            "netAmount": 0.00
+        }
+    ],
+    "timeStamp": "2025-12-01T02:41:10.482Z",
+    "version": 2.001,
+    "retransmissionIndicator": false
+}
+```
+
+</div>
+
+</details>
+
 ## Currency Conversion
 
 Payment currency can be different from booking currency.
