@@ -24,14 +24,10 @@ The purpose is to make a payment for existing booking and issue tickets.
   - [Payment with Cash](#payment-with-cash)
     - [JSON Request Example](#json-request-example)
     - [JSON Response Example](#json-response-example)
-
-[//]: # (  - [Payment with Debit-Credit Account]&#40;#payment-with-debit-credit-account&#41;)
-
-[//]: # (    - [Get Available Debit-Credit Accounts]&#40;#get-available-debit-credit-accounts&#41;)
-
-[//]: # (    - [Response]&#40;#response&#41;)
-
-[//]: # (    - [Payment with Debit-Credit Account]&#40;#payment-with-debit-credit-account-1&#41;)
+  - [Payment with Debit-Credit Account](#payment-with-debit-credit-account)
+    - [Get Available Debit-Credit Accounts](#get-available-debit-credit-accounts)
+      - [Response](#response)
+    - [Payment with Debit-Credit Account](#payment-with-debit-credit-account-1)
   - [Currency Conversion](#currency-conversion)
     - [Get Conversion Rate](#get-conversion-rate)
     - [Response](#response-1)

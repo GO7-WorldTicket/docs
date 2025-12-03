@@ -185,16 +185,14 @@ Please update the variables in collection such as apiKey, agent_id, agent_name a
 - [Modify Booking](generic/booking-modification)
   - [Add SSR](generic/booking-modification#add-ssr)
   - [Change Name](generic/booking-modification#change-name)
-
-[//]: # (  - [Change Date]&#40;generic/booking-modification#change-date&#41;)
+  - [Change Date](generic/booking-modification#change-date)
 - [Payment and Ticketing](generic/payment-ticketing)
   - [Base URLs](generic/payment-ticketing#base-urls)
   - [Endpoints](generic/payment-ticketing#endpoints)
   - [Supported Payment Types](generic/payment-ticketing#supported-payment-types)
   - [Make Payment for Issuing a Ticket](generic/payment-ticketing#make-payment-for-issuing-a-ticket)
   - [Payment with Cash](generic/payment-ticketing#payment-with-cash)
-
-[//]: # (  - [Payment with Debit-Credit Account]&#40;generic/payment-ticketing#payment-with-debit-credit-account&#41;)
+  - [Payment with Debit-Credit Account](generic/payment-ticketing#payment-with-debit-credit-account)
 - [Cancel Booking](generic/booking-cancellation#cancel-booking)
   - [Full Booking Cancellation](generic/booking-cancellation#full-booking-cancellation)
   - [Cancel Specific Passengers](generic/booking-cancellation#cancel-specific-passengers)
@@ -216,6 +214,3 @@ Please update the variables in collection such as apiKey, agent_id, agent_name a
 
 [//]: # (  - [Basic Request Format]&#40;generic/booking-cancellation#basic-request-format&#41;)
 
-[//]: # (  - [Cancel Specific Segments]&#40;generic/booking-cancellation#cancel-specific-segments&#41;)
-
-  [//]: # (  - [Cancel Specific Passengers]&#40;generic/booking-cancellation#cancel-specific-passengers&#41;)
