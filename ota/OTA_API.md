@@ -183,7 +183,6 @@ Please update the variables in collection such as apiKey, agent_id, agent_name a
   - [Regular booking for Round trip](generic/booking-regular#airbookrq-for-round-trip)
 - [Read Booking](generic/read-booking.md)
 - [Modify Booking](generic/booking-modification)
-  - [Add SSR](generic/booking-modification#add-ssr)
   - [Change Name](generic/booking-modification#change-name)
   - [Change Date](generic/booking-modification#change-date)
 - [Payment and Ticketing](generic/payment-ticketing)
