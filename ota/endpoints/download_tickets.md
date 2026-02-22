@@ -11,24 +11,43 @@
 
 The following endpoint can be used to download a zip file containing all tickets (pdf files) of a booking.
 
-**Endpoint:** `/tickets/confirmation/{bookingReference}/download`   
+**Endpoint:** `/tickets/confirmation/{rloc}/download`   
 **Method:** `GET`  
 **Content-Type:** `application/zip`
 
-#### Request Parameters (all required)
+#### Request Parameters
 
-| Parameter        | Type   | Description       | Example                                |
-|------------------|--------|-------------------|----------------------------------------|
-| x-api-key        | Header | Access Token      | [Access token](../OTA_API_SAR#api-key) |
-| bookingReference | Path   | Booking reference | O8ZKAK                                 |
+| Parameter | Type   | Required | Description | Example |
+|-----------|--------|----------|-------------|---------|
+| x-api-key | Header | Yes | Access Token | [Access token](../OTA_API_SAR#api-key) |
+| rloc | Path | Yes | Booking reference (RLOC) | O8ZKAK |
+| mode | Query | No | Download mode. Supported values: `full` (default), `delta`. `legacy` is accepted for backward compatibility and behaves as `delta`. | full |
 
-#### Request
+#### Request (default mode)
 
-```
-curl '{base_url}/tickets/confirmation/{bookingReference}/download' \
+```bash
+curl '{base_url}/tickets/confirmation/{rloc}/download' \
     -H 'x-api-key: {api-key}' \
-    --output tickets.zip
+    --output tickets_full.zip
 ```
+
+#### Request (explicit full mode)
+
+```bash
+curl '{base_url}/tickets/confirmation/{rloc}/download?mode=full' \
+    -H 'x-api-key: {api-key}' \
+    --output tickets_full.zip
+```
+
+#### Request (delta mode)
+
+```bash
+curl '{base_url}/tickets/confirmation/{rloc}/download?mode=delta' \
+    -H 'x-api-key: {api-key}' \
+    --output tickets_delta.zip
+```
+
+> ⚠️ If an unsupported `mode` value is provided, the request returns `400 Bad Request`.
 
 ### Download a specific ticket
 

@@ -25,6 +25,7 @@ title: The Title of Your Page
 
 | Change Description                                                                                        | Changed By              | Change Date |
 |-----------------------------------------------------------------------------------------------------------|-------------------------|-------------|
+| [Clarify download all tickets endpoint (`/tickets/confirmation/{rloc}/download`)](changelog.md#2026-02-22) | Sittiwet Mahapratoom    | 2026-02-22  |
 | [Segments cancellation with automatic refund](changelog.md#2025-07-31)                                    | Jarun Jiamtaweeboon     | 2025-07-31  |
 | [Add sold-out segment for OTA_AirLowFareSearchRS](changelog.md#2025-07-11)                                | Thotsaphorn Phonlabutr  | 2025-07-11  |
 | [Add resend cancellation email endpoint](endpoints/resend_cancellation_email)                             | Duangtida Athakravi     | 2025-07-08  |

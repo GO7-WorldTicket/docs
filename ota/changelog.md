@@ -1,5 +1,17 @@
 
 ## Changelog
+### 2026-02-22
+
+#### Clarify download all tickets endpoint (`/tickets/confirmation/{rloc}/download`)
+
+- Updated the Download Tickets documentation to use `rloc` in the endpoint path instead of `bookingReference` ([See more details](endpoints/download_tickets.md#download-all-tickets-in-a-booking))
+- Documented optional `mode` query parameter for ticket ZIP download:
+  - `full` (default)
+  - `delta`
+  - `legacy` (backward compatible alias for `delta`)
+- Added request examples for default, `full`, and `delta` modes
+- Added note that unsupported `mode` values return `400 Bad Request`
+
 ### 2025-09-12
 #### Segments cancellation with automatic refund
 - Updated document add json schema for request, diagram and code snippet to explain how to build the payload request ([See more details](endpoints/segments_cancellation))
