@@ -25,6 +25,7 @@ title: The Title of Your Page
 
 | Change Description                                                                                        | Changed By              | Change Date |
 |-----------------------------------------------------------------------------------------------------------|-------------------------|-------------|
+| Add seat map endpoint and how to update seat                                                              | Duangtida Athakravi     | 2026-03-12  |
 | [Clarify download all tickets endpoint (`/tickets/confirmation/{rloc}/download`)](changelog.md#2026-02-22) | Sittiwet Mahapratoom    | 2026-02-22  |
 | [Segments cancellation with automatic refund](changelog.md#2025-07-31)                                    | Jarun Jiamtaweeboon     | 2025-07-31  |
 | [Add sold-out segment for OTA_AirLowFareSearchRS](changelog.md#2025-07-11)                                | Thotsaphorn Phonlabutr  | 2025-07-11  |
@@ -226,6 +227,7 @@ Please update the variables in collection such as apiKey, agent_id, agent_name a
 - [Modify booking](endpoints/modify-booking)
 - [Modify booking for One-way trip](endpoints/modify-booking#change-passenger-in-one-way-booking)
 - [Modify booking for Round trip](endpoints/modify-booking#change-passenger-in-round-trip-booking)
+- [Modify booking for seat change](endpoints/modify-booking#seat-change)
 - [Cancel booking](endpoints/cancel_booking)
   - [Cancel Policy](endpoints/cancel_booking#cancel-policy)
     - [Cancel Duration Policy](endpoints/cancel_booking#cancel-duration-policy)
@@ -234,3 +236,4 @@ Please update the variables in collection such as apiKey, agent_id, agent_name a
   - [Resend cancellation email](endpoints/resend_cancellation_email)
 - [Resend ticket confirmation email](endpoints/resend_ticket_confirmation_email)
 - [Download tickets](endpoints/download_tickets)
+- [Seat Map](endpoints/seat_map)

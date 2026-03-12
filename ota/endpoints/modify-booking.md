@@ -6,7 +6,8 @@ Supported modification types:
 |-----------------------|------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Cancel passenger      | 2    | Cancels individual passenger. See also [Cancel booking](#cancel-booking)                                                                                                     |
 | Change passenger name | 4    | Changes passenger name. This operation is essential for group bookings when passenger names are unknown at booking creation time and could be updated later after ticketing. |
-| Change passenger info | 40   | Changes other passenger information than name.                                                                                                                               |
+| Change passenger info | 40   | Changes other passenger information other than name.                                                                                                                         |
+| Other                     | 5    | Other modifications such as special services and seats.                                                                                                                      |
 | Split booking         | 7    | Moves passenger or segment into a new booking.                                                                                                                               | 
 | Change contact        | 9    | Changes contact information such as email or pone number.                                                                                                                    |
 | Cancel segment        | 10   | Cancels individual segment. See also [Cancel booking](#cancel-booking)                                                                                                       |
@@ -3241,4 +3242,856 @@ Note that for paid bookings, the response will also contain links for downloadin
       "version": 2.001
     }
   </pre>
+</details>
+
+### Seat change
+
+Seats can be changed after the booking has been paid for.
+
+<details>
+  <summary>Request Payload</summary>
+  <pre>
+{
+  "version": "2.001",
+  "pos": {
+    "source": [
+      {
+        "isoCurrency": "SAR",
+        "requestorID": {
+          "type": "5",
+          "id": "<ins>agentId</ins>",
+          "name": "<ins>agentId</ins>"
+        },
+        "bookingChannel": {
+          "type": "OTA"
+        }
+      }
+    ]
+  },
+  "airReservation": {
+    "airItinerary": {
+      "originDestinationOptions": {
+        "originDestinationOption": [
+          {
+            "flightSegment": [
+              {
+                "departureAirport": {
+                  "locationCode": "JXD"
+                },
+                "arrivalAirport": {
+                  "locationCode": "MKX"
+                },
+                "operatingAirline": {
+                  "code": "HHR",
+                  "flightNumber": "0081"
+                },
+                "equipment": [],
+                "departureDateTime": "2026-09-14T10:21:00.000+03:00",
+                "arrivalDateTime": "2026-09-14T10:55:00.000+03:00",
+                "rph": "1",
+                "marketingAirline": {
+                  "code": "HHR"
+                },
+                "flightNumber": "0081",
+                "fareBasisCode": "NOTCANCEL",
+                "resBookDesigCode": "Y",
+                "bookingClassAvails": [],
+                "comment": [],
+                "stopLocation": [],
+                "status": "30",
+                "tpaextensions": {
+                  "seatDetails": [
+                    {
+                      "coach": "006",
+                      "seat": "116",
+                      "seatType": "aisle"
+                    }
+                  ]
+                }
+              }
+            ],
+            "rph": "1"
+          }
+        ]
+      }
+    },
+    "priceInfo": {
+      "itinTotalFare": [
+        {
+          "baseFare": {
+            "currencyCode": "SAR",
+            "amount": 50.00
+          },
+          "equivFare": [],
+          "taxes": {
+            "tax": [
+              {
+                "taxCode": "VAT",
+                "currencyCode": "SAR",
+                "amount": 7.50
+              }
+            ],
+            "amount": 7.50
+          },
+          "fees": {
+            "fee": [
+              {
+                "feeCode": "VAT_VAT",
+                "currencyCode": "SAR",
+                "amount": 0.00
+              }
+            ],
+            "amount": 0.00
+          },
+          "totalFare": {
+            "currencyCode": "SAR",
+            "amount": 57.50
+          },
+          "fareBaggageAllowance": [],
+          "remark": []
+        }
+      ],
+      "fareInfos": {
+        "fareInfo": [
+          {
+            "fareReference": [
+              {
+                "value": "NOTCANCEL",
+                "resBookDesigCode": "Y",
+                "accountCode": "NOTCANCEL"
+              }
+            ],
+            "ruleInfo": {
+              "tpaextensions": {
+                "cancellationTimeLimit": "2027-03-10T07:55:49Z",
+                "confirmationTimeLimit": "2026-03-10T08:25:06Z",
+                "updateTravellersTimeLimit": "2026-09-11T07:21:00Z"
+              }
+            },
+            "filingAirline": {
+              "value": "HHR"
+            },
+            "marketingAirline": [],
+            "departureAirport": {
+              "locationCode": "JXD"
+            },
+            "arrivalAirport": {
+              "locationCode": "MKX"
+            },
+            "date": [],
+            "fareInfo": [],
+            "city": [],
+            "airport": [],
+            "rph": "1"
+          }
+        ]
+      },
+      "ptcfareBreakdowns": {
+        "ptcfareBreakdown": [
+          {
+            "passengerTypeQuantity": {
+              "code": "ADT",
+              "quantity": 1
+            },
+            "fareBasisCodes": {
+              "fareBasisCode": [
+                {
+                  "value": "NOTCANCEL",
+                  "flightSegmentRPH": "1"
+                }
+              ]
+            },
+            "passengerFare": [
+              {
+                "baseFare": {
+                  "currencyCode": "SAR",
+                  "amount": 50.00
+                },
+                "equivFare": [],
+                "taxes": {
+                  "tax": [
+                    {
+                      "taxCode": "VAT",
+                      "taxName": "VAT",
+                      "currencyCode": "SAR",
+                      "amount": 7.50
+                    }
+                  ],
+                  "amount": 7.50
+                },
+                "fees": {
+                  "fee": [
+                    {
+                      "feeCode": "VAT_VAT",
+                      "currencyCode": "SAR",
+                      "amount": 0.00
+                    }
+                  ],
+                  "amount": 0.00
+                },
+                "totalFare": {
+                  "currencyCode": "SAR",
+                  "amount": 57.50
+                },
+                "fareBaggageAllowance": [],
+                "remark": []
+              }
+            ],
+            "travelerRefNumber": [
+              {
+                "rph": "1"
+              }
+            ],
+            "ticketDesignators": {
+              "ticketDesignator": [
+                {
+                  "flightRefRPH": "1"
+                }
+              ]
+            },
+            "fareInfo": [
+              {
+                "fareReference": [
+                  {
+                    "value": "NOTCANCEL",
+                    "resBookDesigCode": "Y",
+                    "accountCode": "NOTCANCEL"
+                  }
+                ],
+                "marketingAirline": [],
+                "date": [],
+                "fareInfo": [],
+                "city": [],
+                "airport": []
+              }
+            ],
+            "pricingUnit": [],
+            "flightRefNumberRPHList": [
+              "1"
+            ]
+          }
+        ]
+      }
+    },
+    "travelerInfo": {
+      "airTraveler": [
+        {
+          "personName": {
+            "namePrefix": [],
+            "givenName": [
+              "QA TEST"
+            ],
+            "middleName": [],
+            "surname": "TESTER",
+            "nameSuffix": [],
+            "nameTitle": []
+          },
+          "telephone": [
+            {
+              "countryAccessCode": "380",
+              "phoneNumber": "671234567"
+            }
+          ],
+          "email": [
+            {
+              "value": "test@go7.io",
+              "defaultInd": true
+            }
+          ],
+          "address": [
+            {
+              "bldgRoom": [],
+              "addressLine": [],
+              "cityName": "Makkha",
+              "countryName": {
+                "value": "",
+                "code": "SA"
+              }
+            }
+          ],
+          "custLoyalty": [],
+          "document": [],
+          "socialMediaInfo": [],
+          "passengerTypeCode": "CTC",
+          "comment": []
+        },
+        {
+          "personName": {
+            "namePrefix": [
+              "MISS"
+            ],
+            "givenName": [
+              "BESSIE"
+            ],
+            "middleName": [],
+            "surname": "MACK",
+            "nameSuffix": [],
+            "nameTitle": []
+          },
+          "telephone": [
+            {
+              "countryAccessCode": "380",
+              "phoneNumber": "671234567"
+            }
+          ],
+          "email": [
+            {
+              "value": "test@go7.io"
+            }
+          ],
+          "address": [],
+          "custLoyalty": [],
+          "document": [
+            {
+              "docLimitations": [],
+              "birthDate": "1979-01-01"
+            },
+            {
+              "docLimitations": [],
+              "docID": "11234567899",
+              "docType": "5",
+              "docHolderNationality": "SA",
+              "expireDate": "2027-12-12"
+            }
+          ],
+          "travelerRefNumber": {
+            "rph": "1"
+          },
+          "flightSegmentRPHs": {
+            "flightSegmentRPH": [
+              "1"
+            ]
+          },
+          "socialMediaInfo": [],
+          "passengerTypeCode": "ADT",
+          "gender": "Female",
+          "comment": []
+        }
+      ],
+      "specialReqDetails": []
+    },
+    "ticketing": [
+      {
+        "ticketAdvisory": [],
+        "ticketType": "E_TICKET",
+        "flightSegmentRefNumber": [],
+        "travelerRefNumber": [
+          "1"
+        ],
+        "ticketDocumentNbr": "3333330491443",
+        "passengerTypeCode": "ADT",
+        "miscTicketingCode": [],
+        "tpaextensions": {
+          "couponInfos": [
+            {
+              "flightRefRPH": "1",
+              "number": "1",
+              "status": "O"
+            }
+          ],
+          "couponProviderDetails": [
+            {
+              "coach": "006",
+              "providerTicketNumber": "1055061429202077",
+              "seat": "116"
+            }
+          ]
+        }
+      },
+      {
+        "ticketAdvisory": [],
+        "ticketTimeLimit": "2026-03-10T11:25:06.000+03:00",
+        "ticketType": "E_TICKET",
+        "flightSegmentRefNumber": [
+          "1"
+        ],
+        "travelerRefNumber": [],
+        "miscTicketingCode": []
+      }
+    ],
+    "bookingReferenceID": [
+      {
+        "companyName": {
+          "code": "W1"
+        },
+        "type": "14",
+        "id": "48A22J",
+        "flightRefNumberRPHList": []
+      },
+      {
+        "companyName": {
+          "code": "HHR"
+        },
+        "type": "14",
+        "id": "632411C25",
+        "flightRefNumberRPHList": []
+      }
+    ],
+    "offer": {
+      "summary": [],
+      "priced": [
+        {
+          "shortDescription": [],
+          "longDescription": [],
+          "originDestination": [],
+          "otherServices": [],
+          "restriction": [],
+          "termsAndConditions": [],
+          "commission": [],
+          "multimedia": [],
+          "bookingReferenceID": [],
+          "id": "2274702",
+          "tpaextensions": {
+            "orderInfo": {
+              "action": "CREATE_BOOKING",
+              "currencyCode": "SAR",
+              "direction": "PAYMENT",
+              "orderType": "BOOKING",
+              "status": "PAID",
+              "totalAmount": "57.50"
+            }
+          }
+        }
+      ],
+      "purchased": []
+    },
+    "createDateTime": "2026-03-10T07:55:06.956Z",
+    "emdinfo": []
+  },
+  "airBookModifyRQ": {
+    "modificationType": "5",
+    "travelerInfo": {
+      "specialReqDetails": [
+        {
+          "seatRequests": {
+            "seatRequest": [
+              {
+                "flightRefNumberRPHList": [
+                  "1"
+                ],
+                "travelerRefNumberRPHList": [
+                  "1"
+                ],
+                "seatNumber": "139"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}</pre>
+
+The request consists of:
+* `pos`, the point of sale information of the booking
+* `airReservation` the details of the booking reservation, this can be acquired from the `OTA_Read` response.
+* `airBookModifyRQ` the modification request. In the case of seat change this consists of:
+  * `modificationType` set to `5`
+  * `travelerInfo` details of the modification request, which includes:
+    * `specialReqDetails` request details for seat change, which includes:
+      * `seatRequests` details of the seat change request, which includes:
+        * `flightRefNumberRPHList` the flight reference number of the flight segment to change seat for.
+        * `travelerRefNumberRPHList` the traveller reference number of the traveller to change seat for
+        * `seatNumber` the seat number to be changed to
+</details>
+
+<details>
+  <summary>Response Payload</summary>
+  <pre>
+{
+    "airReservation": {
+        "airItinerary": {
+            "originDestinationOptions": {
+                "originDestinationOption": [
+                    {
+                        "flightSegment": [
+                            {
+                                "departureAirport": {
+                                    "locationCode": "JXD"
+                                },
+                                "arrivalAirport": {
+                                    "locationCode": "MKX"
+                                },
+                                "operatingAirline": {
+                                    "code": "HHR",
+                                    "flightNumber": "0081"
+                                },
+                                "equipment": [],
+                                "departureDateTime": "2026-09-14T10:21:00.000+03:00",
+                                "arrivalDateTime": "2026-09-14T10:55:00.000+03:00",
+                                "rph": "1",
+                                "marketingAirline": {
+                                    "code": "HHR"
+                                },
+                                "flightNumber": "0081",
+                                "fareBasisCode": "NOTCANCEL",
+                                "resBookDesigCode": "Y",
+                                "bookingClassAvails": [],
+                                "comment": [],
+                                "stopLocation": [],
+                                "status": "30",
+                                "tpaextensions": {
+                                    "seatDetails": [
+                                        {
+                                            "coach": "006",
+                                            "seat": "139",
+                                            "seatType": "aisle"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "rph": "1"
+                    }
+                ]
+            }
+        },
+        "priceInfo": {
+            "itinTotalFare": [
+                {
+                    "baseFare": {
+                        "currencyCode": "SAR",
+                        "amount": 50.00
+                    },
+                    "equivFare": [],
+                    "taxes": {
+                        "tax": [
+                            {
+                                "taxCode": "VAT",
+                                "currencyCode": "SAR",
+                                "amount": 7.50
+                            }
+                        ],
+                        "amount": 7.50
+                    },
+                    "fees": {
+                        "fee": [
+                            {
+                                "feeCode": "VAT_VAT",
+                                "currencyCode": "SAR",
+                                "amount": 0.00
+                            }
+                        ],
+                        "amount": 0.00
+                    },
+                    "totalFare": {
+                        "currencyCode": "SAR",
+                        "amount": 57.50
+                    },
+                    "fareBaggageAllowance": [],
+                    "remark": []
+                }
+            ],
+            "fareInfos": {
+                "fareInfo": [
+                    {
+                        "fareReference": [
+                            {
+                                "value": "NOTCANCEL",
+                                "resBookDesigCode": "Y",
+                                "accountCode": "NOTCANCEL"
+                            }
+                        ],
+                        "ruleInfo": {
+                            "tpaextensions": {
+                                "cancellationTimeLimit": "2027-03-10T07:55:49Z",
+                                "confirmationTimeLimit": "2026-03-10T08:25:06Z",
+                                "updateTravellersTimeLimit": "2026-09-11T07:21:00Z"
+                            }
+                        },
+                        "filingAirline": {
+                            "value": "HHR"
+                        },
+                        "marketingAirline": [],
+                        "departureAirport": {
+                            "locationCode": "JXD"
+                        },
+                        "arrivalAirport": {
+                            "locationCode": "MKX"
+                        },
+                        "date": [],
+                        "fareInfo": [],
+                        "city": [],
+                        "airport": [],
+                        "rph": "1"
+                    }
+                ]
+            },
+            "ptcfareBreakdowns": {
+                "ptcfareBreakdown": [
+                    {
+                        "passengerTypeQuantity": {
+                            "code": "ADT",
+                            "quantity": 1
+                        },
+                        "fareBasisCodes": {
+                            "fareBasisCode": [
+                                {
+                                    "value": "NOTCANCEL",
+                                    "flightSegmentRPH": "1"
+                                }
+                            ]
+                        },
+                        "passengerFare": [
+                            {
+                                "baseFare": {
+                                    "currencyCode": "SAR",
+                                    "amount": 50.00
+                                },
+                                "equivFare": [],
+                                "taxes": {
+                                    "tax": [
+                                        {
+                                            "taxCode": "VAT",
+                                            "taxName": "VAT",
+                                            "currencyCode": "SAR",
+                                            "amount": 7.50
+                                        }
+                                    ],
+                                    "amount": 7.50
+                                },
+                                "fees": {
+                                    "fee": [
+                                        {
+                                            "feeCode": "VAT_VAT",
+                                            "currencyCode": "SAR",
+                                            "amount": 0.00
+                                        }
+                                    ],
+                                    "amount": 0.00
+                                },
+                                "totalFare": {
+                                    "currencyCode": "SAR",
+                                    "amount": 57.50
+                                },
+                                "fareBaggageAllowance": [],
+                                "remark": []
+                            }
+                        ],
+                        "travelerRefNumber": [
+                            {
+                                "rph": "1"
+                            }
+                        ],
+                        "ticketDesignators": {
+                            "ticketDesignator": [
+                                {
+                                    "flightRefRPH": "1"
+                                }
+                            ]
+                        },
+                        "fareInfo": [
+                            {
+                                "fareReference": [
+                                    {
+                                        "value": "NOTCANCEL",
+                                        "resBookDesigCode": "Y",
+                                        "accountCode": "NOTCANCEL"
+                                    }
+                                ],
+                                "marketingAirline": [],
+                                "date": [],
+                                "fareInfo": [],
+                                "city": [],
+                                "airport": []
+                            }
+                        ],
+                        "pricingUnit": [],
+                        "flightRefNumberRPHList": [
+                            "1"
+                        ]
+                    }
+                ]
+            }
+        },
+        "travelerInfo": {
+            "airTraveler": [
+                {
+                    "personName": {
+                        "namePrefix": [],
+                        "givenName": [
+                            "QA TEST"
+                        ],
+                        "middleName": [],
+                        "surname": "TESTER",
+                        "nameSuffix": [],
+                        "nameTitle": []
+                    },
+                    "telephone": [
+                        {
+                            "countryAccessCode": "380",
+                            "phoneNumber": "671234567"
+                        }
+                    ],
+                    "email": [
+                        {
+                            "value": "test@go7.io",
+                            "defaultInd": true
+                        }
+                    ],
+                    "address": [
+                        {
+                            "bldgRoom": [],
+                            "addressLine": [],
+                            "cityName": "Makkha",
+                            "countryName": {
+                                "value": "",
+                                "code": "SA"
+                            }
+                        }
+                    ],
+                    "custLoyalty": [],
+                    "document": [],
+                    "socialMediaInfo": [],
+                    "passengerTypeCode": "CTC",
+                    "comment": []
+                },
+                {
+                    "personName": {
+                        "namePrefix": [
+                            "MISS"
+                        ],
+                        "givenName": [
+                            "BESSIE"
+                        ],
+                        "middleName": [],
+                        "surname": "MACK",
+                        "nameSuffix": [],
+                        "nameTitle": []
+                    },
+                    "telephone": [
+                        {
+                            "countryAccessCode": "380",
+                            "phoneNumber": "671234567"
+                        }
+                    ],
+                    "email": [
+                        {
+                            "value": "test@go7.io"
+                        }
+                    ],
+                    "address": [],
+                    "custLoyalty": [],
+                    "document": [
+                        {
+                            "docLimitations": [],
+                            "birthDate": "1979-01-01"
+                        },
+                        {
+                            "docLimitations": [],
+                            "docID": "11234567899",
+                            "docType": "5",
+                            "docHolderNationality": "SA",
+                            "expireDate": "2027-12-12"
+                        }
+                    ],
+                    "travelerRefNumber": {
+                        "rph": "1"
+                    },
+                    "flightSegmentRPHs": {
+                        "flightSegmentRPH": [
+                            "1"
+                        ]
+                    },
+                    "socialMediaInfo": [],
+                    "passengerTypeCode": "ADT",
+                    "gender": "Female",
+                    "comment": []
+                }
+            ],
+            "specialReqDetails": []
+        },
+        "ticketing": [
+            {
+                "ticketAdvisory": [],
+                "ticketType": "E_TICKET",
+                "flightSegmentRefNumber": [],
+                "travelerRefNumber": [
+                    "1"
+                ],
+                "ticketDocumentNbr": "3333330491443",
+                "passengerTypeCode": "ADT",
+                "miscTicketingCode": [],
+                "tpaextensions": {
+                    "couponInfos": [
+                        {
+                            "flightRefRPH": "1",
+                            "number": "1",
+                            "status": "O"
+                        }
+                    ],
+                    "couponProviderDetails": [
+                        {
+                            "coach": "006",
+                            "providerTicketNumber": "1405467BA9202197",
+                            "seat": "139"
+                        }
+                    ]
+                }
+            },
+            {
+                "ticketAdvisory": [],
+                "ticketTimeLimit": "2026-03-10T11:25:06.000+03:00",
+                "ticketType": "E_TICKET",
+                "flightSegmentRefNumber": [
+                    "1"
+                ],
+                "travelerRefNumber": [],
+                "miscTicketingCode": []
+            }
+        ],
+        "bookingReferenceID": [
+            {
+                "companyName": {
+                    "code": "W1"
+                },
+                "type": "14",
+                "id": "48A22J",
+                "flightRefNumberRPHList": []
+            },
+            {
+                "companyName": {
+                    "code": "HHR"
+                },
+                "type": "14",
+                "id": "632411C25",
+                "flightRefNumberRPHList": []
+            }
+        ],
+        "offer": {
+            "summary": [],
+            "priced": [
+                {
+                    "shortDescription": [],
+                    "longDescription": [],
+                    "originDestination": [],
+                    "otherServices": [],
+                    "restriction": [],
+                    "termsAndConditions": [],
+                    "commission": [],
+                    "multimedia": [],
+                    "bookingReferenceID": [],
+                    "id": "2274702",
+                    "tpaextensions": {
+                        "orderInfo": {
+                            "action": "CREATE_BOOKING",
+                            "currencyCode": "SAR",
+                            "direction": "PAYMENT",
+                            "orderType": "BOOKING",
+                            "status": "PAID",
+                            "totalAmount": "57.50"
+                        }
+                    }
+                }
+            ],
+            "purchased": []
+        },
+        "createDateTime": "2026-03-10T07:55:06.956Z",
+        "emdinfo": []
+    },
+    "success": {},
+    "version": 2.001
+}  </pre>
+
+In the case where the seat was successfully changed, the returned response will be the details of the booking with updated seat (and coach) number.
 </details>
