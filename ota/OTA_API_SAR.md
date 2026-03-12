@@ -35,6 +35,7 @@ title: The Title of Your Page
 | Revise document structures                           | Arnon Ruangthanawes  | 2024-07-12  |
 | Add cancel duration policy                           | Arnon Ruangthanawes  | 2024-07-16  |
 | Add download ticket endpoints                        | Duangtida Athakravi  | 2024-07-16  |
+| Add seat map endpoint and how to update seat         | Duangtida Athakravi  | 2026-03-12  |
 
 <br />
 
@@ -209,8 +210,10 @@ Please update the variables in collection such as apiKey, agent_id, agent_name a
 - [Modify booking](endpoints/modify-booking)
 - [Modify booking for One-way trip](endpoints/modify-booking#change-passenger-in-one-way-booking)
 - [Modify booking for Round trip](endpoints/modify-booking#change-passenger-in-round-trip-booking)
+- [Modify booking for seat change](endpoints/modify-booking#seat-change)
 - [Cancel booking](endpoints/cancel_booking)
     - [Cancel Duration Prolicy](endpoints/cancel_booking#cancel-policy)
     - [Cancel Refund Policy](endpoints/cancel_booking#cancel-refund-policy)
 - [Resend ticket confirmation email](endpoints/resend_ticket_confirmation_email)
 - [Download tickets](endpoints/download_tickets)
+- [Seat Map](endpoints/seat_map)
