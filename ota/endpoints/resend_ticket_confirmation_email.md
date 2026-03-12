@@ -6,7 +6,7 @@ This document explains how to use the `/notifications/email` endpoint to send an
 
 |                                  | Production                                            | Test                                     |
 |----------------------------------| ----------------------------------------------------- | ---------------------------------------- |
-| Resend Ticket Confirmation Email | https://api.sar.worldticket.cloud/sms-gateway-service | https://test.worldticket.net/sms-gateway |
+| Resend Ticket Confirmation Email | https://api.sar.worldticket.cloud/sms-gateway-service | https://test-api.worldticket.net/sms-gateway |
 
 ## Endpoint Overview
 

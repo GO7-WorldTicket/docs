@@ -23,19 +23,32 @@ title: The Title of Your Page
 
 ## Change Log
 
-| Change Description                                   | Changed By           | Change Date |
-|------------------------------------------------------|----------------------|-------------|
-| Initial creation of the document                     | Arnon Ruangthanawes  | 2024-03-19  |
-| Update api urls, and add examples                    | Arnon Ruangthanawes  | 2024-03-26  |
-| Update code mapping                                  | Arnon Ruangthanawes  | 2024-05-13  |
-| Include error messages in Low Fare Search            | Arnon Ruangthanawes  | 2024-05-14  |
-| Describe how to cancel booking entirely or partially | Sergii Poltorak      | 2024-05-22  |
-| Upload schema and postman files                      | Arnon Ruangthanawes  | 2024-05-29  |
-| Add resending email endpoint                         | Sittiwet Mahapratoom | 2024-07-12  |
-| Revise document structures                           | Arnon Ruangthanawes  | 2024-07-12  |
-| Add cancel duration policy                           | Arnon Ruangthanawes  | 2024-07-16  |
-| Add download ticket endpoints                        | Duangtida Athakravi  | 2024-07-16  |
-| Add seat map endpoint and how to update seat         | Duangtida Athakravi  | 2026-03-12  |
+| Change Description                                                                                        | Changed By              | Change Date |
+|-----------------------------------------------------------------------------------------------------------|-------------------------|-------------|
+| Add seat map endpoint and how to update seat                                                              | Duangtida Athakravi     | 2026-03-12  |
+| [Clarify download all tickets endpoint (`/tickets/confirmation/{rloc}/download`)](changelog.md#2026-02-22) | Sittiwet Mahapratoom    | 2026-02-22  |
+| [Segments cancellation with automatic refund](changelog.md#2025-07-31)                                    | Jarun Jiamtaweeboon     | 2025-07-31  |
+| [Add sold-out segment for OTA_AirLowFareSearchRS](changelog.md#2025-07-11)                                | Thotsaphorn Phonlabutr  | 2025-07-11  |
+| [Add resend cancellation email endpoint](endpoints/resend_cancellation_email)                             | Duangtida Athakravi     | 2025-07-08  |
+| [Add policy for OTA_AirBookRS, OTA_AirPriceRS](changelog.md#2025-07-02)                                   | Thotsaphorn Phonlabutr  | 2025-06-26  |
+| [Clarify request and response for AirLowFareSearch (one-way with booking class)](changelog.md#2025-06-26) | Sittiwet Mahapratoom    | 2025-06-26  |
+| [Deprecate download endpoint using passenger details](changelog.md#2025-06-21)                            | Sittiwet Mahapratoom    | 2025-06-21  |
+| [Error handling change](changelog.md#2025-04-23)                                                          | Sittiwet Mahapratoom    | 2025-04-23  |
+| [Add group booking completion policy](endpoints/create_booking#group-booking-completion-policy)           | Sittiwet Mahapratoom    | 2025-04-22  |
+| [Describe error response changes](endpoints/error-response)                                               | Sittiwet Mahapratoom    | 2025-04-22  |
+| [Specify the required fields summary](endpoints/create_booking#-required-fields-summary)                  | Sittiwet Mahapratoom    | 2025-04-22  |
+| [Download Ticket URI](changelog.md#2025-04-16)                                                            | Andrii Denysenko        | 2025-04-16  |
+| Add send cancelled email flow                                                                             | Benjaporn Kunathanachot | 2024-07-24  |
+| Add download ticket endpoints                                                                             | Duangtida Athakravi     | 2024-07-16  |
+| Add cancel duration policy                                                                                | Arnon Ruangthanawes     | 2024-07-16  |
+| Add resending email endpoint                                                                              | Sittiwet Mahapratoom    | 2024-07-12  |
+| Revise document structures                                                                                | Arnon Ruangthanawes     | 2024-07-12  |
+| Upload schema and postman files                                                                           | Arnon Ruangthanawes     | 2024-05-29  |
+| Describe how to cancel booking entirely or partially                                                      | Sergii Poltorak         | 2024-05-22  |
+| Include error messages in Low Fare Search                                                                 | Arnon Ruangthanawes     | 2024-05-14  |
+| Update code mapping                                                                                       | Arnon Ruangthanawes     | 2024-05-13  |
+| Update api urls, and add examples                                                                         | Arnon Ruangthanawes     | 2024-03-26  |
+| Initial creation of the document                                                                          | Arnon Ruangthanawes     | 2024-03-19  |
 
 <br />
 
@@ -171,8 +184,10 @@ Please update the variables in collection such as apiKey, agent_id, agent_name a
 
 | Code | Description |
 | ---- | ----------- |
-| 1    | Visa        |
 | 2    | Passport    |
+| 5    | National ID |
+
+
 <br /><br />
 
 # Available Routes and Flights Calendar
@@ -192,6 +207,7 @@ Please update the variables in collection such as apiKey, agent_id, agent_name a
 | ------- | ------------------------------------------------ | ----------------------------------------------- |
 | OTA API | https://api.sar.worldticket.cloud/ota/v2015b/OTA | https://test-api.worldticket.net/ota/v2015b/OTA |
 
+- [Error Response](endpoints/error-response)
 - [Low Fare Search](endpoints/low_fare_search)
   - [One-way trip](endpoints/low_fare_search#airlowfaresearchrq-for-oneway-trip)
   - [One-way trip with booking class](endpoints/low_fare_search#airlowfaresearchrq-for-oneway-trip-with-booking-class-preference)
@@ -205,6 +221,7 @@ Please update the variables in collection such as apiKey, agent_id, agent_name a
 - [Group booking](endpoints/create_booking#create-a-group-booking-airpricerq)
   - [Group booking for One-way trip](endpoints/create_booking#airpricerq-for-oneway-trip)
   - [Group booking for Round trip](endpoints/create_booking#airpricerq-for-round-trip)
+  - [Group booking completion policy](endpoints/create_booking#group-booking-completion-policy)
 - [Payment and Ticketing](endpoints/payment_and_ticketing.md)
 - [Read booking](endpoints/read_booking)
 - [Modify booking](endpoints/modify-booking)
@@ -212,8 +229,11 @@ Please update the variables in collection such as apiKey, agent_id, agent_name a
 - [Modify booking for Round trip](endpoints/modify-booking#change-passenger-in-round-trip-booking)
 - [Modify booking for seat change](endpoints/modify-booking#seat-change)
 - [Cancel booking](endpoints/cancel_booking)
-    - [Cancel Duration Prolicy](endpoints/cancel_booking#cancel-policy)
+  - [Cancel Policy](endpoints/cancel_booking#cancel-policy)
+    - [Cancel Duration Policy](endpoints/cancel_booking#cancel-duration-policy)
     - [Cancel Refund Policy](endpoints/cancel_booking#cancel-refund-policy)
+  - [Cancellation email](endpoints/cancel_booking#cancellation-email)
+  - [Resend cancellation email](endpoints/resend_cancellation_email)
 - [Resend ticket confirmation email](endpoints/resend_ticket_confirmation_email)
 - [Download tickets](endpoints/download_tickets)
 - [Seat Map](endpoints/seat_map)

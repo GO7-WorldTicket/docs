@@ -245,7 +245,18 @@ Note that for bookings with named passengers, the response will also contain dow
             "nameTitle": [],
             "passengerTypeCode": "ADT",
             "tpaextensions": {
-              "urls": "https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=JENNIFER&lastName=STEWART&departure=MKX&arrival=DMX https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=JENNIFER&lastName=STEWART&departure=DMX&arrival=MKX"
+              /* urls is deprecated and will be removed. links should be used */
+              "urls": "https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=JENNIFER&lastName=STEWART&departure=MKX&arrival=DMX https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=JENNIFER&lastName=STEWART&departure=DMX&arrival=MKX",
+              "links": [
+                {
+                  "href" : "https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=JENNIFER&lastName=STEWART&departure=MKX&arrival=DMX",
+                  "rel" : "downloadTicket"
+                },
+                {
+                  "href" : "https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=JENNIFER&lastName=STEWART&departure=DMX&arrival=MKX",
+                  "rel" : "downloadTicket"
+                }
+              ]
             }
           },
           "conjunctiveTicket": [],
@@ -270,7 +281,18 @@ Note that for bookings with named passengers, the response will also contain dow
             "nameTitle": [],
             "passengerTypeCode": "ADT",
             "tpaextensions": {
-              "urls": "https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=MARY&lastName=THOMSON&departure=MKX&arrival=DMX https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=MARY&lastName=THOMSON&departure=DMX&arrival=MKX"
+              /* urls is deprecated and will be removed. links should be used */
+              "urls": "https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=MARY&lastName=THOMSON&departure=MKX&arrival=DMX https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=MARY&lastName=THOMSON&departure=DMX&arrival=MKX",
+              "links": [
+                {
+                  "href" : "https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=MARY&lastName=THOMSON&departure=MKX&arrival=DMX",
+                  "rel" : "downloadTicket"
+                },
+                {
+                  "href" : "https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=MARY&lastName=THOMSON&departure=DMX&arrival=MKX",
+                  "rel" : "downloadTicket"
+                }
+              ]
             }
           },
           "conjunctiveTicket": [],
@@ -295,8 +317,20 @@ Note that for bookings with named passengers, the response will also contain dow
             "nameTitle": [],
             "passengerTypeCode": "CHD",
             "tpaextensions": {
-              "urls": "https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=ELIZABETH&lastName=ROBERTSON&departure=MKX&arrival=DMX https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=ELIZABETH&lastName=ROBERTSON&departure=DMX&arrival=MKX"
+              /* urls is deprecated and will be removed. links should be used */
+              "urls": "https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=ELIZABETH&lastName=ROBERTSON&departure=MKX&arrival=DMX https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=ELIZABETH&lastName=ROBERTSON&departure=DMX&arrival=MKX",
+              "links": [
+                {
+                  "href" : "https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=ELIZABETH&lastName=ROBERTSON&departure=MKX&arrival=DMX",
+                  "rel" : "downloadTicket"
+                },
+                {
+                  "href" : "https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=ELIZABETH&lastName=ROBERTSON&departure=DMX&arrival=MKX",
+                  "rel" : "downloadTicket"
+                }
+              ]
             }
+          }
           },
           "conjunctiveTicket": [],
           "ticketNumber": "3333330058953",
@@ -320,7 +354,18 @@ Note that for bookings with named passengers, the response will also contain dow
             "nameTitle": [],
             "passengerTypeCode": "CHD",
             "tpaextensions": {
-              "urls": "https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=PATRICIA&lastName=ANDERSON&departure=MKX&arrival=DMX https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=PATRICIA&lastName=ANDERSON&departure=DMX&arrival=MKX"
+              /* urls is deprecated and will be removed. links should be used */
+              "urls": "https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=PATRICIA&lastName=ANDERSON&departure=MKX&arrival=DMX https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=PATRICIA&lastName=ANDERSON&departure=DMX&arrival=MKX",
+              "links": [
+                {
+                  "href" : "https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=PATRICIA&lastName=ANDERSON&departure=DMX&arrival=MKX",
+                  "rel" : "downloadTicket"
+                },
+                {
+                  "href" : "https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=PATRICIA&lastName=ANDERSON&departure=DMX&arrival=MKX",
+                  "rel" : "downloadTicket"
+                }
+              ]
             }
           },
           "conjunctiveTicket": [],
@@ -345,7 +390,18 @@ Note that for bookings with named passengers, the response will also contain dow
             "nameTitle": [],
             "passengerTypeCode": "INF",
             "tpaextensions": {
-              "urls": "https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=LINDA&lastName=SCOTT&departure=MKX&arrival=DMX https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=LINDA&lastName=SCOTT&departure=DMX&arrival=MKX"
+              /* urls is deprecated and will be removed. links should be used */
+              "urls": "https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=LINDA&lastName=SCOTT&departure=MKX&arrival=DMX https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=LINDA&lastName=SCOTT&departure=DMX&arrival=MKX",
+              "links": [
+                {
+                  "href" : "https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=LINDA&lastName=SCOTT&departure=MKX&arrival=DMX",
+                  "rel" : "downloadTicket"
+                },
+                {
+                  "href" : "https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=LINDA&lastName=SCOTT&departure=DMX&arrival=MKX",
+                  "rel" : "downloadTicket"
+                }
+              ]
             }
           },
           "conjunctiveTicket": [],
@@ -370,7 +426,18 @@ Note that for bookings with named passengers, the response will also contain dow
             "nameTitle": [],
             "passengerTypeCode": "INF",
             "tpaextensions": {
-              "urls": "https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=BARBARA&lastName=TAYLOR&departure=MKX&arrival=DMX https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=BARBARA&lastName=TAYLOR&departure=DMX&arrival=MKX"
+              /* urls is deprecated and will be removed. links should be used */
+              "urls": "https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=BARBARA&lastName=TAYLOR&departure=MKX&arrival=DMX https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=BARBARA&lastName=TAYLOR&departure=DMX&arrival=MKX",
+              "links": [
+                {
+                  "href" : "https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=BARBARA&lastName=TAYLOR&departure=MKX&arrival=DMX",
+                  "rel" : "downloadTicket"
+                },
+                {
+                  "href" : "https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=BARBARA&lastName=TAYLOR&departure=DMX&arrival=MKX",
+                  "rel" : "downloadTicket"
+                }
+              ]
             }
           },
           "conjunctiveTicket": [],

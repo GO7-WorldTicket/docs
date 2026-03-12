@@ -437,7 +437,14 @@ curl -X POST \
                 "date": [],
                 "fareInfo": [],
                 "city": [],
-                "airport": []
+                "airport": [],
+                "ruleInfo":{
+                  "tpaextensions": {
+                    "updateTravellersTimeLimit": "2024-03-22T10:20:00Z",
+                    "confirmationTimeLimit": "2024-03-22T10:49:00Z",
+                    "cancellationTimeLimit": "2024-03-22T08:40:00Z"
+                  }
+                }
               }
             ]
           },
@@ -1328,7 +1335,14 @@ curl -X POST \
                             "date": [],
                             "fareInfo": [],
                             "city": [],
-                            "airport": []
+                            "airport": [],
+                            "ruleInfo":{
+                              "tpaextensions": {
+                                "updateTravellersTimeLimit": "2024-03-22T10:20:00Z",
+                                "confirmationTimeLimit": "2024-03-22T10:49:00Z",
+                                "cancellationTimeLimit": "2024-03-22T08:40:00Z"
+                              }
+                            }
                         }
                     ]
                 },
@@ -2041,7 +2055,14 @@ curl -X POST \
                     "date": [],
                     "fareInfo": [],
                     "city": [],
-                    "airport": []
+                    "airport": [],
+                    "ruleInfo":{
+                      "tpaextensions": {
+                        "updateTravellersTimeLimit": "2024-03-22T10:20:00Z",
+                        "confirmationTimeLimit": "2024-03-22T10:49:00Z",
+                        "cancellationTimeLimit": "2024-03-22T08:40:00Z"
+                      }
+                    }
                   }
                 ]
               },
@@ -2478,7 +2499,14 @@ curl -X POST \
                     "date": [],
                     "fareInfo": [],
                     "city": [],
-                    "airport": []
+                    "airport": [],
+                    "ruleInfo":{
+                      "tpaextensions": {
+                        "updateTravellersTimeLimit": "2024-04-18T10:20:00Z",
+                        "confirmationTimeLimit": "2024-04-18T10:49:00Z",
+                        "cancellationTimeLimit": "2024-04-18T08:40:00Z"
+                      }
+                    }`
                   },
                   {
                     "fareReference": [
@@ -2499,7 +2527,14 @@ curl -X POST \
                     "date": [],
                     "fareInfo": [],
                     "city": [],
-                    "airport": []
+                    "airport": [],
+                    "ruleInfo":{
+                      "tpaextensions": {
+                        "updateTravellersTimeLimit": "2024-04-18T10:20:00Z",
+                        "confirmationTimeLimit": "2024-04-18T10:49:00Z",
+                        "cancellationTimeLimit": "2024-04-18T08:40:00Z"
+                      }
+                    }
                   }
                 ]
               },
@@ -2706,3 +2741,80 @@ curl -X POST \
     }
   </pre>
 </details>
+---
+
+### ✅ Required Fields Summary
+
+This section lists the required fields for each booking type to help ensure proper request formatting.
+
+#### 🧍 Regular Booking (AirBookRQ)
+
+| Field                                      | Location      | Description                                                       |
+|--------------------------------------------|---------------|-------------------------------------------------------------------|
+| `version`                                  | Root          | API version (e.g., "2.001")                                       |
+| `pos.source[].requestorID.id`              | Payload       | Agent ID                                                          |
+| `pos.source[].requestorID.name`            | Payload       | Agency ID                                                         |
+| `pos.source[].bookingChannel`              | Payload       | Must include `type: "OTA"`                                        |
+| `airItinerary.originDestinationOptions`    | Payload | Flight segment details                                            |
+| `travelerInfo.airTraveler`                 | Payload       | List of passengers with full details                              |
+| `airTraveler.passengerTypeCode`            | Payload       | Must include a "CTC" contact passenger                            |
+| `personName.givenName`, `surname`          | CTC traveler  | Contact person name                                               |
+| `email`, `telephone` (optional)            | CTC traveler  | Contact details                                                   |
+| `passengerTypeCode`                        | Each traveler | Passenger type code: “ADT” (Adult), “CHD” (Child), “INF” (Infant) |
+| `personName.givenName`, `surname`, `gender` | Each traveler | Passenger name and gender                                         |
+| `document[]`                               | Each traveler | Document information                                              |
+| `email`, `telephone` (optional)            | Each traveler | Contact details                                                   |
+
+#### 👥 Group Booking (AirPriceRQ)
+
+| Field                                                          | Location      | Description                                                       |
+|----------------------------------------------------------------|---------------|-------------------------------------------------------------------|
+| `version`                                                      | Root          | API version (e.g., "2.001")                                       |
+| `pos.source[].requestorID.id`                                  | Payload       | Agent ID                                                          |
+| `pos.source[].requestorID.name`                                | Payload       | Agency ID                                                         |
+| `pos.source[].bookingChannel`                                  | Payload       | Must include `type: "OTA"`                                        |
+| `airItinerary.originDestinationOptions`                        | Payload       | Flight segment details                                            |
+| `travelerInfoSummary.airTravelerAvail[].passengerTypeQuantity` | Payload | Required passenger quantities including `code` and `quantity`     |
+| `passengerTypeQuantity.code`                                   | Payload  | Passenger type code: "ADT" (Adult), "CHD" (Child), "INF" (Infant) |
+| `passengerTypeQuantity.quantity`                               | Payload  | Number of passengers for the given type                           |
+| `travelerInfoSummary.airTravelerAvail[].airTraveler`           | Payload       | List of passengers with full details                              |
+| `airTraveler.passengerTypeCode`                                | Payload       | Must include a "CTC" contact passenger                            |
+| `personName.givenName`, `surname`                              | CTC traveler  | Contact person name                                               |
+| `email`, `telephone` (optional)                                | CTC traveler  | Contact details                                                   |
+| `airTraveler.passengerTypeCode`                                | Each traveler | Passenger type code: “ADT” (Adult), “CHD” (Child), “INF” (Infant) |
+| `personName.givenName`, `surname`, `gender`                    | Each traveler | Passenger name and gender                                         |
+| `document[]`                                                   | Each traveler | Document information                                              |
+| `email`, `telephone` (optional)                                | Each traveler | Contact details                                                   |
+
+> 💡 *Note: The contact (CTC) passenger is required in both booking types for reference purposes.*
+
+### 📄 Required Fields in `document[]`
+
+For each traveler (excluding the contact traveler, i.e., `CTC`), the following fields in the `document[]` array are required:
+
+| Field                   | Required | Description                                       |
+|-------------------------|----------|---------------------------------------------------|
+| `docID`                 | ✅       | Passport or national ID number                    |
+| `docType`               | ✅       | [Type of document (e.g., "2" for passport)](../OTA_API_SAR#document-type) |
+| `docHolderNationality`  | ✅       | ISO country code (e.g., "SA" for Saudi Arabia)    |
+| `birthDate`             | ✅       | Traveler's birth date in `YYYY-MM-DD` format      |
+| `expireDate`            | ✅       | Document expiration date in `YYYY-MM-DD` format   |
+
+> 💡 *All fields must be present for each traveler except the contact (`CTC`) passenger.*
+
+#### Example
+
+```json
+"document": [
+  {
+    "docID": "0123456789",
+    "docType": "5",
+    "docHolderNationality": "SA",
+    "birthDate": "1979-01-01",
+    "expireDate": "2027-12-12"
+  }
+]
+```
+
+#### Group Booking Completion Policy
+> **Note:** Group bookings can be created and confirmed on HHR, but ticket issuance requires passenger information. Customers must complete the booking within 72 hours.

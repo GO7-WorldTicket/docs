@@ -1,4 +1,4 @@
-### Cancel Booking
+## Full Booking Cancellation
 
 This method cancels entire booking. In case you need to cancel individual passenger or segment use `OTA_AirBookingModifyRQ` and not `OTA_CancelRQ` message. 
 
@@ -11,20 +11,58 @@ This method cancels entire booking. In case you need to cancel individual passen
 | agentId      | Payload |                    | ota                      |
 | agencyId     | Payload |                    | ota                      |
 
-<details open>
-  <summary><b>Request Payload</b></summary>
-  <pre>
+## JSON Request
+
+<details>
+<summary><strong>📋 JSON Request Template</strong></summary>
+<div markdown="1">
+
+```json
+{
+  "version": "2.001",
+  "pos": {
+    "source": [
+      {
+        "bookingChannel": {
+          "type": "OTA"
+        },
+        "isoCurrency": "{currency_code}"
+      }
+    ]
+  },
+  "readRequests": {
+    "readRequest": [
+      {
+        "uniqueID": {
+          "id": "{record_locator}",
+          "type": "14"
+        }
+      }
+    ]
+  }
+}
+```
+
+</div>
+
+</details>
+
+<details>
+<summary><strong>✅ Example</strong></summary>
+<div markdown="1">
+
+```json
 {
   "version": "2.001",
   "cancelType": "Commit",
   "pos": {
     "source": [
       {
-        "isoCurrency": "SAR",
+        "isoCurrency": "USD",
         "requestorID": {
           "type": "5",
-          "id": "<ins>agentId</ins>",
-          "name": "<ins>agencyId</ins>"
+          "id": "agentId",
+          "name": "agencyId"
         },
         "bookingChannel": {
           "type": "OTA"
@@ -34,93 +72,49 @@ This method cancels entire booking. In case you need to cancel individual passen
   },
   "uniqueID": [
     {
-      "id": "6ZEFCG",
+      "id": "VU7HQN",
       "type": "14"
     }
   ]
 }
-  </pre>
+```
+
+</div>
+
 </details>
 
-<details open>
-  <summary><b>Response Payload</b></summary>
-  <pre>
+## JSON Response
+
+<details>
+<summary><strong>✅ Example</strong></summary>
+<div markdown="1">
+
+```json
 {
   "success": {},
   "uniqueID": [
     {
       "type": "14",
-      "id": "6ZEFCG"
+      "id": "VU7HQN"
     }
   ],
   "segment": [],
   "status": "CANCELLED",
-  "timeStamp": "2024-05-15T05:56:22.041Z",
-  "version": 2.001
+  "timeStamp": "2025-11-25T04:14:27.963Z",
+  "version": 2.001,
+  "retransmissionIndicator": false
 }
-  </pre>
+```
+
+</div>
+
 </details>
 
-## Cancel Policy
+### Cancellation and Refund Penalty Policy
+This policy sets the rules for handling cancellations and refund penalties as per the commercial agreements between SAR and the OTA. The different terms and conditions will apply based on the fare class, booking channel, and specific contractual agreements.
+The system will automatically verify the cancellation and refund rules for each OTA based on their agreement and provide the appropriate result. Once the cancellation is successful, a cancelation email will be sent automatically.
 
-#### Cancel Duration Policy
-The HHR and ELM systems have conflicting cancellation policies. HHR allows cancellations up to 24 hours before departure, while ELM permits cancellations seven days in advance. To align with the stricter policy, we must enforce the cancellation rule for ELM customers.
+### Cancellation email
+Support sending cancellation email automatically after HHR success cancelled the booking or segment
 
-<details>
-  <pre>
-    hhr:
-      policy:
-        cancellation:
-          agents:
-            default:
-              name: "Default Policy"
-              description: "Default cancellation policy if none is specified."
-              min-duration-before-departure: "PT72H" # 72 hours
-            agent1:
-              name: "Agent 1 Policy"
-              description: "Cancellation policy for agent 1"
-              min-duration-before-departure: "PT72H" # 72 hours
-  </pre>
-</details>
-
-#### Cancel Refund Policy
-This section details the cancellation policy. It outlines the conditions under which you can cancel your reservation and the associated refund fees. The specific refund amount will be determined by the time remaining before your departure.
-
-<details>
-    <summary><b>Refund Policies</b></summary>
-    <pre>
-    order-management:
-        refund-policies:
-            policies:
-            default:
-                min-duration-before-departure: PT0M
-                max-duration-before-departure: PT0S # cover anything beyond
-                default-refund-fee: 100
-                refund-fee:
-                    Y: 100 # Not allow to refund
-                    C: 100 # Not allow to refund
-
-            agent-1:
-                - # Less than or equal to 20 minutes (0 hours)
-                min-duration-before-departthe original amounture: PT0M
-                max-duration-before-departure: PT20M # Minutes before departure
-                default-refund-fee: 100
-                refund-fee:
-                    Y: 100 # Not allow to refund
-                    C: 100 # Not allow to refund
-                - # Between 20 minutes and 48 hours
-                min-duration-before-departure: PT20M
-                max-duration-before-departure: PT48H
-                default-refund-fee: 55
-                refund-fee:
-                    Y: 50
-                    C: 35 # Refund Fee 35% of the ticket price
-                - # More than 48 hours
-                min-duration-before-departure: PT48H
-                max-duration-before-departure: PT0S # cover anything beyond
-                default-refund-fee: 0
-                refund-fee:
-                    Y: 20 # Refund Fee 20% of the ticket price
-                    C: 0 # No refund penalty applies
-            </pre>
-</details>
+![Alt text](../../images/example_cancelEmail.png "Example of Cancellation email")
