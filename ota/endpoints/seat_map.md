@@ -190,19 +190,18 @@ curl -X POST \
         }
     ]
 }  </pre>
+</details>
 
 In the above request:
 * `pos` point of sale information for the booking.
 * `seatMapRequests` is an object compromising of:
   *  `seatMapRequest` which is a list of request for each segment to get seat map for. Each request must include:
-    * `flightSegmentInfo`, the details of the flight.
-    * `travelerRefNumberRPHs`, a list of at least one traveller to get seat map for. This links to the `airTravelers` section in the request.
+  * `flightSegmentInfo`, the details of the flight.
+  * `travelerRefNumberRPHs`, a list of at least one traveller to get seat map for. This links to the `airTravelers` section in the request.
 * `airTravelers` is the list of travellers in the booking.
 * `bookingReferenceID` is the booking reference of the booking.
 
 Both `flightSegmentInfo` and `travelerRefNumberRPHs` can be acquired from the `OTA_Read` response of the booking.
-</details>
-
 
 <details open>
   <summary><b>Response Payload</b></summary>
@@ -856,34 +855,34 @@ Both `flightSegmentInfo` and `travelerRefNumberRPHs` can be acquired from the `O
     ]
   }
 }  </pre>
+</details>
 
 In the above response:
 * `seatMapResponse` is a list of seat map for each requested segment. Each response consists of:
-    * `flightSegmentInfo`, the details of the flight the seat map is for.
-    * `seatMapDetails`, a list of seat map of the flight, where each one includes:
-      * `cabinClass`, a list of details for each cabin/coach of the segment. Each cabin/coach includes:
-         * `availabilityList`, a list of seat availabilities within the cabin.
-        * `rowInfo`, list of information for each row within the cabin. Each row includes:
-          * `seatInfo`, a list of seat information in the row. Each seat includes:
-            * `summary`, information about the seat.
-            * `availability`, the availability of the seat. The possible values are: `SEAT_AVAILABLE`, `SEAT_OCCUPIED` (seat booked by other passengers), `SEAT_RESERVED` (seat currently booked by the requested passenger).
-            * `features`, a list the seat's features. Currently supported features are: `WINDOW`, `AISLE`, `OTHER` (ForwardFacing or BackwardFacing).
-            * `status`, the seat's status. The possible values are: `AVAILABLE`, `BOOKED`, `ACTIVE` (seat currently booked by the requested passenger).
-            * `columnNumber`, the column number of the seat.
-          * `gridNumber`, the grid number of the seat map.
-          * `cabinType`, the cabin type of the seat map. The possible values are: `P` (business), and `T` (economy).
-          * `rowNumber`, the row number of the seat map.
-        * `zone`, the zone information of the cabin. Consists of:
-          * `id`, the zone ID.
-          * `code`, the zone code.
-          * `name`, the zone name.
-          * `description`, the zone description.
-          * `totalSeatQty`, the total number of seats in the cabin.
-          * `type`, the cabin class. The possible values are: `P` (business), and `T` (economy).
-        * `columnSpan`, the number of columns in the seat map.
-        * `startingRow`, the starting row of the seat map.
-        * `endingRow`, the ending row of the seat map.`
-    * `bookingReferenceID`, the booking reference of the booking.
-</details>
+  * `flightSegmentInfo`, the details of the flight the seat map is for.
+  * `seatMapDetails`, a list of seat map of the flight, where each one includes:
+    * `cabinClass`, a list of details for each cabin/coach of the segment. Each cabin/coach includes:
+      * `availabilityList`, a list of seat availabilities within the cabin.
+      * `rowInfo`, list of information for each row within the cabin. Each row includes:
+        * `seatInfo`, a list of seat information in the row. Each seat includes:
+          * `summary`, information about the seat.
+          * `availability`, the availability of the seat. The possible values are: `SEAT_AVAILABLE`, `SEAT_OCCUPIED` (seat booked by other passengers), `SEAT_RESERVED` (seat currently booked by the requested passenger).
+          * `features`, a list the seat's features. Currently supported features are: `WINDOW`, `AISLE`, `OTHER` (ForwardFacing or BackwardFacing).
+          * `status`, the seat's status. The possible values are: `AVAILABLE`, `BOOKED`, `ACTIVE` (seat currently booked by the requested passenger).
+          * `columnNumber`, the column number of the seat.
+        * `gridNumber`, the grid number of the seat map.
+        * `cabinType`, the cabin type of the seat map. The possible values are: `P` (business), and `T` (economy).
+        * `rowNumber`, the row number of the seat map.
+      * `zone`, the zone information of the cabin. Consists of:
+        * `id`, the zone ID.
+        * `code`, the zone code.
+        * `name`, the zone name.
+        * `description`, the zone description.
+        * `totalSeatQty`, the total number of seats in the cabin.
+        * `type`, the cabin class. The possible values are: `P` (business), and `T` (economy).
+      * `columnSpan`, the number of columns in the seat map.
+      * `startingRow`, the starting row of the seat map.
+      * `endingRow`, the ending row of the seat map.`
+  * `bookingReferenceID`, the booking reference of the booking.
 
 For how to update the seat of a passenger, see the [Modify booking for seat change](modify-booking.md#seat-change) section.
