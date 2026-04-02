@@ -3681,6 +3681,7 @@ Seats can be changed after the booking has been paid for.
     }
   }
 }</pre>
+</details>
 
 The request consists of:
 * `pos`, the point of sale information of the booking
@@ -3693,7 +3694,6 @@ The request consists of:
         * `flightRefNumberRPHList` the flight reference number of the flight segment to change seat for.
         * `travelerRefNumberRPHList` the traveller reference number of the traveller to change seat for
         * `seatNumber` the seat number to be changed to
-</details>
 
 <details>
   <summary>Response Payload</summary>
@@ -4093,5 +4093,6 @@ The request consists of:
     "version": 2.001
 }  </pre>
 
-In the case where the seat was successfully changed, the returned response will be the details of the booking with updated seat (and coach) number.
 </details>
+
+In the case where the seat was successfully changed, the returned response will be the details of the booking with updated seat (and coach) number. The system will also send a ticket update notification.
