@@ -25,6 +25,7 @@ title: The Title of Your Page
 
 | Change Description                                                                                      | Changed By              | Change Date |
 |---------------------------------------------------------------------------------------------------------|-------------------------|-------------|
+| [Add seat map errors](generic/error-handling.md#seat-map-errors)                                           | Duangtida Athakravi     | 2026-04-10  |
 | [Add seat map endpoint and how to update seat](endpoints/seat_map)                                      | Duangtida Athakravi     | 2026-03-12  |
 | [Clarify download all tickets endpoint (`/tickets/confirmation/{rloc}/download`)](changelog.md#2026-02-22) | Sittiwet Mahapratoom    | 2026-02-22  |
 | [Segments cancellation with automatic refund](changelog.md#2025-07-31)                                  | Jarun Jiamtaweeboon     | 2025-07-31  |

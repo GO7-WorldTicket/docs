@@ -70,8 +70,8 @@ Comprehensive guide to OTA API error responses, codes, and handling strategies.
 | Error Code | Description | Common Causes |
 |------------|-------------|---------------|
 | MISSING_REQUIRED_FIELD | Required field is missing | Empty or null required parameters |
-| INVALID_DATE_FORMAT | Date format is incorrect | Wrong date format, use ISO 8601 |
-| INVALID_AIRPORT_CODE | Airport code not recognized | Typo in IATA code or unsupported airport |
+| INVALID_DATE_FORMAT     | Date format is incorrect | Wrong date format, use ISO 8601 |
+| INVALID_AIRPORT_CODE    | Airport code not recognized | Typo in IATA code or unsupported airport |
 | INVALID_PASSENGER_COUNT | Passenger count exceeds limits | Too many passengers for single booking |
 | INVALID_CURRENCY_CODE | Currency code not supported | Use ISO 4217 currency codes |
 
@@ -92,14 +92,14 @@ Comprehensive guide to OTA API error responses, codes, and handling strategies.
 
 ### Business Logic Errors
 
-| Error Code | Description | Resolution |
-|------------|-------------|------------|
-| NO_FLIGHTS_AVAILABLE | No flights found for criteria | Adjust search parameters |
-| SEAT_NOT_AVAILABLE | Requested seat is unavailable | Select different seat or booking class |
-| BOOKING_NOT_FOUND | Booking record not found | Verify record locator |
-| FARE_NO_LONGER_AVAILABLE | Selected fare is no longer valid | Re-search for current fares |
-| PAYMENT_DECLINED | Payment processing failed | Try different payment method |
-| MODIFICATION_NOT_ALLOWED | Booking cannot be modified | Check fare rules and restrictions |
+| Error Code | Description | Resolution                                                                                                                 |
+|------------|-------------|----------------------------------------------------------------------------------------------------------------------------|
+| NO_FLIGHTS_AVAILABLE | No flights found for criteria | Adjust search parameters                                                                                                   |
+| SEAT_NOT_AVAILABLE       | Requested seat is unavailable | Select different seat or booking class                                                                                     |
+| BOOKING_NOT_FOUND        | Booking record not found | Verify record locator                                                                                                      |
+| FARE_NO_LONGER_AVAILABLE | Selected fare is no longer valid | Re-search for current fares                                                                                                |
+| PAYMENT_DECLINED         | Payment processing failed | Try different payment method                                                                                               |
+| MODIFICATION_NOT_ALLOWED | Booking cannot be modified | Check fare rules and restrictions                                                                                          |
 
 #### Example
 
@@ -255,6 +255,17 @@ Comprehensive guide to OTA API error responses, codes, and handling strategies.
     The card security code (CVV) is incorrect. Please verify and try again.
 </Error>
 ```
+
+### Seat Map Errors
+
+| Error Code                | Description |
+|---------------------------|-------------|
+| CHANGES_ARE_NOT_PERMITTED | Changes are not permitted | 
+| SYSTEM_ERROR              | System error | 
+
+* Seat map request and seat modification are only allowed after the bookig has been paid for, and the booking's update time limit must not have been expired.
+* Seats cannot be modified for segments that have already departed or have been cancelled.
+
 
 ## Error Handling Best Practices
 
