@@ -112,145 +112,146 @@ Error responses contain specific details for investigating issues. The main reas
 ### 3. Error Code
 #### 3.1 GO7 Internal OTA Error Code
 
-| Error Code | Title / Description                                      |
-|------------|----------------------------------------------------------|
-| 6          | Service closed for sales                                 |
-| 7          | Route code invalid                                       |
-| 8          | No reservations on route requested                       |
-| 9          | Requested service is fully booked                        |
-| 11         | Service connections not possible                         |
-| 15         | Invalid date                                             |
-| 16         | Service has been cancelled                               |
-| 17         | Time request not with fare/tariff                        |
-| 19         | Name is missing or incomplete                            |
-| 20         | Number of passengers invalid                             |
-| 21         | Passenger type quota exceeded                            |
-| 22         | Passengers exceed commercial rules                       |
-| 23         | Passenger type not supported                             |
-| 24         | Passenger class capacity exceeded                        |
-| 25         | Passenger types not consistent                           |
-| 26         | At least one adult must be included                      |
-| 27         | Passenger details are mandatory                          |
-| 42         | Too many classes                                         |
-| 48         | Tariff type invalid                                      |
-| 49         | Tariff invalid for passenger mix                         |
-| 53         | No price exists for the tariff                           |
-| 58         | Price(s) cannot be validated                             |
-| 59         | Offer price cannot be calculated                         |
-| 60         | Ticket numbers missing or invalid                        |
-| 61         | Invalid currency code                                    |
-| 63         | Cannot ticket until booking priced                       |
-| 64         | Tickets do not match reservation                         |
-| 65         | Cannot ticket - already issued                           |
-| 71         | Cannot ticket at this agency                             |
-| 72         | Cannot ticket - cancelled booking                        |
-| 73         | Cannot ticket - expired booking                          |
-| 74         | Cannot ticket - itinerary commenced                      |
-| 76         | Ticket issue request not possible                        |
-| 83         | Leg/journey/itinerary reference invalid                  |
-| 86         | Cannot cancel - itinerary complete                       |
-| 87         | Booking reference invalid                                |
-| 95         | Booking already cancelled                                |
-| 96         | Duplicated itinerary                                     |
-| 97         | Booking reference not found                              |
-| 99         | Booking not owned by requester                           |
-| 101        | Cannot book - departure too close                        |
-| 102        | Booking reference not connected                          |
-| 103        | Cannot access - itinerary complete                       |
-| 107        | Cannot book - too far in advance                         |
-| 111        | Booking invalid                                          |
-| 113        | Mandatory booking details missing                        |
-| 117        | Cannot access booking details                            |
-| 118        | Booking status invalid                                   |
-| 122        | End date has passed                                      |
-| 123        | Too many children                                        |
-| 124        | Too many babies                                          |
-| 127        | Reservation already exists                               |
-| 146        | Service requested incorrect                              |
-| 158        | Departure or to date required                            |
-| 161        | Search criteria invalid                                  |
-| 163        | Payment type invalid                                     |
-| 167        | Payment rejected                                         |
-| 171        | Booking not made by this agent                           |
-| 172        | Requested action not possible                            |
-| 173        | Agency code required                                     |
-| 174        | Bookings made by different agents                        |
-| 175        | Password invalid                                         |
-| 181        | Invalid country code                                     |
-| 182        | Password required                                        |
-| 183        | Agency suspended - access denied                         |
-| 184        | Language code invalid                                    |
-| 187        | System currently unavailable                             |
-| 189        | Payment not authorised                                   |
-| 190        | Wrong network - access denied                            |
-| 191        | System busy - please try later                           |
-| 193        | Cancellation process failed                              |
-| 194        | No matching bookings found                               |
-| 195        | Service restriction - security                           |
-| 239        | Flight number must be accompanied by an airline.         |
-| 240        | Credit card has expired                                  |
-| 241        | Expiration date is invalid                               |
-| 242        | Credit card number is invalid or missing                 |
-| 244        | Email address is invalid                                 |
-| 248        | Invalid airline code                                     |
-| 254        | Reservation date has passed                              |
-| 264        | Reservation cannot be cancelled                          |
-| 285        | Invalid first name                                       |
-| 286        | First name contains invalid characters                   |
-| 287        | Invalid last name                                        |
-| 288        | Last name contains invalid characters                    |
-| 293        | Invalid departure time                                   |
-| 294        | Invalid arrival time                                     |
-| 297        | Unable to process - insufficient data                    |
-| 305        | Invalid booking source                                   |
-| 310        | Required data missing: last name                         |
-| 311        | Required data missing: first name                        |
-| 312        | Required data missing: airline flight number             |
-| 314        | Required data missing: country of residence              |
-| 318        | Required data missing: arrival time                      |
-| 320        | Invalid value                                            |
-| 321        | Required field missing                                   |
-| 322        | No availability                                          |
-| 353        | Departure date is past dated                             |
-| 356        | Invalid action/status code                               |
-| 407        | Item too long                                            |
-| 417        | Name change not allowed                                  |
-| 420        | Need e-mail address                                      |
-| 448        | System error                                             |
-| 450        | Unable to process                                        |
-| 458        | Date outside inventory period                            |
-| 497        | Authorization error                                      |
-| 499        | The selected train, segment, or fare is no longer available |
-| 501        | Invalid date for flight requested                        |
-| 508        | Invalid/missing reservation booking designator           |
-| 523        | Surname too long                                         |
-| 524        | Given name/title too long                                |
-| 559        | Booking period restriction applies                       |
-| 568        | Cancellation penalties apply                             |
-| 569        | Group booking required                                   |
-| 570        | Cannot cancel - arrival too close - call property        |
-| 571        | Travel agency name required                              |
-| 572        | Company name required                                    |
-| 631        | Company name code invalid or missing                     |
-| 632        | Prepaid modify or cancel not allowed-call reservations   |
+| Error Code | Title / Description                                           |
+|------------|---------------------------------------------------------------|
+| 6          | Service closed for sales                                      |
+| 7          | Route code invalid                                            |
+| 8          | No reservations on route requested                            |
+| 9          | Requested service is fully booked                             |
+| 11         | Service connections not possible                              |
+| 15         | Invalid date                                                  |
+| 16         | Service has been cancelled                                    |
+| 17         | Time request not with fare/tariff                             |
+| 19         | Name is missing or incomplete                                 |
+| 20         | Number of passengers invalid                                  |
+| 21         | Passenger type quota exceeded                                 |
+| 22         | Passengers exceed commercial rules                            |
+| 23         | Passenger type not supported                                  |
+| 24         | Passenger class capacity exceeded                             |
+| 25         | Passenger types not consistent                                |
+| 26         | At least one adult must be included                           |
+| 27         | Passenger details are mandatory                               |
+| 42         | Too many classes                                              |
+| 48         | Tariff type invalid                                           |
+| 49         | Tariff invalid for passenger mix                              |
+| 53         | No price exists for the tariff                                |
+| 58         | Price(s) cannot be validated                                  |
+| 59         | Offer price cannot be calculated                              |
+| 60         | Ticket numbers missing or invalid                             |
+| 61         | Invalid currency code                                         |
+| 63         | Cannot ticket until booking priced                            |
+| 64         | Tickets do not match reservation                              |
+| 65         | Cannot ticket - already issued                                |
+| 71         | Cannot ticket at this agency                                  |
+| 72         | Cannot ticket - cancelled booking                             |
+| 73         | Cannot ticket - expired booking                               |
+| 74         | Cannot ticket - itinerary commenced                           |
+| 76         | Ticket issue request not possible                             |
+| 83         | Leg/journey/itinerary reference invalid                       |
+| 86         | Cannot cancel - itinerary complete                            |
+| 87         | Booking reference invalid                                     |
+| 95         | Booking already cancelled                                     |
+| 96         | Duplicated itinerary                                          |
+| 97         | Booking reference not found                                   |
+| 99         | Booking not owned by requester                                |
+| 101        | Cannot book - departure too close                             |
+| 102        | Booking reference not connected                               |
+| 103        | Cannot access - itinerary complete                            |
+| 107        | Cannot book - too far in advance                              |
+| 111        | Booking invalid                                               |
+| 113        | Mandatory booking details missing                             |
+| 117        | Cannot access booking details                                 |
+| 118        | Booking status invalid                                        |
+| 122        | End date has passed                                           |
+| 123        | Too many children                                             |
+| 124        | Too many babies                                               |
+| 127        | Reservation already exists                                    |
+| 146        | Service requested incorrect                                   |
+| 150        | Changes are not permitted                                     |
+| 158        | Departure or to date required                                 |
+| 161        | Search criteria invalid                                       |
+| 163        | Payment type invalid                                          |
+| 167        | Payment rejected                                              |
+| 171        | Booking not made by this agent                                |
+| 172        | Requested action not possible                                 |
+| 173        | Agency code required                                          |
+| 174        | Bookings made by different agents                             |
+| 175        | Password invalid                                              |
+| 181        | Invalid country code                                          |
+| 182        | Password required                                             |
+| 183        | Agency suspended - access denied                              |
+| 184        | Language code invalid                                         |
+| 187        | System currently unavailable                                  |
+| 189        | Payment not authorised                                        |
+| 190        | Wrong network - access denied                                 |
+| 191        | System busy - please try later                                |
+| 193        | Cancellation process failed                                   |
+| 194        | No matching bookings found                                    |
+| 195        | Service restriction - security                                |
+| 239        | Flight number must be accompanied by an airline.              |
+| 240        | Credit card has expired                                       |
+| 241        | Expiration date is invalid                                    |
+| 242        | Credit card number is invalid or missing                      |
+| 244        | Email address is invalid                                      |
+| 248        | Invalid airline code                                          |
+| 254        | Reservation date has passed                                   |
+| 264        | Reservation cannot be cancelled                               |
+| 285        | Invalid first name                                            |
+| 286        | First name contains invalid characters                        |
+| 287        | Invalid last name                                             |
+| 288        | Last name contains invalid characters                         |
+| 293        | Invalid departure time                                        |
+| 294        | Invalid arrival time                                          |
+| 297        | Unable to process - insufficient data                         |
+| 305        | Invalid booking source                                        |
+| 310        | Required data missing: last name                              |
+| 311        | Required data missing: first name                             |
+| 312        | Required data missing: airline flight number                  |
+| 314        | Required data missing: country of residence                   |
+| 318        | Required data missing: arrival time                           |
+| 320        | Invalid value                                                 |
+| 321        | Required field missing                                        |
+| 322        | No availability                                               |
+| 353        | Departure date is past dated                                  |
+| 356        | Invalid action/status code                                    |
+| 407        | Item too long                                                 |
+| 417        | Name change not allowed                                       |
+| 420        | Need e-mail address                                           |
+| 448        | System error                                                  |
+| 450        | Unable to process                                             |
+| 458        | Date outside inventory period                                 |
+| 497        | Authorization error                                           |
+| 499        | The selected train, segment, or fare is no longer available   |
+| 501        | Invalid date for flight requested                             |
+| 508        | Invalid/missing reservation booking designator                |
+| 523        | Surname too long                                              |
+| 524        | Given name/title too long                                     |
+| 559        | Booking period restriction applies                            |
+| 568        | Cancellation penalties apply                                  |
+| 569        | Group booking required                                        |
+| 570        | Cannot cancel - arrival too close - call property             |
+| 571        | Travel agency name required                                   |
+| 572        | Company name required                                         |
+| 631        | Company name code invalid or missing                          |
+| 632        | Prepaid modify or cancel not allowed-call reservations        |
 | 633        | We are unable to process your request-please remove the slash |
-| 635        | Data not found                                           |
-| 713        | Currency of payment cannot be changed-must cancel or change |
-| 743        | Invalid message length                                   |
-| 744        | Invalid field length                                     |
-| 745        | Invalid field ID                                         |
-| 768        | Inconsistent status                                      |
-| 770        | Required data missing: reservation holder                |
-| 854        | Booking allotment blocking failed                        |
-| 860        | Passenger details error                                  |
-| 877        | Insufficient available funds found in your credit line   |
-| 878        | Missing/incorrect document type                          |
-| 879        | Missing/incorrect document number                        |
-| 883        | Price change detected                                    |
-| 884        | Currency change detected                                 |
-| 885        | Inconsistency between total returned and estimated total |
-| 886        | Inconsistent settings for this client                    |
-| 888        | Degraded performance, system throttling                  |
+| 635        | Data not found                                                |
+| 713        | Currency of payment cannot be changed-must cancel or change   |
+| 743        | Invalid message length                                        |
+| 744        | Invalid field length                                          |
+| 745        | Invalid field ID                                              |
+| 768        | Inconsistent status                                           |
+| 770        | Required data missing: reservation holder                     |
+| 854        | Booking allotment blocking failed                             |
+| 860        | Passenger details error                                       |
+| 877        | Insufficient available funds found in your credit line        |
+| 878        | Missing/incorrect document type                               |
+| 879        | Missing/incorrect document number                             |
+| 883        | Price change detected                                         |
+| 884        | Currency change detected                                      |
+| 885        | Inconsistency between total returned and estimated total      |
+| 886        | Inconsistent settings for this client                         |
+| 888        | Degraded performance, system throttling                       |
 
 #### 3.2 External OTA Error Code
 
