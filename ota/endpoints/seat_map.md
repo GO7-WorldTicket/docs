@@ -21,7 +21,7 @@ curl -X POST \
 ```
 
 <details open>
-  <summary><b>Request Payload</b></summary>
+  <summary><b>One Way Request Payload</b></summary>
   <pre>
 {
     "version": "2.001",
@@ -202,6 +202,219 @@ In the above request:
 * `bookingReferenceID` is the booking reference of the booking.
 
 Both `flightSegmentInfo` and `travelerRefNumberRPHs` can be acquired from the `OTA_Read` response of the booking.
+
+<details open>
+<summary><b>Round Trip Request Payload</b></summary>
+<pre>
+{
+  "version": "2.001",
+  "pos": {
+    "source": [
+      {
+        "bookingChannel": {
+          "type": "OTA"
+        },
+        "isocurrency": "SAR",
+        "requestorID": {
+          "type": "5",
+          "id": "<ins>agentId</ins>",
+          "name": "<ins>agentId</ins>"
+        }
+      }
+    ]
+  },
+  "seatMapRequests": {
+    "seatMapRequest": [
+      {
+        "flightSegmentInfo": {
+          "departureAirport": {
+            "locationCode": "JXD"
+          },
+          "arrivalAirport": {
+            "locationCode": "MKX"
+          },
+          "operatingAirline": {
+            "code": "HHR",
+            "flightNumber": "0081"
+          },
+          "equipment": [],
+          "departureDateTime": "2026-09-14T10:21:00.000+03:00",
+          "arrivalDateTime": "2026-09-14T10:55:00.000+03:00",
+          "rph": "1",
+          "marketingAirline": {
+            "code": "HHR"
+          },
+          "flightNumber": "0081",
+          "fareBasisCode": "NOTCANCEL",
+          "resBookDesigCode": "Y",
+          "bookingClassAvails": [],
+          "comment": [],
+          "stopLocation": [],
+          "status": "30",
+          "tpaextensions": {
+            "seatDetails": [
+              {
+                "coach": "006",
+                "seat": "116",
+                "seatType": "aisle"
+              }
+            ]
+          }
+        },
+        "travelerRefNumberRPHs": [
+          "1"
+        ]
+      },
+      {
+        "flightSegmentInfo": {
+          "departureAirport": {
+            "locationCode": "MKX"
+          },
+          "arrivalAirport": {
+            "locationCode": "JDX"
+          },
+          "operatingAirline": {
+            "code": "HHR",
+            "flightNumber": "0080"
+          },
+          "equipment": [],
+          "departureDateTime": "2026-09-15T10:21:00.000+03:00",
+          "arrivalDateTime": "2026-09-15T10:55:00.000+03:00",
+          "rph": "2",
+          "marketingAirline": {
+            "code": "HHR"
+          },
+          "flightNumber": "0080",
+          "fareBasisCode": "NOTCANCEL",
+          "resBookDesigCode": "Y",
+          "bookingClassAvails": [],
+          "comment": [],
+          "stopLocation": [],
+          "status": "30",
+          "tpaextensions": {
+            "seatDetails": [
+              {
+                "coach": "006",
+                "seat": "118",
+                "seatType": "aisle"
+              }
+            ]
+          }
+        },
+        "travelerRefNumberRPHs": [
+          "1"
+        ]
+      }
+    ]
+  },
+  "airTravelers": {
+    "airTraveler": [
+      {
+        "personName": {
+          "namePrefix": [],
+          "givenName": [
+            "QA TEST"
+          ],
+          "middleName": [],
+          "surname": "TESTER",
+          "nameSuffix": [],
+          "nameTitle": []
+        },
+        "telephone": [
+          {
+            "countryAccessCode": "380",
+            "phoneNumber": "671234567"
+          }
+        ],
+        "email": [
+          {
+            "value": "test@go7.io",
+            "defaultInd": true
+          }
+        ],
+        "address": [
+          {
+            "bldgRoom": [],
+            "addressLine": [],
+            "cityName": "Makkha",
+            "countryName": {
+              "value": "",
+              "code": "SA"
+            }
+          }
+        ],
+        "custLoyalty": [],
+        "document": [],
+        "socialMediaInfo": [],
+        "passengerTypeCode": "CTC",
+        "comment": []
+      },
+      {
+        "personName": {
+          "namePrefix": [
+            "MISS"
+          ],
+          "givenName": [
+            "BESSIE"
+          ],
+          "middleName": [],
+          "surname": "MACK",
+          "nameSuffix": [],
+          "nameTitle": []
+        },
+        "telephone": [
+          {
+            "countryAccessCode": "380",
+            "phoneNumber": "671234567"
+          }
+        ],
+        "email": [
+          {
+            "value": "test@go7.io"
+          }
+        ],
+        "address": [],
+        "custLoyalty": [],
+        "document": [
+          {
+            "docLimitations": [],
+            "birthDate": "1979-01-01"
+          },
+          {
+            "docLimitations": [],
+            "docID": "11234567896",
+            "docType": "5",
+            "docHolderNationality": "SA",
+            "expireDate": "2027-12-12"
+          }
+        ],
+        "travelerRefNumber": {
+          "rph": "1"
+        },
+        "flightSegmentRPHs": {
+          "flightSegmentRPH": [
+            "1", "2"
+          ]
+        },
+        "socialMediaInfo": [],
+        "passengerTypeCode": "ADT",
+        "gender": "Female",
+        "comment": []
+      }
+    ]
+  },
+  "bookingReferenceID": [
+    {
+      "companyName": {
+        "code": "W1"
+      },
+      "type": "14",
+      "id": "48A22J"
+    }
+  ]
+}</pre>
+</details>
+
 
 <details open>
   <summary><b>Response Payload</b></summary>
