@@ -7,7 +7,6 @@ This method returns the seat map for some given flights. Seat maps can be reques
 | Parameter    | Type    | Description        | Example                  |
 |--------------|---------|--------------------|--------------------------|
 | x-api-key    | Header  | Access Token       | [Access token](#api-key) |
-| local-name   | Header  | Custom HTTP header | OTA_AirSeatMapRQ             |
 | agentId      | Payload |                    | ota                      |
 | agencyId     | Payload |                    | ota                      |
 
@@ -15,9 +14,8 @@ This method returns the seat map for some given flights. Seat maps can be reques
 
 ```
 curl -X POST \
-    {base_url} \
-    -H 'x-api-key: {api-key}' \
-    -H 'local-name: {local_name}' \
+    {base_url}/v2015b/OTA_AirSeatMapRQ \
+    -H 'x-api-key: {api-key}'
 ```
 
 <details open>
