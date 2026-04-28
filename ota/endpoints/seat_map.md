@@ -1084,7 +1084,7 @@ In the above response:
         * `gridNumber`, the grid number of the seat map.
         * `cabinType`, the cabin type of the seat map. The possible values are: `P` (business), and `T` (economy).
         * `rowNumber`, the row number of the seat map.
-      * `zone`, the zone information of the cabin. Consists of:
+      * `zone`, the zone information of the cabin/coach. Consists of:
         * `id`, the zone ID.
         * `code`, the zone code.
         * `name`, the zone name.
