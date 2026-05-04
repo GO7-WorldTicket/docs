@@ -25,6 +25,7 @@ title: The Title of Your Page
 
 | Change Description                                                                                      | Changed By              | Change Date |
 |---------------------------------------------------------------------------------------------------------|-------------------------|-------------|
+| [Correct passenger type codes in SAR code list](#code-lists)                                           | Sittiwet Mahapratoom    | 2026-05-04  |
 | [Add seat map errors](generic/error-handling.md#seat-map-errors)                                           | Duangtida Athakravi     | 2026-04-10  |
 | [Add seat map endpoint and how to update seat](endpoints/seat_map)                                      | Duangtida Athakravi     | 2026-03-12  |
 | [Clarify download all tickets endpoint (`/tickets/confirmation/{rloc}/download`)](changelog.md#2026-02-22) | Sittiwet Mahapratoom    | 2026-02-22  |
@@ -173,13 +174,13 @@ Please update the variables in collection such as apiKey, agent_id, agent_name a
 | Y     | Economy class  | T                 |
 | C     | Business class | P                 |
 
-## Passengers type
+## Passenger Type
 
 | Code   | Description | HHR Code |
 | ------ | ----------- | -------- |
-| ADULT  | Adult       | 1        |
-| CHILD  | Child       | 2        |
-| INFANT | Infant      | 3        |
+| ADT    | Adult       | 1        |
+| CHD    | Child       | 2        |
+| INF    | Infant      | 3        |
 
 ## Document Type
 
