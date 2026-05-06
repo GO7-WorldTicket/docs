@@ -31,14 +31,8 @@ title: NDC API Generic Integration Guide
 ## Change Log
 
 | Change Description | Changed By | Change Date |
-|-------------------|------------|-------------|
-| OTA-style workflow with one-way / round-trip and scenario examples | — | 2026-05-06 |
-| Centralized authentication in this guide (API key only); removed JWT/token sections | — | 2026-05-05 |
-| Mermaid sequence source: `ndc/mermaid/ndc-business-flow-sequence.mmd` (alongside PNG) | — | 2026-05-06 |
-| Business Flow overview diagram image (`ndc-business-flow.png`) | — | 2026-05-05 |
-| Workflow step examples live only under `ndc/endpoints/*.md`; hub keeps index + curl template | — | 2026-05-06 |
-| Endpoint docs moved under `ndc/endpoints/<message>/`; hub aligned with OTA generic guide layout | — | 2026-05-05 |
-| Initial NDC guide: Phased 1 scenarios, workflow diagram, message references | — | 2026-05-05 |
+|-------------------|------------|------------|
+| Initial creation of the document | Naphachara Rattanawilai | 2026-05-06 |
 
 > **TODO:** Add a dedicated NDC changelog page and link it here (parity with OTA *For detailed changelog see: [Generic Changelog](../ota/generic-changelog.md)*).
 
