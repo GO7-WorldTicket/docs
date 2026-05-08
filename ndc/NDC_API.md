@@ -100,7 +100,7 @@ IATA **`OrderRetrieveRQ`** is mapped to internal order REST reads (UUID vs recor
 Use IATA **OffersAndOrders** message XML (`IATA_AirShoppingRQ`, `IATA_OrderCreateRQ`, etc.) as shown in each endpoint document. Official XSDs are published by IATA for distribution **21.3**; align payloads with the examples in [`ndc/endpoints/`](endpoints/airshopping.md).
 
 # NDC XML Schema
-[Download NDC XML Schema 21.3.5](/docs/assets/resources/ndc-xmlbeans-21.3.5.zip)
+[Download NDC XML Schema 21.3.5](/docs/assets/resources/NDC-xmlbeans-21.3.5.zip)
 
 # Postman Collection
 [Download Postman Collection](/docs/assets/resources/NDC_postman_collection.json)
