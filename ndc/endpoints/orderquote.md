@@ -90,7 +90,7 @@ The request body must be a valid `IATA_OrderQuoteRQ` XML document following IATA
 
 </details>
 
-**Response** (`OrderReshopRS`-style quote):
+### Response (`OrderReshopRS`-style quote):
 
 <details>
 <summary>Response Payload</summary>
