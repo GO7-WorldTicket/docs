@@ -65,14 +65,6 @@ Attach the following headers to NDC Gateway requests unless an endpoint page spe
 
 Use `x-api-key` for authentication on NDC Gateway requests.
 
-## Authentication
-
-Every request must include **`x-tenant`** and **`x-SalesChannel`** (see [HTTP Headers](#http-headers)).
-
-Use **`x-api-key`** for caller authentication on all NDC Gateway endpoints in this guide.
-
-Order retrieve / view mapping (`OrderRetrieveRQ` → REST) uses the **order management** APIs documented in [Order Retrieve mapping](endpoints/orderretrieve.md); follow that service auth model.
-
 # Business Flow
 
 Phased 1 scenarios cover shopping and pricing offers, creating or confirming orders, reshop/requote paths, and order retrieve.
