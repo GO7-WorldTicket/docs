@@ -112,7 +112,8 @@ IATA **`OrderRetrieveRQ`** is mapped to internal order REST reads (UUID vs recor
 
 Use IATA **OffersAndOrders** message XML (`IATA_AirShoppingRQ`, `IATA_OrderCreateRQ`, etc.) as shown in each endpoint document. Official XSDs are published by IATA for distribution **21.3**; align payloads with the examples in [`ndc/endpoints/`](endpoints/airshopping.md).
 
-> **TODO:** Publish a downloadable archive under `/docs/assets/resources/` (e.g. XSD bundle or tooling zip) and link it here (parity with **OTA XML Schema 2015** in `ota/OTA_API.md`).
+# NDC XML Schema
+[Download NDC XML Schema 21.3.5](/docs/assets/resources/ndc-xmlbeans-20.3.5.zip)
 
 # Postman Collection
 [Download Postman Collection](/docs/assets/resources/NDC_postman_collection.json)
@@ -120,13 +121,12 @@ Please update the variables in collection such as x-api-key, x-saleschannel, ten
 
 # Code Lists
 
-## Price Class
-
-| Class Id | Code    | Description   |
-|----------|---------| ------------- |
-| PC1      | Bedre   | Business class |
-| PC2      | Economy | Economy class |
-> **TODO:** Add **Booking Class / RBD** code list when documented for NDC offers (OTA separates **Booking Class** from cabin in `ota/OTA_API.md`).
+[//]: # (## Price Class)
+[//]: # ()
+[//]: # (| Class Id | Code    | Description   |)
+[//]: # (|----------|---------| ------------- |)
+[//]: # (| PC1      | Bedre   | Business class |)
+[//]: # (| PC2      | Economy | Economy class |)
 
 ## Passenger Type (PTC)
 
@@ -149,8 +149,9 @@ Please update the variables in collection such as x-api-key, x-saleschannel, ten
 | Code | Description |
 |------|-------------|
 | PP   | Passport |
-|     | National ID |
-> **TODO:** Define traveler identity document codes used in NDC payloads (e.g. `OrderCreate` / Pax identity) when aligned with airline implementation (parity with **Document Type** in `ota/OTA_API.md`).
+| ID   | National ID |
+| DL   | Driver’s License |
+| FP   | Frequent Flyer |
 
 # NDC for Offers & Orders workflow
 
@@ -161,8 +162,6 @@ Typical Phased 1 chain: **AirShopping → OfferPrice → OrderCreate**, then **O
 | | Production-style base | Message path pattern |
 |--|------------------------|----------------------|
 | Offers & Orders API | `https://api.go7.io` | `/v21.3.5/<MessageName>` |
-
-> **TODO:** Add **Test** column when sandbox hosts are finalized.
 
 - **1 — [Air Shopping](endpoints/airshopping.md)** — `POST …/AirShopping` · `IATA_AirShoppingRQ` / `RS`
   - [One-way trip](endpoints/airshopping.md#airshopping-one-way-trip)

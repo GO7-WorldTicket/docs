@@ -42,7 +42,7 @@ The request body must be a valid `IATA_AirShoppingRQ` XML document following IAT
 
 Single **`OriginDestCriteria`** (outbound only).
 <details>
-  <summary>Request Payload</summary>
+<summary>Request Payload</summary>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -95,7 +95,6 @@ Single **`OriginDestCriteria`** (outbound only).
         </cns:PaxList>
     </Request>
 </IATA_AirShoppingRQ>
-
 ```
 
 </details>
@@ -105,7 +104,7 @@ Single **`OriginDestCriteria`** (outbound only).
 
 Two **`OriginDestCriteria`** blocks (outbound + inbound).
 <details>
-  <summary>Request Payload</summary>
+<summary>Request Payload</summary>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -170,7 +169,7 @@ Two **`OriginDestCriteria`** blocks (outbound + inbound).
 Returns an `IATA_AirShoppingRS` XML document containing available flight offers.
 
 <details>
-  <summary>Response Payload</summary>
+<summary>Response Payload</summary>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -5665,7 +5664,7 @@ Returns an `IATA_AirShoppingRS` XML document containing available flight offers.
 Invalid request format or missing required fields.
 
 <details>
-  <summary>Response Payload</summary>
+<summary>Response Payload</summary>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>

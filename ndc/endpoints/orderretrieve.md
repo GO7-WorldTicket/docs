@@ -44,7 +44,7 @@ Provide either `OrderID` or `BookingID`. If both are present, the gateway uses `
 Use `OrderID` for direct retrieval when you have the order identifier from `OrderCreateRS` / `OrderViewRS`.
 
 <details>
-  <summary>Request Payload</summary>
+<summary>Request Payload</summary>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -85,7 +85,7 @@ Use `OrderID` for direct retrieval when you have the order identifier from `Orde
 Use `BookingID` when retrieving by booking reference / record locator.
 
 <details>
-  <summary>Request Payload</summary>
+<summary>Request Payload</summary>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -125,7 +125,7 @@ Use `BookingID` when retrieving by booking reference / record locator.
 Returns an `IATA_OrderViewRS` XML document with the retrieved order details.
 
 <details>
-  <summary>Response Payload</summary>
+<summary>Response Payload</summary>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -499,7 +499,7 @@ Returns an `IATA_OrderViewRS` XML document with the retrieved order details.
 Invalid XML, missing retrieve criteria, or an `OrderID` value that is not a valid UUID.
 
 <details>
-  <summary>Response Payload</summary>
+<summary>Response Payload</summary>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -521,7 +521,7 @@ Invalid XML, missing retrieve criteria, or an `OrderID` value that is not a vali
 Order or booking reference not found.
 
 <details>
-  <summary>Response Payload</summary>
+<summary>Response Payload</summary>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>

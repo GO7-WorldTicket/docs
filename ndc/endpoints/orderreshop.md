@@ -46,7 +46,7 @@ The request body must be a valid `IATA_OrderReshopRQ` XML document following IAT
 {: #orderreshop-rebook}
 
 <details>
-  <summary>Request Payload</summary>
+<summary>Request Payload</summary>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -114,7 +114,7 @@ Use **`OrderRefID`** from the active order; **`AddOfferItems`** + optional **`De
 {: #orderreshop-cancel-order}
 
 <details>
-  <summary>Request Payload</summary>
+<summary>Request Payload</summary>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -155,7 +155,7 @@ Use **`OrderRefID`** from the active order; **`AddOfferItems`** + optional **`De
 Returns an `IATA_OrderReshopRS` XML document containing alternative offers.
 
 <details>
-  <summary>Response Payload</summary>
+<summary>Response Payload</summary>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -2100,7 +2100,7 @@ Returns an `IATA_OrderReshopRS` XML document containing alternative offers.
 Invalid request format or missing required fields.
 
 <details>
-  <summary>Response Payload</summary>
+<summary>Response Payload</summary>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -2120,7 +2120,7 @@ Invalid request format or missing required fields.
 Order not found.
 
 <details>
-  <summary>Response Payload</summary>
+<summary>Response Payload</summary>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
