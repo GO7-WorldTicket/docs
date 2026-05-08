@@ -637,39 +637,6 @@ Order not found.
 
 </details>
 
-[//]: # (#### 422 Unprocessable Entity)
-
-[//]: # ()
-[//]: # (Payment method not supported or payment validation failed.)
-
-[//]: # ()
-[//]: # (<details>)
-
-[//]: # (  <summary>Response Payload</summary>)
-
-[//]: # ()
-[//]: # (```xml)
-
-[//]: # (<?xml version="1.0" encoding="UTF-8"?>)
-
-[//]: # (<ErrorResponse>)
-
-[//]: # (    <Error>)
-
-[//]: # (        <Code>422</Code>)
-
-[//]: # (        <Message>Unprocessable Entity - Payment method not supported or payment validation failed</Message>)
-
-[//]: # (        <Details>Payment type code CASH is not supported</Details>)
-
-[//]: # (    </Error>)
-
-[//]: # (</ErrorResponse>)
-
-[//]: # (```)
-
-[//]: # (</details>)
-
 ## Code Examples
 
 === "Curl"

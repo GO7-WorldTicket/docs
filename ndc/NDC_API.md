@@ -77,17 +77,6 @@ Order retrieve / view mapping (`OrderRetrieveRQ` → REST) uses the **order mana
 
 Phased 1 scenarios cover shopping and pricing offers, creating or confirming orders, reshop/requote paths, and order retrieve.
 
-[//]: # (## Sequence diagram)
-
-[//]: # ()
-[//]: # (The diagram shows **Customer → Integrator Application → NDC Gateway** flows for each Phase 1 scenario &#40;messages under `/v21.3.5`&#41;.)
-
-[//]: # ()
-[//]: # (![NDC Gateway business flow — Phase 1 scenarios]&#40;../assets/ndc/ndc-business-flow.png "Phase 1 Customer → Application → Gateway flows"&#41;)
-
-[//]: # ()
-[//]: # (*Cancel flow omits `OrderQuote` when refunds are not supported.*)
-
 ## Phase 1 scenario summary
 
 | Scenario                         | Message sequence                                                                                                                            |
@@ -111,20 +100,13 @@ IATA **`OrderRetrieveRQ`** is mapped to internal order REST reads (UUID vs recor
 Use IATA **OffersAndOrders** message XML (`IATA_AirShoppingRQ`, `IATA_OrderCreateRQ`, etc.) as shown in each endpoint document. Official XSDs are published by IATA for distribution **21.3**; align payloads with the examples in [`ndc/endpoints/`](endpoints/airshopping.md).
 
 # NDC XML Schema
-[Download NDC XML Schema 21.3.5](/docs/assets/resources/ndc-xmlbeans-20.3.5.zip)
+[Download NDC XML Schema 21.3.5](/docs/assets/resources/ndc-xmlbeans-21.3.5.zip)
 
 # Postman Collection
 [Download Postman Collection](/docs/assets/resources/NDC_postman_collection.json)
 Please update the variables in collection such as x-api-key, x-saleschannel, tenant, ndc-gateway-url.
 
 # Code Lists
-
-[//]: # (## Price Class)
-[//]: # ()
-[//]: # (| Class Id | Code    | Description   |)
-[//]: # (|----------|---------| ------------- |)
-[//]: # (| PC1      | Bedre   | Business class |)
-[//]: # (| PC2      | Economy | Economy class |)
 
 ## Passenger Type (PTC)
 
