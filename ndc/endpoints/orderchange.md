@@ -47,49 +47,49 @@ The request body must be a valid `IATA_OrderChangeRQ` XML document following IAT
 <details>
 <summary>Request Payload</summary>
 
-```xml
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<IATA_OrderChangeRQ
-        xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage">
-    <DistributionChain>
-        <DistributionChainLink xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes">
-            <Ordinal>1</Ordinal>
-            <OrgRole>Seller</OrgRole>
-            <ParticipatingOrg>
-                <Name>Travel Agency XYZ</Name>
-                <OrgID>SELLER123</OrgID>
-            </ParticipatingOrg>
-        </DistributionChainLink>
-    </DistributionChain>
-    <PayloadAttributes>
-        <CorrelationID xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes">{{$randomUUID}}</CorrelationID>
-        <Timestamp xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes">2025-12-30T11:59:48.784+07:00</Timestamp>
-        <TrxID xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes">TRX-123456789</TrxID>
-        <VersionNumber xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes">21.3</VersionNumber>
-    </PayloadAttributes>
-    <POS>
-        <Country xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes">
-            <CountryCode>FR</CountryCode>
-        </Country>
-    </POS>
-    <Request>
-        <Order xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes">
-            <OrderID>d14a8d0c-74a6-4c3c-801b-8f9e17cf21c6</OrderID>
-            <OwnerCode>W2</OwnerCode>
-        </Order>
-        <PaymentFunctions xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes">
-            <PaymentProcessingDetails>
-                <Amount CurCode="USD">122.19</Amount>
-                <PaymentMethod>
-                    <OfflinePayment>
-                        <PaymentTypeCode>CA</PaymentTypeCode>
-                    </OfflinePayment>
-                </PaymentMethod>
-            </PaymentProcessingDetails>
-        </PaymentFunctions>
-    </Request>
-</IATA_OrderChangeRQ>
-```
+<pre><code class="language-xml">
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;
+&lt;IATA_OrderChangeRQ
+        xmlns=&quot;http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage&quot;&gt;
+    &lt;DistributionChain&gt;
+        &lt;DistributionChainLink xmlns=&quot;http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes&quot;&gt;
+            &lt;Ordinal&gt;1&lt;/Ordinal&gt;
+            &lt;OrgRole&gt;Seller&lt;/OrgRole&gt;
+            &lt;ParticipatingOrg&gt;
+                &lt;Name&gt;Travel Agency XYZ&lt;/Name&gt;
+                &lt;OrgID&gt;SELLER123&lt;/OrgID&gt;
+            &lt;/ParticipatingOrg&gt;
+        &lt;/DistributionChainLink&gt;
+    &lt;/DistributionChain&gt;
+    &lt;PayloadAttributes&gt;
+        &lt;CorrelationID xmlns=&quot;http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes&quot;&gt;{{$randomUUID}}&lt;/CorrelationID&gt;
+        &lt;Timestamp xmlns=&quot;http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes&quot;&gt;2025-12-30T11:59:48.784+07:00&lt;/Timestamp&gt;
+        &lt;TrxID xmlns=&quot;http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes&quot;&gt;TRX-123456789&lt;/TrxID&gt;
+        &lt;VersionNumber xmlns=&quot;http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes&quot;&gt;21.3&lt;/VersionNumber&gt;
+    &lt;/PayloadAttributes&gt;
+    &lt;POS&gt;
+        &lt;Country xmlns=&quot;http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes&quot;&gt;
+            &lt;CountryCode&gt;FR&lt;/CountryCode&gt;
+        &lt;/Country&gt;
+    &lt;/POS&gt;
+    &lt;Request&gt;
+        &lt;Order xmlns=&quot;http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes&quot;&gt;
+            &lt;OrderID&gt;d14a8d0c-74a6-4c3c-801b-8f9e17cf21c6&lt;/OrderID&gt;
+            &lt;OwnerCode&gt;W2&lt;/OwnerCode&gt;
+        &lt;/Order&gt;
+        &lt;PaymentFunctions xmlns=&quot;http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes&quot;&gt;
+            &lt;PaymentProcessingDetails&gt;
+                &lt;Amount CurCode=&quot;USD&quot;&gt;122.19&lt;/Amount&gt;
+                &lt;PaymentMethod&gt;
+                    &lt;OfflinePayment&gt;
+                        &lt;PaymentTypeCode&gt;CA&lt;/PaymentTypeCode&gt;
+                    &lt;/OfflinePayment&gt;
+                &lt;/PaymentMethod&gt;
+            &lt;/PaymentProcessingDetails&gt;
+        &lt;/PaymentFunctions&gt;
+    &lt;/Request&gt;
+&lt;/IATA_OrderChangeRQ&gt;
+</code></pre>
 
 </details>
 
@@ -127,69 +127,69 @@ Same **`Order`** + **`PaymentFunctions`** envelope as above; only **`PaymentType
 <details>
 <summary>Request Payload</summary>
 
-```xml
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<IATA_OrderChangeRQ
-        xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage">
-    <DistributionChain>
-        <DistributionChainLink xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes">
-            <Ordinal>1</Ordinal>
-            <OrgRole>Seller</OrgRole>
-            <ParticipatingOrg>
-                <Name>Travel Agency XYZ</Name>
-                <OrgID>Seller123</OrgID>
-            </ParticipatingOrg>
-        </DistributionChainLink>
-    </DistributionChain>
-    <PayloadAttributes>
-        <CorrelationID xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes">{{$randomUUID}}</CorrelationID>
-        <Timestamp xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes">2026-05-07T13:35:51.653+07:00</Timestamp>
-        <TrxID xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes">TRX-123456790</TrxID>
-        <VersionNumber xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes">21.3</VersionNumber>
-    </PayloadAttributes>
-    <POS>
-        <Country xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes">
-            <CountryCode>FR</CountryCode>
-        </Country>
-    </POS>
-    <Request>
-        <ChangeOrderChoice xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes">
-            <AcceptSelectedQuotedOfferList>
-                <SelectedPricedOffer>
-                    <OfferRefID>351b2a94-83d1-4347-8bbe-8844a4c76cb0</OfferRefID>
-                    <OwnerCode>VS</OwnerCode>
-                    <SelectedOfferItem>
-                        <OfferItemRefID>2afd921a-885f-49bb-93ae-5c279660384c</OfferItemRefID>
-                        <PaxRefID>ADT1</PaxRefID>
-                    </SelectedOfferItem>
-                    <SelectedOfferItem>
-                        <OfferItemRefID>66b0aad9-048a-4d1e-bee6-124a1bda2baa</OfferItemRefID>
-                        <PaxRefID>CHD1</PaxRefID>
-                    </SelectedOfferItem>
-                    <SelectedOfferItem>
-                        <OfferItemRefID>e8469306-5a16-41a0-bc62-aa98b5b03184</OfferItemRefID>
-                        <PaxRefID>INF1</PaxRefID>
-                    </SelectedOfferItem>
-                </SelectedPricedOffer>
-            </AcceptSelectedQuotedOfferList>
-        </ChangeOrderChoice>
-        <Order xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes">
-            <OrderID>d14a8d0c-74a6-4c3c-801b-8f9e17cf21c6</OrderID>
-            <OwnerCode>W2</OwnerCode>
-        </Order>
-        <PaymentFunctions xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes">
-            <PaymentProcessingDetails>
-                <Amount CurCode="USD">122.19</Amount>
-                <PaymentMethod>
-                    <OfflinePayment>
-                        <PaymentTypeCode>CA</PaymentTypeCode>
-                    </OfflinePayment>
-                </PaymentMethod>
-            </PaymentProcessingDetails>
-        </PaymentFunctions>
-    </Request>
-</IATA_OrderChangeRQ>
-```
+<pre><code class="language-xml">
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;
+&lt;IATA_OrderChangeRQ
+        xmlns=&quot;http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage&quot;&gt;
+    &lt;DistributionChain&gt;
+        &lt;DistributionChainLink xmlns=&quot;http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes&quot;&gt;
+            &lt;Ordinal&gt;1&lt;/Ordinal&gt;
+            &lt;OrgRole&gt;Seller&lt;/OrgRole&gt;
+            &lt;ParticipatingOrg&gt;
+                &lt;Name&gt;Travel Agency XYZ&lt;/Name&gt;
+                &lt;OrgID&gt;Seller123&lt;/OrgID&gt;
+            &lt;/ParticipatingOrg&gt;
+        &lt;/DistributionChainLink&gt;
+    &lt;/DistributionChain&gt;
+    &lt;PayloadAttributes&gt;
+        &lt;CorrelationID xmlns=&quot;http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes&quot;&gt;{{$randomUUID}}&lt;/CorrelationID&gt;
+        &lt;Timestamp xmlns=&quot;http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes&quot;&gt;2026-05-07T13:35:51.653+07:00&lt;/Timestamp&gt;
+        &lt;TrxID xmlns=&quot;http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes&quot;&gt;TRX-123456790&lt;/TrxID&gt;
+        &lt;VersionNumber xmlns=&quot;http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes&quot;&gt;21.3&lt;/VersionNumber&gt;
+    &lt;/PayloadAttributes&gt;
+    &lt;POS&gt;
+        &lt;Country xmlns=&quot;http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes&quot;&gt;
+            &lt;CountryCode&gt;FR&lt;/CountryCode&gt;
+        &lt;/Country&gt;
+    &lt;/POS&gt;
+    &lt;Request&gt;
+        &lt;ChangeOrderChoice xmlns=&quot;http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes&quot;&gt;
+            &lt;AcceptSelectedQuotedOfferList&gt;
+                &lt;SelectedPricedOffer&gt;
+                    &lt;OfferRefID&gt;351b2a94-83d1-4347-8bbe-8844a4c76cb0&lt;/OfferRefID&gt;
+                    &lt;OwnerCode&gt;VS&lt;/OwnerCode&gt;
+                    &lt;SelectedOfferItem&gt;
+                        &lt;OfferItemRefID&gt;2afd921a-885f-49bb-93ae-5c279660384c&lt;/OfferItemRefID&gt;
+                        &lt;PaxRefID&gt;ADT1&lt;/PaxRefID&gt;
+                    &lt;/SelectedOfferItem&gt;
+                    &lt;SelectedOfferItem&gt;
+                        &lt;OfferItemRefID&gt;66b0aad9-048a-4d1e-bee6-124a1bda2baa&lt;/OfferItemRefID&gt;
+                        &lt;PaxRefID&gt;CHD1&lt;/PaxRefID&gt;
+                    &lt;/SelectedOfferItem&gt;
+                    &lt;SelectedOfferItem&gt;
+                        &lt;OfferItemRefID&gt;e8469306-5a16-41a0-bc62-aa98b5b03184&lt;/OfferItemRefID&gt;
+                        &lt;PaxRefID&gt;INF1&lt;/PaxRefID&gt;
+                    &lt;/SelectedOfferItem&gt;
+                &lt;/SelectedPricedOffer&gt;
+            &lt;/AcceptSelectedQuotedOfferList&gt;
+        &lt;/ChangeOrderChoice&gt;
+        &lt;Order xmlns=&quot;http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes&quot;&gt;
+            &lt;OrderID&gt;d14a8d0c-74a6-4c3c-801b-8f9e17cf21c6&lt;/OrderID&gt;
+            &lt;OwnerCode&gt;W2&lt;/OwnerCode&gt;
+        &lt;/Order&gt;
+        &lt;PaymentFunctions xmlns=&quot;http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes&quot;&gt;
+            &lt;PaymentProcessingDetails&gt;
+                &lt;Amount CurCode=&quot;USD&quot;&gt;122.19&lt;/Amount&gt;
+                &lt;PaymentMethod&gt;
+                    &lt;OfflinePayment&gt;
+                        &lt;PaymentTypeCode&gt;CA&lt;/PaymentTypeCode&gt;
+                    &lt;/OfflinePayment&gt;
+                &lt;/PaymentMethod&gt;
+            &lt;/PaymentProcessingDetails&gt;
+        &lt;/PaymentFunctions&gt;
+    &lt;/Request&gt;
+&lt;/IATA_OrderChangeRQ&gt;
+</code></pre>
 
 </details>
 
@@ -202,391 +202,391 @@ Returns an `IATA_OrderViewRS` XML document with updated order details.
 <details>
 <summary>Response Payload</summary>
 
-```xml
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<ns2:IATA_OrderViewRS xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes" xmlns:ns2="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage" xmlns:ns3="http://www.w3.org/2000/09/xmldsig#">
-    <ns2:Response>
-        <DataLists>
-            <ContactInfoList>
-                <ContactInfo>
-                    <EmailAddress>
-                        <EmailAddressText>sample@a.com</EmailAddressText>
-                    </EmailAddress>
-                    <Individual>
-                        <Birthdate>2026-02-02</Birthdate>
-                        <GivenName>Firstname</GivenName>
-                        <Surname>Surname</Surname>
-                        <TitleName>Mr</TitleName>
-                    </Individual>
-                    <Phone>
-                        <CountryDialingCode>66</CountryDialingCode>
-                        <PhoneNumber>12345960</PhoneNumber>
-                    </Phone>
-                    <PostalAddress>
-                        <CityName>TEST</CityName>
-                        <CountryCode>TH</CountryCode>
-                        <PostalCode>10210</PostalCode>
-                    </PostalAddress>
-                </ContactInfo>
-            </ContactInfoList>
-            <DatedMarketingSegmentList>
-                <DatedMarketingSegment>
-                    <Arrival>
-                        <AircraftScheduledDateTime>2026-05-27T07:00:00</AircraftScheduledDateTime>
-                        <IATA_LocationCode>CPH</IATA_LocationCode>
-                    </Arrival>
-                    <CarrierDesigCode>W2</CarrierDesigCode>
-                    <DatedMarketingSegmentId>DMS1</DatedMarketingSegmentId>
-                    <DatedOperatingSegmentRefId>DOS1</DatedOperatingSegmentRefId>
-                    <Dep>
-                        <AircraftScheduledDateTime>2026-05-27T06:00:00</AircraftScheduledDateTime>
-                        <IATA_LocationCode>KRP</IATA_LocationCode>
-                    </Dep>
-                    <MarketingCarrierFlightNumberText>500</MarketingCarrierFlightNumberText>
-                </DatedMarketingSegment>
-            </DatedMarketingSegmentList>
-            <DatedOperatingSegmentList>
-                <DatedOperatingSegment>
-                    <CarrierDesigCode>W2</CarrierDesigCode>
-                    <DatedOperatingSegmentId>DOS1</DatedOperatingSegmentId>
-                    <OperatingCarrierFlightNumberText>500</OperatingCarrierFlightNumberText>
-                </DatedOperatingSegment>
-            </DatedOperatingSegmentList>
-            <OriginDestList>
-                <OriginDest>
-                    <DestCode>CPH</DestCode>
-                    <OriginCode>KRP</OriginCode>
-                    <OriginDestID>OD1</OriginDestID>
-                    <PaxJourneyRefID>JOUR1</PaxJourneyRefID>
-                </OriginDest>
-            </OriginDestList>
-            <PaxJourneyList>
-                <PaxJourney>
-                    <PaxJourneyID>JOUR1</PaxJourneyID>
-                    <PaxSegmentRefID>SEG1</PaxSegmentRefID>
-                </PaxJourney>
-            </PaxJourneyList>
-            <PaxList>
-                <Pax>
-                    <CitizenshipCountryCode></CitizenshipCountryCode>
-                    <Individual>
-                        <GenderCode>M</GenderCode>
-                        <GivenName>Bruce</GivenName>
-                        <IndividualID>72aa9ff5-e62b-4c20-a0ad-afafa3a160fe</IndividualID>
-                        <Surname>Wayne</Surname>
-                        <TitleName>MR</TitleName>
-                    </Individual>
-                    <PaxID>PAX1</PaxID>
-                    <PaxRefID>PAX2</PaxRefID>
-                    <PTC>ADT</PTC>
-                </Pax>
-                <Pax>
-                    <CitizenshipCountryCode></CitizenshipCountryCode>
-                    <Individual>
-                        <GenderCode>M</GenderCode>
-                        <GivenName>Baby</GivenName>
-                        <IndividualID>a8a65d26-7b2a-4d8f-94bf-f769b4358efc</IndividualID>
-                        <Surname>Wayne</Surname>
-                        <TitleName>MR</TitleName>
-                    </Individual>
-                    <PaxID>PAX2</PaxID>
-                    <PTC>INF</PTC>
-                </Pax>
-                <Pax>
-                    <CitizenshipCountryCode></CitizenshipCountryCode>
-                    <Individual>
-                        <GenderCode>M</GenderCode>
-                        <GivenName>Child</GivenName>
-                        <IndividualID>0ea6e3bc-7be9-40ac-854b-9a2c0c7b53c1</IndividualID>
-                        <Surname>Wayne</Surname>
-                        <TitleName>MR</TitleName>
-                    </Individual>
-                    <PaxID>PAX3</PaxID>
-                    <PTC>CHD</PTC>
-                </Pax>
-            </PaxList>
-            <PaxSegmentList>
-                <PaxSegment>
-                    <DatedMarketingSegmentRefId>DMS1</DatedMarketingSegmentRefId>
-                    <MarketingCarrierRBD_Code>W2</MarketingCarrierRBD_Code>
-                    <OperatingCarrierRBD_Code>W2</OperatingCarrierRBD_Code>
-                    <PaxSegmentID>SEG1</PaxSegmentID>
-                </PaxSegment>
-            </PaxSegmentList>
-            <ServiceDefinitionList/>
-        </DataLists>
-        <Order>
-            <OrderID>d14a8d0c-74a6-4c3c-801b-8f9e17cf21c6</OrderID>
-            <OrderItem>
-                <FareDetail>
-                    <AccountCode>VAT_DC</AccountCode>
-                    <Price>
-                        <TotalAmount CurCode="USD">0</TotalAmount>
-                    </Price>
-                </FareDetail>
-                <FareDetail>
-                    <AccountCode>VAT_EU</AccountCode>
-                    <Price>
-                        <TotalAmount CurCode="USD">0</TotalAmount>
-                    </Price>
-                </FareDetail>
-                <FareDetail>
-                    <AccountCode>DC</AccountCode>
-                    <Price>
-                        <TotalAmount CurCode="USD">2.04</TotalAmount>
-                    </Price>
-                </FareDetail>
-                <FareDetail>
-                    <AccountCode>EU</AccountCode>
-                    <Price>
-                        <TotalAmount CurCode="USD">4.07</TotalAmount>
-                    </Price>
-                </FareDetail>
-                <FareDetail>
-                    <FareRefText>Base Fare</FareRefText>
-                    <Price>
-                        <TotalAmount CurCode="USD">34.62</TotalAmount>
-                    </Price>
-                </FareDetail>
-                <FareDetail>
-                    <FareRefText>VAT</FareRefText>
-                    <Price>
-                        <TotalAmount CurCode="USD">0</TotalAmount>
-                    </Price>
-                </FareDetail>
-                <GrandTotalAmount CurCode="USD">40.73</GrandTotalAmount>
-                <OrderItemID>8064850f-de57-4226-a39b-f71213f400ff</OrderItemID>
-                <OwnerCode>W2</OwnerCode>
-                <Price>
-                    <BaseAmount CurCode="USD">34.62</BaseAmount>
-                    <Fee>
-                        <Amount CurCode="USD">0.0</Amount>
-                    </Fee>
-                    <Fee>
-                        <Amount CurCode="USD">0.0</Amount>
-                    </Fee>
-                    <TaxSummary>
-                        <Tax>
-                            <Amount CurCode="USD">2.04</Amount>
-                            <TaxCode>DC</TaxCode>
-                        </Tax>
-                        <Tax>
-                            <Amount CurCode="USD">4.07</Amount>
-                            <TaxCode>EU</TaxCode>
-                        </Tax>
-                    </TaxSummary>
-                    <TotalAmount CurCode="USD">40.73</TotalAmount>
-                </Price>
-                <Service>
-                    <BookingRef>
-                        <BookingEntity>
-                            <Carrier>
-                                <AirlineDesigCode>W2</AirlineDesigCode>
-                            </Carrier>
-                        </BookingEntity>
-                        <BookingID>CSHUNH</BookingID>
-                    </BookingRef>
-                    <OrderServiceAssociation>
-                        <PaxSegmentRef>
-                            <PaxSegmentRefID>SEG1</PaxSegmentRefID>
-                        </PaxSegmentRef>
-                    </OrderServiceAssociation>
-                    <PaxRefID>PAX1</PaxRefID>
-                </Service>
-                <StatusCode>ACTIVE</StatusCode>
-            </OrderItem>
-            <OrderItem>
-                <FareDetail>
-                    <FareRefText>Base Fare</FareRefText>
-                    <Price>
-                        <TotalAmount CurCode="USD">40.73</TotalAmount>
-                    </Price>
-                </FareDetail>
-                <FareDetail>
-                    <FareRefText>VAT</FareRefText>
-                    <Price>
-                        <TotalAmount CurCode="USD">0</TotalAmount>
-                    </Price>
-                </FareDetail>
-                <GrandTotalAmount CurCode="USD">40.73</GrandTotalAmount>
-                <OrderItemID>1be3dfac-d292-4061-84e9-be8ee968bc43</OrderItemID>
-                <OwnerCode>W2</OwnerCode>
-                <Price>
-                    <BaseAmount CurCode="USD">40.73</BaseAmount>
-                    <TotalAmount CurCode="USD">40.73</TotalAmount>
-                </Price>
-                <Service>
-                    <BookingRef>
-                        <BookingEntity>
-                            <Carrier>
-                                <AirlineDesigCode>W2</AirlineDesigCode>
-                            </Carrier>
-                        </BookingEntity>
-                        <BookingID>CSHUNH</BookingID>
-                    </BookingRef>
-                    <OrderServiceAssociation>
-                        <PaxSegmentRef>
-                            <PaxSegmentRefID>SEG1</PaxSegmentRefID>
-                        </PaxSegmentRef>
-                    </OrderServiceAssociation>
-                    <PaxRefID>PAX2</PaxRefID>
-                </Service>
-                <StatusCode>ACTIVE</StatusCode>
-            </OrderItem>
-            <OrderItem>
-                <FareDetail>
-                    <AccountCode>VAT_DC</AccountCode>
-                    <Price>
-                        <TotalAmount CurCode="USD">0</TotalAmount>
-                    </Price>
-                </FareDetail>
-                <FareDetail>
-                    <AccountCode>VAT_QQ</AccountCode>
-                    <Price>
-                        <TotalAmount CurCode="USD">0</TotalAmount>
-                    </Price>
-                </FareDetail>
-                <FareDetail>
-                    <AccountCode>DC</AccountCode>
-                    <Price>
-                        <TotalAmount CurCode="USD">0.27</TotalAmount>
-                    </Price>
-                </FareDetail>
-                <FareDetail>
-                    <AccountCode>QQ</AccountCode>
-                    <Price>
-                        <TotalAmount CurCode="USD">0.64</TotalAmount>
-                    </Price>
-                </FareDetail>
-                <FareDetail>
-                    <FareRefText>Base Fare</FareRefText>
-                    <Price>
-                        <TotalAmount CurCode="USD">39.82</TotalAmount>
-                    </Price>
-                </FareDetail>
-                <FareDetail>
-                    <FareRefText>VAT</FareRefText>
-                    <Price>
-                        <TotalAmount CurCode="USD">0</TotalAmount>
-                    </Price>
-                </FareDetail>
-                <GrandTotalAmount CurCode="USD">40.73</GrandTotalAmount>
-                <OrderItemID>a48f7f60-115e-4faf-baaf-e84a15eb294e</OrderItemID>
-                <OwnerCode>W2</OwnerCode>
-                <Price>
-                    <BaseAmount CurCode="USD">39.82</BaseAmount>
-                    <Fee>
-                        <Amount CurCode="USD">0.0</Amount>
-                    </Fee>
-                    <Fee>
-                        <Amount CurCode="USD">0.0</Amount>
-                    </Fee>
-                    <TaxSummary>
-                        <Tax>
-                            <Amount CurCode="USD">0.27</Amount>
-                            <TaxCode>DC</TaxCode>
-                        </Tax>
-                        <Tax>
-                            <Amount CurCode="USD">0.64</Amount>
-                            <TaxCode>QQ</TaxCode>
-                        </Tax>
-                    </TaxSummary>
-                    <TotalAmount CurCode="USD">40.73</TotalAmount>
-                </Price>
-                <Service>
-                    <BookingRef>
-                        <BookingEntity>
-                            <Carrier>
-                                <AirlineDesigCode>W2</AirlineDesigCode>
-                            </Carrier>
-                        </BookingEntity>
-                        <BookingID>CSHUNH</BookingID>
-                    </BookingRef>
-                    <OrderServiceAssociation>
-                        <PaxSegmentRef>
-                            <PaxSegmentRefID>SEG1</PaxSegmentRefID>
-                        </PaxSegmentRef>
-                    </OrderServiceAssociation>
-                    <PaxRefID>PAX3</PaxRefID>
-                </Service>
-                <StatusCode>ACTIVE</StatusCode>
-            </OrderItem>
-            <StatusCode>OPEN</StatusCode>
-            <TotalPrice>
-                <BaseAmount CurCode="USD">122.19</BaseAmount>
-                <TaxSummary>
-                    <Tax>
-                        <Amount CurCode="USD">2.31</Amount>
-                        <TaxCode>DC</TaxCode>
-                    </Tax>
-                    <Tax>
-                        <Amount CurCode="USD">4.07</Amount>
-                        <TaxCode>EU</TaxCode>
-                    </Tax>
-                    <Tax>
-                        <Amount CurCode="USD">0.64</Amount>
-                        <TaxCode>QQ</TaxCode>
-                    </Tax>
-                    <TotalTaxAmount CurCode="USD">7.02</TotalTaxAmount>
-                </TaxSummary>
-                <TotalAmount CurCode="USD">122.19</TotalAmount>
-            </TotalPrice>
-        </Order>
-        <TicketDocInfo>
-            <BookletQty>1</BookletQty>
-            <OriginDest>
-                <DestCode>CPH</DestCode>
-                <OriginCode>KRP</OriginCode>
-                <OriginDestID>OD1</OriginDestID>
-            </OriginDest>
-            <PaxRefID>PAX1</PaxRefID>
-            <Ticket>
-                <TicketNumber>2772770026753</TicketNumber>
-            </Ticket>
-        </TicketDocInfo>
-        <TicketDocInfo>
-            <BookletQty>1</BookletQty>
-            <OriginDest>
-                <DestCode>CPH</DestCode>
-                <OriginCode>KRP</OriginCode>
-                <OriginDestID>OD1</OriginDestID>
-            </OriginDest>
-            <PaxRefID>PAX2</PaxRefID>
-            <Ticket>
-                <TicketNumber>2772770026754</TicketNumber>
-            </Ticket>
-        </TicketDocInfo>
-        <TicketDocInfo>
-            <BookletQty>1</BookletQty>
-            <OriginDest>
-                <DestCode>CPH</DestCode>
-                <OriginCode>KRP</OriginCode>
-                <OriginDestID>OD1</OriginDestID>
-            </OriginDest>
-            <PaxRefID>PAX3</PaxRefID>
-            <Ticket>
-                <TicketNumber>2772770026755</TicketNumber>
-            </Ticket>
-        </TicketDocInfo>
-    </ns2:Response>
-    <ns2:DistributionChain>
-        <DistributionChainLink>
-            <Ordinal>1</Ordinal>
-            <OrgRole>Seller</OrgRole>
-            <ParticipatingOrg>
-                <Name>Travel Agency XYZ</Name>
-                <OrgID>Seller123</OrgID>
-            </ParticipatingOrg>
-        </DistributionChainLink>
-    </ns2:DistributionChain>
-    <ns2:PayloadAttributes>
-        <CorrelationID>858e5019-0050-4415-984f-f3506492fcf3</CorrelationID>
-        <Timestamp>2026-05-07T13:35:51.653+07:00</Timestamp>
-        <TrxID>TRX-123456790</TrxID>
-        <VersionNumber>21.3</VersionNumber>
-    </ns2:PayloadAttributes>
-</ns2:IATA_OrderViewRS>
-```
+<pre><code class="language-xml">
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;
+&lt;ns2:IATA_OrderViewRS xmlns=&quot;http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes&quot; xmlns:ns2=&quot;http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage&quot; xmlns:ns3=&quot;http://www.w3.org/2000/09/xmldsig#&quot;&gt;
+    &lt;ns2:Response&gt;
+        &lt;DataLists&gt;
+            &lt;ContactInfoList&gt;
+                &lt;ContactInfo&gt;
+                    &lt;EmailAddress&gt;
+                        &lt;EmailAddressText&gt;sample@a.com&lt;/EmailAddressText&gt;
+                    &lt;/EmailAddress&gt;
+                    &lt;Individual&gt;
+                        &lt;Birthdate&gt;2026-02-02&lt;/Birthdate&gt;
+                        &lt;GivenName&gt;Firstname&lt;/GivenName&gt;
+                        &lt;Surname&gt;Surname&lt;/Surname&gt;
+                        &lt;TitleName&gt;Mr&lt;/TitleName&gt;
+                    &lt;/Individual&gt;
+                    &lt;Phone&gt;
+                        &lt;CountryDialingCode&gt;66&lt;/CountryDialingCode&gt;
+                        &lt;PhoneNumber&gt;12345960&lt;/PhoneNumber&gt;
+                    &lt;/Phone&gt;
+                    &lt;PostalAddress&gt;
+                        &lt;CityName&gt;TEST&lt;/CityName&gt;
+                        &lt;CountryCode&gt;TH&lt;/CountryCode&gt;
+                        &lt;PostalCode&gt;10210&lt;/PostalCode&gt;
+                    &lt;/PostalAddress&gt;
+                &lt;/ContactInfo&gt;
+            &lt;/ContactInfoList&gt;
+            &lt;DatedMarketingSegmentList&gt;
+                &lt;DatedMarketingSegment&gt;
+                    &lt;Arrival&gt;
+                        &lt;AircraftScheduledDateTime&gt;2026-05-27T07:00:00&lt;/AircraftScheduledDateTime&gt;
+                        &lt;IATA_LocationCode&gt;CPH&lt;/IATA_LocationCode&gt;
+                    &lt;/Arrival&gt;
+                    &lt;CarrierDesigCode&gt;W2&lt;/CarrierDesigCode&gt;
+                    &lt;DatedMarketingSegmentId&gt;DMS1&lt;/DatedMarketingSegmentId&gt;
+                    &lt;DatedOperatingSegmentRefId&gt;DOS1&lt;/DatedOperatingSegmentRefId&gt;
+                    &lt;Dep&gt;
+                        &lt;AircraftScheduledDateTime&gt;2026-05-27T06:00:00&lt;/AircraftScheduledDateTime&gt;
+                        &lt;IATA_LocationCode&gt;KRP&lt;/IATA_LocationCode&gt;
+                    &lt;/Dep&gt;
+                    &lt;MarketingCarrierFlightNumberText&gt;500&lt;/MarketingCarrierFlightNumberText&gt;
+                &lt;/DatedMarketingSegment&gt;
+            &lt;/DatedMarketingSegmentList&gt;
+            &lt;DatedOperatingSegmentList&gt;
+                &lt;DatedOperatingSegment&gt;
+                    &lt;CarrierDesigCode&gt;W2&lt;/CarrierDesigCode&gt;
+                    &lt;DatedOperatingSegmentId&gt;DOS1&lt;/DatedOperatingSegmentId&gt;
+                    &lt;OperatingCarrierFlightNumberText&gt;500&lt;/OperatingCarrierFlightNumberText&gt;
+                &lt;/DatedOperatingSegment&gt;
+            &lt;/DatedOperatingSegmentList&gt;
+            &lt;OriginDestList&gt;
+                &lt;OriginDest&gt;
+                    &lt;DestCode&gt;CPH&lt;/DestCode&gt;
+                    &lt;OriginCode&gt;KRP&lt;/OriginCode&gt;
+                    &lt;OriginDestID&gt;OD1&lt;/OriginDestID&gt;
+                    &lt;PaxJourneyRefID&gt;JOUR1&lt;/PaxJourneyRefID&gt;
+                &lt;/OriginDest&gt;
+            &lt;/OriginDestList&gt;
+            &lt;PaxJourneyList&gt;
+                &lt;PaxJourney&gt;
+                    &lt;PaxJourneyID&gt;JOUR1&lt;/PaxJourneyID&gt;
+                    &lt;PaxSegmentRefID&gt;SEG1&lt;/PaxSegmentRefID&gt;
+                &lt;/PaxJourney&gt;
+            &lt;/PaxJourneyList&gt;
+            &lt;PaxList&gt;
+                &lt;Pax&gt;
+                    &lt;CitizenshipCountryCode&gt;&lt;/CitizenshipCountryCode&gt;
+                    &lt;Individual&gt;
+                        &lt;GenderCode&gt;M&lt;/GenderCode&gt;
+                        &lt;GivenName&gt;Bruce&lt;/GivenName&gt;
+                        &lt;IndividualID&gt;72aa9ff5-e62b-4c20-a0ad-afafa3a160fe&lt;/IndividualID&gt;
+                        &lt;Surname&gt;Wayne&lt;/Surname&gt;
+                        &lt;TitleName&gt;MR&lt;/TitleName&gt;
+                    &lt;/Individual&gt;
+                    &lt;PaxID&gt;PAX1&lt;/PaxID&gt;
+                    &lt;PaxRefID&gt;PAX2&lt;/PaxRefID&gt;
+                    &lt;PTC&gt;ADT&lt;/PTC&gt;
+                &lt;/Pax&gt;
+                &lt;Pax&gt;
+                    &lt;CitizenshipCountryCode&gt;&lt;/CitizenshipCountryCode&gt;
+                    &lt;Individual&gt;
+                        &lt;GenderCode&gt;M&lt;/GenderCode&gt;
+                        &lt;GivenName&gt;Baby&lt;/GivenName&gt;
+                        &lt;IndividualID&gt;a8a65d26-7b2a-4d8f-94bf-f769b4358efc&lt;/IndividualID&gt;
+                        &lt;Surname&gt;Wayne&lt;/Surname&gt;
+                        &lt;TitleName&gt;MR&lt;/TitleName&gt;
+                    &lt;/Individual&gt;
+                    &lt;PaxID&gt;PAX2&lt;/PaxID&gt;
+                    &lt;PTC&gt;INF&lt;/PTC&gt;
+                &lt;/Pax&gt;
+                &lt;Pax&gt;
+                    &lt;CitizenshipCountryCode&gt;&lt;/CitizenshipCountryCode&gt;
+                    &lt;Individual&gt;
+                        &lt;GenderCode&gt;M&lt;/GenderCode&gt;
+                        &lt;GivenName&gt;Child&lt;/GivenName&gt;
+                        &lt;IndividualID&gt;0ea6e3bc-7be9-40ac-854b-9a2c0c7b53c1&lt;/IndividualID&gt;
+                        &lt;Surname&gt;Wayne&lt;/Surname&gt;
+                        &lt;TitleName&gt;MR&lt;/TitleName&gt;
+                    &lt;/Individual&gt;
+                    &lt;PaxID&gt;PAX3&lt;/PaxID&gt;
+                    &lt;PTC&gt;CHD&lt;/PTC&gt;
+                &lt;/Pax&gt;
+            &lt;/PaxList&gt;
+            &lt;PaxSegmentList&gt;
+                &lt;PaxSegment&gt;
+                    &lt;DatedMarketingSegmentRefId&gt;DMS1&lt;/DatedMarketingSegmentRefId&gt;
+                    &lt;MarketingCarrierRBD_Code&gt;W2&lt;/MarketingCarrierRBD_Code&gt;
+                    &lt;OperatingCarrierRBD_Code&gt;W2&lt;/OperatingCarrierRBD_Code&gt;
+                    &lt;PaxSegmentID&gt;SEG1&lt;/PaxSegmentID&gt;
+                &lt;/PaxSegment&gt;
+            &lt;/PaxSegmentList&gt;
+            &lt;ServiceDefinitionList/&gt;
+        &lt;/DataLists&gt;
+        &lt;Order&gt;
+            &lt;OrderID&gt;d14a8d0c-74a6-4c3c-801b-8f9e17cf21c6&lt;/OrderID&gt;
+            &lt;OrderItem&gt;
+                &lt;FareDetail&gt;
+                    &lt;AccountCode&gt;VAT_DC&lt;/AccountCode&gt;
+                    &lt;Price&gt;
+                        &lt;TotalAmount CurCode=&quot;USD&quot;&gt;0&lt;/TotalAmount&gt;
+                    &lt;/Price&gt;
+                &lt;/FareDetail&gt;
+                &lt;FareDetail&gt;
+                    &lt;AccountCode&gt;VAT_EU&lt;/AccountCode&gt;
+                    &lt;Price&gt;
+                        &lt;TotalAmount CurCode=&quot;USD&quot;&gt;0&lt;/TotalAmount&gt;
+                    &lt;/Price&gt;
+                &lt;/FareDetail&gt;
+                &lt;FareDetail&gt;
+                    &lt;AccountCode&gt;DC&lt;/AccountCode&gt;
+                    &lt;Price&gt;
+                        &lt;TotalAmount CurCode=&quot;USD&quot;&gt;2.04&lt;/TotalAmount&gt;
+                    &lt;/Price&gt;
+                &lt;/FareDetail&gt;
+                &lt;FareDetail&gt;
+                    &lt;AccountCode&gt;EU&lt;/AccountCode&gt;
+                    &lt;Price&gt;
+                        &lt;TotalAmount CurCode=&quot;USD&quot;&gt;4.07&lt;/TotalAmount&gt;
+                    &lt;/Price&gt;
+                &lt;/FareDetail&gt;
+                &lt;FareDetail&gt;
+                    &lt;FareRefText&gt;Base Fare&lt;/FareRefText&gt;
+                    &lt;Price&gt;
+                        &lt;TotalAmount CurCode=&quot;USD&quot;&gt;34.62&lt;/TotalAmount&gt;
+                    &lt;/Price&gt;
+                &lt;/FareDetail&gt;
+                &lt;FareDetail&gt;
+                    &lt;FareRefText&gt;VAT&lt;/FareRefText&gt;
+                    &lt;Price&gt;
+                        &lt;TotalAmount CurCode=&quot;USD&quot;&gt;0&lt;/TotalAmount&gt;
+                    &lt;/Price&gt;
+                &lt;/FareDetail&gt;
+                &lt;GrandTotalAmount CurCode=&quot;USD&quot;&gt;40.73&lt;/GrandTotalAmount&gt;
+                &lt;OrderItemID&gt;8064850f-de57-4226-a39b-f71213f400ff&lt;/OrderItemID&gt;
+                &lt;OwnerCode&gt;W2&lt;/OwnerCode&gt;
+                &lt;Price&gt;
+                    &lt;BaseAmount CurCode=&quot;USD&quot;&gt;34.62&lt;/BaseAmount&gt;
+                    &lt;Fee&gt;
+                        &lt;Amount CurCode=&quot;USD&quot;&gt;0.0&lt;/Amount&gt;
+                    &lt;/Fee&gt;
+                    &lt;Fee&gt;
+                        &lt;Amount CurCode=&quot;USD&quot;&gt;0.0&lt;/Amount&gt;
+                    &lt;/Fee&gt;
+                    &lt;TaxSummary&gt;
+                        &lt;Tax&gt;
+                            &lt;Amount CurCode=&quot;USD&quot;&gt;2.04&lt;/Amount&gt;
+                            &lt;TaxCode&gt;DC&lt;/TaxCode&gt;
+                        &lt;/Tax&gt;
+                        &lt;Tax&gt;
+                            &lt;Amount CurCode=&quot;USD&quot;&gt;4.07&lt;/Amount&gt;
+                            &lt;TaxCode&gt;EU&lt;/TaxCode&gt;
+                        &lt;/Tax&gt;
+                    &lt;/TaxSummary&gt;
+                    &lt;TotalAmount CurCode=&quot;USD&quot;&gt;40.73&lt;/TotalAmount&gt;
+                &lt;/Price&gt;
+                &lt;Service&gt;
+                    &lt;BookingRef&gt;
+                        &lt;BookingEntity&gt;
+                            &lt;Carrier&gt;
+                                &lt;AirlineDesigCode&gt;W2&lt;/AirlineDesigCode&gt;
+                            &lt;/Carrier&gt;
+                        &lt;/BookingEntity&gt;
+                        &lt;BookingID&gt;CSHUNH&lt;/BookingID&gt;
+                    &lt;/BookingRef&gt;
+                    &lt;OrderServiceAssociation&gt;
+                        &lt;PaxSegmentRef&gt;
+                            &lt;PaxSegmentRefID&gt;SEG1&lt;/PaxSegmentRefID&gt;
+                        &lt;/PaxSegmentRef&gt;
+                    &lt;/OrderServiceAssociation&gt;
+                    &lt;PaxRefID&gt;PAX1&lt;/PaxRefID&gt;
+                &lt;/Service&gt;
+                &lt;StatusCode&gt;ACTIVE&lt;/StatusCode&gt;
+            &lt;/OrderItem&gt;
+            &lt;OrderItem&gt;
+                &lt;FareDetail&gt;
+                    &lt;FareRefText&gt;Base Fare&lt;/FareRefText&gt;
+                    &lt;Price&gt;
+                        &lt;TotalAmount CurCode=&quot;USD&quot;&gt;40.73&lt;/TotalAmount&gt;
+                    &lt;/Price&gt;
+                &lt;/FareDetail&gt;
+                &lt;FareDetail&gt;
+                    &lt;FareRefText&gt;VAT&lt;/FareRefText&gt;
+                    &lt;Price&gt;
+                        &lt;TotalAmount CurCode=&quot;USD&quot;&gt;0&lt;/TotalAmount&gt;
+                    &lt;/Price&gt;
+                &lt;/FareDetail&gt;
+                &lt;GrandTotalAmount CurCode=&quot;USD&quot;&gt;40.73&lt;/GrandTotalAmount&gt;
+                &lt;OrderItemID&gt;1be3dfac-d292-4061-84e9-be8ee968bc43&lt;/OrderItemID&gt;
+                &lt;OwnerCode&gt;W2&lt;/OwnerCode&gt;
+                &lt;Price&gt;
+                    &lt;BaseAmount CurCode=&quot;USD&quot;&gt;40.73&lt;/BaseAmount&gt;
+                    &lt;TotalAmount CurCode=&quot;USD&quot;&gt;40.73&lt;/TotalAmount&gt;
+                &lt;/Price&gt;
+                &lt;Service&gt;
+                    &lt;BookingRef&gt;
+                        &lt;BookingEntity&gt;
+                            &lt;Carrier&gt;
+                                &lt;AirlineDesigCode&gt;W2&lt;/AirlineDesigCode&gt;
+                            &lt;/Carrier&gt;
+                        &lt;/BookingEntity&gt;
+                        &lt;BookingID&gt;CSHUNH&lt;/BookingID&gt;
+                    &lt;/BookingRef&gt;
+                    &lt;OrderServiceAssociation&gt;
+                        &lt;PaxSegmentRef&gt;
+                            &lt;PaxSegmentRefID&gt;SEG1&lt;/PaxSegmentRefID&gt;
+                        &lt;/PaxSegmentRef&gt;
+                    &lt;/OrderServiceAssociation&gt;
+                    &lt;PaxRefID&gt;PAX2&lt;/PaxRefID&gt;
+                &lt;/Service&gt;
+                &lt;StatusCode&gt;ACTIVE&lt;/StatusCode&gt;
+            &lt;/OrderItem&gt;
+            &lt;OrderItem&gt;
+                &lt;FareDetail&gt;
+                    &lt;AccountCode&gt;VAT_DC&lt;/AccountCode&gt;
+                    &lt;Price&gt;
+                        &lt;TotalAmount CurCode=&quot;USD&quot;&gt;0&lt;/TotalAmount&gt;
+                    &lt;/Price&gt;
+                &lt;/FareDetail&gt;
+                &lt;FareDetail&gt;
+                    &lt;AccountCode&gt;VAT_QQ&lt;/AccountCode&gt;
+                    &lt;Price&gt;
+                        &lt;TotalAmount CurCode=&quot;USD&quot;&gt;0&lt;/TotalAmount&gt;
+                    &lt;/Price&gt;
+                &lt;/FareDetail&gt;
+                &lt;FareDetail&gt;
+                    &lt;AccountCode&gt;DC&lt;/AccountCode&gt;
+                    &lt;Price&gt;
+                        &lt;TotalAmount CurCode=&quot;USD&quot;&gt;0.27&lt;/TotalAmount&gt;
+                    &lt;/Price&gt;
+                &lt;/FareDetail&gt;
+                &lt;FareDetail&gt;
+                    &lt;AccountCode&gt;QQ&lt;/AccountCode&gt;
+                    &lt;Price&gt;
+                        &lt;TotalAmount CurCode=&quot;USD&quot;&gt;0.64&lt;/TotalAmount&gt;
+                    &lt;/Price&gt;
+                &lt;/FareDetail&gt;
+                &lt;FareDetail&gt;
+                    &lt;FareRefText&gt;Base Fare&lt;/FareRefText&gt;
+                    &lt;Price&gt;
+                        &lt;TotalAmount CurCode=&quot;USD&quot;&gt;39.82&lt;/TotalAmount&gt;
+                    &lt;/Price&gt;
+                &lt;/FareDetail&gt;
+                &lt;FareDetail&gt;
+                    &lt;FareRefText&gt;VAT&lt;/FareRefText&gt;
+                    &lt;Price&gt;
+                        &lt;TotalAmount CurCode=&quot;USD&quot;&gt;0&lt;/TotalAmount&gt;
+                    &lt;/Price&gt;
+                &lt;/FareDetail&gt;
+                &lt;GrandTotalAmount CurCode=&quot;USD&quot;&gt;40.73&lt;/GrandTotalAmount&gt;
+                &lt;OrderItemID&gt;a48f7f60-115e-4faf-baaf-e84a15eb294e&lt;/OrderItemID&gt;
+                &lt;OwnerCode&gt;W2&lt;/OwnerCode&gt;
+                &lt;Price&gt;
+                    &lt;BaseAmount CurCode=&quot;USD&quot;&gt;39.82&lt;/BaseAmount&gt;
+                    &lt;Fee&gt;
+                        &lt;Amount CurCode=&quot;USD&quot;&gt;0.0&lt;/Amount&gt;
+                    &lt;/Fee&gt;
+                    &lt;Fee&gt;
+                        &lt;Amount CurCode=&quot;USD&quot;&gt;0.0&lt;/Amount&gt;
+                    &lt;/Fee&gt;
+                    &lt;TaxSummary&gt;
+                        &lt;Tax&gt;
+                            &lt;Amount CurCode=&quot;USD&quot;&gt;0.27&lt;/Amount&gt;
+                            &lt;TaxCode&gt;DC&lt;/TaxCode&gt;
+                        &lt;/Tax&gt;
+                        &lt;Tax&gt;
+                            &lt;Amount CurCode=&quot;USD&quot;&gt;0.64&lt;/Amount&gt;
+                            &lt;TaxCode&gt;QQ&lt;/TaxCode&gt;
+                        &lt;/Tax&gt;
+                    &lt;/TaxSummary&gt;
+                    &lt;TotalAmount CurCode=&quot;USD&quot;&gt;40.73&lt;/TotalAmount&gt;
+                &lt;/Price&gt;
+                &lt;Service&gt;
+                    &lt;BookingRef&gt;
+                        &lt;BookingEntity&gt;
+                            &lt;Carrier&gt;
+                                &lt;AirlineDesigCode&gt;W2&lt;/AirlineDesigCode&gt;
+                            &lt;/Carrier&gt;
+                        &lt;/BookingEntity&gt;
+                        &lt;BookingID&gt;CSHUNH&lt;/BookingID&gt;
+                    &lt;/BookingRef&gt;
+                    &lt;OrderServiceAssociation&gt;
+                        &lt;PaxSegmentRef&gt;
+                            &lt;PaxSegmentRefID&gt;SEG1&lt;/PaxSegmentRefID&gt;
+                        &lt;/PaxSegmentRef&gt;
+                    &lt;/OrderServiceAssociation&gt;
+                    &lt;PaxRefID&gt;PAX3&lt;/PaxRefID&gt;
+                &lt;/Service&gt;
+                &lt;StatusCode&gt;ACTIVE&lt;/StatusCode&gt;
+            &lt;/OrderItem&gt;
+            &lt;StatusCode&gt;OPEN&lt;/StatusCode&gt;
+            &lt;TotalPrice&gt;
+                &lt;BaseAmount CurCode=&quot;USD&quot;&gt;122.19&lt;/BaseAmount&gt;
+                &lt;TaxSummary&gt;
+                    &lt;Tax&gt;
+                        &lt;Amount CurCode=&quot;USD&quot;&gt;2.31&lt;/Amount&gt;
+                        &lt;TaxCode&gt;DC&lt;/TaxCode&gt;
+                    &lt;/Tax&gt;
+                    &lt;Tax&gt;
+                        &lt;Amount CurCode=&quot;USD&quot;&gt;4.07&lt;/Amount&gt;
+                        &lt;TaxCode&gt;EU&lt;/TaxCode&gt;
+                    &lt;/Tax&gt;
+                    &lt;Tax&gt;
+                        &lt;Amount CurCode=&quot;USD&quot;&gt;0.64&lt;/Amount&gt;
+                        &lt;TaxCode&gt;QQ&lt;/TaxCode&gt;
+                    &lt;/Tax&gt;
+                    &lt;TotalTaxAmount CurCode=&quot;USD&quot;&gt;7.02&lt;/TotalTaxAmount&gt;
+                &lt;/TaxSummary&gt;
+                &lt;TotalAmount CurCode=&quot;USD&quot;&gt;122.19&lt;/TotalAmount&gt;
+            &lt;/TotalPrice&gt;
+        &lt;/Order&gt;
+        &lt;TicketDocInfo&gt;
+            &lt;BookletQty&gt;1&lt;/BookletQty&gt;
+            &lt;OriginDest&gt;
+                &lt;DestCode&gt;CPH&lt;/DestCode&gt;
+                &lt;OriginCode&gt;KRP&lt;/OriginCode&gt;
+                &lt;OriginDestID&gt;OD1&lt;/OriginDestID&gt;
+            &lt;/OriginDest&gt;
+            &lt;PaxRefID&gt;PAX1&lt;/PaxRefID&gt;
+            &lt;Ticket&gt;
+                &lt;TicketNumber&gt;2772770026753&lt;/TicketNumber&gt;
+            &lt;/Ticket&gt;
+        &lt;/TicketDocInfo&gt;
+        &lt;TicketDocInfo&gt;
+            &lt;BookletQty&gt;1&lt;/BookletQty&gt;
+            &lt;OriginDest&gt;
+                &lt;DestCode&gt;CPH&lt;/DestCode&gt;
+                &lt;OriginCode&gt;KRP&lt;/OriginCode&gt;
+                &lt;OriginDestID&gt;OD1&lt;/OriginDestID&gt;
+            &lt;/OriginDest&gt;
+            &lt;PaxRefID&gt;PAX2&lt;/PaxRefID&gt;
+            &lt;Ticket&gt;
+                &lt;TicketNumber&gt;2772770026754&lt;/TicketNumber&gt;
+            &lt;/Ticket&gt;
+        &lt;/TicketDocInfo&gt;
+        &lt;TicketDocInfo&gt;
+            &lt;BookletQty&gt;1&lt;/BookletQty&gt;
+            &lt;OriginDest&gt;
+                &lt;DestCode&gt;CPH&lt;/DestCode&gt;
+                &lt;OriginCode&gt;KRP&lt;/OriginCode&gt;
+                &lt;OriginDestID&gt;OD1&lt;/OriginDestID&gt;
+            &lt;/OriginDest&gt;
+            &lt;PaxRefID&gt;PAX3&lt;/PaxRefID&gt;
+            &lt;Ticket&gt;
+                &lt;TicketNumber&gt;2772770026755&lt;/TicketNumber&gt;
+            &lt;/Ticket&gt;
+        &lt;/TicketDocInfo&gt;
+    &lt;/ns2:Response&gt;
+    &lt;ns2:DistributionChain&gt;
+        &lt;DistributionChainLink&gt;
+            &lt;Ordinal&gt;1&lt;/Ordinal&gt;
+            &lt;OrgRole&gt;Seller&lt;/OrgRole&gt;
+            &lt;ParticipatingOrg&gt;
+                &lt;Name&gt;Travel Agency XYZ&lt;/Name&gt;
+                &lt;OrgID&gt;Seller123&lt;/OrgID&gt;
+            &lt;/ParticipatingOrg&gt;
+        &lt;/DistributionChainLink&gt;
+    &lt;/ns2:DistributionChain&gt;
+    &lt;ns2:PayloadAttributes&gt;
+        &lt;CorrelationID&gt;858e5019-0050-4415-984f-f3506492fcf3&lt;/CorrelationID&gt;
+        &lt;Timestamp&gt;2026-05-07T13:35:51.653+07:00&lt;/Timestamp&gt;
+        &lt;TrxID&gt;TRX-123456790&lt;/TrxID&gt;
+        &lt;VersionNumber&gt;21.3&lt;/VersionNumber&gt;
+    &lt;/ns2:PayloadAttributes&gt;
+&lt;/ns2:IATA_OrderViewRS&gt;
+</code></pre>
 
 </details>
 
@@ -599,19 +599,19 @@ Invalid request, missing required fields, or order not in DRAFT status.
 <details>
 <summary>Response Payload</summary>
 
-```xml
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<ns2:IATA_OrderViewRS xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes" xmlns:ns2="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage" xmlns:ns3="http://www.w3.org/2000/09/xmldsig#">
-    <ns2:Error>
-        <Code>13</Code>
-        <DescText>Reshop offer ID is required for CONFIRM_REBOOK_AND_PAY</DescText>
-        <ErrorID>2acab829-02ed-4007-9694-dcf84b1fc9af</ErrorID>
-        <LangCode>EN</LangCode>
-        <TagText>OrderChangeRQ/Request/ChangeOrderChoice/AcceptSelectedQuotedOfferList/SelectedPricedOffer/OfferRefID</TagText>
-        <TypeCode>Validation</TypeCode>
-    </ns2:Error>
-</ns2:IATA_OrderViewRS>
-```
+<pre><code class="language-xml">
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;
+&lt;ns2:IATA_OrderViewRS xmlns=&quot;http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes&quot; xmlns:ns2=&quot;http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage&quot; xmlns:ns3=&quot;http://www.w3.org/2000/09/xmldsig#&quot;&gt;
+    &lt;ns2:Error&gt;
+        &lt;Code&gt;13&lt;/Code&gt;
+        &lt;DescText&gt;Reshop offer ID is required for CONFIRM_REBOOK_AND_PAY&lt;/DescText&gt;
+        &lt;ErrorID&gt;2acab829-02ed-4007-9694-dcf84b1fc9af&lt;/ErrorID&gt;
+        &lt;LangCode&gt;EN&lt;/LangCode&gt;
+        &lt;TagText&gt;OrderChangeRQ/Request/ChangeOrderChoice/AcceptSelectedQuotedOfferList/SelectedPricedOffer/OfferRefID&lt;/TagText&gt;
+        &lt;TypeCode&gt;Validation&lt;/TypeCode&gt;
+    &lt;/ns2:Error&gt;
+&lt;/ns2:IATA_OrderViewRS&gt;
+</code></pre>
 
 </details>
 
@@ -622,18 +622,19 @@ Order not found.
 <details>
 <summary>Response Payload</summary>
 
-```xml
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<ns2:IATA_OrderViewRS xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes" xmlns:ns2="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage" xmlns:ns3="http://www.w3.org/2000/09/xmldsig#">
-    <ns2:Error>
-        <Code>911</Code>
-        <DescText>Order not found - Order with id 014a8d0c-74a6-4c3c-801b-8f9e17cf21c6 not found</DescText>
-        <ErrorID>64669f43-2d30-4d86-a1a8-05dec018e03b</ErrorID>
-        <LangCode>EN</LangCode>
-        <TypeCode>Business</TypeCode>
-    </ns2:Error>
-</ns2:IATA_OrderViewRS>
-```
+<pre><code class="language-xml">
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;
+&lt;ns2:IATA_OrderViewRS xmlns=&quot;http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes&quot; xmlns:ns2=&quot;http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage&quot; xmlns:ns3=&quot;http://www.w3.org/2000/09/xmldsig#&quot;&gt;
+    &lt;ns2:Error&gt;
+        &lt;Code&gt;911&lt;/Code&gt;
+        &lt;DescText&gt;Order not found - Order with id 014a8d0c-74a6-4c3c-801b-8f9e17cf21c6 not found&lt;/DescText&gt;
+        &lt;ErrorID&gt;64669f43-2d30-4d86-a1a8-05dec018e03b&lt;/ErrorID&gt;
+        &lt;LangCode&gt;EN&lt;/LangCode&gt;
+        &lt;TypeCode&gt;Business&lt;/TypeCode&gt;
+    &lt;/ns2:Error&gt;
+&lt;/ns2:IATA_OrderViewRS&gt;
+</code></pre>
+
 </details>
 
 [//]: # (#### 422 Unprocessable Entity)
