@@ -44,58 +44,64 @@ Single **`OriginDestCriteria`** (outbound only).
 <details>
 <summary>Request Payload</summary>
 
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<IATA_AirShoppingRQ xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage"
-                    xmlns:cns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes">
-    <DistributionChain>
-        <cns:DistributionChainLink>
-            <cns:Ordinal>1</cns:Ordinal>
-            <cns:OrgRole>Seller</cns:OrgRole>
-            <cns:ParticipatingOrg>
-                <cns:Name>Travel Agency XYZ</cns:Name>
-                <cns:OrgID>SELLER123</cns:OrgID>
-            </cns:ParticipatingOrg>
-        </cns:DistributionChainLink>
-    </DistributionChain>
-    <PayloadAttributes>
-        <cns:CorrelationID>{{$randomUUID}}</cns:CorrelationID>
-        <cns:Timestamp>2025-11-05T10:00:00Z</cns:Timestamp>
-        <cns:TrxID>TRX-123456789</cns:TrxID>
-        <cns:VersionNumber>21.3</cns:VersionNumber>
-    </PayloadAttributes>
-    <Request>
-        <cns:FlightRequest>
-            <cns:FlightRequestOriginDestinationsCriteria>
-                <cns:OriginDestCriteria>
-                    <cns:DestArrivalCriteria>
-                        <cns:Date>2026-05-18</cns:Date>
-                        <cns:IATA_LocationCode>CPH</cns:IATA_LocationCode>
-                    </cns:DestArrivalCriteria>
-                    <cns:OriginDepCriteria>
-                        <cns:Date>2026-05-17</cns:Date>
-                        <cns:IATA_LocationCode>KRP</cns:IATA_LocationCode>
-                    </cns:OriginDepCriteria>
-                </cns:OriginDestCriteria>
-            </cns:FlightRequestOriginDestinationsCriteria>
-        </cns:FlightRequest>
-        <cns:PaxList>
-            <cns:Pax>
-                <cns:PaxID>PAX1</cns:PaxID>
-                <cns:PTC>ADT</cns:PTC>
-            </cns:Pax>
-            <cns:Pax>
-                <cns:PaxID>PAX2</cns:PaxID>
-                <cns:PTC>CHD</cns:PTC>
-            </cns:Pax>
-            <cns:Pax>
-                <cns:PaxID>PAX3</cns:PaxID>
-                <cns:PTC>INF</cns:PTC>
-            </cns:Pax>
-        </cns:PaxList>
-    </Request>
-</IATA_AirShoppingRQ>
-```
+<pre><code class="language-xml">
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;IATA_AirShoppingRQ xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage"
+                    xmlns:cns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes"&gt;
+    &lt;DistributionChain&gt;
+        &lt;cns:DistributionChainLink&gt;
+            &lt;cns:Ordinal&gt;1&lt;/cns:Ordinal&gt;
+            &lt;cns:OrgRole&gt;Seller&lt;/cns:OrgRole&gt;
+            &lt;cns:ParticipatingOrg&gt;
+                &lt;cns:Name&gt;Travel Agency XYZ&lt;/cns:Name&gt;
+                &lt;cns:OrgID&gt;SELLER123&lt;/cns:OrgID&gt;
+            &lt;/cns:ParticipatingOrg&gt;
+        &lt;/cns:DistributionChainLink&gt;
+    &lt;/DistributionChain&gt;
+
+    &lt;PayloadAttributes&gt;
+        &lt;cns:CorrelationID&gt;{{$randomUUID}}&lt;/cns:CorrelationID&gt;
+        &lt;cns:Timestamp&gt;2025-11-05T10:00:00Z&lt;/cns:Timestamp&gt;
+        &lt;cns:TrxID&gt;TRX-123456789&lt;/cns:TrxID&gt;
+        &lt;cns:VersionNumber&gt;21.3&lt;/cns:VersionNumber&gt;
+    &lt;/PayloadAttributes&gt;
+
+    &lt;Request&gt;
+        &lt;cns:FlightRequest&gt;
+            &lt;cns:FlightRequestOriginDestinationsCriteria&gt;
+                &lt;cns:OriginDestCriteria&gt;
+                    &lt;cns:DestArrivalCriteria&gt;
+                        &lt;cns:Date&gt;2026-05-18&lt;/cns:Date&gt;
+                        &lt;cns:IATA_LocationCode&gt;CPH&lt;/cns:IATA_LocationCode&gt;
+                    &lt;/cns:DestArrivalCriteria&gt;
+
+                    &lt;cns:OriginDepCriteria&gt;
+                        &lt;cns:Date&gt;2026-05-17&lt;/cns:Date&gt;
+                        &lt;cns:IATA_LocationCode&gt;KRP&lt;/cns:IATA_LocationCode&gt;
+                    &lt;/cns:OriginDepCriteria&gt;
+                &lt;/cns:OriginDestCriteria&gt;
+            &lt;/cns:FlightRequestOriginDestinationsCriteria&gt;
+        &lt;/cns:FlightRequest&gt;
+
+        &lt;cns:PaxList&gt;
+            &lt;cns:Pax&gt;
+                &lt;cns:PaxID&gt;PAX1&lt;/cns:PaxID&gt;
+                &lt;cns:PTC&gt;ADT&lt;/cns:PTC&gt;
+            &lt;/cns:Pax&gt;
+
+            &lt;cns:Pax&gt;
+                &lt;cns:PaxID&gt;PAX2&lt;/cns:PaxID&gt;
+                &lt;cns:PTC&gt;CHD&lt;/cns:PTC&gt;
+            &lt;/cns:Pax&gt;
+
+            &lt;cns:Pax&gt;
+                &lt;cns:PaxID&gt;PAX3&lt;/cns:PaxID&gt;
+                &lt;cns:PTC&gt;INF&lt;/cns:PTC&gt;
+            &lt;/cns:Pax&gt;
+        &lt;/cns:PaxList&gt;
+    &lt;/Request&gt;
+&lt;/IATA_AirShoppingRQ&gt;
+</code></pre>
 
 </details>
 
