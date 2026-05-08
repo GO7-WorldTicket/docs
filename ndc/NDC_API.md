@@ -30,11 +30,10 @@ title: NDC API Generic Integration Guide
 
 ## Change Log
 
-| Change Description | Changed By | Change Date |
-|-------------------|------------|------------|
-| Initial creation of the document | Naphachara Rattanawilai | 2026-05-06 |
-
-> **TODO:** Add a dedicated NDC changelog page and link it here (parity with OTA *For detailed changelog see: [Generic Changelog](../ota/generic-changelog.md)*).
+| Change Description                                                  | Changed By              | Change Date |
+|---------------------------------------------------------------------|-------------------------|-------------|
+| Prepared Postman collection and update API request/response example | Thotsaphorn Phonlabutr  | 2026-05-08  |
+| Initial creation of the document                                    | Naphachara Rattanawilai | 2026-05-06  |
 
 # Introduction
 
@@ -46,11 +45,10 @@ Requests use **XML bodies** with **`Content-Type: application/xml`** (or `applic
 
 Use these hosts with the paths documented per endpoint (for example `POST …/v21.3.5/AirShopping`).
 
-| Environment | Base URL |
-|-------------|-----------|
+| Environment               | Base URL |
+|---------------------------|-----------|
 | Production (platform API) | `https://api.go7.io` |
-
-> **TODO:** Add **Test** / QA base URL row when finalized (parity with OTA Production + Test table in `ota/OTA_API.md`).
+| Test (platform API)       | `https://go7-api-gateway.dev.go7.io/ndc-gateway` |
 
 All Offers & Orders messages documented here are posted under:
 
@@ -64,7 +62,7 @@ Attach the following headers to NDC Gateway requests unless an endpoint page spe
 |--------|-------------|---------|
 | `x-tenant` | Tenant identifier | `test-qa-rc` |
 | `x-SalesChannel` | Sales channel (`NDC`, `IBE`, …) | `NDC` |
-| `x-api-key` | API key authentication | `{api_key}` |
+| `x-api-key` | API key authentication | `96d2bf5f-2740-4d64-80e9-3542cc44bbbb` |
 | `Content-Type` | Request body type | `application/xml` |
 
 Use `x-api-key` for authentication on NDC Gateway requests.
@@ -81,32 +79,26 @@ Order retrieve / view mapping (`OrderRetrieveRQ` → REST) uses the **order mana
 
 Phased 1 scenarios cover shopping and pricing offers, creating or confirming orders, reshop/requote paths, and order retrieve.
 
-## Sequence diagram
+[//]: # (## Sequence diagram)
 
-The diagram shows **Customer → Integrator Application → NDC Gateway** flows for each Phase 1 scenario (messages under `/v21.3.5`).
+[//]: # ()
+[//]: # (The diagram shows **Customer → Integrator Application → NDC Gateway** flows for each Phase 1 scenario &#40;messages under `/v21.3.5`&#41;.)
 
-![NDC Gateway business flow — Phase 1 scenarios](../assets/ndc/ndc-business-flow.png "Phase 1 Customer → Application → Gateway flows")
+[//]: # ()
+[//]: # (![NDC Gateway business flow — Phase 1 scenarios]&#40;../assets/ndc/ndc-business-flow.png "Phase 1 Customer → Application → Gateway flows"&#41;)
 
-*Cancel flow omits `OrderQuote` when refunds are not supported.*
-
-### Mermaid sequence (source)
-
-For diagram-as-code review and diffs (similar to the Mermaid-only Business Flow in [`ota/OTA_API.md`](../ota/OTA_API.md)), maintain the sequence here:
-
-**[ndc-business-flow-sequence.mmd](mermaid/ndc-business-flow-sequence.mmd)**
-
-Render locally with your Mermaid toolchain, or paste the file contents into any Mermaid-compatible viewer.
+[//]: # ()
+[//]: # (*Cancel flow omits `OrderQuote` when refunds are not supported.*)
 
 ## Phase 1 scenario summary
 
-| Scenario | Message sequence |
-|----------|-------------------|
-| Create on-hold booking | `AirShopping` → `OfferPrice` → `OrderCreate` (no payment). |
-| Confirm on-hold booking | Order retrieve → `OrderQuote` → `OrderChange`. |
-| Create paid booking | `AirShopping` → `OfferPrice` → `OrderCreate` (with payment). |
-| Manage booking — rebook | Order retrieve → `OrderReshop` → `OrderQuote` → `OrderChange`. |
-| Manage booking — cancel | Order retrieve → `OrderReshop` (cancel); **`OrderQuote` not used in Phase 1** when refunds are unsupported → `OrderChange`. |
-| Retrieve booking | Order retrieve / view only. |
+| Scenario                         | Message sequence                                                                                                                            |
+|----------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
+| Create & confirm on-hold booking | `AirShopping` → `OfferPrice` → `OrderCreate`(no payment) → `OrderRetrieve` → `OrderQuote` → `OrderChange` → `OrderRetrieve`.                |
+| Create paid booking              | `AirShopping` → `OfferPrice` → `OrderCreate` (with payment) →`OrderRetrieve`.                                                               |
+| Manage booking — rebook          | `OrderRetrieve` → `OrderReshop` → `OrderQuote` → `OrderChange` → `OrderRetrieve`.                                                           |
+| Manage booking — cancel          | `OrderRetrieve` → `OrderReshop` (cancel); **`OrderQuote` not used in Phase 1** when refunds are unsupported → `OrderChange` → `OrderRetrieve`. |
+| Retrieve booking                 | `OrderRetrieve` (view only).              |
 
 ## NDC Gateway workflow (Phased 1)
 
@@ -123,13 +115,17 @@ Use IATA **OffersAndOrders** message XML (`IATA_AirShoppingRQ`, `IATA_OrderCreat
 > **TODO:** Publish a downloadable archive under `/docs/assets/resources/` (e.g. XSD bundle or tooling zip) and link it here (parity with **OTA XML Schema 2015** in `ota/OTA_API.md`).
 
 # Postman Collection
-
-> **TODO:** Add a Postman collection JSON under `/docs/assets/resources/` and document variable names here (parity with **Postman Collection** in `ota/OTA_API.md` — e.g. tenant, API key, realm, sales channel).
-
-When the collection exists, document variables here (expected examples: `apiKey`, `tenant`, `salesChannel`, `base_url`).
+[Download Postman Collection](/docs/assets/resources/NDC_postman_collection.json)
+Please update the variables in collection such as x-api-key, x-saleschannel, tenant, ndc-gateway-url.
 
 # Code Lists
 
+## Price Class
+
+| Class Id | Code    | Description   |
+|----------|---------| ------------- |
+| PC1      | Bedre   | Business class |
+| PC2      | Economy | Economy class |
 > **TODO:** Add **Booking Class / RBD** code list when documented for NDC offers (OTA separates **Booking Class** from cabin in `ota/OTA_API.md`).
 
 ## Passenger Type (PTC)
@@ -150,13 +146,17 @@ When the collection exists, document variables here (expected examples: `apiKey`
 
 ## Document Type
 
+| Code | Description |
+|------|-------------|
+| PP   | Passport |
+|     | National ID |
 > **TODO:** Define traveler identity document codes used in NDC payloads (e.g. `OrderCreate` / Pax identity) when aligned with airline implementation (parity with **Document Type** in `ota/OTA_API.md`).
 
 # NDC for Offers & Orders workflow
 
 Same pattern as **[OTA for Reservation workflow](../ota/OTA_API.md#ota-for-reservation-workflow)**: this section is an **index only**. Each **step** links to the endpoint `.md` file where requests, responses, and scenario anchors live. See **[Authentication](#authentication)**.
 
-Typical Phased 1 chain: **AirShopping → OfferPrice → OrderCreate**, then retrieve / reshop / quote / change as needed (see [Phase 1 scenario summary](#phase-1-scenario-summary)).
+Typical Phased 1 chain: **AirShopping → OfferPrice → OrderCreate**, then **OrderRetrieve** / **OrderReshop** / **OrderQuote** / **OrderChange** as needed (see [Phase 1 scenario summary](#phase-1-scenario-summary)).
 
 | | Production-style base | Message path pattern |
 |--|------------------------|----------------------|

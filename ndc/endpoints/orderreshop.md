@@ -5,15 +5,7 @@ title: Order Reshop (OrderReshop)
 
 # Order Reshop
 
-**Ask AI**
-
 `POST` `https://api.go7.io/v21.3.5/OrderReshop`
-
-The method allows you to reshop an existing order and get alternative offers for modifying or canceling segments.
-
-**Language**
-
-Shell | Node | Ruby | PHP | Python
 
 ---
 
@@ -37,109 +29,30 @@ See [Authentication](../NDC_API.md#authentication) for **`x-tenant`**, **`x-Sale
 
 ### Headers
 
-| Header | Required | Description |
-|--------|----------|-------------|
-| `x-tenant` | Yes | Tenant identifier |
-| `x-SalesChannel` | Yes | Sales channel identifier |
-| `x-api-key` | Yes | API key for authentication |
-| `Content-Type` | Yes | `application/xml` or `application/xml;charset=UTF-8` |
+| Header | Purpose | Format | Required | Example |
+|--------|---------|--------|----------|---------|
+| `x-tenant` | Identifies the tenant/organization context for the request | String (e.g., `tenant-a`, `test-qa-rc`) | Yes | `x-tenant: test-qa-rc` |
+| `x-SalesChannel` | Specifies the sales channel (maps to account IDs per tenant configuration) | String (e.g., `NDC`, `IBE`) | Yes | `x-SalesChannel: NDC` |
+| `x-api-key` | API key for authenticating the request | String | Yes | `x-api-key: 96d2bf5f-2740-4d64-80e9-3542cc44bbbb` |
+| `Content-Type` | Request body media type | `application/xml` or `application/xml;charset=UTF-8` | Yes | `Content-Type: application/xml` |
 
-### Request Body
+**Note:** The `x-SalesChannel` value is used to determine the account ID based on tenant configuration.
+
+## Request Body
 
 The request body must be a valid `IATA_OrderReshopRQ` XML document following IATA NDC v21.3.5 standard.
 
-#### Request Fields
-
-| Field | Type | Required | Description |
-|-------|------|----------|-------------|
-| `DistributionChain` | Object | No | Distribution chain information |
-| `PayloadAttributes` | Object | No | Payload metadata |
-| `Request` | Object | **Yes** | Main request body |
-| `Request.OrderRefID` | String | **Yes** | Order reference ID from previous OrderCreate response |
-| `Request.UpdateOrder` | Object | **Yes** | Order update information |
-| `Request.UpdateOrder.ReshopOrder` | Object | No | Reshop order details (for rebooking) |
-| `Request.UpdateOrder.ReshopOrder.ReshopOrderChoice` | Object | No | Reshop order choice |
-| `Request.UpdateOrder.ReshopOrder.ReshopOrderChoice.ServiceOrder` | Object | No | Service order modifications |
-| `Request.UpdateOrder.ReshopOrder.ReshopOrderChoice.ServiceOrder.AddOfferItems` | Object | No | Add new offer items |
-| `Request.UpdateOrder.ReshopOrder.ReshopOrderChoice.ServiceOrder.AddOfferItems.FlightRequest` | Object | No | Flight request for new segments |
-| `Request.UpdateOrder.ReshopOrder.ReshopOrderChoice.ServiceOrder.AddOfferItems.FlightRequest.FlightRequestOriginDestinationsCriteria` | Object | No | Origin-destination criteria |
-| `Request.UpdateOrder.ReshopOrder.ReshopOrderChoice.ServiceOrder.AddOfferItems.FlightRequest.FlightRequestOriginDestinationsCriteria.OriginDestCriteria` | Object | No | Origin-destination pair |
-| `Request.UpdateOrder.ReshopOrder.ReshopOrderChoice.ServiceOrder.AddOfferItems.FlightRequest.FlightRequestOriginDestinationsCriteria.OriginDestCriteria.DestArrivalCriteria.IATA_LocationCode` | String | No | Destination airport code |
-| `Request.UpdateOrder.ReshopOrder.ReshopOrderChoice.ServiceOrder.AddOfferItems.FlightRequest.FlightRequestOriginDestinationsCriteria.OriginDestCriteria.OriginDepCriteria.Date` | Date | No | Departure date (YYYY-MM-DD) |
-| `Request.UpdateOrder.ReshopOrder.ReshopOrderChoice.ServiceOrder.AddOfferItems.FlightRequest.FlightRequestOriginDestinationsCriteria.OriginDestCriteria.OriginDepCriteria.IATA_LocationCode` | String | No | Origin airport code |
-| `Request.UpdateOrder.ReshopOrder.ReshopOrderChoice.ServiceOrder.DeleteOrderItem` | Object | No | Delete order item (can be multiple) |
-| `Request.UpdateOrder.ReshopOrder.ReshopOrderChoice.ServiceOrder.DeleteOrderItem.OrderItemRefID` | String | No | Order item reference ID to delete |
-| `Request.UpdateOrder.CancelOrderRef` | Object | No | Cancel order reference (for cancellation) |
-| `Request.UpdateOrder.CancelOrderRef.OrderRefID` | String | No | Order reference ID to cancel |
-
-### Example Request
-
-#### Rebook with New Segments
+### Rebook with New Travel Date
 {: #orderreshop-rebook}
 
-```xml
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<IATA_OrderReshopRQ xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage" 
-                    xmlns:ns2="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes">
-    <DistributionChain>
-        <ns2:DistributionChainLink>
-            <ns2:Ordinal>1</ns2:Ordinal>
-            <ns2:OrgRole>Seller</ns2:OrgRole>
-            <ns2:ParticipatingOrg>
-                <ns2:Name>Travel Agency XYZ</ns2:Name>
-                <ns2:OrgID>Seller123</ns2:OrgID>
-            </ns2:ParticipatingOrg>
-        </ns2:DistributionChainLink>
-    </DistributionChain>
-    <PayloadAttributes>
-        <ns2:CorrelationID>ada69462-0b0a-4f18-ab3a-ffa37b25f7af</ns2:CorrelationID>
-        <ns2:Timestamp>2025-12-24T14:37:12.444+07:00</ns2:Timestamp>
-        <ns2:TrxID>TRX-123456789</ns2:TrxID>
-        <ns2:VersionNumber>21.3</ns2:VersionNumber>
-    </PayloadAttributes>
-    <Request>
-        <ns2:OrderRefID>76e7fc09-d951-4053-a24f-7b8edc4285e0</ns2:OrderRefID>
-        <ns2:UpdateOrder>
-            <ns2:ReshopOrder>
-                <ns2:ReshopOrderChoice>
-                    <ns2:ServiceOrder>
-                        <ns2:AddOfferItems>
-                            <ns2:FlightRequest>
-                                <ns2:FlightRequestOriginDestinationsCriteria>
-                                    <ns2:OriginDestCriteria>
-                                        <ns2:DestArrivalCriteria>
-                                            <ns2:IATA_LocationCode>CUR</ns2:IATA_LocationCode>
-                                        </ns2:DestArrivalCriteria>
-                                        <ns2:OriginDepCriteria>
-                                            <ns2:Date>2026-01-02</ns2:Date>
-                                            <ns2:IATA_LocationCode>BOS</ns2:IATA_LocationCode>
-                                        </ns2:OriginDepCriteria>
-                                    </ns2:OriginDestCriteria>
-                                </ns2:FlightRequestOriginDestinationsCriteria>
-                            </ns2:FlightRequest>
-                        </ns2:AddOfferItems>
-                        <ns2:DeleteOrderItem>
-                            <ns2:OrderItemRefID>b8d34ce4-8f46-4fa8-89fa-49aad0086d5f</ns2:OrderItemRefID>
-                        </ns2:DeleteOrderItem>
-                    </ns2:ServiceOrder>
-                </ns2:ReshopOrderChoice>
-            </ns2:ReshopOrder>
-        </ns2:UpdateOrder>
-    </Request>
-</IATA_OrderReshopRQ>
-```
-
-Use **`OrderRefID`** from the active order; **`AddOfferItems`** + optional **`DeleteOrderItem`** replace segments. From **OrderReshopRS**, pass **`ReshopOffer.OfferID`** (and item IDs) into **OrderQuote** / **OrderChange**.
-
-#### Cancel Order
-{: #orderreshop-cancel-order}
+<details>
+  <summary>Request Payload</summary>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<IATA_OrderReshopRQ xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage" 
-                    xmlns:ns2="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes">
+<IATA_OrderReshopRQ xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage" xmlns:ns2="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes" xmlns:ns3="http://www.w3.org/2000/09/xmldsig#">
     <DistributionChain>
-        <DistributionChainLink xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes">
+        <DistributionChainLink  xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes">
             <Ordinal>1</Ordinal>
             <OrgRole>Seller</OrgRole>
             <ParticipatingOrg>
@@ -149,21 +62,91 @@ Use **`OrderRefID`** from the active order; **`AddOfferItems`** + optional **`De
         </DistributionChainLink>
     </DistributionChain>
     <PayloadAttributes>
-        <CorrelationID xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes">c46f2365-b1be-4df2-b472-17389ee9ac00</CorrelationID>
-        <Timestamp xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes">2026-01-09T10:52:53.450+07:00</Timestamp>
+        <CorrelationID xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes">{{$randomUUID}}</CorrelationID>
+        <Timestamp xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes">2026-05-07T13:35:51.653+07:00</Timestamp>
         <TrxID xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes">TRX-123456789</TrxID>
         <VersionNumber xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes">21.3</VersionNumber>
     </PayloadAttributes>
-    <Request>
-        <OrderRefID xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes">73677775-4643-4ac5-9e7e-d261dadf643c</OrderRefID>
+    <Request >
+        <OrderRefID xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes">d14a8d0c-74a6-4c3c-801b-8f9e17cf21c6</OrderRefID>
+        <UpdateOrder xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes">
+            <ReshopOrder>
+                <ReshopOrderChoice>
+                    <ServiceOrder>
+                        <AddOfferItems>
+                            <FlightRequest>
+                                <FlightRequestOriginDestinationsCriteria>
+                                    <OriginDestCriteria>
+                                        <DestArrivalCriteria>
+                                            <Date>2026-05-28</Date>
+                                            <IATA_LocationCode>CPH</IATA_LocationCode>
+                                        </DestArrivalCriteria>
+                                        <OriginDepCriteria>
+                                            <Date>2026-05-27</Date>
+                                            <IATA_LocationCode>KRP</IATA_LocationCode>
+                                        </OriginDepCriteria>
+                                    </OriginDestCriteria>
+                                </FlightRequestOriginDestinationsCriteria>
+                            </FlightRequest>
+                        </AddOfferItems>
+                        <DeleteOrderItem>
+                            <OrderItemRefID>86b20775-4429-41cc-961d-587e7156421b</OrderItemRefID>
+                        </DeleteOrderItem>
+                        <DeleteOrderItem>
+                            <OrderItemRefID>8e54f6a6-543e-4744-8596-b50c0048c12d</OrderItemRefID>
+                        </DeleteOrderItem>
+                        <DeleteOrderItem>
+                            <OrderItemRefID>6b8ae903-0f89-4308-8d5d-24c0a0776137</OrderItemRefID>
+                        </DeleteOrderItem>
+                    </ServiceOrder>
+                </ReshopOrderChoice>
+            </ReshopOrder>
+        </UpdateOrder>
+    </Request>
+</IATA_OrderReshopRQ>
+```
+
+</details>
+
+Use **`OrderRefID`** from the active order; **`AddOfferItems`** + optional **`DeleteOrderItem`** replace segments. From **OrderReshopRS**, pass **`ReshopOffer.OfferID`** (and item IDs) into **OrderQuote** / **OrderChange**.
+
+### Cancel Order
+{: #orderreshop-cancel-order}
+
+<details>
+  <summary>Request Payload</summary>
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<IATA_OrderReshopRQ xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage" xmlns:ns2="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes" xmlns:ns3="http://www.w3.org/2000/09/xmldsig#">
+    <DistributionChain>
+        <DistributionChainLink  xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes">
+            <Ordinal>1</Ordinal>
+            <OrgRole>Seller</OrgRole>
+            <ParticipatingOrg>
+                <Name>Travel Agency XYZ</Name>
+                <OrgID>Seller123</OrgID>
+            </ParticipatingOrg>
+        </DistributionChainLink>
+    </DistributionChain>
+    <PayloadAttributes>
+        <CorrelationID xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes">{{$randomUUID}}</CorrelationID>
+        <Timestamp xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes">2026-05-07T13:35:51.653+07:00</Timestamp>
+        <TrxID xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes">TRX-123456789</TrxID>
+        <VersionNumber xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes">21.3</VersionNumber>
+    </PayloadAttributes>
+    <Request >
+        <OrderRefID xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes">d14a8d0c-74a6-4c3c-801b-8f9e17cf21c6</OrderRefID>
         <UpdateOrder xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes">
             <CancelOrderRef>
-                <ns2:OrderRefID>73677775-4643-4ac5-9e7e-d261dadf643c</ns2:OrderRefID>
+                <ns2:OrderRefID>d14a8d0c-74a6-4c3c-801b-8f9e17cf21c6</ns2:OrderRefID>
             </CancelOrderRef>
         </UpdateOrder>
     </Request>
 </IATA_OrderReshopRQ>
 ```
+
+</details>
 
 ## Response
 
@@ -171,59 +154,1953 @@ Use **`OrderRefID`** from the active order; **`AddOfferItems`** + optional **`De
 
 Returns an `IATA_OrderReshopRS` XML document containing alternative offers.
 
+<details>
+  <summary>Response Payload</summary>
+
 ```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<IATA_OrderReshopRS xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage"
-        xmlns:cns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes">
-    <Response>
-        <cns:Reshop>
-            <cns:ReshopOffer>
-                <cns:OfferID>new-offer-id-12345</cns:OfferID>
-                <cns:OwnerCode>VS</cns:OwnerCode>
-                <cns:OfferItem>
-                    <cns:OfferItemID>new-offer-item-id</cns:OfferItemID>
-                    <cns:Price>
-                        <cns:TotalAmount CurCode="USD">600.00</cns:TotalAmount>
-                    </cns:Price>
-                    <cns:PaxRefID>PAX1</cns:PaxRefID>
-                </cns:OfferItem>
-            </cns:ReshopOffer>
-        </cns:Reshop>
-        <cns:Order>
-            <cns:OrderID>76e7fc09-d951-4053-a24f-7b8edc4285e0</cns:OrderID>
-            <cns:OwnerCode>VS</cns:OwnerCode>
-            <cns:StatusCode>OPEN</cns:StatusCode>
-            <cns:TotalPrice>
-                <cns:BaseAmount CurCode="USD">550.00</cns:BaseAmount>
-                <cns:TotalAmount CurCode="USD">600.00</cns:TotalAmount>
-            </cns:TotalPrice>
-        </cns:Order>
-        <cns:DataLists>
-            <cns:DatedMarketingSegmentList>
-                <cns:DatedMarketingSegment>
-                    <cns:DatedMarketingSegmentID>DMS1</cns:DatedMarketingSegmentID>
-                    <cns:Departure>
-                        <cns:AirportCode>BOS</cns:AirportCode>
-                        <cns:Date>2026-01-02</cns:Date>
-                        <cns:Time>14:30</cns:Time>
-                    </cns:Departure>
-                    <cns:Arrival>
-                        <cns:AirportCode>CUR</cns:AirportCode>
-                        <cns:Date>2026-01-02</cns:Date>
-                        <cns:Time>18:45</cns:Time>
-                    </cns:Arrival>
-                </cns:DatedMarketingSegment>
-            </cns:DatedMarketingSegmentList>
-        </cns:DataLists>
-    </Response>
-</IATA_OrderReshopRS>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:IATA_OrderReshopRS xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes" xmlns:ns2="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage" xmlns:ns3="http://www.w3.org/2000/09/xmldsig#">
+    <ns2:Response>
+        <DataLists>
+            <DatedMarketingSegmentList>
+                <DatedMarketingSegment>
+                    <Arrival>
+                        <AircraftScheduledDateTime>2026-05-27T07:00:00</AircraftScheduledDateTime>
+                        <IATA_LocationCode>CPH</IATA_LocationCode>
+                    </Arrival>
+                    <CarrierDesigCode>DX</CarrierDesigCode>
+                    <DatedMarketingSegmentId>DMS1</DatedMarketingSegmentId>
+                    <DatedOperatingSegmentRefId>DOS1</DatedOperatingSegmentRefId>
+                    <Dep>
+                        <AircraftScheduledDateTime>2026-05-27T06:00:00</AircraftScheduledDateTime>
+                        <IATA_LocationCode>KRP</IATA_LocationCode>
+                    </Dep>
+                    <MarketingCarrierFlightNumberText>DX0500</MarketingCarrierFlightNumberText>
+                </DatedMarketingSegment>
+                <DatedMarketingSegment>
+                    <Arrival>
+                        <AircraftScheduledDateTime>2026-05-27T19:00:00</AircraftScheduledDateTime>
+                        <IATA_LocationCode>CPH</IATA_LocationCode>
+                    </Arrival>
+                    <CarrierDesigCode>DX</CarrierDesigCode>
+                    <DatedMarketingSegmentId>DMS2</DatedMarketingSegmentId>
+                    <DatedOperatingSegmentRefId>DOS2</DatedOperatingSegmentRefId>
+                    <Dep>
+                        <AircraftScheduledDateTime>2026-05-27T18:10:00</AircraftScheduledDateTime>
+                        <IATA_LocationCode>KRP</IATA_LocationCode>
+                    </Dep>
+                    <MarketingCarrierFlightNumberText>DX9901</MarketingCarrierFlightNumberText>
+                </DatedMarketingSegment>
+                <DatedMarketingSegment>
+                    <Arrival>
+                        <AircraftScheduledDateTime>2026-05-27T13:16:00</AircraftScheduledDateTime>
+                        <IATA_LocationCode>CPH</IATA_LocationCode>
+                    </Arrival>
+                    <CarrierDesigCode>DX</CarrierDesigCode>
+                    <DatedMarketingSegmentId>DMS3</DatedMarketingSegmentId>
+                    <DatedOperatingSegmentRefId>DOS3</DatedOperatingSegmentRefId>
+                    <Dep>
+                        <AircraftScheduledDateTime>2026-05-27T12:16:00</AircraftScheduledDateTime>
+                        <IATA_LocationCode>KRP</IATA_LocationCode>
+                    </Dep>
+                    <MarketingCarrierFlightNumberText>DX5078</MarketingCarrierFlightNumberText>
+                </DatedMarketingSegment>
+            </DatedMarketingSegmentList>
+            <DatedOperatingSegmentList>
+                <DatedOperatingSegment>
+                    <CarrierDesigCode>DX</CarrierDesigCode>
+                    <DatedOperatingSegmentId>DOS1</DatedOperatingSegmentId>
+                    <OperatingCarrierFlightNumberText>DX0500</OperatingCarrierFlightNumberText>
+                </DatedOperatingSegment>
+                <DatedOperatingSegment>
+                    <CarrierDesigCode>DX</CarrierDesigCode>
+                    <DatedOperatingSegmentId>DOS2</DatedOperatingSegmentId>
+                    <OperatingCarrierFlightNumberText>DX9901</OperatingCarrierFlightNumberText>
+                </DatedOperatingSegment>
+                <DatedOperatingSegment>
+                    <CarrierDesigCode>DX</CarrierDesigCode>
+                    <DatedOperatingSegmentId>DOS3</DatedOperatingSegmentId>
+                    <OperatingCarrierFlightNumberText>DX5078</OperatingCarrierFlightNumberText>
+                </DatedOperatingSegment>
+            </DatedOperatingSegmentList>
+            <OriginDestList>
+                <OriginDest>
+                    <DestCode>CPH</DestCode>
+                    <OriginCode>KRP</OriginCode>
+                    <OriginDestID>OD1</OriginDestID>
+                    <PaxJourneyRefID>JOUR1</PaxJourneyRefID>
+                    <PaxJourneyRefID>JOUR2</PaxJourneyRefID>
+                </OriginDest>
+            </OriginDestList>
+            <PaxJourneyList>
+                <PaxJourney>
+                    <Duration>PT1H</Duration>
+                    <PaxJourneyID>JOUR1</PaxJourneyID>
+                    <PaxSegmentRefID>SEG1</PaxSegmentRefID>
+                    <PaxSegmentRefID>SEG3</PaxSegmentRefID>
+                </PaxJourney>
+                <PaxJourney>
+                    <Duration>PT50M</Duration>
+                    <PaxJourneyID>JOUR2</PaxJourneyID>
+                    <PaxSegmentRefID>SEG2</PaxSegmentRefID>
+                </PaxJourney>
+            </PaxJourneyList>
+            <PaxList>
+                <Pax>
+                    <PaxID>ADT1</PaxID>
+                    <PTC>ADT</PTC>
+                </Pax>
+                <Pax>
+                    <PaxID>INF1</PaxID>
+                    <PTC>INF</PTC>
+                </Pax>
+                <Pax>
+                    <PaxID>CHD1</PaxID>
+                    <PTC>CHD</PTC>
+                </Pax>
+            </PaxList>
+            <PaxSegmentList>
+                <PaxSegment>
+                    <DatedMarketingSegmentRefId>DMS1</DatedMarketingSegmentRefId>
+                    <MarketingCarrierRBD_Code>W2</MarketingCarrierRBD_Code>
+                    <OperatingCarrierRBD_Code>DX</OperatingCarrierRBD_Code>
+                    <PaxSegmentID>SEG1</PaxSegmentID>
+                </PaxSegment>
+                <PaxSegment>
+                    <DatedMarketingSegmentRefId>DMS2</DatedMarketingSegmentRefId>
+                    <MarketingCarrierRBD_Code>DX</MarketingCarrierRBD_Code>
+                    <OperatingCarrierRBD_Code>DX</OperatingCarrierRBD_Code>
+                    <PaxSegmentID>SEG2</PaxSegmentID>
+                </PaxSegment>
+                <PaxSegment>
+                    <DatedMarketingSegmentRefId>DMS3</DatedMarketingSegmentRefId>
+                    <MarketingCarrierRBD_Code>DX</MarketingCarrierRBD_Code>
+                    <OperatingCarrierRBD_Code>DX</OperatingCarrierRBD_Code>
+                    <PaxSegmentID>SEG3</PaxSegmentID>
+                </PaxSegment>
+            </PaxSegmentList>
+            <PenaltyList/>
+            <PriceClassList>
+                <PriceClass>
+                    <Code>Bedre</Code>
+                    <Name>Bedre</Name>
+                    <PriceClassID>PC1</PriceClassID>
+                </PriceClass>
+                <PriceClass>
+                    <Code>Economy</Code>
+                    <Name>Economy</Name>
+                    <PriceClassID>PC2</PriceClassID>
+                </PriceClass>
+            </PriceClassList>
+            <ServiceDefinitionList/>
+        </DataLists>
+        <Order>
+            <OrderID>d14a8d0c-74a6-4c3c-801b-8f9e17cf21c6</OrderID>
+        </Order>
+        <ReshopResults>
+            <ReshopOffers>
+                <Offer>
+                    <AddedOfferItem>
+                        <FareDetail>
+                            <FareComponent>
+                                <CabinType>
+                                    <CabinTypeCode>Y</CabinTypeCode>
+                                </CabinType>
+                                <FareBasisCode>BDXBED</FareBasisCode>
+                                <PaxSegmentRefID>SEG1</PaxSegmentRefID>
+                                <PriceClassRefID>PC1</PriceClassRefID>
+                            </FareComponent>
+                            <PaxRefID>ADT1</PaxRefID>
+                        </FareDetail>
+                        <OfferItemID>2afd921a-885f-49bb-93ae-5c279660384c</OfferItemID>
+                        <ReshopPrice>
+                            <PriceDifferential>
+                                <DifferentialTypeCode>AddCol</DifferentialTypeCode>
+                                <DiffPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">34.62</BaseAmount>
+                                        <TaxSummary>
+                                            <Tax>
+                                                <Amount CurCode="USD">4.07</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>EU</TaxCode>
+                                            </Tax>
+                                            <Tax>
+                                                <Amount CurCode="USD">2.04</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>DC</TaxCode>
+                                            </Tax>
+                                            <TotalTaxAmount CurCode="USD">6.11</TotalTaxAmount>
+                                        </TaxSummary>
+                                        <TotalAmount CurCode="USD">40.73</TotalAmount>
+                                    </Price>
+                                </DiffPrice>
+                                <NewPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">34.62</BaseAmount>
+                                        <TaxSummary>
+                                            <Tax>
+                                                <Amount CurCode="USD">2.04</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>DC</TaxCode>
+                                            </Tax>
+                                            <Tax>
+                                                <Amount CurCode="USD">4.07</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>EU</TaxCode>
+                                            </Tax>
+                                            <TotalTaxAmount CurCode="USD">6.11</TotalTaxAmount>
+                                        </TaxSummary>
+                                        <TotalAmount CurCode="USD">40.73</TotalAmount>
+                                    </Price>
+                                </NewPrice>
+                                <OldPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">0.0</BaseAmount>
+                                        <TotalAmount CurCode="USD">0.0</TotalAmount>
+                                    </Price>
+                                </OldPrice>
+                            </PriceDifferential>
+                        </ReshopPrice>
+                        <Service>
+                            <OfferServiceAssociation>
+                                <PaxJourneyRef>
+                                    <PaxJourneyRefID>JOUR1</PaxJourneyRefID>
+                                </PaxJourneyRef>
+                            </OfferServiceAssociation>
+                            <PaxRefID>ADT1</PaxRefID>
+                        </Service>
+                    </AddedOfferItem>
+                    <AddedOfferItem>
+                        <FareDetail>
+                            <FareComponent>
+                                <CabinType>
+                                    <CabinTypeCode>Y</CabinTypeCode>
+                                </CabinType>
+                                <FareBasisCode>BDXBED</FareBasisCode>
+                                <PaxSegmentRefID>SEG1</PaxSegmentRefID>
+                                <PriceClassRefID>PC1</PriceClassRefID>
+                            </FareComponent>
+                            <PaxRefID>INF1</PaxRefID>
+                        </FareDetail>
+                        <OfferItemID>66b0aad9-048a-4d1e-bee6-124a1bda2baa</OfferItemID>
+                        <ReshopPrice>
+                            <PriceDifferential>
+                                <DifferentialTypeCode>AddCol</DifferentialTypeCode>
+                                <DiffPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">40.73</BaseAmount>
+                                        <TaxSummary>
+                                            <TotalTaxAmount CurCode="USD">0.0</TotalTaxAmount>
+                                        </TaxSummary>
+                                        <TotalAmount CurCode="USD">40.73</TotalAmount>
+                                    </Price>
+                                </DiffPrice>
+                                <NewPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">40.73</BaseAmount>
+                                        <TotalAmount CurCode="USD">40.73</TotalAmount>
+                                    </Price>
+                                </NewPrice>
+                                <OldPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">0.0</BaseAmount>
+                                        <TotalAmount CurCode="USD">0.0</TotalAmount>
+                                    </Price>
+                                </OldPrice>
+                            </PriceDifferential>
+                        </ReshopPrice>
+                        <Service>
+                            <OfferServiceAssociation>
+                                <PaxJourneyRef>
+                                    <PaxJourneyRefID>JOUR1</PaxJourneyRefID>
+                                </PaxJourneyRef>
+                            </OfferServiceAssociation>
+                            <PaxRefID>INF1</PaxRefID>
+                        </Service>
+                    </AddedOfferItem>
+                    <AddedOfferItem>
+                        <FareDetail>
+                            <FareComponent>
+                                <CabinType>
+                                    <CabinTypeCode>Y</CabinTypeCode>
+                                </CabinType>
+                                <FareBasisCode>BDXBED</FareBasisCode>
+                                <PaxSegmentRefID>SEG1</PaxSegmentRefID>
+                                <PriceClassRefID>PC1</PriceClassRefID>
+                            </FareComponent>
+                            <PaxRefID>CHD1</PaxRefID>
+                        </FareDetail>
+                        <OfferItemID>e8469306-5a16-41a0-bc62-aa98b5b03184</OfferItemID>
+                        <ReshopPrice>
+                            <PriceDifferential>
+                                <DifferentialTypeCode>AddCol</DifferentialTypeCode>
+                                <DiffPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">39.82</BaseAmount>
+                                        <TaxSummary>
+                                            <Tax>
+                                                <Amount CurCode="USD">0.64</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>QQ</TaxCode>
+                                            </Tax>
+                                            <Tax>
+                                                <Amount CurCode="USD">0.27</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>DC</TaxCode>
+                                            </Tax>
+                                            <TotalTaxAmount CurCode="USD">0.91</TotalTaxAmount>
+                                        </TaxSummary>
+                                        <TotalAmount CurCode="USD">40.73</TotalAmount>
+                                    </Price>
+                                </DiffPrice>
+                                <NewPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">39.82</BaseAmount>
+                                        <TaxSummary>
+                                            <Tax>
+                                                <Amount CurCode="USD">0.27</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>DC</TaxCode>
+                                            </Tax>
+                                            <Tax>
+                                                <Amount CurCode="USD">0.64</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>QQ</TaxCode>
+                                            </Tax>
+                                            <TotalTaxAmount CurCode="USD">0.91</TotalTaxAmount>
+                                        </TaxSummary>
+                                        <TotalAmount CurCode="USD">40.73</TotalAmount>
+                                    </Price>
+                                </NewPrice>
+                                <OldPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">0.0</BaseAmount>
+                                        <TotalAmount CurCode="USD">0.0</TotalAmount>
+                                    </Price>
+                                </OldPrice>
+                            </PriceDifferential>
+                        </ReshopPrice>
+                        <Service>
+                            <OfferServiceAssociation>
+                                <PaxJourneyRef>
+                                    <PaxJourneyRefID>JOUR1</PaxJourneyRefID>
+                                </PaxJourneyRef>
+                            </OfferServiceAssociation>
+                            <PaxRefID>CHD1</PaxRefID>
+                        </Service>
+                    </AddedOfferItem>
+                    <OfferID>351b2a94-83d1-4347-8bbe-8844a4c76cb0</OfferID>
+                    <TotalPrice>
+                        <BaseAmount CurCode="USD">0.0</BaseAmount>
+                        <TaxSummary>
+                            <TotalTaxAmount CurCode="USD">0.0</TotalTaxAmount>
+                        </TaxSummary>
+                        <TotalAmount CurCode="USD">0.0</TotalAmount>
+                    </TotalPrice>
+                </Offer>
+                <Offer>
+                    <AddedOfferItem>
+                        <FareDetail>
+                            <FareComponent>
+                                <CabinType>
+                                    <CabinTypeCode>Y</CabinTypeCode>
+                                </CabinType>
+                                <FareBasisCode>BDXBED</FareBasisCode>
+                                <PaxSegmentRefID>SEG2</PaxSegmentRefID>
+                                <PriceClassRefID>PC1</PriceClassRefID>
+                            </FareComponent>
+                            <PaxRefID>ADT1</PaxRefID>
+                        </FareDetail>
+                        <OfferItemID>19b595c1-f705-434d-9545-6f9880423697</OfferItemID>
+                        <ReshopPrice>
+                            <PriceDifferential>
+                                <DifferentialTypeCode>AddCol</DifferentialTypeCode>
+                                <DiffPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">34.62</BaseAmount>
+                                        <TaxSummary>
+                                            <Tax>
+                                                <Amount CurCode="USD">4.07</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>EU</TaxCode>
+                                            </Tax>
+                                            <Tax>
+                                                <Amount CurCode="USD">2.04</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>DC</TaxCode>
+                                            </Tax>
+                                            <TotalTaxAmount CurCode="USD">6.11</TotalTaxAmount>
+                                        </TaxSummary>
+                                        <TotalAmount CurCode="USD">40.73</TotalAmount>
+                                    </Price>
+                                </DiffPrice>
+                                <NewPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">34.62</BaseAmount>
+                                        <TaxSummary>
+                                            <Tax>
+                                                <Amount CurCode="USD">2.04</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>DC</TaxCode>
+                                            </Tax>
+                                            <Tax>
+                                                <Amount CurCode="USD">4.07</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>EU</TaxCode>
+                                            </Tax>
+                                            <TotalTaxAmount CurCode="USD">6.11</TotalTaxAmount>
+                                        </TaxSummary>
+                                        <TotalAmount CurCode="USD">40.73</TotalAmount>
+                                    </Price>
+                                </NewPrice>
+                                <OldPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">0.0</BaseAmount>
+                                        <TotalAmount CurCode="USD">0.0</TotalAmount>
+                                    </Price>
+                                </OldPrice>
+                            </PriceDifferential>
+                        </ReshopPrice>
+                        <Service>
+                            <OfferServiceAssociation>
+                                <PaxJourneyRef>
+                                    <PaxJourneyRefID>JOUR2</PaxJourneyRefID>
+                                </PaxJourneyRef>
+                            </OfferServiceAssociation>
+                            <PaxRefID>ADT1</PaxRefID>
+                        </Service>
+                    </AddedOfferItem>
+                    <AddedOfferItem>
+                        <FareDetail>
+                            <FareComponent>
+                                <CabinType>
+                                    <CabinTypeCode>Y</CabinTypeCode>
+                                </CabinType>
+                                <FareBasisCode>BDXBED</FareBasisCode>
+                                <PaxSegmentRefID>SEG2</PaxSegmentRefID>
+                                <PriceClassRefID>PC1</PriceClassRefID>
+                            </FareComponent>
+                            <PaxRefID>INF1</PaxRefID>
+                        </FareDetail>
+                        <OfferItemID>fdd9ca32-c53c-42df-9821-f7420b1053ad</OfferItemID>
+                        <ReshopPrice>
+                            <PriceDifferential>
+                                <DifferentialTypeCode>AddCol</DifferentialTypeCode>
+                                <DiffPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">40.73</BaseAmount>
+                                        <TaxSummary>
+                                            <TotalTaxAmount CurCode="USD">0.0</TotalTaxAmount>
+                                        </TaxSummary>
+                                        <TotalAmount CurCode="USD">40.73</TotalAmount>
+                                    </Price>
+                                </DiffPrice>
+                                <NewPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">40.73</BaseAmount>
+                                        <TotalAmount CurCode="USD">40.73</TotalAmount>
+                                    </Price>
+                                </NewPrice>
+                                <OldPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">0.0</BaseAmount>
+                                        <TotalAmount CurCode="USD">0.0</TotalAmount>
+                                    </Price>
+                                </OldPrice>
+                            </PriceDifferential>
+                        </ReshopPrice>
+                        <Service>
+                            <OfferServiceAssociation>
+                                <PaxJourneyRef>
+                                    <PaxJourneyRefID>JOUR2</PaxJourneyRefID>
+                                </PaxJourneyRef>
+                            </OfferServiceAssociation>
+                            <PaxRefID>INF1</PaxRefID>
+                        </Service>
+                    </AddedOfferItem>
+                    <AddedOfferItem>
+                        <FareDetail>
+                            <FareComponent>
+                                <CabinType>
+                                    <CabinTypeCode>Y</CabinTypeCode>
+                                </CabinType>
+                                <FareBasisCode>BDXBED</FareBasisCode>
+                                <PaxSegmentRefID>SEG2</PaxSegmentRefID>
+                                <PriceClassRefID>PC1</PriceClassRefID>
+                            </FareComponent>
+                            <PaxRefID>CHD1</PaxRefID>
+                        </FareDetail>
+                        <OfferItemID>a48c1b31-ded2-4fb1-a65c-d8307768e0e9</OfferItemID>
+                        <ReshopPrice>
+                            <PriceDifferential>
+                                <DifferentialTypeCode>AddCol</DifferentialTypeCode>
+                                <DiffPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">39.82</BaseAmount>
+                                        <TaxSummary>
+                                            <Tax>
+                                                <Amount CurCode="USD">0.64</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>QQ</TaxCode>
+                                            </Tax>
+                                            <Tax>
+                                                <Amount CurCode="USD">0.27</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>DC</TaxCode>
+                                            </Tax>
+                                            <TotalTaxAmount CurCode="USD">0.91</TotalTaxAmount>
+                                        </TaxSummary>
+                                        <TotalAmount CurCode="USD">40.73</TotalAmount>
+                                    </Price>
+                                </DiffPrice>
+                                <NewPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">39.82</BaseAmount>
+                                        <TaxSummary>
+                                            <Tax>
+                                                <Amount CurCode="USD">0.27</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>DC</TaxCode>
+                                            </Tax>
+                                            <Tax>
+                                                <Amount CurCode="USD">0.64</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>QQ</TaxCode>
+                                            </Tax>
+                                            <TotalTaxAmount CurCode="USD">0.91</TotalTaxAmount>
+                                        </TaxSummary>
+                                        <TotalAmount CurCode="USD">40.73</TotalAmount>
+                                    </Price>
+                                </NewPrice>
+                                <OldPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">0.0</BaseAmount>
+                                        <TotalAmount CurCode="USD">0.0</TotalAmount>
+                                    </Price>
+                                </OldPrice>
+                            </PriceDifferential>
+                        </ReshopPrice>
+                        <Service>
+                            <OfferServiceAssociation>
+                                <PaxJourneyRef>
+                                    <PaxJourneyRefID>JOUR2</PaxJourneyRefID>
+                                </PaxJourneyRef>
+                            </OfferServiceAssociation>
+                            <PaxRefID>CHD1</PaxRefID>
+                        </Service>
+                    </AddedOfferItem>
+                    <OfferID>b078b669-bafa-418f-8d3d-6028ca6262ba</OfferID>
+                    <TotalPrice>
+                        <BaseAmount CurCode="USD">0.0</BaseAmount>
+                        <TaxSummary>
+                            <TotalTaxAmount CurCode="USD">0.0</TotalTaxAmount>
+                        </TaxSummary>
+                        <TotalAmount CurCode="USD">0.0</TotalAmount>
+                    </TotalPrice>
+                </Offer>
+                <Offer>
+                    <AddedOfferItem>
+                        <FareDetail>
+                            <FareComponent>
+                                <CabinType>
+                                    <CabinTypeCode>Y</CabinTypeCode>
+                                </CabinType>
+                                <FareBasisCode>YEXWT</FareBasisCode>
+                                <PaxSegmentRefID>SEG1</PaxSegmentRefID>
+                                <PriceClassRefID>PC2</PriceClassRefID>
+                            </FareComponent>
+                            <PaxRefID>ADT1</PaxRefID>
+                        </FareDetail>
+                        <OfferItemID>354c5a07-a5b2-4966-9b65-8e5029344766</OfferItemID>
+                        <ReshopPrice>
+                            <PriceDifferential>
+                                <DifferentialTypeCode>AddCol</DifferentialTypeCode>
+                                <DiffPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">43.89</BaseAmount>
+                                        <Fee>
+                                            <Amount CurCode="USD">100.0</Amount>
+                                            <DescText>upgrade</DescText>
+                                            <DesigText>upgrade</DesigText>
+                                        </Fee>
+                                        <TaxSummary>
+                                            <Tax>
+                                                <Amount CurCode="USD">4.07</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>EU</TaxCode>
+                                            </Tax>
+                                            <Tax>
+                                                <Amount CurCode="USD">2.04</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>DC</TaxCode>
+                                            </Tax>
+                                            <TotalTaxAmount CurCode="USD">6.11</TotalTaxAmount>
+                                        </TaxSummary>
+                                        <TotalAmount CurCode="USD">150.0</TotalAmount>
+                                    </Price>
+                                </DiffPrice>
+                                <NewPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">43.89</BaseAmount>
+                                        <Fee>
+                                            <Amount CurCode="USD">100.0</Amount>
+                                            <DescText>upgrade</DescText>
+                                            <DesigText>upgrade</DesigText>
+                                        </Fee>
+                                        <TaxSummary>
+                                            <Tax>
+                                                <Amount CurCode="USD">2.04</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>DC</TaxCode>
+                                            </Tax>
+                                            <Tax>
+                                                <Amount CurCode="USD">4.07</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>EU</TaxCode>
+                                            </Tax>
+                                            <TotalTaxAmount CurCode="USD">6.11</TotalTaxAmount>
+                                        </TaxSummary>
+                                        <TotalAmount CurCode="USD">150.0</TotalAmount>
+                                    </Price>
+                                </NewPrice>
+                                <OldPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">0.0</BaseAmount>
+                                        <TotalAmount CurCode="USD">0.0</TotalAmount>
+                                    </Price>
+                                </OldPrice>
+                            </PriceDifferential>
+                        </ReshopPrice>
+                        <Service>
+                            <OfferServiceAssociation>
+                                <PaxJourneyRef>
+                                    <PaxJourneyRefID>JOUR1</PaxJourneyRefID>
+                                </PaxJourneyRef>
+                            </OfferServiceAssociation>
+                            <PaxRefID>ADT1</PaxRefID>
+                        </Service>
+                    </AddedOfferItem>
+                    <AddedOfferItem>
+                        <FareDetail>
+                            <FareComponent>
+                                <CabinType>
+                                    <CabinTypeCode>Y</CabinTypeCode>
+                                </CabinType>
+                                <FareBasisCode>YEXWT</FareBasisCode>
+                                <PaxSegmentRefID>SEG1</PaxSegmentRefID>
+                                <PriceClassRefID>PC2</PriceClassRefID>
+                            </FareComponent>
+                            <PaxRefID>INF1</PaxRefID>
+                        </FareDetail>
+                        <OfferItemID>7444ed2f-fb38-4764-a95a-6cbc0247d0f1</OfferItemID>
+                        <ReshopPrice>
+                            <PriceDifferential>
+                                <DifferentialTypeCode>AddCol</DifferentialTypeCode>
+                                <DiffPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">50.0</BaseAmount>
+                                        <TaxSummary>
+                                            <TotalTaxAmount CurCode="USD">0.0</TotalTaxAmount>
+                                        </TaxSummary>
+                                        <TotalAmount CurCode="USD">50.0</TotalAmount>
+                                    </Price>
+                                </DiffPrice>
+                                <NewPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">50.0</BaseAmount>
+                                        <TotalAmount CurCode="USD">50.0</TotalAmount>
+                                    </Price>
+                                </NewPrice>
+                                <OldPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">0.0</BaseAmount>
+                                        <TotalAmount CurCode="USD">0.0</TotalAmount>
+                                    </Price>
+                                </OldPrice>
+                            </PriceDifferential>
+                        </ReshopPrice>
+                        <Service>
+                            <OfferServiceAssociation>
+                                <PaxJourneyRef>
+                                    <PaxJourneyRefID>JOUR1</PaxJourneyRefID>
+                                </PaxJourneyRef>
+                            </OfferServiceAssociation>
+                            <PaxRefID>INF1</PaxRefID>
+                        </Service>
+                    </AddedOfferItem>
+                    <AddedOfferItem>
+                        <FareDetail>
+                            <FareComponent>
+                                <CabinType>
+                                    <CabinTypeCode>Y</CabinTypeCode>
+                                </CabinType>
+                                <FareBasisCode>YEXWT</FareBasisCode>
+                                <PaxSegmentRefID>SEG1</PaxSegmentRefID>
+                                <PriceClassRefID>PC2</PriceClassRefID>
+                            </FareComponent>
+                            <PaxRefID>CHD1</PaxRefID>
+                        </FareDetail>
+                        <OfferItemID>cb84417d-5a06-4aef-9bfa-505749cef4d2</OfferItemID>
+                        <ReshopPrice>
+                            <PriceDifferential>
+                                <DifferentialTypeCode>AddCol</DifferentialTypeCode>
+                                <DiffPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">49.09</BaseAmount>
+                                        <TaxSummary>
+                                            <Tax>
+                                                <Amount CurCode="USD">0.64</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>QQ</TaxCode>
+                                            </Tax>
+                                            <Tax>
+                                                <Amount CurCode="USD">0.27</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>DC</TaxCode>
+                                            </Tax>
+                                            <TotalTaxAmount CurCode="USD">0.91</TotalTaxAmount>
+                                        </TaxSummary>
+                                        <TotalAmount CurCode="USD">50.0</TotalAmount>
+                                    </Price>
+                                </DiffPrice>
+                                <NewPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">49.09</BaseAmount>
+                                        <TaxSummary>
+                                            <Tax>
+                                                <Amount CurCode="USD">0.27</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>DC</TaxCode>
+                                            </Tax>
+                                            <Tax>
+                                                <Amount CurCode="USD">0.64</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>QQ</TaxCode>
+                                            </Tax>
+                                            <TotalTaxAmount CurCode="USD">0.91</TotalTaxAmount>
+                                        </TaxSummary>
+                                        <TotalAmount CurCode="USD">50.0</TotalAmount>
+                                    </Price>
+                                </NewPrice>
+                                <OldPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">0.0</BaseAmount>
+                                        <TotalAmount CurCode="USD">0.0</TotalAmount>
+                                    </Price>
+                                </OldPrice>
+                            </PriceDifferential>
+                        </ReshopPrice>
+                        <Service>
+                            <OfferServiceAssociation>
+                                <PaxJourneyRef>
+                                    <PaxJourneyRefID>JOUR1</PaxJourneyRefID>
+                                </PaxJourneyRef>
+                            </OfferServiceAssociation>
+                            <PaxRefID>CHD1</PaxRefID>
+                        </Service>
+                    </AddedOfferItem>
+                    <OfferID>48a642b0-4907-40df-93e8-f73c3adcdbf6</OfferID>
+                    <TotalPrice>
+                        <BaseAmount CurCode="USD">27.81</BaseAmount>
+                        <Fee>
+                            <Amount CurCode="USD">100.0</Amount>
+                            <DescText>upgrade</DescText>
+                            <DesigText>upgrade</DesigText>
+                        </Fee>
+                        <TaxSummary>
+                            <Tax>
+                                <Amount CurCode="USD">0.0</Amount>
+                                <DescText>Tax description</DescText>
+                                <TaxCode>QQ</TaxCode>
+                            </Tax>
+                            <Tax>
+                                <Amount CurCode="USD">0.0</Amount>
+                                <DescText>Tax description</DescText>
+                                <TaxCode>EU</TaxCode>
+                            </Tax>
+                            <Tax>
+                                <Amount CurCode="USD">0.0</Amount>
+                                <DescText>Tax description</DescText>
+                                <TaxCode>DC</TaxCode>
+                            </Tax>
+                            <TotalTaxAmount CurCode="USD">0.0</TotalTaxAmount>
+                        </TaxSummary>
+                        <TotalAmount CurCode="USD">127.81</TotalAmount>
+                    </TotalPrice>
+                </Offer>
+                <Offer>
+                    <AddedOfferItem>
+                        <FareDetail>
+                            <FareComponent>
+                                <CabinType>
+                                    <CabinTypeCode>Y</CabinTypeCode>
+                                </CabinType>
+                                <FareBasisCode>YEXWT</FareBasisCode>
+                                <PaxSegmentRefID>SEG3</PaxSegmentRefID>
+                                <PriceClassRefID>PC2</PriceClassRefID>
+                            </FareComponent>
+                            <PaxRefID>ADT1</PaxRefID>
+                        </FareDetail>
+                        <OfferItemID>29330a49-9b26-4406-abaf-5eaf95c74b8e</OfferItemID>
+                        <ReshopPrice>
+                            <PriceDifferential>
+                                <DifferentialTypeCode>AddCol</DifferentialTypeCode>
+                                <DiffPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">43.89</BaseAmount>
+                                        <Fee>
+                                            <Amount CurCode="USD">100.0</Amount>
+                                            <DescText>upgrade</DescText>
+                                            <DesigText>upgrade</DesigText>
+                                        </Fee>
+                                        <TaxSummary>
+                                            <Tax>
+                                                <Amount CurCode="USD">4.07</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>EU</TaxCode>
+                                            </Tax>
+                                            <Tax>
+                                                <Amount CurCode="USD">2.04</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>DC</TaxCode>
+                                            </Tax>
+                                            <TotalTaxAmount CurCode="USD">6.11</TotalTaxAmount>
+                                        </TaxSummary>
+                                        <TotalAmount CurCode="USD">150.0</TotalAmount>
+                                    </Price>
+                                </DiffPrice>
+                                <NewPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">43.89</BaseAmount>
+                                        <Fee>
+                                            <Amount CurCode="USD">100.0</Amount>
+                                            <DescText>upgrade</DescText>
+                                            <DesigText>upgrade</DesigText>
+                                        </Fee>
+                                        <TaxSummary>
+                                            <Tax>
+                                                <Amount CurCode="USD">2.04</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>DC</TaxCode>
+                                            </Tax>
+                                            <Tax>
+                                                <Amount CurCode="USD">4.07</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>EU</TaxCode>
+                                            </Tax>
+                                            <TotalTaxAmount CurCode="USD">6.11</TotalTaxAmount>
+                                        </TaxSummary>
+                                        <TotalAmount CurCode="USD">150.0</TotalAmount>
+                                    </Price>
+                                </NewPrice>
+                                <OldPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">0.0</BaseAmount>
+                                        <TotalAmount CurCode="USD">0.0</TotalAmount>
+                                    </Price>
+                                </OldPrice>
+                            </PriceDifferential>
+                        </ReshopPrice>
+                        <Service>
+                            <OfferServiceAssociation>
+                                <PaxJourneyRef>
+                                    <PaxJourneyRefID>JOUR1</PaxJourneyRefID>
+                                </PaxJourneyRef>
+                            </OfferServiceAssociation>
+                            <PaxRefID>ADT1</PaxRefID>
+                        </Service>
+                    </AddedOfferItem>
+                    <AddedOfferItem>
+                        <FareDetail>
+                            <FareComponent>
+                                <CabinType>
+                                    <CabinTypeCode>Y</CabinTypeCode>
+                                </CabinType>
+                                <FareBasisCode>YEXWT</FareBasisCode>
+                                <PaxSegmentRefID>SEG3</PaxSegmentRefID>
+                                <PriceClassRefID>PC2</PriceClassRefID>
+                            </FareComponent>
+                            <PaxRefID>INF1</PaxRefID>
+                        </FareDetail>
+                        <OfferItemID>74377d9a-559a-4198-83ac-004067e5254d</OfferItemID>
+                        <ReshopPrice>
+                            <PriceDifferential>
+                                <DifferentialTypeCode>AddCol</DifferentialTypeCode>
+                                <DiffPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">50.0</BaseAmount>
+                                        <TaxSummary>
+                                            <TotalTaxAmount CurCode="USD">0.0</TotalTaxAmount>
+                                        </TaxSummary>
+                                        <TotalAmount CurCode="USD">50.0</TotalAmount>
+                                    </Price>
+                                </DiffPrice>
+                                <NewPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">50.0</BaseAmount>
+                                        <TotalAmount CurCode="USD">50.0</TotalAmount>
+                                    </Price>
+                                </NewPrice>
+                                <OldPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">0.0</BaseAmount>
+                                        <TotalAmount CurCode="USD">0.0</TotalAmount>
+                                    </Price>
+                                </OldPrice>
+                            </PriceDifferential>
+                        </ReshopPrice>
+                        <Service>
+                            <OfferServiceAssociation>
+                                <PaxJourneyRef>
+                                    <PaxJourneyRefID>JOUR1</PaxJourneyRefID>
+                                </PaxJourneyRef>
+                            </OfferServiceAssociation>
+                            <PaxRefID>INF1</PaxRefID>
+                        </Service>
+                    </AddedOfferItem>
+                    <AddedOfferItem>
+                        <FareDetail>
+                            <FareComponent>
+                                <CabinType>
+                                    <CabinTypeCode>Y</CabinTypeCode>
+                                </CabinType>
+                                <FareBasisCode>YEXWT</FareBasisCode>
+                                <PaxSegmentRefID>SEG3</PaxSegmentRefID>
+                                <PriceClassRefID>PC2</PriceClassRefID>
+                            </FareComponent>
+                            <PaxRefID>CHD1</PaxRefID>
+                        </FareDetail>
+                        <OfferItemID>f7eab169-ab83-4095-ad6c-d067bbdd87fb</OfferItemID>
+                        <ReshopPrice>
+                            <PriceDifferential>
+                                <DifferentialTypeCode>AddCol</DifferentialTypeCode>
+                                <DiffPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">49.09</BaseAmount>
+                                        <TaxSummary>
+                                            <Tax>
+                                                <Amount CurCode="USD">0.64</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>QQ</TaxCode>
+                                            </Tax>
+                                            <Tax>
+                                                <Amount CurCode="USD">0.27</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>DC</TaxCode>
+                                            </Tax>
+                                            <TotalTaxAmount CurCode="USD">0.91</TotalTaxAmount>
+                                        </TaxSummary>
+                                        <TotalAmount CurCode="USD">50.0</TotalAmount>
+                                    </Price>
+                                </DiffPrice>
+                                <NewPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">49.09</BaseAmount>
+                                        <TaxSummary>
+                                            <Tax>
+                                                <Amount CurCode="USD">0.27</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>DC</TaxCode>
+                                            </Tax>
+                                            <Tax>
+                                                <Amount CurCode="USD">0.64</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>QQ</TaxCode>
+                                            </Tax>
+                                            <TotalTaxAmount CurCode="USD">0.91</TotalTaxAmount>
+                                        </TaxSummary>
+                                        <TotalAmount CurCode="USD">50.0</TotalAmount>
+                                    </Price>
+                                </NewPrice>
+                                <OldPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">0.0</BaseAmount>
+                                        <TotalAmount CurCode="USD">0.0</TotalAmount>
+                                    </Price>
+                                </OldPrice>
+                            </PriceDifferential>
+                        </ReshopPrice>
+                        <Service>
+                            <OfferServiceAssociation>
+                                <PaxJourneyRef>
+                                    <PaxJourneyRefID>JOUR1</PaxJourneyRefID>
+                                </PaxJourneyRef>
+                            </OfferServiceAssociation>
+                            <PaxRefID>CHD1</PaxRefID>
+                        </Service>
+                    </AddedOfferItem>
+                    <OfferID>030dcfda-0100-43cd-bb96-fdb4098846b6</OfferID>
+                    <TotalPrice>
+                        <BaseAmount CurCode="USD">27.81</BaseAmount>
+                        <Fee>
+                            <Amount CurCode="USD">100.0</Amount>
+                            <DescText>upgrade</DescText>
+                            <DesigText>upgrade</DesigText>
+                        </Fee>
+                        <TaxSummary>
+                            <Tax>
+                                <Amount CurCode="USD">0.0</Amount>
+                                <DescText>Tax description</DescText>
+                                <TaxCode>QQ</TaxCode>
+                            </Tax>
+                            <Tax>
+                                <Amount CurCode="USD">0.0</Amount>
+                                <DescText>Tax description</DescText>
+                                <TaxCode>EU</TaxCode>
+                            </Tax>
+                            <Tax>
+                                <Amount CurCode="USD">0.0</Amount>
+                                <DescText>Tax description</DescText>
+                                <TaxCode>DC</TaxCode>
+                            </Tax>
+                            <TotalTaxAmount CurCode="USD">0.0</TotalTaxAmount>
+                        </TaxSummary>
+                        <TotalAmount CurCode="USD">127.81</TotalAmount>
+                    </TotalPrice>
+                </Offer>
+                <Offer>
+                    <AddedOfferItem>
+                        <FareDetail>
+                            <FareComponent>
+                                <CabinType>
+                                    <CabinTypeCode>Y</CabinTypeCode>
+                                </CabinType>
+                                <FareBasisCode>YEXWT</FareBasisCode>
+                                <PaxSegmentRefID>SEG2</PaxSegmentRefID>
+                                <PriceClassRefID>PC2</PriceClassRefID>
+                            </FareComponent>
+                            <PaxRefID>ADT1</PaxRefID>
+                        </FareDetail>
+                        <OfferItemID>c441bf2a-3865-456f-bc60-277f1bb7a55e</OfferItemID>
+                        <ReshopPrice>
+                            <PriceDifferential>
+                                <DifferentialTypeCode>AddCol</DifferentialTypeCode>
+                                <DiffPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">43.89</BaseAmount>
+                                        <Fee>
+                                            <Amount CurCode="USD">100.0</Amount>
+                                            <DescText>upgrade</DescText>
+                                            <DesigText>upgrade</DesigText>
+                                        </Fee>
+                                        <TaxSummary>
+                                            <Tax>
+                                                <Amount CurCode="USD">4.07</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>EU</TaxCode>
+                                            </Tax>
+                                            <Tax>
+                                                <Amount CurCode="USD">2.04</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>DC</TaxCode>
+                                            </Tax>
+                                            <TotalTaxAmount CurCode="USD">6.11</TotalTaxAmount>
+                                        </TaxSummary>
+                                        <TotalAmount CurCode="USD">150.0</TotalAmount>
+                                    </Price>
+                                </DiffPrice>
+                                <NewPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">43.89</BaseAmount>
+                                        <Fee>
+                                            <Amount CurCode="USD">100.0</Amount>
+                                            <DescText>upgrade</DescText>
+                                            <DesigText>upgrade</DesigText>
+                                        </Fee>
+                                        <TaxSummary>
+                                            <Tax>
+                                                <Amount CurCode="USD">2.04</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>DC</TaxCode>
+                                            </Tax>
+                                            <Tax>
+                                                <Amount CurCode="USD">4.07</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>EU</TaxCode>
+                                            </Tax>
+                                            <TotalTaxAmount CurCode="USD">6.11</TotalTaxAmount>
+                                        </TaxSummary>
+                                        <TotalAmount CurCode="USD">150.0</TotalAmount>
+                                    </Price>
+                                </NewPrice>
+                                <OldPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">0.0</BaseAmount>
+                                        <TotalAmount CurCode="USD">0.0</TotalAmount>
+                                    </Price>
+                                </OldPrice>
+                            </PriceDifferential>
+                        </ReshopPrice>
+                        <Service>
+                            <OfferServiceAssociation>
+                                <PaxJourneyRef>
+                                    <PaxJourneyRefID>JOUR2</PaxJourneyRefID>
+                                </PaxJourneyRef>
+                            </OfferServiceAssociation>
+                            <PaxRefID>ADT1</PaxRefID>
+                        </Service>
+                    </AddedOfferItem>
+                    <AddedOfferItem>
+                        <FareDetail>
+                            <FareComponent>
+                                <CabinType>
+                                    <CabinTypeCode>Y</CabinTypeCode>
+                                </CabinType>
+                                <FareBasisCode>YEXWT</FareBasisCode>
+                                <PaxSegmentRefID>SEG2</PaxSegmentRefID>
+                                <PriceClassRefID>PC2</PriceClassRefID>
+                            </FareComponent>
+                            <PaxRefID>INF1</PaxRefID>
+                        </FareDetail>
+                        <OfferItemID>d7db5b0f-3c06-4c10-9ac1-65a2a1849596</OfferItemID>
+                        <ReshopPrice>
+                            <PriceDifferential>
+                                <DifferentialTypeCode>AddCol</DifferentialTypeCode>
+                                <DiffPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">50.0</BaseAmount>
+                                        <TaxSummary>
+                                            <TotalTaxAmount CurCode="USD">0.0</TotalTaxAmount>
+                                        </TaxSummary>
+                                        <TotalAmount CurCode="USD">50.0</TotalAmount>
+                                    </Price>
+                                </DiffPrice>
+                                <NewPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">50.0</BaseAmount>
+                                        <TotalAmount CurCode="USD">50.0</TotalAmount>
+                                    </Price>
+                                </NewPrice>
+                                <OldPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">0.0</BaseAmount>
+                                        <TotalAmount CurCode="USD">0.0</TotalAmount>
+                                    </Price>
+                                </OldPrice>
+                            </PriceDifferential>
+                        </ReshopPrice>
+                        <Service>
+                            <OfferServiceAssociation>
+                                <PaxJourneyRef>
+                                    <PaxJourneyRefID>JOUR2</PaxJourneyRefID>
+                                </PaxJourneyRef>
+                            </OfferServiceAssociation>
+                            <PaxRefID>INF1</PaxRefID>
+                        </Service>
+                    </AddedOfferItem>
+                    <AddedOfferItem>
+                        <FareDetail>
+                            <FareComponent>
+                                <CabinType>
+                                    <CabinTypeCode>Y</CabinTypeCode>
+                                </CabinType>
+                                <FareBasisCode>YEXWT</FareBasisCode>
+                                <PaxSegmentRefID>SEG2</PaxSegmentRefID>
+                                <PriceClassRefID>PC2</PriceClassRefID>
+                            </FareComponent>
+                            <PaxRefID>CHD1</PaxRefID>
+                        </FareDetail>
+                        <OfferItemID>e3b8c7a8-2a4b-4703-9e46-613b83aeac0b</OfferItemID>
+                        <ReshopPrice>
+                            <PriceDifferential>
+                                <DifferentialTypeCode>AddCol</DifferentialTypeCode>
+                                <DiffPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">49.09</BaseAmount>
+                                        <TaxSummary>
+                                            <Tax>
+                                                <Amount CurCode="USD">0.64</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>QQ</TaxCode>
+                                            </Tax>
+                                            <Tax>
+                                                <Amount CurCode="USD">0.27</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>DC</TaxCode>
+                                            </Tax>
+                                            <TotalTaxAmount CurCode="USD">0.91</TotalTaxAmount>
+                                        </TaxSummary>
+                                        <TotalAmount CurCode="USD">50.0</TotalAmount>
+                                    </Price>
+                                </DiffPrice>
+                                <NewPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">49.09</BaseAmount>
+                                        <TaxSummary>
+                                            <Tax>
+                                                <Amount CurCode="USD">0.27</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>DC</TaxCode>
+                                            </Tax>
+                                            <Tax>
+                                                <Amount CurCode="USD">0.64</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>QQ</TaxCode>
+                                            </Tax>
+                                            <TotalTaxAmount CurCode="USD">0.91</TotalTaxAmount>
+                                        </TaxSummary>
+                                        <TotalAmount CurCode="USD">50.0</TotalAmount>
+                                    </Price>
+                                </NewPrice>
+                                <OldPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">0.0</BaseAmount>
+                                        <TotalAmount CurCode="USD">0.0</TotalAmount>
+                                    </Price>
+                                </OldPrice>
+                            </PriceDifferential>
+                        </ReshopPrice>
+                        <Service>
+                            <OfferServiceAssociation>
+                                <PaxJourneyRef>
+                                    <PaxJourneyRefID>JOUR2</PaxJourneyRefID>
+                                </PaxJourneyRef>
+                            </OfferServiceAssociation>
+                            <PaxRefID>CHD1</PaxRefID>
+                        </Service>
+                    </AddedOfferItem>
+                    <OfferID>bada6f05-cdd6-4314-a947-cb55b1d8913a</OfferID>
+                    <TotalPrice>
+                        <BaseAmount CurCode="USD">27.81</BaseAmount>
+                        <Fee>
+                            <Amount CurCode="USD">100.0</Amount>
+                            <DescText>upgrade</DescText>
+                            <DesigText>upgrade</DesigText>
+                        </Fee>
+                        <TaxSummary>
+                            <Tax>
+                                <Amount CurCode="USD">0.0</Amount>
+                                <DescText>Tax description</DescText>
+                                <TaxCode>QQ</TaxCode>
+                            </Tax>
+                            <Tax>
+                                <Amount CurCode="USD">0.0</Amount>
+                                <DescText>Tax description</DescText>
+                                <TaxCode>EU</TaxCode>
+                            </Tax>
+                            <Tax>
+                                <Amount CurCode="USD">0.0</Amount>
+                                <DescText>Tax description</DescText>
+                                <TaxCode>DC</TaxCode>
+                            </Tax>
+                            <TotalTaxAmount CurCode="USD">0.0</TotalTaxAmount>
+                        </TaxSummary>
+                        <TotalAmount CurCode="USD">127.81</TotalAmount>
+                    </TotalPrice>
+                </Offer>
+                <Offer>
+                    <AddedOfferItem>
+                        <FareDetail>
+                            <FareComponent>
+                                <CabinType>
+                                    <CabinTypeCode>Y</CabinTypeCode>
+                                </CabinType>
+                                <FareBasisCode>YEXWT</FareBasisCode>
+                                <PaxSegmentRefID>SEG1</PaxSegmentRefID>
+                                <PriceClassRefID>PC2</PriceClassRefID>
+                            </FareComponent>
+                            <PaxRefID>ADT1</PaxRefID>
+                        </FareDetail>
+                        <OfferItemID>13c2e1b5-a71a-49a2-8ac3-b4f65110b1bb</OfferItemID>
+                        <ReshopPrice>
+                            <PriceDifferential>
+                                <DifferentialTypeCode>AddCol</DifferentialTypeCode>
+                                <DiffPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">43.89</BaseAmount>
+                                        <Fee>
+                                            <Amount CurCode="USD">100.0</Amount>
+                                            <DescText>upgrade</DescText>
+                                            <DesigText>upgrade</DesigText>
+                                        </Fee>
+                                        <TaxSummary>
+                                            <Tax>
+                                                <Amount CurCode="USD">4.07</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>EU</TaxCode>
+                                            </Tax>
+                                            <Tax>
+                                                <Amount CurCode="USD">2.04</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>DC</TaxCode>
+                                            </Tax>
+                                            <TotalTaxAmount CurCode="USD">6.11</TotalTaxAmount>
+                                        </TaxSummary>
+                                        <TotalAmount CurCode="USD">150.0</TotalAmount>
+                                    </Price>
+                                </DiffPrice>
+                                <NewPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">43.89</BaseAmount>
+                                        <Fee>
+                                            <Amount CurCode="USD">100.0</Amount>
+                                            <DescText>upgrade</DescText>
+                                            <DesigText>upgrade</DesigText>
+                                        </Fee>
+                                        <TaxSummary>
+                                            <Tax>
+                                                <Amount CurCode="USD">2.04</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>DC</TaxCode>
+                                            </Tax>
+                                            <Tax>
+                                                <Amount CurCode="USD">4.07</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>EU</TaxCode>
+                                            </Tax>
+                                            <TotalTaxAmount CurCode="USD">6.11</TotalTaxAmount>
+                                        </TaxSummary>
+                                        <TotalAmount CurCode="USD">150.0</TotalAmount>
+                                    </Price>
+                                </NewPrice>
+                                <OldPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">0.0</BaseAmount>
+                                        <TotalAmount CurCode="USD">0.0</TotalAmount>
+                                    </Price>
+                                </OldPrice>
+                            </PriceDifferential>
+                        </ReshopPrice>
+                        <Service>
+                            <OfferServiceAssociation>
+                                <PaxJourneyRef>
+                                    <PaxJourneyRefID>JOUR1</PaxJourneyRefID>
+                                </PaxJourneyRef>
+                            </OfferServiceAssociation>
+                            <PaxRefID>ADT1</PaxRefID>
+                        </Service>
+                    </AddedOfferItem>
+                    <AddedOfferItem>
+                        <FareDetail>
+                            <FareComponent>
+                                <CabinType>
+                                    <CabinTypeCode>Y</CabinTypeCode>
+                                </CabinType>
+                                <FareBasisCode>YEXWT</FareBasisCode>
+                                <PaxSegmentRefID>SEG1</PaxSegmentRefID>
+                                <PriceClassRefID>PC2</PriceClassRefID>
+                            </FareComponent>
+                            <PaxRefID>INF1</PaxRefID>
+                        </FareDetail>
+                        <OfferItemID>d9792e57-1bd7-4d4d-9a0c-51b88779940d</OfferItemID>
+                        <ReshopPrice>
+                            <PriceDifferential>
+                                <DifferentialTypeCode>AddCol</DifferentialTypeCode>
+                                <DiffPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">50.0</BaseAmount>
+                                        <TaxSummary>
+                                            <TotalTaxAmount CurCode="USD">0.0</TotalTaxAmount>
+                                        </TaxSummary>
+                                        <TotalAmount CurCode="USD">50.0</TotalAmount>
+                                    </Price>
+                                </DiffPrice>
+                                <NewPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">50.0</BaseAmount>
+                                        <TotalAmount CurCode="USD">50.0</TotalAmount>
+                                    </Price>
+                                </NewPrice>
+                                <OldPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">0.0</BaseAmount>
+                                        <TotalAmount CurCode="USD">0.0</TotalAmount>
+                                    </Price>
+                                </OldPrice>
+                            </PriceDifferential>
+                        </ReshopPrice>
+                        <Service>
+                            <OfferServiceAssociation>
+                                <PaxJourneyRef>
+                                    <PaxJourneyRefID>JOUR1</PaxJourneyRefID>
+                                </PaxJourneyRef>
+                            </OfferServiceAssociation>
+                            <PaxRefID>INF1</PaxRefID>
+                        </Service>
+                    </AddedOfferItem>
+                    <AddedOfferItem>
+                        <FareDetail>
+                            <FareComponent>
+                                <CabinType>
+                                    <CabinTypeCode>Y</CabinTypeCode>
+                                </CabinType>
+                                <FareBasisCode>YEXWT</FareBasisCode>
+                                <PaxSegmentRefID>SEG1</PaxSegmentRefID>
+                                <PriceClassRefID>PC2</PriceClassRefID>
+                            </FareComponent>
+                            <PaxRefID>CHD1</PaxRefID>
+                        </FareDetail>
+                        <OfferItemID>7b45be77-ca20-431e-9b90-d655d2f39972</OfferItemID>
+                        <ReshopPrice>
+                            <PriceDifferential>
+                                <DifferentialTypeCode>AddCol</DifferentialTypeCode>
+                                <DiffPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">49.09</BaseAmount>
+                                        <TaxSummary>
+                                            <Tax>
+                                                <Amount CurCode="USD">0.64</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>QQ</TaxCode>
+                                            </Tax>
+                                            <Tax>
+                                                <Amount CurCode="USD">0.27</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>DC</TaxCode>
+                                            </Tax>
+                                            <TotalTaxAmount CurCode="USD">0.91</TotalTaxAmount>
+                                        </TaxSummary>
+                                        <TotalAmount CurCode="USD">50.0</TotalAmount>
+                                    </Price>
+                                </DiffPrice>
+                                <NewPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">49.09</BaseAmount>
+                                        <TaxSummary>
+                                            <Tax>
+                                                <Amount CurCode="USD">0.27</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>DC</TaxCode>
+                                            </Tax>
+                                            <Tax>
+                                                <Amount CurCode="USD">0.64</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>QQ</TaxCode>
+                                            </Tax>
+                                            <TotalTaxAmount CurCode="USD">0.91</TotalTaxAmount>
+                                        </TaxSummary>
+                                        <TotalAmount CurCode="USD">50.0</TotalAmount>
+                                    </Price>
+                                </NewPrice>
+                                <OldPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">0.0</BaseAmount>
+                                        <TotalAmount CurCode="USD">0.0</TotalAmount>
+                                    </Price>
+                                </OldPrice>
+                            </PriceDifferential>
+                        </ReshopPrice>
+                        <Service>
+                            <OfferServiceAssociation>
+                                <PaxJourneyRef>
+                                    <PaxJourneyRefID>JOUR1</PaxJourneyRefID>
+                                </PaxJourneyRef>
+                            </OfferServiceAssociation>
+                            <PaxRefID>CHD1</PaxRefID>
+                        </Service>
+                    </AddedOfferItem>
+                    <OfferID>f86ce5ee-5d64-411e-8fcc-59d130f95e26</OfferID>
+                    <TotalPrice>
+                        <BaseAmount CurCode="USD">27.81</BaseAmount>
+                        <Fee>
+                            <Amount CurCode="USD">100.0</Amount>
+                            <DescText>upgrade</DescText>
+                            <DesigText>upgrade</DesigText>
+                        </Fee>
+                        <TaxSummary>
+                            <Tax>
+                                <Amount CurCode="USD">0.0</Amount>
+                                <DescText>Tax description</DescText>
+                                <TaxCode>QQ</TaxCode>
+                            </Tax>
+                            <Tax>
+                                <Amount CurCode="USD">0.0</Amount>
+                                <DescText>Tax description</DescText>
+                                <TaxCode>EU</TaxCode>
+                            </Tax>
+                            <Tax>
+                                <Amount CurCode="USD">0.0</Amount>
+                                <DescText>Tax description</DescText>
+                                <TaxCode>DC</TaxCode>
+                            </Tax>
+                            <TotalTaxAmount CurCode="USD">0.0</TotalTaxAmount>
+                        </TaxSummary>
+                        <TotalAmount CurCode="USD">127.81</TotalAmount>
+                    </TotalPrice>
+                </Offer>
+                <Offer>
+                    <AddedOfferItem>
+                        <FareDetail>
+                            <FareComponent>
+                                <CabinType>
+                                    <CabinTypeCode>Y</CabinTypeCode>
+                                </CabinType>
+                                <FareBasisCode>YCALFATRAV</FareBasisCode>
+                                <PaxSegmentRefID>SEG1</PaxSegmentRefID>
+                                <PriceClassRefID>PC1</PriceClassRefID>
+                            </FareComponent>
+                            <PaxRefID>ADT1</PaxRefID>
+                        </FareDetail>
+                        <OfferItemID>8b9f23ec-e292-433e-adcc-aeb4b7f51926</OfferItemID>
+                        <ReshopPrice>
+                            <PriceDifferential>
+                                <DifferentialTypeCode>AddCol</DifferentialTypeCode>
+                                <DiffPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">94.21</BaseAmount>
+                                        <Fee>
+                                            <Amount CurCode="USD">100.0</Amount>
+                                            <DescText>upgrade</DescText>
+                                            <DesigText>upgrade</DesigText>
+                                        </Fee>
+                                        <TaxSummary>
+                                            <Tax>
+                                                <Amount CurCode="USD">4.07</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>EU</TaxCode>
+                                            </Tax>
+                                            <Tax>
+                                                <Amount CurCode="USD">2.04</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>DC</TaxCode>
+                                            </Tax>
+                                            <TotalTaxAmount CurCode="USD">6.11</TotalTaxAmount>
+                                        </TaxSummary>
+                                        <TotalAmount CurCode="USD">200.32</TotalAmount>
+                                    </Price>
+                                </DiffPrice>
+                                <NewPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">94.21</BaseAmount>
+                                        <Fee>
+                                            <Amount CurCode="USD">100.0</Amount>
+                                            <DescText>upgrade</DescText>
+                                            <DesigText>upgrade</DesigText>
+                                        </Fee>
+                                        <TaxSummary>
+                                            <Tax>
+                                                <Amount CurCode="USD">2.04</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>DC</TaxCode>
+                                            </Tax>
+                                            <Tax>
+                                                <Amount CurCode="USD">4.07</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>EU</TaxCode>
+                                            </Tax>
+                                            <TotalTaxAmount CurCode="USD">6.11</TotalTaxAmount>
+                                        </TaxSummary>
+                                        <TotalAmount CurCode="USD">200.32</TotalAmount>
+                                    </Price>
+                                </NewPrice>
+                                <OldPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">0.0</BaseAmount>
+                                        <TotalAmount CurCode="USD">0.0</TotalAmount>
+                                    </Price>
+                                </OldPrice>
+                            </PriceDifferential>
+                        </ReshopPrice>
+                        <Service>
+                            <OfferServiceAssociation>
+                                <PaxJourneyRef>
+                                    <PaxJourneyRefID>JOUR1</PaxJourneyRefID>
+                                </PaxJourneyRef>
+                            </OfferServiceAssociation>
+                            <PaxRefID>ADT1</PaxRefID>
+                        </Service>
+                    </AddedOfferItem>
+                    <AddedOfferItem>
+                        <FareDetail>
+                            <FareComponent>
+                                <CabinType>
+                                    <CabinTypeCode>Y</CabinTypeCode>
+                                </CabinType>
+                                <FareBasisCode>YCALFATRAV</FareBasisCode>
+                                <PaxSegmentRefID>SEG1</PaxSegmentRefID>
+                                <PriceClassRefID>PC1</PriceClassRefID>
+                            </FareComponent>
+                            <PaxRefID>INF1</PaxRefID>
+                        </FareDetail>
+                        <OfferItemID>62550378-d101-442b-873d-212e22e4c7f5</OfferItemID>
+                        <ReshopPrice>
+                            <PriceDifferential>
+                                <DifferentialTypeCode>AddCol</DifferentialTypeCode>
+                                <DiffPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">100.33</BaseAmount>
+                                        <TaxSummary>
+                                            <TotalTaxAmount CurCode="USD">0.0</TotalTaxAmount>
+                                        </TaxSummary>
+                                        <TotalAmount CurCode="USD">100.32</TotalAmount>
+                                    </Price>
+                                </DiffPrice>
+                                <NewPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">100.33</BaseAmount>
+                                        <TotalAmount CurCode="USD">100.32</TotalAmount>
+                                    </Price>
+                                </NewPrice>
+                                <OldPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">0.0</BaseAmount>
+                                        <TotalAmount CurCode="USD">0.0</TotalAmount>
+                                    </Price>
+                                </OldPrice>
+                            </PriceDifferential>
+                        </ReshopPrice>
+                        <Service>
+                            <OfferServiceAssociation>
+                                <PaxJourneyRef>
+                                    <PaxJourneyRefID>JOUR1</PaxJourneyRefID>
+                                </PaxJourneyRef>
+                            </OfferServiceAssociation>
+                            <PaxRefID>INF1</PaxRefID>
+                        </Service>
+                    </AddedOfferItem>
+                    <AddedOfferItem>
+                        <FareDetail>
+                            <FareComponent>
+                                <CabinType>
+                                    <CabinTypeCode>Y</CabinTypeCode>
+                                </CabinType>
+                                <FareBasisCode>YCALFATRAV</FareBasisCode>
+                                <PaxSegmentRefID>SEG1</PaxSegmentRefID>
+                                <PriceClassRefID>PC1</PriceClassRefID>
+                            </FareComponent>
+                            <PaxRefID>CHD1</PaxRefID>
+                        </FareDetail>
+                        <OfferItemID>4d99b234-0f47-49b6-85d9-3fa3be81f549</OfferItemID>
+                        <ReshopPrice>
+                            <PriceDifferential>
+                                <DifferentialTypeCode>AddCol</DifferentialTypeCode>
+                                <DiffPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">99.41</BaseAmount>
+                                        <TaxSummary>
+                                            <Tax>
+                                                <Amount CurCode="USD">0.64</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>QQ</TaxCode>
+                                            </Tax>
+                                            <Tax>
+                                                <Amount CurCode="USD">0.27</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>DC</TaxCode>
+                                            </Tax>
+                                            <TotalTaxAmount CurCode="USD">0.91</TotalTaxAmount>
+                                        </TaxSummary>
+                                        <TotalAmount CurCode="USD">100.32</TotalAmount>
+                                    </Price>
+                                </DiffPrice>
+                                <NewPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">99.41</BaseAmount>
+                                        <TaxSummary>
+                                            <Tax>
+                                                <Amount CurCode="USD">0.27</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>DC</TaxCode>
+                                            </Tax>
+                                            <Tax>
+                                                <Amount CurCode="USD">0.64</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>QQ</TaxCode>
+                                            </Tax>
+                                            <TotalTaxAmount CurCode="USD">0.91</TotalTaxAmount>
+                                        </TaxSummary>
+                                        <TotalAmount CurCode="USD">100.32</TotalAmount>
+                                    </Price>
+                                </NewPrice>
+                                <OldPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">0.0</BaseAmount>
+                                        <TotalAmount CurCode="USD">0.0</TotalAmount>
+                                    </Price>
+                                </OldPrice>
+                            </PriceDifferential>
+                        </ReshopPrice>
+                        <Service>
+                            <OfferServiceAssociation>
+                                <PaxJourneyRef>
+                                    <PaxJourneyRefID>JOUR1</PaxJourneyRefID>
+                                </PaxJourneyRef>
+                            </OfferServiceAssociation>
+                            <PaxRefID>CHD1</PaxRefID>
+                        </Service>
+                    </AddedOfferItem>
+                    <OfferID>69e61144-bbfb-4f7f-b4a1-1a8a34d602fe</OfferID>
+                    <TotalPrice>
+                        <BaseAmount CurCode="USD">178.77</BaseAmount>
+                        <Fee>
+                            <Amount CurCode="USD">100.0</Amount>
+                            <DescText>upgrade</DescText>
+                            <DesigText>upgrade</DesigText>
+                        </Fee>
+                        <TaxSummary>
+                            <Tax>
+                                <Amount CurCode="USD">0.0</Amount>
+                                <DescText>Tax description</DescText>
+                                <TaxCode>QQ</TaxCode>
+                            </Tax>
+                            <Tax>
+                                <Amount CurCode="USD">0.0</Amount>
+                                <DescText>Tax description</DescText>
+                                <TaxCode>EU</TaxCode>
+                            </Tax>
+                            <Tax>
+                                <Amount CurCode="USD">0.0</Amount>
+                                <DescText>Tax description</DescText>
+                                <TaxCode>DC</TaxCode>
+                            </Tax>
+                            <TotalTaxAmount CurCode="USD">0.0</TotalTaxAmount>
+                        </TaxSummary>
+                        <TotalAmount CurCode="USD">278.77</TotalAmount>
+                    </TotalPrice>
+                </Offer>
+                <Offer>
+                    <AddedOfferItem>
+                        <FareDetail>
+                            <FareComponent>
+                                <CabinType>
+                                    <CabinTypeCode>Y</CabinTypeCode>
+                                </CabinType>
+                                <FareBasisCode>YCALFATRAV</FareBasisCode>
+                                <PaxSegmentRefID>SEG3</PaxSegmentRefID>
+                                <PriceClassRefID>PC1</PriceClassRefID>
+                            </FareComponent>
+                            <PaxRefID>ADT1</PaxRefID>
+                        </FareDetail>
+                        <OfferItemID>4e775959-f778-411b-84ad-3902160abe8d</OfferItemID>
+                        <ReshopPrice>
+                            <PriceDifferential>
+                                <DifferentialTypeCode>AddCol</DifferentialTypeCode>
+                                <DiffPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">94.21</BaseAmount>
+                                        <Fee>
+                                            <Amount CurCode="USD">100.0</Amount>
+                                            <DescText>upgrade</DescText>
+                                            <DesigText>upgrade</DesigText>
+                                        </Fee>
+                                        <TaxSummary>
+                                            <Tax>
+                                                <Amount CurCode="USD">4.07</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>EU</TaxCode>
+                                            </Tax>
+                                            <Tax>
+                                                <Amount CurCode="USD">2.04</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>DC</TaxCode>
+                                            </Tax>
+                                            <TotalTaxAmount CurCode="USD">6.11</TotalTaxAmount>
+                                        </TaxSummary>
+                                        <TotalAmount CurCode="USD">200.32</TotalAmount>
+                                    </Price>
+                                </DiffPrice>
+                                <NewPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">94.21</BaseAmount>
+                                        <Fee>
+                                            <Amount CurCode="USD">100.0</Amount>
+                                            <DescText>upgrade</DescText>
+                                            <DesigText>upgrade</DesigText>
+                                        </Fee>
+                                        <TaxSummary>
+                                            <Tax>
+                                                <Amount CurCode="USD">2.04</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>DC</TaxCode>
+                                            </Tax>
+                                            <Tax>
+                                                <Amount CurCode="USD">4.07</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>EU</TaxCode>
+                                            </Tax>
+                                            <TotalTaxAmount CurCode="USD">6.11</TotalTaxAmount>
+                                        </TaxSummary>
+                                        <TotalAmount CurCode="USD">200.32</TotalAmount>
+                                    </Price>
+                                </NewPrice>
+                                <OldPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">0.0</BaseAmount>
+                                        <TotalAmount CurCode="USD">0.0</TotalAmount>
+                                    </Price>
+                                </OldPrice>
+                            </PriceDifferential>
+                        </ReshopPrice>
+                        <Service>
+                            <OfferServiceAssociation>
+                                <PaxJourneyRef>
+                                    <PaxJourneyRefID>JOUR1</PaxJourneyRefID>
+                                </PaxJourneyRef>
+                            </OfferServiceAssociation>
+                            <PaxRefID>ADT1</PaxRefID>
+                        </Service>
+                    </AddedOfferItem>
+                    <AddedOfferItem>
+                        <FareDetail>
+                            <FareComponent>
+                                <CabinType>
+                                    <CabinTypeCode>Y</CabinTypeCode>
+                                </CabinType>
+                                <FareBasisCode>YCALFATRAV</FareBasisCode>
+                                <PaxSegmentRefID>SEG3</PaxSegmentRefID>
+                                <PriceClassRefID>PC1</PriceClassRefID>
+                            </FareComponent>
+                            <PaxRefID>INF1</PaxRefID>
+                        </FareDetail>
+                        <OfferItemID>25086f27-0581-4755-99d3-9fb4e47d9a79</OfferItemID>
+                        <ReshopPrice>
+                            <PriceDifferential>
+                                <DifferentialTypeCode>AddCol</DifferentialTypeCode>
+                                <DiffPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">100.33</BaseAmount>
+                                        <TaxSummary>
+                                            <TotalTaxAmount CurCode="USD">0.0</TotalTaxAmount>
+                                        </TaxSummary>
+                                        <TotalAmount CurCode="USD">100.32</TotalAmount>
+                                    </Price>
+                                </DiffPrice>
+                                <NewPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">100.33</BaseAmount>
+                                        <TotalAmount CurCode="USD">100.32</TotalAmount>
+                                    </Price>
+                                </NewPrice>
+                                <OldPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">0.0</BaseAmount>
+                                        <TotalAmount CurCode="USD">0.0</TotalAmount>
+                                    </Price>
+                                </OldPrice>
+                            </PriceDifferential>
+                        </ReshopPrice>
+                        <Service>
+                            <OfferServiceAssociation>
+                                <PaxJourneyRef>
+                                    <PaxJourneyRefID>JOUR1</PaxJourneyRefID>
+                                </PaxJourneyRef>
+                            </OfferServiceAssociation>
+                            <PaxRefID>INF1</PaxRefID>
+                        </Service>
+                    </AddedOfferItem>
+                    <AddedOfferItem>
+                        <FareDetail>
+                            <FareComponent>
+                                <CabinType>
+                                    <CabinTypeCode>Y</CabinTypeCode>
+                                </CabinType>
+                                <FareBasisCode>YCALFATRAV</FareBasisCode>
+                                <PaxSegmentRefID>SEG3</PaxSegmentRefID>
+                                <PriceClassRefID>PC1</PriceClassRefID>
+                            </FareComponent>
+                            <PaxRefID>CHD1</PaxRefID>
+                        </FareDetail>
+                        <OfferItemID>975c61f5-0019-4253-8e78-f72c4667c85f</OfferItemID>
+                        <ReshopPrice>
+                            <PriceDifferential>
+                                <DifferentialTypeCode>AddCol</DifferentialTypeCode>
+                                <DiffPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">99.41</BaseAmount>
+                                        <TaxSummary>
+                                            <Tax>
+                                                <Amount CurCode="USD">0.64</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>QQ</TaxCode>
+                                            </Tax>
+                                            <Tax>
+                                                <Amount CurCode="USD">0.27</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>DC</TaxCode>
+                                            </Tax>
+                                            <TotalTaxAmount CurCode="USD">0.91</TotalTaxAmount>
+                                        </TaxSummary>
+                                        <TotalAmount CurCode="USD">100.32</TotalAmount>
+                                    </Price>
+                                </DiffPrice>
+                                <NewPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">99.41</BaseAmount>
+                                        <TaxSummary>
+                                            <Tax>
+                                                <Amount CurCode="USD">0.27</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>DC</TaxCode>
+                                            </Tax>
+                                            <Tax>
+                                                <Amount CurCode="USD">0.64</Amount>
+                                                <DescText>Tax description</DescText>
+                                                <TaxCode>QQ</TaxCode>
+                                            </Tax>
+                                            <TotalTaxAmount CurCode="USD">0.91</TotalTaxAmount>
+                                        </TaxSummary>
+                                        <TotalAmount CurCode="USD">100.32</TotalAmount>
+                                    </Price>
+                                </NewPrice>
+                                <OldPrice>
+                                    <Price>
+                                        <BaseAmount CurCode="USD">0.0</BaseAmount>
+                                        <TotalAmount CurCode="USD">0.0</TotalAmount>
+                                    </Price>
+                                </OldPrice>
+                            </PriceDifferential>
+                        </ReshopPrice>
+                        <Service>
+                            <OfferServiceAssociation>
+                                <PaxJourneyRef>
+                                    <PaxJourneyRefID>JOUR1</PaxJourneyRefID>
+                                </PaxJourneyRef>
+                            </OfferServiceAssociation>
+                            <PaxRefID>CHD1</PaxRefID>
+                        </Service>
+                    </AddedOfferItem>
+                    <OfferID>6644a161-543a-460c-a7cb-7860a6cda126</OfferID>
+                    <TotalPrice>
+                        <BaseAmount CurCode="USD">178.77</BaseAmount>
+                        <Fee>
+                            <Amount CurCode="USD">100.0</Amount>
+                            <DescText>upgrade</DescText>
+                            <DesigText>upgrade</DesigText>
+                        </Fee>
+                        <TaxSummary>
+                            <Tax>
+                                <Amount CurCode="USD">0.0</Amount>
+                                <DescText>Tax description</DescText>
+                                <TaxCode>QQ</TaxCode>
+                            </Tax>
+                            <Tax>
+                                <Amount CurCode="USD">0.0</Amount>
+                                <DescText>Tax description</DescText>
+                                <TaxCode>EU</TaxCode>
+                            </Tax>
+                            <Tax>
+                                <Amount CurCode="USD">0.0</Amount>
+                                <DescText>Tax description</DescText>
+                                <TaxCode>DC</TaxCode>
+                            </Tax>
+                            <TotalTaxAmount CurCode="USD">0.0</TotalTaxAmount>
+                        </TaxSummary>
+                        <TotalAmount CurCode="USD">278.77</TotalAmount>
+                    </TotalPrice>
+                </Offer>
+            </ReshopOffers>
+        </ReshopResults>
+    </ns2:Response>
+    <ns2:PayloadAttributes>
+        <CorrelationID>6da0a3c4-0c8a-457e-b724-8f7e2b5faccd</CorrelationID>
+        <Timestamp>2026-05-07T13:35:51.653+07:00</Timestamp>
+        <TrxID>TRX-123456789</TrxID>
+        <VersionNumber>21.3</VersionNumber>
+    </ns2:PayloadAttributes>
+</ns2:IATA_OrderReshopRS>
 ```
+
+</details>
 
 ### Error Responses
 
 #### 400 Bad Request
 
 Invalid request format or missing required fields.
+
+<details>
+  <summary>Response Payload</summary>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -236,24 +2113,33 @@ Invalid request format or missing required fields.
 </ErrorResponse>
 ```
 
+</details>
+
 #### 404 Not Found
 
 Order not found.
 
+<details>
+  <summary>Response Payload</summary>
+
 ```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<ErrorResponse>
-    <Error>
-        <Code>404</Code>
-        <Message>Order not found</Message>
-        <Details>Order with ID 76e7fc09-d951-4053-a24f-7b8edc4285e0 not found</Details>
-    </Error>
-</ErrorResponse>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:IATA_OrderReshopRS xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes" xmlns:ns2="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage" xmlns:ns3="http://www.w3.org/2000/09/xmldsig#">
+    <ns2:Error>
+        <Code>911</Code>
+        <DescText>Order not found - Order with id 014a8d0c-74a6-4c3c-801b-8f9e17cf21c6 not found</DescText>
+        <ErrorID>5fbfb652-2c04-464a-b36a-db353f990428</ErrorID>
+        <LangCode>EN</LangCode>
+        <TypeCode>Business</TypeCode>
+    </ns2:Error>
+</ns2:IATA_OrderReshopRS>
 ```
+
+</details>
 
 ## Code Examples
 
-=== "Shell"
+=== "Curl"
 
     ```bash
     curl -X POST https://api.go7.io/v21.3.5/OrderReshop \
@@ -262,51 +2148,6 @@ Order not found.
       -H "x-api-key: your-api-key-here" \
       -H "Content-Type: application/xml" \
       -d @orderreshop-request.xml
-    ```
-
-=== "Node"
-
-    ```javascript
-    const axios = require('axios');
-    const fs = require('fs');
-
-    const xmlRequest = fs.readFileSync('orderreshop-request.xml', 'utf8');
-
-    const response = await axios.post(
-      'https://api.go7.io/v21.3.5/OrderReshop',
-      xmlRequest,
-      {
-        headers: {
-          'x-tenant': 'tenant-a',
-          'x-SalesChannel': 'NDC',
-          'x-api-key': 'your-api-key-here',
-          'Content-Type': 'application/xml'
-        }
-      }
-    );
-
-    console.log(response.data);
-    ```
-
-=== "Python"
-
-    ```python
-    import requests
-
-    url = "https://api.go7.io/v21.3.5/OrderReshop"
-    
-    headers = {
-        "x-tenant": "tenant-a",
-        "x-SalesChannel": "NDC",
-        "x-api-key": "your-api-key-here",
-        "Content-Type": "application/xml"
-    }
-
-    with open('orderreshop-request.xml', 'r') as f:
-        xml_request = f.read()
-
-    response = requests.post(url, headers=headers, data=xml_request)
-    print(response.text)
     ```
 
 ## Use Cases

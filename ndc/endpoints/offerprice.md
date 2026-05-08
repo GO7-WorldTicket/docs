@@ -5,15 +5,7 @@ title: Offer Price (OfferPrice)
 
 # Offer Price
 
-**Ask AI**
-
 `POST` `https://api.go7.io/v21.3.5/OfferPrice`
-
-The method allows you to get detailed pricing information for selected flight offers.
-
-**Language**
-
-Shell | Node | Ruby | PHP | Python
 
 ---
 
@@ -31,54 +23,63 @@ See [Authentication](../NDC_API.md#authentication) for **`x-tenant`**, **`x-Sale
 
 ### Headers
 
-| Header | Required | Description |
-|--------|----------|-------------|
-| `x-tenant` | Yes | Tenant identifier |
-| `x-SalesChannel` | Yes | Sales channel identifier |
-| `x-api-key` | Yes | API key for authentication |
-| `Content-Type` | Yes | `application/xml` or `application/xml;charset=UTF-8` |
+| Header | Purpose | Format | Required | Example |
+|--------|---------|--------|----------|---------|
+| `x-tenant` | Identifies the tenant/organization context for the request | String (e.g., `tenant-a`, `test-qa-rc`) | Yes | `x-tenant: test-qa-rc` |
+| `x-SalesChannel` | Specifies the sales channel (maps to account IDs per tenant configuration) | String (e.g., `NDC`, `IBE`) | Yes | `x-SalesChannel: NDC` |
+| `x-api-key` | API key for authenticating the request | String | Yes | `x-api-key: 96d2bf5f-2740-4d64-80e9-3542cc44bbbb` |
+| `Content-Type` | Request body media type | `application/xml` or `application/xml;charset=UTF-8` | Yes | `Content-Type: application/xml` |
 
-### Request Body
+**Note:** The `x-SalesChannel` value is used to determine the account ID based on tenant configuration.
+
+## Request Body
 
 The request body must be a valid `IATA_OfferPriceRQ` XML document following IATA NDC v21.3.5 standard.
-
-#### Request Fields
-
-| Field | Type | Required | Description |
-|-------|------|----------|-------------|
-| `DistributionChain` | Object | No | Distribution chain information |
-| `PayloadAttributes` | Object | No | Payload metadata |
-| `Request` | Object | **Yes** | Main request body |
-| `Request.PricedOffer` | Object | **Yes** | Priced offer information |
-| `Request.PricedOffer.SelectedOfferList` | Object | **Yes** | List of selected offers |
-| `Request.PricedOffer.SelectedOfferList.SelectedOffer` | Object | **Yes** | Selected offer (can be multiple) |
-| `Request.PricedOffer.SelectedOfferList.SelectedOffer.OfferRefID` | String | **Yes** | Offer reference ID from Air Shopping response |
-| `Request.PricedOffer.SelectedOfferList.SelectedOffer.OwnerCode` | String | **Yes** | Airline owner code (e.g., "VS") |
-| `Request.PricedOffer.SelectedOfferList.SelectedOffer.SelectedOfferItem` | Object | **Yes** | Selected offer item (can be multiple) |
-| `Request.PricedOffer.SelectedOfferList.SelectedOffer.SelectedOfferItem.OfferItemRefID` | String | **Yes** | Offer item reference ID from Air Shopping response |
-| `Request.PricedOffer.SelectedOfferList.SelectedOffer.SelectedOfferItem.PaxRefID` | String | **Yes** | Passenger reference ID (e.g., "PAX1", "ADT1") |
 
 ### OfferPrice — One-way trip
 {: #offerprice-one-way-trip}
 
 One **`SelectedOffer`** with typically **one `SelectedOfferItem`** per direction when the shopping offer contained a single outbound slice (adjust **`PaxRefID`** to match shopping).
+<details>
+  <summary>Request Payload</summary>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <IATA_OfferPriceRQ xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage"
                    xmlns:cns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes">
+    <DistributionChain>
+        <cns:DistributionChainLink>
+            <cns:Ordinal>1</cns:Ordinal>
+            <cns:OrgRole>Seller</cns:OrgRole>
+            <cns:ParticipatingOrg>
+                <cns:Name>Travel Agency XYZ</cns:Name>
+                <cns:OrgID>SELLER123</cns:OrgID>
+            </cns:ParticipatingOrg>
+        </cns:DistributionChainLink>
+    </DistributionChain>
     <PayloadAttributes>
+        <cns:CorrelationID>ASR-001-2026</cns:CorrelationID>
+        <cns:Timestamp>2025-11-05T10:00:00Z</cns:Timestamp>
+        <cns:TrxID>TRX-123456789</cns:TrxID>
         <cns:VersionNumber>21.3</cns:VersionNumber>
     </PayloadAttributes>
     <Request>
         <cns:PricedOffer>
             <cns:SelectedOfferList>
                 <cns:SelectedOffer>
-                    <cns:OfferRefID>9b4f1c08-e4da-4a65-8011-9beb57109611</cns:OfferRefID>
+                    <cns:OfferRefID>9292c7a4-a0d6-4f30-befa-2c197def7ac9</cns:OfferRefID>
                     <cns:OwnerCode>VS</cns:OwnerCode>
                     <cns:SelectedOfferItem>
-                        <cns:OfferItemRefID>77402942-760d-408f-a839-c96be57d42c5:940ab3f0-89c0-4779-8ddc-d16016f5929a</cns:OfferItemRefID>
-                        <cns:PaxRefID>PAX1</cns:PaxRefID>
+                        <cns:OfferItemRefID>982ec9bd-bcff-452d-a1e4-c1d4ba131eb8:46cd5362-2582-42bb-82e1-3fb260f1ac85</cns:OfferItemRefID>
+                        <cns:PaxRefID>ADT1</cns:PaxRefID>
+                    </cns:SelectedOfferItem>
+                    <cns:SelectedOfferItem>
+                        <cns:OfferItemRefID>3cbc88b1-ab28-45c7-a4bf-6a52a2153c48:12b9a65a-35d3-4a3f-93d2-5160ffc16eca</cns:OfferItemRefID>
+                        <cns:PaxRefID>CHD1</cns:PaxRefID>
+                    </cns:SelectedOfferItem>
+                    <cns:SelectedOfferItem>
+                        <cns:OfferItemRefID>4e6be961-b8c4-4cec-8f9c-1d586e22f87f:b1226bf0-5901-4f48-977f-34089fbcec91</cns:OfferItemRefID>
+                        <cns:PaxRefID>INF1</cns:PaxRefID>
                     </cns:SelectedOfferItem>
                 </cns:SelectedOffer>
             </cns:SelectedOfferList>
@@ -86,36 +87,57 @@ One **`SelectedOffer`** with typically **one `SelectedOfferItem`** per direction
     </Request>
 </IATA_OfferPriceRQ>
 ```
+
+</details>
 
 ### OfferPrice — Round trip
 {: #offerprice-round-trip}
 
 Same **`OfferRefID`** when both directions sit under one offer; **two `SelectedOfferItem`** rows (IDs from **AirShoppingRS**).
+<details>
+  <summary>Request Payload</summary>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<IATA_OfferPriceRQ xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage"
-                   xmlns:cns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes">
+<IATA_OfferPriceRQ xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage">
+    <DistributionChain>
+        <DistributionChainLink xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes">
+            <Ordinal>1</Ordinal>
+            <OrgRole>Seller</OrgRole>
+            <ParticipatingOrg>
+                <Name>Travel Agency XYZ</Name>
+                <OrgID>SELLER123</OrgID>
+            </ParticipatingOrg>
+        </DistributionChainLink>
+    </DistributionChain>
+    <PayloadAttributes>
+        <CorrelationID xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes">{{$randomUUID}}</CorrelationID>
+        <Timestamp xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes">2026-05-07T18:34:11.567+07:00</Timestamp>
+        <TrxID xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes">TRX-123456789</TrxID>
+        <VersionNumber xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes">21.3</VersionNumber>
+    </PayloadAttributes>
     <Request>
-        <cns:PricedOffer>
-            <cns:SelectedOfferList>
-                <cns:SelectedOffer>
-                    <cns:OfferRefID>rt-offer-uuid-001</cns:OfferRefID>
-                    <cns:OwnerCode>VS</cns:OwnerCode>
-                    <cns:SelectedOfferItem>
-                        <cns:OfferItemRefID>rt-item-outbound:seg-a</cns:OfferItemRefID>
-                        <cns:PaxRefID>PAX1</cns:PaxRefID>
-                    </cns:SelectedOfferItem>
-                    <cns:SelectedOfferItem>
-                        <cns:OfferItemRefID>rt-item-inbound:seg-b</cns:OfferItemRefID>
-                        <cns:PaxRefID>PAX1</cns:PaxRefID>
-                    </cns:SelectedOfferItem>
-                </cns:SelectedOffer>
-            </cns:SelectedOfferList>
-        </cns:PricedOffer>
+        <PricedOffer xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes">
+            <SelectedOfferList>
+                <SelectedOffer>
+                    <OfferRefID>0d8ef628-02f3-4f3b-ba6b-d6bbf8e661d1</OfferRefID>
+                    <OwnerCode>VS</OwnerCode>
+                    <SelectedOfferItem>
+                        <OfferItemRefID>a3db17db-e4d7-4d30-95ce-8f634d16bafc:af9c85a0-e93b-4f2c-91b2-eb7d7e7d1e48</OfferItemRefID>
+                        <PaxRefID>ADT1</PaxRefID>
+                    </SelectedOfferItem>
+                    <SelectedOfferItem>
+                        <OfferItemRefID>19fff8c1-ad9f-4a23-ad4a-fd434356350e:e7756a5a-7194-4c7e-a0ec-28da794e8562</OfferItemRefID>
+                        <PaxRefID>ADT1</PaxRefID>
+                    </SelectedOfferItem>
+                </SelectedOffer>
+            </SelectedOfferList>
+        </PricedOffer>
     </Request>
 </IATA_OfferPriceRQ>
 ```
+
+</details>
 
 Round-trip **responses** match the one-way shape but include **two** `OfferItem` blocks (taxes/fees per carrier rules).
 
@@ -125,40 +147,200 @@ Round-trip **responses** match the one-way shape but include **two** `OfferItem`
 
 Returns an `IATA_OfferPriceRS` XML document containing detailed pricing information.
 
+<details>
+  <summary>Response Payload</summary>
+
 ```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<IATA_OfferPriceRS xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage"
-                   xmlns:cns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes">
-    <Response>
-        <cns:PricedOffer>
-            <cns:Offer>
-                <cns:OfferID>9b4f1c08-e4da-4a65-8011-9beb57109611</cns:OfferID>
-                <cns:OwnerCode>VS</cns:OwnerCode>
-                <cns:OfferItem>
-                    <cns:OfferItemID>77402942-760d-408f-a839-c96be57d42c5:940ab3f0-89c0-4779-8ddc-d16016f5929a</cns:OfferItemID>
-                    <cns:Price>
-                        <cns:BaseAmount CurCode="USD">400.00</cns:BaseAmount>
-                        <cns:TotalAmount CurCode="USD">450.00</cns:TotalAmount>
-                        <cns:FareDetail>
-                            <cns:FareComponent>
-                                <cns:PriceClassRefID>PC1</cns:PriceClassRefID>
-                                <cns:Amount CurCode="USD">400.00</cns:Amount>
-                            </cns:FareComponent>
-                        </cns:FareDetail>
-                    </cns:Price>
-                    <cns:PaxRefID>ADT1</cns:PaxRefID>
-                </cns:OfferItem>
-            </cns:Offer>
-        </cns:PricedOffer>
-    </Response>
-</IATA_OfferPriceRS>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:IATA_OfferPriceRS xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes" xmlns:ns2="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage" xmlns:ns3="http://www.w3.org/2000/09/xmldsig#">
+    <ns2:Response>
+        <DataLists>
+            <DatedMarketingSegmentList>
+                <DatedMarketingSegment>
+                    <Arrival>
+                        <AircraftScheduledDateTime>2026-05-17T12:20:00</AircraftScheduledDateTime>
+                        <IATA_LocationCode>CUR</IATA_LocationCode>
+                    </Arrival>
+                    <CarrierDesigCode>W2</CarrierDesigCode>
+                    <DatedMarketingSegmentId>DMS1</DatedMarketingSegmentId>
+                    <DatedOperatingSegmentRefId>DOS1</DatedOperatingSegmentRefId>
+                    <Dep>
+                        <AircraftScheduledDateTime>2026-05-17T05:25:00</AircraftScheduledDateTime>
+                        <IATA_LocationCode>BOS</IATA_LocationCode>
+                    </Dep>
+                    <MarketingCarrierFlightNumberText>W29896</MarketingCarrierFlightNumberText>
+                </DatedMarketingSegment>
+                <DatedMarketingSegment>
+                    <Arrival>
+                        <AircraftScheduledDateTime>2026-05-23T19:45:00</AircraftScheduledDateTime>
+                        <IATA_LocationCode>BOS</IATA_LocationCode>
+                    </Arrival>
+                    <CarrierDesigCode>W2</CarrierDesigCode>
+                    <DatedMarketingSegmentId>DMS2</DatedMarketingSegmentId>
+                    <DatedOperatingSegmentRefId>DOS2</DatedOperatingSegmentRefId>
+                    <Dep>
+                        <AircraftScheduledDateTime>2026-05-23T12:50:00</AircraftScheduledDateTime>
+                        <IATA_LocationCode>CUR</IATA_LocationCode>
+                    </Dep>
+                    <MarketingCarrierFlightNumberText>W29897</MarketingCarrierFlightNumberText>
+                </DatedMarketingSegment>
+            </DatedMarketingSegmentList>
+            <DatedOperatingSegmentList>
+                <DatedOperatingSegment>
+                    <CarrierDesigCode>W2</CarrierDesigCode>
+                    <DatedOperatingSegmentId>DOS1</DatedOperatingSegmentId>
+                    <OperatingCarrierFlightNumberText>W29896</OperatingCarrierFlightNumberText>
+                </DatedOperatingSegment>
+                <DatedOperatingSegment>
+                    <CarrierDesigCode>W2</CarrierDesigCode>
+                    <DatedOperatingSegmentId>DOS2</DatedOperatingSegmentId>
+                    <OperatingCarrierFlightNumberText>W29897</OperatingCarrierFlightNumberText>
+                </DatedOperatingSegment>
+            </DatedOperatingSegmentList>
+            <OriginDestList>
+                <OriginDest>
+                    <DestCode>CUR</DestCode>
+                    <OriginCode>BOS</OriginCode>
+                    <OriginDestID>OD1</OriginDestID>
+                    <PaxJourneyRefID>JOUR1</PaxJourneyRefID>
+                </OriginDest>
+                <OriginDest>
+                    <DestCode>BOS</DestCode>
+                    <OriginCode>CUR</OriginCode>
+                    <OriginDestID>OD2</OriginDestID>
+                    <PaxJourneyRefID>JOUR1</PaxJourneyRefID>
+                </OriginDest>
+            </OriginDestList>
+            <PaxJourneyList>
+                <PaxJourney>
+                    <Duration>PT6H55M</Duration>
+                    <PaxJourneyID>JOUR1</PaxJourneyID>
+                    <PaxSegmentRefID>SEG1</PaxSegmentRefID>
+                    <PaxSegmentRefID>SEG2</PaxSegmentRefID>
+                </PaxJourney>
+            </PaxJourneyList>
+            <PaxList>
+                <Pax>
+                    <PaxID>ADT1</PaxID>
+                    <PTC>ADT</PTC>
+                </Pax>
+            </PaxList>
+            <PaxSegmentList>
+                <PaxSegment>
+                    <DatedMarketingSegmentRefId>DMS1</DatedMarketingSegmentRefId>
+                    <MarketingCarrierRBD_Code>W2</MarketingCarrierRBD_Code>
+                    <OperatingCarrierRBD_Code>W2</OperatingCarrierRBD_Code>
+                    <PaxSegmentID>SEG1</PaxSegmentID>
+                </PaxSegment>
+                <PaxSegment>
+                    <DatedMarketingSegmentRefId>DMS2</DatedMarketingSegmentRefId>
+                    <MarketingCarrierRBD_Code>W2</MarketingCarrierRBD_Code>
+                    <OperatingCarrierRBD_Code>W2</OperatingCarrierRBD_Code>
+                    <PaxSegmentID>SEG2</PaxSegmentID>
+                </PaxSegment>
+            </PaxSegmentList>
+            <PriceClassList>
+                <PriceClass>
+                    <Code>NOTREBOOK</Code>
+                    <Name>NOTREBOOK</Name>
+                    <PriceClassID>PC1</PriceClassID>
+                </PriceClass>
+            </PriceClassList>
+        </DataLists>
+        <PricedOffer>
+            <OfferID>0d8ef628-02f3-4f3b-ba6b-d6bbf8e661d1</OfferID>
+            <OfferItem>
+                <FareDetail>
+                    <FareComponent>
+                        <CabinType/>
+                        <FareBasisCode>Y_NOTREBOOK</FareBasisCode>
+                        <PaxSegmentRefID>SEG1</PaxSegmentRefID>
+                        <PriceClassRefID>PC1</PriceClassRefID>
+                    </FareComponent>
+                    <PaxRefID>ADT1</PaxRefID>
+                </FareDetail>
+                <OfferItemID>a3db17db-e4d7-4d30-95ce-8f634d16bafc:af9c85a0-e93b-4f2c-91b2-eb7d7e7d1e48</OfferItemID>
+                <Price>
+                    <BaseAmount CurCode="USD">0.0</BaseAmount>
+                    <TaxSummary>
+                        <Tax>
+                            <Amount CurCode="USD">4.68</Amount>
+                            <DescText>Tax description</DescText>
+                            <TaxCode>E4</TaxCode>
+                            <TaxName>E4</TaxName>
+                        </Tax>
+                        <TotalTaxAmount CurCode="USD">4.68</TotalTaxAmount>
+                    </TaxSummary>
+                    <TotalAmount CurCode="USD">4.68</TotalAmount>
+                </Price>
+                <Service>
+                    <PaxRefID>ADT1</PaxRefID>
+                    <ServiceID>1</ServiceID>
+                </Service>
+            </OfferItem>
+            <OfferItem>
+                <FareDetail>
+                    <FareComponent>
+                        <CabinType/>
+                        <FareBasisCode>Y_NOTREBOOK</FareBasisCode>
+                        <PaxSegmentRefID>SEG2</PaxSegmentRefID>
+                        <PriceClassRefID>PC1</PriceClassRefID>
+                    </FareComponent>
+                    <PaxRefID>ADT1</PaxRefID>
+                </FareDetail>
+                <OfferItemID>19fff8c1-ad9f-4a23-ad4a-fd434356350e:e7756a5a-7194-4c7e-a0ec-28da794e8562</OfferItemID>
+                <Price>
+                    <BaseAmount CurCode="USD">0.0</BaseAmount>
+                    <TaxSummary>
+                        <Tax>
+                            <Amount CurCode="USD">3.68</Amount>
+                            <DescText>Tax description</DescText>
+                            <TaxCode>E4</TaxCode>
+                            <TaxName>E4</TaxName>
+                        </Tax>
+                        <TotalTaxAmount CurCode="USD">3.68</TotalTaxAmount>
+                    </TaxSummary>
+                    <TotalAmount CurCode="USD">3.68</TotalAmount>
+                </Price>
+                <Service>
+                    <PaxRefID>ADT1</PaxRefID>
+                    <ServiceID>1</ServiceID>
+                </Service>
+            </OfferItem>
+            <TotalPrice>
+                <BaseAmount CurCode="USD">0.0</BaseAmount>
+                <TaxSummary>
+                    <Tax>
+                        <Amount CurCode="USD">8.36</Amount>
+                        <DescText>Tax description</DescText>
+                        <TaxCode>E4</TaxCode>
+                        <TaxName>E4</TaxName>
+                    </Tax>
+                    <TotalTaxAmount CurCode="USD">8.36</TotalTaxAmount>
+                </TaxSummary>
+                <TotalAmount CurCode="USD">8.36</TotalAmount>
+            </TotalPrice>
+        </PricedOffer>
+    </ns2:Response>
+    <ns2:PayloadAttributes>
+        <CorrelationID>3ffe0001-fbe9-4080-bac9-3e9d042d0e22</CorrelationID>
+        <Timestamp>2026-05-07T18:34:11.567+07:00</Timestamp>
+        <TrxID>TRX-123456789</TrxID>
+        <VersionNumber>21.3</VersionNumber>
+    </ns2:PayloadAttributes>
+</ns2:IATA_OfferPriceRS>
 ```
+
+</details>
 
 ### Error Responses
 
 #### 400 Bad Request
 
 Invalid request format or missing required fields.
+
+<details>
+  <summary>Response Payload</summary>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -171,9 +353,11 @@ Invalid request format or missing required fields.
 </ErrorResponse>
 ```
 
+</details>
+
 ## Code Examples
 
-=== "Shell"
+=== "Curl"
 
     ```bash
     curl -X POST https://api.go7.io/v21.3.5/OfferPrice \
@@ -182,51 +366,6 @@ Invalid request format or missing required fields.
       -H "x-api-key: your-api-key-here" \
       -H "Content-Type: application/xml" \
       -d @offerprice-request.xml
-    ```
-
-=== "Node"
-
-    ```javascript
-    const axios = require('axios');
-    const fs = require('fs');
-
-    const xmlRequest = fs.readFileSync('offerprice-request.xml', 'utf8');
-
-    const response = await axios.post(
-      'https://api.go7.io/v21.3.5/OfferPrice',
-      xmlRequest,
-      {
-        headers: {
-          'x-tenant': 'tenant-a',
-          'x-SalesChannel': 'NDC',
-          'x-api-key': 'your-api-key-here',
-          'Content-Type': 'application/xml'
-        }
-      }
-    );
-
-    console.log(response.data);
-    ```
-
-=== "Python"
-
-    ```python
-    import requests
-
-    url = "https://api.go7.io/v21.3.5/OfferPrice"
-    
-    headers = {
-        "x-tenant": "tenant-a",
-        "x-SalesChannel": "NDC",
-        "x-api-key": "your-api-key-here",
-        "Content-Type": "application/xml"
-    }
-
-    with open('offerprice-request.xml', 'r') as f:
-        xml_request = f.read()
-
-    response = requests.post(url, headers=headers, data=xml_request)
-    print(response.text)
     ```
 
 ## Notes
