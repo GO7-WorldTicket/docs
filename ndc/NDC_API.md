@@ -15,8 +15,6 @@ title: NDC API Generic Integration Guide
   - [HTTP Headers](#http-headers)
   - [Authentication](#authentication)
 - [Business Flow](#business-flow)
-  - [Sequence diagram](#sequence-diagram)
-    - [Mermaid sequence (source)](#mermaid-sequence-source)
   - [Phase 1 scenario summary](#phase-1-scenario-summary)
   - [NDC Gateway workflow (Phased 1)](#ndc-gateway-workflow-phased-1)
 - [NDC XML (Offers & Orders)](#ndc-xml-offers--orders)
