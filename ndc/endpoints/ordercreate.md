@@ -40,7 +40,7 @@ The request body must be a valid `IATA_OrderCreateRQ` XML document following IAT
 {: #ordercreate-pay-later}
 
 <details>
-  <summary>Request Payload</summary>
+<summary>Request Payload</summary>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -194,7 +194,7 @@ Omit **`PaymentFunctions`** for pay-later: the order commonly returns **`DRAFT`*
 {: #ordercreate-instant-pay}
 
 <details>
-  <summary>Request Payload</summary>
+<summary>Request Payload</summary>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -359,7 +359,7 @@ Omit **`PaymentFunctions`** for pay-later: the order commonly returns **`DRAFT`*
 Returns an `IATA_OrderViewRS` XML document with order confirmation details.
 
 <details>
-  <summary>Response Payload</summary>
+<summary>Response Payload</summary>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -756,7 +756,7 @@ Returns an `IATA_OrderViewRS` XML document with order confirmation details.
 Invalid request format or missing required fields.
 
 <details>
-  <summary>Response Payload</summary>
+<summary>Response Payload</summary>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>

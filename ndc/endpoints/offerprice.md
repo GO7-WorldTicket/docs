@@ -41,7 +41,7 @@ The request body must be a valid `IATA_OfferPriceRQ` XML document following IATA
 
 One **`SelectedOffer`** with typically **one `SelectedOfferItem`** per direction when the shopping offer contained a single outbound slice (adjust **`PaxRefID`** to match shopping).
 <details>
-  <summary>Request Payload</summary>
+<summary>Request Payload</summary>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -95,7 +95,7 @@ One **`SelectedOffer`** with typically **one `SelectedOfferItem`** per direction
 
 Same **`OfferRefID`** when both directions sit under one offer; **two `SelectedOfferItem`** rows (IDs from **AirShoppingRS**).
 <details>
-  <summary>Request Payload</summary>
+<summary>Request Payload</summary>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -148,7 +148,7 @@ Round-trip **responses** match the one-way shape but include **two** `OfferItem`
 Returns an `IATA_OfferPriceRS` XML document containing detailed pricing information.
 
 <details>
-  <summary>Response Payload</summary>
+<summary>Response Payload</summary>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -340,7 +340,7 @@ Returns an `IATA_OfferPriceRS` XML document containing detailed pricing informat
 Invalid request format or missing required fields.
 
 <details>
-  <summary>Response Payload</summary>
+<summary>Response Payload</summary>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>

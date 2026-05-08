@@ -42,7 +42,7 @@ The request body must be a valid `IATA_OrderQuoteRQ` XML document following IATA
 **`Payload.ExistingOrder`** + **`Payload.SelectedOffers`** with **`OfferRefID` / `OfferItemRefID`** from **OrderReshopRS** (rebook path).
 
 <details>
-  <summary>Request Payload</summary>
+<summary>Request Payload</summary>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -92,7 +92,7 @@ The request body must be a valid `IATA_OrderQuoteRQ` XML document following IATA
 **Response** (`OrderReshopRS`-style quote):
 
 <details>
-  <summary>Response Payload</summary>
+<summary>Response Payload</summary>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -477,7 +477,7 @@ Use **`ExistingOrder`** = held booking UUID and **`SelectedOffers`** from a **fr
 Returns an `IATA_OrderReshopRS` XML document with order quote information.
 
 <details>
-  <summary>Response Payload</summary>
+<summary>Response Payload</summary>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -641,7 +641,7 @@ Returns an `IATA_OrderReshopRS` XML document with order quote information.
 Invalid request format or missing required fields.
 
 <details>
-  <summary>Response Payload</summary>
+<summary>Response Payload</summary>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>

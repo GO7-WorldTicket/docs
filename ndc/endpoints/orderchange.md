@@ -45,7 +45,7 @@ The request body must be a valid `IATA_OrderChangeRQ` XML document following IAT
 ### Process Payment for On-Hold Booking
 {: #orderchange-payment-on-hold}
 <details>
-  <summary>Request Payload</summary>
+<summary>Request Payload</summary>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -125,7 +125,7 @@ Same **`Order`** + **`PaymentFunctions`** envelope as above; only **`PaymentType
 ### Rebook with New Offers
 {: #orderchange-rebook}
 <details>
-  <summary>Request Payload</summary>
+<summary>Request Payload</summary>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -200,7 +200,7 @@ Same **`Order`** + **`PaymentFunctions`** envelope as above; only **`PaymentType
 Returns an `IATA_OrderViewRS` XML document with updated order details.
 
 <details>
-  <summary>Response Payload</summary>
+<summary>Response Payload</summary>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -597,7 +597,7 @@ Returns an `IATA_OrderViewRS` XML document with updated order details.
 Invalid request, missing required fields, or order not in DRAFT status.
 
 <details>
-  <summary>Response Payload</summary>
+<summary>Response Payload</summary>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -620,7 +620,7 @@ Invalid request, missing required fields, or order not in DRAFT status.
 Order not found.
 
 <details>
-  <summary>Response Payload</summary>
+<summary>Response Payload</summary>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
