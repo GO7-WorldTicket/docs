@@ -133,6 +133,26 @@ Please update the variables in collection such as x-api-key, x-saleschannel, ten
 | DL   | Driver’s License |
 | FP   | Frequent Flyer |
 
+## Error Code
+
+| Code | Type        | Description                          |
+|------|-------------|--------------------------------------|
+| 12   | VALIDATION  | Invalid value                        |
+| 13   | VALIDATION  | Missing required field               |
+| 14   | VALIDATION  | Value not supported in this position |
+| 39   | VALIDATION  | Data element too long                |
+| 40   | VALIDATION  | Data element too short               |
+| 903  | VALIDATION  | Unable to process - syntax error     |
+| 914  | VALIDATION  | Invalid format                       |
+| 915  | VALIDATION  | No action - cannot support function  |
+| 911  | BUSINESS    | Unable to process - system error     |
+| 913  | APPLICATION | Item/data not found                  |
+| 304  | SYSTEM      | System Temporarily Unavailable       |
+| 900  | SYSTEM      | Inactivity Time Out Value Exceeded   |
+| 901  | SYSTEM      | Communications Line Unavailable      |
+| 916  | SYSTEM      | EDIFACT/XML version not supported    |
+| 305  | SECURITY    | Security/Audit Failure               |
+
 # NDC for Offers & Orders workflow
 
 Same pattern as **[OTA for Reservation workflow](../ota/OTA_API.md#ota-for-reservation-workflow)**: this section is an **index only**. Each **step** links to the endpoint `.md` file where requests, responses, and scenario anchors live. See **[Authentication](#authentication)**.
