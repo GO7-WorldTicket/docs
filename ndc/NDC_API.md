@@ -183,12 +183,11 @@ Typical Phased 1 chain: **AirShopping → OfferPrice → OrderCreate**, then **O
   - [Rebook with new offers](endpoints/orderchange.md#orderchange-rebook)
 
 ## Basic request format (API key)
-{: #workflow-basic-curl}
 
 ```bash
 curl -X POST "https://api.go7.io/v21.3.5/<MessageName>" \
   -H "x-tenant: {tenant}" \
-  -H "x-SalesChannel: NDC" \
+  -H "x-SalesChannel: {salesChannel}" \
   -H "x-api-key: {api_key}" \
   -H "Content-Type: application/xml" \
   -d @request.xml
