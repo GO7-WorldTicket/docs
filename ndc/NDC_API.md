@@ -95,7 +95,8 @@ Use IATA **OffersAndOrders** message XML (`IATA_AirShoppingRQ`, `IATA_OrderCreat
 [Download NDC XML Schema 21.3.5](/docs/assets/resources/NDC-xmlbeans-21.3.5.zip)
 
 # Postman Collection
-[Download Postman Collection](/docs/assets/resources/NDC_postman_collection.json)
+[Download Postman Collection & Environment](/docs/assets/resources/NDC_Postman.zip)
+
 Please update the variables in collection such as x-api-key, x-saleschannel, tenant, ndc-gateway-url.
 
 # Code Lists
