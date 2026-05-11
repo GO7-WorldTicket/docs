@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: go7
 title: NDC API Generic Integration Guide
 ---
 
