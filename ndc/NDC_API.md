@@ -60,7 +60,7 @@ Attach the following headers to NDC Gateway requests unless an endpoint page spe
 |--------|-------------|---------|
 | `x-tenant` | Tenant identifier | `test-qa-rc` |
 | `x-SalesChannel` | Sales channel (`NDC`, `IBE`, …) | `NDC` |
-| `x-api-key` | API key authentication | `96d2bf5f-2740-4d64-80e9-3542cc44bbbb` |
+| `x-api-key` | API key authentication | `{x-api-key}` |
 | `Content-Type` | Request body type | `application/xml` |
 
 Use `x-api-key` for authentication on NDC Gateway requests.
@@ -189,7 +189,7 @@ Typical Phased 1 chain: **AirShopping → OfferPrice → OrderCreate**, then **O
 curl -X POST "https://api.go7.io/v21.3.5/<MessageName>" \
   -H "x-tenant: {tenant}" \
   -H "x-SalesChannel: {salesChannel}" \
-  -H "x-api-key: {api_key}" \
+  -H "x-api-key: {x-api-key}" \
   -H "Content-Type: application/xml" \
   -d @request.xml
 ```
