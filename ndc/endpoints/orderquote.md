@@ -15,7 +15,7 @@ The Order Quote API returns pricing information for modifying an existing order.
 
 ## Workflow (NDC API guide)
 
-**Step 6** ([workflow index](../NDC_API.md#ndc-for-offers--orders-workflow)). `POST …/OrderQuote` · **`Payload.ExistingOrder`** + **`Payload.SelectedOffers`** with **`OfferRefID` / `OfferItemRefID`** from **AirShopping**, **OfferPrice**, or **OrderReshopRS**. Scenarios: **`#orderquote-rebook`**, **`#orderquote-cancel`**, **`#orderquote-booking`**.
+**Step 8** ([workflow index](../NDC_API.md#ndc-for-offers--orders-workflow)). `POST …/OrderQuote` · **`Payload.ExistingOrder`** + **`Payload.SelectedOffers`** with **`OfferRefID` / `OfferItemRefID`** from **AirShopping**, **OfferPrice**, or **OrderReshopRS**. Scenarios: **`#orderquote-rebook`**, **`#orderquote-cancel`**, **`#orderquote-booking`**.
 
 See [Authentication](../NDC_API.md#authentication) for **`x-tenant`**, **`x-SalesChannel`**, and **`x-api-key`**.
 
