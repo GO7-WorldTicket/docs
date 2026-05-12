@@ -21,7 +21,7 @@ The API returns alternative offers that can be used with `OrderChange` to modify
 
 ## Workflow (NDC API guide)
 
-**Step 5** ([workflow index](../NDC_API.md#ndc-for-offers--orders-workflow)). `POST …/OrderReshop` · yields **`OfferID`** / **`OfferItemID`** for **[Order Quote](orderquote.md)** and **[Order Change](orderchange.md)**. XML samples: **`#orderreshop-rebook`**, **`#orderreshop-cancel-order`**.
+**Step 7** ([workflow index](../NDC_API.md#ndc-for-offers--orders-workflow)). `POST …/OrderReshop` · yields **`OfferID`** / **`OfferItemID`** for **[Order Quote](orderquote.md)** and **[Order Change](orderchange.md)**. XML samples: **`#orderreshop-rebook`**, **`#orderreshop-cancel-order`**.
 
 See [Authentication](../NDC_API.md#authentication) for **`x-tenant`**, **`x-SalesChannel`**, and **`x-api-key`**.
 

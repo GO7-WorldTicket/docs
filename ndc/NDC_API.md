@@ -16,6 +16,7 @@ title: NDC API Generic Integration Guide
   - [Authentication](#authentication)
 - [Business Flow](#business-flow)
   - [Phase 1 scenario summary](#phase-1-scenario-summary)
+  - [Phase 2 scenario summary](#phase-2-scenario-summary)
   - [NDC Gateway workflow (Phased 1)](#ndc-gateway-workflow-phased-1)
 - [NDC XML (Offers & Orders)](#ndc-xml-offers--orders)
 - [Postman Collection](#postman-collection)
@@ -67,7 +68,7 @@ Use `x-api-key` for authentication on NDC Gateway requests.
 
 # Business Flow
 
-Phased 1 scenarios cover shopping and pricing offers, creating or confirming orders, reshop/requote paths, and order retrieve.
+Phased 1 scenarios cover shopping and pricing offers, creating or confirming orders, reshop/requote paths, and order retrieve. Phase 2 adds ancillary seat and service lookups using either offer context or order context.
 
 ## Phase 1 scenario summary
 
@@ -78,6 +79,17 @@ Phased 1 scenarios cover shopping and pricing offers, creating or confirming ord
 | Manage booking — rebook          | `OrderRetrieve` → `OrderReshop` → `OrderQuote` → `OrderChange` → `OrderRetrieve`.                                                           |
 | Manage booking — cancel          | `OrderRetrieve` → `OrderReshop` (cancel); **`OrderQuote` not used in Phase 1** when refunds are unsupported → `OrderChange` → `OrderRetrieve`. |
 | Retrieve booking                 | `OrderRetrieve` (view only).              |
+
+## Phase 2 scenario summary
+
+Phase 2 builds on the same base flow as [Phase 1 scenario summary](#phase-1-scenario-summary), but adds ancillary lookup scenarios for seats and services.
+
+| Scenario                                          | Message sequence                                                                                      |
+|---------------------------------------------------|-------------------------------------------------------------------------------------------------------|
+| Ancillary lookup by offer — seats                 | `AirShopping` → `OfferPrice` → `SeatAvailability` (`OfferRequest`).                                   |
+| Ancillary lookup by offer — services              | `AirShopping` → `OfferPrice` → `ServiceList` (`OfferRequest`).                                        |
+| Ancillary lookup and addition by order — seats    | `AirShopping` → `OfferPrice` → `OrderCreate` → `SeatAvailability` (`OrderRequest`) → `OrderChange`.   |
+| Ancillary lookup and addition by order — services | `AirShopping` → `OfferPrice` → `OrderCreate` → `ServiceList` (`OrderRequest`) → `OrderChange`.        |
 
 ## NDC Gateway workflow (Phased 1)
 
@@ -150,7 +162,7 @@ Please update the variables in collection such as x-api-key, x-saleschannel, ten
 
 Same pattern as **[OTA for Reservation workflow](../ota/OTA_API.md#ota-for-reservation-workflow)**: this section is an **index only**. Each **step** links to the endpoint `.md` file where requests, responses, and scenario anchors live. See **[Authentication](#authentication)**.
 
-Typical Phased 1 chain: **AirShopping → OfferPrice → OrderCreate**, then **OrderRetrieve** / **OrderReshop** / **OrderQuote** / **OrderChange** as needed (see [Phase 1 scenario summary](#phase-1-scenario-summary)).
+Typical Phase 1 chain: **AirShopping → OfferPrice → OrderCreate**, then **OrderRetrieve** / **OrderReshop** / **OrderQuote** / **OrderChange** as needed (see [Phase 1 scenario summary](#phase-1-scenario-summary)). Phase 2 adds optional ancillary calls to **SeatAvailability** and **ServiceList** (see [Phase 2 scenario summary](#phase-2-scenario-summary)).
 
 | | Production-style base | Message path pattern |
 |--|------------------------|----------------------|
@@ -165,19 +177,25 @@ Typical Phased 1 chain: **AirShopping → OfferPrice → OrderCreate**, then **O
 - **3 — [Order Create](endpoints/ordercreate.md)** — `POST …/OrderCreate` · accept priced offer; optional payment
   - [Pay later (on hold)](endpoints/ordercreate.md#ordercreate-pay-later)
   - [Instant pay](endpoints/ordercreate.md#ordercreate-instant-pay)
-- **4 — [Order Retrieve mapping](endpoints/orderretrieve.md)** — `OrderRetrieveRQ` → **`GET /orders/…`** (no gateway `POST`)
+- **4 — [Seat Availability](endpoints/seatavailability.md)** — `POST …/SeatAvailability` · optional **Phase 2** seat map and seat offer lookup
+  - [By offer](endpoints/seatavailability.md#seatavailability-by-offer)
+  - [By order](endpoints/seatavailability.md#seatavailability-by-order)
+- **5 — [Service List](endpoints/servicelist.md)** — `POST …/ServiceList` · optional **Phase 2** ancillary service lookup
+  - [By offer](endpoints/servicelist.md#servicelist-by-offer)
+  - [By order](endpoints/servicelist.md#servicelist-by-order)
+- **6 — [Order Retrieve mapping](endpoints/orderretrieve.md)** — `OrderRetrieveRQ` → **`GET /orders/…`** (no gateway `POST`)
   - [One-way, on hold (`DRAFT`)](endpoints/orderretrieve.md#orderretrieve-one-way-on-hold)
   - [One-way, instant pay (`OPEN`)](endpoints/orderretrieve.md#orderretrieve-one-way-instant)
   - [Round trip, on hold](endpoints/orderretrieve.md#orderretrieve-round-trip-on-hold)
   - [Round trip, instant pay](endpoints/orderretrieve.md#orderretrieve-round-trip-instant)
-- **5 — [Order Reshop](endpoints/orderreshop.md)** — `POST …/OrderReshop` · alternatives for rebook or cancel
+- **7 — [Order Reshop](endpoints/orderreshop.md)** — `POST …/OrderReshop` · alternatives for rebook or cancel
   - [Rebook](endpoints/orderreshop.md#orderreshop-rebook)
   - [Cancel order](endpoints/orderreshop.md#orderreshop-cancel-order)
-- **6 — [Order Quote](endpoints/orderquote.md)** — `POST …/OrderQuote` · quote before **OrderChange**
+- **8 — [Order Quote](endpoints/orderquote.md)** — `POST …/OrderQuote` · quote before **OrderChange**
   - [Rebook quote](endpoints/orderquote.md#orderquote-rebook)
   - [Cancel quote](endpoints/orderquote.md#orderquote-cancel)
   - [Booking (confirm on-hold quote)](endpoints/orderquote.md#orderquote-booking)
-- **7 — [Order Change](endpoints/orderchange.md)** — `POST …/OrderChange` · pay **DRAFT**, or accept quoted / rebook offers
+- **9 — [Order Change](endpoints/orderchange.md)** — `POST …/OrderChange` · pay **DRAFT**, or accept quoted / rebook offers
   - [Payment on hold booking](endpoints/orderchange.md#orderchange-payment-on-hold)
   - [Payment with debit](endpoints/orderchange.md#orderchange-payment-debit)
   - [Payment with credit](endpoints/orderchange.md#orderchange-payment-credit)

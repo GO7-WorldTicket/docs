@@ -21,7 +21,7 @@ The API validates the order status, processes the changes, and returns the updat
 
 ## Workflow (NDC API guide)
 
-**Step 7** ([workflow index](../NDC_API.md#ndc-for-offers--orders-workflow)). `POST …/OrderChange` · settle payment on **`DRAFT`**, or **`ChangeOrderChoice`** + **`PaymentFunctions`** after a quote ([**Rebook with New Offers**](#orderchange-rebook)). Fragments: **`#orderchange-payment-on-hold`**, **`#orderchange-payment-debit`**, **`#orderchange-payment-credit`**, **`#orderchange-rebook`**.
+**Step 9** ([workflow index](../NDC_API.md#ndc-for-offers--orders-workflow)). `POST …/OrderChange` · settle payment on **`DRAFT`**, or **`ChangeOrderChoice`** + **`PaymentFunctions`** after a quote ([**Rebook with New Offers**](#orderchange-rebook)). Fragments: **`#orderchange-payment-on-hold`**, **`#orderchange-payment-debit`**, **`#orderchange-payment-credit`**, **`#orderchange-rebook`**, **`#orderchange-rebook-seat-with-payment`**, **`#orderchange-rebook-ancillary-with-payment`**.
 
 See [Authentication](../NDC_API.md#authentication) for **`x-tenant`**, **`x-SalesChannel`**, and **`x-api-key`** on gateway XML calls.
 
@@ -87,6 +87,121 @@ The request body must be a valid `IATA_OrderChangeRQ` XML document following IAT
                 &lt;/PaymentMethod&gt;
             &lt;/PaymentProcessingDetails&gt;
         &lt;/PaymentFunctions&gt;
+    &lt;/Request&gt;
+&lt;/IATA_OrderChangeRQ&gt;
+</code></pre>
+
+</details>
+
+### Rebook seat with payment
+{: #orderchange-rebook-seat-with-payment}
+
+Use this pattern for the **order flow** when accepting a quoted seat offer and paying for the seat in the same `OrderChange` call. The seat coordinates are carried in **`SelectedSeat`** under **`SelectedOfferItem`**.
+
+<details>
+<summary>Request Payload</summary>
+
+<pre><code class="language-xml">
+&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
+&lt;IATA_OrderChangeRQ xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage" xmlns:cns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes" xmlns:ns3="http://www.w3.org/2000/09/xmldsig#"&gt;
+    &lt;DistributionChain&gt;
+        &lt;cns:DistributionChainLink&gt;
+            &lt;cns:Ordinal&gt;1&lt;/cns:Ordinal&gt;
+            &lt;cns:OrgRole&gt;Seller&lt;/cns:OrgRole&gt;
+            &lt;cns:ParticipatingOrg&gt;
+                &lt;cns:Name&gt;Travel Agency XYZ&lt;/cns:Name&gt;
+                &lt;cns:OrgID&gt;Seller123&lt;/cns:OrgID&gt;
+            &lt;/cns:ParticipatingOrg&gt;
+        &lt;/cns:DistributionChainLink&gt;
+    &lt;/DistributionChain&gt;
+    &lt;Request&gt;
+        &lt;cns:ChangeOrderChoice&gt;
+            &lt;cns:AcceptSelectedQuotedOfferList&gt;
+                &lt;cns:SelectedPricedOffer&gt;
+                    &lt;cns:OfferRefID&gt;adf092ce-5a43-490d-bd62-d023cb93cbc2&lt;/cns:OfferRefID&gt;
+                    &lt;cns:OwnerCode&gt;VS&lt;/cns:OwnerCode&gt;
+                    &lt;cns:SelectedOfferItem&gt;
+                        &lt;cns:OfferItemRefID&gt;2c51f497-c470-4961-ab0a-aee6c8f4ef6f&lt;/cns:OfferItemRefID&gt;
+                        &lt;cns:PaxRefID&gt;PAX1&lt;/cns:PaxRefID&gt;
+                        &lt;cns:SelectedSeat&gt;
+                            &lt;cns:ColumnID&gt;A&lt;/cns:ColumnID&gt;
+                            &lt;cns:SeatRowNumber&gt;3&lt;/cns:SeatRowNumber&gt;
+                        &lt;/cns:SelectedSeat&gt;
+                    &lt;/cns:SelectedOfferItem&gt;
+                &lt;/cns:SelectedPricedOffer&gt;
+            &lt;/cns:AcceptSelectedQuotedOfferList&gt;
+        &lt;/cns:ChangeOrderChoice&gt;
+        &lt;cns:Order&gt;
+            &lt;cns:OrderID&gt;4f43a321-8324-4061-bbcf-eba6d541c3a8&lt;/cns:OrderID&gt;
+            &lt;cns:OwnerCode&gt;VS&lt;/cns:OwnerCode&gt;
+        &lt;/cns:Order&gt;
+        &lt;cns:PaymentFunctions&gt;
+            &lt;cns:PaymentProcessingDetails&gt;
+                &lt;cns:Amount CurCode="USD"&gt;15.0&lt;/cns:Amount&gt;
+                &lt;cns:PaymentMethod&gt;
+                    &lt;cns:OfflinePayment&gt;
+                        &lt;cns:PaymentTypeCode&gt;CA&lt;/cns:PaymentTypeCode&gt;
+                    &lt;/cns:OfflinePayment&gt;
+                &lt;/cns:PaymentMethod&gt;
+            &lt;/cns:PaymentProcessingDetails&gt;
+        &lt;/cns:PaymentFunctions&gt;
+    &lt;/Request&gt;
+&lt;/IATA_OrderChangeRQ&gt;
+</code></pre>
+
+</details>
+
+### Rebook ancillary with payment
+{: #orderchange-rebook-ancillary-with-payment}
+
+Use this pattern for the **order flow** when accepting a quoted ancillary offer such as bags or other services and paying in the same `OrderChange` call. The ancillary quantity is carried in **`SelectedALaCarteOfferItem`** under **`SelectedOfferItem`**.
+
+<details>
+<summary>Request Payload</summary>
+
+<pre><code class="language-xml">
+&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
+&lt;IATA_OrderChangeRQ xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage" xmlns:cns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes" xmlns:ns3="http://www.w3.org/2000/09/xmldsig#"&gt;
+    &lt;DistributionChain&gt;
+        &lt;cns:DistributionChainLink&gt;
+            &lt;cns:Ordinal&gt;1&lt;/cns:Ordinal&gt;
+            &lt;cns:OrgRole&gt;Seller&lt;/cns:OrgRole&gt;
+            &lt;cns:ParticipatingOrg&gt;
+                &lt;cns:Name&gt;Travel Agency XYZ&lt;/cns:Name&gt;
+                &lt;cns:OrgID&gt;Seller123&lt;/cns:OrgID&gt;
+            &lt;/cns:ParticipatingOrg&gt;
+        &lt;/cns:DistributionChainLink&gt;
+    &lt;/DistributionChain&gt;
+    &lt;Request&gt;
+        &lt;cns:ChangeOrderChoice&gt;
+            &lt;cns:AcceptSelectedQuotedOfferList&gt;
+                &lt;cns:SelectedPricedOffer&gt;
+                    &lt;cns:OfferRefID&gt;646f2456-2572-41da-9c1c-0d77faafaf0c&lt;/cns:OfferRefID&gt;
+                    &lt;cns:OwnerCode&gt;VS&lt;/cns:OwnerCode&gt;
+                    &lt;cns:SelectedOfferItem&gt;
+                        &lt;cns:OfferItemRefID&gt;9eebe2da-2c70-4fca-ac7d-eaafe9725414&lt;/cns:OfferItemRefID&gt;
+                        &lt;cns:PaxRefID&gt;PAX1&lt;/cns:PaxRefID&gt;
+                        &lt;cns:SelectedALaCarteOfferItem&gt;
+                            &lt;cns:Qty&gt;1&lt;/cns:Qty&gt;
+                        &lt;/cns:SelectedALaCarteOfferItem&gt;
+                    &lt;/cns:SelectedOfferItem&gt;
+                &lt;/cns:SelectedPricedOffer&gt;
+            &lt;/cns:AcceptSelectedQuotedOfferList&gt;
+        &lt;/cns:ChangeOrderChoice&gt;
+        &lt;cns:Order&gt;
+            &lt;cns:OrderID&gt;4f43a321-8324-4061-bbcf-eba6d541c3a8&lt;/cns:OrderID&gt;
+            &lt;cns:OwnerCode&gt;VS&lt;/cns:OwnerCode&gt;
+        &lt;/cns:Order&gt;
+        &lt;cns:PaymentFunctions&gt;
+            &lt;cns:PaymentProcessingDetails&gt;
+                &lt;cns:Amount CurCode="USD"&gt;6.79&lt;/cns:Amount&gt;
+                &lt;cns:PaymentMethod&gt;
+                    &lt;cns:OfflinePayment&gt;
+                        &lt;cns:PaymentTypeCode&gt;CA&lt;/cns:PaymentTypeCode&gt;
+                    &lt;/cns:OfflinePayment&gt;
+                &lt;/cns:PaymentMethod&gt;
+            &lt;/cns:PaymentProcessingDetails&gt;
+        &lt;/cns:PaymentFunctions&gt;
     &lt;/Request&gt;
 &lt;/IATA_OrderChangeRQ&gt;
 </code></pre>
@@ -665,7 +780,9 @@ Order not found.
 2. Get quote using `OrderQuote` (optional)
 3. Call `OrderChange` with `ChangeOrderChoice` and new offers
 4. Include `PaymentFunctions` if additional payment is required
-5. Response returns updated order
+5. Use `SelectedSeat` for seat changes in the order flow
+6. Use `SelectedALaCarteOfferItem` for ancillary/service changes in the order flow
+7. Response returns updated order
 
 ## Notes
 
@@ -674,3 +791,5 @@ Order not found.
 3. **Rebooking**: Use `ChangeOrderChoice` with new offers to rebook flights.
 4. **Payment Methods**: Supported payment types depend on airline configuration.
 5. **Order ID**: Always use the `OrderID` from the original `OrderCreate` response.
+6. **Seat Changes**: Seat-based order changes include `SelectedSeat` with `ColumnID` and `SeatRowNumber`.
+7. **Ancillary Changes**: Service-based order changes include `SelectedALaCarteOfferItem` with `Qty`.
