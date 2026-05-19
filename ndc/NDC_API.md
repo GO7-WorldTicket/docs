@@ -31,6 +31,8 @@ title: NDC API Generic Integration Guide
 
 | Change Description                                                  | Changed By              | Change Date |
 |---------------------------------------------------------------------|-------------------------|-------------|
+| Updated Postman collection with Phase 2 endpoints                   | Tyler Thorin            | 2026-05-19  |
+| Added Phase 2 to the document                                       | Tyler Thorin            | 2026-05-12  |
 | Prepared Postman collection and update API request/response example | Thotsaphorn Phonlabutr  | 2026-05-08  |
 | Initial creation of the document                                    | Naphachara Rattanawilai | 2026-05-06  |
 
@@ -107,7 +109,8 @@ Use IATA **OffersAndOrders** message XML (`IATA_AirShoppingRQ`, `IATA_OrderCreat
 [Download NDC XML Schema 21.3.5](/docs/assets/resources/NDC-xmlbeans-21.3.5.zip)
 
 # Postman Collection
-[Download Postman Collection & Environment](/docs/assets/resources/NDC_Postman.zip)
+[Download Postman Collection](/docs/assets/resources/NDC_postman_collection.json)
+[Download Postman Environment](/docs/assets/resources/NDC.postman_environment.json)
 
 Please update the variables in collection such as x-api-key, x-saleschannel, tenant, ndc-gateway-url.
 
