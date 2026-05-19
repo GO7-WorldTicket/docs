@@ -1,10 +1,10 @@
 {
   "info": {
-    "_postman_id": "95d8d960-2171-4a72-9d5a-e631415ec7e8",
+    "_postman_id": "58291fae-eeb4-4d0f-a541-1d35559fab4f",
     "name": "NDC-API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "44777420",
-    "_collection_link": "https://go.postman.co/collection/44777420-95d8d960-2171-4a72-9d5a-e631415ec7e8?source=collection_link"
+    "_exporter_id": "21005467",
+    "_collection_link": "https://go.postman.co/collection/21005467-58291fae-eeb4-4d0f-a541-1d35559fab4f?source=collection_link"
   },
   "item": [
     {
@@ -2591,24 +2591,15 @@
                       "listen": "prerequest",
                       "script": {
                         "exec": [
-                          "let date = new Date();",
-                          "date.setDate(date.getDate() + 10);",
+                          "let departureDate = new Date();",
+                          "departureDate.setDate(departureDate.getDate() + 7);",
                           "",
-                          "let year = date.getFullYear();",
-                          "let month = String(date.getMonth() + 1).padStart(2, '0');",
-                          "let day = String(date.getDate()).padStart(2, '0');",
+                          "let returnDate = new Date(departureDate);",
+                          "returnDate.setDate(returnDate.getDate() + 7);",
                           "",
-                          "let departureDate = `${year}-${month}-${day}`;",
-                          "",
-                          "date.setDate(date.getDate() + 1);",
-                          "let yearD = date.getFullYear();",
-                          "let monthD = String(date.getMonth() + 1).padStart(2, '0');",
-                          "let dayD = String(date.getDate()).padStart(2, '0');",
-                          "",
-                          "let arrivalDate = `${yearD}-${monthD}-${dayD}`;",
-                          "",
-                          "pm.environment.set(\"departureDate\", departureDate);",
-                          "pm.environment.set(\"arrivalDate\", arrivalDate);"
+                          "// Format to YYYY-MM-DD",
+                          "pm.variables.set('departureDate', departureDate.toISOString().split('T')[0]);",
+                          "pm.variables.set('returnDate', returnDate.toISOString().split('T')[0]);"
                         ],
                         "type": "text/javascript",
                         "packages": {},
@@ -5053,8 +5044,1688 @@
               ]
             }
           ]
+        },
+        {
+          "name": "Ancillary Order - Services",
+          "item": [
+            {
+              "name": "OrderRetrieve by OrderId",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "const xml2js = require('xml2js');",
+                      "const xmlContent = pm.response.text();",
+                      "",
+                      "// Require the necessary xml2js components",
+                      "const parseString = require('xml2js').parseString;",
+                      "const stripPrefix = require('xml2js').processors.stripPrefix;",
+                      "",
+                      "parseString(xmlContent, {",
+                      "    // Optional configuration for cleaner access",
+                      "    tagNameProcessors: [stripPrefix],",
+                      "    explicitArray: false,",
+                      "    ignoreAttrs: false",
+                      "}, function (err, result) {",
+                      "    if (err) {",
+                      "        console.error('Error parsing XML:', err);",
+                      "        return;",
+                      "    }",
+                      "    console.log(result);",
+                      "",
+                      "    // Now 'result' is your fully parsed JavaScript object.",
+                      "    // We wrap this in a try-catch block in case the path is missing in some responses.",
+                      "    try {",
+                      "        // Navigate to Offer list",
+                      "        let orderId = result.IATA_OrderViewRS.Response.Order.OrderID;",
+                      "        pm.environment.set(`orderId`, orderId);",
+                      "",
+                      "        let totalPrice = result.IATA_OrderViewRS.Response.Order.TotalPrice.TotalAmount._;",
+                      "        let totalCurCode = result.IATA_OrderViewRS.Response.Order.TotalPrice.TotalAmount.$.CurCode;",
+                      "",
+                      "        let orderItems = result.IATA_OrderViewRS.Response.Order.OrderItem;",
+                      "        // Always array",
+                      "        if (!Array.isArray(orderItems)) {",
+                      "            orderItems = [orderItems];",
+                      "        }",
+                      "",
+                      "        orderItems.forEach((id, index) => {",
+                      "            pm.environment.set(`orderItemId${index}`, id.OrderItemID);",
+                      "        });",
+                      "",
+                      "        console.log('TotalPrice: ' + totalPrice);",
+                      "        console.log('Currency Code:' + totalCurCode);",
+                      "        pm.environment.set(`totalPrice`, totalPrice);",
+                      "        pm.environment.set(`totalCurCode`, totalCurCode);",
+                      "",
+                      "    } catch (e) {",
+                      "        console.error('Could not find the expected path in the XML structure:', e.message);",
+                      "        console.log('Full parsed object structure:', result); // Log the whole object to debug the path",
+                      "    }",
+                      "});",
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "let date = new Date();",
+                      "date.setDate(date.getDate() + 10);",
+                      "",
+                      "let year = date.getFullYear();",
+                      "let month = String(date.getMonth() + 1).padStart(2, '0');",
+                      "let day = String(date.getDate()).padStart(2, '0');",
+                      "",
+                      "let arrivalDate = `${year}-${month}-${day}`;",
+                      "",
+                      "date.setDate(date.getDate() + 1);",
+                      "let yearD = date.getFullYear();",
+                      "let monthD = String(date.getMonth() + 1).padStart(2, '0');",
+                      "let dayD = String(date.getDate()).padStart(2, '0');",
+                      "",
+                      "let departureDate = `${yearD}-${monthD}-${dayD}`;",
+                      "",
+                      "pm.environment.set(\"arrivalDate\", arrivalDate);",
+                      "pm.environment.set(\"departureDate\", departureDate);"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "x-SalesChannel",
+                    "value": "{{x-saleschannel}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-tenant",
+                    "value": "{{tenant}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-api-key",
+                    "value": "{{x-api-key}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<IATA_OrderRetrieveRQ xmlns=\"http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage\" xmlns:ns2=\"http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes\" xmlns:ns3=\"http://www.w3.org/2000/09/xmldsig#\">\n    <!-- Distribution Chain -->\n    <DistributionChain>\n        <ns2:DistributionChainLink>\n            <ns2:Ordinal>1</ns2:Ordinal>\n            <ns2:OrgRole>Seller</ns2:OrgRole>\n            <ns2:ParticipatingOrg>\n                <ns2:Name>Travel Agency XYZ</ns2:Name>\n                <ns2:OrgID>SELLER123</ns2:OrgID>\n            </ns2:ParticipatingOrg>\n        </ns2:DistributionChainLink>\n    </DistributionChain>\n    <!-- Payload Attributes -->\n    <!-- optional -->\n    <PayloadAttributes>\n        <ns2:CorrelationID>{{$randomUUID}}</ns2:CorrelationID>\n        <ns2:Timestamp>2025-11-05T10:00:00Z</ns2:Timestamp>\n        <ns2:TrxID>TRX-123456789</ns2:TrxID>\n        <ns2:VersionNumber>21.3</ns2:VersionNumber>\n    </PayloadAttributes>\n    <Request>\n        <ns2:OrderValidationFilterCriteria>\n            <ns2:OrderFilterCriteria>\n                <ns2:OrderID>{{orderId}}</ns2:OrderID>\n                <ns2:OwnerCode>VS</ns2:OwnerCode>\n            </ns2:OrderFilterCriteria>\n        </ns2:OrderValidationFilterCriteria>\n    </Request>\n</IATA_OrderRetrieveRQ>",
+                  "options": {
+                    "raw": {
+                      "language": "xml"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ndc-gateway-url}}/v21.3.5/OrderRetrieve",
+                  "host": [
+                    "{{ndc-gateway-url}}"
+                  ],
+                  "path": [
+                    "v21.3.5",
+                    "OrderRetrieve"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "/ServiceList For Order",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "let jsonData = xml2Json(pm.response.text());",
+                      "",
+                      "let serviceReshopOffer = jsonData['ns2:IATA_ServiceListRS']['ns2:Response'].ALaCarteOffer;",
+                      "",
+                      "pm.collectionVariables.set(\"reshopOfferId\", serviceReshopOffer.OfferID);",
+                      "",
+                      "let reshopOfferItems = Array.isArray(serviceReshopOffer.OfferItem) ? serviceReshopOffer.OfferItem : [serviceReshopOffer.OfferItem];",
+                      "",
+                      "reshopOfferItems.forEach((item, index) => {",
+                      "    pm.collectionVariables.set(",
+                      "            `reshopOfferItemId${index}`,",
+                      "            item.OfferItemID",
+                      "        );",
+                      "    pm.collectionVariables.set(",
+                      "            `reshopOfferItemPrice${index}`,",
+                      "            item.UnitPrice.TotalAmount._",
+                      "        );",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "x-SalesChannel",
+                    "value": "{{x-saleschannel}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-tenant",
+                    "value": "{{tenant}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-api-key",
+                    "value": "{{x-api-key}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<IATA_ServiceListRQ xmlns=\"http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage\"\n                    xmlns:cns=\"http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes\">\n    <!-- Distribution Chain -->\n    <DistributionChain>\n        <cns:DistributionChainLink>\n            <cns:Ordinal>1</cns:Ordinal>\n            <cns:OrgRole>Seller</cns:OrgRole>\n            <cns:ParticipatingOrg>\n                <cns:Name>Travel Agency XYZ123511</cns:Name>\n                <cns:OrgID>SELLER123</cns:OrgID>\n            </cns:ParticipatingOrg>\n        </cns:DistributionChainLink>\n    </DistributionChain>\n    <!-- Payload Attributes -->\n    <!-- Request -->\n    <Request>\n        <cns:ServiceListCoreRequest xmlns=\"http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes\">\n            <cns:OrderRequest>\n                <cns:Order>\n                    <cns:OrderID>{{orderId}}</cns:OrderID>\n                    <cns:OrderItem>\n                        <cns:OrderItemID>{{orderItemId0}}</cns:OrderItemID>\n                    </cns:OrderItem>\n                    <cns:OwnerCode>VS</cns:OwnerCode>\n                </cns:Order>\n            </cns:OrderRequest>\n        </cns:ServiceListCoreRequest>\n        <!-- Response Parameters -->\n        <cns:ResponseParameters>\n            <cns:CurParameter>\n                <cns:CurCode>USD</cns:CurCode>\n            </cns:CurParameter>\n            <cns:LangUsage>\n                <cns:LangCode>en</cns:LangCode>\n            </cns:LangUsage>\n        </cns:ResponseParameters>\n    </Request>\n</IATA_ServiceListRQ>",
+                  "options": {
+                    "raw": {
+                      "language": "xml"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ndc-gateway-url}}/v21.3.5/ServiceList",
+                  "host": [
+                    "{{ndc-gateway-url}}"
+                  ],
+                  "path": [
+                    "v21.3.5",
+                    "ServiceList"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "/OrderChange for ServiceList",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "x-SalesChannel",
+                    "value": "{{x-saleschannel}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-tenant",
+                    "value": "{{tenant}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-api-key",
+                    "value": "{{x-api-key}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<IATA_OrderChangeRQ xmlns=\"http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage\" xmlns:cns=\"http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes\" xmlns:ns3=\"http://www.w3.org/2000/09/xmldsig#\">\n    <!-- Distribution Chain -->\n    <DistributionChain>\n        <cns:DistributionChainLink>\n            <cns:Ordinal>1</cns:Ordinal>\n            <cns:OrgRole>Seller</cns:OrgRole>\n            <cns:ParticipatingOrg>\n                <cns:Name>Travel Agency XYZ</cns:Name>\n                <cns:OrgID>Seller123</cns:OrgID>\n            </cns:ParticipatingOrg>\n        </cns:DistributionChainLink>\n    </DistributionChain>\n    <!-- Payload Attributes -->\n    <!-- Request -->\n    <Request>\n        <cns:ChangeOrderChoice>\n            <cns:AcceptSelectedQuotedOfferList>\n                <cns:SelectedPricedOffer>\n                    <cns:OfferRefID>{{reshopOfferId}}</cns:OfferRefID>\n                    <cns:OwnerCode>VS</cns:OwnerCode>\n                    <!-- optional -->\n                    <cns:SelectedOfferItem>\n                        <cns:OfferItemRefID>{{reshopOfferItemId0}}</cns:OfferItemRefID>\n                        <cns:PaxRefID>PAX1</cns:PaxRefID>\n                        <cns:SelectedALaCarteOfferItem>\n                            <cns:Qty>1</cns:Qty>\n                        </cns:SelectedALaCarteOfferItem>\n                    </cns:SelectedOfferItem>\n                </cns:SelectedPricedOffer>\n            </cns:AcceptSelectedQuotedOfferList>\n        </cns:ChangeOrderChoice>\n        <cns:Order>\n            <cns:OrderID>{{orderId}}</cns:OrderID>\n            <cns:OwnerCode>VS</cns:OwnerCode>\n        </cns:Order>\n        <cns:PaymentFunctions>\n            <cns:PaymentProcessingDetails>\n                <cns:Amount CurCode=\"USD\">{{reshopOfferItemPrice0}}</cns:Amount>\n                <cns:PaymentMethod>\n                    <cns:OfflinePayment>\n                        <cns:PaymentTypeCode>CA</cns:PaymentTypeCode>\n                    </cns:OfflinePayment>\n                </cns:PaymentMethod>\n            </cns:PaymentProcessingDetails>\n        </cns:PaymentFunctions>\n    </Request>\n</IATA_OrderChangeRQ>",
+                  "options": {
+                    "raw": {
+                      "language": "xml"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ndc-gateway-url}}/v21.3.5/OrderChange",
+                  "host": [
+                    "{{ndc-gateway-url}}"
+                  ],
+                  "path": [
+                    "v21.3.5",
+                    "OrderChange"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Ancillary Order - Seats",
+          "item": [
+            {
+              "name": "OrderRetrieve by OrderId",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "const xml2js = require('xml2js');",
+                      "const xmlContent = pm.response.text();",
+                      "",
+                      "// Require the necessary xml2js components",
+                      "const parseString = require('xml2js').parseString;",
+                      "const stripPrefix = require('xml2js').processors.stripPrefix;",
+                      "",
+                      "parseString(xmlContent, {",
+                      "    // Optional configuration for cleaner access",
+                      "    tagNameProcessors: [stripPrefix],",
+                      "    explicitArray: false,",
+                      "    ignoreAttrs: false",
+                      "}, function (err, result) {",
+                      "    if (err) {",
+                      "        console.error('Error parsing XML:', err);",
+                      "        return;",
+                      "    }",
+                      "    console.log(result);",
+                      "",
+                      "    // Now 'result' is your fully parsed JavaScript object.",
+                      "    // We wrap this in a try-catch block in case the path is missing in some responses.",
+                      "    try {",
+                      "        // Navigate to Offer list",
+                      "        let orderId = result.IATA_OrderViewRS.Response.Order.OrderID;",
+                      "        pm.environment.set(`orderId`, orderId);",
+                      "",
+                      "        let totalPrice = result.IATA_OrderViewRS.Response.Order.TotalPrice.TotalAmount._;",
+                      "        let totalCurCode = result.IATA_OrderViewRS.Response.Order.TotalPrice.TotalAmount.$.CurCode;",
+                      "",
+                      "        let orderItems = result.IATA_OrderViewRS.Response.Order.OrderItem;",
+                      "        // Always array",
+                      "        if (!Array.isArray(orderItems)) {",
+                      "            orderItems = [orderItems];",
+                      "        }",
+                      "",
+                      "        orderItems.forEach((id, index) => {",
+                      "            pm.environment.set(`orderItemId${index}`, id.OrderItemID);",
+                      "        });",
+                      "",
+                      "        console.log('TotalPrice: ' + totalPrice);",
+                      "        console.log('Currency Code:' + totalCurCode);",
+                      "        pm.environment.set(`totalPrice`, totalPrice);",
+                      "        pm.environment.set(`totalCurCode`, totalCurCode);",
+                      "",
+                      "    } catch (e) {",
+                      "        console.error('Could not find the expected path in the XML structure:', e.message);",
+                      "        console.log('Full parsed object structure:', result); // Log the whole object to debug the path",
+                      "    }",
+                      "});",
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "let date = new Date();",
+                      "date.setDate(date.getDate() + 10);",
+                      "",
+                      "let year = date.getFullYear();",
+                      "let month = String(date.getMonth() + 1).padStart(2, '0');",
+                      "let day = String(date.getDate()).padStart(2, '0');",
+                      "",
+                      "let arrivalDate = `${year}-${month}-${day}`;",
+                      "",
+                      "date.setDate(date.getDate() + 1);",
+                      "let yearD = date.getFullYear();",
+                      "let monthD = String(date.getMonth() + 1).padStart(2, '0');",
+                      "let dayD = String(date.getDate()).padStart(2, '0');",
+                      "",
+                      "let departureDate = `${yearD}-${monthD}-${dayD}`;",
+                      "",
+                      "pm.environment.set(\"arrivalDate\", arrivalDate);",
+                      "pm.environment.set(\"departureDate\", departureDate);"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "x-SalesChannel",
+                    "value": "{{x-saleschannel}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-tenant",
+                    "value": "{{tenant}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-api-key",
+                    "value": "{{x-api-key}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<IATA_OrderRetrieveRQ xmlns=\"http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage\" xmlns:ns2=\"http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes\" xmlns:ns3=\"http://www.w3.org/2000/09/xmldsig#\">\n    <!-- Distribution Chain -->\n    <DistributionChain>\n        <ns2:DistributionChainLink>\n            <ns2:Ordinal>1</ns2:Ordinal>\n            <ns2:OrgRole>Seller</ns2:OrgRole>\n            <ns2:ParticipatingOrg>\n                <ns2:Name>Travel Agency XYZ</ns2:Name>\n                <ns2:OrgID>SELLER123</ns2:OrgID>\n            </ns2:ParticipatingOrg>\n        </ns2:DistributionChainLink>\n    </DistributionChain>\n    <!-- Payload Attributes -->\n    <!-- optional -->\n    <PayloadAttributes>\n        <ns2:CorrelationID>{{$randomUUID}}</ns2:CorrelationID>\n        <ns2:Timestamp>2025-11-05T10:00:00Z</ns2:Timestamp>\n        <ns2:TrxID>TRX-123456789</ns2:TrxID>\n        <ns2:VersionNumber>21.3</ns2:VersionNumber>\n    </PayloadAttributes>\n    <Request>\n        <ns2:OrderValidationFilterCriteria>\n            <ns2:OrderFilterCriteria>\n                <ns2:OrderID>{{orderId}}</ns2:OrderID>\n                <ns2:OwnerCode>VS</ns2:OwnerCode>\n            </ns2:OrderFilterCriteria>\n        </ns2:OrderValidationFilterCriteria>\n    </Request>\n</IATA_OrderRetrieveRQ>",
+                  "options": {
+                    "raw": {
+                      "language": "xml"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ndc-gateway-url}}/v21.3.5/OrderRetrieve",
+                  "host": [
+                    "{{ndc-gateway-url}}"
+                  ],
+                  "path": [
+                    "v21.3.5",
+                    "OrderRetrieve"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "SeatAvailability [OW] [1ADT]",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "let jsonData = xml2Json(pm.response.text());",
+                      "",
+                      "let seatReshopOffer = jsonData['ns2:IATA_SeatAvailabilityRS']['ns2:Response'].ALaCarteOffer;",
+                      "",
+                      "pm.collectionVariables.set(\"reshopOfferId\", seatReshopOffer.OfferID);"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "x-SalesChannel",
+                    "value": "{{x-saleschannel}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-tenant",
+                    "value": "{{tenant}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-api-key",
+                    "value": "{{x-api-key}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<IATA_SeatAvailabilityRQ xmlns=\"http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage\"\n                    xmlns:cns=\"http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes\">\n    <!-- Distribution Chain -->\n    <DistributionChain>\n        <cns:DistributionChainLink>\n            <cns:Ordinal>1</cns:Ordinal>\n            <cns:OrgRole>Seller</cns:OrgRole>\n            <cns:ParticipatingOrg>\n                <cns:Name>Travel Agency XYZ123511</cns:Name>\n                <cns:OrgID>SELLER123</cns:OrgID>\n            </cns:ParticipatingOrg>\n        </cns:DistributionChainLink>\n    </DistributionChain>\n    <!-- Payload Attributes -->\n    <!-- Request -->\n    <Request>\n        <cns:SeatAvailCoreRequest xmlns=\"http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes\">\n            <cns:OrderRequest>\n                <cns:Order>\n                    <cns:OrderID>{{orderId}}</cns:OrderID>\n                    <cns:OrderItem>\n                        <cns:OrderItemID>{{orderItemId0}}</cns:OrderItemID>\n                    </cns:OrderItem>\n                    <cns:OwnerCode>DX</cns:OwnerCode>\n                </cns:Order>\n            </cns:OrderRequest>\n        </cns:SeatAvailCoreRequest>\n    </Request>\n</IATA_SeatAvailabilityRQ>",
+                  "options": {
+                    "raw": {
+                      "language": "xml"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ndc-gateway-url}}/v21.3.5/SeatAvailability",
+                  "host": [
+                    "{{ndc-gateway-url}}"
+                  ],
+                  "path": [
+                    "v21.3.5",
+                    "SeatAvailability"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "OrderChange [OW] [1ADT] [PAY]",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "x-SalesChannel",
+                    "value": "{{x-saleschannel}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-tenant",
+                    "value": "{{tenant}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-api-key",
+                    "value": "{{x-api-key}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<IATA_OrderChangeRQ xmlns=\"http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage\" xmlns:cns=\"http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes\" xmlns:ns3=\"http://www.w3.org/2000/09/xmldsig#\">\n    <!-- Distribution Chain -->\n    <DistributionChain>\n        <cns:DistributionChainLink>\n            <cns:Ordinal>1</cns:Ordinal>\n            <cns:OrgRole>Seller</cns:OrgRole>\n            <cns:ParticipatingOrg>\n                <cns:Name>Travel Agency XYZ</cns:Name>\n                <cns:OrgID>Seller123</cns:OrgID>\n            </cns:ParticipatingOrg>\n        </cns:DistributionChainLink>\n    </DistributionChain>\n    <!-- Payload Attributes -->\n    <!-- Request -->\n    <Request>\n        <cns:ChangeOrderChoice>\n            <cns:AcceptSelectedQuotedOfferList>\n                <cns:SelectedPricedOffer>\n                    <cns:OfferRefID>{{reshopOfferId}}</cns:OfferRefID>\n                    <cns:OwnerCode>VS</cns:OwnerCode>\n                    <!-- optional -->\n                    <cns:SelectedOfferItem>\n                        <cns:OfferItemRefID>8280af30-656c-41bc-b3f0-10a8f266f93d</cns:OfferItemRefID>\n                        <cns:PaxRefID>PAX1</cns:PaxRefID>\n                        <cns:SelectedSeat>\n                            <cns:ColumnID>A</cns:ColumnID>\n                            <cns:SeatRowNumber>3</cns:SeatRowNumber>\n                        </cns:SelectedSeat>\n                    </cns:SelectedOfferItem>\n                </cns:SelectedPricedOffer>\n            </cns:AcceptSelectedQuotedOfferList>\n        </cns:ChangeOrderChoice>\n        <cns:Order>\n            <cns:OrderID>{{orderId}}</cns:OrderID>\n            <cns:OwnerCode>VS</cns:OwnerCode>\n        </cns:Order>\n        <cns:PaymentFunctions>\n            <cns:PaymentProcessingDetails>\n                <cns:Amount CurCode=\"USD\">{{totalPrice}}</cns:Amount>\n                <cns:PaymentMethod>\n                    <cns:OfflinePayment>\n                        <cns:PaymentTypeCode>CA</cns:PaymentTypeCode>\n                    </cns:OfflinePayment>\n                </cns:PaymentMethod>\n            </cns:PaymentProcessingDetails>\n        </cns:PaymentFunctions>\n    </Request>\n</IATA_OrderChangeRQ>",
+                  "options": {
+                    "raw": {
+                      "language": "xml"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ndc-gateway-url}}/v21.3.5/OrderChange",
+                  "host": [
+                    "{{ndc-gateway-url}}"
+                  ],
+                  "path": [
+                    "v21.3.5",
+                    "OrderChange"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Ancillary Offer - Services",
+          "item": [
+            {
+              "name": "AirShoppingRq OW [1 ADT, 1 CHD, 1 INF]",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "const xml2js = require('xml2js');",
+                      "const xmlContent = pm.response.text();",
+                      "",
+                      "// Require the necessary xml2js components",
+                      "const parseString = require('xml2js').parseString;",
+                      "const stripPrefix = require('xml2js').processors.stripPrefix;",
+                      "",
+                      "parseString(xmlContent, {",
+                      "    // Optional configuration for cleaner access",
+                      "    tagNameProcessors: [stripPrefix],",
+                      "    explicitArray: false,",
+                      "    ignoreAttrs: true",
+                      "}, function (err, result) {",
+                      "    if (err) {",
+                      "        console.error('Error parsing XML:', err);",
+                      "        return;",
+                      "    }",
+                      "",
+                      "    // Now 'result' is your fully parsed JavaScript object.",
+                      "    // We wrap this in a try-catch block in case the path is missing in some responses.",
+                      "    try {",
+                      "        // Navigate to Offer list",
+                      "        let offers = result.IATA_AirShoppingRS.Response.OffersGroup.CarrierOffers.Offer;",
+                      "",
+                      "        // Always array",
+                      "        if (!Array.isArray(offers)) {",
+                      "            offers = [offers];",
+                      "        }",
+                      "",
+                      "        let offerIds = [];",
+                      "        let offerItemsByOffer = []; // nested list",
+                      "",
+                      "        offers.forEach(offer => {",
+                      "",
+                      "            // Store ID",
+                      "            offerIds.push(offer.OfferID);",
+                      "",
+                      "            // Extract OfferItem list",
+                      "            let items = offer.OfferItem;",
+                      "            if (!Array.isArray(items)) {",
+                      "                items = [items];",
+                      "            }",
+                      "",
+                      "            // Extract OfferItemID for this offer",
+                      "            let itemIds = items.map(i => i.OfferItemID);",
+                      "",
+                      "            offerItemsByOffer.push(itemIds);",
+                      "        });",
+                      "",
+                      "        // Save to environment",
+                      "        pm.environment.set(\"offerIds\", JSON.stringify(offerIds));",
+                      "        pm.environment.set(\"offerItemsByOffer\", JSON.stringify(offerItemsByOffer));",
+                      "",
+                      "",
+                      "        offerIds.forEach((id, index) => {",
+                      "            pm.environment.set(`offerId${index}`, id);",
+                      "        });",
+                      "",
+                      "        for (let i = 0; i < offerItemsByOffer.length; i++) {",
+                      "            for (let j = 0; j < offerItemsByOffer[i].length; j++) {",
+                      "                pm.environment.set(`offerItemId${i}_${j}`, offerItemsByOffer[i][j]);",
+                      "                console.log(offerItemsByOffer[i][j]);",
+                      "            }",
+                      "        }",
+                      "",
+                      "        console.log(\"Offer IDs:\", offerIds);",
+                      "        {{offerItemId0_1}}(\"Offer Items By Offer:\", offerItemsByOffer);",
+                      "",
+                      "    } catch (e) {",
+                      "        console.error('Could not find the expected path in the XML structure:', e.message);",
+                      "        console.log('Full parsed object structure:', result); // Log the whole object to debug the path",
+                      "    }",
+                      "});",
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "let departureDate = new Date();",
+                      "departureDate.setDate(departureDate.getDate() + 7);",
+                      "",
+                      "let returnDate = new Date(departureDate);",
+                      "returnDate.setDate(returnDate.getDate() + 7);",
+                      "",
+                      "// Format to YYYY-MM-DD",
+                      "pm.variables.set('departureDate', departureDate.toISOString().split('T')[0]);",
+                      "pm.variables.set('returnDate', returnDate.toISOString().split('T')[0]);"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "x-SalesChannel",
+                    "value": "{{x-saleschannel}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-tenant",
+                    "value": "{{tenant}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-API-Key",
+                    "value": "{{x-api-key}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<IATA_AirShoppingRQ xmlns=\"http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage\" \n                     xmlns:cns=\"http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes\">\n    \n    <!-- Distribution Chain -->\n    <DistributionChain>\n        <cns:DistributionChainLink>\n            <cns:Ordinal>1</cns:Ordinal>\n            <cns:OrgRole>Seller</cns:OrgRole>\n            <cns:ParticipatingOrg>\n                <cns:Name>Travel Agency XYZ</cns:Name>\n                <cns:OrgID>SELLER123</cns:OrgID>\n            </cns:ParticipatingOrg>\n        </cns:DistributionChainLink>\n    </DistributionChain>\n    \n    <!-- Payload Attributes -->\n    <!-- optional -->\n    <PayloadAttributes>\n        <cns:CorrelationID>{{$randomUUID}}</cns:CorrelationID>\n        <cns:Timestamp>2025-11-05T10:00:00Z</cns:Timestamp>\n        <cns:TrxID>TRX-123456789</cns:TrxID>\n        <cns:VersionNumber>21.3</cns:VersionNumber>\n    </PayloadAttributes>\n\n    <!-- Request -->\n    <Request>\n        <!-- Flight Request -->\n        <cns:FlightRequest>\n            <cns:FlightRequestOriginDestinationsCriteria>\n                <!-- KRP to CPH -->\n                <cns:OriginDestCriteria>\n                    <cns:DestArrivalCriteria>\n                        <cns:Date>{{arrivalDate}}</cns:Date>\n                        <cns:IATA_LocationCode>{{arrivalCode}}</cns:IATA_LocationCode>\n                    </cns:DestArrivalCriteria>\n                    <cns:OriginDepCriteria>\n                        <cns:Date>{{departureDate}}</cns:Date>\n                        <cns:IATA_LocationCode>{{departureCode}}</cns:IATA_LocationCode>\n                    </cns:OriginDepCriteria>\n                </cns:OriginDestCriteria>\n            </cns:FlightRequestOriginDestinationsCriteria>\n        </cns:FlightRequest>\n        \n        <!-- Passenger List -->\n        <cns:PaxList>\n            <cns:Pax>\n                <cns:PaxID>PAX1</cns:PaxID>\n                <cns:PTC>ADT</cns:PTC>\n            </cns:Pax>\n            <cns:Pax>\n                <cns:PaxID>PAX2</cns:PaxID>\n                <cns:PTC>CHD</cns:PTC>\n            </cns:Pax>\n            <cns:Pax>\n                <cns:PaxID>PAX3</cns:PaxID>\n                <cns:PTC>INF</cns:PTC>\n            </cns:Pax>\n        </cns:PaxList>\n    </Request>\n    \n</IATA_AirShoppingRQ>\n",
+                  "options": {
+                    "raw": {
+                      "language": "xml"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ndc-gateway-url}}/v21.3.5/AirShopping",
+                  "host": [
+                    "{{ndc-gateway-url}}"
+                  ],
+                  "path": [
+                    "v21.3.5",
+                    "AirShopping"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "AirOfferPriceRQ OW [1 ADT, 1 CHD, 1 INF]",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "x-SalesChannel",
+                    "value": "{{x-saleschannel}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-tenant",
+                    "value": "{{tenant}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-API-Key",
+                    "value": "{{x-api-key}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<IATA_OfferPriceRQ xmlns=\"http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage\" \n                     xmlns:cns=\"http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes\">\n    <!-- Distribution Chain -->\n    <DistributionChain>\n        <cns:DistributionChainLink>\n            <cns:Ordinal>1</cns:Ordinal>\n            <cns:OrgRole>Seller</cns:OrgRole>\n            <cns:ParticipatingOrg>\n                <cns:Name>Travel Agency XYZ</cns:Name>\n                <cns:OrgID>SELLER123</cns:OrgID>\n            </cns:ParticipatingOrg>\n        </cns:DistributionChainLink>\n    </DistributionChain>\n    <!-- Payload Attributes -->\n    <!-- optional -->\n    <PayloadAttributes>\n        <cns:CorrelationID>ASR-001-2026</cns:CorrelationID>\n        <cns:Timestamp>2025-11-05T10:00:00Z</cns:Timestamp>\n        <cns:TrxID>TRX-123456789</cns:TrxID>\n        <cns:VersionNumber>21.3</cns:VersionNumber>\n    </PayloadAttributes>\n    <!-- Request -->\n    <Request>\n        <!-- PricedOffer -->\n        <cns:PricedOffer>\n            <cns:SelectedOfferList>\n                <cns:SelectedOffer>\n                    <cns:OfferRefID>{{offerId0}}</cns:OfferRefID>\n                    <cns:OwnerCode>VS</cns:OwnerCode>\n                    <cns:SelectedOfferItem>\n                        <cns:OfferItemRefID>{{offerItemId0_0}}</cns:OfferItemRefID>\n                        <cns:PaxRefID>ADT1</cns:PaxRefID>\n                    </cns:SelectedOfferItem>\n                    <cns:SelectedOfferItem>\n                        <cns:OfferItemRefID>{{offerItemId0_1}}</cns:OfferItemRefID>\n                        <cns:PaxRefID>CHD1</cns:PaxRefID>\n                    </cns:SelectedOfferItem>\n                    <cns:SelectedOfferItem>\n                        <cns:OfferItemRefID>{{offerItemId0_2}}</cns:OfferItemRefID>\n                        <cns:PaxRefID>INF1</cns:PaxRefID>\n                    </cns:SelectedOfferItem>\n                </cns:SelectedOffer>\n            </cns:SelectedOfferList>\n        </cns:PricedOffer>\n    </Request>\n</IATA_OfferPriceRQ>",
+                  "options": {
+                    "raw": {
+                      "language": "xml"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ndc-gateway-url}}/v21.3.5/OfferPrice",
+                  "host": [
+                    "{{ndc-gateway-url}}"
+                  ],
+                  "path": [
+                    "v21.3.5",
+                    "OfferPrice"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "/ServiceList For Offer",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "let jsonData = xml2Json(pm.response.text());",
+                      "",
+                      "let serviceOffer = jsonData['ns2:IATA_ServiceListRS']['ns2:Response'].ALaCarteOffer;",
+                      "",
+                      "let serviceOfferItems = Array.isArray(serviceOffer.OfferItem) ? serviceOffer.OfferItem : [serviceOffer.OfferItem];",
+                      "",
+                      "serviceOfferItems.forEach((item, index) => {",
+                      "    pm.collectionVariables.set(",
+                      "            `serviceOfferItemId${index}`,",
+                      "            item.OfferItemID",
+                      "        );",
+                      "    pm.collectionVariables.set(",
+                      "            `serviceOfferItemPrice${index}`,",
+                      "            item.UnitPrice.TotalAmount._",
+                      "        );",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "x-SalesChannel",
+                    "value": "{{x-saleschannel}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-tenant",
+                    "value": "{{tenant}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-api-key",
+                    "value": "{{x-api-key}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<IATA_ServiceListRQ xmlns=\"http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage\"\n                    xmlns:cns=\"http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes\">\n    <!-- Distribution Chain -->\n    <DistributionChain>\n        <cns:DistributionChainLink>\n            <cns:Ordinal>1</cns:Ordinal>\n            <cns:OrgRole>Seller</cns:OrgRole>\n            <cns:ParticipatingOrg>\n                <cns:Name>Travel Agency XYZ123511</cns:Name>\n                <cns:OrgID>SELLER123</cns:OrgID>\n            </cns:ParticipatingOrg>\n        </cns:DistributionChainLink>\n    </DistributionChain>\n    <!-- Payload Attributes -->\n    <!-- Request -->\n    <Request>\n        <cns:ServiceListCoreRequest xmlns=\"http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes\">\n            <cns:OfferRequest>\n                <cns:Offer>\n                    <cns:OfferID>{{offerId0}}</cns:OfferID>\n                    <cns:OfferItem>\n                        <cns:OfferItemID>{{offerItemId0_0}}</cns:OfferItemID>\n                    </cns:OfferItem>\n                    <cns:OwnerCode>VS</cns:OwnerCode>\n                </cns:Offer>\n            </cns:OfferRequest>\n        </cns:ServiceListCoreRequest>\n        <!-- Response Parameters -->\n        <cns:ResponseParameters>\n            <cns:CurParameter>\n                <cns:CurCode>USD</cns:CurCode>\n            </cns:CurParameter>\n            <cns:LangUsage>\n                <cns:LangCode>en</cns:LangCode>\n            </cns:LangUsage>\n        </cns:ResponseParameters>\n    </Request>\n</IATA_ServiceListRQ>",
+                  "options": {
+                    "raw": {
+                      "language": "xml"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ndc-gateway-url}}/v21.3.5/ServiceList",
+                  "host": [
+                    "{{ndc-gateway-url}}"
+                  ],
+                  "path": [
+                    "v21.3.5",
+                    "ServiceList"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "OrderCreate [OW] [1ADT 1CHD 1INF] [Instant Pay]",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "const xml2js = require('xml2js');",
+                      "const xmlContent = pm.response.text();",
+                      "",
+                      "// Require the necessary xml2js components",
+                      "const parseString = require('xml2js').parseString;",
+                      "const stripPrefix = require('xml2js').processors.stripPrefix;",
+                      "",
+                      "parseString(xmlContent, {",
+                      "    // Optional configuration for cleaner access",
+                      "    tagNameProcessors: [stripPrefix],",
+                      "    explicitArray: false,",
+                      "    ignoreAttrs: false",
+                      "}, function (err, result) {",
+                      "    if (err) {",
+                      "        console.error('Error parsing XML:', err);",
+                      "        return;",
+                      "    }",
+                      "    console.log(result);",
+                      "",
+                      "    // Now 'result' is your fully parsed JavaScript object.",
+                      "    // We wrap this in a try-catch block in case the path is missing in some responses.",
+                      "    try {",
+                      "        // Navigate to Offer list",
+                      "        let orderId = result.IATA_OrderViewRS.Response.Order.OrderID;",
+                      "        pm.environment.set(`orderId`, orderId);",
+                      "",
+                      "        let totalPrice = result.IATA_OrderViewRS.Response.Order.TotalPrice.TotalAmount._;",
+                      "        let totalCurCode = result.IATA_OrderViewRS.Response.Order.TotalPrice.TotalAmount.$.CurCode;",
+                      "",
+                      "        let orderItems = result.IATA_OrderViewRS.Response.Order.OrderItem;",
+                      "        ",
+                      "        // Always array",
+                      "        if (!Array.isArray(orderItems)) {",
+                      "            orderItems = [orderItems];",
+                      "        }",
+                      "",
+                      "        orderItems.forEach((id, index) => {",
+                      "            pm.environment.set(`orderItemId${index}`, id.OrderItemID);",
+                      "        });",
+                      "",
+                      "        console.log('TotalPrice: ' + totalPrice);",
+                      "        console.log('Currency Code:' + totalCurCode);",
+                      "        pm.environment.set(`totalPrice`, totalPrice);",
+                      "        pm.environment.set(`totalCurCode`, totalCurCode);",
+                      "",
+                      "    } catch (e) {",
+                      "        console.error('Could not find the expected path in the XML structure:', e.message);",
+                      "        console.log('Full parsed object structure:', result); // Log the whole object to debug the path",
+                      "    }",
+                      "});",
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "function formatWithTimezone(date, tzOffsetMinutes) {",
+                      "    const pad = (n, width = 2) => String(n).padStart(width, '0');",
+                      "",
+                      "    const sign = tzOffsetMinutes >= 0 ? \"+\" : \"-\";",
+                      "    const abs = Math.abs(tzOffsetMinutes);",
+                      "    const offsetHours = pad(Math.floor(abs / 60));",
+                      "    const offsetMinutes = pad(abs % 60);",
+                      "",
+                      "    return (",
+                      "        date.getFullYear() +",
+                      "        \"-\" + pad(date.getMonth() + 1) +",
+                      "        \"-\" + pad(date.getDate()) +",
+                      "        \"T\" + pad(date.getHours()) +",
+                      "        \":\" + pad(date.getMinutes()) +",
+                      "        \":\" + pad(date.getSeconds()) +",
+                      "        \".\" + pad(date.getMilliseconds(), 3) +",
+                      "        sign + offsetHours + \":\" + offsetMinutes",
+                      "    );",
+                      "}",
+                      "",
+                      "let date = new Date();",
+                      "",
+                      "// Thailand timezone = +07:00 → 420 minutes",
+                      "let th = formatWithTimezone(date, 420);"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "x-SalesChannel",
+                    "value": "{{x-saleschannel}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-tenant",
+                    "value": "{{tenant}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-api-key",
+                    "value": "{{x-api-key}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<IATA_OrderCreateRQ xmlns=\"http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage\" xmlns:ns2=\"http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes\" xmlns:ns3=\"http://www.w3.org/2000/09/xmldsig#\">\n    <DistributionChain>\n        <ns2:DistributionChainLink>\n            <ns2:Ordinal>1</ns2:Ordinal>\n            <ns2:OrgRole>Seller</ns2:OrgRole>\n            <ns2:ParticipatingOrg>\n                <ns2:Name>Travel Agency XYZ</ns2:Name>\n                <ns2:OrgID>Seller123</ns2:OrgID>\n            </ns2:ParticipatingOrg>\n        </ns2:DistributionChainLink>\n    </DistributionChain>\n    <PayloadAttributes>\n        <ns2:CorrelationID>{{$randomUUID}}</ns2:CorrelationID>\n        <ns2:Timestamp>{{today_th}}</ns2:Timestamp>\n        <ns2:TrxID>TRX-123456789</ns2:TrxID>\n        <ns2:VersionNumber>21.3</ns2:VersionNumber>\n    </PayloadAttributes>\n    <POS>\n        <ns2:Country>\n            <ns2:CountryCode>FR</ns2:CountryCode>\n        </ns2:Country>\n    </POS>\n    <Request>\n        <ns2:CreateOrder>\n            <ns2:AcceptSelectedQuotedOfferList>\n                <ns2:SelectedPricedOffer>\n                    <ns2:OfferRefID>{{offerId0}}</ns2:OfferRefID>\n                    <ns2:OwnerCode>VS</ns2:OwnerCode>\n                    <ns2:SelectedOfferItem>\n                        <ns2:OfferItemRefID>{{offerItemId0_0}}</ns2:OfferItemRefID>\n                        <ns2:PaxRefID>PAX1</ns2:PaxRefID>\n                    </ns2:SelectedOfferItem>\n                    <ns2:SelectedOfferItem>\n                        <ns2:OfferItemRefID>{{serviceOfferItemId0}}</ns2:OfferItemRefID>\n                        <ns2:PaxRefID>PAX1</ns2:PaxRefID>\n                    </ns2:SelectedOfferItem>\n                    <ns2:SelectedOfferItem>\n                        <ns2:OfferItemRefID>{{offerItemId0_1}}</ns2:OfferItemRefID>\n                        <ns2:PaxRefID>PAX1</ns2:PaxRefID>\n                    </ns2:SelectedOfferItem>\n                    <ns2:SelectedOfferItem>\n                        <ns2:OfferItemRefID>{{offerItemId0_2}}</ns2:OfferItemRefID>\n                        <ns2:PaxRefID>PAX3</ns2:PaxRefID>\n                    </ns2:SelectedOfferItem>\n                </ns2:SelectedPricedOffer>\n            </ns2:AcceptSelectedQuotedOfferList>\n        </ns2:CreateOrder>\n        <ns2:DataLists>\n            <ns2:ContactInfoList>\n                <ns2:ContactInfo>\n                    <ns2:ContactInfoID>CTCPAX1_1</ns2:ContactInfoID>\n                    <ns2:EmailAddress>\n                        <ns2:ContactTypeText>Home</ns2:ContactTypeText>\n                        <ns2:EmailAddressText>sample@a.com</ns2:EmailAddressText>\n                    </ns2:EmailAddress>\n                    <ns2:Individual>\n                        <ns2:Birthdate>2026-02-02</ns2:Birthdate>\n                        <ns2:GivenName>Firstname</ns2:GivenName>\n                        <ns2:Surname>Surname</ns2:Surname>\n                        <ns2:TitleName>Mr</ns2:TitleName>\n                    </ns2:Individual>\n                    <ns2:Phone>\n                        <ns2:CountryDialingCode>66</ns2:CountryDialingCode>\n                        <ns2:PhoneNumber>12345960</ns2:PhoneNumber>\n                    </ns2:Phone>\n                    <ns2:PostalAddress>\n                        <ns2:CityName>TEST</ns2:CityName>\n                        <ns2:CountryCode>TH</ns2:CountryCode>\n                        <ns2:PostalCode>10210</ns2:PostalCode>\n                    </ns2:PostalAddress>\n                </ns2:ContactInfo>\n            </ns2:ContactInfoList>\n            <ns2:PaxList>\n                <ns2:Pax>\n                    <ns2:IdentityDoc>\n                        <ns2:ExpiryDate>2029-08-13</ns2:ExpiryDate>\n                        <ns2:IdentityDocID>0123456789</ns2:IdentityDocID>\n                        <ns2:IdentityDocTypeCode>PP</ns2:IdentityDocTypeCode>\n                        <ns2:IssuingCountryCode>GB</ns2:IssuingCountryCode>\n                        <ns2:ResidenceCountryCode>GB</ns2:ResidenceCountryCode>\n                        <ns2:Surname>Wayne</ns2:Surname>\n                    </ns2:IdentityDoc>\n                    <ns2:Individual>\n                        <ns2:Birthdate>1994-12-08</ns2:Birthdate>\n                        <ns2:GenderCode>M</ns2:GenderCode>\n                        <ns2:GivenName>Bruce</ns2:GivenName>\n                        <ns2:Surname>Wayne</ns2:Surname>\n                        <ns2:TitleName>MR</ns2:TitleName>\n                    </ns2:Individual>\n                    <ns2:LangUsage>\n                        <ns2:LangCode>FR</ns2:LangCode>\n                    </ns2:LangUsage>\n                    <ns2:PaxID>PAX1</ns2:PaxID>\n                    <ns2:PaxRefID>PAX3</ns2:PaxRefID>\n                    <ns2:PTC>ADT</ns2:PTC>\n                </ns2:Pax>\n                <ns2:Pax>\n                    <ns2:IdentityDoc>\n                        <ns2:ExpiryDate>2029-08-13</ns2:ExpiryDate>\n                        <ns2:IdentityDocID>0123456789</ns2:IdentityDocID>\n                        <ns2:IdentityDocTypeCode>PP</ns2:IdentityDocTypeCode>\n                        <ns2:IssuingCountryCode>GB</ns2:IssuingCountryCode>\n                        <ns2:ResidenceCountryCode>GB</ns2:ResidenceCountryCode>\n                        <ns2:Surname>Wayne</ns2:Surname>\n                    </ns2:IdentityDoc>\n                    <ns2:Individual>\n                        <ns2:Birthdate>2020-01-01</ns2:Birthdate>\n                        <ns2:GenderCode>M</ns2:GenderCode>\n                        <ns2:GivenName>Child</ns2:GivenName>\n                        <ns2:Surname>Wayne</ns2:Surname>\n                        <ns2:TitleName>MR</ns2:TitleName>\n                    </ns2:Individual>\n                    <ns2:LangUsage>\n                        <ns2:LangCode>FR</ns2:LangCode>\n                    </ns2:LangUsage>\n                    <ns2:PaxID>PAX2</ns2:PaxID>\n                    <ns2:PTC>CHD</ns2:PTC>\n                </ns2:Pax>\n                <ns2:Pax>\n                    <ns2:IdentityDoc>\n                        <ns2:ExpiryDate>2029-08-13</ns2:ExpiryDate>\n                        <ns2:IdentityDocID>0123456780</ns2:IdentityDocID>\n                        <ns2:IdentityDocTypeCode>PP</ns2:IdentityDocTypeCode>\n                        <ns2:IssuingCountryCode>GB</ns2:IssuingCountryCode>\n                        <ns2:ResidenceCountryCode>GB</ns2:ResidenceCountryCode>\n                        <ns2:Surname>Wayne</ns2:Surname>\n                    </ns2:IdentityDoc>\n                    <ns2:Individual>\n                        <ns2:Birthdate>2026-01-01</ns2:Birthdate>\n                        <ns2:GenderCode>M</ns2:GenderCode>\n                        <ns2:GivenName>Baby</ns2:GivenName>\n                        <ns2:Surname>Wayne</ns2:Surname>\n                        <ns2:TitleName>MR</ns2:TitleName>\n                    </ns2:Individual>\n                    <ns2:LangUsage>\n                        <ns2:LangCode>FR</ns2:LangCode>\n                    </ns2:LangUsage>\n                    <ns2:PaxID>PAX3</ns2:PaxID>\n                    <ns2:PTC>INF</ns2:PTC>\n                </ns2:Pax>\n            </ns2:PaxList>\n        </ns2:DataLists>\n        <ns2:PaymentFunctions>\n            <ns2:PaymentProcessingDetails>\n                <ns2:Amount CurCode=\"{{totalCurCode}}\">{{totalPrice}}</ns2:Amount>\n                <ns2:PaymentMethod>\n                    <ns2:OfflinePayment>\n                        <ns2:PaymentTypeCode>CA</ns2:PaymentTypeCode>\n                    </ns2:OfflinePayment>\n                </ns2:PaymentMethod>\n            </ns2:PaymentProcessingDetails>\n        </ns2:PaymentFunctions>\n    </Request>\n</IATA_OrderCreateRQ>\n",
+                  "options": {
+                    "raw": {
+                      "language": "xml"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ndc-gateway-url}}/v21.3.5/OrderCreate",
+                  "host": [
+                    "{{ndc-gateway-url}}"
+                  ],
+                  "path": [
+                    "v21.3.5",
+                    "OrderCreate"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Ancillary Offer - Seats",
+          "item": [
+            {
+              "name": "AirShoppingRq OW [1 ADT, 1 CHD, 1 INF]",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "const xml2js = require('xml2js');",
+                      "const xmlContent = pm.response.text();",
+                      "",
+                      "// Require the necessary xml2js components",
+                      "const parseString = require('xml2js').parseString;",
+                      "const stripPrefix = require('xml2js').processors.stripPrefix;",
+                      "",
+                      "parseString(xmlContent, {",
+                      "    // Optional configuration for cleaner access",
+                      "    tagNameProcessors: [stripPrefix],",
+                      "    explicitArray: false,",
+                      "    ignoreAttrs: true",
+                      "}, function (err, result) {",
+                      "    if (err) {",
+                      "        console.error('Error parsing XML:', err);",
+                      "        return;",
+                      "    }",
+                      "",
+                      "    // Now 'result' is your fully parsed JavaScript object.",
+                      "    // We wrap this in a try-catch block in case the path is missing in some responses.",
+                      "    try {",
+                      "        // Navigate to Offer list",
+                      "        let offers = result.IATA_AirShoppingRS.Response.OffersGroup.CarrierOffers.Offer;",
+                      "",
+                      "        // Always array",
+                      "        if (!Array.isArray(offers)) {",
+                      "            offers = [offers];",
+                      "        }",
+                      "",
+                      "        let offerIds = [];",
+                      "        let offerItemsByOffer = []; // nested list",
+                      "",
+                      "        offers.forEach(offer => {",
+                      "",
+                      "            // Store ID",
+                      "            offerIds.push(offer.OfferID);",
+                      "",
+                      "            // Extract OfferItem list",
+                      "            let items = offer.OfferItem;",
+                      "            if (!Array.isArray(items)) {",
+                      "                items = [items];",
+                      "            }",
+                      "",
+                      "            // Extract OfferItemID for this offer",
+                      "            let itemIds = items.map(i => i.OfferItemID);",
+                      "",
+                      "            offerItemsByOffer.push(itemIds);",
+                      "        });",
+                      "",
+                      "        // Save to environment",
+                      "        pm.environment.set(\"offerIds\", JSON.stringify(offerIds));",
+                      "        pm.environment.set(\"offerItemsByOffer\", JSON.stringify(offerItemsByOffer));",
+                      "",
+                      "",
+                      "        offerIds.forEach((id, index) => {",
+                      "            pm.environment.set(`offerId${index}`, id);",
+                      "        });",
+                      "",
+                      "        for (let i = 0; i < offerItemsByOffer.length; i++) {",
+                      "            for (let j = 0; j < offerItemsByOffer[i].length; j++) {",
+                      "                pm.environment.set(`offerItemId${i}_${j}`, offerItemsByOffer[i][j]);",
+                      "                console.log(offerItemsByOffer[i][j]);",
+                      "            }",
+                      "        }",
+                      "",
+                      "        console.log(\"Offer IDs:\", offerIds);",
+                      "        {{offerItemId0_1}}(\"Offer Items By Offer:\", offerItemsByOffer);",
+                      "",
+                      "    } catch (e) {",
+                      "        console.error('Could not find the expected path in the XML structure:', e.message);",
+                      "        console.log('Full parsed object structure:', result); // Log the whole object to debug the path",
+                      "    }",
+                      "});",
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "let departureDate = new Date();",
+                      "departureDate.setDate(departureDate.getDate() + 7);",
+                      "",
+                      "let returnDate = new Date(departureDate);",
+                      "returnDate.setDate(returnDate.getDate() + 7);",
+                      "",
+                      "// Format to YYYY-MM-DD",
+                      "pm.variables.set('departureDate', departureDate.toISOString().split('T')[0]);",
+                      "pm.variables.set('returnDate', returnDate.toISOString().split('T')[0]);"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "x-SalesChannel",
+                    "value": "{{x-saleschannel}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-tenant",
+                    "value": "{{tenant}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-API-Key",
+                    "value": "{{x-api-key}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<IATA_AirShoppingRQ xmlns=\"http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage\" \n                     xmlns:cns=\"http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes\">\n    \n    <!-- Distribution Chain -->\n    <DistributionChain>\n        <cns:DistributionChainLink>\n            <cns:Ordinal>1</cns:Ordinal>\n            <cns:OrgRole>Seller</cns:OrgRole>\n            <cns:ParticipatingOrg>\n                <cns:Name>Travel Agency XYZ</cns:Name>\n                <cns:OrgID>SELLER123</cns:OrgID>\n            </cns:ParticipatingOrg>\n        </cns:DistributionChainLink>\n    </DistributionChain>\n    \n    <!-- Payload Attributes -->\n    <!-- optional -->\n    <PayloadAttributes>\n        <cns:CorrelationID>{{$randomUUID}}</cns:CorrelationID>\n        <cns:Timestamp>2025-11-05T10:00:00Z</cns:Timestamp>\n        <cns:TrxID>TRX-123456789</cns:TrxID>\n        <cns:VersionNumber>21.3</cns:VersionNumber>\n    </PayloadAttributes>\n\n    <!-- Request -->\n    <Request>\n        <!-- Flight Request -->\n        <cns:FlightRequest>\n            <cns:FlightRequestOriginDestinationsCriteria>\n                <!-- KRP to CPH -->\n                <cns:OriginDestCriteria>\n                    <cns:DestArrivalCriteria>\n                        <cns:Date>{{arrivalDate}}</cns:Date>\n                        <cns:IATA_LocationCode>{{arrivalCode}}</cns:IATA_LocationCode>\n                    </cns:DestArrivalCriteria>\n                    <cns:OriginDepCriteria>\n                        <cns:Date>{{departureDate}}</cns:Date>\n                        <cns:IATA_LocationCode>{{departureCode}}</cns:IATA_LocationCode>\n                    </cns:OriginDepCriteria>\n                </cns:OriginDestCriteria>\n            </cns:FlightRequestOriginDestinationsCriteria>\n        </cns:FlightRequest>\n        \n        <!-- Passenger List -->\n        <cns:PaxList>\n            <cns:Pax>\n                <cns:PaxID>PAX1</cns:PaxID>\n                <cns:PTC>ADT</cns:PTC>\n            </cns:Pax>\n            <cns:Pax>\n                <cns:PaxID>PAX2</cns:PaxID>\n                <cns:PTC>CHD</cns:PTC>\n            </cns:Pax>\n            <cns:Pax>\n                <cns:PaxID>PAX3</cns:PaxID>\n                <cns:PTC>INF</cns:PTC>\n            </cns:Pax>\n        </cns:PaxList>\n    </Request>\n    \n</IATA_AirShoppingRQ>\n",
+                  "options": {
+                    "raw": {
+                      "language": "xml"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ndc-gateway-url}}/v21.3.5/AirShopping",
+                  "host": [
+                    "{{ndc-gateway-url}}"
+                  ],
+                  "path": [
+                    "v21.3.5",
+                    "AirShopping"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "AirOfferPriceRQ OW [1 ADT, 1 CHD, 1 INF]",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "x-SalesChannel",
+                    "value": "{{x-saleschannel}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-tenant",
+                    "value": "{{tenant}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-API-Key",
+                    "value": "{{x-api-key}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<IATA_OfferPriceRQ xmlns=\"http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage\" \n                     xmlns:cns=\"http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes\">\n    <!-- Distribution Chain -->\n    <DistributionChain>\n        <cns:DistributionChainLink>\n            <cns:Ordinal>1</cns:Ordinal>\n            <cns:OrgRole>Seller</cns:OrgRole>\n            <cns:ParticipatingOrg>\n                <cns:Name>Travel Agency XYZ</cns:Name>\n                <cns:OrgID>SELLER123</cns:OrgID>\n            </cns:ParticipatingOrg>\n        </cns:DistributionChainLink>\n    </DistributionChain>\n    <!-- Payload Attributes -->\n    <!-- optional -->\n    <PayloadAttributes>\n        <cns:CorrelationID>ASR-001-2026</cns:CorrelationID>\n        <cns:Timestamp>2025-11-05T10:00:00Z</cns:Timestamp>\n        <cns:TrxID>TRX-123456789</cns:TrxID>\n        <cns:VersionNumber>21.3</cns:VersionNumber>\n    </PayloadAttributes>\n    <!-- Request -->\n    <Request>\n        <!-- PricedOffer -->\n        <cns:PricedOffer>\n            <cns:SelectedOfferList>\n                <cns:SelectedOffer>\n                    <cns:OfferRefID>{{offerId0}}</cns:OfferRefID>\n                    <cns:OwnerCode>VS</cns:OwnerCode>\n                    <cns:SelectedOfferItem>\n                        <cns:OfferItemRefID>{{offerItemId0_0}}</cns:OfferItemRefID>\n                        <cns:PaxRefID>ADT1</cns:PaxRefID>\n                    </cns:SelectedOfferItem>\n                    <cns:SelectedOfferItem>\n                        <cns:OfferItemRefID>{{offerItemId0_1}}</cns:OfferItemRefID>\n                        <cns:PaxRefID>CHD1</cns:PaxRefID>\n                    </cns:SelectedOfferItem>\n                    <cns:SelectedOfferItem>\n                        <cns:OfferItemRefID>{{offerItemId0_2}}</cns:OfferItemRefID>\n                        <cns:PaxRefID>INF1</cns:PaxRefID>\n                    </cns:SelectedOfferItem>\n                </cns:SelectedOffer>\n            </cns:SelectedOfferList>\n        </cns:PricedOffer>\n    </Request>\n</IATA_OfferPriceRQ>",
+                  "options": {
+                    "raw": {
+                      "language": "xml"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ndc-gateway-url}}/v21.3.5/OfferPrice",
+                  "host": [
+                    "{{ndc-gateway-url}}"
+                  ],
+                  "path": [
+                    "v21.3.5",
+                    "OfferPrice"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "/SeatAvailability For Offer",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "x-SalesChannel",
+                    "value": "{{x-saleschannel}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-tenant",
+                    "value": "{{tenant}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-api-key",
+                    "value": "{{x-api-key}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<IATA_SeatAvailabilityRQ xmlns=\"http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage\"\n                    xmlns:cns=\"http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes\">\n    <!-- Distribution Chain -->\n    <DistributionChain>\n        <cns:DistributionChainLink>\n            <cns:Ordinal>1</cns:Ordinal>\n            <cns:OrgRole>Seller</cns:OrgRole>\n            <cns:ParticipatingOrg>\n                <cns:Name>Travel Agency XYZ123511</cns:Name>\n                <cns:OrgID>SELLER123</cns:OrgID>\n            </cns:ParticipatingOrg>\n        </cns:DistributionChainLink>\n    </DistributionChain>\n    <!-- Payload Attributes -->\n    <!-- Request -->\n    <Request>\n        <cns:SeatAvailCoreRequest xmlns=\"http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes\">\n            <cns:OfferRequest>\n                <cns:Offer>\n                    <cns:OfferID>{{offerId0}}</cns:OfferID>\n                    <cns:OfferItem>\n                        <cns:OfferItemID>{{offerItemId0_0}}</cns:OfferItemID>\n                    </cns:OfferItem>\n                    <cns:OwnerCode>VS</cns:OwnerCode>\n                </cns:Offer>\n            </cns:OfferRequest>\n        </cns:SeatAvailCoreRequest>\n    </Request>\n</IATA_SeatAvailabilityRQ>",
+                  "options": {
+                    "raw": {
+                      "language": "xml"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ndc-gateway-url}}/v21.3.5/SeatAvailability",
+                  "host": [
+                    "{{ndc-gateway-url}}"
+                  ],
+                  "path": [
+                    "v21.3.5",
+                    "SeatAvailability"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "OrderCreate [OW] [1ADT 1CHD 1INF] [Instant Pay]",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "const xml2js = require('xml2js');",
+                      "const xmlContent = pm.response.text();",
+                      "",
+                      "// Require the necessary xml2js components",
+                      "const parseString = require('xml2js').parseString;",
+                      "const stripPrefix = require('xml2js').processors.stripPrefix;",
+                      "",
+                      "parseString(xmlContent, {",
+                      "    // Optional configuration for cleaner access",
+                      "    tagNameProcessors: [stripPrefix],",
+                      "    explicitArray: false,",
+                      "    ignoreAttrs: false",
+                      "}, function (err, result) {",
+                      "    if (err) {",
+                      "        console.error('Error parsing XML:', err);",
+                      "        return;",
+                      "    }",
+                      "    console.log(result);",
+                      "",
+                      "    // Now 'result' is your fully parsed JavaScript object.",
+                      "    // We wrap this in a try-catch block in case the path is missing in some responses.",
+                      "    try {",
+                      "        // Navigate to Offer list",
+                      "        let orderId = result.IATA_OrderViewRS.Response.Order.OrderID;",
+                      "        pm.environment.set(`orderId`, orderId);",
+                      "",
+                      "        let totalPrice = result.IATA_OrderViewRS.Response.Order.TotalPrice.TotalAmount._;",
+                      "        let totalCurCode = result.IATA_OrderViewRS.Response.Order.TotalPrice.TotalAmount.$.CurCode;",
+                      "",
+                      "        let orderItems = result.IATA_OrderViewRS.Response.Order.OrderItem;",
+                      "        ",
+                      "        // Always array",
+                      "        if (!Array.isArray(orderItems)) {",
+                      "            orderItems = [orderItems];",
+                      "        }",
+                      "",
+                      "        orderItems.forEach((id, index) => {",
+                      "            pm.environment.set(`orderItemId${index}`, id.OrderItemID);",
+                      "        });",
+                      "",
+                      "        console.log('TotalPrice: ' + totalPrice);",
+                      "        console.log('Currency Code:' + totalCurCode);",
+                      "        pm.environment.set(`totalPrice`, totalPrice);",
+                      "        pm.environment.set(`totalCurCode`, totalCurCode);",
+                      "",
+                      "    } catch (e) {",
+                      "        console.error('Could not find the expected path in the XML structure:', e.message);",
+                      "        console.log('Full parsed object structure:', result); // Log the whole object to debug the path",
+                      "    }",
+                      "});",
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "function formatWithTimezone(date, tzOffsetMinutes) {",
+                      "    const pad = (n, width = 2) => String(n).padStart(width, '0');",
+                      "",
+                      "    const sign = tzOffsetMinutes >= 0 ? \"+\" : \"-\";",
+                      "    const abs = Math.abs(tzOffsetMinutes);",
+                      "    const offsetHours = pad(Math.floor(abs / 60));",
+                      "    const offsetMinutes = pad(abs % 60);",
+                      "",
+                      "    return (",
+                      "        date.getFullYear() +",
+                      "        \"-\" + pad(date.getMonth() + 1) +",
+                      "        \"-\" + pad(date.getDate()) +",
+                      "        \"T\" + pad(date.getHours()) +",
+                      "        \":\" + pad(date.getMinutes()) +",
+                      "        \":\" + pad(date.getSeconds()) +",
+                      "        \".\" + pad(date.getMilliseconds(), 3) +",
+                      "        sign + offsetHours + \":\" + offsetMinutes",
+                      "    );",
+                      "}",
+                      "",
+                      "let date = new Date();",
+                      "",
+                      "// Thailand timezone = +07:00 → 420 minutes",
+                      "let th = formatWithTimezone(date, 420);"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "x-SalesChannel",
+                    "value": "{{x-saleschannel}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-tenant",
+                    "value": "{{tenant}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-api-key",
+                    "value": "{{x-api-key}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<IATA_OrderCreateRQ xmlns=\"http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage\" xmlns:ns2=\"http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes\" xmlns:ns3=\"http://www.w3.org/2000/09/xmldsig#\">\n    <DistributionChain>\n        <ns2:DistributionChainLink>\n            <ns2:Ordinal>1</ns2:Ordinal>\n            <ns2:OrgRole>Seller</ns2:OrgRole>\n            <ns2:ParticipatingOrg>\n                <ns2:Name>Travel Agency XYZ</ns2:Name>\n                <ns2:OrgID>Seller123</ns2:OrgID>\n            </ns2:ParticipatingOrg>\n        </ns2:DistributionChainLink>\n    </DistributionChain>\n    <PayloadAttributes>\n        <ns2:CorrelationID>{{$randomUUID}}</ns2:CorrelationID>\n        <ns2:Timestamp>{{today_th}}</ns2:Timestamp>\n        <ns2:TrxID>TRX-123456789</ns2:TrxID>\n        <ns2:VersionNumber>21.3</ns2:VersionNumber>\n    </PayloadAttributes>\n    <POS>\n        <ns2:Country>\n            <ns2:CountryCode>FR</ns2:CountryCode>\n        </ns2:Country>\n    </POS>\n    <Request>\n        <ns2:CreateOrder>\n            <ns2:AcceptSelectedQuotedOfferList>\n                <ns2:SelectedPricedOffer>\n                    <ns2:OfferRefID>{{offerId0}}</ns2:OfferRefID>\n                    <ns2:OwnerCode>VS</ns2:OwnerCode>\n                    <ns2:SelectedOfferItem>\n                        <ns2:OfferItemRefID>{{offerItemId0_0}}</ns2:OfferItemRefID>\n                        <ns2:PaxRefID>PAX1</ns2:PaxRefID>\n                    </ns2:SelectedOfferItem>\n                    <ns2:SelectedOfferItem>\n                        <ns2:OfferItemRefID>{{offerItemId0_1}}</ns2:OfferItemRefID>\n                        <ns2:PaxRefID>PAX1</ns2:PaxRefID>\n                    </ns2:SelectedOfferItem>\n                    <ns2:SelectedOfferItem>\n                        <ns2:OfferItemRefID>{{offerItemId0_2}}</ns2:OfferItemRefID>\n                        <ns2:PaxRefID>PAX3</ns2:PaxRefID>\n                    </ns2:SelectedOfferItem>\n                </ns2:SelectedPricedOffer>\n            </ns2:AcceptSelectedQuotedOfferList>\n        </ns2:CreateOrder>\n        <ns2:DataLists>\n            <ns2:ContactInfoList>\n                <ns2:ContactInfo>\n                    <ns2:ContactInfoID>CTCPAX1_1</ns2:ContactInfoID>\n                    <ns2:EmailAddress>\n                        <ns2:ContactTypeText>Home</ns2:ContactTypeText>\n                        <ns2:EmailAddressText>sample@a.com</ns2:EmailAddressText>\n                    </ns2:EmailAddress>\n                    <ns2:Individual>\n                        <ns2:Birthdate>2026-02-02</ns2:Birthdate>\n                        <ns2:GivenName>Firstname</ns2:GivenName>\n                        <ns2:Surname>Surname</ns2:Surname>\n                        <ns2:TitleName>Mr</ns2:TitleName>\n                    </ns2:Individual>\n                    <ns2:Phone>\n                        <ns2:CountryDialingCode>66</ns2:CountryDialingCode>\n                        <ns2:PhoneNumber>12345960</ns2:PhoneNumber>\n                    </ns2:Phone>\n                    <ns2:PostalAddress>\n                        <ns2:CityName>TEST</ns2:CityName>\n                        <ns2:CountryCode>TH</ns2:CountryCode>\n                        <ns2:PostalCode>10210</ns2:PostalCode>\n                    </ns2:PostalAddress>\n                </ns2:ContactInfo>\n            </ns2:ContactInfoList>\n            <ns2:PaxList>\n                <ns2:Pax>\n                    <ns2:IdentityDoc>\n                        <ns2:ExpiryDate>2029-08-13</ns2:ExpiryDate>\n                        <ns2:IdentityDocID>0123456789</ns2:IdentityDocID>\n                        <ns2:IdentityDocTypeCode>PP</ns2:IdentityDocTypeCode>\n                        <ns2:IssuingCountryCode>GB</ns2:IssuingCountryCode>\n                        <ns2:ResidenceCountryCode>GB</ns2:ResidenceCountryCode>\n                        <ns2:Surname>Wayne</ns2:Surname>\n                    </ns2:IdentityDoc>\n                    <ns2:Individual>\n                        <ns2:Birthdate>1994-12-08</ns2:Birthdate>\n                        <ns2:GenderCode>M</ns2:GenderCode>\n                        <ns2:GivenName>Bruce</ns2:GivenName>\n                        <ns2:Surname>Wayne</ns2:Surname>\n                        <ns2:TitleName>MR</ns2:TitleName>\n                    </ns2:Individual>\n                    <ns2:LangUsage>\n                        <ns2:LangCode>FR</ns2:LangCode>\n                    </ns2:LangUsage>\n                    <ns2:PaxID>PAX1</ns2:PaxID>\n                    <ns2:PaxRefID>PAX3</ns2:PaxRefID>\n                    <ns2:PTC>ADT</ns2:PTC>\n                </ns2:Pax>\n                <ns2:Pax>\n                    <ns2:IdentityDoc>\n                        <ns2:ExpiryDate>2029-08-13</ns2:ExpiryDate>\n                        <ns2:IdentityDocID>0123456789</ns2:IdentityDocID>\n                        <ns2:IdentityDocTypeCode>PP</ns2:IdentityDocTypeCode>\n                        <ns2:IssuingCountryCode>GB</ns2:IssuingCountryCode>\n                        <ns2:ResidenceCountryCode>GB</ns2:ResidenceCountryCode>\n                        <ns2:Surname>Wayne</ns2:Surname>\n                    </ns2:IdentityDoc>\n                    <ns2:Individual>\n                        <ns2:Birthdate>2020-01-01</ns2:Birthdate>\n                        <ns2:GenderCode>M</ns2:GenderCode>\n                        <ns2:GivenName>Child</ns2:GivenName>\n                        <ns2:Surname>Wayne</ns2:Surname>\n                        <ns2:TitleName>MR</ns2:TitleName>\n                    </ns2:Individual>\n                    <ns2:LangUsage>\n                        <ns2:LangCode>FR</ns2:LangCode>\n                    </ns2:LangUsage>\n                    <ns2:PaxID>PAX2</ns2:PaxID>\n                    <ns2:PTC>CHD</ns2:PTC>\n                </ns2:Pax>\n                <ns2:Pax>\n                    <ns2:IdentityDoc>\n                        <ns2:ExpiryDate>2029-08-13</ns2:ExpiryDate>\n                        <ns2:IdentityDocID>0123456780</ns2:IdentityDocID>\n                        <ns2:IdentityDocTypeCode>PP</ns2:IdentityDocTypeCode>\n                        <ns2:IssuingCountryCode>GB</ns2:IssuingCountryCode>\n                        <ns2:ResidenceCountryCode>GB</ns2:ResidenceCountryCode>\n                        <ns2:Surname>Wayne</ns2:Surname>\n                    </ns2:IdentityDoc>\n                    <ns2:Individual>\n                        <ns2:Birthdate>2026-01-01</ns2:Birthdate>\n                        <ns2:GenderCode>M</ns2:GenderCode>\n                        <ns2:GivenName>Baby</ns2:GivenName>\n                        <ns2:Surname>Wayne</ns2:Surname>\n                        <ns2:TitleName>MR</ns2:TitleName>\n                    </ns2:Individual>\n                    <ns2:LangUsage>\n                        <ns2:LangCode>FR</ns2:LangCode>\n                    </ns2:LangUsage>\n                    <ns2:PaxID>PAX3</ns2:PaxID>\n                    <ns2:PTC>INF</ns2:PTC>\n                </ns2:Pax>\n            </ns2:PaxList>\n        </ns2:DataLists>\n        <ns2:PaymentFunctions>\n            <ns2:PaymentProcessingDetails>\n                <ns2:Amount CurCode=\"{{totalCurCode}}\">{{totalPrice}}</ns2:Amount>\n                <ns2:PaymentMethod>\n                    <ns2:OfflinePayment>\n                        <ns2:PaymentTypeCode>CA</ns2:PaymentTypeCode>\n                    </ns2:OfflinePayment>\n                </ns2:PaymentMethod>\n            </ns2:PaymentProcessingDetails>\n        </ns2:PaymentFunctions>\n    </Request>\n</IATA_OrderCreateRQ>\n",
+                  "options": {
+                    "raw": {
+                      "language": "xml"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ndc-gateway-url}}/v21.3.5/OrderCreate",
+                  "host": [
+                    "{{ndc-gateway-url}}"
+                  ],
+                  "path": [
+                    "v21.3.5",
+                    "OrderCreate"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
         }
       ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "x-saleschannel",
+      "value": ""
+    },
+    {
+      "key": "ndc-gateway-url",
+      "value": ""
+    },
+    {
+      "key": "reshopOfferId",
+      "value": ""
+    },
+    {
+      "key": "reshopOfferItemId0",
+      "value": ""
+    },
+    {
+      "key": "reshopOfferItemPrice0",
+      "value": ""
+    },
+    {
+      "key": "reshopOfferItemId1",
+      "value": ""
+    },
+    {
+      "key": "reshopOfferItemPrice1",
+      "value": ""
+    },
+    {
+      "key": "reshopOfferItemId2",
+      "value": ""
+    },
+    {
+      "key": "reshopOfferItemPrice2",
+      "value": ""
+    },
+    {
+      "key": "reshopOfferItemId3",
+      "value": ""
+    },
+    {
+      "key": "reshopOfferItemPrice3",
+      "value": ""
+    },
+    {
+      "key": "reshopOfferItemId4",
+      "value": ""
+    },
+    {
+      "key": "reshopOfferItemPrice4",
+      "value": ""
+    },
+    {
+      "key": "reshopOfferItemId5",
+      "value": ""
+    },
+    {
+      "key": "reshopOfferItemPrice5",
+      "value": ""
+    },
+    {
+      "key": "reshopOfferItemId6",
+      "value": ""
+    },
+    {
+      "key": "reshopOfferItemPrice6",
+      "value": ""
+    },
+    {
+      "key": "reshopOfferItemId7",
+      "value": ""
+    },
+    {
+      "key": "reshopOfferItemPrice7",
+      "value": ""
+    },
+    {
+      "key": "reshopOfferItemId8",
+      "value": ""
+    },
+    {
+      "key": "reshopOfferItemPrice8",
+      "value": ""
+    },
+    {
+      "key": "reshopOfferItemId9",
+      "value": ""
+    },
+    {
+      "key": "reshopOfferItemPrice9",
+      "value": ""
+    },
+    {
+      "key": "reshopOfferItemId10",
+      "value": ""
+    },
+    {
+      "key": "reshopOfferItemPrice10",
+      "value": ""
+    },
+    {
+      "key": "reshopOfferItemId11",
+      "value": ""
+    },
+    {
+      "key": "reshopOfferItemPrice11",
+      "value": ""
+    },
+    {
+      "key": "reshopOfferItemId12",
+      "value": ""
+    },
+    {
+      "key": "reshopOfferItemPrice12",
+      "value": ""
+    },
+    {
+      "key": "reshopOfferItemId13",
+      "value": ""
+    },
+    {
+      "key": "reshopOfferItemPrice13",
+      "value": ""
+    },
+    {
+      "key": "reshopOfferItemId14",
+      "value": ""
+    },
+    {
+      "key": "reshopOfferItemPrice14",
+      "value": ""
+    },
+    {
+      "key": "reshopOfferItemId15",
+      "value": ""
+    },
+    {
+      "key": "reshopOfferItemPrice15",
+      "value": ""
+    },
+    {
+      "key": "reshopOfferItemId16",
+      "value": ""
+    },
+    {
+      "key": "reshopOfferItemPrice16",
+      "value": ""
+    },
+    {
+      "key": "serviceOfferItemId0",
+      "value": ""
+    },
+    {
+      "key": "serviceOfferItemPrice0",
+      "value": ""
+    },
+    {
+      "key": "serviceOfferItemId1",
+      "value": ""
+    },
+    {
+      "key": "serviceOfferItemPrice1",
+      "value": ""
+    },
+    {
+      "key": "serviceOfferItemId2",
+      "value": ""
+    },
+    {
+      "key": "serviceOfferItemPrice2",
+      "value": ""
+    },
+    {
+      "key": "serviceOfferItemId3",
+      "value": ""
+    },
+    {
+      "key": "serviceOfferItemPrice3",
+      "value": ""
+    },
+    {
+      "key": "serviceOfferItemId4",
+      "value": ""
+    },
+    {
+      "key": "serviceOfferItemPrice4",
+      "value": ""
+    },
+    {
+      "key": "serviceOfferItemId5",
+      "value": ""
+    },
+    {
+      "key": "serviceOfferItemPrice5",
+      "value": ""
+    },
+    {
+      "key": "serviceOfferItemId6",
+      "value": ""
+    },
+    {
+      "key": "serviceOfferItemPrice6",
+      "value": ""
+    },
+    {
+      "key": "serviceOfferItemId7",
+      "value": ""
+    },
+    {
+      "key": "serviceOfferItemPrice7",
+      "value": ""
+    },
+    {
+      "key": "serviceOfferItemId8",
+      "value": ""
+    },
+    {
+      "key": "serviceOfferItemPrice8",
+      "value": ""
+    },
+    {
+      "key": "serviceOfferItemId9",
+      "value": ""
+    },
+    {
+      "key": "serviceOfferItemPrice9",
+      "value": ""
+    },
+    {
+      "key": "serviceOfferItemId10",
+      "value": ""
+    },
+    {
+      "key": "serviceOfferItemPrice10",
+      "value": ""
+    },
+    {
+      "key": "serviceOfferItemId11",
+      "value": ""
+    },
+    {
+      "key": "serviceOfferItemPrice11",
+      "value": ""
+    },
+    {
+      "key": "serviceOfferItemId12",
+      "value": ""
+    },
+    {
+      "key": "serviceOfferItemPrice12",
+      "value": ""
+    },
+    {
+      "key": "serviceOfferItemId13",
+      "value": ""
+    },
+    {
+      "key": "serviceOfferItemPrice13",
+      "value": ""
+    },
+    {
+      "key": "serviceOfferItemId14",
+      "value": ""
+    },
+    {
+      "key": "serviceOfferItemPrice14",
+      "value": ""
+    },
+    {
+      "key": "serviceOfferItemId15",
+      "value": ""
+    },
+    {
+      "key": "serviceOfferItemPrice15",
+      "value": ""
+    },
+    {
+      "key": "serviceOfferItemId16",
+      "value": ""
+    },
+    {
+      "key": "serviceOfferItemPrice16",
+      "value": ""
     }
   ]
 }
