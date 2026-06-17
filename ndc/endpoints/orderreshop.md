@@ -14,6 +14,7 @@ title: Order Reshop (OrderReshop)
 The Order Reshop API allows you to search for alternative offers for an existing order. You can use it to:
 - Rebook flights with new dates or routes
 - Cancel specific segments
+- Update passenger names
 - Add new segments
 - Get alternative offers for order modifications
 
@@ -21,7 +22,7 @@ The API returns alternative offers that can be used with `OrderChange` to modify
 
 ## Workflow (NDC API guide)
 
-**Step 7** ([workflow index](../NDC_API.md#ndc-for-offers--orders-workflow)). `POST …/OrderReshop` · yields **`OfferID`** / **`OfferItemID`** for **[Order Quote](orderquote.md)** and **[Order Change](orderchange.md)**. XML samples: **`#orderreshop-rebook`**, **`#orderreshop-cancel-order`**.
+**Step 7** ([workflow index](../NDC_API.md#ndc-for-offers--orders-workflow)). `POST …/OrderReshop` · yields **`OfferID`** / **`OfferItemID`** for **[Order Quote](orderquote.md)** and **[Order Change](orderchange.md)**. XML samples: **`#orderreshop-rebook`**, **`#orderreshop-name-change`**, **`#orderreshop-cancel-order`**.
 
 See [Authentication](../NDC_API.md#authentication) for **`x-tenant`**, **`x-SalesChannel`**, and **`x-api-key`**.
 
@@ -109,6 +110,50 @@ The request body must be a valid `IATA_OrderReshopRQ` XML document following IAT
 </details>
 
 Use **`OrderRefID`** from the active order; **`AddOfferItems`** + optional **`DeleteOrderItem`** replace segments. From **OrderReshopRS**, pass **`ReshopOffer.OfferID`** (and item IDs) into **OrderQuote** / **OrderChange**.
+
+### Name Change Offer
+{: #orderreshop-name-change}
+
+Used when updating passenger names on an existing order. The request follows the same `OrderReshopRQ` envelope and keeps the existing order reference in **`OrderRefID`**. Populate **`UpdatePaxName`** inside **`ReshopOrderChoice`** with the changed passenger details.
+
+<details>
+<summary>Request Payload</summary>
+
+<pre><code class="language-xml">
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;IATA_OrderReshopRQ xmlns=&quot;http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage&quot;
+                    xmlns:cns=&quot;http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes&quot;&gt;
+    &lt;DistributionChain&gt;
+        &lt;cns:DistributionChainLink&gt;
+            &lt;cns:Ordinal&gt;1&lt;/cns:Ordinal&gt;
+            &lt;cns:OrgRole&gt;Seller&lt;/cns:OrgRole&gt;
+            &lt;cns:ParticipatingOrg&gt;
+                &lt;cns:Name&gt;Travel Agency XYZ123511&lt;/cns:Name&gt;
+                &lt;cns:OrgID&gt;SELLER123&lt;/cns:OrgID&gt;
+            &lt;/cns:ParticipatingOrg&gt;
+        &lt;/cns:DistributionChainLink&gt;
+    &lt;/DistributionChain&gt;
+    &lt;Request&gt;
+        &lt;cns:OrderRefID&gt;85796577-7c60-4900-a87d-fa557cf46b24&lt;/cns:OrderRefID&gt;
+        &lt;cns:UpdateOrder&gt;
+            &lt;cns:ReshopOrder&gt;
+                &lt;cns:ReshopOrderChoice&gt;
+                    &lt;cns:UpdatePaxName&gt;
+                        &lt;cns:PaxRefID&gt;PAX1&lt;/cns:PaxRefID&gt;
+                        &lt;cns:GivenName&gt;Jane&lt;/cns:GivenName&gt;
+                        &lt;cns:Surname&gt;Smith&lt;/cns:Surname&gt;
+                        &lt;cns:TitleName&gt;Ms&lt;/cns:TitleName&gt;
+                    &lt;/cns:UpdatePaxName&gt;
+                &lt;/cns:ReshopOrderChoice&gt;
+            &lt;/cns:ReshopOrder&gt;
+        &lt;/cns:UpdateOrder&gt;
+    &lt;/Request&gt;
+&lt;/IATA_OrderReshopRQ&gt;
+</code></pre>
+
+</details>
+
+Set the passenger fields that need to change under **`UpdatePaxName`**. The response remains an `IATA_OrderReshopRS` containing the generated reshop offers for the updated passenger data.
 
 ### Cancel Order
 {: #orderreshop-cancel-order}
@@ -2158,6 +2203,12 @@ Order not found.
 2. Use `AddOfferItems` with `FlightRequest` to specify new flight criteria
 3. Use `DeleteOrderItem` to remove segments to be replaced
 4. Response returns alternative offers matching the new criteria
+
+### Name Changes
+
+1. Provide `OrderRefID` of the existing order
+2. Use `UpdatePaxName` inside `ReshopOrderChoice` to provide the updated passenger name fields
+3. Response returns reshop offers for the passenger name update
 
 ### Canceling Segments
 

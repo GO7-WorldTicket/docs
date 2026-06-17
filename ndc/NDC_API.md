@@ -79,6 +79,7 @@ Phased 1 scenarios cover shopping and pricing offers, creating or confirming ord
 | Create & confirm on-hold booking | `AirShopping` → `OfferPrice` → `OrderCreate`(no payment) → `OrderRetrieve` → `OrderQuote` → `OrderChange` → `OrderRetrieve`.                |
 | Create paid booking              | `AirShopping` → `OfferPrice` → `OrderCreate` (with payment) →`OrderRetrieve`.                                                               |
 | Manage booking — rebook          | `OrderRetrieve` → `OrderReshop` → `OrderQuote` → `OrderChange` → `OrderRetrieve`.                                                           |
+| Manage booking — name change     | `OrderRetrieve` → `OrderReshop` (name change) → `OrderChange` → `OrderRetrieve`.                                                             |
 | Manage booking — cancel          | `OrderRetrieve` → `OrderReshop` (cancel); **`OrderQuote` not used in Phase 1** when refunds are unsupported → `OrderChange` → `OrderRetrieve`. |
 | Retrieve booking                 | `OrderRetrieve` (view only).              |
 
@@ -191,8 +192,9 @@ Typical Phase 1 chain: **AirShopping → OfferPrice → OrderCreate**, then **Or
   - [One-way, instant pay (`OPEN`)](endpoints/orderretrieve.md#orderretrieve-one-way-instant)
   - [Round trip, on hold](endpoints/orderretrieve.md#orderretrieve-round-trip-on-hold)
   - [Round trip, instant pay](endpoints/orderretrieve.md#orderretrieve-round-trip-instant)
-- **7 — [Order Reshop](endpoints/orderreshop.md)** — `POST …/OrderReshop` · alternatives for rebook or cancel
+- **7 — [Order Reshop](endpoints/orderreshop.md)** — `POST …/OrderReshop` · alternatives for rebook, name change, or cancel
   - [Rebook](endpoints/orderreshop.md#orderreshop-rebook)
+  - [Name change offer](endpoints/orderreshop.md#orderreshop-name-change)
   - [Cancel order](endpoints/orderreshop.md#orderreshop-cancel-order)
 - **8 — [Order Quote](endpoints/orderquote.md)** — `POST …/OrderQuote` · quote before **OrderChange**
   - [Rebook quote](endpoints/orderquote.md#orderquote-rebook)
