@@ -1,5 +1,10 @@
 
 ## Changelog
+### 2026-06-28
+
+#### Updated change passenger name type
+- Updated document about change passenger name type (3) for AirBookModifyRQ.
+
 ### 2026-02-22
 
 #### Clarify download all tickets endpoint (`/tickets/confirmation/{rloc}/download`)
