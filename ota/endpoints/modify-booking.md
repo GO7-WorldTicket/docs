@@ -5,7 +5,7 @@ Supported modification types:
 | Operation             | Type | Description                                                                                                                                                                  |
 |-----------------------|------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Cancel passenger      | 2    | Cancels individual passenger. See also [Cancel booking](#cancel-booking)                                                                                                     |
-| Change passenger name | 4    | Changes passenger name. This operation is essential for group bookings when passenger names are unknown at booking creation time and could be updated later after ticketing. |
+| Change passenger name | 3    | Changes passenger name. This operation is essential for group bookings when passenger names are unknown at booking creation time and could be updated later after ticketing. |
 | Change passenger info | 40   | Changes other passenger information other than name.                                                                                                                         |
 | Other                     | 5    | Other modifications such as special services and seats.                                                                                                                      |
 | Split booking         | 7    | Moves passenger or segment into a new booking.                                                                                                                               | 
