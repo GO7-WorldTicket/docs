@@ -390,7 +390,8 @@ Omit **`PaymentFunctions`** for pay-later: the order commonly returns **`DRAFT`*
 </details>
 
 ### Request validation error message
-| Message                           | Reason                                                                                         | 
+
+| Message                           | Reason                                                                                         |
 |-----------------------------------|------------------------------------------------------------------------------------------------|
 | Found duplicate PaxID             | PaxID of each `<Pax>` must be unique                                                           |
 | PaxID are not consecutive numbers | All PaxID's number must be consecutive numbers                                                 |
