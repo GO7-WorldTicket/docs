@@ -352,6 +352,16 @@ Omit **`PaymentFunctions`** for pay-later: the order commonly returns **`DRAFT`*
 
 </details>
 
+### Request validation error message
+| Message                           | Reason                                                                                         | 
+|-----------------------------------|------------------------------------------------------------------------------------------------|
+| Found duplicate PaxID             | PaxID of each `<Pax>` must be unique                                                           |
+| PaxID are not consecutive numbers | All PaxID's number must be consecutive numbers                                                 |
+| PaxId is invalid                  | Input PaxID doesn't follow the standard format, e.g. `PAX1`,`PAX2`                             |
+| Invalid PaxID ordered             | PaxID's number must be assigned to each passengers type in a strictly sequential ADT, CHD, INF |
+| Invalid PTC value: {x}            | Allow only PassengerType(PTC) = `ADT`, `CHD`, or `INF`                                         |
+
+
 ## Response
 
 ### Success Response (200 OK)
