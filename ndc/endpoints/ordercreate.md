@@ -35,6 +35,43 @@ See [Authentication](../NDC_API.md#authentication) for **`x-tenant`**, **`x-Sale
 ## Request Body
 
 The request body must be a valid `IATA_OrderCreateRQ` XML document following IATA NDC v21.3.5 standard.
+- Each `<PaxList>`/`<Pax>` must be ordered by PassengerType in a strictly sequential ADT, CHD, INF
+- Passenger `<PaxID>`'s number must be consecutive numbers
+
+<details>
+    <summary>Example:</summary>
+    <pre><code class="language-xml">
+    &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;
+    &lt;IATA_OrderCreateRQ xmlns=&quot;http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage&quot; xmlns:ns2=&quot;http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes&quot; xmlns:ns3=&quot;http://www.w3.org/2000/09/xmldsig#&quot;&gt;
+         ...
+         &lt;ns2:PaxList&gt;
+            &lt;ns2:Pax&gt;
+               ...
+               &lt;ns2:PaxID&gt;PAX1&lt;/ns2:PaxID&gt;
+               &lt;ns2:PaxRefID&gt;PAX4&lt;/ns2:PaxRefID&gt;
+               &lt;ns2:PTC&gt;ADT&lt;/ns2:PTC&gt;
+            &lt;/ns2:Pax&gt;
+            &lt;ns2:Pax&gt;
+               ...
+               &lt;ns2:PaxID&gt;PAX2&lt;/ns2:PaxID&gt;
+               &lt;ns2:PTC&gt;CHD&lt;/ns2:PTC&gt;
+            &lt;/ns2:Pax&gt;
+            &lt;ns2:Pax&gt;
+               ...
+               &lt;ns2:PaxID&gt;PAX3&lt;/ns2:PaxID&gt;
+               &lt;ns2:PTC&gt;CHD&lt;/ns2:PTC&gt;
+            &lt;/ns2:Pax&gt;
+            &lt;ns2:Pax&gt;
+               ...
+               &lt;ns2:PaxID&gt;PAX4&lt;/ns2:PaxID&gt;
+               &lt;ns2:PTC&gt;INF&lt;/ns2:PTC&gt;
+            &lt;/ns2:Pax&gt;
+         &lt;/ns2:PaxList&gt;
+      &lt;/ns2:DataLists&gt;
+   &lt;/Request&gt;
+&lt;/IATA_OrderCreateRQ&gt;
+</code></pre>
+</details>
 
 ### Pay Later (Holding) Booking
 {: #ordercreate-pay-later}
