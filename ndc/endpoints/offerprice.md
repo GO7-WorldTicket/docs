@@ -15,7 +15,7 @@ The Offer Price API returns detailed pricing information for selected offers fro
 
 ## Workflow (NDC API guide)
 
-**Step 2** ([workflow index](../NDC_API.md#ndc-for-offers--orders-workflow)). `POST …/OfferPrice` · use **`OfferRefID`** (= **`OfferID`**), **`OfferItemRefID`** (= **`OfferItemID`**), **`OwnerCode`**, **`PaxRefID`** from **AirShoppingRS**. Priced offer feeds **[Order Create](ordercreate.md)**. Scenarios: **`#offerprice-one-way-trip`**, **`#offerprice-round-trip`**.
+**Step 2** ([workflow index](../NDC_API.md#ndc-for-offers--orders-workflow)). `POST …/OfferPrice` · use **`OfferRefID`** (= **`OfferID`**), **`OfferItemRefID`** (= **`OfferItemID`**), **`OwnerCode`**, **`PaxRefID`** from **AirShoppingRS**. Priced offer feeds **[Order Create](ordercreate.md)**. Scenarios: **[`#offerprice-one-way-trip`](#offerprice-one-way-trip)**, **[`#offerprice-round-trip`](#offerprice-round-trip)**.
 
 See [Authentication](../NDC_API.md#http-headers) for **`x-tenant`**, **`x-SalesChannel`**, and **`x-api-key`**.
 

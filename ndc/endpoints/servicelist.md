@@ -15,7 +15,7 @@ The Service List API returns ancillary services available for a selected offer o
 
 ## Workflow (NDC API guide)
 
-**Step 5 (Phase 2)** ([workflow index](../NDC_API.md#ndc-for-offers--orders-workflow)). `POST …/ServiceList` · optional Phase 2 ancillary lookup, with the working sequence using **`OrderRequest`** and **`OrderID`** / **`OrderItemID`** / **`OwnerCode`** after **OrderCreate**. **`OfferRequest`** with **`OfferID`** / **`OfferItemID`** / **`OwnerCode`** remains documented as an alternate request shape. Scenarios: **`#servicelist-by-offer`**, **`#servicelist-by-order`**.
+**Step 5 (Phase 2)** ([workflow index](../NDC_API.md#ndc-for-offers--orders-workflow)). `POST …/ServiceList` · optional Phase 2 ancillary lookup, with the working sequence using **`OrderRequest`** and **`OrderID`** / **`OrderItemID`** / **`OwnerCode`** after **OrderCreate**. **`OfferRequest`** with **`OfferID`** / **`OfferItemID`** / **`OwnerCode`** remains documented as an alternate request shape. Scenarios: **[`#servicelist-by-offer`](#servicelist-by-offer)**, **[`#servicelist-by-order`](#servicelist-by-order)**.
 
 The response returns an **`ALaCarteOffer`** with service-priced `OfferItem` rows that can be used in downstream ancillary or change flows.
 
