@@ -17,7 +17,7 @@ The Order Create API creates a new booking order based on selected offers from a
 
 **Step 3** ([workflow index](../NDC_API.md#ndc-for-offers--orders-workflow)). `POST …/OrderCreate` · **`CreateOrder`** → **`AcceptSelectedQuotedOfferList`** using **`OfferRefID`** / **`OfferItemRefID`** / **`OwnerCode`** / **`PaxRefID`** from **OfferPriceRS**. Scenarios: **`#ordercreate-pay-later`**, **`#ordercreate-instant-pay`**.
 
-See [Authentication](../NDC_API.md#authentication) for **`x-tenant`**, **`x-SalesChannel`**, and **`x-api-key`**.
+See [Authentication](../NDC_API.md#http-headers) for **`x-tenant`**, **`x-SalesChannel`**, and **`x-api-key`**.
 
 ## Request
 

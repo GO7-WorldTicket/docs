@@ -13,7 +13,6 @@ title: NDC API Generic Integration Guide
 - [Introduction](#introduction)
   - [Base URLs](#base-urls)
   - [HTTP Headers](#http-headers)
-  - [Authentication](#authentication)
 - [Business Flow](#business-flow)
   - [Phase 1 scenario summary](#phase-1-scenario-summary)
   - [Phase 2 scenario summary](#phase-2-scenario-summary)
@@ -40,7 +39,7 @@ title: NDC API Generic Integration Guide
 
 This document outlines generic integration with the Go7 **NDC Gateway** using **IATA NDC Offers & Orders** XML messages. Schema distribution **21.3** is exposed under the HTTP path **`/v21.3.5`**. Per-message field references also live under [`ndc/endpoints/`](endpoints/airshopping.md).
 
-Requests use **XML bodies** with **`Content-Type: application/xml`** (or `application/xml;charset=UTF-8`). **[Authentication](#authentication)** describes tenant/channel headers and API key usage.
+Requests use **XML bodies** with **`Content-Type: application/xml`** (or `application/xml;charset=UTF-8`). **[Authentication](#http-headers)** describes tenant/channel headers and API key usage.
 
 ## Base URLs
 
@@ -164,7 +163,7 @@ Please update the variables in collection such as x-api-key, x-saleschannel, ten
 
 # NDC for Offers & Orders workflow
 
-Same pattern as **[OTA for Reservation workflow](../ota/OTA_API.md#ota-for-reservation-workflow)**: this section is an **index only**. Each **step** links to the endpoint `.md` file where requests, responses, and scenario anchors live. See **[Authentication](#authentication)**.
+Same pattern as **[OTA for Reservation workflow](../ota/OTA_API.md#ota-for-reservation-workflow)**: this section is an **index only**. Each **step** links to the endpoint `.md` file where requests, responses, and scenario anchors live. See **[Authentication](#http-headers)**.
 
 Typical Phase 1 chain: **AirShopping → OfferPrice → OrderCreate**, then **OrderRetrieve** / **OrderReshop** / **OrderQuote** / **OrderChange** as needed (see [Phase 1 scenario summary](#phase-1-scenario-summary)). Phase 2 adds optional ancillary calls to **SeatAvailability** and **ServiceList** (see [Phase 2 scenario summary](#phase-2-scenario-summary)).
 
@@ -188,10 +187,10 @@ Typical Phase 1 chain: **AirShopping → OfferPrice → OrderCreate**, then **Or
   - [By offer](endpoints/servicelist.md#servicelist-by-offer)
   - [By order](endpoints/servicelist.md#servicelist-by-order)
 - **6 — [Order Retrieve mapping](endpoints/orderretrieve.md)** — `OrderRetrieveRQ` → **`GET /orders/…`** (no gateway `POST`)
-  - [One-way, on hold (`DRAFT`)](endpoints/orderretrieve.md#orderretrieve-one-way-on-hold)
-  - [One-way, instant pay (`OPEN`)](endpoints/orderretrieve.md#orderretrieve-one-way-instant)
-  - [Round trip, on hold](endpoints/orderretrieve.md#orderretrieve-round-trip-on-hold)
-  - [Round trip, instant pay](endpoints/orderretrieve.md#orderretrieve-round-trip-instant)
+  - [One-way, on hold (`DRAFT`)](endpoints/orderretrieve.md#headers)
+  - [One-way, instant pay (`OPEN`)](endpoints/orderretrieve.md#headers)
+  - [Round trip, on hold](endpoints/orderretrieve.md#headers)
+  - [Round trip, instant pay](endpoints/orderretrieve.md#headers)
 - **7 — [Order Reshop](endpoints/orderreshop.md)** — `POST …/OrderReshop` · alternatives for rebook, name change, or cancel
   - [Rebook](endpoints/orderreshop.md#orderreshop-rebook)
   - [Name change offer](endpoints/orderreshop.md#orderreshop-name-change)

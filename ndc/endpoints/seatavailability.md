@@ -19,7 +19,7 @@ The Seat Availability API returns seat map details and seat-linked a la carte of
 
 The response returns **`SeatMap`** plus an **`ALaCarteOffer`** containing seat offer items tied to passengers and segments.
 
-See [Authentication](../NDC_API.md#authentication) for **`x-tenant`**, **`x-SalesChannel`**, and **`x-api-key`**.
+See [Authentication](../NDC_API.md#http-headers) for **`x-tenant`**, **`x-SalesChannel`**, and **`x-api-key`**.
 
 ## Request
 
