@@ -13,6 +13,7 @@ title: NDC API Generic Integration Guide
 - [Introduction](#introduction)
   - [Base URLs](#base-urls)
   - [HTTP Headers](#http-headers)
+  - [Authentication](#http-headers)
 - [Business Flow](#business-flow)
   - [Phase 1 scenario summary](#phase-1-scenario-summary)
   - [Phase 2 scenario summary](#phase-2-scenario-summary)
