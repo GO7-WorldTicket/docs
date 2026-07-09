@@ -15,7 +15,7 @@ The Air Shopping API searches for available flight offers matching your criteria
 
 ## Workflow (NDC API guide)
 
-**Step 1** in the Phased 1 chain ([NDC API — Offers & Orders workflow](../NDC_API.md#ndc-for-offers--orders-workflow)). `POST …/AirShopping` · messages **`IATA_AirShoppingRQ`** / **`IATA_AirShoppingRS`**. Capture **`OfferID`**, **`OfferItemID`**, **`OwnerCode`**, and **`PaxRefID`** for **[Offer Price](offerprice.md)**. Scenario anchors: **`#airshopping-one-way-trip`**, **`#airshopping-round-trip`**.
+**Step 1** in the Phased 1 chain ([NDC API — Offers & Orders workflow](../NDC_API.md#ndc-for-offers--orders-workflow)). `POST …/AirShopping` · messages **`IATA_AirShoppingRQ`** / **`IATA_AirShoppingRS`**. Capture **`OfferID`**, **`OfferItemID`**, **`OwnerCode`**, and **`PaxRefID`** for **[Offer Price](offerprice.md)**. Scenario anchors: **[`#airshopping-one-way-trip`](#airshopping-one-way-trip)**, **[`#airshopping-round-trip`](#airshopping-round-trip)**.
 
 See [Authentication](../NDC_API.md#http-headers) for **`x-tenant`**, **`x-SalesChannel`**, and **`x-api-key`**.
 

@@ -21,7 +21,7 @@ The API validates the order status, processes the changes, and returns the updat
 
 ## Workflow (NDC API guide)
 
-**Step 9** ([workflow index](../NDC_API.md#ndc-for-offers--orders-workflow)). `POST …/OrderChange` · settle payment on **`DRAFT`**, or **`ChangeOrderChoice`** + **`PaymentFunctions`** after a quote ([**Rebook with New Offers**](#orderchange-rebook)). Fragments: **`#orderchange-payment-on-hold`**, **`#orderchange-payment-debit`**, **`#orderchange-payment-credit`**, **`#orderchange-rebook`**, **`#orderchange-rebook-seat-with-payment`**, **`#orderchange-rebook-ancillary-with-payment`**.
+**Step 9** ([workflow index](../NDC_API.md#ndc-for-offers--orders-workflow)). `POST …/OrderChange` · settle payment on **`DRAFT`**, or **`ChangeOrderChoice`** + **`PaymentFunctions`** after a quote ([**Rebook with New Offers**](#orderchange-rebook)). Fragments: **[`#orderchange-payment-on-hold`](#orderchange-payment-on-hold)**, **[`#orderchange-payment-debit`](#orderchange-payment-debit)**, **[`#orderchange-payment-credit`](#orderchange-payment-credit)**, **[`#orderchange-rebook`](#orderchange-rebook)**, **[`#orderchange-rebook-seat-with-payment`](#orderchange-rebook-seat-with-payment)**, **[`#orderchange-rebook-ancillary-with-payment`](#orderchange-rebook-ancillary-with-payment)**.
 
 See [Authentication](../NDC_API.md#http-headers) for **`x-tenant`**, **`x-SalesChannel`**, and **`x-api-key`** on gateway XML calls.
 
