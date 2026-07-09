@@ -19,7 +19,7 @@ The Service List API returns ancillary services available for a selected offer o
 
 The response returns an **`ALaCarteOffer`** with service-priced `OfferItem` rows that can be used in downstream ancillary or change flows.
 
-See [Authentication](../NDC_API.md#authentication) for **`x-tenant`**, **`x-SalesChannel`**, and **`x-api-key`**.
+See [Authentication](../NDC_API.md#http-headers) for **`x-tenant`**, **`x-SalesChannel`**, and **`x-api-key`**.
 
 ## Request
 

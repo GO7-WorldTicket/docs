@@ -17,7 +17,7 @@ The Order Retrieve API returns the current view of an existing order. Use the `O
 
 **Step 6** ([workflow index](../NDC_API.md#ndc-for-offers--orders-workflow)). `POST …/OrderRetrieve` · send `IATA_OrderRetrieveRQ` with either **`OrderID`** or **`BookingID`**. The gateway returns **`IATA_OrderViewRS`**. Scenarios: **`#orderretrieve-by-order-id`**, **`#orderretrieve-by-booking-reference`**.
 
-See [Authentication](../NDC_API.md#authentication) for **`x-tenant`**, **`x-SalesChannel`**, and **`x-api-key`**.
+See [Authentication](../NDC_API.md#http-headers) for **`x-tenant`**, **`x-SalesChannel`**, and **`x-api-key`**.
 
 ## Request
 
