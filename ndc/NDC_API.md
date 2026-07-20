@@ -17,7 +17,6 @@ title: NDC API Generic Integration Guide
 - [Business Flow](#business-flow)
   - [Phase 1 scenario summary](#phase-1-scenario-summary)
   - [Phase 2 scenario summary](#phase-2-scenario-summary)
-  - [NDC Gateway workflow (Phased 1)](#ndc-gateway-workflow-phased-1)
 - [NDC XML (Offers & Orders)](#ndc-xml-offers--orders)
 - [Postman Collection](#postman-collection)
 - [Code Lists](#code-lists)
@@ -31,6 +30,7 @@ title: NDC API Generic Integration Guide
 
 | Change Description                                                  | Changed By              | Change Date |
 |---------------------------------------------------------------------|-------------------------|-------------|
+| Updated Phase 2 add-ancillary flows, workflow images, credit-card PCI payment | Naphachara Rattanawilai | 2026-07-20  |
 | Updated Postman collection with Phase 2 endpoints                   | Tyler Thorin            | 2026-05-19  |
 | Added Phase 2 to the document                                       | Tyler Thorin            | 2026-05-12  |
 | Prepared Postman collection and update API request/response example | Thotsaphorn Phonlabutr  | 2026-05-08  |
@@ -70,7 +70,7 @@ Use `x-api-key` for authentication on NDC Gateway requests.
 
 # Business Flow
 
-Phased 1 scenarios cover shopping and pricing offers, creating or confirming orders, reshop/requote paths, and order retrieve. Phase 2 adds ancillary seat and service lookups using either offer context or order context.
+Phased 1 scenarios cover shopping and pricing offers, creating or confirming orders, reshop/requote paths, and order retrieve. Phase 2 adds ancillary seat and service **addition** using either offer context (price into `OrderCreate`) or order context (`OrderQuote` then `OrderChange`).
 
 ## Phase 1 scenario summary
 
@@ -83,24 +83,30 @@ Phased 1 scenarios cover shopping and pricing offers, creating or confirming ord
 | Manage booking — cancel          | `OrderRetrieve` → `OrderReshop` (cancel); **`OrderQuote` not used in Phase 1** when refunds are unsupported → `OrderChange` → `OrderRetrieve`. |
 | Retrieve booking                 | `OrderRetrieve` (view only).              |
 
-## Phase 2 scenario summary
+### NDC Gateway workflow (Phased 1)
 
-Phase 2 builds on the same base flow as [Phase 1 scenario summary](#phase-1-scenario-summary), but adds ancillary lookup scenarios for seats and services.
+Scenario flow (**NDC Gateway — NDC Workflow Process, Phased 1**). Source Mermaid: [`ndc/mermaid/ndc-phase1-scenario-flow.mmd`](mermaid/ndc-phase1-scenario-flow.mmd).
 
-| Scenario                                          | Message sequence                                                                                      |
-|---------------------------------------------------|-------------------------------------------------------------------------------------------------------|
-| Ancillary lookup by offer — seats                 | `AirShopping` → `OfferPrice` → `SeatAvailability` (`OfferRequest`).                                   |
-| Ancillary lookup by offer — services              | `AirShopping` → `OfferPrice` → `ServiceList` (`OfferRequest`).                                        |
-| Ancillary lookup and addition by order — seats    | `AirShopping` → `OfferPrice` → `OrderCreate` → `SeatAvailability` (`OrderRequest`) → `OrderChange`.   |
-| Ancillary lookup and addition by order — services | `AirShopping` → `OfferPrice` → `OrderCreate` → `ServiceList` (`OrderRequest`) → `OrderChange`.        |
-
-## NDC Gateway workflow (Phased 1)
-
-Official scenario grid (**NDC Gateway — NDC Workflow Process, Phased 1**):
-
-![NDC Gateway NDC workflow — Phased 1 scenarios](../assets/ndc/ndc-workflow-phased1.jpg "Official phased 1 scenario grid")
+![NDC Gateway NDC workflow — Phased 1 scenarios](../assets/ndc/ndc-workflow-phased1.png "Phased 1 scenario flow")
 
 IATA **`OrderRetrieveRQ`** is mapped to internal order REST reads (UUID vs record locator + traveler name): see [Order Retrieve mapping](endpoints/orderretrieve.md).
+
+## Phase 2 scenario summary
+
+Phase 2 builds on the same base flow as [Phase 1 scenario summary](#phase-1-scenario-summary), but adds ancillary seat and service addition scenarios.
+
+| Scenario                               | Message sequence                                                                                                                      |
+|----------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
+| Add ancillary seat by offer            | `AirShopping` → `OfferPrice` → `SeatAvailability` (`OfferRequest`) → `OfferPrice` (include seat) → `OrderCreate`.                   |
+| Add ancillary service by offer         | `AirShopping` → `OfferPrice` → `ServiceList` (`OfferRequest`) → `OfferPrice` (include service) → `OrderCreate`.                      |
+| Add ancillary seat by order            | `AirShopping` → `OfferPrice` → `OrderCreate` → `SeatAvailability` (`OrderRequest`) → `OrderQuote` → `OrderChange`.                   |
+| Add ancillary service by order         | `AirShopping` → `OfferPrice` → `OrderCreate` → `ServiceList` (`OrderRequest`) → `OrderQuote` → `OrderChange`.                        |
+
+### NDC Gateway workflow (Phased 2)
+
+Scenario flow (**NDC Gateway — NDC Workflow Process, Phased 2**). Source Mermaid: [`ndc/mermaid/ndc-phase2-ancillary-flow.mmd`](mermaid/ndc-phase2-ancillary-flow.mmd).
+
+![NDC Gateway NDC workflow — Phased 2 scenarios](../assets/ndc/ndc-workflow-phased2.png "Phased 2 ancillary add flows")
 
 # NDC XML (Offers & Orders)
 
@@ -166,7 +172,7 @@ Please update the variables in collection such as x-api-key, x-saleschannel, ten
 
 Same pattern as **[OTA for Reservation workflow](../ota/OTA_API.md#ota-for-reservation-workflow)**: this section is an **index only**. Each **step** links to the endpoint `.md` file where requests, responses, and scenario anchors live. See **[Authentication](#http-headers)**.
 
-Typical Phase 1 chain: **AirShopping → OfferPrice → OrderCreate**, then **OrderRetrieve** / **OrderReshop** / **OrderQuote** / **OrderChange** as needed (see [Phase 1 scenario summary](#phase-1-scenario-summary)). Phase 2 adds optional ancillary calls to **SeatAvailability** and **ServiceList** (see [Phase 2 scenario summary](#phase-2-scenario-summary)).
+Typical Phase 1 chain: **AirShopping → OfferPrice → OrderCreate**, then **OrderRetrieve** / **OrderReshop** / **OrderQuote** / **OrderChange** as needed (see [Phase 1 scenario summary](#phase-1-scenario-summary)). Phase 2 adds ancillary **SeatAvailability** / **ServiceList**, then either a second **OfferPrice** (include seat or service) into **OrderCreate**, or **OrderQuote** → **OrderChange** on an existing order (see [Phase 2 scenario summary](#phase-2-scenario-summary)).
 
 | | Production-style base | Message path pattern |
 |--|------------------------|----------------------|
@@ -204,6 +210,7 @@ Typical Phase 1 chain: **AirShopping → OfferPrice → OrderCreate**, then **Or
   - [Payment on hold booking](endpoints/orderchange.md#orderchange-payment-on-hold)
   - [Payment with debit](endpoints/orderchange.md#orderchange-payment-debit)
   - [Payment with credit](endpoints/orderchange.md#orderchange-payment-credit)
+  - [Payment with credit card (PCI Proxy)](endpoints/orderchange.md#orderchange-payment-credit-card)
   - [Rebook with new offers](endpoints/orderchange.md#orderchange-rebook)
 
 ## Basic request format (API key)
