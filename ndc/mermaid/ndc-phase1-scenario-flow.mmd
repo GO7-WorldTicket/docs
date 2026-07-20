@@ -1,0 +1,29 @@
+%% NDC Gateway — Phase 1 scenario summary (flowchart).
+%% Render to assets/ndc/ndc-workflow-phased1.png via mermaid-cli (mmdc).
+
+flowchart TB
+  subgraph onHold [Create and confirm on-hold booking]
+    direction LR
+    OH1[AirShopping] --> OH2[OfferPrice] --> OH3[OrderCreate no payment] --> OH4[OrderRetrieve] --> OH5[OrderQuote] --> OH6[OrderChange] --> OH7[OrderRetrieve]
+  end
+  subgraph paid [Create paid booking]
+    direction LR
+    PB1[AirShopping] --> PB2[OfferPrice] --> PB3[OrderCreate with payment] --> PB4[OrderRetrieve]
+  end
+  subgraph rebook [Manage booking — rebook]
+    direction LR
+    RB1[OrderRetrieve] --> RB2[OrderReshop] --> RB3[OrderQuote] --> RB4[OrderChange] --> RB5[OrderRetrieve]
+  end
+  subgraph nameChange [Manage booking — name change]
+    direction LR
+    NC1[OrderRetrieve] --> NC2[OrderReshop name change] --> NC3[OrderChange] --> NC4[OrderRetrieve]
+  end
+  subgraph cancel [Manage booking — cancel]
+    direction LR
+    CA1[OrderRetrieve] --> CA2[OrderReshop cancel] --> CA3[OrderChange] --> CA4[OrderRetrieve]
+  end
+  subgraph retrieve [Retrieve booking]
+    direction LR
+    RT1[OrderRetrieve]
+  end
+  onHold ~~~ paid ~~~ rebook ~~~ nameChange ~~~ cancel ~~~ retrieve

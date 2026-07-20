@@ -1,0 +1,21 @@
+%% NDC Gateway — Phase 2 ancillary add scenario summary (flowchart).
+%% Render to assets/ndc/ndc-workflow-phased2.png via mermaid-cli (mmdc).
+
+flowchart TB
+  subgraph seatByOffer [Add ancillary seat by offer]
+    direction LR
+    SO1[AirShopping] --> SO2[OfferPrice] --> SO3[SeatAvailability OfferRequest] --> SO4[OfferPrice include seat] --> SO5[OrderCreate]
+  end
+  subgraph serviceByOffer [Add ancillary service by offer]
+    direction LR
+    SV1[AirShopping] --> SV2[OfferPrice] --> SV3[ServiceList OfferRequest] --> SV4[OfferPrice include service] --> SV5[OrderCreate]
+  end
+  subgraph seatByOrder [Add ancillary seat by order]
+    direction LR
+    OO1[AirShopping] --> OO2[OfferPrice] --> OO3[OrderCreate] --> OO4[SeatAvailability OrderRequest] --> OO5[OrderQuote] --> OO6[OrderChange]
+  end
+  subgraph serviceByOrder [Add ancillary service by order]
+    direction LR
+    OV1[AirShopping] --> OV2[OfferPrice] --> OV3[OrderCreate] --> OV4[ServiceList OrderRequest] --> OV5[OrderQuote] --> OV6[OrderChange]
+  end
+  seatByOffer ~~~ serviceByOffer ~~~ seatByOrder ~~~ serviceByOrder

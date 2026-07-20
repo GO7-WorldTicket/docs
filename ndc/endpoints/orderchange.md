@@ -21,7 +21,7 @@ The API validates the order status, processes the changes, and returns the updat
 
 ## Workflow (NDC API guide)
 
-**Step 9** ([workflow index](../NDC_API.md#ndc-for-offers--orders-workflow)). `POST …/OrderChange` · settle payment on **`DRAFT`**, or **`ChangeOrderChoice`** + **`PaymentFunctions`** after a quote ([**Rebook with New Offers**](#orderchange-rebook)). Fragments: **[`#orderchange-payment-on-hold`](#orderchange-payment-on-hold)**, **[`#orderchange-payment-debit`](#orderchange-payment-debit)**, **[`#orderchange-payment-credit`](#orderchange-payment-credit)**, **[`#orderchange-rebook`](#orderchange-rebook)**, **[`#orderchange-rebook-seat-with-payment`](#orderchange-rebook-seat-with-payment)**, **[`#orderchange-rebook-ancillary-with-payment`](#orderchange-rebook-ancillary-with-payment)**.
+**Step 9** ([workflow index](../NDC_API.md#ndc-for-offers--orders-workflow)). `POST …/OrderChange` · settle payment on **`DRAFT`**, or **`ChangeOrderChoice`** + **`PaymentFunctions`** after a quote ([**Rebook with New Offers**](#orderchange-rebook)). Fragments: **[`#orderchange-payment-on-hold`](#orderchange-payment-on-hold)**, **[`#orderchange-payment-debit`](#orderchange-payment-debit)**, **[`#orderchange-payment-credit`](#orderchange-payment-credit)**, **[`#orderchange-payment-credit-card`](#orderchange-payment-credit-card)**, **[`#orderchange-rebook`](#orderchange-rebook)**, **[`#orderchange-rebook-seat-with-payment`](#orderchange-rebook-seat-with-payment)**, **[`#orderchange-rebook-ancillary-with-payment`](#orderchange-rebook-ancillary-with-payment)**.
 
 See [Authentication](../NDC_API.md#http-headers) for **`x-tenant`**, **`x-SalesChannel`**, and **`x-api-key`** on gateway XML calls.
 
@@ -235,6 +235,79 @@ Same **`Order`** + **`PaymentFunctions`** envelope as above; only **`PaymentType
 <OfflinePayment>
     <PaymentTypeCode>CC</PaymentTypeCode>
 </OfflinePayment>
+```
+
+### Payment with credit card (`PaymentCard`) — PCI Proxy
+{: #orderchange-payment-credit-card}
+
+Use this path for **online credit card** payment with 3DS. Post `IATA_OrderChangeRQ` to the **PCI Filter Push** URL (not the normal NDC Gateway `…/OrderChange` host). PCI tokenizes card fields and forwards the same request to the gateway.
+
+**Endpoint:** `POST https://{pci-proxy}/v1/push/{uniquePushKey}`  
+**Headers:** `pci-proxy-api-key`, `Content-Type: application/xml` (plus `x-tenant` / `x-SalesChannel` / `x-api-key` as required by your PCI dashboard forward configuration).
+
+**PCI Filter Push:** tokenize `CardNumber`, `CardSecurityCode`, and `ExpirationDate`. Pass through `SecurePaymentVersion2` and `PaymentRefID` (PCI `transactionId` from 3DS init) unchanged.
+
+**Request payload**
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<IATA_OrderChangeRQ
+        xmlns="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage"
+        xmlns:ns2="http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes"
+        xmlns:ns3="http://www.w3.org/2000/09/xmldsig#">
+    <DistributionChain>
+        <ns2:DistributionChainLink>
+            <ns2:Ordinal>1</ns2:Ordinal>
+            <ns2:OrgRole>Seller</ns2:OrgRole>
+            <ns2:ParticipatingOrg>
+                <ns2:Name>Travel Agency XYZ</ns2:Name>
+                <ns2:OrgID>Seller123</ns2:OrgID>
+            </ns2:ParticipatingOrg>
+        </ns2:DistributionChainLink>
+    </DistributionChain>
+    <PayloadAttributes>
+        <ns2:CorrelationID>{{$randomUUID}}</ns2:CorrelationID>
+        <ns2:Timestamp>{{today_th}}</ns2:Timestamp>
+        <ns2:TrxID>TRX-123456790</ns2:TrxID>
+        <ns2:VersionNumber>21.3</ns2:VersionNumber>
+    </PayloadAttributes>
+    <POS>
+        <ns2:Country>
+            <ns2:CountryCode>FR</ns2:CountryCode>
+        </ns2:Country>
+    </POS>
+    <Request>
+        <ns2:Order>
+            <ns2:OrderID>{{orderId}}</ns2:OrderID>
+            <ns2:OwnerCode>W2</ns2:OwnerCode>
+        </ns2:Order>
+        <ns2:PaymentFunctions>
+            <ns2:PaymentProcessingDetails>
+                <ns2:Amount CurCode="{{totalCurCode}}">{{totalPrice}}</ns2:Amount>
+                <ns2:PaymentMethod>
+                    <ns2:PaymentCard>
+                        <ns2:CardBrandCode>{{visa_brandCode}}</ns2:CardBrandCode>
+                        <ns2:CardHolderName>JANE DOE</ns2:CardHolderName>
+                        <!-- PCI Filter Push: tokenize these three fields -->
+                        <ns2:CardNumber>4242424242424242</ns2:CardNumber>
+                        <ns2:CardSecurityCode>123</ns2:CardSecurityCode>
+                        <ns2:ExpirationDate>0628</ns2:ExpirationDate>
+                        <!-- 3DS result — pass through, do not tokenize -->
+                        <ns2:SecurePaymentVersion2>
+                            <ns2:AuthenticationValue>{{pci_3d_cavv}}</ns2:AuthenticationValue>
+                            <ns2:DirectoryServerTrxID>{{pci_3d_threeDSTransactionId}}</ns2:DirectoryServerTrxID>
+                            <ns2:ElectronicCommerceInd>{{pci_3d_eci}}</ns2:ElectronicCommerceInd>
+                            <ns2:ProgramProtocolText>2.2.0</ns2:ProgramProtocolText>
+                            <ns2:TrxStatusText>Y</ns2:TrxStatusText>
+                        </ns2:SecurePaymentVersion2>
+                    </ns2:PaymentCard>
+                </ns2:PaymentMethod>
+                <!-- PCI transactionId from 3DS init — pass through, do not tokenize -->
+                <ns2:PaymentRefID>251120183950618353</ns2:PaymentRefID>
+            </ns2:PaymentProcessingDetails>
+        </ns2:PaymentFunctions>
+    </Request>
+</IATA_OrderChangeRQ>
 ```
 
 ### Rebook with New Offers
@@ -789,7 +862,7 @@ Order not found.
 1. **Order Status**: For payment processing, order must be in `DRAFT` status.
 2. **Payment Processing**: The system automatically polls order status until tickets are issued (`OPEN` status).
 3. **Rebooking**: Use `ChangeOrderChoice` with new offers to rebook flights.
-4. **Payment Methods**: Supported payment types depend on airline configuration.
+4. **Payment Methods**: Supported payment types depend on airline configuration. OfflinePayment (`CA` / `DC` / `CC`) uses the normal gateway `OrderChange` URL; online **PaymentCard** credit-card payment uses the PCI Filter Push URL (see [`#orderchange-payment-credit-card`](#orderchange-payment-credit-card)).
 5. **Order ID**: Always use the `OrderID` from the original `OrderCreate` response.
 6. **Seat Changes**: Seat-based order changes include `SelectedSeat` with `ColumnID` and `SeatRowNumber`.
 7. **Ancillary Changes**: Service-based order changes include `SelectedALaCarteOfferItem` with `Qty`.
