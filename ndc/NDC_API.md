@@ -30,6 +30,7 @@ title: NDC API Generic Integration Guide
 
 | Change Description                                                  | Changed By              | Change Date |
 |---------------------------------------------------------------------|-------------------------|-------------|
+| Updated OfferPrice for Phase 2 combined flight + service / seat pricing | Jarun Jiamtaweeboon     | 2026-07-22  |
 | Updated Phase 2 add-ancillary flows, workflow images, credit-card PCI payment | Naphachara Rattanawilai | 2026-07-20  |
 | Updated Postman collection with Phase 2 endpoints                   | Tyler Thorin            | 2026-05-19  |
 | Added Phase 2 to the document                                       | Tyler Thorin            | 2026-05-12  |
@@ -162,6 +163,7 @@ Please update the variables in collection such as x-api-key, x-saleschannel, ten
 | 915  | VALIDATION  | No action - cannot support function  |
 | 911  | BUSINESS    | Unable to process - system error     |
 | 913  | APPLICATION | Item/data not found                  |
+| 486  | APPLICATION | Specific seat requested not available |
 | 304  | SYSTEM      | System Temporarily Unavailable       |
 | 900  | SYSTEM      | Inactivity Time Out Value Exceeded   |
 | 901  | SYSTEM      | Communications Line Unavailable      |
@@ -181,9 +183,11 @@ Typical Phase 1 chain: **AirShopping → OfferPrice → OrderCreate**, then **Or
 - **1 — [Air Shopping](endpoints/airshopping.md)** — `POST …/AirShopping` · `IATA_AirShoppingRQ` / `RS`
   - [One-way trip](endpoints/airshopping.md#airshopping-one-way-trip)
   - [Round trip](endpoints/airshopping.md#airshopping-round-trip)
-- **2 — [Offer Price](endpoints/offerprice.md)** — `POST …/OfferPrice` · priced offer for **OrderCreate**
+- **2 — [Offer Price](endpoints/offerprice.md)** — `POST …/OfferPrice` · priced offer for **OrderCreate** (flight-only, or combined with selected service / seat)
   - [One-way](endpoints/offerprice.md#offerprice-one-way-trip)
   - [Round trip](endpoints/offerprice.md#offerprice-round-trip)
+  - [With selected service](endpoints/offerprice.md#offerprice-with-service)
+  - [With selected seat](endpoints/offerprice.md#offerprice-with-seat)
 - **3 — [Order Create](endpoints/ordercreate.md)** — `POST …/OrderCreate` · accept priced offer; optional payment
   - [Pay later (on hold)](endpoints/ordercreate.md#ordercreate-pay-later)
   - [Instant pay](endpoints/ordercreate.md#ordercreate-instant-pay)
