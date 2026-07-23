@@ -30,6 +30,7 @@ title: NDC API Generic Integration Guide
 
 | Change Description                                                  | Changed By              | Change Date |
 |---------------------------------------------------------------------|-------------------------|-------------|
+| Phase 2 by-offer: OfferPrice only after SeatAvailability/ServiceList; instant-pay note; mixed seat+service flow | Jarun Jiamtaweeboon     | 2026-07-23  |
 | Updated OfferPrice for Phase 2 combined flight + service / seat pricing | Jarun Jiamtaweeboon     | 2026-07-22  |
 | Updated Phase 2 add-ancillary flows, workflow images, credit-card PCI payment | Naphachara Rattanawilai | 2026-07-20  |
 | Updated Postman collection with Phase 2 endpoints                   | Tyler Thorin            | 2026-05-19  |
@@ -98,14 +99,17 @@ Phase 2 builds on the same base flow as [Phase 1 scenario summary](#phase-1-scen
 
 | Scenario                               | Message sequence                                                                                                                      |
 |----------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
-| Add ancillary seat by offer            | `AirShopping` → `OfferPrice` → `SeatAvailability` (`OfferRequest`) → `OfferPrice` (include seat) → `OrderCreate`.                   |
-| Add ancillary service by offer         | `AirShopping` → `OfferPrice` → `ServiceList` (`OfferRequest`) → `OfferPrice` (include service) → `OrderCreate`.                      |
+| Add ancillary seat by offer            | `AirShopping` → `SeatAvailability` (`OfferRequest`) → `OfferPrice` (flight + seat) → `OrderCreate` (with payment).                   |
+| Add ancillary service by offer         | `AirShopping` → `ServiceList` (`OfferRequest`) → `OfferPrice` (flight + service) → `OrderCreate` (with payment).                      |
+| Add ancillary seat + service by offer  | `AirShopping` → `SeatAvailability` + `ServiceList` (`OfferRequest`) → `OfferPrice` (flight + seat + service) → `OrderCreate` (with payment). |
 | Add ancillary seat by order            | `AirShopping` → `OfferPrice` → `OrderCreate` → `SeatAvailability` (`OrderRequest`) → `OrderQuote` → `OrderChange`.                   |
 | Add ancillary service by order         | `AirShopping` → `OfferPrice` → `OrderCreate` → `ServiceList` (`OrderRequest`) → `OrderQuote` → `OrderChange`.                        |
 
+**Remark:** By-offer Phase 2 flows are **instant pay** (`OrderCreate` with `PaymentFunctions`). For **pay-later / on-hold**, use [Phase 1](#phase-1-scenario-summary) (`AirShopping` → `OfferPrice` → `OrderCreate` without payment), then add ancillaries via the **by-order** rows above.
+
 ### NDC Gateway workflow (Phased 2)
 
-Scenario flow (**NDC Gateway — NDC Workflow Process, Phased 2**). Source Mermaid: [`ndc/mermaid/ndc-phase2-ancillary-flow.mmd`](mermaid/ndc-phase2-ancillary-flow.mmd).
+Scenario flow (**NDC Gateway — NDC Workflow Process, Phased 2**).
 
 ![NDC Gateway NDC workflow — Phased 2 scenarios](../assets/ndc/ndc-workflow-phased2.png "Phased 2 ancillary add flows")
 
@@ -174,7 +178,7 @@ Please update the variables in collection such as x-api-key, x-saleschannel, ten
 
 Same pattern as **[OTA for Reservation workflow](../ota/OTA_API.md#ota-for-reservation-workflow)**: this section is an **index only**. Each **step** links to the endpoint `.md` file where requests, responses, and scenario anchors live. See **[Authentication](#http-headers)**.
 
-Typical Phase 1 chain: **AirShopping → OfferPrice → OrderCreate**, then **OrderRetrieve** / **OrderReshop** / **OrderQuote** / **OrderChange** as needed (see [Phase 1 scenario summary](#phase-1-scenario-summary)). Phase 2 adds ancillary **SeatAvailability** / **ServiceList**, then either a second **OfferPrice** (include seat or service) into **OrderCreate**, or **OrderQuote** → **OrderChange** on an existing order (see [Phase 2 scenario summary](#phase-2-scenario-summary)).
+Typical Phase 1 chain: **AirShopping → OfferPrice → OrderCreate**, then **OrderRetrieve** / **OrderReshop** / **OrderQuote** / **OrderChange** as needed (see [Phase 1 scenario summary](#phase-1-scenario-summary)). Phase 2 by-offer: **AirShopping → SeatAvailability and/or ServiceList → OfferPrice** (flight + selected extras) → **OrderCreate** (instant pay). Phase 2 by-order: create via Phase 1, then **SeatAvailability** / **ServiceList** (`OrderRequest`) → **OrderQuote** → **OrderChange** (see [Phase 2 scenario summary](#phase-2-scenario-summary)).
 
 | | Production-style base | Message path pattern |
 |--|------------------------|----------------------|
@@ -188,6 +192,7 @@ Typical Phase 1 chain: **AirShopping → OfferPrice → OrderCreate**, then **Or
   - [Round trip](endpoints/offerprice.md#offerprice-round-trip)
   - [With selected service](endpoints/offerprice.md#offerprice-with-service)
   - [With selected seat](endpoints/offerprice.md#offerprice-with-seat)
+  - [With selected service and seat](endpoints/offerprice.md#offerprice-with-service-and-seat)
 - **3 — [Order Create](endpoints/ordercreate.md)** — `POST …/OrderCreate` · accept priced offer; optional payment
   - [Pay later (on hold)](endpoints/ordercreate.md#ordercreate-pay-later)
   - [Instant pay](endpoints/ordercreate.md#ordercreate-instant-pay)

@@ -11,18 +11,18 @@ title: Offer Price (OfferPrice)
 
 ## Description
 
-The Offer Price API returns detailed pricing for selected offers. In Phase 1 it prices a flight offer from **AirShopping**. In Phase 2 (pre-order) it can also combine that flight offer with selected **ServiceList** ancillaries and/or **SeatAvailability** seats into one `PricedOffer` with a **combined total**.
+The Offer Price API returns detailed pricing for selected offers. In Phase 1 it prices a flight offer from **AirShopping**. In Phase 2 (by offer) it combines that flight offer with selected **ServiceList** ancillaries and/or **SeatAvailability** seats into one `PricedOffer` with a **combined total** — call **OfferPrice** only after searching seats and/or services (no separate OfferPrice after AirShopping).
 
-Use `OfferRefID` / `OfferItemRefID` from **AirShoppingRS**, and — when adding extras — from **ServiceListRS** and/or **SeatAvailabilityRS**. The priced offer feeds **[Order Create](ordercreate.md)**.
+Use `OfferRefID` / `OfferItemRefID` from **AirShoppingRS**, and — when adding extras — from **ServiceListRS** and/or **SeatAvailabilityRS**. The priced offer feeds **[Order Create](ordercreate.md)** (Phase 2 by-offer: **instant pay**).
 
 ## Workflow (NDC API guide)
 
 **Step 2** ([workflow index](../NDC_API.md#ndc-for-offers--orders-workflow)). `POST …/OfferPrice`.
 
-- **Phase 1:** flight-only pricing after **AirShopping** → **OrderCreate**.
-- **Phase 2 (by offer):** after **[ServiceList](servicelist.md)** and/or **[SeatAvailability](seatavailability.md)**, call **OfferPrice** again with flight + selected service and/or seat → **OrderCreate**.
+- **Phase 1:** flight-only pricing after **AirShopping** → **OrderCreate** (pay-later or instant pay).
+- **Phase 2 (by offer):** after **[ServiceList](servicelist.md)** and/or **[SeatAvailability](seatavailability.md)** (`OfferRequest` using **AirShopping** offer IDs), call **OfferPrice** once with flight + selected service and/or seat → **OrderCreate** with payment (**instant pay**). For pay-later, use Phase 1 then add ancillaries **by order**.
 
-Scenarios: **[`#offerprice-one-way-trip`](#offerprice-one-way-trip)**, **[`#offerprice-round-trip`](#offerprice-round-trip)**, **[`#offerprice-with-service`](#offerprice-with-service)**, **[`#offerprice-with-seat`](#offerprice-with-seat)**.
+Scenarios: **[`#offerprice-one-way-trip`](#offerprice-one-way-trip)**, **[`#offerprice-round-trip`](#offerprice-round-trip)**, **[`#offerprice-with-service`](#offerprice-with-service)**, **[`#offerprice-with-seat`](#offerprice-with-seat)**, **[`#offerprice-with-service-and-seat`](#offerprice-with-service-and-seat)**.
 
 See [Authentication](../NDC_API.md#http-headers) for **`x-tenant`**, **`x-SalesChannel`**, and **`x-api-key`**.
 
@@ -167,9 +167,9 @@ Round-trip **responses** match the one-way shape but include **two** flight `Off
 ### OfferPrice — With selected service
 {: #offerprice-with-service}
 
-**Phase 2 (by offer):** after **[ServiceList](servicelist.md#servicelist-by-offer)**, send the flight `SelectedOffer` plus a service `SelectedOffer` whose items include **`SelectedALaCarteOfferItem`**. `OfferRefID` / `OfferItemRefID` for the service block come from **ServiceListRS** `ALaCarteOffer`.
+**Phase 2 (by offer — instant pay):** after **AirShopping** and **[ServiceList](servicelist.md#servicelist-by-offer)** (`OfferRequest` with AirShopping offer IDs), send the flight `SelectedOffer` plus a service `SelectedOffer` whose items include **`SelectedALaCarteOfferItem`**. Flight IDs from **AirShoppingRS**; service `OfferRefID` / `OfferItemRefID` from **ServiceListRS** `ALaCarteOffer`. Continue with **OrderCreate** (with payment).
 
-You may also add seat selections in the same request (see [with selected seat](#offerprice-with-seat)).
+You may also add seat selections in the same request (see [with selected service and seat](#offerprice-with-service-and-seat)).
 
 <details>
 <summary>Request Payload</summary>
@@ -197,7 +197,7 @@ You may also add seat selections in the same request (see [with selected seat](#
     &lt;Request&gt;
         &lt;cns:PricedOffer&gt;
             &lt;cns:SelectedOfferList&gt;
-                &lt;!-- Flight offer from AirShoppingRS / prior OfferPriceRS --&gt;
+                &lt;!-- Flight offer from AirShoppingRS --&gt;
                 &lt;cns:SelectedOffer&gt;
                     &lt;cns:OfferRefID&gt;444d338d-6a9c-481a-8cac-2ee69a6d2078&lt;/cns:OfferRefID&gt;
                     &lt;cns:OwnerCode&gt;VS&lt;/cns:OwnerCode&gt;
@@ -229,9 +229,9 @@ You may also add seat selections in the same request (see [with selected seat](#
 ### OfferPrice — With selected seat
 {: #offerprice-with-seat}
 
-**Phase 2 (by offer):** after **[SeatAvailability](seatavailability.md#seatavailability-by-offer)**, send the flight `SelectedOffer` plus a seat `SelectedOffer` whose items include **`SelectedSeat`** (`ColumnID`, `SeatRowNumber`). `OfferRefID` / `OfferItemRefID` for the seat block come from **SeatAvailabilityRS** `ALaCarteOffer`.
+**Phase 2 (by offer — instant pay):** after **AirShopping** and **[SeatAvailability](seatavailability.md#seatavailability-by-offer)** (`OfferRequest` with AirShopping offer IDs), send the flight `SelectedOffer` plus a seat `SelectedOffer` whose items include **`SelectedSeat`** (`ColumnID`, `SeatRowNumber`). Flight IDs from **AirShoppingRS**; seat `OfferRefID` / `OfferItemRefID` from **SeatAvailabilityRS** `ALaCarteOffer`. Continue with **OrderCreate** (with payment).
 
-Use one `SelectedOfferItem` + `SelectedSeat` per physical seat / passenger. You may also add service selections in the same request (see [with selected service](#offerprice-with-service)).
+Use one `SelectedOfferItem` + `SelectedSeat` per physical seat / passenger. You may also add service selections in the same request (see [with selected service and seat](#offerprice-with-service-and-seat)).
 
 <details>
 <summary>Request Payload</summary>
@@ -259,13 +259,88 @@ Use one `SelectedOfferItem` + `SelectedSeat` per physical seat / passenger. You 
     &lt;Request&gt;
         &lt;cns:PricedOffer&gt;
             &lt;cns:SelectedOfferList&gt;
-                &lt;!-- Flight offer from AirShoppingRS / prior OfferPriceRS --&gt;
+                &lt;!-- Flight offer from AirShoppingRS --&gt;
                 &lt;cns:SelectedOffer&gt;
                     &lt;cns:OfferRefID&gt;444d338d-6a9c-481a-8cac-2ee69a6d2078&lt;/cns:OfferRefID&gt;
                     &lt;cns:OwnerCode&gt;VS&lt;/cns:OwnerCode&gt;
                     &lt;cns:SelectedOfferItem&gt;
                         &lt;cns:OfferItemRefID&gt;4dc81ae7-3460-490b-a758-38ec7b68e778:9aa5f349-24b9-4589-b2ed-87055c508bcc&lt;/cns:OfferItemRefID&gt;
                         &lt;cns:PaxRefID&gt;PAX1&lt;/cns:PaxRefID&gt;
+                    &lt;/cns:SelectedOfferItem&gt;
+                &lt;/cns:SelectedOffer&gt;
+                &lt;!-- Seat offer from SeatAvailabilityRS --&gt;
+                &lt;cns:SelectedOffer&gt;
+                    &lt;cns:OfferRefID&gt;413bcc35-0ffd-4716-8095-0f1b35567aa4&lt;/cns:OfferRefID&gt;
+                    &lt;cns:OwnerCode&gt;VS&lt;/cns:OwnerCode&gt;
+                    &lt;cns:SelectedOfferItem&gt;
+                        &lt;cns:OfferItemRefID&gt;14a19143-8acc-483d-a9b9-e38794a7ea19&lt;/cns:OfferItemRefID&gt;
+                        &lt;cns:PaxRefID&gt;PAX1&lt;/cns:PaxRefID&gt;
+                        &lt;cns:SelectedSeat&gt;
+                            &lt;cns:ColumnID&gt;A&lt;/cns:ColumnID&gt;
+                            &lt;cns:SeatRowNumber&gt;5&lt;/cns:SeatRowNumber&gt;
+                        &lt;/cns:SelectedSeat&gt;
+                    &lt;/cns:SelectedOfferItem&gt;
+                &lt;/cns:SelectedOffer&gt;
+            &lt;/cns:SelectedOfferList&gt;
+        &lt;/cns:PricedOffer&gt;
+    &lt;/Request&gt;
+&lt;/IATA_OfferPriceRQ&gt;
+</code></pre>
+
+</details>
+
+### OfferPrice — With selected service and seat
+{: #offerprice-with-service-and-seat}
+
+**Phase 2 (by offer — instant pay):** after **AirShopping**, call both **[SeatAvailability](seatavailability.md#seatavailability-by-offer)** and **[ServiceList](servicelist.md#servicelist-by-offer)** (`OfferRequest`), then one **OfferPrice** with three `SelectedOffer` blocks: flight (AirShoppingRS), service (`SelectedALaCarteOfferItem` from ServiceListRS), and seat (`SelectedSeat` from SeatAvailabilityRS). Continue with **OrderCreate** (with payment).
+
+For pay-later, use [Phase 1](../NDC_API.md#phase-1-scenario-summary) then add ancillaries **by order**.
+
+<details>
+<summary>Request Payload</summary>
+
+<pre><code class="language-xml">
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;IATA_OfferPriceRQ xmlns=&quot;http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage&quot;
+                   xmlns:cns=&quot;http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes&quot;&gt;
+    &lt;DistributionChain&gt;
+        &lt;cns:DistributionChainLink&gt;
+            &lt;cns:Ordinal&gt;1&lt;/cns:Ordinal&gt;
+            &lt;cns:OrgRole&gt;Seller&lt;/cns:OrgRole&gt;
+            &lt;cns:ParticipatingOrg&gt;
+                &lt;cns:Name&gt;Travel Agency XYZ&lt;/cns:Name&gt;
+                &lt;cns:OrgID&gt;SELLER123&lt;/cns:OrgID&gt;
+            &lt;/cns:ParticipatingOrg&gt;
+        &lt;/cns:DistributionChainLink&gt;
+    &lt;/DistributionChain&gt;
+    &lt;PayloadAttributes&gt;
+        &lt;cns:CorrelationID&gt;OP-FLT-SVC-SEAT-001&lt;/cns:CorrelationID&gt;
+        &lt;cns:Timestamp&gt;2026-07-23T06:00:00Z&lt;/cns:Timestamp&gt;
+        &lt;cns:TrxID&gt;TRX-OFFERPRICE-001&lt;/cns:TrxID&gt;
+        &lt;cns:VersionNumber&gt;21.3&lt;/cns:VersionNumber&gt;
+    &lt;/PayloadAttributes&gt;
+    &lt;Request&gt;
+        &lt;cns:PricedOffer&gt;
+            &lt;cns:SelectedOfferList&gt;
+                &lt;!-- Flight offer from AirShoppingRS --&gt;
+                &lt;cns:SelectedOffer&gt;
+                    &lt;cns:OfferRefID&gt;444d338d-6a9c-481a-8cac-2ee69a6d2078&lt;/cns:OfferRefID&gt;
+                    &lt;cns:OwnerCode&gt;VS&lt;/cns:OwnerCode&gt;
+                    &lt;cns:SelectedOfferItem&gt;
+                        &lt;cns:OfferItemRefID&gt;4dc81ae7-3460-490b-a758-38ec7b68e778:9aa5f349-24b9-4589-b2ed-87055c508bcc&lt;/cns:OfferItemRefID&gt;
+                        &lt;cns:PaxRefID&gt;PAX1&lt;/cns:PaxRefID&gt;
+                    &lt;/cns:SelectedOfferItem&gt;
+                &lt;/cns:SelectedOffer&gt;
+                &lt;!-- Service / SSR offer from ServiceListRS --&gt;
+                &lt;cns:SelectedOffer&gt;
+                    &lt;cns:OfferRefID&gt;8016be2c-8134-48ba-876e-b27e801d0bfa&lt;/cns:OfferRefID&gt;
+                    &lt;cns:OwnerCode&gt;VS&lt;/cns:OwnerCode&gt;
+                    &lt;cns:SelectedOfferItem&gt;
+                        &lt;cns:OfferItemRefID&gt;45733be7-4459-40b2-8e46-d20c483a0c82&lt;/cns:OfferItemRefID&gt;
+                        &lt;cns:PaxRefID&gt;PAX1&lt;/cns:PaxRefID&gt;
+                        &lt;cns:SelectedALaCarteOfferItem&gt;
+                            &lt;cns:Qty&gt;1&lt;/cns:Qty&gt;
+                        &lt;/cns:SelectedALaCarteOfferItem&gt;
                     &lt;/cns:SelectedOfferItem&gt;
                 &lt;/cns:SelectedOffer&gt;
                 &lt;!-- Seat offer from SeatAvailabilityRS --&gt;
