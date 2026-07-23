@@ -219,7 +219,7 @@ Typical Phase 1 chain: **AirShopping → OfferPrice → OrderCreate**, then **Or
   - [Payment on hold booking](endpoints/orderchange.md#orderchange-payment-on-hold)
   - [Payment with debit](endpoints/orderchange.md#orderchange-payment-debit)
   - [Payment with credit](endpoints/orderchange.md#orderchange-payment-credit)
-  - [Payment with credit card (PCI Proxy)](endpoints/orderchange.md#orderchange-payment-credit-card)
+  - [Payment with credit card (PCI Proxy)](endpoints/orderchange.md#orderchange-payment-credit-card) — **requires 3DS Authenticate Result** (`SecurePaymentVersion2`)
   - [Rebook with new offers](endpoints/orderchange.md#orderchange-rebook)
 
 ## Basic request format (API key)
