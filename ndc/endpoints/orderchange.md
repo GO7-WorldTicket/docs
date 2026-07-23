@@ -242,6 +242,8 @@ Same **`Order`** + **`PaymentFunctions`** envelope as above; only **`PaymentType
 
 Use this path for **online credit card** payment with 3DS. Post `IATA_OrderChangeRQ` to the **PCI Filter Push** URL (not the normal NDC Gateway `…/OrderChange` host). PCI tokenizes card fields and forwards the same request to the gateway.
 
+**Remark:** Online credit card payment **requires a 3DS Authenticate Result**. Include `PaymentCard/SecurePaymentVersion2` (for example `AuthenticationValue`, `ElectronicCommerceInd`, `DirectoryServerTrxID`, `TrxStatusText`) and `PaymentRefID` (PCI `transactionId` from 3DS init). Requests without a successful 3DS authenticate result are not supported.
+
 **Endpoint:** `POST https://{pci-proxy}/v1/push/{uniquePushKey}`  
 **Headers:** `pci-proxy-api-key`, `Content-Type: application/xml` (plus `x-tenant` / `x-SalesChannel` / `x-api-key` as required by your PCI dashboard forward configuration).
 
