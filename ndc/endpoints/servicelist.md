@@ -15,7 +15,7 @@ The Service List API returns ancillary services available for a selected offer o
 
 ## Workflow (NDC API guide)
 
-**Step 5 (Phase 2)** ([workflow index](../NDC_API.md#ndc-for-offers--orders-workflow)). `POST …/ServiceList` · Phase 2 ancillary service lookup. **By offer:** continue with **OfferPrice** (include service) → **OrderCreate**. **By order:** after **OrderCreate**, call with **`OrderRequest`**, then **OrderQuote** → **OrderChange**. Scenarios: **[`#servicelist-by-offer`](#servicelist-by-offer)**, **[`#servicelist-by-order`](#servicelist-by-order)**.
+**Step 5 (Phase 2)** ([workflow index](../NDC_API.md#ndc-for-offers--orders-workflow)). `POST …/ServiceList` · Phase 2 ancillary service lookup. **By offer:** use **AirShopping** offer IDs in `OfferRequest` (no prior OfferPrice required), then **OfferPrice** (flight + service, or flight + seat + service) → **OrderCreate** with payment (**instant pay**). **By order:** after Phase 1 **OrderCreate** (pay-later path), call with **`OrderRequest`**, then **OrderQuote** → **OrderChange**. Scenarios: **[`#servicelist-by-offer`](#servicelist-by-offer)**, **[`#servicelist-by-order`](#servicelist-by-order)**.
 
 The response returns an **`ALaCarteOffer`** with service-priced `OfferItem` rows that can be used in downstream ancillary or change flows.
 
@@ -43,7 +43,7 @@ Provide exactly one of **`OfferRequest`** or **`OrderRequest`** inside **`Servic
 ### ServiceList — By offer
 {: #servicelist-by-offer}
 
-Use this mode when you already have an offer from shopping/pricing and need ancillary services for that priced itinerary.
+Use this mode when you already have an offer from **AirShopping** and need ancillary services for that itinerary. No prior **OfferPrice** is required.
 
 <details>
 <summary>Request Payload</summary>
