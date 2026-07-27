@@ -21,7 +21,7 @@ The API validates the order status, processes the changes, and returns the updat
 
 ## Workflow (NDC API guide)
 
-**Step 9** ([workflow index](../NDC_API.md#ndc-for-offers--orders-workflow)). `POST …/OrderChange` · settle payment on **`DRAFT`**, or **`ChangeOrderChoice`** + **`PaymentFunctions`** after a quote ([**Rebook with New Offers**](#orderchange-rebook)). Fragments: **[`#orderchange-payment-on-hold`](#orderchange-payment-on-hold)**, **[`#orderchange-payment-debit`](#orderchange-payment-debit)**, **[`#orderchange-payment-credit`](#orderchange-payment-credit)**, **[`#orderchange-payment-credit-card`](#orderchange-payment-credit-card)**, **[`#orderchange-rebook`](#orderchange-rebook)**, **[`#orderchange-rebook-seat-with-payment`](#orderchange-rebook-seat-with-payment)**, **[`#orderchange-rebook-ancillary-with-payment`](#orderchange-rebook-ancillary-with-payment)**.
+**Step 9** ([workflow index](../NDC_API.md#ndc-for-offers--orders-workflow)). `POST …/OrderChange` · settle payment on **`DRAFT`**, or **`ChangeOrderChoice`** + **`PaymentFunctions`** after a quote ([**Rebook with New Offers**](#orderchange-rebook)). Fragments: **[`#orderchange-payment-on-hold`](#orderchange-payment-on-hold)**, **[`#orderchange-payment-debit`](#orderchange-payment-debit)**, **[`#orderchange-payment-credit`](#orderchange-payment-credit)**, **[`#orderchange-payment-debit-credit-account`](#orderchange-payment-debit-credit-account)**, **[`#orderchange-payment-credit-card`](#orderchange-payment-credit-card)**, **[`#orderchange-rebook`](#orderchange-rebook)**, **[`#orderchange-rebook-seat-with-payment`](#orderchange-rebook-seat-with-payment)**, **[`#orderchange-rebook-ancillary-with-payment`](#orderchange-rebook-ancillary-with-payment)**.
 
 See [Authentication](../NDC_API.md#http-headers) for **`x-tenant`**, **`x-SalesChannel`**, and **`x-api-key`** on gateway XML calls.
 
@@ -235,6 +235,34 @@ Same **`Order`** + **`PaymentFunctions`** envelope as above; only **`PaymentType
 <OfflinePayment>
     <PaymentTypeCode>CC</PaymentTypeCode>
 </OfflinePayment>
+```
+
+### Payment with debit/credit account
+{: #orderchange-payment-debit-credit-account}
+
+Use this path to pay with a **debit/credit account**. Put the account ID in `RemarkText`. Use `PaymentTypeCode` `OT` on both `PaymentMethodCriteria` and `PaymentProcessingDetails` (`OfflinePayment` is the NDC schema container for this payment type).
+
+```xml
+<ns2:PaymentFunctions>
+    <ns2:PaymentMethodCriteria>
+        <ns2:PaymentCriteriaAddlInfo>
+            <ns2:PaymentOtherMethodAddlInfo>
+                <ns2:Remark>
+                    <ns2:RemarkText>{{debitCreditAccount}}</ns2:RemarkText>
+                </ns2:Remark>
+            </ns2:PaymentOtherMethodAddlInfo>
+        </ns2:PaymentCriteriaAddlInfo>
+        <ns2:PaymentTypeCode>OT</ns2:PaymentTypeCode>
+    </ns2:PaymentMethodCriteria>
+    <ns2:PaymentProcessingDetails>
+        <ns2:Amount CurCode="{{totalCurCode}}">{{totalPrice}}</ns2:Amount>
+        <ns2:PaymentMethod>
+            <ns2:OfflinePayment>
+                <ns2:PaymentTypeCode>OT</ns2:PaymentTypeCode>
+            </ns2:OfflinePayment>
+        </ns2:PaymentMethod>
+    </ns2:PaymentProcessingDetails>
+</ns2:PaymentFunctions>
 ```
 
 ### Payment with credit card (`PaymentCard`) — PCI Proxy
