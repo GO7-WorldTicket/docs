@@ -28,15 +28,16 @@ title: NDC API Generic Integration Guide
 
 ## Change Log
 
-| Change Description                                                  | Changed By              | Change Date |
-|---------------------------------------------------------------------|-------------------------|-------------|
+| Change Description                                                                                              | Changed By              | Change Date |
+|-----------------------------------------------------------------------------------------------------------------|-------------------------|-------------|
+| Added OrderChange payment with credit card and debit/credit account (`OT` + RemarkText account ID)              | Naphachara Rattanawilai | 2026-07-27  |
 | Phase 2 by-offer: OfferPrice only after SeatAvailability/ServiceList; instant-pay note; mixed seat+service flow | Jarun Jiamtaweeboon     | 2026-07-23  |
-| Updated OfferPrice for Phase 2 combined flight + service / seat pricing | Jarun Jiamtaweeboon     | 2026-07-22  |
-| Updated Phase 2 add-ancillary flows, workflow images, credit-card PCI payment | Naphachara Rattanawilai | 2026-07-20  |
-| Updated Postman collection with Phase 2 endpoints                   | Tyler Thorin            | 2026-05-19  |
-| Added Phase 2 to the document                                       | Tyler Thorin            | 2026-05-12  |
-| Prepared Postman collection and update API request/response example | Thotsaphorn Phonlabutr  | 2026-05-08  |
-| Initial creation of the document                                    | Naphachara Rattanawilai | 2026-05-06  |
+| Updated OfferPrice for Phase 2 combined flight + service / seat pricing                                         | Jarun Jiamtaweeboon     | 2026-07-22  |
+| Updated Phase 2 add-ancillary flows, workflow images, credit-card PCI payment                                   | Naphachara Rattanawilai | 2026-07-20  |
+| Updated Postman collection with Phase 2 endpoints                                                               | Tyler Thorin            | 2026-05-19  |
+| Added Phase 2 to the document                                                                                   | Tyler Thorin            | 2026-05-12  |
+| Prepared Postman collection and update API request/response example                                             | Thotsaphorn Phonlabutr  | 2026-05-08  |
+| Initial creation of the document                                                                                | Naphachara Rattanawilai | 2026-05-06  |
 
 # Introduction
 
@@ -219,6 +220,7 @@ Typical Phase 1 chain: **AirShopping → OfferPrice → OrderCreate**, then **Or
   - [Payment on hold booking](endpoints/orderchange.md#orderchange-payment-on-hold)
   - [Payment with debit](endpoints/orderchange.md#orderchange-payment-debit)
   - [Payment with credit](endpoints/orderchange.md#orderchange-payment-credit)
+  - [Payment with debit/credit account](endpoints/orderchange.md#orderchange-payment-debit-credit-account)
   - [Payment with credit card (PCI Proxy)](endpoints/orderchange.md#orderchange-payment-credit-card) — **requires 3DS Authenticate Result** (`SecurePaymentVersion2`)
   - [Rebook with new offers](endpoints/orderchange.md#orderchange-rebook)
 
