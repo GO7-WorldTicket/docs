@@ -83,6 +83,27 @@
   ```
 - **NOTE / LIMITATION:** When a flight segment has been cancelled, no policy information will be returned for that segment.
 
+# Penalty rules are grouped by passengerTypeCode, such as ADT, CHD, or INF.
+## Field Descriptions
+
+| Field                                                                                  | Description                                                                            |
+|----------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------|
+| passengerTypeCode                                                                      | Passenger type to which the penalty rules apply, such as ADT, CHD, or INF.             |
+| currency | Currency used for the penalty amount.                                                  |
+| refundable| Indicates whether a voluntary refund is allowed under the applicable rule.             |
+| base| Penalty amount excluding tax.                                                          |
+| tax| Tax amount applied to the penalty.                                                     |
+| total| Total penalty amount including tax.                                                    |
+| vat| VAT percentage applied to the penalty amount. For example, 15.00 means 15%.            |
+| applyFromTime| Start date and time from which the penalty rule applies. The value is returned in UTC. |
+| applyUntilTime| End date and time until which the penalty rule applies. The value is returned in UTC.  |
+| description| Localized description of the penalty rule.                                             |
+| locale| Language and regional code of the description, such as en_GB or ar_SA.                 |
+| value| Penalty rule description in the specified language.                                    |
+
+<br /><br />
+
+
 ### 2026-06-28
 
 #### Updated change passenger name type
