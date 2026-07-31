@@ -7,6 +7,8 @@ There are two types of bookings:
 - Regular booking
 - Group booking
 
+> **NOTE / LIMITATION:** When a flight segment has been cancelled, no policy information will be returned for that segment.
+
 ### Create a regular booking (AirBookRQ)
 
 ### Request Parameters in the header (all required)
@@ -439,6 +441,70 @@ curl -X POST \
                 "city": [],
                 "airport": [],
                 "ruleInfo":{
+                  "chargesRules": {
+                    "voluntaryRefunds": {
+                      "TPA_Extensions": {
+                        "penaltyRules": [
+                          {
+                            "passengerTypeCode": "ADT",
+                            "rules": [
+                              {
+                                "currency": "SAR",
+                                "refundable": true,
+                                "base": 50.00,
+                                "tax": 7.50,
+                                "total": 57.50,
+                                "vat": 15.00,
+                                "applyFromTime": "2026-07-09T04:40:00Z",
+                                "applyUntilTime": "2026-07-09T05:00:00Z",
+                                "description": [
+                                  {
+                                    "locale": "en_GB",
+                                    "value": "Less than 20 minutes (%)"
+                                  },
+                                  {
+                                    "locale": "ar_SA",
+                                    "value": "Less than 20 minutes (%)"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "voluntaryChanges": {
+                      "TPA_Extensions": {
+                        "penaltyRules": [
+                          {
+                            "passengerTypeCode": "ADT",
+                            "rules": [
+                              {
+                                "currency": "SAR",
+                                "refundable": true,
+                                "base": 15.00,
+                                "tax": 2.25,
+                                "total": 17.25,
+                                "vat": 15.00,
+                                "applyFromTime": "2026-07-08T05:00:00Z",
+                                "applyUntilTime": "2026-07-09T04:40:00Z",
+                                "description": [
+                                  {
+                                    "locale": "en_GB",
+                                    "value": "Between 20 minutes - 24hours (%)"
+                                  },
+                                  {
+                                    "locale": "ar_SA",
+                                    "value": "Between 20 minutes - 24hours (%)"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  },
                   "tpaextensions": {
                     "updateTravellersTimeLimit": "2024-03-22T10:20:00Z",
                     "confirmationTimeLimit": "2024-03-22T10:49:00Z",
@@ -1337,6 +1403,70 @@ curl -X POST \
                             "city": [],
                             "airport": [],
                             "ruleInfo":{
+                              "chargesRules": {
+                                "voluntaryRefunds": {
+                                  "TPA_Extensions": {
+                                    "penaltyRules": [
+                                      {
+                                        "passengerTypeCode": "ADT",
+                                        "rules": [
+                                          {
+                                            "currency": "SAR",
+                                            "refundable": true,
+                                            "base": 50.00,
+                                            "tax": 7.50,
+                                            "total": 57.50,
+                                            "vat": 15.00,
+                                            "applyFromTime": "2026-07-09T04:40:00Z",
+                                            "applyUntilTime": "2026-07-09T05:00:00Z",
+                                            "description": [
+                                              {
+                                                "locale": "en_GB",
+                                                "value": "Less than 20 minutes (%)"
+                                              },
+                                              {
+                                                "locale": "ar_SA",
+                                                "value": "Less than 20 minutes (%)"
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                },
+                                "voluntaryChanges": {
+                                  "TPA_Extensions": {
+                                    "penaltyRules": [
+                                      {
+                                        "passengerTypeCode": "ADT",
+                                        "rules": [
+                                          {
+                                            "currency": "SAR",
+                                            "refundable": true,
+                                            "base": 15.00,
+                                            "tax": 2.25,
+                                            "total": 17.25,
+                                            "vat": 15.00,
+                                            "applyFromTime": "2026-07-08T05:00:00Z",
+                                            "applyUntilTime": "2026-07-09T04:40:00Z",
+                                            "description": [
+                                              {
+                                                "locale": "en_GB",
+                                                "value": "Between 20 minutes - 24hours (%)"
+                                              },
+                                              {
+                                                "locale": "ar_SA",
+                                                "value": "Between 20 minutes - 24hours (%)"
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                }
+                              },
                               "tpaextensions": {
                                 "updateTravellersTimeLimit": "2024-03-22T10:20:00Z",
                                 "confirmationTimeLimit": "2024-03-22T10:49:00Z",
@@ -2057,6 +2187,70 @@ curl -X POST \
                     "city": [],
                     "airport": [],
                     "ruleInfo":{
+                      "chargesRules": {
+                        "voluntaryRefunds": {
+                          "TPA_Extensions": {
+                            "penaltyRules": [
+                              {
+                                "passengerTypeCode": "ADT",
+                                "rules": [
+                                  {
+                                    "currency": "SAR",
+                                    "refundable": true,
+                                    "base": 50.00,
+                                    "tax": 7.50,
+                                    "total": 57.50,
+                                    "vat": 15.00,
+                                    "applyFromTime": "2026-07-09T04:40:00Z",
+                                    "applyUntilTime": "2026-07-09T05:00:00Z",
+                                    "description": [
+                                      {
+                                        "locale": "en_GB",
+                                        "value": "Less than 20 minutes (%)"
+                                      },
+                                      {
+                                        "locale": "ar_SA",
+                                        "value": "Less than 20 minutes (%)"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        },
+                        "voluntaryChanges": {
+                          "TPA_Extensions": {
+                            "penaltyRules": [
+                              {
+                                "passengerTypeCode": "ADT",
+                                "rules": [
+                                  {
+                                    "currency": "SAR",
+                                    "refundable": true,
+                                    "base": 15.00,
+                                    "tax": 2.25,
+                                    "total": 17.25,
+                                    "vat": 15.00,
+                                    "applyFromTime": "2026-07-08T05:00:00Z",
+                                    "applyUntilTime": "2026-07-09T04:40:00Z",
+                                    "description": [
+                                      {
+                                        "locale": "en_GB",
+                                        "value": "Between 20 minutes - 24hours (%)"
+                                      },
+                                      {
+                                        "locale": "ar_SA",
+                                        "value": "Between 20 minutes - 24hours (%)"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      },
                       "tpaextensions": {
                         "updateTravellersTimeLimit": "2024-03-22T10:20:00Z",
                         "confirmationTimeLimit": "2024-03-22T10:49:00Z",
@@ -2501,12 +2695,76 @@ curl -X POST \
                     "city": [],
                     "airport": [],
                     "ruleInfo":{
+                      "chargesRules": {
+                        "voluntaryRefunds": {
+                          "TPA_Extensions": {
+                            "penaltyRules": [
+                              {
+                                "passengerTypeCode": "ADT",
+                                "rules": [
+                                  {
+                                    "currency": "SAR",
+                                    "refundable": true,
+                                    "base": 50.00,
+                                    "tax": 7.50,
+                                    "total": 57.50,
+                                    "vat": 15.00,
+                                    "applyFromTime": "2026-07-09T04:40:00Z",
+                                    "applyUntilTime": "2026-07-09T05:00:00Z",
+                                    "description": [
+                                      {
+                                        "locale": "en_GB",
+                                        "value": "Less than 20 minutes (%)"
+                                      },
+                                      {
+                                        "locale": "ar_SA",
+                                        "value": "Less than 20 minutes (%)"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        },
+                        "voluntaryChanges": {
+                          "TPA_Extensions": {
+                            "penaltyRules": [
+                              {
+                                "passengerTypeCode": "ADT",
+                                "rules": [
+                                  {
+                                    "currency": "SAR",
+                                    "refundable": true,
+                                    "base": 15.00,
+                                    "tax": 2.25,
+                                    "total": 17.25,
+                                    "vat": 15.00,
+                                    "applyFromTime": "2026-07-08T05:00:00Z",
+                                    "applyUntilTime": "2026-07-09T04:40:00Z",
+                                    "description": [
+                                      {
+                                        "locale": "en_GB",
+                                        "value": "Between 20 minutes - 24hours (%)"
+                                      },
+                                      {
+                                        "locale": "ar_SA",
+                                        "value": "Between 20 minutes - 24hours (%)"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      },
                       "tpaextensions": {
                         "updateTravellersTimeLimit": "2024-04-18T10:20:00Z",
                         "confirmationTimeLimit": "2024-04-18T10:49:00Z",
                         "cancellationTimeLimit": "2024-04-18T08:40:00Z"
                       }
-                    }`
+                    }
                   },
                   {
                     "fareReference": [
@@ -2529,6 +2787,70 @@ curl -X POST \
                     "city": [],
                     "airport": [],
                     "ruleInfo":{
+                      "chargesRules": {
+                        "voluntaryRefunds": {
+                          "TPA_Extensions": {
+                            "penaltyRules": [
+                              {
+                                "passengerTypeCode": "ADT",
+                                "rules": [
+                                  {
+                                    "currency": "SAR",
+                                    "refundable": true,
+                                    "base": 50.00,
+                                    "tax": 7.50,
+                                    "total": 57.50,
+                                    "vat": 15.00,
+                                    "applyFromTime": "2026-07-09T04:40:00Z",
+                                    "applyUntilTime": "2026-07-09T05:00:00Z",
+                                    "description": [
+                                      {
+                                        "locale": "en_GB",
+                                        "value": "Less than 20 minutes (%)"
+                                      },
+                                      {
+                                        "locale": "ar_SA",
+                                        "value": "Less than 20 minutes (%)"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        },
+                        "voluntaryChanges": {
+                          "TPA_Extensions": {
+                            "penaltyRules": [
+                              {
+                                "passengerTypeCode": "ADT",
+                                "rules": [
+                                  {
+                                    "currency": "SAR",
+                                    "refundable": true,
+                                    "base": 15.00,
+                                    "tax": 2.25,
+                                    "total": 17.25,
+                                    "vat": 15.00,
+                                    "applyFromTime": "2026-07-08T05:00:00Z",
+                                    "applyUntilTime": "2026-07-09T04:40:00Z",
+                                    "description": [
+                                      {
+                                        "locale": "en_GB",
+                                        "value": "Between 20 minutes - 24hours (%)"
+                                      },
+                                      {
+                                        "locale": "ar_SA",
+                                        "value": "Between 20 minutes - 24hours (%)"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      },
                       "tpaextensions": {
                         "updateTravellersTimeLimit": "2024-04-18T10:20:00Z",
                         "confirmationTimeLimit": "2024-04-18T10:49:00Z",
