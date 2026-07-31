@@ -1,5 +1,86 @@
 
 ## Changelog
+### 2026-07-31
+
+#### Add penalty rules for OTA_AirBookRS, OTA_AirPriceRS
+
+- Documented penalty rule information under `/airReservation/priceInfo/fareInfos/fareInfo/ruleInfo/chargesRules` for Individual Creation (`OTA_AirBookRS`), Group Booking (`OTA_AirPriceRS`), and Retrieve Booking (`OTA_AirBookRS`). ([See more details](endpoints/create_booking.md), [Retrieve Booking](endpoints/read_booking.md))
+- Penalty rules are returned under `voluntaryRefunds.TPA_Extensions.penaltyRules` (cancel / no-show) and `voluntaryChanges.TPA_Extensions.penaltyRules` (change), grouped by `passengerTypeCode`.
+- **NOTE / LIMITATION:** When a flight segment has been cancelled, no policy information will be returned for that segment.
+  ```json
+            "ruleInfo": {
+                "chargesRules": {
+                    "voluntaryRefunds": {
+                        "TPA_Extensions": {
+                            "penaltyRules": [
+                                {
+                                    "passengerTypeCode": "ADT",
+                                    "rules": [
+                                        {
+                                            "currency": "SAR",
+                                            "refundable": true,
+                                            "base": 50.00,
+                                            "tax": 7.50,
+                                            "total": 57.50,
+                                            "vat": 15.00,
+                                            "applyFromTime": "2026-07-09T04:40:00Z",
+                                            "applyUntilTime": "2026-07-09T05:00:00Z",
+                                            "description": [
+                                                {
+                                                  "locale": "en_GB",
+                                                  "value": "Less than 20 minutes (%)"
+                                                },
+                                                {
+                                                  "locale": "ar_SA",
+                                                  "value": "Less than 20 minutes (%)"
+                                                }
+                                            ]
+                                          }
+                                    ]
+                                }
+                            ]
+                        }
+                    },
+                    "voluntaryChanges": {
+                        "TPA_Extensions": {
+                            "penaltyRules": [
+                                {
+                                    "passengerTypeCode": "ADT",
+                                    "rules": [
+                                        {
+                                            "currency": "SAR",
+                                            "refundable": true,
+                                            "base": 15.00,
+                                            "tax": 2.25,
+                                            "total": 17.25,
+                                            "vat": 15.00,
+                                            "applyFromTime": "2026-07-08T05:00:00Z",
+                                            "applyUntilTime": "2026-07-09T04:40:00Z",
+                                            "description": [
+                                                {
+                                                  "locale": "en_GB",
+                                                  "value": "Between 20 minutes - 24hours (%)"
+                                                },
+                                                {
+                                                  "locale": "ar_SA",
+                                                  "value": "Between 20 minutes - 24hours (%)"
+                                                }
+                                            ]
+                                          }
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                },
+                "tpaextensions": {
+                    "cancellationTimeLimit": "2026-07-01T10:11:07Z",
+                    "confirmationTimeLimit": "2025-07-01T10:40:55Z",
+                    "updateTravellersTimeLimit": "2025-07-26T07:50:00Z"
+                }
+            }
+  ```
+
 ### 2026-06-28
 
 #### Updated change passenger name type
