@@ -4,9 +4,10 @@
 
 #### Add penalty rules for OTA_AirBookRS, OTA_AirPriceRS
 
-- Documented penalty rule information under `/airReservation/priceInfo/fareInfos/fareInfo/ruleInfo/chargesRules` for Individual Creation (`OTA_AirBookRS`), Group Booking (`OTA_AirPriceRS`), and Retrieve Booking (`OTA_AirBookRS`). ([See more details](endpoints/create_booking.md), [Retrieve Booking](endpoints/read_booking.md))
-- Penalty rules are returned under `voluntaryRefunds.TPA_Extensions.penaltyRules` (cancel / no-show) and `voluntaryChanges.TPA_Extensions.penaltyRules` (change), grouped by `passengerTypeCode`.
-- **NOTE / LIMITATION:** When a flight segment has been cancelled, no policy information will be returned for that segment.
+- Penalty rules are returned under:
+    - `voluntaryRefunds.TPA_Extensions.penaltyRules`: Provides the charges and penalties applicable to voluntary refunds or cancellations. ([See more details](endpoints/create_booking.md), [Retrieve Booking](endpoints/read_booking.md))
+    - `voluntaryChanges.TPA_Extensions.penaltyRules`: Provides information about charges and penalties applicable to voluntary ticket changes. The current system returns this information for reference only; voluntary changes are not currently supported.
+
   ```json
             "ruleInfo": {
                 "chargesRules": {
@@ -80,6 +81,7 @@
                 }
             }
   ```
+- **NOTE / LIMITATION:** When a flight segment has been cancelled, no policy information will be returned for that segment.
 
 ### 2026-06-28
 
