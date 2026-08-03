@@ -11,11 +11,11 @@ title: Order Create (OrderCreate)
 
 ## Description
 
-The Order Create API creates a new booking order based on selected offers from an Offer Price response. Supports both pay-later (holding) bookings without PaymentFunctions and instant payment flows when payment details are provided. Returns an OrderViewRS response with order confirmation details.
+The Order Create API creates a new booking order based on selected offers from an Offer Price response. Supports both pay-later (holding) bookings without PaymentFunctions and instant payment flows when payment details are provided. When OfferPrice priced a flight together with seat and/or SSR, echo the composite `OfferID` as `OfferRefID` so flight, seat, and SSR are created in one order. Returns an OrderViewRS response with order confirmation details.
 
 ## Workflow (NDC API guide)
 
-**Step 3** ([workflow index](../NDC_API.md#ndc-for-offers--orders-workflow)). `POST …/OrderCreate` · **`CreateOrder`** → **`AcceptSelectedQuotedOfferList`** using **`OfferRefID`** / **`OfferItemRefID`** / **`OwnerCode`** / **`PaxRefID`** from **OfferPriceRS**. Scenarios: **[`#ordercreate-pay-later`](#ordercreate-pay-later)**, **[`#ordercreate-instant-pay`](#ordercreate-instant-pay)**.
+**Step 3** ([workflow index](../NDC_API.md#ndc-for-offers--orders-workflow)). `POST …/OrderCreate` · **`CreateOrder`** → **`AcceptSelectedQuotedOfferList`** using **`OfferRefID`** / **`OfferItemRefID`** / **`OwnerCode`** / **`PaxRefID`** from **OfferPriceRS** (for Phase 2 combined pricing, echo **`OfferID`** unchanged — it may be a colon-separated composite). Scenarios: **[`#ordercreate-pay-later`](#ordercreate-pay-later)**, **[`#ordercreate-instant-pay`](#ordercreate-instant-pay)**, **[`#ordercreate-combined-offer`](#ordercreate-combined-offer)**.
 
 See [Authentication](../NDC_API.md#http-headers) for **`x-tenant`**, **`x-SalesChannel`**, and **`x-api-key`**.
 
@@ -37,6 +37,18 @@ See [Authentication](../NDC_API.md#http-headers) for **`x-tenant`**, **`x-SalesC
 The request body must be a valid `IATA_OrderCreateRQ` XML document following IATA NDC v21.3.5 standard.
 - Each `<PaxList>`/`<Pax>` must be ordered by PassengerType in a strictly sequential ADT, CHD, INF
 - Passenger `<PaxID>`'s number must be consecutive numbers
+
+### OfferRefID shapes
+
+Echo the `OfferID` from **OfferPriceRS** as `SelectedPricedOffer/OfferRefID` **without modification** (do not build, reorder, or drop components). Two shapes are supported:
+
+| Shape | `OfferRefID` | How items are classified |
+|-------|--------------|--------------------------|
+| **Composite** (Phase 2 combined pricing) | One `SelectedPricedOffer` with `flightOfferId[:serviceOfferId]*[:seatOfferId]*` (colon-separated UUIDs, flight first, then service offer id(s), then seat offer id(s)) | Split by item markers on the same offer: flight = no marker; SSR/service = `SelectedALaCarteOfferItem` + `Qty`; seat = `SelectedSeat` |
+| **Separate offers** | One `SelectedPricedOffer` per role, each with a plain UUID (`flightOffer`, `serviceOffer`, `seatOffer`) | Same markers: seat = `SelectedSeat`; service = a-la-carte qty; flight = neither |
+| **Flight-only** | Plain UUID | Unchanged existing flow |
+
+See **[Offer Price](offerprice.md)** for how the composite `OfferID` is produced, and **[`#ordercreate-combined-offer`](#ordercreate-combined-offer)** for a request sample.
 
 <details>
     <summary>Example:</summary>
@@ -389,6 +401,169 @@ Omit **`PaymentFunctions`** for pay-later: the order commonly returns **`DRAFT`*
 
 </details>
 
+### Combined offer (flight + seat and/or SSR)
+{: #ordercreate-combined-offer}
+
+When **OfferPrice** returned a composite `OfferID` (flight priced with seat and/or SSR), submit **one** `SelectedPricedOffer` that echoes that id as `OfferRefID`. Keep the same selection markers on items (`SelectedALaCarteOfferItem` for SSR, `SelectedSeat` for seats). Flight items carry neither marker.
+
+<details>
+<summary>Request Payload (flight + SSR composite)</summary>
+
+<pre><code class="language-xml">
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;
+&lt;IATA_OrderCreateRQ xmlns=&quot;http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage&quot; xmlns:ns2=&quot;http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes&quot; xmlns:ns3=&quot;http://www.w3.org/2000/09/xmldsig#&quot;&gt;
+   &lt;DistributionChain&gt;
+      &lt;ns2:DistributionChainLink&gt;
+         &lt;ns2:Ordinal&gt;1&lt;/ns2:Ordinal&gt;
+         &lt;ns2:OrgRole&gt;Seller&lt;/ns2:OrgRole&gt;
+         &lt;ns2:ParticipatingOrg&gt;
+            &lt;ns2:Name&gt;Travel Agency XYZ&lt;/ns2:Name&gt;
+            &lt;ns2:OrgID&gt;Seller123&lt;/ns2:OrgID&gt;
+         &lt;/ns2:ParticipatingOrg&gt;
+      &lt;/ns2:DistributionChainLink&gt;
+   &lt;/DistributionChain&gt;
+   &lt;PayloadAttributes&gt;
+      &lt;ns2:CorrelationID&gt;c01cb616-7bd5-4d40-9a5f-b1fb8640f315&lt;/ns2:CorrelationID&gt;
+      &lt;ns2:Timestamp&gt;2026-08-03T12:41:51.358+07:00&lt;/ns2:Timestamp&gt;
+      &lt;ns2:TrxID&gt;TRX-123456789&lt;/ns2:TrxID&gt;
+      &lt;ns2:VersionNumber&gt;21.3&lt;/ns2:VersionNumber&gt;
+   &lt;/PayloadAttributes&gt;
+   &lt;POS&gt;
+      &lt;ns2:Country&gt;
+         &lt;ns2:CountryCode&gt;FR&lt;/ns2:CountryCode&gt;
+      &lt;/ns2:Country&gt;
+   &lt;/POS&gt;
+   &lt;Request&gt;
+      &lt;ns2:CreateOrder&gt;
+         &lt;ns2:AcceptSelectedQuotedOfferList&gt;
+            &lt;ns2:SelectedPricedOffer&gt;
+               &lt;ns2:OfferRefID&gt;bb65212d-0896-41f5-812a-668fe9146c9c:f3e33725-d53c-4727-98d5-3c6d4766da09&lt;/ns2:OfferRefID&gt;
+               &lt;ns2:OwnerCode&gt;VS&lt;/ns2:OwnerCode&gt;
+               &lt;ns2:SelectedOfferItem&gt;
+                  &lt;ns2:OfferItemRefID&gt;f68533be-6f3a-4569-901a-8a376e22d0f0:cbec0b27-00f8-460a-bedb-5313bd6e2a05&lt;/ns2:OfferItemRefID&gt;
+                  &lt;ns2:PaxRefID&gt;PAX1&lt;/ns2:PaxRefID&gt;
+               &lt;/ns2:SelectedOfferItem&gt;
+               &lt;ns2:SelectedOfferItem&gt;
+                  &lt;ns2:OfferItemRefID&gt;5fc5d68a-af99-4f6c-afbd-3d6839832ae5:d456c4f6-3733-400f-a071-6d0c994fe1ea&lt;/ns2:OfferItemRefID&gt;
+                  &lt;ns2:PaxRefID&gt;PAX1&lt;/ns2:PaxRefID&gt;
+               &lt;/ns2:SelectedOfferItem&gt;
+               &lt;ns2:SelectedOfferItem&gt;
+                  &lt;ns2:OfferItemRefID&gt;d6307999-4267-45a3-8072-21839da52690:f3a64b66-37c8-4148-a2fb-e5cdfa44f0fb&lt;/ns2:OfferItemRefID&gt;
+                  &lt;ns2:PaxRefID&gt;PAX3&lt;/ns2:PaxRefID&gt;
+               &lt;/ns2:SelectedOfferItem&gt;
+               &lt;ns2:SelectedOfferItem&gt;
+                  &lt;ns2:OfferItemRefID&gt;57192530-fbfe-4bc6-b75d-e179709ace4a&lt;/ns2:OfferItemRefID&gt;
+                  &lt;ns2:PaxRefID&gt;PAX1&lt;/ns2:PaxRefID&gt;
+                  &lt;ns2:SelectedALaCarteOfferItem&gt;
+                     &lt;ns2:Qty&gt;1&lt;/ns2:Qty&gt;
+                  &lt;/ns2:SelectedALaCarteOfferItem&gt;
+               &lt;/ns2:SelectedOfferItem&gt;
+            &lt;/ns2:SelectedPricedOffer&gt;
+         &lt;/ns2:AcceptSelectedQuotedOfferList&gt;
+      &lt;/ns2:CreateOrder&gt;
+      &lt;ns2:DataLists&gt;
+         &lt;ns2:ContactInfoList&gt;
+            &lt;ns2:ContactInfo&gt;
+               &lt;ns2:ContactInfoID&gt;CTCPAX1_1&lt;/ns2:ContactInfoID&gt;
+               &lt;ns2:EmailAddress&gt;
+                  &lt;ns2:ContactTypeText&gt;Home&lt;/ns2:ContactTypeText&gt;
+                  &lt;ns2:EmailAddressText&gt;sample@a.com&lt;/ns2:EmailAddressText&gt;
+               &lt;/ns2:EmailAddress&gt;
+               &lt;ns2:Individual&gt;
+                  &lt;ns2:Birthdate&gt;2026-02-02&lt;/ns2:Birthdate&gt;
+                  &lt;ns2:GivenName&gt;Firstname&lt;/ns2:GivenName&gt;
+                  &lt;ns2:Surname&gt;Surname&lt;/ns2:Surname&gt;
+                  &lt;ns2:TitleName&gt;Mr&lt;/ns2:TitleName&gt;
+               &lt;/ns2:Individual&gt;
+               &lt;ns2:Phone&gt;
+                  &lt;ns2:CountryDialingCode&gt;66&lt;/ns2:CountryDialingCode&gt;
+                  &lt;ns2:PhoneNumber&gt;12345960&lt;/ns2:PhoneNumber&gt;
+               &lt;/ns2:Phone&gt;
+               &lt;ns2:PostalAddress&gt;
+                  &lt;ns2:CityName&gt;TEST&lt;/ns2:CityName&gt;
+                  &lt;ns2:CountryCode&gt;TH&lt;/ns2:CountryCode&gt;
+                  &lt;ns2:PostalCode&gt;10210&lt;/ns2:PostalCode&gt;
+               &lt;/ns2:PostalAddress&gt;
+            &lt;/ns2:ContactInfo&gt;
+         &lt;/ns2:ContactInfoList&gt;
+         &lt;ns2:PaxList&gt;
+            &lt;ns2:Pax&gt;
+               &lt;ns2:IdentityDoc&gt;
+                  &lt;ns2:ExpiryDate&gt;2029-08-13&lt;/ns2:ExpiryDate&gt;
+                  &lt;ns2:IdentityDocID&gt;0123456789&lt;/ns2:IdentityDocID&gt;
+                  &lt;ns2:IdentityDocTypeCode&gt;PP&lt;/ns2:IdentityDocTypeCode&gt;
+                  &lt;ns2:IssuingCountryCode&gt;GB&lt;/ns2:IssuingCountryCode&gt;
+                  &lt;ns2:ResidenceCountryCode&gt;GB&lt;/ns2:ResidenceCountryCode&gt;
+                  &lt;ns2:Surname&gt;Wayne&lt;/ns2:Surname&gt;
+               &lt;/ns2:IdentityDoc&gt;
+               &lt;ns2:Individual&gt;
+                  &lt;ns2:Birthdate&gt;1994-12-08&lt;/ns2:Birthdate&gt;
+                  &lt;ns2:GenderCode&gt;M&lt;/ns2:GenderCode&gt;
+                  &lt;ns2:GivenName&gt;Bruce&lt;/ns2:GivenName&gt;
+                  &lt;ns2:Surname&gt;Wayne&lt;/ns2:Surname&gt;
+                  &lt;ns2:TitleName&gt;MR&lt;/ns2:TitleName&gt;
+               &lt;/ns2:Individual&gt;
+               &lt;ns2:LangUsage&gt;
+                  &lt;ns2:LangCode&gt;FR&lt;/ns2:LangCode&gt;
+               &lt;/ns2:LangUsage&gt;
+               &lt;ns2:PaxID&gt;PAX1&lt;/ns2:PaxID&gt;
+               &lt;ns2:PaxRefID&gt;PAX3&lt;/ns2:PaxRefID&gt;
+               &lt;ns2:PTC&gt;ADT&lt;/ns2:PTC&gt;
+            &lt;/ns2:Pax&gt;
+            &lt;ns2:Pax&gt;
+               &lt;ns2:IdentityDoc&gt;
+                  &lt;ns2:ExpiryDate&gt;2029-08-13&lt;/ns2:ExpiryDate&gt;
+                  &lt;ns2:IdentityDocID&gt;0123456789&lt;/ns2:IdentityDocID&gt;
+                  &lt;ns2:IdentityDocTypeCode&gt;PP&lt;/ns2:IdentityDocTypeCode&gt;
+                  &lt;ns2:IssuingCountryCode&gt;GB&lt;/ns2:IssuingCountryCode&gt;
+                  &lt;ns2:ResidenceCountryCode&gt;GB&lt;/ns2:ResidenceCountryCode&gt;
+                  &lt;ns2:Surname&gt;Wayne&lt;/ns2:Surname&gt;
+               &lt;/ns2:IdentityDoc&gt;
+               &lt;ns2:Individual&gt;
+                  &lt;ns2:Birthdate&gt;2020-01-01&lt;/ns2:Birthdate&gt;
+                  &lt;ns2:GenderCode&gt;M&lt;/ns2:GenderCode&gt;
+                  &lt;ns2:GivenName&gt;Child&lt;/ns2:GivenName&gt;
+                  &lt;ns2:Surname&gt;Wayne&lt;/ns2:Surname&gt;
+                  &lt;ns2:TitleName&gt;MR&lt;/ns2:TitleName&gt;
+               &lt;/ns2:Individual&gt;
+               &lt;ns2:LangUsage&gt;
+                  &lt;ns2:LangCode&gt;FR&lt;/ns2:LangCode&gt;
+               &lt;/ns2:LangUsage&gt;
+               &lt;ns2:PaxID&gt;PAX2&lt;/ns2:PaxID&gt;
+               &lt;ns2:PTC&gt;CHD&lt;/ns2:PTC&gt;
+            &lt;/ns2:Pax&gt;
+            &lt;ns2:Pax&gt;
+               &lt;ns2:IdentityDoc&gt;
+                  &lt;ns2:ExpiryDate&gt;2029-08-13&lt;/ns2:ExpiryDate&gt;
+                  &lt;ns2:IdentityDocID&gt;0123456780&lt;/ns2:IdentityDocID&gt;
+                  &lt;ns2:IdentityDocTypeCode&gt;PP&lt;/ns2:IdentityDocTypeCode&gt;
+                  &lt;ns2:IssuingCountryCode&gt;GB&lt;/ns2:IssuingCountryCode&gt;
+                  &lt;ns2:ResidenceCountryCode&gt;GB&lt;/ns2:ResidenceCountryCode&gt;
+                  &lt;ns2:Surname&gt;Wayne&lt;/ns2:Surname&gt;
+               &lt;/ns2:IdentityDoc&gt;
+               &lt;ns2:Individual&gt;
+                  &lt;ns2:Birthdate&gt;2026-01-01&lt;/ns2:Birthdate&gt;
+                  &lt;ns2:GenderCode&gt;M&lt;/ns2:GenderCode&gt;
+                  &lt;ns2:GivenName&gt;Baby&lt;/ns2:GivenName&gt;
+                  &lt;ns2:Surname&gt;Wayne&lt;/ns2:Surname&gt;
+                  &lt;ns2:TitleName&gt;MR&lt;/ns2:TitleName&gt;
+               &lt;/ns2:Individual&gt;
+               &lt;ns2:LangUsage&gt;
+                  &lt;ns2:LangCode&gt;FR&lt;/ns2:LangCode&gt;
+               &lt;/ns2:LangUsage&gt;
+               &lt;ns2:PaxID&gt;PAX3&lt;/ns2:PaxID&gt;
+               &lt;ns2:PTC&gt;INF&lt;/ns2:PTC&gt;
+            &lt;/ns2:Pax&gt;
+         &lt;/ns2:PaxList&gt;
+      &lt;/ns2:DataLists&gt;
+   &lt;/Request&gt;
+&lt;/IATA_OrderCreateRQ&gt;
+</code></pre>
+
+</details>
+
+For seats on a composite offer, add a `SelectedOfferItem` with **`SelectedSeat`** (`ColumnID`, `SeatRowNumber`) using the seat `OfferItemRefID` from OfferPriceRS. Flight + seat + SSR uses the same composite `OfferRefID` pattern with both markers present. Success still returns `IATA_OrderViewRS` with flight, seat, and SSR associations and prices.
+
 ### Request validation error message
 
 | Message                           | Reason                                                                                         |
@@ -398,6 +573,7 @@ Omit **`PaymentFunctions`** for pay-later: the order commonly returns **`DRAFT`*
 | PaxId is invalid                  | Input PaxID doesn't follow the standard format, e.g. `PAX1`,`PAX2`                             |
 | Invalid PaxID ordered             | PaxID's number must be assigned to each passengers type in a strictly sequential ADT, CHD, INF |
 | Invalid PTC value: {x}            | Allow only PassengerType(PTC) = `ADT`, `CHD`, or `INF`                                         |
+| offerId contains empty / non-UUID component | Composite `OfferRefID` must be valid colon-separated UUIDs; do not modify the OfferPrice value |
 
 
 ## Response
@@ -836,12 +1012,15 @@ Invalid request format or missing required fields.
 
 ## Notes
 
-1. **Prerequisites**: You must first call `AirShopping` and `OfferPrice` to get offer references.
-2. **Pay Later vs Instant Payment**: 
+1. **Prerequisites**: You must first call `AirShopping` and `OfferPrice` to get offer references. For Phase 2 by-offer with seat/SSR, call offer-based **SeatAvailability** / **ServiceList**, then **OfferPrice**, then **OrderCreate**.
+2. **Composite OfferRefID**: When OfferPrice priced flight with seat and/or SSR, echo the composite `OfferID` (`flightOfferId[:serviceOfferId]*[:seatOfferId]*`) unchanged as `OfferRefID`. Do not build or reorder components.
+3. **Selection markers**: Keep `SelectedALaCarteOfferItem` (SSR) and/or `SelectedSeat` on OrderCreate items so the gateway can split a composite offer; flight items carry neither marker.
+4. **Invalid composite**: Modified, expired, or incomplete composite components are rejected; the system does not create a partially completed order.
+5. **Pay Later vs Instant Payment**: 
    - Omit `PaymentFunctions` for pay-later (holding) bookings
-   - Include `PaymentFunctions` for instant payment
-3. **Order Status**: 
+   - Include `PaymentFunctions` for instant payment (typical for Phase 2 by-offer with ancillaries)
+6. **Order Status**: 
    - Pay-later bookings return status `DRAFT` (on hold)
    - Instant payment bookings return status `OPEN` (confirmed)
-4. **Payment Processing**: For pay-later bookings, use `OrderChange` to process payment later.
-5. **Order ID**: Save the `OrderID` from the response for future operations like `OrderRetrieve` or `OrderChange`.
+7. **Payment Processing**: For pay-later bookings, use `OrderChange` to process payment later.
+8. **Order ID**: Save the `OrderID` from the response for future operations like `OrderRetrieve` or `OrderChange`.

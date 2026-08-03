@@ -562,6 +562,8 @@ Returns an `IATA_OfferPriceRS` XML document.
 <details>
 <summary>Response shape notes (combined service / seat)</summary>
 
+When services or seats are included, `PricedOffer/OfferID` may be a **composite** string `flightOfferId[:serviceOfferId]*[:seatOfferId]*` (flight first, then service offer id(s), then seat offer id(s)). Echo that value unchanged as **OrderCreate** `OfferRefID` — see [Order Create — combined offer](ordercreate.md#ordercreate-combined-offer).
+
 When services or seats are included, `PricedOffer` keeps the flight `OfferItem` rows and appends extra items, for example:
 
 ```xml
@@ -654,4 +656,4 @@ Invalid request format, missing required fields, or business validation failures
 4. **Combined total:** `PricedOffer.TotalPrice` is flight price plus selected service and seat prices. Free/zero-price extras still appear as line items.
 5. **Passenger eligibility:** `PaxRefID` on service/seat items must match the eligible passenger on that offer item.
 6. **Feature flags:** Combined service/seat pricing requires tenant `service-enabled` / `seat-enabled` (global defaults may be off).
-7. **Use in OrderCreate:** Pass the same selection markers (`SelectedALaCarteOfferItem` / `SelectedSeat`) when creating the order from the priced offer.
+7. **Use in OrderCreate:** Echo `PricedOffer/OfferID` as `OfferRefID` (plain UUID for flight-only; composite when extras were priced). Pass the same selection markers (`SelectedALaCarteOfferItem` / `SelectedSeat`) when creating the order from the priced offer.

@@ -12017,7 +12017,7 @@
               "response": []
             },
             {
-              "name": "4. OrderCreate [OW] [1ADT, 1CHD, 1INF] [Pay Later]",
+              "name": "4.1. OrderCreate [OW] [1ADT, 1CHD, 1INF] [Pay Later] [Multiple Offer]",
               "event": [
                 {
                   "listen": "test",
@@ -12161,7 +12161,151 @@
               "response": []
             },
             {
-              "name": "4. OrderCreate [OW] [1ADT, 1CHD, 1INF] [Pay]",
+              "name": "4.2. OrderCreate [OW] [1ADT, 1CHD, 1INF] [Pay Later] [Single Offer]",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "const xml2js = require('xml2js');",
+                      "const xmlContent = pm.response.text();",
+                      "",
+                      "// Require the necessary xml2js components",
+                      "const parseString = require('xml2js').parseString;",
+                      "const stripPrefix = require('xml2js').processors.stripPrefix;",
+                      "",
+                      "parseString(xmlContent, {",
+                      "    // Optional configuration for cleaner access",
+                      "    tagNameProcessors: [stripPrefix],",
+                      "    explicitArray: false,",
+                      "    ignoreAttrs: false",
+                      "}, function (err, result) {",
+                      "    if (err) {",
+                      "        console.error('Error parsing XML:', err);",
+                      "        return;",
+                      "    }",
+                      "    console.log(result);",
+                      "",
+                      "    // Now 'result' is your fully parsed JavaScript object.",
+                      "    // We wrap this in a try-catch block in case the path is missing in some responses.",
+                      "    try {",
+                      "        // Navigate to Offer list",
+                      "        let orderId = result.IATA_OrderViewRS.Response.Order.OrderID;",
+                      "        pm.environment.set(`orderId`, orderId);",
+                      "",
+                      "        let totalPrice = result.IATA_OrderViewRS.Response.Order.TotalPrice.TotalAmount._;",
+                      "        let totalCurCode = result.IATA_OrderViewRS.Response.Order.TotalPrice.TotalAmount.$.CurCode;",
+                      "",
+                      "        let orderItems = result.IATA_OrderViewRS.Response.Order.OrderItem;",
+                      "        ",
+                      "        // Always array",
+                      "        if (!Array.isArray(orderItems)) {",
+                      "            orderItems = [orderItems];",
+                      "        }",
+                      "",
+                      "        orderItems.forEach((id, index) => {",
+                      "            pm.environment.set(`orderItemId${index}`, id.OrderItemID);",
+                      "        });",
+                      "",
+                      "        console.log('TotalPrice: ' + totalPrice);",
+                      "        console.log('Currency Code:' + totalCurCode);",
+                      "        pm.environment.set(`totalPrice`, totalPrice);",
+                      "        pm.environment.set(`totalCurCode`, totalCurCode);",
+                      "",
+                      "    } catch (e) {",
+                      "        console.error('Could not find the expected path in the XML structure:', e.message);",
+                      "        console.log('Full parsed object structure:', result); // Log the whole object to debug the path",
+                      "    }",
+                      "});",
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "function formatWithTimezone(date, tzOffsetMinutes) {",
+                      "    const pad = (n, width = 2) => String(n).padStart(width, \"0\");",
+                      "",
+                      "    const sign = tzOffsetMinutes >= 0 ? \"+\" : \"-\";",
+                      "    const abs = Math.abs(tzOffsetMinutes);",
+                      "    const offsetHours = pad(Math.floor(abs / 60));",
+                      "    const offsetMinutes = pad(abs % 60);",
+                      "",
+                      "    return (",
+                      "        date.getFullYear() +",
+                      "        \"-\" + pad(date.getMonth() + 1) +",
+                      "        \"-\" + pad(date.getDate()) +",
+                      "        \"T\" + pad(date.getHours()) +",
+                      "        \":\" + pad(date.getMinutes()) +",
+                      "        \":\" + pad(date.getSeconds()) +",
+                      "        \".\" + pad(date.getMilliseconds(), 3) +",
+                      "        sign + offsetHours + \":\" + offsetMinutes",
+                      "    );",
+                      "}",
+                      "",
+                      "let date = new Date();",
+                      "",
+                      "// Thailand timezone = +07:00 -> 420 minutes",
+                      "let th = formatWithTimezone(date, 420);",
+                      "pm.environment.set(\"today_th\", th);"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "x-SalesChannel",
+                    "value": "{{x-saleschannel}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-tenant",
+                    "value": "{{tenant}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-api-key",
+                    "value": "{{x-api-key}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<IATA_OrderCreateRQ xmlns=\"http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage\" xmlns:ns2=\"http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes\" xmlns:ns3=\"http://www.w3.org/2000/09/xmldsig#\">\n    <DistributionChain>\n        <ns2:DistributionChainLink>\n            <ns2:Ordinal>1</ns2:Ordinal>\n            <ns2:OrgRole>Seller</ns2:OrgRole>\n            <ns2:ParticipatingOrg>\n                <ns2:Name>Travel Agency XYZ</ns2:Name>\n                <ns2:OrgID>Seller123</ns2:OrgID>\n            </ns2:ParticipatingOrg>\n        </ns2:DistributionChainLink>\n    </DistributionChain>\n    <PayloadAttributes>\n        <ns2:CorrelationID>{{$randomUUID}}</ns2:CorrelationID>\n        <ns2:Timestamp>{{today_th}}</ns2:Timestamp>\n        <ns2:TrxID>TRX-123456789</ns2:TrxID>\n        <ns2:VersionNumber>21.3</ns2:VersionNumber>\n    </PayloadAttributes>\n    <POS>\n        <ns2:Country>\n            <ns2:CountryCode>FR</ns2:CountryCode>\n        </ns2:Country>\n    </POS>\n    <Request>\n        <ns2:CreateOrder>\n            <ns2:AcceptSelectedQuotedOfferList>\n                <ns2:SelectedPricedOffer>\n                    <ns2:OfferRefID>{{offerId}}</ns2:OfferRefID>\n                    <ns2:OwnerCode>VS</ns2:OwnerCode>\n                    <ns2:SelectedOfferItem>\n                        <ns2:OfferItemRefID>{{offerItemId0}}</ns2:OfferItemRefID>\n                        <ns2:PaxRefID>PAX1</ns2:PaxRefID>\n                    </ns2:SelectedOfferItem>\n                    <ns2:SelectedOfferItem>\n                        <ns2:OfferItemRefID>{{offerItemId1}}</ns2:OfferItemRefID>\n                        <ns2:PaxRefID>PAX1</ns2:PaxRefID>\n                    </ns2:SelectedOfferItem>\n                    <ns2:SelectedOfferItem>\n                        <ns2:OfferItemRefID>{{offerItemId2}}</ns2:OfferItemRefID>\n                        <ns2:PaxRefID>PAX3</ns2:PaxRefID>\n                    </ns2:SelectedOfferItem>\n                    <ns2:SelectedOfferItem>\n                        <ns2:OfferItemRefID>{{offerItemId3}}</ns2:OfferItemRefID>\n                        <ns2:PaxRefID>PAX1</ns2:PaxRefID>\n                        <ns2:SelectedALaCarteOfferItem>\n                            <ns2:Qty>1</ns2:Qty>\n                        </ns2:SelectedALaCarteOfferItem>\n                    </ns2:SelectedOfferItem>\n                </ns2:SelectedPricedOffer>\n            </ns2:AcceptSelectedQuotedOfferList>\n        </ns2:CreateOrder>\n        <ns2:DataLists>\n            <ns2:ContactInfoList>\n                <ns2:ContactInfo>\n                    <ns2:ContactInfoID>CTCPAX1_1</ns2:ContactInfoID>\n                    <ns2:EmailAddress>\n                        <ns2:ContactTypeText>Home</ns2:ContactTypeText>\n                        <ns2:EmailAddressText>sample@a.com</ns2:EmailAddressText>\n                    </ns2:EmailAddress>\n                    <ns2:Individual>\n                        <ns2:Birthdate>2026-02-02</ns2:Birthdate>\n                        <ns2:GivenName>Firstname</ns2:GivenName>\n                        <ns2:Surname>Surname</ns2:Surname>\n                        <ns2:TitleName>Mr</ns2:TitleName>\n                    </ns2:Individual>\n                    <ns2:Phone>\n                        <ns2:CountryDialingCode>66</ns2:CountryDialingCode>\n                        <ns2:PhoneNumber>12345960</ns2:PhoneNumber>\n                    </ns2:Phone>\n                    <ns2:PostalAddress>\n                        <ns2:CityName>TEST</ns2:CityName>\n                        <ns2:CountryCode>TH</ns2:CountryCode>\n                        <ns2:PostalCode>10210</ns2:PostalCode>\n                    </ns2:PostalAddress>\n                </ns2:ContactInfo>\n            </ns2:ContactInfoList>\n            <ns2:PaxList>\n                <ns2:Pax>\n                    <ns2:IdentityDoc>\n                        <ns2:ExpiryDate>2029-08-13</ns2:ExpiryDate>\n                        <ns2:IdentityDocID>0123456789</ns2:IdentityDocID>\n                        <ns2:IdentityDocTypeCode>PP</ns2:IdentityDocTypeCode>\n                        <ns2:IssuingCountryCode>GB</ns2:IssuingCountryCode>\n                        <ns2:ResidenceCountryCode>GB</ns2:ResidenceCountryCode>\n                        <ns2:Surname>Wayne</ns2:Surname>\n                    </ns2:IdentityDoc>\n                    <ns2:Individual>\n                        <ns2:Birthdate>1994-12-08</ns2:Birthdate>\n                        <ns2:GenderCode>M</ns2:GenderCode>\n                        <ns2:GivenName>Bruce</ns2:GivenName>\n                        <ns2:Surname>Wayne</ns2:Surname>\n                        <ns2:TitleName>MR</ns2:TitleName>\n                    </ns2:Individual>\n                    <ns2:LangUsage>\n                        <ns2:LangCode>FR</ns2:LangCode>\n                    </ns2:LangUsage>\n                    <ns2:PaxID>PAX1</ns2:PaxID>\n                    <ns2:PaxRefID>PAX3</ns2:PaxRefID>\n                    <ns2:PTC>ADT</ns2:PTC>\n                </ns2:Pax>\n                <ns2:Pax>\n                    <ns2:IdentityDoc>\n                        <ns2:ExpiryDate>2029-08-13</ns2:ExpiryDate>\n                        <ns2:IdentityDocID>0123456789</ns2:IdentityDocID>\n                        <ns2:IdentityDocTypeCode>PP</ns2:IdentityDocTypeCode>\n                        <ns2:IssuingCountryCode>GB</ns2:IssuingCountryCode>\n                        <ns2:ResidenceCountryCode>GB</ns2:ResidenceCountryCode>\n                        <ns2:Surname>Wayne</ns2:Surname>\n                    </ns2:IdentityDoc>\n                    <ns2:Individual>\n                        <ns2:Birthdate>2020-01-01</ns2:Birthdate>\n                        <ns2:GenderCode>M</ns2:GenderCode>\n                        <ns2:GivenName>Child</ns2:GivenName>\n                        <ns2:Surname>Wayne</ns2:Surname>\n                        <ns2:TitleName>MR</ns2:TitleName>\n                    </ns2:Individual>\n                    <ns2:LangUsage>\n                        <ns2:LangCode>FR</ns2:LangCode>\n                    </ns2:LangUsage>\n                    <ns2:PaxID>PAX2</ns2:PaxID>\n                    <ns2:PTC>CHD</ns2:PTC>\n                </ns2:Pax>\n                <ns2:Pax>\n                    <ns2:IdentityDoc>\n                        <ns2:ExpiryDate>2029-08-13</ns2:ExpiryDate>\n                        <ns2:IdentityDocID>0123456780</ns2:IdentityDocID>\n                        <ns2:IdentityDocTypeCode>PP</ns2:IdentityDocTypeCode>\n                        <ns2:IssuingCountryCode>GB</ns2:IssuingCountryCode>\n                        <ns2:ResidenceCountryCode>GB</ns2:ResidenceCountryCode>\n                        <ns2:Surname>Wayne</ns2:Surname>\n                    </ns2:IdentityDoc>\n                    <ns2:Individual>\n                        <ns2:Birthdate>2026-01-01</ns2:Birthdate>\n                        <ns2:GenderCode>M</ns2:GenderCode>\n                        <ns2:GivenName>Baby</ns2:GivenName>\n                        <ns2:Surname>Wayne</ns2:Surname>\n                        <ns2:TitleName>MR</ns2:TitleName>\n                    </ns2:Individual>\n                    <ns2:LangUsage>\n                        <ns2:LangCode>FR</ns2:LangCode>\n                    </ns2:LangUsage>\n                    <ns2:PaxID>PAX3</ns2:PaxID>\n                    <ns2:PTC>INF</ns2:PTC>\n                </ns2:Pax>\n            </ns2:PaxList>\n        </ns2:DataLists>\n    </Request>\n</IATA_OrderCreateRQ>\n",
+                  "options": {
+                    "raw": {
+                      "language": "xml"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ndc-gateway-url}}/v21.3.5/OrderCreate",
+                  "host": [
+                    "{{ndc-gateway-url}}"
+                  ],
+                  "path": [
+                    "v21.3.5",
+                    "OrderCreate"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "4.3. OrderCreate [OW] [1ADT, 1CHD, 1INF] [Pay] [Multiple Offer]",
               "event": [
                 {
                   "listen": "test",
@@ -12285,6 +12429,150 @@
                 "body": {
                   "mode": "raw",
                   "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<IATA_OrderCreateRQ xmlns=\"http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage\" xmlns:ns2=\"http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes\" xmlns:ns3=\"http://www.w3.org/2000/09/xmldsig#\">\n    <DistributionChain>\n        <ns2:DistributionChainLink>\n            <ns2:Ordinal>1</ns2:Ordinal>\n            <ns2:OrgRole>Seller</ns2:OrgRole>\n            <ns2:ParticipatingOrg>\n                <ns2:Name>Travel Agency XYZ</ns2:Name>\n                <ns2:OrgID>Seller123</ns2:OrgID>\n            </ns2:ParticipatingOrg>\n        </ns2:DistributionChainLink>\n    </DistributionChain>\n    <PayloadAttributes>\n        <ns2:CorrelationID>{{$randomUUID}}</ns2:CorrelationID>\n        <ns2:Timestamp>{{today_th}}</ns2:Timestamp>\n        <ns2:TrxID>TRX-123456789</ns2:TrxID>\n        <ns2:VersionNumber>21.3</ns2:VersionNumber>\n    </PayloadAttributes>\n    <POS>\n        <ns2:Country>\n            <ns2:CountryCode>FR</ns2:CountryCode>\n        </ns2:Country>\n    </POS>\n    <Request>\n        <ns2:CreateOrder>\n            <ns2:AcceptSelectedQuotedOfferList>\n                <ns2:SelectedPricedOffer>\n                    <ns2:OfferRefID>{{offerId0}}</ns2:OfferRefID>\n                    <ns2:OwnerCode>VS</ns2:OwnerCode>\n                    <ns2:SelectedOfferItem>\n                        <ns2:OfferItemRefID>{{offerItemId0_0}}</ns2:OfferItemRefID>\n                        <ns2:PaxRefID>PAX1</ns2:PaxRefID>\n                    </ns2:SelectedOfferItem>\n                    <ns2:SelectedOfferItem>\n                        <ns2:OfferItemRefID>{{offerItemId0_1}}</ns2:OfferItemRefID>\n                        <ns2:PaxRefID>PAX1</ns2:PaxRefID>\n                    </ns2:SelectedOfferItem>\n                    <ns2:SelectedOfferItem>\n                        <ns2:OfferItemRefID>{{offerItemId0_2}}</ns2:OfferItemRefID>\n                        <ns2:PaxRefID>PAX3</ns2:PaxRefID>\n                    </ns2:SelectedOfferItem>\n                </ns2:SelectedPricedOffer>\n                <ns2:SelectedPricedOffer>\n                    <ns2:OfferRefID>{{serviceOfferId}}</ns2:OfferRefID>\n                    <ns2:OwnerCode>VS</ns2:OwnerCode>\n                    <!-- optional -->\n                    <ns2:SelectedOfferItem>\n                        <ns2:OfferItemRefID>{{serviceOfferItemId}}</ns2:OfferItemRefID>\n                        <ns2:PaxRefID>PAX1</ns2:PaxRefID>\n                        <ns2:SelectedALaCarteOfferItem>\n                            <ns2:Qty>1</ns2:Qty>\n                        </ns2:SelectedALaCarteOfferItem>\n                    </ns2:SelectedOfferItem>\n                </ns2:SelectedPricedOffer>\n            </ns2:AcceptSelectedQuotedOfferList>\n        </ns2:CreateOrder>\n        <ns2:DataLists>\n            <ns2:ContactInfoList>\n                <ns2:ContactInfo>\n                    <ns2:ContactInfoID>CTCPAX1_1</ns2:ContactInfoID>\n                    <ns2:EmailAddress>\n                        <ns2:ContactTypeText>Home</ns2:ContactTypeText>\n                        <ns2:EmailAddressText>sample@a.com</ns2:EmailAddressText>\n                    </ns2:EmailAddress>\n                    <ns2:Individual>\n                        <ns2:Birthdate>2026-02-02</ns2:Birthdate>\n                        <ns2:GivenName>Firstname</ns2:GivenName>\n                        <ns2:Surname>Surname</ns2:Surname>\n                        <ns2:TitleName>Mr</ns2:TitleName>\n                    </ns2:Individual>\n                    <ns2:Phone>\n                        <ns2:CountryDialingCode>66</ns2:CountryDialingCode>\n                        <ns2:PhoneNumber>12345960</ns2:PhoneNumber>\n                    </ns2:Phone>\n                    <ns2:PostalAddress>\n                        <ns2:CityName>TEST</ns2:CityName>\n                        <ns2:CountryCode>TH</ns2:CountryCode>\n                        <ns2:PostalCode>10210</ns2:PostalCode>\n                    </ns2:PostalAddress>\n                </ns2:ContactInfo>\n            </ns2:ContactInfoList>\n            <ns2:PaxList>\n                <ns2:Pax>\n                    <ns2:IdentityDoc>\n                        <ns2:ExpiryDate>2029-08-13</ns2:ExpiryDate>\n                        <ns2:IdentityDocID>0123456789</ns2:IdentityDocID>\n                        <ns2:IdentityDocTypeCode>PP</ns2:IdentityDocTypeCode>\n                        <ns2:IssuingCountryCode>GB</ns2:IssuingCountryCode>\n                        <ns2:ResidenceCountryCode>GB</ns2:ResidenceCountryCode>\n                        <ns2:Surname>Wayne</ns2:Surname>\n                    </ns2:IdentityDoc>\n                    <ns2:Individual>\n                        <ns2:Birthdate>1994-12-08</ns2:Birthdate>\n                        <ns2:GenderCode>M</ns2:GenderCode>\n                        <ns2:GivenName>Bruce</ns2:GivenName>\n                        <ns2:Surname>Wayne</ns2:Surname>\n                        <ns2:TitleName>MR</ns2:TitleName>\n                    </ns2:Individual>\n                    <ns2:LangUsage>\n                        <ns2:LangCode>FR</ns2:LangCode>\n                    </ns2:LangUsage>\n                    <ns2:PaxID>PAX1</ns2:PaxID>\n                    <ns2:PaxRefID>PAX3</ns2:PaxRefID>\n                    <ns2:PTC>ADT</ns2:PTC>\n                </ns2:Pax>\n                <ns2:Pax>\n                    <ns2:IdentityDoc>\n                        <ns2:ExpiryDate>2029-08-13</ns2:ExpiryDate>\n                        <ns2:IdentityDocID>0123456789</ns2:IdentityDocID>\n                        <ns2:IdentityDocTypeCode>PP</ns2:IdentityDocTypeCode>\n                        <ns2:IssuingCountryCode>GB</ns2:IssuingCountryCode>\n                        <ns2:ResidenceCountryCode>GB</ns2:ResidenceCountryCode>\n                        <ns2:Surname>Wayne</ns2:Surname>\n                    </ns2:IdentityDoc>\n                    <ns2:Individual>\n                        <ns2:Birthdate>2020-01-01</ns2:Birthdate>\n                        <ns2:GenderCode>M</ns2:GenderCode>\n                        <ns2:GivenName>Child</ns2:GivenName>\n                        <ns2:Surname>Wayne</ns2:Surname>\n                        <ns2:TitleName>MR</ns2:TitleName>\n                    </ns2:Individual>\n                    <ns2:LangUsage>\n                        <ns2:LangCode>FR</ns2:LangCode>\n                    </ns2:LangUsage>\n                    <ns2:PaxID>PAX2</ns2:PaxID>\n                    <ns2:PTC>CHD</ns2:PTC>\n                </ns2:Pax>\n                <ns2:Pax>\n                    <ns2:IdentityDoc>\n                        <ns2:ExpiryDate>2029-08-13</ns2:ExpiryDate>\n                        <ns2:IdentityDocID>0123456780</ns2:IdentityDocID>\n                        <ns2:IdentityDocTypeCode>PP</ns2:IdentityDocTypeCode>\n                        <ns2:IssuingCountryCode>GB</ns2:IssuingCountryCode>\n                        <ns2:ResidenceCountryCode>GB</ns2:ResidenceCountryCode>\n                        <ns2:Surname>Wayne</ns2:Surname>\n                    </ns2:IdentityDoc>\n                    <ns2:Individual>\n                        <ns2:Birthdate>2026-01-01</ns2:Birthdate>\n                        <ns2:GenderCode>M</ns2:GenderCode>\n                        <ns2:GivenName>Baby</ns2:GivenName>\n                        <ns2:Surname>Wayne</ns2:Surname>\n                        <ns2:TitleName>MR</ns2:TitleName>\n                    </ns2:Individual>\n                    <ns2:LangUsage>\n                        <ns2:LangCode>FR</ns2:LangCode>\n                    </ns2:LangUsage>\n                    <ns2:PaxID>PAX3</ns2:PaxID>\n                    <ns2:PTC>INF</ns2:PTC>\n                </ns2:Pax>\n            </ns2:PaxList>\n        </ns2:DataLists>\n        <ns2:PaymentFunctions>\n            <ns2:PaymentProcessingDetails>\n                <ns2:Amount CurCode=\"{{totalCurCode}}\">{{totalPrice}}</ns2:Amount>\n                <ns2:PaymentMethod>\n                    <ns2:OfflinePayment>\n                        <ns2:PaymentTypeCode>CA</ns2:PaymentTypeCode>\n                    </ns2:OfflinePayment>\n                </ns2:PaymentMethod>\n            </ns2:PaymentProcessingDetails>\n        </ns2:PaymentFunctions>\n    </Request>\n</IATA_OrderCreateRQ>\n",
+                  "options": {
+                    "raw": {
+                      "language": "xml"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{ndc-gateway-url}}/v21.3.5/OrderCreate",
+                  "host": [
+                    "{{ndc-gateway-url}}"
+                  ],
+                  "path": [
+                    "v21.3.5",
+                    "OrderCreate"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "4.4. OrderCreate [OW] [1ADT, 1CHD, 1INF] [Pay] [Single Offer]",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "const xml2js = require('xml2js');",
+                      "const xmlContent = pm.response.text();",
+                      "",
+                      "// Require the necessary xml2js components",
+                      "const parseString = require('xml2js').parseString;",
+                      "const stripPrefix = require('xml2js').processors.stripPrefix;",
+                      "",
+                      "parseString(xmlContent, {",
+                      "    // Optional configuration for cleaner access",
+                      "    tagNameProcessors: [stripPrefix],",
+                      "    explicitArray: false,",
+                      "    ignoreAttrs: false",
+                      "}, function (err, result) {",
+                      "    if (err) {",
+                      "        console.error('Error parsing XML:', err);",
+                      "        return;",
+                      "    }",
+                      "    console.log(result);",
+                      "",
+                      "    // Now 'result' is your fully parsed JavaScript object.",
+                      "    // We wrap this in a try-catch block in case the path is missing in some responses.",
+                      "    try {",
+                      "        // Navigate to Offer list",
+                      "        let orderId = result.IATA_OrderViewRS.Response.Order.OrderID;",
+                      "        pm.environment.set(`orderId`, orderId);",
+                      "",
+                      "        let totalPrice = result.IATA_OrderViewRS.Response.Order.TotalPrice.TotalAmount._;",
+                      "        let totalCurCode = result.IATA_OrderViewRS.Response.Order.TotalPrice.TotalAmount.$.CurCode;",
+                      "",
+                      "        let orderItems = result.IATA_OrderViewRS.Response.Order.OrderItem;",
+                      "        ",
+                      "        // Always array",
+                      "        if (!Array.isArray(orderItems)) {",
+                      "            orderItems = [orderItems];",
+                      "        }",
+                      "",
+                      "        orderItems.forEach((id, index) => {",
+                      "            pm.environment.set(`orderItemId${index}`, id.OrderItemID);",
+                      "        });",
+                      "",
+                      "        console.log('TotalPrice: ' + totalPrice);",
+                      "        console.log('Currency Code:' + totalCurCode);",
+                      "        pm.environment.set(`totalPrice`, totalPrice);",
+                      "        pm.environment.set(`totalCurCode`, totalCurCode);",
+                      "",
+                      "    } catch (e) {",
+                      "        console.error('Could not find the expected path in the XML structure:', e.message);",
+                      "        console.log('Full parsed object structure:', result); // Log the whole object to debug the path",
+                      "    }",
+                      "});",
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "function formatWithTimezone(date, tzOffsetMinutes) {",
+                      "    const pad = (n, width = 2) => String(n).padStart(width, \"0\");",
+                      "",
+                      "    const sign = tzOffsetMinutes >= 0 ? \"+\" : \"-\";",
+                      "    const abs = Math.abs(tzOffsetMinutes);",
+                      "    const offsetHours = pad(Math.floor(abs / 60));",
+                      "    const offsetMinutes = pad(abs % 60);",
+                      "",
+                      "    return (",
+                      "        date.getFullYear() +",
+                      "        \"-\" + pad(date.getMonth() + 1) +",
+                      "        \"-\" + pad(date.getDate()) +",
+                      "        \"T\" + pad(date.getHours()) +",
+                      "        \":\" + pad(date.getMinutes()) +",
+                      "        \":\" + pad(date.getSeconds()) +",
+                      "        \".\" + pad(date.getMilliseconds(), 3) +",
+                      "        sign + offsetHours + \":\" + offsetMinutes",
+                      "    );",
+                      "}",
+                      "",
+                      "let date = new Date();",
+                      "",
+                      "// Thailand timezone = +07:00 -> 420 minutes",
+                      "let th = formatWithTimezone(date, 420);",
+                      "pm.environment.set(\"today_th\", th);"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "x-SalesChannel",
+                    "value": "{{x-saleschannel}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-tenant",
+                    "value": "{{tenant}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-api-key",
+                    "value": "{{x-api-key}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<IATA_OrderCreateRQ xmlns=\"http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage\" xmlns:ns2=\"http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes\" xmlns:ns3=\"http://www.w3.org/2000/09/xmldsig#\">\n    <DistributionChain>\n        <ns2:DistributionChainLink>\n            <ns2:Ordinal>1</ns2:Ordinal>\n            <ns2:OrgRole>Seller</ns2:OrgRole>\n            <ns2:ParticipatingOrg>\n                <ns2:Name>Travel Agency XYZ</ns2:Name>\n                <ns2:OrgID>Seller123</ns2:OrgID>\n            </ns2:ParticipatingOrg>\n        </ns2:DistributionChainLink>\n    </DistributionChain>\n    <PayloadAttributes>\n        <ns2:CorrelationID>{{$randomUUID}}</ns2:CorrelationID>\n        <ns2:Timestamp>{{today_th}}</ns2:Timestamp>\n        <ns2:TrxID>TRX-123456789</ns2:TrxID>\n        <ns2:VersionNumber>21.3</ns2:VersionNumber>\n    </PayloadAttributes>\n    <POS>\n        <ns2:Country>\n            <ns2:CountryCode>FR</ns2:CountryCode>\n        </ns2:Country>\n    </POS>\n    <Request>\n        <ns2:CreateOrder>\n            <ns2:AcceptSelectedQuotedOfferList>\n                <ns2:SelectedPricedOffer>\n                    <ns2:OfferRefID>{{offerId}}</ns2:OfferRefID>\n                    <ns2:OwnerCode>VS</ns2:OwnerCode>\n                    <ns2:SelectedOfferItem>\n                        <ns2:OfferItemRefID>{{offerItemId0}}</ns2:OfferItemRefID>\n                        <ns2:PaxRefID>PAX1</ns2:PaxRefID>\n                    </ns2:SelectedOfferItem>\n                    <ns2:SelectedOfferItem>\n                        <ns2:OfferItemRefID>{{offerItemId1}}</ns2:OfferItemRefID>\n                        <ns2:PaxRefID>PAX1</ns2:PaxRefID>\n                    </ns2:SelectedOfferItem>\n                    <ns2:SelectedOfferItem>\n                        <ns2:OfferItemRefID>{{offerItemId2}}</ns2:OfferItemRefID>\n                        <ns2:PaxRefID>PAX3</ns2:PaxRefID>\n                    </ns2:SelectedOfferItem>\n                    <ns2:SelectedOfferItem>\n                        <ns2:OfferItemRefID>{{offerItemId3}}</ns2:OfferItemRefID>\n                        <ns2:PaxRefID>PAX1</ns2:PaxRefID>\n                        <ns2:SelectedALaCarteOfferItem>\n                            <ns2:Qty>1</ns2:Qty>\n                        </ns2:SelectedALaCarteOfferItem>\n                    </ns2:SelectedOfferItem>\n                </ns2:SelectedPricedOffer>\n            </ns2:AcceptSelectedQuotedOfferList>\n        </ns2:CreateOrder>\n        <ns2:DataLists>\n            <ns2:ContactInfoList>\n                <ns2:ContactInfo>\n                    <ns2:ContactInfoID>CTCPAX1_1</ns2:ContactInfoID>\n                    <ns2:EmailAddress>\n                        <ns2:ContactTypeText>Home</ns2:ContactTypeText>\n                        <ns2:EmailAddressText>sample@a.com</ns2:EmailAddressText>\n                    </ns2:EmailAddress>\n                    <ns2:Individual>\n                        <ns2:Birthdate>2026-02-02</ns2:Birthdate>\n                        <ns2:GivenName>Firstname</ns2:GivenName>\n                        <ns2:Surname>Surname</ns2:Surname>\n                        <ns2:TitleName>Mr</ns2:TitleName>\n                    </ns2:Individual>\n                    <ns2:Phone>\n                        <ns2:CountryDialingCode>66</ns2:CountryDialingCode>\n                        <ns2:PhoneNumber>12345960</ns2:PhoneNumber>\n                    </ns2:Phone>\n                    <ns2:PostalAddress>\n                        <ns2:CityName>TEST</ns2:CityName>\n                        <ns2:CountryCode>TH</ns2:CountryCode>\n                        <ns2:PostalCode>10210</ns2:PostalCode>\n                    </ns2:PostalAddress>\n                </ns2:ContactInfo>\n            </ns2:ContactInfoList>\n            <ns2:PaxList>\n                <ns2:Pax>\n                    <ns2:IdentityDoc>\n                        <ns2:ExpiryDate>2029-08-13</ns2:ExpiryDate>\n                        <ns2:IdentityDocID>0123456789</ns2:IdentityDocID>\n                        <ns2:IdentityDocTypeCode>PP</ns2:IdentityDocTypeCode>\n                        <ns2:IssuingCountryCode>GB</ns2:IssuingCountryCode>\n                        <ns2:ResidenceCountryCode>GB</ns2:ResidenceCountryCode>\n                        <ns2:Surname>Wayne</ns2:Surname>\n                    </ns2:IdentityDoc>\n                    <ns2:Individual>\n                        <ns2:Birthdate>1994-12-08</ns2:Birthdate>\n                        <ns2:GenderCode>M</ns2:GenderCode>\n                        <ns2:GivenName>Bruce</ns2:GivenName>\n                        <ns2:Surname>Wayne</ns2:Surname>\n                        <ns2:TitleName>MR</ns2:TitleName>\n                    </ns2:Individual>\n                    <ns2:LangUsage>\n                        <ns2:LangCode>FR</ns2:LangCode>\n                    </ns2:LangUsage>\n                    <ns2:PaxID>PAX1</ns2:PaxID>\n                    <ns2:PaxRefID>PAX3</ns2:PaxRefID>\n                    <ns2:PTC>ADT</ns2:PTC>\n                </ns2:Pax>\n                <ns2:Pax>\n                    <ns2:IdentityDoc>\n                        <ns2:ExpiryDate>2029-08-13</ns2:ExpiryDate>\n                        <ns2:IdentityDocID>0123456789</ns2:IdentityDocID>\n                        <ns2:IdentityDocTypeCode>PP</ns2:IdentityDocTypeCode>\n                        <ns2:IssuingCountryCode>GB</ns2:IssuingCountryCode>\n                        <ns2:ResidenceCountryCode>GB</ns2:ResidenceCountryCode>\n                        <ns2:Surname>Wayne</ns2:Surname>\n                    </ns2:IdentityDoc>\n                    <ns2:Individual>\n                        <ns2:Birthdate>2020-01-01</ns2:Birthdate>\n                        <ns2:GenderCode>M</ns2:GenderCode>\n                        <ns2:GivenName>Child</ns2:GivenName>\n                        <ns2:Surname>Wayne</ns2:Surname>\n                        <ns2:TitleName>MR</ns2:TitleName>\n                    </ns2:Individual>\n                    <ns2:LangUsage>\n                        <ns2:LangCode>FR</ns2:LangCode>\n                    </ns2:LangUsage>\n                    <ns2:PaxID>PAX2</ns2:PaxID>\n                    <ns2:PTC>CHD</ns2:PTC>\n                </ns2:Pax>\n                <ns2:Pax>\n                    <ns2:IdentityDoc>\n                        <ns2:ExpiryDate>2029-08-13</ns2:ExpiryDate>\n                        <ns2:IdentityDocID>0123456780</ns2:IdentityDocID>\n                        <ns2:IdentityDocTypeCode>PP</ns2:IdentityDocTypeCode>\n                        <ns2:IssuingCountryCode>GB</ns2:IssuingCountryCode>\n                        <ns2:ResidenceCountryCode>GB</ns2:ResidenceCountryCode>\n                        <ns2:Surname>Wayne</ns2:Surname>\n                    </ns2:IdentityDoc>\n                    <ns2:Individual>\n                        <ns2:Birthdate>2026-01-01</ns2:Birthdate>\n                        <ns2:GenderCode>M</ns2:GenderCode>\n                        <ns2:GivenName>Baby</ns2:GivenName>\n                        <ns2:Surname>Wayne</ns2:Surname>\n                        <ns2:TitleName>MR</ns2:TitleName>\n                    </ns2:Individual>\n                    <ns2:LangUsage>\n                        <ns2:LangCode>FR</ns2:LangCode>\n                    </ns2:LangUsage>\n                    <ns2:PaxID>PAX3</ns2:PaxID>\n                    <ns2:PTC>INF</ns2:PTC>\n                </ns2:Pax>\n            </ns2:PaxList>\n        </ns2:DataLists>\n        <ns2:PaymentFunctions>\n            <ns2:PaymentProcessingDetails>\n                <ns2:Amount CurCode=\"{{totalCurCode}}\">{{totalPrice}}</ns2:Amount>\n                <ns2:PaymentMethod>\n                    <ns2:OfflinePayment>\n                        <ns2:PaymentTypeCode>CA</ns2:PaymentTypeCode>\n                    </ns2:OfflinePayment>\n                </ns2:PaymentMethod>\n            </ns2:PaymentProcessingDetails>\n        </ns2:PaymentFunctions>\n    </Request>\n</IATA_OrderCreateRQ>\n",
                   "options": {
                     "raw": {
                       "language": "xml"
@@ -14269,18 +14557,6 @@
       "value": ""
     },
     {
-      "key": "serviceOfferId",
-      "value": ""
-    },
-    {
-      "key": "serviceOfferTotalAmount",
-      "value": ""
-    },
-    {
-      "key": "serviceOfferCurCode",
-      "value": ""
-    },
-    {
       "key": "serviceOfferItemTotalAmount0",
       "value": ""
     },
@@ -14690,6 +14966,18 @@
     },
     {
       "key": "serviceOfferItemCount",
+      "value": ""
+    },
+    {
+      "key": "serviceOfferId",
+      "value": ""
+    },
+    {
+      "key": "serviceOfferTotalAmount",
+      "value": ""
+    },
+    {
+      "key": "serviceOfferCurCode",
       "value": ""
     },
     {

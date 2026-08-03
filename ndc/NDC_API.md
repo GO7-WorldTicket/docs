@@ -30,6 +30,7 @@ title: NDC API Generic Integration Guide
 
 | Change Description                                                                                              | Changed By              | Change Date |
 |-----------------------------------------------------------------------------------------------------------------|-------------------------|-------------|
+| OrderCreate supports combined OfferPrice `OfferID` (composite flight + service + seat)                | Naphachara Rattanawilai | 2026-08-03  |
 | Added OrderChange payment with credit card and debit/credit account (`OT` + RemarkText account ID)              | Naphachara Rattanawilai | 2026-07-27  |
 | Phase 2 by-offer: OfferPrice only after SeatAvailability/ServiceList; instant-pay note; mixed seat+service flow | Jarun Jiamtaweeboon     | 2026-07-23  |
 | Updated OfferPrice for Phase 2 combined flight + service / seat pricing                                         | Jarun Jiamtaweeboon     | 2026-07-22  |
@@ -194,9 +195,10 @@ Typical Phase 1 chain: **AirShopping → OfferPrice → OrderCreate**, then **Or
   - [With selected service](endpoints/offerprice.md#offerprice-with-service)
   - [With selected seat](endpoints/offerprice.md#offerprice-with-seat)
   - [With selected service and seat](endpoints/offerprice.md#offerprice-with-service-and-seat)
-- **3 — [Order Create](endpoints/ordercreate.md)** — `POST …/OrderCreate` · accept priced offer; optional payment
+- **3 — [Order Create](endpoints/ordercreate.md)** — `POST …/OrderCreate` · accept priced offer; optional payment; echo composite OfferPrice `OfferID` when flight was priced with seat/SSR
   - [Pay later (on hold)](endpoints/ordercreate.md#ordercreate-pay-later)
   - [Instant pay](endpoints/ordercreate.md#ordercreate-instant-pay)
+  - [Combined offer (flight + seat and/or SSR)](endpoints/ordercreate.md#ordercreate-combined-offer)
 - **4 — [Seat Availability](endpoints/seatavailability.md)** — `POST …/SeatAvailability` · optional **Phase 2** seat map and seat offer lookup
   - [By offer](endpoints/seatavailability.md#seatavailability-by-offer)
   - [By order](endpoints/seatavailability.md#seatavailability-by-order)
