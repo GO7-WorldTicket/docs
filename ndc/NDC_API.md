@@ -30,6 +30,8 @@ title: NDC API Generic Integration Guide
 
 | Change Description                                                                                              | Changed By              | Change Date |
 |-----------------------------------------------------------------------------------------------------------------|-------------------------|-------------|
+| OrderChange: call OrderRetrieve and reuse PaxIDs before the next process (GH-7531 / GH-7171)                    | Naphachara Rattanawilai | 2026-08-04  |
+| SeatAvailability: document multiple `OfferItemRefID` per seat — partner guidance (GH-7532 / GH-7253)            | Naphachara Rattanawilai | 2026-08-04  |
 | OrderCreate supports combined OfferPrice `OfferID` (composite flight + service + seat)                | Naphachara Rattanawilai | 2026-08-03  |
 | Added OrderChange payment with credit card and debit/credit account (`OT` + RemarkText account ID)              | Naphachara Rattanawilai | 2026-07-27  |
 | Phase 2 by-offer: OfferPrice only after SeatAvailability/ServiceList; instant-pay note; mixed seat+service flow | Jarun Jiamtaweeboon     | 2026-07-23  |
@@ -95,6 +97,8 @@ Scenario flow (**NDC Gateway — NDC Workflow Process, Phased 1**). Source Merma
 
 IATA **`OrderRetrieveRQ`** is mapped to internal order REST reads (UUID vs record locator + traveler name): see [Order Retrieve mapping](endpoints/orderretrieve.md).
 
+**Partner note — refresh `PaxID` after `OrderChange`:** `PaxID` values may change between responses after an `OrderChange` (for example after adding SSRs or confirming payment). If the integration continues with another step (payment, add seat/SSR, reshop, another change), call **`OrderRetrieve`** first, read the current `PaxList/Pax/PaxID` (and related refs) from the retrieve response, and use those IDs in the next request. Do **not** reuse `PaxID` values from an earlier `OrderCreateRS` or previous `OrderChangeRS` across steps.
+
 ## Phase 2 scenario summary
 
 Phase 2 builds on the same base flow as [Phase 1 scenario summary](#phase-1-scenario-summary), but adds ancillary seat and service addition scenarios.
@@ -104,10 +108,14 @@ Phase 2 builds on the same base flow as [Phase 1 scenario summary](#phase-1-scen
 | Add ancillary seat by offer            | `AirShopping` → `SeatAvailability` (`OfferRequest`) → `OfferPrice` (flight + seat) → `OrderCreate` (with payment).                   |
 | Add ancillary service by offer         | `AirShopping` → `ServiceList` (`OfferRequest`) → `OfferPrice` (flight + service) → `OrderCreate` (with payment).                      |
 | Add ancillary seat + service by offer  | `AirShopping` → `SeatAvailability` + `ServiceList` (`OfferRequest`) → `OfferPrice` (flight + seat + service) → `OrderCreate` (with payment). |
-| Add ancillary seat by order            | `AirShopping` → `OfferPrice` → `OrderCreate` → `SeatAvailability` (`OrderRequest`) → `OrderQuote` → `OrderChange`.                   |
-| Add ancillary service by order         | `AirShopping` → `OfferPrice` → `OrderCreate` → `ServiceList` (`OrderRequest`) → `OrderQuote` → `OrderChange`.                        |
+| Add ancillary seat by order            | `AirShopping` → `OfferPrice` → `OrderCreate` → `SeatAvailability` (`OrderRequest`) → `OrderQuote` → `OrderChange` → `OrderRetrieve`. |
+| Add ancillary service by order         | `AirShopping` → `OfferPrice` → `OrderCreate` → `ServiceList` (`OrderRequest`) → `OrderQuote` → `OrderChange` → `OrderRetrieve`.      |
 
 **Remark:** By-offer Phase 2 flows are **instant pay** (`OrderCreate` with `PaymentFunctions`). For **pay-later / on-hold**, use [Phase 1](#phase-1-scenario-summary) (`AirShopping` → `OfferPrice` → `OrderCreate` without payment), then add ancillaries via the **by-order** rows above.
+
+**Remark — multi-step OrderChange:** when chaining changes on an existing order (for example add SSR then pay), insert **`OrderRetrieve`** between steps and use the latest `PaxID` values: `… → OrderChange (add SSR) → OrderRetrieve → OrderChange (payment)`.
+
+**Remark — SeatAvailability offer items:** a seat in `SeatAvailabilityRS` may return **multiple** `OfferItemRefID` values (for example different passenger eligibility). See [Seat Availability](endpoints/seatavailability.md).
 
 ### NDC Gateway workflow (Phased 2)
 
@@ -180,7 +188,7 @@ Please update the variables in collection such as x-api-key, x-saleschannel, ten
 
 Same pattern as **[OTA for Reservation workflow](../ota/OTA_API.md#ota-for-reservation-workflow)**: this section is an **index only**. Each **step** links to the endpoint `.md` file where requests, responses, and scenario anchors live. See **[Authentication](#http-headers)**.
 
-Typical Phase 1 chain: **AirShopping → OfferPrice → OrderCreate**, then **OrderRetrieve** / **OrderReshop** / **OrderQuote** / **OrderChange** as needed (see [Phase 1 scenario summary](#phase-1-scenario-summary)). Phase 2 by-offer: **AirShopping → SeatAvailability and/or ServiceList → OfferPrice** (flight + selected extras) → **OrderCreate** (instant pay). Phase 2 by-order: create via Phase 1, then **SeatAvailability** / **ServiceList** (`OrderRequest`) → **OrderQuote** → **OrderChange** (see [Phase 2 scenario summary](#phase-2-scenario-summary)).
+Typical Phase 1 chain: **AirShopping → OfferPrice → OrderCreate**, then **OrderRetrieve** / **OrderReshop** / **OrderQuote** / **OrderChange** as needed (see [Phase 1 scenario summary](#phase-1-scenario-summary)). Phase 2 by-offer: **AirShopping → SeatAvailability and/or ServiceList → OfferPrice** (flight + selected extras) → **OrderCreate** (instant pay). Phase 2 by-order: create via Phase 1, then **SeatAvailability** / **ServiceList** (`OrderRequest`) → **OrderQuote** → **OrderChange** → **OrderRetrieve** (see [Phase 2 scenario summary](#phase-2-scenario-summary)). After any **OrderChange**, call **OrderRetrieve** before the next process and use the latest **PaxID** values.
 
 | | Production-style base | Message path pattern |
 |--|------------------------|----------------------|
@@ -199,17 +207,15 @@ Typical Phase 1 chain: **AirShopping → OfferPrice → OrderCreate**, then **Or
   - [Pay later (on hold)](endpoints/ordercreate.md#ordercreate-pay-later)
   - [Instant pay](endpoints/ordercreate.md#ordercreate-instant-pay)
   - [Combined offer (flight + seat and/or SSR)](endpoints/ordercreate.md#ordercreate-combined-offer)
-- **4 — [Seat Availability](endpoints/seatavailability.md)** — `POST …/SeatAvailability` · optional **Phase 2** seat map and seat offer lookup
+- **4 — [Seat Availability](endpoints/seatavailability.md)** — `POST …/SeatAvailability` · optional **Phase 2** seat map and seat offer lookup; a seat may return **multiple** `OfferItemRefID` values
   - [By offer](endpoints/seatavailability.md#seatavailability-by-offer)
   - [By order](endpoints/seatavailability.md#seatavailability-by-order)
 - **5 — [Service List](endpoints/servicelist.md)** — `POST …/ServiceList` · optional **Phase 2** ancillary service lookup
   - [By offer](endpoints/servicelist.md#servicelist-by-offer)
   - [By order](endpoints/servicelist.md#servicelist-by-order)
-- **6 — [Order Retrieve mapping](endpoints/orderretrieve.md)** — `OrderRetrieveRQ` → **`GET /orders/…`** (no gateway `POST`)
-  - [One-way, on hold (`DRAFT`)](endpoints/orderretrieve.md#headers)
-  - [One-way, instant pay (`OPEN`)](endpoints/orderretrieve.md#headers)
-  - [Round trip, on hold](endpoints/orderretrieve.md#headers)
-  - [Round trip, instant pay](endpoints/orderretrieve.md#headers)
+- **6 — [Order Retrieve](endpoints/orderretrieve.md)** — `POST …/OrderRetrieve` · current order view; **required before the next process** after `OrderChange` to refresh `PaxID`
+  - [By Order ID](endpoints/orderretrieve.md#orderretrieve-by-order-id)
+  - [By Booking Reference](endpoints/orderretrieve.md#orderretrieve-by-booking-reference)
 - **7 — [Order Reshop](endpoints/orderreshop.md)** — `POST …/OrderReshop` · alternatives for rebook, name change, or cancel
   - [Rebook](endpoints/orderreshop.md#orderreshop-rebook)
   - [Name change offer](endpoints/orderreshop.md#orderreshop-name-change)
@@ -218,7 +224,7 @@ Typical Phase 1 chain: **AirShopping → OfferPrice → OrderCreate**, then **Or
   - [Rebook quote](endpoints/orderquote.md#orderquote-rebook)
   - [Cancel quote](endpoints/orderquote.md#orderquote-cancel)
   - [Booking (confirm on-hold quote)](endpoints/orderquote.md#orderquote-booking)
-- **9 — [Order Change](endpoints/orderchange.md)** — `POST …/OrderChange` · pay **DRAFT**, or accept quoted / rebook offers
+- **9 — [Order Change](endpoints/orderchange.md)** — `POST …/OrderChange` · pay **DRAFT**, or accept quoted / rebook offers; after success, call **OrderRetrieve** before the next step
   - [Payment on hold booking](endpoints/orderchange.md#orderchange-payment-on-hold)
   - [Payment with debit](endpoints/orderchange.md#orderchange-payment-debit)
   - [Payment with credit](endpoints/orderchange.md#orderchange-payment-credit)

@@ -13,9 +13,11 @@ title: Order Retrieve (OrderRetrieve)
 
 The Order Retrieve API returns the current view of an existing order. Use the `OrderID` returned by `OrderCreate` for a direct lookup, or use `BookingID` when retrieving by booking reference / record locator. The response is an `IATA_OrderViewRS` XML document.
 
+**Partner note — call after `OrderChange` before the next process:** `PaxID` values may remap after an `OrderChange`. Always call **OrderRetrieve** before continuing (payment, add seat/SSR, reshop, or another change), then use the latest `PaxList/Pax/PaxID` (and related refs) from this response in the next request. See also [Order Change](orderchange.md).
+
 ## Workflow (NDC API guide)
 
-**Step 6** ([workflow index](../NDC_API.md#ndc-for-offers--orders-workflow)). `POST …/OrderRetrieve` · send `IATA_OrderRetrieveRQ` with either **`OrderID`** or **`BookingID`**. The gateway returns **`IATA_OrderViewRS`**. Scenarios: **[`#orderretrieve-by-order-id`](#orderretrieve-by-order-id)**, **[`#orderretrieve-by-booking-reference`](#orderretrieve-by-booking-reference)**.
+**Step 6** ([workflow index](../NDC_API.md#ndc-for-offers--orders-workflow)). `POST …/OrderRetrieve` · send `IATA_OrderRetrieveRQ` with either **`OrderID`** or **`BookingID`**. The gateway returns **`IATA_OrderViewRS`**. Use this step to refresh passenger IDs after **OrderChange**. Scenarios: **[`#orderretrieve-by-order-id`](#orderretrieve-by-order-id)**, **[`#orderretrieve-by-booking-reference`](#orderretrieve-by-booking-reference)**.
 
 See [Authentication](../NDC_API.md#http-headers) for **`x-tenant`**, **`x-SalesChannel`**, and **`x-api-key`**.
 
