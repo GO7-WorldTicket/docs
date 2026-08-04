@@ -19,6 +19,8 @@ The Seat Availability API returns seat map details and seat-linked a la carte of
 
 The response returns **`SeatMap`** plus an **`ALaCarteOffer`** containing seat offer items tied to passengers and segments.
 
+**Partner note — multiple `OfferItemRefID` per seat:** IATA NDC 21.3 allows unbounded `OfferItemRefID` on each `Seat`. A physical seat may therefore list **one or more** `OfferItemRefID` values when different commercial offers apply (for example Adult vs Child eligibility or different prices). Select the `ALaCarteOffer/OfferItem` whose `Eligibility/PaxRefID` matches the passenger, then pass that `OfferItemRefID` into **OfferPrice** / **OrderQuote** / **OrderChange**. Conversely, several seats may share one `OfferItem` when price and conditions are identical.
+
 See [Authentication](../NDC_API.md#http-headers) for **`x-tenant`**, **`x-SalesChannel`**, and **`x-api-key`**.
 
 ## Request
@@ -133,7 +135,7 @@ Use this mode for an existing booking when seat availability must be resolved ag
 
 ### Success Response (200 OK)
 
-Returns an `IATA_SeatAvailabilityRS` XML document containing `SeatMap`, `DataLists`, and an `ALaCarteOffer` for selectable seats. The example below reflects the offer-based fixture; order-based responses use the same NDC response shape.
+Returns an `IATA_SeatAvailabilityRS` XML document containing `SeatMap`, `DataLists`, and an `ALaCarteOffer` for selectable seats. The example below reflects the offer-based fixture; order-based responses use the same NDC response shape. Seat `1B` shows **two** `OfferItemRefID` values (ADT vs CHD eligibility) — see the partner note above.
 
 <details>
 <summary>Response Payload</summary>
@@ -181,7 +183,9 @@ Returns an `IATA_SeatAvailabilityRS` XML document containing `SeatMap`, `DataLis
                         &lt;ColumnID&gt;B&lt;/ColumnID&gt;
                         &lt;RowNumber&gt;1&lt;/RowNumber&gt;
                         &lt;OccupationStatusCode&gt;F&lt;/OccupationStatusCode&gt;
+                        &lt;!-- Multiple OfferItemRefID: ADT vs CHD commercial offers for the same seat --&gt;
                         &lt;OfferItemRefID&gt;24df879c-a806-49ab-9d5c-44a20e969c4e&lt;/OfferItemRefID&gt;
+                        &lt;OfferItemRefID&gt;a1b2c3d4-e5f6-7890-abcd-ef1234567890&lt;/OfferItemRefID&gt;
                     &lt;/Seat&gt;
                     &lt;Seat&gt;
                         &lt;ColumnID&gt;C&lt;/ColumnID&gt;
@@ -241,6 +245,10 @@ Returns an `IATA_SeatAvailabilityRS` XML document containing `SeatMap`, `DataLis
                     &lt;PaxID&gt;PAX1&lt;/PaxID&gt;
                     &lt;PTC&gt;ADT&lt;/PTC&gt;
                 &lt;/Pax&gt;
+                &lt;Pax&gt;
+                    &lt;PaxID&gt;PAX2&lt;/PaxID&gt;
+                    &lt;PTC&gt;CHD&lt;/PTC&gt;
+                &lt;/Pax&gt;
             &lt;/PaxList&gt;
             &lt;PaxSegmentList&gt;
                 &lt;PaxSegment&gt;
@@ -298,6 +306,28 @@ Returns an `IATA_SeatAvailabilityRS` XML document containing `SeatMap`, `DataLis
                     &lt;BaseAmount CurCode=&quot;USD&quot;&gt;0.0&lt;/BaseAmount&gt;
                     &lt;Fee&gt;
                         &lt;Amount CurCode=&quot;USD&quot;&gt;1.12&lt;/Amount&gt;
+                    &lt;/Fee&gt;
+                    &lt;TotalAmount CurCode=&quot;USD&quot;&gt;0.0&lt;/TotalAmount&gt;
+                &lt;/UnitPrice&gt;
+            &lt;/OfferItem&gt;
+            &lt;OfferItem&gt;
+                &lt;Eligibility&gt;
+                    &lt;PaxRefID&gt;PAX2&lt;/PaxRefID&gt;
+                    &lt;OfferFlightAssociations&gt;
+                        &lt;PaxSegmentReferences&gt;
+                            &lt;PaxSegmentRefID&gt;SEG1&lt;/PaxSegmentRefID&gt;
+                        &lt;/PaxSegmentReferences&gt;
+                    &lt;/OfferFlightAssociations&gt;
+                &lt;/Eligibility&gt;
+                &lt;OfferItemID&gt;a1b2c3d4-e5f6-7890-abcd-ef1234567890&lt;/OfferItemID&gt;
+                &lt;Service&gt;
+                    &lt;ServiceDefinitionRefID&gt;SD1&lt;/ServiceDefinitionRefID&gt;
+                    &lt;ServiceID&gt;SV2&lt;/ServiceID&gt;
+                &lt;/Service&gt;
+                &lt;UnitPrice&gt;
+                    &lt;BaseAmount CurCode=&quot;USD&quot;&gt;0.0&lt;/BaseAmount&gt;
+                    &lt;Fee&gt;
+                        &lt;Amount CurCode=&quot;USD&quot;&gt;0.56&lt;/Amount&gt;
                     &lt;/Fee&gt;
                     &lt;TotalAmount CurCode=&quot;USD&quot;&gt;0.0&lt;/TotalAmount&gt;
                 &lt;/UnitPrice&gt;

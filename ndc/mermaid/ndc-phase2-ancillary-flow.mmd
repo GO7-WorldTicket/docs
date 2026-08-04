@@ -1,5 +1,6 @@
 %% NDC Gateway — Phase 2 ancillary add scenario summary (flowchart).
 %% Render to assets/ndc/ndc-workflow-phased2.png via mermaid-cli (mmdc).
+%% Updated GH-7531: by-order flows append OrderRetrieve after OrderChange (source updated; regenerate PNG when rebuilding assets).
 
 flowchart TB
   subgraph seatByOffer [Add ancillary seat by offer - instant pay]
@@ -20,10 +21,10 @@ flowchart TB
   end
   subgraph seatByOrder [Add ancillary seat by order]
     direction LR
-    OO1[AirShopping] --> OO2[OfferPrice] --> OO3[OrderCreate] --> OO4[SeatAvailability OrderRequest] --> OO5[OrderQuote] --> OO6[OrderChange]
+    OO1[AirShopping] --> OO2[OfferPrice] --> OO3[OrderCreate] --> OO4[SeatAvailability OrderRequest] --> OO5[OrderQuote] --> OO6[OrderChange] --> OO7[OrderRetrieve]
   end
   subgraph serviceByOrder [Add ancillary service by order]
     direction LR
-    OV1[AirShopping] --> OV2[OfferPrice] --> OV3[OrderCreate] --> OV4[ServiceList OrderRequest] --> OV5[OrderQuote] --> OV6[OrderChange]
+    OV1[AirShopping] --> OV2[OfferPrice] --> OV3[OrderCreate] --> OV4[ServiceList OrderRequest] --> OV5[OrderQuote] --> OV6[OrderChange] --> OV7[OrderRetrieve]
   end
   seatByOffer ~~~ serviceByOffer ~~~ seatAndServiceByOffer ~~~ seatByOrder ~~~ serviceByOrder
