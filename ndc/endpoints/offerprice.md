@@ -371,7 +371,7 @@ For pay-later, use [Phase 1](../NDC_API.md#phase-1-scenario-summary) then add an
 Returns an `IATA_OfferPriceRS` XML document.
 
 - **Flight-only:** `PricedOffer` contains flight `OfferItem` rows and flight `TotalPrice` (example below).
-- **Combined (service and/or seat):** flight items are kept; selected service and seat items are appended; **`PricedOffer.TotalPrice`** is the sum of flight + selected extras. Seat location is echoed on the seat item as **`Desc` / `DescText`** (for example `5A`) — `NewOfferItemType` has no `SelectedSeat` element. Zero-price (free) seats or services still appear as line items; the total may match flight-only.
+- **Combined (service and/or seat):** flight items are kept; selected service and seat items are appended; **`PricedOffer.TotalPrice`** is the sum of flight + selected extras. Seat location is returned under **`Service/OfferServiceAssociation/SeatAssignment/Seat`** (`ColumnID` + `RowNumber`). Zero-price (free) seats or services still appear as line items; the total may match flight-only.
 
 <details>
 <summary>Response Payload (flight-only example)</summary>
@@ -580,15 +580,26 @@ When services or seats are included, `PricedOffer` keeps the flight `OfferItem` 
     </Price>
 </OfferItem>
 
-<!-- Seat OfferItem — location in Desc -->
+<!-- Seat OfferItem — location in SeatAssignment -->
 <OfferItem>
     <OfferItemID>14a19143-8acc-483d-a9b9-e38794a7ea19</OfferItemID>
-    <Desc>
-        <DescText>5A</DescText>
-    </Desc>
     <Service>
-        <ServiceDefinitionRefID>SD1</ServiceDefinitionRefID>
+        <OfferServiceAssociation>
+            <SeatAssignment>
+                <Seat>
+                    <ColumnID>A</ColumnID>
+                    <RowNumber>5</RowNumber>
+                </Seat>
+                <SeatAssignmentAssociations>
+                    <PaxSegmentRef>
+                        <PaxSegmentRefID>SEG1</PaxSegmentRefID>
+                    </PaxSegmentRef>
+                </SeatAssignmentAssociations>
+                <ServiceDefinitionRefID>SD1</ServiceDefinitionRefID>
+            </SeatAssignment>
+        </OfferServiceAssociation>
         <PaxRefID>PAX1</PaxRefID>
+        <ServiceID>SV1</ServiceID>
     </Service>
     <Price>
         <BaseAmount CurCode="USD">12.00</BaseAmount>
