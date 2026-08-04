@@ -5,7 +5,7 @@ title: Seat Availability (SeatAvailability)
 
 # Seat Availability
 
-`POST` `https://api.go7.io/v21.3.5/SeatAvailability`
+`POST` `https://go7-api-gateway.prod.go7.io/ndc-gateway/v21.3.5/SeatAvailability`
 
 ---
 
@@ -367,7 +367,7 @@ Invalid request format or missing required fields.
 === "Curl"
 
     ```bash
-    curl -X POST https://api.go7.io/v21.3.5/SeatAvailability \
+    curl -X POST https://go7-api-gateway.prod.go7.io/ndc-gateway/v21.3.5/SeatAvailability \
       -H "x-tenant: tenant-a" \
       -H "x-SalesChannel: NDC" \
       -H "x-api-key: your-api-key-here" \

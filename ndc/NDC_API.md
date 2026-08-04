@@ -30,6 +30,7 @@ title: NDC API Generic Integration Guide
 
 | Change Description                                                                                              | Changed By              | Change Date |
 |-----------------------------------------------------------------------------------------------------------------|-------------------------|-------------|
+| Production base URL updated to `https://go7-api-gateway.prod.go7.io/ndc-gateway` (GH-7540)                      | Naphachara Rattanawilai | 2026-08-04  |
 | OrderChange: call OrderRetrieve and reuse PaxIDs before the next process (GH-7531 / GH-7171)                    | Naphachara Rattanawilai | 2026-08-04  |
 | SeatAvailability: document multiple `OfferItemRefID` per seat — partner guidance (GH-7532 / GH-7253)            | Naphachara Rattanawilai | 2026-08-04  |
 | OrderCreate supports combined OfferPrice `OfferID` (composite flight + service + seat)                | Naphachara Rattanawilai | 2026-08-03  |
@@ -54,12 +55,12 @@ Use these hosts with the paths documented per endpoint (for example `POST …/v2
 
 | Environment               | Base URL |
 |---------------------------|-----------|
-| Production (platform API) | `https://api.go7.io` |
+| Production (platform API) | `https://go7-api-gateway.prod.go7.io/ndc-gateway` |
 | Test (platform API)       | `https://go7-api-gateway.dev.go7.io/ndc-gateway` |
 
 All Offers & Orders messages documented here are posted under:
 
-`https://api.go7.io/v21.3.5/<MessageName>`
+`https://go7-api-gateway.prod.go7.io/ndc-gateway/v21.3.5/<MessageName>`
 
 ## HTTP Headers
 
@@ -192,7 +193,7 @@ Typical Phase 1 chain: **AirShopping → OfferPrice → OrderCreate**, then **Or
 
 | | Production-style base | Message path pattern |
 |--|------------------------|----------------------|
-| Offers & Orders API | `https://api.go7.io` | `/v21.3.5/<MessageName>` |
+| Offers & Orders API | `https://go7-api-gateway.prod.go7.io/ndc-gateway` | `/v21.3.5/<MessageName>` |
 
 - **1 — [Air Shopping](endpoints/airshopping.md)** — `POST …/AirShopping` · `IATA_AirShoppingRQ` / `RS`
   - [One-way trip](endpoints/airshopping.md#airshopping-one-way-trip)
@@ -235,7 +236,7 @@ Typical Phase 1 chain: **AirShopping → OfferPrice → OrderCreate**, then **Or
 ## Basic request format (API key)
 
 ```bash
-curl -X POST "https://api.go7.io/v21.3.5/<MessageName>" \
+curl -X POST "https://go7-api-gateway.prod.go7.io/ndc-gateway/v21.3.5/<MessageName>" \
   -H "x-tenant: {tenant}" \
   -H "x-SalesChannel: {salesChannel}" \
   -H "x-api-key: {x-api-key}" \
