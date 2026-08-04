@@ -5,7 +5,7 @@ title: Order Reshop (OrderReshop)
 
 # Order Reshop
 
-`POST` `https://api.go7.io/v21.3.5/OrderReshop`
+`POST` `https://go7-api-gateway.prod.go7.io/ndc-gateway/v21.3.5/OrderReshop`
 
 ---
 
@@ -2187,7 +2187,7 @@ Order not found.
 === "Curl"
 
     ```bash
-    curl -X POST https://api.go7.io/v21.3.5/OrderReshop \
+    curl -X POST https://go7-api-gateway.prod.go7.io/ndc-gateway/v21.3.5/OrderReshop \
       -H "x-tenant: tenant-a" \
       -H "x-SalesChannel: NDC" \
       -H "x-api-key: your-api-key-here" \
