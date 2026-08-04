@@ -54,7 +54,7 @@ Use these hosts with the paths documented per endpoint (for example `POST …/v2
 
 | Environment               | Base URL |
 |---------------------------|-----------|
-| Production (platform API) | `https://api.go7.io` |
+| Production (platform API) | `https://go7-api-gateway.prod.go7.io/ndc-gateway` |
 | Test (platform API)       | `https://go7-api-gateway.dev.go7.io/ndc-gateway` |
 
 All Offers & Orders messages documented here are posted under:
