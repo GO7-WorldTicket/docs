@@ -36,6 +36,7 @@ See [Authentication](../NDC_API.md#http-headers) for **`x-tenant`**, **`x-SalesC
 
 The request body must be a valid `IATA_AirShoppingRQ` XML document following IATA NDC v21.3.5 standard.
 
+Optional **`OriginDestCriteria.CabinType`** filters offers by cabin (see [Cabin Type](../NDC_API.md#cabin-type)). Omit the block to search without a cabin filter. If it is present, NDC 21.3.5 requires both **`CabinTypeCode`** and **`PrefLevel/PrefLevelCode`**. Codes from all origin-destination pairs are merged into offer search `preferences.cabinTypes`.
 
 ### AirShopping — One-way trip
 {: #airshopping-one-way-trip}
@@ -70,6 +71,12 @@ Single **`OriginDestCriteria`** (outbound only).
         &lt;cns:FlightRequest&gt;
             &lt;cns:FlightRequestOriginDestinationsCriteria&gt;
                 &lt;cns:OriginDestCriteria&gt;
+                    &lt;cns:CabinType&gt;
+                        &lt;cns:CabinTypeCode&gt;Y&lt;/cns:CabinTypeCode&gt;
+                        &lt;cns:PrefLevel&gt;
+                            &lt;cns:PrefLevelCode&gt;Required&lt;/cns:PrefLevelCode&gt;
+                        &lt;/cns:PrefLevel&gt;
+                    &lt;/cns:CabinType&gt;
                     &lt;cns:DestArrivalCriteria&gt;
                         &lt;cns:Date&gt;2026-05-18&lt;/cns:Date&gt;
                         &lt;cns:IATA_LocationCode&gt;CPH&lt;/cns:IATA_LocationCode&gt;
@@ -138,6 +145,12 @@ Two **`OriginDestCriteria`** blocks (outbound + inbound).
             &lt;FlightRequestOriginDestinationsCriteria&gt;
 
                 &lt;OriginDestCriteria&gt;
+                    &lt;CabinType&gt;
+                        &lt;CabinTypeCode&gt;Y&lt;/CabinTypeCode&gt;
+                        &lt;PrefLevel&gt;
+                            &lt;PrefLevelCode&gt;Required&lt;/PrefLevelCode&gt;
+                        &lt;/PrefLevel&gt;
+                    &lt;/CabinType&gt;
                     &lt;DestArrivalCriteria&gt;
                         &lt;Date&gt;2026-05-18&lt;/Date&gt;
                         &lt;IATA_LocationCode&gt;CUR&lt;/IATA_LocationCode&gt;
@@ -150,6 +163,12 @@ Two **`OriginDestCriteria`** blocks (outbound + inbound).
                 &lt;/OriginDestCriteria&gt;
 
                 &lt;OriginDestCriteria&gt;
+                    &lt;CabinType&gt;
+                        &lt;CabinTypeCode&gt;Y&lt;/CabinTypeCode&gt;
+                        &lt;PrefLevel&gt;
+                            &lt;PrefLevelCode&gt;Required&lt;/PrefLevelCode&gt;
+                        &lt;/PrefLevel&gt;
+                    &lt;/CabinType&gt;
                     &lt;DestArrivalCriteria&gt;
                         &lt;Date&gt;2026-05-24&lt;/Date&gt;
                         &lt;IATA_LocationCode&gt;BOS&lt;/IATA_LocationCode&gt;
@@ -5715,6 +5734,13 @@ Invalid request format or missing required fields.
 - **Required**: Yes, for each passenger
 - **Invalid values**: Will result in 400 error
 
+### Cabin Type Codes
+- **Optional**: Omit `CabinType` to search without a cabin filter.
+- **Required when `CabinType` is present** (NDC 21.3.5 `ShoppingRequestCabinTypeType`): `CabinTypeCode` and `PrefLevel/PrefLevelCode` (use `Required`).
+- **Supported `CabinTypeCode` values**: see [Cabin Type](../NDC_API.md#cabin-type). Economy is `Y`, not `M`.
+- **Invalid values**: Blank, unknown, or numeric PADIS codes (e.g. `5`) return IATA error 14 at `Request.FlightRequest.OriginDestCriteria.CabinType.CabinTypeCode`.
+- **Mapping**: Distinct codes from every `OriginDestCriteria` are sent as `OfferQuery.preferences.cabinTypes`. The response echoes cabin on `FareDetail/FareComponent/CabinType/CabinTypeCode`.
+
 ### Dates
 - **Format**: `YYYY-MM-DD`
 - **Validation**: Must not be in the past, must be within schedule window
@@ -5727,5 +5753,6 @@ Invalid request format or missing required fields.
 ## Notes
 
 1. **Minimum Required Fields**: `Request.FlightRequest` with at least one `OriginDestCriteria`, and `Request.PaxList` with at least one `Pax`.
-2. **Round-Trip Searches**: Include multiple `OriginDestCriteria` elements for round-trip or multi-city searches.
-3. **Offer IDs**: Use the `OfferID` and `OfferItemID` from the response in subsequent `OfferPrice` requests.
+2. **Round-Trip Searches**: Include multiple `OriginDestCriteria` elements for round-trip or multi-city searches. Cabin codes from all ODs are combined into one preference list (not applied per OD independently).
+3. **CabinType**: When sending a cabin preference, include both `CabinTypeCode` and `PrefLevel/PrefLevelCode`.
+4. **Offer IDs**: Use the `OfferID` and `OfferItemID` from the response in subsequent `OfferPrice` requests.

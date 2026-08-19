@@ -30,6 +30,7 @@ title: NDC API Generic Integration Guide
 
 | Change Description                                                                                              | Changed By              | Change Date |
 |-----------------------------------------------------------------------------------------------------------------|-------------------------|-------------|
+| AirShopping: document `CabinTypeCode` filter and required `PrefLevel` (ET-58650)                                | Naphachara Rattanawilai | 2026-08-19  |
 | Production base URL updated to `https://go7-api-gateway.prod.go7.io/ndc-gateway` (GH-7540)                      | Naphachara Rattanawilai | 2026-08-04  |
 | OrderChange: call OrderRetrieve and reuse PaxIDs before the next process (GH-7531 / GH-7171)                    | Naphachara Rattanawilai | 2026-08-04  |
 | SeatAvailability: document multiple `OfferItemRefID` per seat — partner guidance (GH-7532 / GH-7253)            | Naphachara Rattanawilai | 2026-08-04  |
@@ -149,11 +150,17 @@ Please update the variables in collection such as x-api-key, x-saleschannel, ten
 
 ## Cabin Type
 
+Hub cabin codes (not numeric PADIS values such as `5`). Used on **[AirShopping](endpoints/airshopping.md)** as `OriginDestCriteria.CabinType.CabinTypeCode` and returned on `FareComponent.CabinType.CabinTypeCode`.
+
 | Code | Description |
 |------|-------------|
 | Y | Economy |
 | C | Business |
 | F | First |
+| W | Premium economy |
+| M | Miscellaneous (accepted, not used in practice) |
+
+When `CabinType` is present on AirShopping, IATA NDC 21.3.5 requires `PrefLevel/PrefLevelCode` (`minOccurs=1`). Use `Required`. Offer search filters by `CabinTypeCode` only. Invalid codes return IATA error 14.
 
 ## Document Type
 
