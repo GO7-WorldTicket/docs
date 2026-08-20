@@ -36,7 +36,7 @@ See [Authentication](../NDC_API.md#http-headers) for **`x-tenant`**, **`x-SalesC
 
 The request body must be a valid `IATA_AirShoppingRQ` XML document following IATA NDC v21.3.5 standard.
 
-Optional **`OriginDestCriteria.CabinType`** filters offers by cabin (see [Cabin Type](../NDC_API.md#cabin-type)). Omit the block to search without a cabin filter. If it is present, NDC 21.3.5 requires both **`CabinTypeCode`** and **`PrefLevel/PrefLevelCode`**. Codes from all origin-destination pairs are merged into offer search `preferences.cabinTypes`.
+Optional **`OriginDestCriteria.CabinType`** filters offers by cabin (see [Cabin Type](../NDC_API.md#cabin-type)). Omit the block to search without a cabin filter. If it is present, NDC 21.3.5 requires both **`CabinTypeCode`** and **`PrefLevel/PrefLevelCode`**. Codes from all origin-destination pairs are merged into offer search `preferences.cabinTypes`; NDC then keeps only offers whose flight items match **Required** cabin codes **per origin-destination**. `Preferred` does not drop other cabins.
 
 ### AirShopping — One-way trip
 {: #airshopping-one-way-trip}
@@ -5736,10 +5736,10 @@ Invalid request format or missing required fields.
 
 ### Cabin Type Codes
 - **Optional**: Omit `CabinType` to search without a cabin filter.
-- **Required when `CabinType` is present** (NDC 21.3.5 `ShoppingRequestCabinTypeType`): `CabinTypeCode` and `PrefLevel/PrefLevelCode` (use `Required`).
+- **Required when `CabinType` is present** (NDC 21.3.5 `ShoppingRequestCabinTypeType`): `CabinTypeCode` and `PrefLevel/PrefLevelCode` (use `Required`). Missing `PrefLevel` or `PrefLevelCode` returns IATA error 13.
 - **Supported `CabinTypeCode` values**: see [Cabin Type](../NDC_API.md#cabin-type). Economy is `Y`, not `M`.
 - **Invalid values**: Blank, unknown, or numeric PADIS codes (e.g. `5`) return IATA error 14 at `Request.FlightRequest.OriginDestCriteria.CabinType.CabinTypeCode`.
-- **Mapping**: Distinct codes from every `OriginDestCriteria` are sent as `OfferQuery.preferences.cabinTypes`. The response echoes cabin on `FareDetail/FareComponent/CabinType/CabinTypeCode`.
+- **Mapping**: Distinct codes from every `OriginDestCriteria` are sent as `OfferQuery.preferences.cabinTypes`. After offer search, NDC keeps only offers whose flight items match **Required** cabin codes on each origin-destination. `Preferred` does not drop other cabins. The response echoes cabin on `FareDetail/FareComponent/CabinType/CabinTypeCode`.
 
 ### Dates
 - **Format**: `YYYY-MM-DD`
@@ -5753,6 +5753,6 @@ Invalid request format or missing required fields.
 ## Notes
 
 1. **Minimum Required Fields**: `Request.FlightRequest` with at least one `OriginDestCriteria`, and `Request.PaxList` with at least one `Pax`.
-2. **Round-Trip Searches**: Include multiple `OriginDestCriteria` elements for round-trip or multi-city searches. Cabin codes from all ODs are combined into one preference list (not applied per OD independently).
+2. **Round-Trip Searches**: Include multiple `OriginDestCriteria` elements for round-trip or multi-city searches. Cabin codes are sent to offer search as one merged preference list; NDC then applies cabin **per origin-destination**.
 3. **CabinType**: When sending a cabin preference, include both `CabinTypeCode` and `PrefLevel/PrefLevelCode`.
 4. **Offer IDs**: Use the `OfferID` and `OfferItemID` from the response in subsequent `OfferPrice` requests.
