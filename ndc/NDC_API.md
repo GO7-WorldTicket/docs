@@ -160,7 +160,7 @@ Hub cabin codes (not numeric PADIS values such as `5`). Used on **[AirShopping](
 | W | Premium economy |
 | M | Miscellaneous (accepted, not used in practice) |
 
-When `CabinType` is present on AirShopping, IATA NDC 21.3.5 requires `PrefLevel/PrefLevelCode` (`minOccurs=1`). Use `Required`. Offer search filters by `CabinTypeCode` only. Invalid codes return IATA error 14.
+When `CabinType` is present on AirShopping, IATA NDC 21.3.5 requires `PrefLevel/PrefLevelCode` (`minOccurs=1`). Missing either field returns IATA error 13. Use `Required` to keep only matching cabin offers per origin-destination. `Preferred` is sent to offer search but does not drop other cabins. Invalid cabin codes return IATA error 14.
 
 ## Document Type
 
