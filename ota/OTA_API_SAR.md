@@ -25,8 +25,8 @@ title: The Title of Your Page
 
 | Change Description                                                                                         | Changed By              | Change Date |
 |------------------------------------------------------------------------------------------------------------|-------------------------|-------------|
-| [Add penalty rules for OTA_AirBookRS, OTA_AirPriceRS](changelog.md#2026-09-01)                              | Duangtida Athakravi     | 2026-09-01  |
-| [Add penalty rules for OTA_AirBookRS, OTA_AirPriceRS](changelog.md#2026-07-31)                              | Thotsaphorn Phonlabutr  | 2026-07-31  |
+| [Added cancel passenger and cancel segment request and response examples](changelog.md#2026-09-01)         | Duangtida Athakravi     | 2026-09-01  |
+| [Add penalty rules for OTA_AirBookRS, OTA_AirPriceRS](changelog.md#2026-07-31)                             | Thotsaphorn Phonlabutr  | 2026-07-31  |
 | [Correct change passenger name type](changelog.md#2026-06-28)                                              | Thotsaphorn Phonlabutr  | 2026-06-28  |
 | [Correct passenger type codes in SAR code list](#code-lists)                                               | Sittiwet Mahapratoom    | 2026-05-04  |
 | [Add seat map errors](generic/error-handling.md#seat-map-errors)                                           | Duangtida Athakravi     | 2026-04-10  |
