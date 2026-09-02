@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 
+require "digest"
 require "json"
 require "pathname"
 require "set"
@@ -63,10 +64,29 @@ PARTNER_PLACEHOLDER_FIELDS = %w[
   tenant_mservice_example
 ].freeze
 
-PUBLIC_PLACEHOLDER_PATTERNS = [
-  /\A\{\{[a-zA-Z0-9_]+\}\}\z/,
-  /\A\{[a-z_-]+\}(\/.*)?\z/
-].freeze
+APPROVED_PARTNER_PLACEHOLDERS = Set.new(%w[
+  base_url
+  production_base_url
+  auth_base_url
+  service_base_url
+  api_key
+  api-key
+  client_id
+  client_secret
+  username
+  password
+  access_token
+  refresh_token
+  id_token
+  tenant
+  tenant-name
+]).freeze
+
+DOWNLOAD_EXTENSIONS = Set.new(%w[.json .zip .pdf .yaml .yml .xml .csv]).freeze
+
+APPROVED_BINARY_DOWNLOAD_SHA256 = {
+  "assets/resources/ota-xmlbeans-2015B.zip" => "48dca034679e58096edb80df19616061d78e22d04e4ee09a7c08d76115c8619e"
+}.freeze
 
 SENSITIVE_NORMAL_PROFILE_KEYS = %w[
   api_key_example
@@ -142,6 +162,7 @@ class SarProfileVerifier
     @site_root = @docs_root.join(site_arg)
     @findings = []
     @visited_html = Set.new
+    @visited_downloads = Set.new
     @profile_schema_valid = load_profiles
     @normal_hosts = @profile_schema_valid ? load_normal_hosts : Set.new
     @normal_sensitive_values = @profile_schema_valid ? load_normal_sensitive_values : Set.new
@@ -242,13 +263,14 @@ class SarProfileVerifier
   def traverse_local_references(profile, current_path, content)
     content.each_line.with_index(1) do |line, line_no|
       line.scan(LOCAL_REFERENCE_PATTERN) do
+        attr = Regexp.last_match[:attr]
         target = Regexp.last_match[:target]
-        handle_reference(profile, current_path, target, line_no)
+        handle_reference(profile, current_path, target, line_no, attr)
       end
     end
   end
 
-  def handle_reference(profile, current_path, target, line_no)
+  def handle_reference(profile, current_path, target, line_no, attr)
     return if target.nil? || target.empty? || target.start_with?("mailto:", "javascript:")
 
     if external_reference?(target)
@@ -256,7 +278,7 @@ class SarProfileVerifier
       return
     end
 
-    check_local_reference(profile, current_path, target)
+    check_local_reference(profile, current_path, target, attr)
   rescue URI::InvalidURIError
     add_finding("invalid-link", relative_to_docs(current_path), line_no)
   end
@@ -276,7 +298,7 @@ class SarProfileVerifier
     add_finding("partner-host", relative_to_docs(current_path), line_no)
   end
 
-  def check_local_reference(profile, current_path, target)
+  def check_local_reference(profile, current_path, target, attr)
     path_part, anchor = target.split("#", 2)
     path_part = path_part.split("?", 2).first unless path_part.nil?
     if path_part.nil? || path_part.empty?
@@ -301,11 +323,42 @@ class SarProfileVerifier
       assert_anchor_exists(resolved, anchor)
     end
 
+    scan_partner_download(resolved) if profile == "partner" && attr == "href" && download_reference?(resolved)
+
     if resolved.extname == ".html"
       crawl_html(profile, resolved)
-    elsif profile == "partner" && resolved.extname == ".json"
-      scan_partner_postman_file(resolved)
     end
+  end
+
+  def download_reference?(path)
+    DOWNLOAD_EXTENSIONS.include?(path.extname.downcase)
+  end
+
+  def scan_partner_download(path)
+    relative_path = relative_to_docs(path)
+    return if @visited_downloads.include?(relative_path)
+
+    @visited_downloads << relative_path
+    if path.extname.downcase == ".json"
+      scan_partner_postman_file(path)
+      return
+    end
+
+    content = path.binread
+    scan_partner_sensitive_content(relative_path, content.encode("UTF-8", invalid: :replace, undef: :replace))
+    verify_approved_binary_download(path, content)
+  rescue SystemCallError, Encoding::UndefinedConversionError
+    add_finding("invalid-download", relative_path, 1)
+  end
+
+  def verify_approved_binary_download(path, content)
+    relative_path = path.relative_path_from(@site_root).to_s
+    expected_hash = APPROVED_BINARY_DOWNLOAD_SHA256[relative_path]
+    return unless expected_hash
+
+    return if Digest::SHA256.hexdigest(content) == expected_hash
+
+    add_finding("partner-download-hash", relative_to_docs(path), 1)
   end
 
   def assert_anchor_exists(path, anchor)
@@ -370,12 +423,15 @@ class SarProfileVerifier
     stripped = value.to_s.strip
     return true if stripped.empty?
 
-    PUBLIC_PLACEHOLDER_PATTERNS.any? { |pattern| stripped.match?(pattern) }
+    allowed_literal_placeholder?(stripped)
   end
 
   def allowed_literal_placeholder?(expression)
     stripped = expression.strip
-    PUBLIC_PLACEHOLDER_PATTERNS.any? { |pattern| stripped.match?(pattern) }
+    return true if stripped.match?(/\A\{\{[a-zA-Z0-9_]+\}\}\z/)
+
+    match = stripped.match(/\A\{(?<name>[a-z_-]+)\}(\/.*)?\z/)
+    match && APPROVED_PARTNER_PLACEHOLDERS.include?(match[:name])
   end
 
   def resolve_local_target(current_path, path_part)
@@ -483,7 +539,8 @@ class SarProfileVerifier
   end
 
   def safe_partner_placeholder?(value)
-    value.match?(/\A\{[a-z_-]+\}\z/)
+    match = value.match(/\A\{(?<name>[a-z_-]+)\}\z/)
+    match && APPROVED_PARTNER_PLACEHOLDERS.include?(match[:name])
   end
 
   def add_profile_schema_finding

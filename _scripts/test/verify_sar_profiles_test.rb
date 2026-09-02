@@ -195,6 +195,26 @@ class VerifySarProfilesTest < Minitest::Test
     end
   end
 
+  def test_rejects_unapproved_credential_placeholder_in_partner_output
+    within_docs_fixture do |docs_root|
+      write_profiles(docs_root)
+      write_basic_entry_pages(docs_root)
+      write_file(docs_root, "_site/ota-partner/endpoints/create_booking.html", <<~HTML)
+        <html>
+          <body>
+            <p>client_secret={unapproved_value}</p>
+          </body>
+        </html>
+      HTML
+
+      result = run_validator(docs_root)
+
+      assert_equal 1, result[:status]
+      assert_includes result[:stdout], "partner-credential _site/ota-partner/endpoints/create_booking.html:3"
+      refute_includes result[:stdout], "unapproved_value"
+    end
+  end
+
   def test_allows_literal_postman_placeholders_in_rendered_partner_html
     within_docs_fixture do |docs_root|
       write_profiles(docs_root)
@@ -643,6 +663,68 @@ class VerifySarProfilesTest < Minitest::Test
       assert_equal 1, result[:status]
       assert_equal "profile-schema _data/sar_profiles.yml:1\n", result[:stdout]
       refute_includes result[:stdout], "partner-live-value"
+    end
+  end
+
+  def test_rejects_unapproved_partner_placeholder_name
+    within_docs_fixture do |docs_root|
+      write_profiles(docs_root)
+      profile_path = File.join(docs_root, "_data/sar_profiles.yml")
+      File.write(
+        profile_path,
+        File.read(profile_path).sub('api_key_example: "{api_key}"', 'api_key_example: "{unapproved_value}"')
+      )
+      write_basic_entry_pages(docs_root)
+
+      result = run_validator(docs_root)
+
+      assert_equal 1, result[:status]
+      assert_equal "profile-schema _data/sar_profiles.yml:1\n", result[:stdout]
+      refute_includes result[:stdout], "unapproved_value"
+    end
+  end
+
+  def test_scans_partner_linked_non_json_download
+    within_docs_fixture do |docs_root|
+      write_profiles(docs_root)
+      write_file(docs_root, "_site/ota/OTA_API_SAR.html", "<html><body></body></html>")
+      write_file(docs_root, "_site/ota-partner/OTA_API_SAR.html", <<~HTML)
+        <html>
+          <body>
+            <a href="/docs/assets/resources/partner-schema.zip">Schema</a>
+          </body>
+        </html>
+      HTML
+      write_file(
+        docs_root,
+        "_site/assets/resources/partner-schema.zip",
+        "https://api.sar.worldticket.cloud/embedded-content"
+      )
+
+      result = run_validator(docs_root)
+
+      assert_equal 1, result[:status]
+      assert_includes result[:stdout], "partner-host _site/assets/resources/partner-schema.zip:1"
+    end
+  end
+
+  def test_rejects_changed_shared_schema_download
+    within_docs_fixture do |docs_root|
+      write_profiles(docs_root)
+      write_file(docs_root, "_site/ota/OTA_API_SAR.html", "<html><body></body></html>")
+      write_file(docs_root, "_site/ota-partner/OTA_API_SAR.html", <<~HTML)
+        <html>
+          <body>
+            <a href="/docs/assets/resources/ota-xmlbeans-2015B.zip">Schema</a>
+          </body>
+        </html>
+      HTML
+      write_file(docs_root, "_site/assets/resources/ota-xmlbeans-2015B.zip", "changed schema")
+
+      result = run_validator(docs_root)
+
+      assert_equal 1, result[:status]
+      assert_includes result[:stdout], "partner-download-hash _site/assets/resources/ota-xmlbeans-2015B.zip:1"
     end
   end
 
