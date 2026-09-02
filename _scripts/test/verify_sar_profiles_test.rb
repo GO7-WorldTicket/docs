@@ -752,6 +752,14 @@ class VerifySarProfilesTest < Minitest::Test
     end
   end
 
+  def test_shared_sar_navigation_uses_rendered_html_links
+    overview = File.read(File.expand_path("../../_includes/ota-sar/overview.md", __dir__))
+    changelog = File.read(File.expand_path("../../_includes/ota-sar/changelog.md", __dir__))
+
+    refute_match(/\]\([^)]*\.md(?:#|\))/, overview)
+    refute_match(/\]\([^)]*\.md(?:#|\))/, changelog)
+  end
+
   def test_normal_profile_masks_match_the_baseline_markdown
     profiles = YAML.load_file(File.expand_path("../../_data/sar_profiles.yml", __dir__))
 

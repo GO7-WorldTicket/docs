@@ -1096,4 +1096,4 @@ In the above response:
       * `endingRow`, the ending row of the seat map.`
   * `bookingReferenceID`, the booking reference of the booking.
 
-For how to update the seat of a passenger, see the [Modify booking for seat change](modify-booking.md#seat-change) section.
+For how to update the seat of a passenger, see the [Modify booking for seat change](modify-booking.html#seat-change) section.

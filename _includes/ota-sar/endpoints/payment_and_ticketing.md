@@ -215,7 +215,7 @@ curl -X POST \
   </pre>
 </details>
 
-Note that for bookings with named passengers, the response will also contain download links for tickets in the booking  (see [Download Tickets](download_tickets.md) for more information).
+Note that for bookings with named passengers, the response will also contain download links for tickets in the booking  (see [Download Tickets](download_tickets.html) for more information).
 
 <details>
   <summary>Response Payload (named passengers)</summary>

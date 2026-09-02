@@ -18,7 +18,7 @@
 #### Add penalty rules for OTA_AirBookRS, OTA_AirPriceRS
 
 - Penalty rules are returned under:
-    - `voluntaryRefunds.TPA_Extensions.penaltyRules`: Provides the charges and penalties applicable to voluntary refunds or cancellations. ([See more details](endpoints/create_booking.md), [Retrieve Booking](endpoints/read_booking.md))
+    - `voluntaryRefunds.TPA_Extensions.penaltyRules`: Provides the charges and penalties applicable to voluntary refunds or cancellations. ([See more details](endpoints/create_booking.html), [Retrieve Booking](endpoints/read_booking.html))
     - `voluntaryChanges.TPA_Extensions.penaltyRules`: Provides information about charges and penalties applicable to voluntary ticket changes. The current system returns this information for reference only; voluntary changes are not currently supported.
 
   ```json
@@ -126,7 +126,7 @@
 
 #### Clarify download all tickets endpoint (`/tickets/confirmation/{rloc}/download`)
 
-- Updated the Download Tickets documentation to use `rloc` in the endpoint path instead of `bookingReference` ([See more details](endpoints/download_tickets.md#download-all-tickets-in-a-booking))
+- Updated the Download Tickets documentation to use `rloc` in the endpoint path instead of `bookingReference` ([See more details](endpoints/download_tickets.html#download-all-tickets-in-a-booking))
 - Documented optional `mode` query parameter for ticket ZIP download:
   - `full` (default)
   - `delta`
@@ -150,7 +150,7 @@
     "availableFlightsOnly": false
   }
   ```
-- Updated sample request and response to reflect actual structure ([See more details](endpoints/low_fare_search.md#airlowfaresearchrq-for-sold-out-segments))
+- Updated sample request and response to reflect actual structure ([See more details](endpoints/low_fare_search.html#airlowfaresearchrq-for-sold-out-segments))
 
 - Updated error message when booking sold-out segment ([See more details](endpoints/error-response))
 
@@ -199,7 +199,7 @@
 
 #### Clarify request and response for AirLowFareSearch (one-way with booking class)
 
- - Updated sample request and response to reflect actual structure and booking class usage ([See more details](endpoints/low_fare_search.md#airlowfaresearchrq-for-oneway-trip-with-booking-class-preference))
+ - Updated sample request and response to reflect actual structure and booking class usage ([See more details](endpoints/low_fare_search.html#airlowfaresearchrq-for-oneway-trip-with-booking-class-preference))
 
 ### 2025-06-21
 
@@ -502,8 +502,8 @@ The new field will contain the actual URL (`href`), a relation type (`rel`), and
 </details>
 
 **Example**
-- [See Response Payload (named passengers) in Payment and Ticketing](endpoints/payment_and_ticketing.md#request)
-- [See Response Payload in Read booking](endpoints/read_booking.md#response)
+- [See Response Payload (named passengers) in Payment and Ticketing](endpoints/payment_and_ticketing.html#request)
+- [See Response Payload in Read booking](endpoints/read_booking.html#response)
 {% endcapture %}
 {{ sar_document
   | replace: 'https://api.sar.worldticket.cloud', sar_profile.production_origin

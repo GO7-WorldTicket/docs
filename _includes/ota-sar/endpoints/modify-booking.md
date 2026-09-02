@@ -2661,7 +2661,7 @@ curl -X POST \
   </pre>
 </details>
 
-Note that for paid bookings, the response will also contain links for downloading individual tickets (see [Download Tickets](download_tickets.md) for more information).
+Note that for paid bookings, the response will also contain links for downloading individual tickets (see [Download Tickets](download_tickets.html) for more information).
 
 <details>
   <summary>Response Payload (paid booking)</summary>

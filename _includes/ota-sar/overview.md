@@ -24,25 +24,25 @@
 
 | Change Description                                                                                         | Changed By              | Change Date |
 |------------------------------------------------------------------------------------------------------------|-------------------------|-------------|
-| [Added Change Passenger Info request and response examples and reorganized Modify booking navigation](changelog.md#2026-09-02) | Sittiwet Mahapratoom | 2026-09-02  |
-| [Added cancel passenger and cancel segment request and response examples](changelog.md#2026-09-01)         | Duangtida Athakravi     | 2026-09-01  |
-| [Add penalty rules for OTA_AirBookRS, OTA_AirPriceRS](changelog.md#2026-07-31)                             | Thotsaphorn Phonlabutr  | 2026-07-31  |
-| [Correct change passenger name type](changelog.md#2026-06-28)                                              | Thotsaphorn Phonlabutr  | 2026-06-28  |
+| [Added Change Passenger Info request and response examples and reorganized Modify booking navigation](changelog.html#2026-09-02) | Sittiwet Mahapratoom | 2026-09-02  |
+| [Added cancel passenger and cancel segment request and response examples](changelog.html#2026-09-01)         | Duangtida Athakravi     | 2026-09-01  |
+| [Add penalty rules for OTA_AirBookRS, OTA_AirPriceRS](changelog.html#2026-07-31)                             | Thotsaphorn Phonlabutr  | 2026-07-31  |
+| [Correct change passenger name type](changelog.html#2026-06-28)                                              | Thotsaphorn Phonlabutr  | 2026-06-28  |
 | [Correct passenger type codes in SAR code list](#code-lists)                                               | Sittiwet Mahapratoom    | 2026-05-04  |
-| [Add seat map errors](generic/error-handling.md#seat-map-errors)                                           | Duangtida Athakravi     | 2026-04-10  |
+| [Add seat map errors](generic/error-handling.html#seat-map-errors)                                           | Duangtida Athakravi     | 2026-04-10  |
 | [Add seat map endpoint and how to update seat](endpoints/seat_map)                                         | Duangtida Athakravi     | 2026-03-12  |
-| [Clarify download all tickets endpoint (`/tickets/confirmation/{rloc}/download`)](changelog.md#2026-02-22) | Sittiwet Mahapratoom    | 2026-02-22  |
-| [Segments cancellation with automatic refund](changelog.md#2025-09-12)                                     | Jarun Jiamtaweeboon     | 2025-07-31  |
-| [Add sold-out segment for OTA_AirLowFareSearchRS](changelog.md#2025-07-11)                                 | Thotsaphorn Phonlabutr  | 2025-07-11  |
+| [Clarify download all tickets endpoint (`/tickets/confirmation/{rloc}/download`)](changelog.html#2026-02-22) | Sittiwet Mahapratoom    | 2026-02-22  |
+| [Segments cancellation with automatic refund](changelog.html#2025-09-12)                                     | Jarun Jiamtaweeboon     | 2025-07-31  |
+| [Add sold-out segment for OTA_AirLowFareSearchRS](changelog.html#2025-07-11)                                 | Thotsaphorn Phonlabutr  | 2025-07-11  |
 | [Add resend cancellation email endpoint](endpoints/resend_cancellation_email)                              | Duangtida Athakravi     | 2025-07-08  |
-| [Add policy for OTA_AirBookRS, OTA_AirPriceRS](changelog.md#2025-07-02)                                    | Thotsaphorn Phonlabutr  | 2025-06-26  |
-| [Clarify request and response for AirLowFareSearch (one-way with booking class)](changelog.md#2025-06-26)  | Sittiwet Mahapratoom    | 2025-06-26  |
-| [Deprecate download endpoint using passenger details](changelog.md#2025-06-21)                             | Sittiwet Mahapratoom    | 2025-06-21  |
-| [Error handling change](changelog.md#2025-04-23)                                                           | Sittiwet Mahapratoom    | 2025-04-23  |
+| [Add policy for OTA_AirBookRS, OTA_AirPriceRS](changelog.html#2025-07-02)                                    | Thotsaphorn Phonlabutr  | 2025-06-26  |
+| [Clarify request and response for AirLowFareSearch (one-way with booking class)](changelog.html#2025-06-26)  | Sittiwet Mahapratoom    | 2025-06-26  |
+| [Deprecate download endpoint using passenger details](changelog.html#2025-06-21)                             | Sittiwet Mahapratoom    | 2025-06-21  |
+| [Error handling change](changelog.html#2025-04-23)                                                           | Sittiwet Mahapratoom    | 2025-04-23  |
 | [Add group booking completion policy](endpoints/create_booking#group-booking-completion-policy)            | Sittiwet Mahapratoom    | 2025-04-22  |
 | [Describe error response changes](endpoints/error-response)                                                | Sittiwet Mahapratoom    | 2025-04-22  |
 | [Specify the required fields summary](endpoints/create_booking#-required-fields-summary)                   | Sittiwet Mahapratoom    | 2025-04-22  |
-| [Download Ticket URI](changelog.md#2025-04-16)                                                             | Andrii Denysenko        | 2025-04-16  |
+| [Download Ticket URI](changelog.html#2025-04-16)                                                             | Andrii Denysenko        | 2025-04-16  |
 | Add send cancelled email flow                                                                              | Benjaporn Kunathanachot | 2024-07-24  |
 | Add download ticket endpoints                                                                              | Duangtida Athakravi     | 2024-07-16  |
 | Add cancel duration policy                                                                                 | Arnon Ruangthanawes     | 2024-07-16  |
@@ -227,7 +227,7 @@ Please update the variables in collection such as apiKey, agent_id, agent_name a
   - [Group booking for One-way trip](endpoints/create_booking#airpricerq-for-oneway-trip)
   - [Group booking for Round trip](endpoints/create_booking#airpricerq-for-round-trip)
   - [Group booking completion policy](endpoints/create_booking#group-booking-completion-policy)
-- [Payment and Ticketing](endpoints/payment_and_ticketing.md)
+- [Payment and Ticketing](endpoints/payment_and_ticketing.html)
 - [Read booking](endpoints/read_booking)
 - [Modify booking](endpoints/modify-booking)
   - [Change Passenger Name](endpoints/modify-booking#change-passenger-name)
