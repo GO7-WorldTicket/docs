@@ -1,6 +1,13 @@
 
 ## Changelog
 
+### 2026-09-02
+
+#### Added Change Passenger Info examples and reorganized Modify booking navigation
+
+- Added Change Passenger Info request and response examples using modification type 40.
+- Reorganized Modify booking navigation into action-oriented sub-items.
+
 ### 2026-09-01
 
 #### Added passenger and segment cancellation

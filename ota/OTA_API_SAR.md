@@ -25,6 +25,7 @@ title: The Title of Your Page
 
 | Change Description                                                                                         | Changed By              | Change Date |
 |------------------------------------------------------------------------------------------------------------|-------------------------|-------------|
+| [Added Change Passenger Info request and response examples and reorganized Modify booking navigation](changelog.md#2026-09-02) | Sittiwet Mahapratoom | 2026-09-02  |
 | [Added cancel passenger and cancel segment request and response examples](changelog.md#2026-09-01)         | Duangtida Athakravi     | 2026-09-01  |
 | [Add penalty rules for OTA_AirBookRS, OTA_AirPriceRS](changelog.md#2026-07-31)                             | Thotsaphorn Phonlabutr  | 2026-07-31  |
 | [Correct change passenger name type](changelog.md#2026-06-28)                                              | Thotsaphorn Phonlabutr  | 2026-06-28  |
@@ -230,11 +231,13 @@ Please update the variables in collection such as apiKey, agent_id, agent_name a
 - [Payment and Ticketing](endpoints/payment_and_ticketing.md)
 - [Read booking](endpoints/read_booking)
 - [Modify booking](endpoints/modify-booking)
-- [Modify booking for One-way trip](endpoints/modify-booking#change-passenger-in-one-way-booking)
-- [Modify booking for Round trip](endpoints/modify-booking#change-passenger-in-round-trip-booking)
-- [Modify booking for seat change](endpoints/modify-booking#seat-change)
-- [Modify booking to cancel segment](endpoints/modify-booking#cancel-segment)
-- [Modify booking to cancel passenger](endpoints/modify-booking#cancel-passenger)
+  - [Change Passenger Name](endpoints/modify-booking#change-passenger-name)
+    - [One-way trip](endpoints/modify-booking#change-passenger-in-one-way-booking)
+    - [Round trip](endpoints/modify-booking#change-passenger-in-round-trip-booking)
+  - [Change Passenger Info](endpoints/modify-booking#change-passenger-info)
+  - [Change Seat](endpoints/modify-booking#seat-change)
+  - [Cancel Segment](endpoints/modify-booking#cancel-segment)
+  - [Cancel Passenger](endpoints/modify-booking#cancel-passenger)
 - [Cancel booking](endpoints/cancel_booking)
   - [Cancel Policy](endpoints/cancel_booking#cancel-policy)
     - [Cancel Duration Policy](endpoints/cancel_booking#cancel-duration-policy)
