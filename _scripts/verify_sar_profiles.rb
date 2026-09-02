@@ -16,6 +16,45 @@ PUBLIC_PLACEHOLDER_PATTERNS = [
   /\A\{[a-z_-]+\}(\/.*)?\z/
 ].freeze
 
+SENSITIVE_NORMAL_PROFILE_KEYS = %w[
+  api_key_example
+  client_id_example
+  client_secret_example
+  username_example
+  password_example
+  access_token_example
+  refresh_token_example
+  id_token_example
+  tenant_example
+  sample_email
+  named_sample_email
+  cancellation_to_email
+  cancellation_cc_email
+  cancellation_bcc_email
+  test_com_email
+  new_email_example
+].freeze
+
+NON_SENSITIVE_NORMAL_PROFILE_VALUES = Set.new([
+  "username",
+  "********"
+]).freeze
+
+SENSITIVE_POSTMAN_VARIABLE_KEYS = %w[
+  apiurl
+  apikey
+  agentid
+  agentname
+  tenant
+  token
+  idtoken
+  accesstoken
+  refreshtoken
+  username
+  password
+  clientsecret
+].freeze
+
 LOCAL_REFERENCE_PATTERN = /
   (?<attr>href|src)\s*=\s*(?<quote>["'])(?<target>[^"']+)\k<quote>
 /x.freeze
@@ -50,6 +89,7 @@ class SarProfileVerifier
     @findings = []
     @visited_html = Set.new
     @normal_hosts = load_normal_hosts
+    @normal_sensitive_values = load_normal_sensitive_values
   end
 
   def run
@@ -101,6 +141,7 @@ class SarProfileVerifier
 
   def scan_partner_sensitive_content(relative_path, content)
     scan_partner_hosts(relative_path, content)
+    scan_partner_normal_values(relative_path, content)
     scan_partner_credentials(relative_path, content)
     scan_partner_jwts(relative_path, content)
   end
@@ -109,6 +150,14 @@ class SarProfileVerifier
     content.each_line.with_index(1) do |line, line_no|
       @normal_hosts.each do |host|
         add_finding("partner-host", relative_path, line_no) if line.include?(host)
+      end
+    end
+  end
+
+  def scan_partner_normal_values(relative_path, content)
+    content.each_line.with_index(1) do |line, line_no|
+      @normal_sensitive_values.each do |value|
+        add_finding("partner-normal-value", relative_path, line_no) if line.include?(value)
       end
     end
   end
@@ -131,31 +180,31 @@ class SarProfileVerifier
   end
 
   def traverse_local_references(profile, current_path, content)
-    content.each_line.with_index(1) do |line, _line_no|
+    content.each_line.with_index(1) do |line, line_no|
       line.scan(LOCAL_REFERENCE_PATTERN) do
         target = Regexp.last_match[:target]
-        handle_reference(profile, current_path, target)
+        handle_reference(profile, current_path, target, line_no)
       end
     end
   end
 
-  def handle_reference(profile, current_path, target)
+  def handle_reference(profile, current_path, target, line_no)
     return if target.nil? || target.empty? || target.start_with?("mailto:", "javascript:")
 
     if external_reference?(target)
-      check_external_reference(profile, current_path, target)
+      check_external_reference(profile, current_path, target, line_no)
       return
     end
 
     check_local_reference(profile, current_path, target)
   rescue URI::InvalidURIError
-    add_finding("invalid-link", relative_to_docs(current_path), 1)
+    add_finding("invalid-link", relative_to_docs(current_path), line_no)
   end
 
-  def check_external_reference(profile, current_path, target)
+  def check_external_reference(profile, current_path, target, line_no)
     uri = URI.parse(target)
     if invalid_http_authority?(uri, target)
-      add_finding("invalid-link", relative_to_docs(current_path), 1)
+      add_finding("invalid-link", relative_to_docs(current_path), line_no)
       return
     end
 
@@ -164,11 +213,12 @@ class SarProfileVerifier
     host = uri.host
     return unless host && @normal_hosts.include?(host)
 
-    add_finding_for_match("partner-host", relative_to_docs(current_path), current_path.read, target)
+    add_finding("partner-host", relative_to_docs(current_path), line_no)
   end
 
   def check_local_reference(profile, current_path, target)
     path_part, anchor = target.split("#", 2)
+    path_part = path_part.split("?", 2).first unless path_part.nil?
     if path_part.nil? || path_part.empty?
       assert_anchor_exists(current_path, anchor)
       return
@@ -252,7 +302,7 @@ class SarProfileVerifier
   end
 
   def sensitive_key?(key)
-    key.match?(/\A(api[-_ ]?key|client[-_ ]?secret|username|password|access[-_ ]?token|refresh[-_ ]?token)\z/i)
+    SENSITIVE_POSTMAN_VARIABLE_KEYS.include?(key.downcase.gsub(/[-_ ]/, ""))
   end
 
   def placeholder_or_blank?(value)
@@ -320,6 +370,23 @@ class SarProfileVerifier
       hosts << uri.host if uri.host
     rescue URI::InvalidURIError
       next
+    end
+  end
+
+  def load_normal_sensitive_values
+    profile_path = @docs_root.join("_data/sar_profiles.yml")
+    return Set.new unless profile_path.file?
+
+    data = YAML.load_file(profile_path.to_s)
+    profile = data.is_a?(Hash) ? data["sar"] || data[:sar] : nil
+    return Set.new unless profile.is_a?(Hash)
+
+    profile.each_with_object(Set.new) do |(key, value), values|
+      next unless SENSITIVE_NORMAL_PROFILE_KEYS.include?(key.to_s)
+      next unless value.is_a?(String) && !value.empty?
+      next if NON_SENSITIVE_NORMAL_PROFILE_VALUES.include?(value)
+
+      values << value
     end
   end
 

@@ -385,6 +385,145 @@ class VerifySarProfilesTest < Minitest::Test
     end
   end
 
+  def test_rejects_unlabeled_normal_profile_sensitive_value
+    within_docs_fixture do |docs_root|
+      write_profiles(docs_root)
+      write_basic_entry_pages(docs_root)
+      write_file(docs_root, "_site/ota-partner/endpoints/create_booking.html", <<~HTML)
+        <html>
+          <body>
+            <p>normal-client-id</p>
+          </body>
+        </html>
+      HTML
+
+      result = run_validator(docs_root)
+
+      assert_equal 1, result[:status]
+      assert_includes result[:stdout], "partner-normal-value _site/ota-partner/endpoints/create_booking.html:3"
+      refute_includes result[:stdout], "normal-client-id"
+    end
+  end
+
+  def test_allows_generic_normal_profile_username_label
+    within_docs_fixture do |docs_root|
+      write_file(docs_root, "_data/sar_profiles.yml", <<~YAML)
+        sar:
+          username_example: username
+      YAML
+      write_basic_entry_pages(docs_root)
+      write_file(docs_root, "_site/ota-partner/endpoints/create_booking.html", <<~HTML)
+        <html>
+          <body>
+            <p>username</p>
+          </body>
+        </html>
+      HTML
+
+      result = run_validator(docs_root)
+
+      assert_equal 0, result[:status], result[:stdout]
+    end
+  end
+
+  def test_rejects_populated_postman_sensitive_variable_keys
+    within_docs_fixture do |docs_root|
+      write_profiles(docs_root)
+      write_file(docs_root, "_site/ota/OTA_API_SAR.html", "<html><body></body></html>")
+      write_file(docs_root, "_site/ota-partner/OTA_API_SAR.html", '<a href="/docs/assets/resources/OTA_partner_postman_collection.json">Collection</a>')
+      sensitive_keys = %w[
+        apiUrl apiKey agent_id agent_name tenant token id_token
+        accessToken access_token access-token
+        refreshToken refresh_token refresh-token
+        username user_name password clientSecret client_secret client-secret
+      ]
+      write_file(
+        docs_root,
+        "_site/assets/resources/OTA_partner_postman_collection.json",
+        JSON.pretty_generate(
+          "variable" => sensitive_keys.each_with_index.map do |key, index|
+            { "key" => key, "value" => "populated-#{index}" }
+          end
+        )
+      )
+
+      result = run_validator(docs_root)
+
+      assert_equal 1, result[:status]
+      assert_equal sensitive_keys.length, result[:stdout].lines.grep(/^partner-postman-variable /).length
+      refute_includes result[:stdout], "populated-"
+    end
+  end
+
+  def test_allows_blank_and_placeholder_postman_sensitive_variable_keys
+    within_docs_fixture do |docs_root|
+      write_profiles(docs_root)
+      write_file(docs_root, "_site/ota/OTA_API_SAR.html", "<html><body></body></html>")
+      write_file(docs_root, "_site/ota-partner/OTA_API_SAR.html", '<a href="/docs/assets/resources/OTA_partner_postman_collection.json">Collection</a>')
+      sensitive_keys = %w[apiUrl apiKey agent_id agent_name tenant token id_token access_token refresh_token username password client_secret]
+      write_file(
+        docs_root,
+        "_site/assets/resources/OTA_partner_postman_collection.json",
+        JSON.pretty_generate(
+          "variable" => sensitive_keys.each_with_index.map do |key, index|
+            { "key" => key, "value" => index.even? ? "" : "{{#{key}}}" }
+          end
+        )
+      )
+
+      result = run_validator(docs_root)
+
+      assert_equal 0, result[:status], result[:stdout]
+    end
+  end
+
+  def test_resolves_absolute_local_query_and_fragment
+    within_docs_fixture do |docs_root|
+      write_profiles(docs_root)
+      write_file(docs_root, "_site/ota/OTA_API_SAR.html", '<a href="/docs/ota/endpoints/create_booking.html?scenario=1#request">Create</a>')
+      write_file(docs_root, "_site/ota/endpoints/create_booking.html", '<section id="request"></section>')
+      write_file(docs_root, "_site/ota-partner/OTA_API_SAR.html", '<a href="/docs/ota-partner/endpoints/create_booking.html?scenario=1#request">Create</a>')
+      write_file(docs_root, "_site/ota-partner/endpoints/create_booking.html", '<section id="request"></section>')
+
+      result = run_validator(docs_root)
+
+      assert_equal 0, result[:status], result[:stdout]
+    end
+  end
+
+  def test_resolves_relative_local_query_and_fragment
+    within_docs_fixture do |docs_root|
+      write_profiles(docs_root)
+      write_file(docs_root, "_site/ota/OTA_API_SAR.html", '<a href="endpoints/create_booking.html?scenario=1#request">Create</a>')
+      write_file(docs_root, "_site/ota/endpoints/create_booking.html", '<section id="request"></section>')
+      write_file(docs_root, "_site/ota-partner/OTA_API_SAR.html", '<a href="endpoints/create_booking.html?scenario=1#request">Create</a>')
+      write_file(docs_root, "_site/ota-partner/endpoints/create_booking.html", '<section id="request"></section>')
+
+      result = run_validator(docs_root)
+
+      assert_equal 0, result[:status], result[:stdout]
+    end
+  end
+
+  def test_reports_referring_line_for_invalid_external_link
+    within_docs_fixture do |docs_root|
+      write_profiles(docs_root)
+      write_file(docs_root, "_site/ota/OTA_API_SAR.html", <<~HTML)
+        <html>
+          <body>
+            <a href="https://example .com/path">Bad</a>
+          </body>
+        </html>
+      HTML
+      write_file(docs_root, "_site/ota-partner/OTA_API_SAR.html", "<html><body></body></html>")
+
+      result = run_validator(docs_root)
+
+      assert_equal 1, result[:status]
+      assert_includes result[:stdout], "invalid-link _site/ota/OTA_API_SAR.html:3"
+    end
+  end
+
   private
 
   def within_docs_fixture
@@ -421,6 +560,14 @@ class VerifySarProfilesTest < Minitest::Test
         test_auth_url: https://test-auth.worldticket.net/auth
         production_ota_url: https://api.sar.worldticket.cloud/ota/v2015b/OTA
         test_ota_url: https://test-api.worldticket.net/ota/v2015b/OTA
+        api_key_example: normal-api-key
+        client_id_example: normal-client-id
+        client_secret_example: normal-client-secret
+        tenant_example: normal-tenant
+        sample_email: normal@example.test
+        access_token_example: normal-access-token
+        refresh_token_example: normal-refresh-token
+        id_token_example: normal-id-token
     YAML
   end
 
