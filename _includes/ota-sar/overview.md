@@ -127,7 +127,7 @@ Replace all variables in curly braces with the actual values.
 | Variable      | Description                         | Example                                |
 | ------------- | ----------------------------------- | -------------------------------------- |
 | base_url      | Identity provider URL               | {{ sar_profile.test_auth_origin }}/auth |
-| tenant        | Short airline name stands for realm | test-rs3                               |
+| tenant        | Short airline name stands for realm | {{ sar_profile.tenant_example }}       |
 | client_id     | Application ID                      | {{ sar_profile.client_id_example }} |
 | client_secret | Application secret                  | {{ sar_profile.client_secret_example }} |
 | username      | User login                          | {{ sar_profile.username_example }} |

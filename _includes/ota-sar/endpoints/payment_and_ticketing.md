@@ -65,8 +65,8 @@ curl -X POST \
           "id": "N6G2NW",
           "type": "14",
           "companyName": {
-            "code": "test-rs3",
-            "companyShortName": "test-rs3"
+            "code": "{{ sar_profile.tenant_example }}",
+            "companyShortName": "{{ sar_profile.tenant_example }}"
           }
         },
         "paymentInfo": [
@@ -90,8 +90,8 @@ curl -X POST \
       "success": {},
       "bookingReferenceID": {
         "companyName": {
-          "companyShortName": "test-rs3",
-          "code": "test-rs3"
+          "companyShortName": "{{ sar_profile.tenant_example }}",
+          "code": "{{ sar_profile.tenant_example }}"
         },
         "type": "14",
         "id": "N6G2NW"
@@ -224,8 +224,8 @@ Note that for bookings with named passengers, the response will also contain dow
       "success": {},
       "bookingReferenceID": {
         "companyName": {
-          "companyShortName": "test-skywork-dev",
-          "code": "test-skywork-dev"
+          "companyShortName": "{{ sar_profile.tenant_skywork_example }}",
+          "code": "{{ sar_profile.tenant_skywork_example }}"
         },
         "type": "14",
         "id": "QN6HQV"

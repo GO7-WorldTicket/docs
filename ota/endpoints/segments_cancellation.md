@@ -1,4 +1,5 @@
 ---
+title: Cancel Booking by Segments with Automatic Refund.
 sar_profile: sar
 ---
 {% assign sar_profile = site.data.sar_profiles[page.sar_profile] %}

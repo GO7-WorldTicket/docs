@@ -4,9 +4,27 @@ require "minitest/autorun"
 require "open3"
 require "pathname"
 require "tmpdir"
+require "yaml"
 
 class VerifySarProfilesTest < Minitest::Test
   SCRIPT = File.expand_path("../verify_sar_profiles.rb", __dir__)
+
+  WRAPPER_TITLES = {
+    "changelog.md" => "Changelog",
+    "endpoints/available_routes_and_flights.md" => "Available Routes and Flights Calendar",
+    "endpoints/cancel_booking.md" => "Full Booking Cancellation",
+    "endpoints/create_booking.md" => "Create a booking",
+    "endpoints/download_tickets.md" => "Download Tickets",
+    "endpoints/error-response.md" => "OTA Error Response",
+    "endpoints/low_fare_search.md" => "Low Fare Search",
+    "endpoints/modify-booking.md" => "Modify booking",
+    "endpoints/payment_and_ticketing.md" => "Payment and Ticketing",
+    "endpoints/read_booking.md" => "Read booking",
+    "endpoints/resend_cancellation_email.md" => "Cancellation Email Endpoint",
+    "endpoints/resend_ticket_confirmation_email.md" => "Ticket Confirmation Resource Endpoint",
+    "endpoints/seat_map.md" => "Seat Map",
+    "endpoints/segments_cancellation.md" => "Cancel Booking by Segments with Automatic Refund."
+  }.freeze
 
   def test_accepts_safe_output_and_public_links
     within_docs_fixture do |docs_root|
@@ -405,12 +423,29 @@ class VerifySarProfilesTest < Minitest::Test
     end
   end
 
+  def test_rejects_unlabeled_normal_profile_tenant_value
+    within_docs_fixture do |docs_root|
+      write_profiles(docs_root)
+      write_basic_entry_pages(docs_root)
+      write_file(docs_root, "_site/ota-partner/endpoints/create_booking.html", <<~HTML)
+        <html>
+          <body>
+            <p>normal-skywork-tenant</p>
+          </body>
+        </html>
+      HTML
+
+      result = run_validator(docs_root)
+
+      assert_equal 1, result[:status]
+      assert_includes result[:stdout], "partner-normal-value _site/ota-partner/endpoints/create_booking.html:3"
+      refute_includes result[:stdout], "normal-skywork-tenant"
+    end
+  end
+
   def test_allows_generic_normal_profile_username_label
     within_docs_fixture do |docs_root|
-      write_file(docs_root, "_data/sar_profiles.yml", <<~YAML)
-        sar:
-          username_example: username
-      YAML
+      write_profiles(docs_root)
       write_basic_entry_pages(docs_root)
       write_file(docs_root, "_site/ota-partner/endpoints/create_booking.html", <<~HTML)
         <html>
@@ -552,6 +587,96 @@ class VerifySarProfilesTest < Minitest::Test
     end
   end
 
+  def test_rejects_missing_profile_data
+    within_docs_fixture do |docs_root|
+      write_basic_entry_pages(docs_root)
+
+      result = run_validator(docs_root)
+
+      assert_equal 1, result[:status]
+      assert_equal "profile-schema _data/sar_profiles.yml:1\n", result[:stdout]
+    end
+  end
+
+  def test_rejects_missing_or_non_mapping_profiles
+    within_docs_fixture do |docs_root|
+      write_file(docs_root, "_data/sar_profiles.yml", "sar: []\nsar_partner: missing\n")
+      write_basic_entry_pages(docs_root)
+
+      result = run_validator(docs_root)
+
+      assert_equal 1, result[:status]
+      assert_equal "profile-schema _data/sar_profiles.yml:1\n", result[:stdout]
+    end
+  end
+
+  def test_rejects_blank_required_profile_field_and_unsafe_partner_value
+    within_docs_fixture do |docs_root|
+      write_profiles(docs_root)
+      profile_path = File.join(docs_root, "_data/sar_profiles.yml")
+      profile = File.read(profile_path)
+        .sub('test_api_origin: https://test-api.worldticket.net', 'test_api_origin: ""')
+        .sub('api_key_example: "{api_key}"', 'api_key_example: partner-live-value')
+      File.write(profile_path, profile)
+      write_basic_entry_pages(docs_root)
+
+      result = run_validator(docs_root)
+
+      assert_equal 1, result[:status]
+      assert_equal "profile-schema _data/sar_profiles.yml:1\n", result[:stdout]
+      refute_includes result[:stdout], "partner-live-value"
+    end
+  end
+
+  def test_rejects_unsafe_partner_placeholder_value
+    within_docs_fixture do |docs_root|
+      write_profiles(docs_root)
+      profile_path = File.join(docs_root, "_data/sar_profiles.yml")
+      File.write(
+        profile_path,
+        File.read(profile_path).sub('api_key_example: "{api_key}"', 'api_key_example: partner-live-value')
+      )
+      write_basic_entry_pages(docs_root)
+
+      result = run_validator(docs_root)
+
+      assert_equal 1, result[:status]
+      assert_equal "profile-schema _data/sar_profiles.yml:1\n", result[:stdout]
+      refute_includes result[:stdout], "partner-live-value"
+    end
+  end
+
+  def test_uses_supplied_build_destination
+    within_docs_fixture do |docs_root|
+      write_profiles(docs_root)
+      write_file(docs_root, "_rendered/ota/OTA_API_SAR.html", "<html><body></body></html>")
+      write_file(docs_root, "_rendered/ota-partner/OTA_API_SAR.html", "<html><body></body></html>")
+
+      result = run_validator(docs_root, "_rendered")
+
+      assert_equal 0, result[:status], result[:stdout]
+    end
+  end
+
+  def test_normal_and_partner_wrappers_have_expected_titles
+    docs_root = File.expand_path("../..", __dir__)
+
+    WRAPPER_TITLES.each do |relative_path, title|
+      %w[ota ota-partner].each do |tree|
+        wrapper = File.read(File.join(docs_root, tree, relative_path))
+
+        assert_match(/^title: #{Regexp.escape(title)}$/, wrapper)
+      end
+    end
+  end
+
+  def test_normal_profile_masks_match_the_baseline_markdown
+    profiles = YAML.load_file(File.expand_path("../../_data/sar_profiles.yml", __dir__))
+
+    assert_equal "**\\*\\*\\*\\***", profiles.fetch("sar").fetch("password_example")
+    assert_equal "33357c21-3233-4eb3-a420-**\\*\\*\\*\\***", profiles.fetch("sar").fetch("client_secret_example")
+  end
+
   private
 
   def within_docs_fixture
@@ -584,18 +709,59 @@ class VerifySarProfilesTest < Minitest::Test
   def write_profiles(docs_root)
     write_file(docs_root, "_data/sar_profiles.yml", <<~YAML)
       sar:
-        production_auth_url: https://api.sar.worldticket.cloud/auth
-        test_auth_url: https://test-auth.worldticket.net/auth
-        production_ota_url: https://api.sar.worldticket.cloud/ota/v2015b/OTA
-        test_ota_url: https://test-api.worldticket.net/ota/v2015b/OTA
+        documentation_root: /docs/ota
+        test_auth_origin: https://test-auth.worldticket.net
+        test_api_origin: https://test-api.worldticket.net
+        test_gateway_origin: https://test.worldticket.net
+        production_origin: https://api.sar.worldticket.cloud
+        legacy_api_origin: https://api.worldticket.net
         api_key_example: normal-api-key
         client_id_example: normal-client-id
         client_secret_example: normal-client-secret
+        username_example: username
+        password_example: "********"
         tenant_example: normal-tenant
+        tenant_skywork_example: normal-skywork-tenant
+        tenant_mservice_example: normal-mservice-tenant
         sample_email: normal@example.test
+        named_sample_email: named@example.test
+        cancellation_to_email: to@example.test
+        cancellation_cc_email: cc@example.test
+        cancellation_bcc_email: bcc@example.test
+        test_com_email: test@example.test
+        new_email_example: new@example.test
         access_token_example: normal-access-token
         refresh_token_example: normal-refresh-token
         id_token_example: normal-id-token
+        onboarding_notice: ""
+        postman_download: /docs/assets/resources/OTA_postman_collection.json
+      sar_partner:
+        documentation_root: /docs/ota-partner
+        test_auth_origin: "{auth_base_url}"
+        test_api_origin: "{base_url}"
+        test_gateway_origin: "{service_base_url}"
+        production_origin: "{production_base_url}"
+        legacy_api_origin: "{auth_base_url}"
+        api_key_example: "{api_key}"
+        client_id_example: "{client_id}"
+        client_secret_example: "{client_secret}"
+        username_example: "{username}"
+        password_example: "{password}"
+        access_token_example: "{access_token}"
+        refresh_token_example: "{refresh_token}"
+        id_token_example: "{id_token}"
+        tenant_example: "{tenant}"
+        tenant_skywork_example: "{tenant}"
+        tenant_mservice_example: "{tenant}"
+        sample_email: test@example.com
+        named_sample_email: named@example.com
+        cancellation_to_email: to@example.com
+        cancellation_cc_email: cc@example.com
+        cancellation_bcc_email: bcc@example.com
+        test_com_email: test@example.com
+        new_email_example: new@example.com
+        onboarding_notice: Partner environment URLs and credentials are supplied separately.
+        postman_download: /docs/assets/resources/OTA_partner_postman_collection.json
     YAML
   end
 
@@ -605,11 +771,11 @@ class VerifySarProfilesTest < Minitest::Test
     File.write(path, content)
   end
 
-  def run_validator(docs_root)
+  def run_validator(docs_root, site_arg = "_site")
     stdout, stderr, status = Open3.capture3(
       "ruby",
       SCRIPT,
-      "_site",
+      site_arg,
       chdir: docs_root
     )
 

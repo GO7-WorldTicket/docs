@@ -7,12 +7,15 @@ sar:
   legacy_api_origin: https://api.worldticket.net
   api_key_example: 8cee91a8-4d2c-47e5-b174-xxxxxx
   client_id_example: sms4
-  client_secret_example: 33357c21-3233-4eb3-a420-********
+  client_secret_example: '33357c21-3233-4eb3-a420-**\*\*\*\***'
   username_example: username
-  password_example: "********"
+  password_example: '**\*\*\*\***'
   access_token_example: eyJhbGciOiJSU...
   refresh_token_example: eyJhbGciOiJ...
   id_token_example: eyJhbGciOiJ...
+  tenant_example: test-rs3
+  tenant_skywork_example: test-skywork-dev
+  tenant_mservice_example: mservice
   sample_email: test@go7.io
   named_sample_email: jjiamtaweeboon@go7.io
   cancellation_to_email: to@go7.io
@@ -38,6 +41,9 @@ sar_partner:
   access_token_example: "{access_token}"
   refresh_token_example: "{refresh_token}"
   id_token_example: "{id_token}"
+  tenant_example: "{tenant}"
+  tenant_skywork_example: "{tenant}"
+  tenant_mservice_example: "{tenant}"
   sample_email: test@example.com
   named_sample_email: integration@example.com
   cancellation_to_email: recipient@example.com

@@ -257,7 +257,7 @@ The following changes in how errors are returned have been documented and moved 
     "correlationId": "e76b44e8-91e2-4fba-88d8-562a6ed7d755",
     "service": "ota-service",
     "instance": "/v2015b/OTA",
-    "tenant": "test-skywork-dev",
+    "tenant": "{{ sar_profile.tenant_skywork_example }}",
     "timestamp": "2025-04-17T02:48:50.175504998Z",
     "cause": {
       "status": 422,
@@ -267,7 +267,7 @@ The following changes in how errors are returned have been documented and moved 
       "correlationId": "e76b44e8-91e2-4fba-88d8-562a6ed7d755",
       "service": "hhr-proxy",
       "instance": "/v2015b/OTA",
-      "tenant": "test-skywork-dev",
+      "tenant": "{{ sar_profile.tenant_skywork_example }}",
       "timestamp": "2025-04-17T02:48:50.171876533Z"
     }
   }
@@ -290,7 +290,7 @@ The following changes in how errors are returned have been documented and moved 
   "correlationId": "a68ad759-daf5-48a2-bdaf-50c6c221a3a3",
   "service": "ota-service",
   "instance": "/v2015b/OTA",
-  "tenant": "test-rs3",
+  "tenant": "{{ sar_profile.tenant_example }}",
   "cause": {
     "status": 502,
     "instance": "/reservations",
@@ -310,9 +310,9 @@ The following changes in how errors are returned have been documented and moved 
       "timestamp": "2025-01-13T09:12:24.549302606Z",
       "correlationId": "a68ad759-daf5-48a2-bdaf-50c6c221a3a3",
       "service": "hhr-proxy",
-      "tenant": "test-rs3"
+      "tenant": "{{ sar_profile.tenant_example }}"
     },
-    "tenant": "test-rs3",
+    "tenant": "{{ sar_profile.tenant_example }}",
     "service": "reservation-service",
     "correlationId": "a68ad759-daf5-48a2-bdaf-50c6c221a3a3",
     "message": "",
@@ -335,7 +335,7 @@ The following changes in how errors are returned have been documented and moved 
   "correlationId": "b1589271-9e52-4a57-98bf-6f05c6a15dbb",
   "service": "ota-service",
   "instance": "/v2015b/OTA",
-  "tenant": "test-rs3",
+  "tenant": "{{ sar_profile.tenant_example }}",
   "timestamp": "2025-04-13T06:20:03.173515305Z",
   "cause": {
     "status": 503,
@@ -344,7 +344,7 @@ The following changes in how errors are returned have been documented and moved 
     "correlationId": "b1589271-9e52-4a57-98bf-6f05c6a15dbb",
     "service": "reservation-service",
     "instance": "/reservations",
-    "tenant": "test-rs3",
+    "tenant": "{{ sar_profile.tenant_example }}",
     "timestamp": "2025-04-13T06:20:03.170+00:00",
     "exception": "org.springframework.web.client.HttpServerErrorException$ServiceUnavailable",
     "cause": {
@@ -354,7 +354,7 @@ The following changes in how errors are returned have been documented and moved 
       "correlationId": "b1589271-9e52-4a57-98bf-6f05c6a15dbb",
       "service": "hhr-proxy",
       "instance": "/reservations",
-      "tenant": "test-rs3",
+      "tenant": "{{ sar_profile.tenant_example }}",
       "timestamp": "2025-04-13T06:20:03.163394791Z"
     },
     "message": ""
@@ -383,7 +383,7 @@ The following changes in how errors are returned have been documented and moved 
   "correlationId": "a68ad759-daf5-48a2-bdaf-50c6c221a3a3",
   "service": "ota-service",
   "instance": "/v2015b/OTA",
-  "tenant": "test-skywork-dev",
+  "tenant": "{{ sar_profile.tenant_skywork_example }}",
   "cause": {
     "status": 502,
     "instance": "/reservations",
@@ -405,9 +405,9 @@ The following changes in how errors are returned have been documented and moved 
       "timestamp": "2025-01-13T09:12:24.549302606Z",
       "correlationId": "a68ad759-daf5-48a2-bdaf-50c6c221a3a3",
       "service": "hhr-proxy",
-      "tenant": "test-rs3"
+      "tenant": "{{ sar_profile.tenant_example }}"
     },
-    "tenant": "test-skywork-dev",
+    "tenant": "{{ sar_profile.tenant_skywork_example }}",
     "service": "reservation-service",
     "correlationId": "a68ad759-daf5-48a2-bdaf-50c6c221a3a3",
     "message": "",
@@ -431,7 +431,7 @@ The following changes in how errors are returned have been documented and moved 
   "correlationId": "79f48120-952c-4ebe-b889-809c129932ee",
   "service": "ota-service",
   "instance": "/v2015b/OTA",
-  "tenant": "test-skywork-dev",
+  "tenant": "{{ sar_profile.tenant_skywork_example }}",
   "timestamp": "2025-04-17T02:48:11.178912262Z",
   "cause": {
     "status": 500,
@@ -441,7 +441,7 @@ The following changes in how errors are returned have been documented and moved 
     "correlationId": "79f48120-952c-4ebe-b889-809c129932ee",
     "service": "hhr-proxy",
     "instance": "/reservations",
-    "tenant": "test-rs3",
+    "tenant": "{{ sar_profile.tenant_example }}",
     "timestamp": "2025-04-17T02:48:10.145711265Z"
   }
 }

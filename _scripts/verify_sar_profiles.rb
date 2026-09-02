@@ -7,8 +7,60 @@ require "uri"
 require "yaml"
 
 ENTRY_PAGES = [
-  ["normal", "_site/ota/OTA_API_SAR.html"],
-  ["partner", "_site/ota-partner/OTA_API_SAR.html"]
+  ["normal", "ota/OTA_API_SAR.html"],
+  ["partner", "ota-partner/OTA_API_SAR.html"]
+].freeze
+
+PROFILE_DATA_PATH = "_data/sar_profiles.yml"
+
+REQUIRED_PROFILE_FIELDS = %w[
+  documentation_root
+  test_auth_origin
+  test_api_origin
+  test_gateway_origin
+  production_origin
+  legacy_api_origin
+  api_key_example
+  client_id_example
+  client_secret_example
+  username_example
+  password_example
+  access_token_example
+  refresh_token_example
+  id_token_example
+  tenant_example
+  tenant_skywork_example
+  tenant_mservice_example
+  sample_email
+  named_sample_email
+  cancellation_to_email
+  cancellation_cc_email
+  cancellation_bcc_email
+  test_com_email
+  new_email_example
+  onboarding_notice
+  postman_download
+].freeze
+
+PROFILE_PATH_FIELDS = %w[documentation_root postman_download].freeze
+
+PARTNER_PLACEHOLDER_FIELDS = %w[
+  test_auth_origin
+  test_api_origin
+  test_gateway_origin
+  production_origin
+  legacy_api_origin
+  api_key_example
+  client_id_example
+  client_secret_example
+  username_example
+  password_example
+  access_token_example
+  refresh_token_example
+  id_token_example
+  tenant_example
+  tenant_skywork_example
+  tenant_mservice_example
 ].freeze
 
 PUBLIC_PLACEHOLDER_PATTERNS = [
@@ -26,6 +78,8 @@ SENSITIVE_NORMAL_PROFILE_KEYS = %w[
   refresh_token_example
   id_token_example
   tenant_example
+  tenant_skywork_example
+  tenant_mservice_example
   sample_email
   named_sample_email
   cancellation_to_email
@@ -88,11 +142,17 @@ class SarProfileVerifier
     @site_root = @docs_root.join(site_arg)
     @findings = []
     @visited_html = Set.new
-    @normal_hosts = load_normal_hosts
-    @normal_sensitive_values = load_normal_sensitive_values
+    @profile_schema_valid = load_profiles
+    @normal_hosts = @profile_schema_valid ? load_normal_hosts : Set.new
+    @normal_sensitive_values = @profile_schema_valid ? load_normal_sensitive_values : Set.new
   end
 
   def run
+    unless @profile_schema_valid
+      print_findings
+      return 1
+    end
+
     ENTRY_PAGES.each do |profile, relative_entry|
       crawl_entry(profile, relative_entry)
     end
@@ -104,9 +164,9 @@ class SarProfileVerifier
   private
 
   def crawl_entry(profile, relative_entry)
-    entry_path = @docs_root.join(relative_entry)
+    entry_path = @site_root.join(relative_entry)
     unless entry_path.file?
-      add_finding("missing-file", relative_entry, 1)
+      add_finding("missing-file", relative_to_docs(entry_path), 1)
       return
     end
 
@@ -227,7 +287,7 @@ class SarProfileVerifier
     resolved = resolve_local_target(current_path, path_part)
     relative_target = relative_to_docs(resolved)
 
-    if profile == "partner" && relative_target.start_with?("_site/ota/")
+    if profile == "partner" && normal_profile_path?(resolved)
       add_finding_for_match("partner-cross-link", relative_to_docs(current_path), current_path.read, target)
       return
     end
@@ -357,14 +417,7 @@ class SarProfileVerifier
   end
 
   def load_normal_hosts
-    profile_path = @docs_root.join("_data/sar_profiles.yml")
-    return Set.new unless profile_path.file?
-
-    data = YAML.load_file(profile_path.to_s)
-    profile = data.is_a?(Hash) ? data["sar"] || data[:sar] : nil
-    return Set.new unless profile.is_a?(Hash)
-
-    profile.values.each_with_object(Set.new) do |value, hosts|
+    @normal_profile.values.each_with_object(Set.new) do |value, hosts|
       next unless value.is_a?(String)
 
       uri = URI.parse(value)
@@ -375,20 +428,70 @@ class SarProfileVerifier
   end
 
   def load_normal_sensitive_values
-    profile_path = @docs_root.join("_data/sar_profiles.yml")
-    return Set.new unless profile_path.file?
-
-    data = YAML.load_file(profile_path.to_s)
-    profile = data.is_a?(Hash) ? data["sar"] || data[:sar] : nil
-    return Set.new unless profile.is_a?(Hash)
-
-    profile.each_with_object(Set.new) do |(key, value), values|
+    @normal_profile.each_with_object(Set.new) do |(key, value), values|
       next unless SENSITIVE_NORMAL_PROFILE_KEYS.include?(key.to_s)
       next unless value.is_a?(String) && !value.empty?
       next if NON_SENSITIVE_NORMAL_PROFILE_VALUES.include?(value)
 
       values << value
     end
+  end
+
+  def load_profiles
+    profile_path = @docs_root.join(PROFILE_DATA_PATH)
+    unless profile_path.file?
+      add_profile_schema_finding
+      return false
+    end
+
+    data = YAML.load_file(profile_path.to_s)
+    unless data.is_a?(Hash)
+      add_profile_schema_finding
+      return false
+    end
+
+    @normal_profile = data["sar"] || data[:sar]
+    @partner_profile = data["sar_partner"] || data[:sar_partner]
+    unless @normal_profile.is_a?(Hash) && @partner_profile.is_a?(Hash)
+      add_profile_schema_finding
+      return false
+    end
+
+    unless valid_profile?(@normal_profile, normal: true) && valid_profile?(@partner_profile, normal: false)
+      add_profile_schema_finding
+      return false
+    end
+
+    true
+  rescue Psych::Exception
+    add_profile_schema_finding
+    false
+  end
+
+  def valid_profile?(profile, normal:)
+    REQUIRED_PROFILE_FIELDS.all? do |field|
+      value = profile[field] || profile[field.to_sym]
+      next normal && field == "onboarding_notice" if value.is_a?(String) && value.strip.empty?
+      value.is_a?(String) && !value.strip.empty? &&
+        (!PROFILE_PATH_FIELDS.include?(field) || profile_path?(value)) &&
+        (normal || !PARTNER_PLACEHOLDER_FIELDS.include?(field) || safe_partner_placeholder?(value))
+    end
+  end
+
+  def profile_path?(value)
+    value.start_with?("/")
+  end
+
+  def safe_partner_placeholder?(value)
+    value.match?(/\A\{[a-z_-]+\}\z/)
+  end
+
+  def add_profile_schema_finding
+    add_finding("profile-schema", PROFILE_DATA_PATH, 1)
+  end
+
+  def normal_profile_path?(path)
+    path.cleanpath.to_s.start_with?("#{@site_root.join("ota").cleanpath}/")
   end
 
   def add_finding_for_match(category, relative_path, content, needle, fallback: 1)

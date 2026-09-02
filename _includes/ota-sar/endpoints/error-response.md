@@ -84,15 +84,15 @@ Error responses contain specific details for investigating issues. The main reas
     "correlationId": "88f48120-952c-4ebe-b889-809c129932ea",
     "service": "ota-service",
     "instance": "/v2015b/OTA",
-    "tenant": "test-skywork-dev",
+    "tenant": "{{ sar_profile.tenant_skywork_example }}",
     "timestamp": "2025-04-16T02:48:11.178912262Z",
     "cause": {
       "status": 422,
       "title": "Missing/incorrect document type",
-      "detail": "Issuing tickets for 76ZWU2 failed: 422 : \"{\"type\":null,\"status\":422,\"code\":\"878\",\"title\":\"Missing/incorrect document type\",\"detail\":\"No identType found for document type code CC\",\"correlationId\":\"79f48120-952c-4ebe-b889-809c129932ee\",\"service\":\"hhr-proxy\",\"instance\":\"/tickets/A4561192D\",\"tenant\":\"mservice\",\"timestamp\":\"2025-04-17T02:48:11.127672994Z\",\"cause\":null}\"",
+      "detail": "Issuing tickets for 76ZWU2 failed: 422 : \"{\"type\":null,\"status\":422,\"code\":\"878\",\"title\":\"Missing/incorrect document type\",\"detail\":\"No identType found for document type code CC\",\"correlationId\":\"79f48120-952c-4ebe-b889-809c129932ee\",\"service\":\"hhr-proxy\",\"instance\":\"/tickets/A4561192D\",\"tenant\":\"{{ sar_profile.tenant_mservice_example }}\",\"timestamp\":\"2025-04-17T02:48:11.127672994Z\",\"cause\":null}\"",
       "correlationId": "88f48120-952c-4ebe-b889-809c129932ea",
       "service": "ticket-service",
-      "tenant": "mservice",
+      "tenant": "{{ sar_profile.tenant_mservice_example }}",
       "timestamp": "2025-04-16T02:48:11.164445981Z",
       "cause": {
         "status": 422,
@@ -101,7 +101,7 @@ Error responses contain specific details for investigating issues. The main reas
         "detail": "No identType found for document type code CC",
         "correlationId": "88f48120-952c-4ebe-b889-809c129932ea",
         "service": "hhr-proxy",
-        "tenant": "mservice",
+        "tenant": "{{ sar_profile.tenant_mservice_example }}",
         "timestamp": "2025-04-16T02:48:11.164401079Z"
       }
     }
