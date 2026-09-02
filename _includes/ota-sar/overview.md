@@ -151,7 +151,7 @@ Replace all variables in curly braces with the actual values.
       "refresh_expires_in": 14400,
       "refresh_token": "{{ sar_profile.refresh_token_example }}",
       "token_type": "bearer",
-      "id_token": "eyJhbGciOiJ...",
+      "id_token": "{{ sar_profile.id_token_example }}",
       "not-before-policy": 1565113348,
       "session_state": "89fde8f3-39ff-436e-9dce-99387c591fda"
     }

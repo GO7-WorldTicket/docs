@@ -10,8 +10,8 @@ This document explains how to use the `/notifications/email` endpoint to send an
 
 ## Endpoint Overview
 
-**Endpoint:** `/notifications/email`
-**Method:** `POST`
+**Endpoint:** `/notifications/email`<br>
+**Method:** `POST`<br>
 **Content-Type:** `application/json`
 
 ## Description:
@@ -46,7 +46,7 @@ The request body must be in JSON format and include the following fields:
   <pre>
 {
   "emails": [
-    "test@go7.io"
+    "{{ sar_profile.sample_email }}"
   ],
   "ccEmails": [],
   "bccEmails": [],

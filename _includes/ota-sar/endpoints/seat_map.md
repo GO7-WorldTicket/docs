@@ -103,7 +103,7 @@ curl -X POST \
                 ],
                 "email": [
                     {
-                        "value": "test@go7.io",
+                        "value": "{{ sar_profile.sample_email }}",
                         "defaultInd": true
                     }
                 ],
@@ -145,7 +145,7 @@ curl -X POST \
                 ],
                 "email": [
                     {
-                        "value": "test@go7.io"
+                        "value": "{{ sar_profile.sample_email }}"
                     }
                 ],
                 "address": [],
@@ -326,7 +326,7 @@ Both `flightSegmentInfo` and `travelerRefNumberRPHs` can be acquired from the `O
         ],
         "email": [
           {
-            "value": "test@go7.io",
+            "value": "{{ sar_profile.sample_email }}",
             "defaultInd": true
           }
         ],
@@ -368,7 +368,7 @@ Both `flightSegmentInfo` and `travelerRefNumberRPHs` can be acquired from the `O
         ],
         "email": [
           {
-            "value": "test@go7.io"
+            "value": "{{ sar_profile.sample_email }}"
           }
         ],
         "address": [],

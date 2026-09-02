@@ -12,6 +12,14 @@ sar:
   password_example: "********"
   access_token_example: eyJhbGciOiJSU...
   refresh_token_example: eyJhbGciOiJ...
+  id_token_example: eyJhbGciOiJ...
+  sample_email: test@go7.io
+  named_sample_email: jjiamtaweeboon@go7.io
+  cancellation_to_email: to@go7.io
+  cancellation_cc_email: cc@go7.io
+  cancellation_bcc_email: bcc@go7.io
+  test_com_email: test@test.com
+  new_email_example: newEmail@test.com
   onboarding_notice: ""
   postman_download: /docs/assets/resources/OTA_postman_collection.json
 
@@ -29,5 +37,13 @@ sar_partner:
   password_example: "{password}"
   access_token_example: "{access_token}"
   refresh_token_example: "{refresh_token}"
+  id_token_example: "{id_token}"
+  sample_email: test@example.com
+  named_sample_email: integration@example.com
+  cancellation_to_email: recipient@example.com
+  cancellation_cc_email: cc@example.com
+  cancellation_bcc_email: bcc@example.com
+  test_com_email: test@example.com
+  new_email_example: new-email@example.com
   onboarding_notice: "Partner environment URLs and credentials are supplied separately after access approval. The placeholders below are not live endpoints."
   postman_download: /docs/assets/resources/OTA_partner_postman_collection.json

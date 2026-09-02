@@ -4786,7 +4786,10 @@ To cancel a segment, use a modify booking request with modification type 10, and
   | replace: 'https://test-auth.worldticket.net', sar_profile.test_auth_origin
   | replace: 'https://test-api.worldticket.net', sar_profile.test_api_origin
   | replace: 'https://test.worldticket.net', sar_profile.test_gateway_origin
-  | replace: 'https://api.worldticket.net', sar_profile.legacy_api_origin }}
+  | replace: 'https://api.worldticket.net', sar_profile.legacy_api_origin
+  | replace: 'test@go7.io', sar_profile.sample_email
+  | replace: 'test@test.com', sar_profile.test_com_email
+  | replace: 'newEmail@test.com', sar_profile.new_email_example }}
 
 ### Cancel passenger
 

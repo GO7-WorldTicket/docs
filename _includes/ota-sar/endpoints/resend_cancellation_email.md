@@ -10,8 +10,8 @@ This document explains how to use the `/notifications/cancellation-email` endpoi
 
 ## Endpoint Overview
 
-**Endpoint:** `/notifications/cancellation-email`
-**Method:** `POST`
+**Endpoint:** `/notifications/cancellation-email`<br>
+**Method:** `POST`<br>
 **Content-Type:** `application/json`
 
 ## Description:
@@ -51,9 +51,9 @@ In the case where no `segment` is provided, an email will be sent with informati
   <summary>Request Payload</summary>
   <pre>
 {
-    "emails" : ["to@go7.io"],
-    "ccEmails": ["cc@go7.io"],
-    "bccEmails": ["bcc@go7.io"],
+    "emails" : ["{{ sar_profile.cancellation_to_email }}"],
+    "ccEmails": ["{{ sar_profile.cancellation_cc_email }}"],
+    "bccEmails": ["{{ sar_profile.cancellation_bcc_email }}"],
     "recordLocator" : "ABC123",
     "segments" : [{
         "flightDesignator": "DEF4321",

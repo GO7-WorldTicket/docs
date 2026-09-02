@@ -3117,7 +3117,7 @@ For each traveler (excluding the contact traveler, i.e., `CTC`), the following f
 | Field                   | Required | Description                                       |
 |-------------------------|----------|---------------------------------------------------|
 | `docID`                 | ✅       | Passport or national ID number                    |
-| `docType`               | ✅       | [Type of document (e.g., "2" for passport)](../OTA_API_SAR#document-type) |
+| `docType`               | ✅       | [Type of document (e.g., "2" for passport)]({{ sar_profile.documentation_root }}/OTA_API_SAR.html#document-type) |
 | `docHolderNationality`  | ✅       | ISO country code (e.g., "SA" for Saudi Arabia)    |
 | `birthDate`             | ✅       | Traveler's birth date in `YYYY-MM-DD` format      |
 | `expireDate`            | ✅       | Document expiration date in `YYYY-MM-DD` format   |

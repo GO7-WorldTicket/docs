@@ -3676,4 +3676,5 @@ The response is simliar to `OTA_AirBookRS` response containing:
   | replace: 'https://test-auth.worldticket.net', sar_profile.test_auth_origin
   | replace: 'https://test-api.worldticket.net', sar_profile.test_api_origin
   | replace: 'https://test.worldticket.net', sar_profile.test_gateway_origin
-  | replace: 'https://api.worldticket.net', sar_profile.legacy_api_origin }}
+  | replace: 'https://api.worldticket.net', sar_profile.legacy_api_origin
+  | replace: 'jjiamtaweeboon@go7.io', sar_profile.named_sample_email }}

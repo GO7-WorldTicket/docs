@@ -11,15 +11,15 @@
 
 The following endpoint can be used to download a zip file containing all tickets (pdf files) of a booking.
 
-**Endpoint:** `/tickets/confirmation/{rloc}/download`
-**Method:** `GET`
+**Endpoint:** `/tickets/confirmation/{rloc}/download`<br>
+**Method:** `GET`<br>
 **Content-Type:** `application/zip`
 
 #### Request Parameters
 
 | Parameter | Type   | Required | Description | Example |
 |-----------|--------|----------|-------------|---------|
-| x-api-key | Header | Yes | Access Token | [Access token](../OTA_API_SAR#api-key) |
+| x-api-key | Header | Yes | Access Token | [Access token]({{ sar_profile.documentation_root }}/OTA_API_SAR.html#api-key) |
 | rloc | Path | Yes | Booking reference (RLOC) | O8ZKAK |
 | mode | Query | No | Download mode. Supported values: `full` (default), `delta`. `legacy` is accepted for backward compatibility and behaves as `delta`. | full |
 
@@ -57,15 +57,15 @@ The following endpoint can now be used to download a specific ticket PDF using t
 
 The previous version of this endpoint using passenger name and flight route details is still temporarily available, but it is deprecated and will be removed in the near future. Please migrate to using `ticketNumber` and `couponNumber`.
 
-**Endpoint:** `/tickets/confirmation/{bookingReference}/download/passenger-segment`
-**Method:** `GET`
+**Endpoint:** `/tickets/confirmation/{bookingReference}/download/passenger-segment`<br>
+**Method:** `GET`<br>
 **Content-Type:** `application/pdf`
 
 #### Request Parameters (all required)
 
 | Parameter     | Type   | Description           | Example                                |
 |---------------|--------|-----------------------|----------------------------------------|
-| x-api-key     | Header | Access Token          | [Access token](../OTA_API_SAR#api-key) |
+| x-api-key     | Header | Access Token          | [Access token]({{ sar_profile.documentation_root }}/OTA_API_SAR.html#api-key) |
 | ticketNumber  | Query  | Ticket number         | 3333330292535                           |
 | couponNumber  | Query  | Coupon number         | 1                                      |
 
