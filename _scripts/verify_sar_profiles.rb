@@ -295,7 +295,8 @@ class SarProfileVerifier
 
   def populated_partner_variable?(key, value)
     return false unless sensitive_key?(key)
-    return false unless value.is_a?(String)
+    return false if value.nil?
+    return true unless value.is_a?(String)
     return false if placeholder_or_blank?(value)
 
     true

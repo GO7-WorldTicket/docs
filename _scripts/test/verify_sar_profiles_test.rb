@@ -477,6 +477,34 @@ class VerifySarProfilesTest < Minitest::Test
     end
   end
 
+  def test_rejects_non_string_postman_sensitive_variable_values
+    within_docs_fixture do |docs_root|
+      write_profiles(docs_root)
+      write_file(docs_root, "_site/ota/OTA_API_SAR.html", "<html><body></body></html>")
+      write_file(docs_root, "_site/ota-partner/OTA_API_SAR.html", '<a href="/docs/assets/resources/OTA_partner_postman_collection.json">Collection</a>')
+      write_file(
+        docs_root,
+        "_site/assets/resources/OTA_partner_postman_collection.json",
+        JSON.pretty_generate(
+          "variable" => [
+            { "key" => "apiUrl", "value" => 123 },
+            { "key" => "apiKey", "value" => true },
+            { "key" => "agent_id", "value" => { "nested" => "value" } },
+            { "key" => "tenant", "value" => ["value"] },
+            { "key" => "token", "value" => nil }
+          ]
+        )
+      )
+
+      result = run_validator(docs_root)
+
+      assert_equal 1, result[:status]
+      assert_equal 4, result[:stdout].lines.grep(/^partner-postman-variable /).length
+      refute_includes result[:stdout], "nested"
+      refute_includes result[:stdout], "value"
+    end
+  end
+
   def test_resolves_absolute_local_query_and_fragment
     within_docs_fixture do |docs_root|
       write_profiles(docs_root)
