@@ -7,7 +7,7 @@ Supported modification types:
 | Cancel passenger      | 2    | Cancels individual passenger. See also [Cancel booking](#cancel-booking)                                                                                                     |
 | Change passenger name | 3    | Changes passenger name. This operation is essential for group bookings when passenger names are unknown at booking creation time and could be updated later after ticketing. |
 | Change passenger info | 40   | Changes other passenger information other than name.                                                                                                                         |
-| Other                     | 5    | Other modifications such as special services and seats.                                                                                                                      |
+| Other                 | 5    | Other modifications such as special services and seats.                                                                                                                      |
 | Split booking         | 7    | Moves passenger or segment into a new booking.                                                                                                                               | 
 | Change contact        | 9    | Changes contact information such as email or pone number.                                                                                                                    |
 | Cancel segment        | 10   | Cancels individual segment. See also [Cancel booking](#cancel-booking)                                                                                                       |
@@ -4096,3 +4096,964 @@ The request consists of:
 </details>
 
 In the case where the seat was successfully changed, the returned response will be the details of the booking with updated seat (and coach) number. The system will also send a ticket update notification.
+
+### Cancel segment
+
+Partial segment cancellation can be done after the booking has been paid for (for full cancellation, see [Cancel booking](#cancel-booking)).
+
+To cancel a segment, use a modify booking request with modification type 10, and the segment to be cancelled.
+
+<details>
+  <summary>Request Payload</summary>
+  <pre>
+    {
+      "version": "2.001",
+      "pos": {
+        "source": [
+          {
+            "bookingChannel": {
+              "type": "OTA"
+            },
+            "isoCurrency": "SAR",
+            "requestorID": {
+              "type": "5",
+              "id": "<ins>agentId</ins>",
+              "name": "<ins>agencyId</ins>",
+              "location": "CPH"
+            }
+          }
+        ]
+      },
+      "airReservation": {
+        "airItinerary": {
+          "originDestinationOptions": {
+            "originDestinationOption": [
+              {
+                "flightSegment": [
+                  {
+                    "departureAirport": {
+                      "locationCode": "MKX"
+                    },
+                    "arrivalAirport": {
+                      "locationCode": "DMX"
+                    },
+                    "operatingAirline": {
+                      "code": "HHR",
+                      "flightNumber": "0080"
+                    },
+                    "equipment": [],
+                    "departureDateTime": "2024-03-22T10:00:00.000+03:00",
+                    "arrivalDateTime": "2024-03-22T12:25:00.000+03:00",
+                    "rph": "1",
+                    "marketingAirline": {
+                      "code": "HHR"
+                    },
+                    "flightNumber": "0080",
+                    "fareBasisCode": "ApplPayGreater",
+                    "resBookDesigCode": "Y",
+                    "bookingClassAvails": [],
+                    "comment": [],
+                    "stopLocation": [],
+                    "status": "30"
+                  }
+                ],
+                "rph": "1"
+              },
+              {
+                "flightSegment": [
+                  {
+                    "departureAirport": {
+                      "locationCode": "DMX"
+                    },
+                    "arrivalAirport": {
+                      "locationCode": "MKX"
+                    },
+                    "operatingAirline": {
+                      "code": "HHR",
+                      "flightNumber": "0081"
+                    },
+                    "equipment": [],
+                    "departureDateTime": "2024-03-22T10:00:00.000+03:00",
+                    "arrivalDateTime": "2024-03-22T12:25:00.000+03:00",
+                    "rph": "2",
+                    "marketingAirline": {
+                      "code": "HHR"
+                    },
+                    "flightNumber": "0081",
+                    "fareBasisCode": "ApplPayGreater",
+                    "resBookDesigCode": "Y",
+                    "bookingClassAvails": [],
+                    "comment": [],
+                    "stopLocation": [],
+                    "status": "30"
+                  }
+                ],
+                "rph": "2"
+              }
+            ]
+          }
+        },
+        "travelerInfo": {
+          "airTraveler": [
+            {
+              "personName": {
+                "namePrefix": [],
+                "givenName": [
+                  "TEST QA"
+                ],
+                "middleName": [],
+                "surname": "TESTER",
+                "nameSuffix": [],
+                "nameTitle": []
+              },
+              "telephone": [],
+              "email": [
+                {
+                  "value": "tester@example.com",
+                  "defaultInd": true
+                }
+              ],
+              "address": [],
+              "custLoyalty": [],
+              "document": [],
+              "socialMediaInfo": [],
+              "passengerTypeCode": "CTC",
+              "comment": []
+            },
+            {
+              "passengerTypeCode": "ADT",
+              "personName": {
+                "namePrefix": [
+                  "MR"
+                ],
+                "givenName": [
+                  "PONE"
+                ],
+                "middleName": [
+                  "MNAME"
+                ],
+                "surname": "LASTNAME"
+              },
+              "email": [
+                {
+                  "value": "tester@example.com"
+                }
+              ],
+              "telephone": [],
+              "document": [],
+              "travelerRefNumber": {
+                "rph": "1"
+              },
+              "flightSegmentRPHs": {
+                "flightSegmentRPH": [
+                  "1",
+                  "2"
+                ]
+              },
+              "gender": "Male"
+            }
+          ],
+          "specialReqDetails": []
+        },
+        "ticketing": [
+          {
+            "ticketAdvisory": [],
+            "ticketType": "E_TICKET",
+            "flightSegmentRefNumber": [],
+            "travelerRefNumber": [
+              "1"
+            ],
+            "ticketDocumentNbr": "0000000000001",
+            "passengerTypeCode": "ADT",
+            "miscTicketingCode": [],
+            "tpaExtensions": {
+              "couponInfos": [
+                {
+                  "flightRefRPH": "1",
+                  "number": "1",
+                  "status": "O"
+                },
+                {
+                  "flightRefRPH": "2",
+                  "number": "2",
+                  "status": "O"
+                }
+              ]
+            }
+          }
+        ],
+        "bookingReferenceID": [
+          {
+            "companyName": {
+              "code": "W1"
+            },
+            "type": "14",
+            "id": "N6G2NW",
+            "flightRefNumberRPHList": []
+          },
+          {
+            "companyName": {
+              "code": "HHR"
+            },
+            "type": "14",
+            "id": "C83EEA626",
+            "flightRefNumberRPHList": []
+          }
+        ],
+        "offer": {
+          "summary": [],
+          "priced": [
+            {
+              "shortDescription": [],
+              "longDescription": [],
+              "originDestination": [],
+              "otherServices": [],
+              "restriction": [],
+              "termsAndConditions": [],
+              "commission": [],
+              "multimedia": [],
+              "bookingReferenceID": [],
+              "id": "1385505",
+              "tpaExtensions": {
+                "orderInfo": {
+                  "action": "CREATE_BOOKING",
+                  "currencyCode": "SAR",
+                  "direction": "PAYMENT",
+                  "orderType": "BOOKING",
+                  "status": "PAID",
+                  "totalAmount": "97.75"
+                }
+              }
+            }
+          ],
+          "purchased": []
+        },
+        "createDateTime": "2024-03-15T10:13:19.700Z",
+        "emdinfo": []
+      },
+      "airBookModifyRQ": {
+        "modificationType": "10",
+        "airItinerary": {
+          "originDestinationOptions": {
+            "originDestinationOption": [
+              {
+                "flightSegment": [
+                  {
+                    "departureAirport": {
+                      "locationCode": "DMX"
+                    },
+                    "arrivalAirport": {
+                      "locationCode": "MKX"
+                    },
+                    "operatingAirline": {
+                      "code": "HHR",
+                      "flightNumber": "0081"
+                    },
+                    "equipment": [],
+                    "departureDateTime": "2024-03-22T10:00:00.000+03:00",
+                    "arrivalDateTime": "2024-03-22T12:25:00.000+03:00",
+                    "rph": "2",
+                    "marketingAirline": {
+                      "code": "HHR"
+                    },
+                    "flightNumber": "0081",
+                    "fareBasisCode": "ApplPayGreater",
+                    "resBookDesigCode": "Y",
+                    "bookingClassAvails": [],
+                    "comment": [],
+                    "stopLocation": [],
+                    "status": "30"
+                  }
+                ],
+                "rph": "2"
+              }
+            ]
+          }
+        }
+      }
+    }
+  </pre>
+</details>
+<details>
+  <summary>Response Payload</summary>
+  <pre>
+    {
+      "success": {},
+      "airReservation": {
+        "airItinerary": {
+          "originDestinationOptions": {
+            "originDestinationOption": [
+              {
+                "flightSegment": [
+                  {
+                    "departureAirport": {
+                      "locationCode": "MKX"
+                    },
+                    "arrivalAirport": {
+                      "locationCode": "DMX"
+                    },
+                    "operatingAirline": {
+                      "code": "HHR",
+                      "flightNumber": "0080"
+                    },
+                    "equipment": [],
+                    "departureDateTime": "2024-03-22T10:00:00.000+03:00",
+                    "arrivalDateTime": "2024-03-22T12:25:00.000+03:00",
+                    "rph": "1",
+                    "marketingAirline": {
+                      "code": "HHR"
+                    },
+                    "flightNumber": "0080",
+                    "fareBasisCode": "ApplPayGreater",
+                    "resBookDesigCode": "Y",
+                    "bookingClassAvails": [],
+                    "comment": [],
+                    "stopLocation": [],
+                    "status": "30"
+                  }
+                ],
+                "rph": "1"
+              },
+              {
+                "flightSegment": [
+                  {
+                    "departureAirport": {
+                      "locationCode": "DMX"
+                    },
+                    "arrivalAirport": {
+                      "locationCode": "MKX"
+                    },
+                    "operatingAirline": {
+                      "code": "HHR",
+                      "flightNumber": "0081"
+                    },
+                    "equipment": [],
+                    "departureDateTime": "2024-03-22T10:00:00.000+03:00",
+                    "arrivalDateTime": "2024-03-22T12:25:00.000+03:00",
+                    "rph": "2",
+                    "marketingAirline": {
+                      "code": "HHR"
+                    },
+                    "flightNumber": "0081",
+                    "fareBasisCode": "ApplPayGreater",
+                    "resBookDesigCode": "Y",
+                    "bookingClassAvails": [],
+                    "comment": [],
+                    "stopLocation": [],
+                    "status": "16"
+                  }
+                ],
+                "rph": "2"
+              }
+            ]
+          }
+        },
+        "travelerInfo": {
+          "airTraveler": [
+            {
+              "personName": {
+                "namePrefix": [],
+                "givenName": [
+                  "TEST QA"
+                ],
+                "middleName": [],
+                "surname": "TESTER",
+                "nameSuffix": [],
+                "nameTitle": []
+              },
+              "telephone": [],
+              "email": [
+                {
+                  "value": "tester@example.com",
+                  "defaultInd": true
+                }
+              ],
+              "address": [],
+              "custLoyalty": [],
+              "document": [],
+              "socialMediaInfo": [],
+              "passengerTypeCode": "CTC",
+              "comment": []
+            },
+            {
+              "passengerTypeCode": "ADT",
+              "personName": {
+                "namePrefix": [
+                  "MR"
+                ],
+                "givenName": [
+                  "PONE"
+                ],
+                "middleName": [
+                  "MNAME"
+                ],
+                "surname": "LASTNAME"
+              },
+              "email": [
+                {
+                  "value": "tester@example.com"
+                }
+              ],
+              "telephone": [],
+              "document": [],
+              "travelerRefNumber": {
+                "rph": "1"
+              },
+              "flightSegmentRPHs": {
+                "flightSegmentRPH": [
+                  "1",
+                  "2"
+                ]
+              },
+              "gender": "Male"
+            }
+          ],
+          "specialReqDetails": []
+        },
+        "ticketing": [
+          {
+            "ticketAdvisory": [],
+            "ticketType": "E_TICKET",
+            "flightSegmentRefNumber": [],
+            "travelerRefNumber": [
+              "1"
+            ],
+            "ticketDocumentNbr": "0000000000001",
+            "passengerTypeCode": "ADT",
+            "miscTicketingCode": [],
+            "tpaExtensions": {
+              "couponInfos": [
+                {
+                  "flightRefRPH": "1",
+                  "number": "1",
+                  "status": "O"
+                },
+                {
+                  "flightRefRPH": "2",
+                  "number": "2",
+                  "status": "R"
+                }
+              ]
+            }
+          }
+        ],
+        "bookingReferenceID": [
+          {
+            "companyName": {
+              "code": "W1"
+            },
+            "type": "14",
+            "id": "N6G2NW",
+            "flightRefNumberRPHList": []
+          },
+          {
+            "companyName": {
+              "code": "HHR"
+            },
+            "type": "14",
+            "id": "C83EEA626",
+            "flightRefNumberRPHList": []
+          }
+        ],
+        "offer": {
+          "summary": [],
+          "priced": [
+            {
+              "shortDescription": [],
+              "longDescription": [],
+              "originDestination": [],
+              "otherServices": [],
+              "restriction": [],
+              "termsAndConditions": [],
+              "commission": [],
+              "multimedia": [],
+              "bookingReferenceID": [],
+              "id": "1385505",
+              "tpaExtensions": {
+                "orderInfo": {
+                  "action": "CREATE_BOOKING",
+                  "currencyCode": "SAR",
+                  "direction": "PAYMENT",
+                  "orderType": "BOOKING",
+                  "status": "PAID",
+                  "totalAmount": "97.75"
+                }
+              }
+            }
+          ],
+          "purchased": []
+        },
+        "createDateTime": "2024-03-15T10:13:19.700Z",
+        "emdinfo": []
+      },
+      "version": 2.001
+    }
+  </pre>
+</details>
+
+### Cancel passenger
+
+To cancel a passenger, use a modify booking request with modification type 2, and the passenger to be cancelled (for full cancellation, see [Cancel booking](#cancel-booking)).
+
+<details>
+  <summary>Request Payload</summary>
+  <pre>
+    {
+      "version": "2.001",
+      "pos": {
+        "source": [
+          {
+            "bookingChannel": {
+              "type": "OTA"
+            },
+            "isoCurrency": "SAR",
+            "requestorID": {
+              "type": "5",
+              "id": "<ins>agentId</ins>",
+              "name": "<ins>agencyId</ins>",
+              "location": "CPH"
+            }
+          }
+        ]
+      },
+      "airReservation": {
+        "airItinerary": {
+          "originDestinationOptions": {
+            "originDestinationOption": [
+              {
+                "flightSegment": [
+                  {
+                    "departureAirport": {
+                      "locationCode": "MKX"
+                    },
+                    "arrivalAirport": {
+                      "locationCode": "DMX"
+                    },
+                    "operatingAirline": {
+                      "code": "HHR",
+                      "flightNumber": "0080"
+                    },
+                    "equipment": [],
+                    "departureDateTime": "2024-03-22T10:00:00.000+03:00",
+                    "arrivalDateTime": "2024-03-22T12:25:00.000+03:00",
+                    "rph": "1",
+                    "marketingAirline": {
+                      "code": "HHR"
+                    },
+                    "flightNumber": "0080",
+                    "fareBasisCode": "ApplPayGreater",
+                    "resBookDesigCode": "Y",
+                    "bookingClassAvails": [],
+                    "comment": [],
+                    "stopLocation": [],
+                    "status": "30"
+                  }
+                ],
+                "rph": "1"
+              }
+            ]
+          }
+        },
+        "travelerInfo": {
+          "airTraveler": [
+            {
+              "personName": {
+                "namePrefix": [],
+                "givenName": [
+                  "TEST QA"
+                ],
+                "middleName": [],
+                "surname": "TESTER",
+                "nameSuffix": [],
+                "nameTitle": []
+              },
+              "telephone": [],
+              "email": [
+                {
+                  "value": "tester@example.com",
+                  "defaultInd": true
+                }
+              ],
+              "address": [],
+              "custLoyalty": [],
+              "document": [],
+              "socialMediaInfo": [],
+              "passengerTypeCode": "CTC",
+              "comment": []
+            },
+            {
+              "passengerTypeCode": "ADT",
+              "personName": {
+                "namePrefix": [
+                  "MR"
+                ],
+                "givenName": [
+                  "PONE"
+                ],
+                "middleName": [
+                  "MNAME"
+                ],
+                "surname": "LASTNAME"
+              },
+              "email": [
+                {
+                  "value": "tester@example.com"
+                }
+              ],
+              "telephone": [],
+              "document": [],
+              "travelerRefNumber": {
+                "rph": "1"
+              },
+              "flightSegmentRPHs": {
+                "flightSegmentRPH": [
+                  "1"
+                ]
+              },
+              "gender": "Male"
+            },
+            {
+              "passengerTypeCode": "ADT",
+              "personName": {
+                "namePrefix": [
+                  "MR"
+                ],
+                "givenName": [
+                  "PTWO"
+                ],
+                "middleName": [
+                  "MNAME"
+                ],
+                "surname": "LASTNAME"
+              },
+              "email": [
+                {
+                  "value": "tester@example.com"
+                }
+              ],
+              "telephone": [],
+              "document": [],
+              "travelerRefNumber": {
+                "rph": "2"
+              },
+              "flightSegmentRPHs": {
+                "flightSegmentRPH": [
+                  "1"
+                ]
+              },
+              "gender": "Male"
+            }
+          ],
+          "specialReqDetails": []
+        },
+        "ticketing": [
+          {
+            "ticketAdvisory": [],
+            "ticketType": "E_TICKET",
+            "flightSegmentRefNumber": [],
+            "travelerRefNumber": [
+              "1"
+            ],
+            "ticketDocumentNbr": "0000000000001",
+            "passengerTypeCode": "ADT",
+            "miscTicketingCode": [],
+            "tpaExtensions": {
+              "couponInfos": [
+                {
+                  "flightRefRPH": "1",
+                  "number": "1",
+                  "status": "O"
+                }
+              ]
+            }
+          },
+          {
+            "ticketAdvisory": [],
+            "ticketType": "E_TICKET",
+            "flightSegmentRefNumber": [],
+            "travelerRefNumber": [
+              "2"
+            ],
+            "ticketDocumentNbr": "0000000000002",
+            "passengerTypeCode": "ADT",
+            "miscTicketingCode": [],
+            "tpaExtensions": {
+              "couponInfos": [
+                {
+                  "flightRefRPH": "1",
+                  "number": "1",
+                  "status": "O"
+                }
+              ]
+            }
+          }
+        ],
+        "bookingReferenceID": [
+          {
+            "companyName": {
+              "code": "W1"
+            },
+            "type": "14",
+            "id": "N6G2NW",
+            "flightRefNumberRPHList": []
+          },
+          {
+            "companyName": {
+              "code": "HHR"
+            },
+            "type": "14",
+            "id": "C83EEA626",
+            "flightRefNumberRPHList": []
+          }
+        ],
+        "offer": {
+          "summary": [],
+          "priced": [
+            {
+              "shortDescription": [],
+              "longDescription": [],
+              "originDestination": [],
+              "otherServices": [],
+              "restriction": [],
+              "termsAndConditions": [],
+              "commission": [],
+              "multimedia": [],
+              "bookingReferenceID": [],
+              "id": "1385505",
+              "tpaExtensions": {
+                "orderInfo": {
+                  "action": "CREATE_BOOKING",
+                  "currencyCode": "SAR",
+                  "direction": "PAYMENT",
+                  "orderType": "BOOKING",
+                  "status": "PAID",
+                  "totalAmount": "97.75"
+                }
+              }
+            }
+          ],
+          "purchased": []
+        },
+        "createDateTime": "2024-03-15T10:13:19.700Z",
+        "emdinfo": []
+      },
+      "airBookModifyRQ": {
+        "modificationType": "2",
+        "travelerInfo": {
+          "airTraveler": [
+            {
+              "passengerTypeCode": "ADT",
+              "personName": {
+                "namePrefix": [
+                  "MR"
+                ],
+                "givenName": [
+                  "PTWO"
+                ],
+                "middleName": [
+                  "MNAME"
+                ],
+                "surname": "LASTNAME"
+              },
+              "email": [
+                {
+                  "value": "tester@example.com"
+                }
+              ],
+              "telephone": [],
+              "document": [],
+              "travelerRefNumber": {
+                "rph": "2"
+              },
+              "flightSegmentRPHs": {
+                "flightSegmentRPH": [
+                  "1"
+                ]
+              },
+              "gender": "Male"
+            }
+          ]
+        }
+      }
+    }
+  </pre>
+</details>
+<details>
+  <summary>Response Payload</summary>
+  <pre>
+    {
+      "success": {},
+      "airReservation": {
+        "airItinerary": {
+          "originDestinationOptions": {
+            "originDestinationOption": [
+              {
+                "flightSegment": [
+                  {
+                    "departureAirport": {
+                      "locationCode": "MKX"
+                    },
+                    "arrivalAirport": {
+                      "locationCode": "DMX"
+                    },
+                    "operatingAirline": {
+                      "code": "HHR",
+                      "flightNumber": "0080"
+                    },
+                    "equipment": [],
+                    "departureDateTime": "2024-03-22T10:00:00.000+03:00",
+                    "arrivalDateTime": "2024-03-22T12:25:00.000+03:00",
+                    "rph": "1",
+                    "marketingAirline": {
+                      "code": "HHR"
+                    },
+                    "flightNumber": "0080",
+                    "fareBasisCode": "ApplPayGreater",
+                    "resBookDesigCode": "Y",
+                    "bookingClassAvails": [],
+                    "comment": [],
+                    "stopLocation": [],
+                    "status": "30"
+                  }
+                ],
+                "rph": "1"
+              }
+            ]
+          }
+        },
+        "travelerInfo": {
+          "airTraveler": [
+            {
+              "personName": {
+                "namePrefix": [],
+                "givenName": [
+                  "TEST QA"
+                ],
+                "middleName": [],
+                "surname": "TESTER",
+                "nameSuffix": [],
+                "nameTitle": []
+              },
+              "telephone": [],
+              "email": [
+                {
+                  "value": "tester@example.com",
+                  "defaultInd": true
+                }
+              ],
+              "address": [],
+              "custLoyalty": [],
+              "document": [],
+              "socialMediaInfo": [],
+              "passengerTypeCode": "CTC",
+              "comment": []
+            },
+            {
+              "passengerTypeCode": "ADT",
+              "personName": {
+                "namePrefix": [
+                  "MR"
+                ],
+                "givenName": [
+                  "PONE"
+                ],
+                "middleName": [
+                  "MNAME"
+                ],
+                "surname": "LASTNAME"
+              },
+              "email": [
+                {
+                  "value": "tester@example.com"
+                }
+              ],
+              "telephone": [],
+              "document": [],
+              "travelerRefNumber": {
+                "rph": "1"
+              },
+              "flightSegmentRPHs": {
+                "flightSegmentRPH": [
+                  "1"
+                ]
+              },
+              "gender": "Male"
+            }
+          ],
+          "specialReqDetails": []
+        },
+        "ticketing": [
+          {
+            "ticketAdvisory": [],
+            "ticketType": "E_TICKET",
+            "flightSegmentRefNumber": [],
+            "travelerRefNumber": [
+              "1"
+            ],
+            "ticketDocumentNbr": "0000000000001",
+            "passengerTypeCode": "ADT",
+            "miscTicketingCode": [],
+            "tpaExtensions": {
+              "couponInfos": [
+                {
+                  "flightRefRPH": "1",
+                  "number": "1",
+                  "status": "O"
+                }
+              ]
+            }
+          }
+        ],
+        "bookingReferenceID": [
+          {
+            "companyName": {
+              "code": "W1"
+            },
+            "type": "14",
+            "id": "N6G2NW",
+            "flightRefNumberRPHList": []
+          },
+          {
+            "companyName": {
+              "code": "HHR"
+            },
+            "type": "14",
+            "id": "C83EEA626",
+            "flightRefNumberRPHList": []
+          }
+        ],
+        "offer": {
+          "summary": [],
+          "priced": [
+            {
+              "shortDescription": [],
+              "longDescription": [],
+              "originDestination": [],
+              "otherServices": [],
+              "restriction": [],
+              "termsAndConditions": [],
+              "commission": [],
+              "multimedia": [],
+              "bookingReferenceID": [],
+              "id": "1385505",
+              "tpaExtensions": {
+                "orderInfo": {
+                  "action": "CREATE_BOOKING",
+                  "currencyCode": "SAR",
+                  "direction": "PAYMENT",
+                  "orderType": "BOOKING",
+                  "status": "PAID",
+                  "totalAmount": "97.75"
+                }
+              }
+            }
+          ],
+          "purchased": []
+        },
+        "createDateTime": "2024-03-15T10:13:19.700Z",
+        "emdinfo": []
+      },
+      "version": 2.001
+    }
+  </pre>
+</details>

@@ -1,5 +1,11 @@
 
 ## Changelog
+
+### 2026-09-01
+
+#### Added passenger and segment cancellation
+- Updated document about cancelling passenger (modification type 2) and cancelling segment (modification type 10) for AirBookModifyRQ.
+
 ### 2026-07-31
 
 #### Add penalty rules for OTA_AirBookRS, OTA_AirPriceRS
