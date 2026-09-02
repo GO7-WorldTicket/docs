@@ -106,3 +106,65 @@ Relevant full suite:
 
 - No blocking concerns within Task 1 scope.
 - The validator intentionally depends on the future wrapper/profile/link structure from later tasks. It is ready for that integration but cannot prove production docs correctness until those tasks generate the real `_site` tree.
+
+## Fix Round 1
+
+### Review findings addressed
+
+- Extended partner JSON validation so reachable partner-linked `.json` files receive the same normal-host, credential, and JWT scans as partner HTML, in addition to the existing Postman variable validation.
+- Narrowed unresolved Liquid detection so intentionally rendered literal placeholders such as `{{apiUrl}}` are allowed while real unresolved Liquid expressions still fail.
+
+### Changed files
+
+- `_scripts/verify_sar_profiles.rb`
+- `_scripts/test/verify_sar_profiles_test.rb`
+- `.superpowers/sdd/ST-1807-implementation-plan/task-1-report.md`
+
+### Added focused tests
+
+- `test_allows_literal_postman_placeholders_in_rendered_partner_html`
+- `test_rejects_generic_partner_json_host_credential_and_jwt_leakage`
+
+### Red/green evidence
+
+Red run after adding the review tests:
+
+```text
+Run options: --seed 24526
+
+# Running:
+
+.F....F..
+
+Finished in 1.137603s, 7.9114 runs/s, 29.8874 assertions/s.
+
+  1) Failure:
+VerifySarProfilesTest#test_allows_literal_postman_placeholders_in_rendered_partner_html ...
+Expected: 0
+  Actual: 1
+
+  2) Failure:
+VerifySarProfilesTest#test_rejects_generic_partner_json_host_credential_and_jwt_leakage ...
+Expected: 1
+  Actual: 0
+
+9 runs, 34 assertions, 2 failures, 0 errors, 0 skips
+```
+
+Green verification run after the fix:
+
+```bash
+ruby /Users/sittiwetmahapratoom/Workspace/go7-ai/worktrees/ST-1807/wt/docs/_scripts/test/verify_sar_profiles_test.rb
+```
+
+```text
+Run options: --seed 37854
+
+# Running:
+
+.........
+
+Finished in 1.228037s, 7.3288 runs/s, 34.2009 assertions/s.
+
+9 runs, 42 assertions, 0 failures, 0 errors, 0 skips
+```

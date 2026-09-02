@@ -177,6 +177,25 @@ class VerifySarProfilesTest < Minitest::Test
     end
   end
 
+  def test_allows_literal_postman_placeholders_in_rendered_partner_html
+    within_docs_fixture do |docs_root|
+      write_profiles(docs_root)
+      write_basic_entry_pages(docs_root)
+      write_file(docs_root, "_site/ota-partner/endpoints/create_booking.html", <<~HTML)
+        <html>
+          <body>
+            <p>Use the provided placeholder value {{apiUrl}}</p>
+          </body>
+        </html>
+      HTML
+
+      result = run_validator(docs_root)
+
+      assert_equal 0, result[:status], result[:stdout]
+      refute_includes result[:stdout], "unresolved-liquid"
+    end
+  end
+
   def test_rejects_populated_partner_postman_variables_but_allows_liquid_placeholders
     within_docs_fixture do |docs_root|
       write_profiles(docs_root)
@@ -206,6 +225,36 @@ class VerifySarProfilesTest < Minitest::Test
       refute_includes result[:stdout], "{{apiUrl}}"
       assert_includes result[:stdout], "partner-postman-variable _site/assets/resources/OTA_partner_postman_collection.json:8"
       assert_includes result[:stdout], "partner-postman-variable _site/assets/resources/OTA_partner_postman_collection.json:12"
+    end
+  end
+
+  def test_rejects_generic_partner_json_host_credential_and_jwt_leakage
+    within_docs_fixture do |docs_root|
+      write_profiles(docs_root)
+      write_file(docs_root, "_site/ota/OTA_API_SAR.html", "<html><body></body></html>")
+      write_file(docs_root, "_site/ota-partner/OTA_API_SAR.html", <<~HTML)
+        <html>
+          <body>
+            <a href="/docs/assets/resources/partner_examples.json">Examples</a>
+          </body>
+        </html>
+      HTML
+      write_file(docs_root, "_site/assets/resources/partner_examples.json", <<~JSON)
+        {
+          "baseUrl": "https://api.sar.worldticket.cloud/ota/v2015b/OTA",
+          "credentials": {
+            "password": "real-password"
+          },
+          "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTYifQ.signature"
+        }
+      JSON
+
+      result = run_validator(docs_root)
+
+      assert_equal 1, result[:status]
+      assert_includes result[:stdout], "partner-host _site/assets/resources/partner_examples.json:2"
+      assert_includes result[:stdout], "partner-credential _site/assets/resources/partner_examples.json:4"
+      assert_includes result[:stdout], "partner-jwt _site/assets/resources/partner_examples.json:6"
     end
   end
 

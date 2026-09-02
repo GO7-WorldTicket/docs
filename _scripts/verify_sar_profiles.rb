@@ -37,6 +37,11 @@ CREDENTIAL_PATTERN = /
   (?<value>[^<\n]+)
 /ix.freeze
 
+UNRESOLVED_LIQUID_PATTERN = /
+  \{\{\s*[^}]+\s*\}\}|
+  \{%\s*[^%]+\s*%\}
+/x.freeze
+
 class SarProfileVerifier
   def initialize(site_arg, docs_root: Dir.pwd)
     @docs_root = Pathname.new(docs_root)
@@ -81,15 +86,22 @@ class SarProfileVerifier
     scan_unresolved_liquid(relative_path, content)
     return unless profile == "partner"
 
-    scan_partner_hosts(relative_path, content)
-    scan_partner_credentials(relative_path, content)
-    scan_partner_jwts(relative_path, content)
+    scan_partner_sensitive_content(relative_path, content)
   end
 
   def scan_unresolved_liquid(relative_path, content)
     content.each_line.with_index(1) do |line, line_no|
-      add_finding("unresolved-liquid", relative_path, line_no) if line.include?("{{") || line.include?("{%")
+      next unless line.match?(UNRESOLVED_LIQUID_PATTERN)
+      next if line.scan(UNRESOLVED_LIQUID_PATTERN).all? { |expression| allowed_literal_placeholder?(expression) }
+
+      add_finding("unresolved-liquid", relative_path, line_no)
     end
+  end
+
+  def scan_partner_sensitive_content(relative_path, content)
+    scan_partner_hosts(relative_path, content)
+    scan_partner_credentials(relative_path, content)
+    scan_partner_jwts(relative_path, content)
   end
 
   def scan_partner_hosts(relative_path, content)
@@ -197,6 +209,7 @@ class SarProfileVerifier
   def scan_partner_postman_file(path)
     content = path.read
     data = JSON.parse(content)
+    scan_partner_sensitive_content(relative_to_docs(path), content)
     scan_postman_object(data, content, path)
   rescue JSON::ParserError
     add_finding("invalid-json", relative_to_docs(path), 1)
@@ -239,6 +252,11 @@ class SarProfileVerifier
     stripped = value.to_s.strip
     return true if stripped.empty?
 
+    PUBLIC_PLACEHOLDER_PATTERNS.any? { |pattern| stripped.match?(pattern) }
+  end
+
+  def allowed_literal_placeholder?(expression)
+    stripped = expression.strip
     PUBLIC_PLACEHOLDER_PATTERNS.any? { |pattern| stripped.match?(pattern) }
   end
 
