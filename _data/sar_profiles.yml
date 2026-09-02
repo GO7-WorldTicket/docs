@@ -1,0 +1,33 @@
+sar:
+  documentation_root: /docs/ota
+  test_auth_origin: https://test-auth.worldticket.net
+  test_api_origin: https://test-api.worldticket.net
+  test_gateway_origin: https://test.worldticket.net
+  production_origin: https://api.sar.worldticket.cloud
+  legacy_api_origin: https://api.worldticket.net
+  api_key_example: 8cee91a8-4d2c-47e5-b174-xxxxxx
+  client_id_example: sms4
+  client_secret_example: 33357c21-3233-4eb3-a420-********
+  username_example: username
+  password_example: "********"
+  access_token_example: eyJhbGciOiJSU...
+  refresh_token_example: eyJhbGciOiJ...
+  onboarding_notice: ""
+  postman_download: /docs/assets/resources/OTA_postman_collection.json
+
+sar_partner:
+  documentation_root: /docs/ota-partner
+  test_auth_origin: "{auth_base_url}"
+  test_api_origin: "{base_url}"
+  test_gateway_origin: "{service_base_url}"
+  production_origin: "{production_base_url}"
+  legacy_api_origin: "{auth_base_url}"
+  api_key_example: "{api_key}"
+  client_id_example: "{client_id}"
+  client_secret_example: "{client_secret}"
+  username_example: "{username}"
+  password_example: "{password}"
+  access_token_example: "{access_token}"
+  refresh_token_example: "{refresh_token}"
+  onboarding_notice: "Partner environment URLs and credentials are supplied separately after access approval. The placeholders below are not live endpoints."
+  postman_download: /docs/assets/resources/OTA_partner_postman_collection.json
