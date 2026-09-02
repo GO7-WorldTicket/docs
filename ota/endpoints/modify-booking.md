@@ -3244,6 +3244,195 @@ Note that for paid bookings, the response will also contain links for downloadin
   </pre>
 </details>
 
+### Change passenger info
+
+Use modification type 40 to change passenger information that does not affect the price, such as gender, birth date, telephone number, email address, address, or travel document. Identify the passenger to update using `travelerRefNumber.rph`.
+
+<details>
+  <summary>Request Payload</summary>
+  <pre>
+{
+  "version": "2.001",
+  "pos": {
+    "source": [
+      {
+        "isoCurrency": "SAR",
+        "requestorID": {
+          "type": "5",
+          "id": "<ins>agentId</ins>",
+          "name": "<ins>agencyId</ins>"
+        },
+        "bookingChannel": {
+          "type": "OTA"
+        }
+      }
+    ]
+  },
+  "airReservation": {
+    "bookingReferenceID": [
+      {
+        "companyName": {
+          "code": "W1"
+        },
+        "type": "14",
+        "id": "WT1A2B",
+        "flightRefNumberRPHList": []
+      },
+      {
+        "companyName": {
+          "code": "HHR"
+        },
+        "type": "14",
+        "id": "D9F33CB3F",
+        "flightRefNumberRPHList": []
+      }
+    ]
+  },
+  "airBookModifyRQ": {
+    "modificationType": "40",
+    "travelerInfo": {
+      "airTraveler": [
+        {
+          "personName": {
+            "namePrefix": [
+              "Ms."
+            ],
+            "givenName": [
+              "NSNSA"
+            ],
+            "middleName": [
+              "MID"
+            ],
+            "surname": "SSW",
+            "nameSuffix": [
+              "Jr."
+            ],
+            "nameTitle": []
+          },
+          "telephone": [
+            {
+              "phoneNumber": "555"
+            }
+          ],
+          "email": [
+            {
+              "value": "newEmail@test.com"
+            }
+          ],
+          "address": [
+            {
+              "addressLine": [
+                "somewhere"
+              ]
+            }
+          ],
+          "document": [
+            {
+              "docID": "DOC123",
+              "docType": "2",
+              "docIssueCountry": "US",
+              "docHolderNationality": "US",
+              "expireDate": "2060-09-15",
+              "birthDate": "1980-08-04"
+            }
+          ],
+          "travelerRefNumber": {
+            "rph": "1"
+          },
+          "passengerTypeCode": "ADT",
+          "gender": "Female"
+        }
+      ]
+    }
+  }
+}
+  </pre>
+</details>
+
+<details>
+  <summary>Response Payload</summary>
+  <pre>
+{
+  "success": {},
+  "airReservation": {
+    "travelerInfo": {
+      "airTraveler": [
+        {
+          "personName": {
+            "namePrefix": [
+              "Ms."
+            ],
+            "givenName": [
+              "NSNSA"
+            ],
+            "middleName": [
+              "MID"
+            ],
+            "surname": "SSW",
+            "nameSuffix": [
+              "Jr."
+            ],
+            "nameTitle": []
+          },
+          "telephone": [
+            {
+              "phoneNumber": "555"
+            }
+          ],
+          "email": [
+            {
+              "value": "newEmail@test.com"
+            }
+          ],
+          "address": [
+            {
+              "addressLine": [
+                "somewhere"
+              ]
+            }
+          ],
+          "document": [
+            {
+              "docID": "DOC123",
+              "docType": "2",
+              "docIssueCountry": "US",
+              "docHolderNationality": "US",
+              "expireDate": "2060-09-15",
+              "birthDate": "1980-08-04"
+            }
+          ],
+          "travelerRefNumber": {
+            "rph": "1"
+          },
+          "passengerTypeCode": "ADT",
+          "gender": "Female"
+        }
+      ]
+    },
+    "bookingReferenceID": [
+      {
+        "companyName": {
+          "code": "W1"
+        },
+        "type": "14",
+        "id": "WT1A2B",
+        "flightRefNumberRPHList": []
+      },
+      {
+        "companyName": {
+          "code": "HHR"
+        },
+        "type": "14",
+        "id": "D9F33CB3F",
+        "flightRefNumberRPHList": []
+      }
+    ]
+  },
+  "version": "2.001"
+}
+  </pre>
+</details>
+
 ### Seat change
 
 Seats can be changed after the booking has been paid for.
