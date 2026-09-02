@@ -13,7 +13,7 @@ ENTRY_PAGES = [
 
 PUBLIC_PLACEHOLDER_PATTERNS = [
   /\A\{\{[a-zA-Z0-9_]+\}\}\z/,
-  /\A\{[a-z_]+\}(\/.*)?\z/
+  /\A\{[a-z_-]+\}(\/.*)?\z/
 ].freeze
 
 LOCAL_REFERENCE_PATTERN = /
@@ -34,7 +34,8 @@ CREDENTIAL_PATTERN = /
   [^<\n:=]{0,20}
   [:=]
   \s*
-  (?<value>[^<\n]+)
+  (?:["']\s*)?
+  (?<value>[^<\n\s&'\"]+)
 /ix.freeze
 
 UNRESOLVED_LIQUID_PATTERN = /
@@ -114,11 +115,12 @@ class SarProfileVerifier
 
   def scan_partner_credentials(relative_path, content)
     content.each_line.with_index(1) do |line, line_no|
-      match = line.match(CREDENTIAL_PATTERN)
-      next unless match
-      next if placeholder_or_blank?(match[:value])
+      line.scan(CREDENTIAL_PATTERN) do
+        match = Regexp.last_match
+        next if placeholder_or_blank?(match[:value])
 
-      add_finding("partner-credential", relative_path, line_no)
+        add_finding("partner-credential", relative_path, line_no)
+      end
     end
   end
 
@@ -140,8 +142,7 @@ class SarProfileVerifier
   def handle_reference(profile, current_path, target)
     return if target.nil? || target.empty? || target.start_with?("mailto:", "javascript:")
 
-    uri = URI.parse(target)
-    if uri.scheme
+    if external_reference?(target)
       check_external_reference(profile, current_path, target)
       return
     end
@@ -152,9 +153,15 @@ class SarProfileVerifier
   end
 
   def check_external_reference(profile, current_path, target)
+    uri = URI.parse(target)
+    if invalid_http_authority?(uri, target)
+      add_finding("invalid-link", relative_to_docs(current_path), 1)
+      return
+    end
+
     return unless profile == "partner"
 
-    host = URI.parse(target).host
+    host = uri.host
     return unless host && @normal_hosts.include?(host)
 
     add_finding_for_match("partner-host", relative_to_docs(current_path), current_path.read, target)
@@ -261,16 +268,41 @@ class SarProfileVerifier
   end
 
   def resolve_local_target(current_path, path_part)
-    clean_path =
+    resolved =
       if path_part.start_with?("/docs/")
-        path_part.delete_prefix("/docs/")
+        @site_root.join(path_part.delete_prefix("/docs/"))
       elsif path_part.start_with?("/")
-        path_part.delete_prefix("/")
+        @site_root.join(path_part.delete_prefix("/"))
       else
-        return current_path.dirname.join(path_part).cleanpath
+        current_path.dirname.join(path_part)
       end
+    resolved = resolved.cleanpath
+    return resolved if resolved.file?
 
-    @site_root.join(clean_path).cleanpath
+    rendered = rendered_html_target(resolved)
+    return rendered if rendered&.file?
+
+    rendered || resolved
+  end
+
+  def external_reference?(target)
+    target.start_with?("//") || target.match?(/\A[a-z][a-z0-9+.-]*:/i)
+  end
+
+  def invalid_http_authority?(uri, target)
+    return false unless uri.scheme&.match?(/\Ahttps?\z/i) || target.start_with?("//")
+
+    authority = target.sub(/\A(?:[a-z][a-z0-9+.-]*:)?\/\//i, "").split(/[\/?#]/, 2).first
+    uri.host.nil? || authority.match?(/\s/)
+  end
+
+  def rendered_html_target(path)
+    case path.extname
+    when ".md"
+      path.sub_ext(".html")
+    when ""
+      path.sub_ext(".html")
+    end
   end
 
   def load_normal_hosts

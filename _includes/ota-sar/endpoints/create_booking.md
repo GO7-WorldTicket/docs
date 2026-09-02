@@ -15,7 +15,7 @@ There are two types of bookings:
 
 | Parameter  | Type    | Description        | Example                  |
 | ---------- | ------- | ------------------ | ------------------------ |
-| x-api-key  | Header  | Access Token       | [Access token](#api-key) |
+| x-api-key  | Header  | Access Token       | [Access token]({{ sar_profile.documentation_root }}/OTA_API_SAR.html#api-key) |
 | local-name | Header  | Custom HTTP header | OTA_AirBookRQ            |
 | agentId    | Payload | Custom HTTP header | ota                      |
 | agencyId   | Payload | Custom HTTP header | ota                      |
@@ -1956,7 +1956,7 @@ curl -X POST \
 
 | Parameter    | Type    | Description        | Example                              |
 | ------------ | ------- | ------------------ | ------------------------------------ |
-| access_token | Header  | Access Token       | [Access token from](#authentication) |
+| access_token | Header  | Access Token       | [Access token from]({{ sar_profile.documentation_root }}/OTA_API_SAR.html#authentication) |
 | local-name   | Header  | Custom HTTP header | OTA_AirPriceRQ                       |
 | agentId      | Payload | Custom HTTP header | ota                                  |
 | agencyId     | Payload | Custom HTTP header | ota                                  |

@@ -22,7 +22,7 @@ This endpoint is designed for sending and resending train ticket confirmation em
 
 | Parameter    | Type    | Description        | Example                  |
 |--------------|---------|--------------------|--------------------------|
-| x-api-key    | Header  | Access Token       | [Access token](#api-key) |
+| x-api-key    | Header  | Access Token       | [Access token]({{ sar_profile.documentation_root }}/OTA_API_SAR.html#api-key) |
 
 This endpoint does not accept any parameters in the URL. All necessary data should be included in the request body.
 

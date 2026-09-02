@@ -15,7 +15,7 @@
 - [Postman Collection](#postman-collection)
 - [Code Lists](#code-lists)
   - [Booking Class](#booking-class)
-  - [Passenger Type](#passengers-type)
+  - [Passenger Type](#passenger-type)
   - [Document Type](#document-type)
 - [Available Routes and Flights](#available-routes-and-flights-calendar)
 - [OTA for Reservation workflow](#ota-for-reservation-workflow)
@@ -32,7 +32,7 @@
 | [Add seat map errors](generic/error-handling.md#seat-map-errors)                                           | Duangtida Athakravi     | 2026-04-10  |
 | [Add seat map endpoint and how to update seat](endpoints/seat_map)                                         | Duangtida Athakravi     | 2026-03-12  |
 | [Clarify download all tickets endpoint (`/tickets/confirmation/{rloc}/download`)](changelog.md#2026-02-22) | Sittiwet Mahapratoom    | 2026-02-22  |
-| [Segments cancellation with automatic refund](changelog.md#2025-07-31)                                     | Jarun Jiamtaweeboon     | 2025-07-31  |
+| [Segments cancellation with automatic refund](changelog.md#2025-09-12)                                     | Jarun Jiamtaweeboon     | 2025-07-31  |
 | [Add sold-out segment for OTA_AirLowFareSearchRS](changelog.md#2025-07-11)                                 | Thotsaphorn Phonlabutr  | 2025-07-11  |
 | [Add resend cancellation email endpoint](endpoints/resend_cancellation_email)                              | Duangtida Athakravi     | 2025-07-08  |
 | [Add policy for OTA_AirBookRS, OTA_AirPriceRS](changelog.md#2025-07-02)                                    | Thotsaphorn Phonlabutr  | 2025-06-26  |
@@ -238,9 +238,9 @@ Please update the variables in collection such as apiKey, agent_id, agent_name a
   - [Cancel Segment](endpoints/modify-booking#cancel-segment)
   - [Cancel Passenger](endpoints/modify-booking#cancel-passenger)
 - [Cancel booking](endpoints/cancel_booking)
-  - [Cancel Policy](endpoints/cancel_booking#cancel-policy)
-    - [Cancel Duration Policy](endpoints/cancel_booking#cancel-duration-policy)
-    - [Cancel Refund Policy](endpoints/cancel_booking#cancel-refund-policy)
+  - [Cancel Policy](endpoints/cancel_booking#cancellation-and-refund-penalty-policy)
+    - [Cancel Duration Policy](endpoints/cancel_booking#cancellation-and-refund-penalty-policy)
+    - [Cancel Refund Policy](endpoints/cancel_booking#cancellation-and-refund-penalty-policy)
   - [Cancellation email](endpoints/cancel_booking#cancellation-email)
   - [Resend cancellation email](endpoints/resend_cancellation_email)
 - [Resend ticket confirmation email](endpoints/resend_ticket_confirmation_email)

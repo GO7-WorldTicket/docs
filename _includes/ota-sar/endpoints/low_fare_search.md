@@ -8,7 +8,7 @@ AirLowFareSearch is used to get flight availability with the lowest fare options
 
 | Parameter  | Type    | Description        | Example                  |
 |------------|---------|--------------------|--------------------------|
-| x-api-key  | Header  | Access Token       | [Access token](#api-key) |
+| x-api-key  | Header  | Access Token       | [Access token]({{ sar_profile.documentation_root }}/OTA_API_SAR.html#api-key) |
 | local-name | Header  | Custom HTTP header | OTA_AirLowFareSearchRQ   |
 | agentId    | Payload |                    | ota                      |
 | agencyId   | Payload |                    | ota                      |

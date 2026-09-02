@@ -258,6 +258,133 @@ class VerifySarProfilesTest < Minitest::Test
     end
   end
 
+  def test_resolves_extensionless_local_html_targets
+    within_docs_fixture do |docs_root|
+      write_profiles(docs_root)
+      write_file(docs_root, "_site/ota/OTA_API_SAR.html", '<a href="/docs/ota/endpoints/create_booking">Create</a>')
+      write_file(docs_root, "_site/ota/endpoints/create_booking.html", "<html><body></body></html>")
+      write_file(docs_root, "_site/ota-partner/OTA_API_SAR.html", '<a href="/docs/ota-partner/endpoints/create_booking">Create</a>')
+      write_file(docs_root, "_site/ota-partner/endpoints/create_booking.html", "<html><body></body></html>")
+
+      result = run_validator(docs_root)
+
+      assert_equal 0, result[:status], result[:stdout]
+    end
+  end
+
+  def test_resolves_markdown_local_html_targets
+    within_docs_fixture do |docs_root|
+      write_profiles(docs_root)
+      write_file(docs_root, "_site/ota/OTA_API_SAR.html", '<a href="/docs/ota/changelog.md">Change log</a>')
+      write_file(docs_root, "_site/ota/changelog.html", "<html><body></body></html>")
+      write_file(docs_root, "_site/ota-partner/OTA_API_SAR.html", '<a href="/docs/ota-partner/changelog.md">Change log</a>')
+      write_file(docs_root, "_site/ota-partner/changelog.html", "<html><body></body></html>")
+
+      result = run_validator(docs_root)
+
+      assert_equal 0, result[:status], result[:stdout]
+    end
+  end
+
+  def test_resolves_relative_local_rendered_html_targets
+    within_docs_fixture do |docs_root|
+      write_profiles(docs_root)
+      write_file(docs_root, "_site/ota/OTA_API_SAR.html", '<a href="changelog.md">Change log</a><a href="endpoints/create_booking">Create</a>')
+      write_file(docs_root, "_site/ota/changelog.html", "<html><body></body></html>")
+      write_file(docs_root, "_site/ota/endpoints/create_booking.html", "<html><body></body></html>")
+      write_file(docs_root, "_site/ota-partner/OTA_API_SAR.html", '<a href="changelog.md">Change log</a><a href="endpoints/create_booking">Create</a>')
+      write_file(docs_root, "_site/ota-partner/changelog.html", "<html><body></body></html>")
+      write_file(docs_root, "_site/ota-partner/endpoints/create_booking.html", "<html><body></body></html>")
+
+      result = run_validator(docs_root)
+
+      assert_equal 0, result[:status], result[:stdout]
+    end
+  end
+
+  def test_accepts_local_asset_references_with_spaces
+    within_docs_fixture do |docs_root|
+      write_profiles(docs_root)
+      write_file(docs_root, "_site/ota/OTA_API_SAR.html", '<img src="/docs/assets/Worldticket Logo.png" alt="logo">')
+      write_file(docs_root, "_site/ota-partner/OTA_API_SAR.html", '<img src="/docs/assets/Worldticket Logo.png" alt="logo">')
+      write_file(docs_root, "_site/assets/Worldticket Logo.png", "png")
+
+      result = run_validator(docs_root)
+
+      assert_equal 0, result[:status], result[:stdout]
+    end
+  end
+
+  def test_allows_multiple_placeholder_credentials_in_form_body
+    within_docs_fixture do |docs_root|
+      write_profiles(docs_root)
+      write_basic_entry_pages(docs_root)
+      write_file(docs_root, "_site/ota-partner/endpoints/create_booking.html", <<~HTML)
+        <html>
+          <body>
+            <pre>client_secret={client_secret}&username={username}&password={password}</pre>
+          </body>
+        </html>
+      HTML
+
+      result = run_validator(docs_root)
+
+      assert_equal 0, result[:status], result[:stdout]
+    end
+  end
+
+  def test_rejects_populated_credential_after_safe_form_placeholder
+    within_docs_fixture do |docs_root|
+      write_profiles(docs_root)
+      write_basic_entry_pages(docs_root)
+      write_file(docs_root, "_site/ota-partner/endpoints/create_booking.html", <<~HTML)
+        <html>
+          <body>
+            <pre>client_secret={client_secret}&username=live-user&password=live-password</pre>
+          </body>
+        </html>
+      HTML
+
+      result = run_validator(docs_root)
+
+      assert_equal 1, result[:status]
+      assert_includes result[:stdout], "partner-credential _site/ota-partner/endpoints/create_booking.html:3"
+      refute_includes result[:stdout], "live-user"
+      refute_includes result[:stdout], "live-password"
+    end
+  end
+
+  def test_rejects_malformed_external_url_with_whitespace_in_host
+    within_docs_fixture do |docs_root|
+      write_profiles(docs_root)
+      write_file(docs_root, "_site/ota/OTA_API_SAR.html", '<a href="https://example .com/path">Bad</a>')
+      write_file(docs_root, "_site/ota-partner/OTA_API_SAR.html", "<html><body></body></html>")
+
+      result = run_validator(docs_root)
+
+      assert_equal 1, result[:status]
+      assert_includes result[:stdout], "invalid-link _site/ota/OTA_API_SAR.html:1"
+    end
+  end
+
+  def test_allows_hyphenated_literal_credential_placeholders
+    within_docs_fixture do |docs_root|
+      write_profiles(docs_root)
+      write_basic_entry_pages(docs_root)
+      write_file(docs_root, "_site/ota-partner/endpoints/create_booking.html", <<~HTML)
+        <html>
+          <body>
+            <pre>api-key: {api-key}</pre>
+          </body>
+        </html>
+      HTML
+
+      result = run_validator(docs_root)
+
+      assert_equal 0, result[:status], result[:stdout]
+    end
+  end
+
   private
 
   def within_docs_fixture

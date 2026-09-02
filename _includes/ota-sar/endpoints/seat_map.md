@@ -6,7 +6,7 @@ This method returns the seat map for some given flights. Seat maps can be reques
 
 | Parameter    | Type    | Description        | Example                  |
 |--------------|---------|--------------------|--------------------------|
-| x-api-key    | Header  | Access Token       | [Access token](#api-key) |
+| x-api-key    | Header  | Access Token       | [Access token]({{ sar_profile.documentation_root }}/OTA_API_SAR.html#api-key) |
 | agentId      | Payload |                    | ota                      |
 | agencyId     | Payload |                    | ota                      |
 

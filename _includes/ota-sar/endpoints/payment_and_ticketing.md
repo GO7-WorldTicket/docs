@@ -19,7 +19,7 @@ Supported payment types:
 
 | Parameter  | Type    | Description        | Example                  |
 | ---------- | ------- | ------------------ | ------------------------ |
-| x-api-key  | Header  | Access Token       | [Access token](#api-key) |
+| x-api-key  | Header  | Access Token       | [Access token]({{ sar_profile.documentation_root }}/OTA_API_SAR.html#api-key) |
 | local-name | Header  | Custom HTTP header | OTA_AirDemandTicketRQ    |
 | agentId    | Payload | Custom HTTP header | ota                      |
 | agencyId   | Payload | Custom HTTP header | ota                      |

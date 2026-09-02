@@ -5,20 +5,20 @@ Supported modification types:
 
 | Operation             | Type | Description                                                                                                                                                                  |
 |-----------------------|------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Cancel passenger      | 2    | Cancels individual passenger. See also [Cancel booking](#cancel-booking)                                                                                                     |
+| Cancel passenger      | 2    | Cancels individual passenger. See also [Cancel booking]({{ sar_profile.documentation_root }}/endpoints/cancel_booking.html#full-booking-cancellation)                                                                                             |
 | Change passenger name | 3    | Changes passenger name. This operation is essential for group bookings when passenger names are unknown at booking creation time and could be updated later after ticketing. |
 | Change passenger info | 40   | Changes other passenger information other than name.                                                                                                                         |
 | Other                 | 5    | Other modifications such as special services and seats.                                                                                                                      |
 | Split booking         | 7    | Moves passenger or segment into a new booking.                                                                                                                               |
 | Change contact        | 9    | Changes contact information such as email or pone number.                                                                                                                    |
-| Cancel segment        | 10   | Cancels individual segment. See also [Cancel booking](#cancel-booking)                                                                                                       |
+| Cancel segment        | 10   | Cancels individual segment. See also [Cancel booking]({{ sar_profile.documentation_root }}/endpoints/cancel_booking.html#full-booking-cancellation)                                                                                               |
 | Rebook segment        | 20   | This covers change of the flight or train, and upgrade of the booking class.                                                                                                 |
 
 ### Request Parameters
 
 | Parameter  | Type    | Description        | Example                  |
 |------------|---------|--------------------|--------------------------|
-| x-api-key  | Header  | Access Token       | [Access token](#api-key) |
+| x-api-key  | Header  | Access Token       | [Access token]({{ sar_profile.documentation_root }}/OTA_API_SAR.html#api-key) |
 | local-name | Header  | Custom HTTP header | OTA_AirBookModifyRQ      |
 | agentId    | Payload | Custom HTTP header | ota                      |
 | agencyId   | Payload | Custom HTTP header | ota                      |
@@ -4289,7 +4289,7 @@ In the case where the seat was successfully changed, the returned response will 
 
 ### Cancel segment
 
-Partial segment cancellation can be done after the booking has been paid for (for full cancellation, see [Cancel booking](#cancel-booking)).
+Partial segment cancellation can be done after the booking has been paid for (for full cancellation, see [Cancel booking]({{ sar_profile.documentation_root }}/endpoints/cancel_booking.html#full-booking-cancellation)).
 
 To cancel a segment, use a modify booking request with modification type 10, and the segment to be cancelled.
 
@@ -4793,7 +4793,7 @@ To cancel a segment, use a modify booking request with modification type 10, and
 
 ### Cancel passenger
 
-To cancel a passenger, use a modify booking request with modification type 2, and the passenger to be cancelled (for full cancellation, see [Cancel booking](#cancel-booking)).
+To cancel a passenger, use a modify booking request with modification type 2, and the passenger to be cancelled (for full cancellation, see [Cancel booking]({{ sar_profile.documentation_root }}/endpoints/cancel_booking.html#full-booking-cancellation)).
 
 <details>
   <summary>Request Payload</summary>

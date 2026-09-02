@@ -6,7 +6,7 @@ This method cancels entire booking. In case you need to cancel individual passen
 
 | Parameter    | Type    | Description        | Example                  |
 |--------------|---------|--------------------|--------------------------|
-| x-api-key    | Header  | Access Token       | [Access token](#api-key) |
+| x-api-key    | Header  | Access Token       | [Access token]({{ sar_profile.documentation_root }}/OTA_API_SAR.html#api-key) |
 | local-name   | Header  | Custom HTTP header | OTA_CancelRQ             |
 | agentId      | Payload |                    | ota                      |
 | agencyId     | Payload |                    | ota                      |
