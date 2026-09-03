@@ -78,3 +78,4 @@ Check a representative endpoint, the changelog and dated anchor, the schema down
 - Confirm repository-only guides remain absent from `_site`.
 - Stage only the intended files.
 - Use a conventional commit such as `docs(ST-1807): update SAR documentation`.
+- Open or prepare the pull request with a focused title and summary, and include the build, test, validator, rendered-tree, and repository-only guide verification evidence.
