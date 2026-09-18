@@ -27,10 +27,10 @@ Everything the NDC API supports is presented here as **one set**: shopping, orde
 | Document | Use it for |
 |---|---|
 | **This page** | The index. Start here. |
-| [`capabilities/`](capabilities/shop-for-flights.md) | One page per capability: what it does, what it needs, what you get back. |
-| [`worked-examples/`](worked-examples/we-1-create-and-confirm-an-on-hold-booking.md) | One page per end-to-end flow, message by message. |
+| [Capabilities](#capabilities) | One page per capability: what it does, what it needs, what you get back. |
+| [Worked Examples](#worked-examples) | One page per end-to-end flow, message by message. |
 | [NDC API Generic Integration Guide](NDC_API.md) | Base URLs, HTTP headers, code lists, error codes, XML schema, Postman downloads. |
-| [`endpoints/`](endpoints/airshopping.md) | Full request and response XML, field by field, for every message. |
+| [Per-message references](endpoints/airshopping.md) | Full request and response XML, field by field, for every message. |
 
 Capabilities describe *what* you can do. Worked examples show *how*, as a numbered sequence of messages. Every worked example links back to the per-message reference for the complete payload, so this page stays readable and never duplicates the XML.
 
@@ -69,7 +69,7 @@ curl -X POST "https://go7-api-gateway.prod.go7.io/ndc-gateway/v21.3.5/<MessageNa
 
 ## Capabilities
 
-Each capability has its own page in [`capabilities/`](capabilities/shop-for-flights.md), written in the same shape: definition, preconditions, process, post condition, the messages involved, and where it is available.
+Each capability has its own page, written in the same shape: definition, preconditions, process, post condition, the messages involved, and where it is available.
 
 | Capability | NDC messages | Worked example |
 |---|---|---|
@@ -146,7 +146,7 @@ sequenceDiagram
     GW-->>-Application: OrderViewRS
 ```
 
-Each worked example has its own page in [`worked-examples/`](worked-examples/we-1-create-and-confirm-an-on-hold-booking.md), with a step table giving what you send, what you get back, and which identifier to carry into the next message.
+Each worked example has its own page, with a step table giving what you send, what you get back, and which identifier to carry into the next message.
 
 | Worked example | Sequence |
 |---|---|
@@ -213,5 +213,5 @@ The internal engineering analysis behind this table, including the connector-lev
 | Error codes | [NDC API → Error Code](NDC_API.md#error-code) |
 | XML schema 21.3.5 | [Download](/docs/assets/resources/NDC-xmlbeans-21.3.5.zip) |
 | Postman collection | [Collection](/docs/assets/resources/NDC_postman_collection.json) · [Environment](/docs/assets/resources/NDC.postman_environment.json) |
-| Per-message field reference | [`endpoints/`](endpoints/airshopping.md) |
+| Per-message field reference | [Air Shopping and the other message pages](endpoints/airshopping.md) |
 | How your API key resolves airlines | [Partner X-API-Key offer search flow](partner-x-api-key-offer-search-flow.md) |
