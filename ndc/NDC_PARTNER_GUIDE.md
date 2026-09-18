@@ -10,7 +10,7 @@ This guide is written for partners integrating with the Go7 **NDC Gateway**. It 
 1. **What can I do with the NDC API?** See [Capabilities](#capabilities).
 2. **How does a complete flow run, message by message?** See [Worked Examples](#worked-examples).
 
-Phase 1 and Phase 2 are presented here as **one combined capability set**. Each capability is tagged `Phase 1` or `Phase 2` so you know what is available today and what arrives with the ancillary release.
+Everything the NDC API supports is presented here as **one set**: shopping, ordering, payment, servicing and ancillaries, in the order you would use them.
 
 ## Table of Contents
 
@@ -71,21 +71,21 @@ curl -X POST "https://go7-api-gateway.prod.go7.io/ndc-gateway/v21.3.5/<MessageNa
 
 Each capability has its own page in [`capabilities/`](capabilities/shop-for-flights.md), written in the same shape: definition, preconditions, process, post condition, the messages involved, and where it is available.
 
-| Capability | NDC messages | Phase | Worked example |
-|---|---|---|---|
-| [Shop for flights](capabilities/shop-for-flights.md) | `AirShopping` | 1 | [WE-1](worked-examples/we-1-create-and-confirm-an-on-hold-booking.md) |
-| [Price an offer](capabilities/price-an-offer.md) | `OfferPrice` | 1 | [WE-1](worked-examples/we-1-create-and-confirm-an-on-hold-booking.md) |
-| [Shop for ancillary services](capabilities/shop-for-ancillary-services.md) | `ServiceList` | 2 | [WE-8](worked-examples/we-8-add-a-seat-or-service-before-payment-by-offer.md), [WE-10](worked-examples/we-10-add-a-service-to-an-existing-order-by-order.md) |
-| [Shop for seats](capabilities/shop-for-seats.md) | `SeatAvailability` | 2 | [WE-8](worked-examples/we-8-add-a-seat-or-service-before-payment-by-offer.md), [WE-9](worked-examples/we-9-add-a-seat-to-an-existing-order-by-order.md) |
-| [Create an order without payment](capabilities/create-an-order-without-payment.md) | `OrderCreate` | 1 | [WE-1](worked-examples/we-1-create-and-confirm-an-on-hold-booking.md) |
-| [Create an order with payment](capabilities/create-an-order-with-payment.md) | `OrderCreate` | 1 | [WE-2](worked-examples/we-2-create-a-paid-booking.md) |
-| [Pay an on-hold order](capabilities/pay-an-on-hold-order.md) | `OrderQuote`, `OrderChange` | 1 | [WE-1](worked-examples/we-1-create-and-confirm-an-on-hold-booking.md) |
-| [Add seats or services to an existing order](capabilities/add-seats-or-services-to-an-existing-order.md) | `SeatAvailability` / `ServiceList`, `OrderQuote`, `OrderChange` | 2 | [WE-9](worked-examples/we-9-add-a-seat-to-an-existing-order-by-order.md), [WE-10](worked-examples/we-10-add-a-service-to-an-existing-order-by-order.md) |
-| [Retrieve an order](capabilities/retrieve-an-order.md) | `OrderRetrieve` | 1 | [WE-3](worked-examples/we-3-retrieve-a-booking.md) |
-| [Rebook an order](capabilities/rebook-an-order.md) | `OrderReshop`, `OrderQuote`, `OrderChange` | 1 | [WE-4](worked-examples/we-4-rebook.md) |
-| [Change a passenger name](capabilities/change-a-passenger-name.md) | `OrderReshop`, `OrderQuote`, `OrderChange` | 1 | [WE-5](worked-examples/we-5-change-a-passenger-name.md) |
-| [Cancel a whole booking](capabilities/cancel-a-whole-booking.md) | `OrderReshop`, `OrderQuote`, `OrderChange` | 1 | [WE-6](worked-examples/we-6-cancel-a-whole-booking.md) |
-| [Cancel a segment](capabilities/cancel-a-segment.md) | `OrderReshop`, `OrderChange` | 1 | [WE-7](worked-examples/we-7-cancel-a-segment.md) |
+| Capability | NDC messages | Worked example |
+|---|---|---|
+| [Shop for flights](capabilities/shop-for-flights.md) | `AirShopping` | [WE-1](worked-examples/we-1-create-and-confirm-an-on-hold-booking.md) |
+| [Price an offer](capabilities/price-an-offer.md) | `OfferPrice` | [WE-1](worked-examples/we-1-create-and-confirm-an-on-hold-booking.md) |
+| [Shop for ancillary services](capabilities/shop-for-ancillary-services.md) | `ServiceList` | [WE-8](worked-examples/we-8-add-a-seat-or-service-before-payment-by-offer.md), [WE-10](worked-examples/we-10-add-a-service-to-an-existing-order-by-order.md) |
+| [Shop for seats](capabilities/shop-for-seats.md) | `SeatAvailability` | [WE-8](worked-examples/we-8-add-a-seat-or-service-before-payment-by-offer.md), [WE-9](worked-examples/we-9-add-a-seat-to-an-existing-order-by-order.md) |
+| [Create an order without payment](capabilities/create-an-order-without-payment.md) | `OrderCreate` | [WE-1](worked-examples/we-1-create-and-confirm-an-on-hold-booking.md) |
+| [Create an order with payment](capabilities/create-an-order-with-payment.md) | `OrderCreate` | [WE-2](worked-examples/we-2-create-a-paid-booking.md) |
+| [Pay an on-hold order](capabilities/pay-an-on-hold-order.md) | `OrderQuote`, `OrderChange` | [WE-1](worked-examples/we-1-create-and-confirm-an-on-hold-booking.md) |
+| [Add seats or services to an existing order](capabilities/add-seats-or-services-to-an-existing-order.md) | `SeatAvailability` / `ServiceList`, `OrderQuote`, `OrderChange` | [WE-9](worked-examples/we-9-add-a-seat-to-an-existing-order-by-order.md), [WE-10](worked-examples/we-10-add-a-service-to-an-existing-order-by-order.md) |
+| [Retrieve an order](capabilities/retrieve-an-order.md) | `OrderRetrieve` | [WE-3](worked-examples/we-3-retrieve-a-booking.md) |
+| [Rebook an order](capabilities/rebook-an-order.md) | `OrderReshop`, `OrderQuote`, `OrderChange` | [WE-4](worked-examples/we-4-rebook.md) |
+| [Change a passenger name](capabilities/change-a-passenger-name.md) | `OrderReshop`, `OrderQuote`, `OrderChange` | [WE-5](worked-examples/we-5-change-a-passenger-name.md) |
+| [Cancel a whole booking](capabilities/cancel-a-whole-booking.md) | `OrderReshop`, `OrderQuote`, `OrderChange` | [WE-6](worked-examples/we-6-cancel-a-whole-booking.md) |
+| [Cancel a segment](capabilities/cancel-a-segment.md) | `OrderReshop`, `OrderChange` | [WE-7](worked-examples/we-7-cancel-a-segment.md) |
 
 ## Worked Examples
 
@@ -148,18 +148,18 @@ sequenceDiagram
 
 Each worked example has its own page in [`worked-examples/`](worked-examples/we-1-create-and-confirm-an-on-hold-booking.md), with a step table giving what you send, what you get back, and which identifier to carry into the next message.
 
-| Worked example | Phase | Sequence |
-|---|---|---|
-| [WE-1 Create and confirm an on-hold booking](worked-examples/we-1-create-and-confirm-an-on-hold-booking.md) | Phase 1 | `AirShopping` → `OfferPrice` → `OrderCreate` (no payment) → `OrderRetrieve` → `OrderQuote` → `OrderChange` → `OrderRetrieve` |
-| [WE-2 Create a paid booking](worked-examples/we-2-create-a-paid-booking.md) | Phase 1 | `AirShopping` → `OfferPrice` → `OrderCreate` (with payment) → `OrderRetrieve` |
-| [WE-3 Retrieve a booking](worked-examples/we-3-retrieve-a-booking.md) | Phase 1 | `OrderRetrieve` |
-| [WE-4 Rebook](worked-examples/we-4-rebook.md) | Phase 1 | `OrderRetrieve` → `OrderReshop` → `OrderQuote` → `OrderChange` → `OrderRetrieve` |
-| [WE-5 Change a passenger name](worked-examples/we-5-change-a-passenger-name.md) | Phase 1 | `OrderRetrieve` → `OrderReshop` → `OrderQuote` → `OrderChange` → `OrderChange` (payment, conditional) → `OrderRetrieve` |
-| [WE-6 Cancel a whole booking](worked-examples/we-6-cancel-a-whole-booking.md) | Phase 1 | `OrderRetrieve` → `OrderReshop` → `OrderQuote` → `OrderChange` → `OrderRetrieve` |
-| [WE-7 Cancel a segment](worked-examples/we-7-cancel-a-segment.md) | Phase 1 | `OrderRetrieve` → `OrderReshop` → `OrderChange` → `OrderRetrieve` |
-| [WE-8 Add a seat or service before payment by offer](worked-examples/we-8-add-a-seat-or-service-before-payment-by-offer.md) | Phase 2 | `AirShopping` → `SeatAvailability` and/or `ServiceList` → `OfferPrice` → `OrderCreate` (with payment) |
-| [WE-9 Add a seat to an existing order by order](worked-examples/we-9-add-a-seat-to-an-existing-order-by-order.md) | Phase 2 | create the order, then `SeatAvailability` (order context) → `OrderQuote` → `OrderChange` → `OrderRetrieve` |
-| [WE-10 Add a service to an existing order by order](worked-examples/we-10-add-a-service-to-an-existing-order-by-order.md) | Phase 2 | create the order, then `ServiceList` (order context) → `OrderQuote` → `OrderChange` → `OrderRetrieve` |
+| Worked example | Sequence |
+|---|---|
+| [WE-1 Create and confirm an on-hold booking](worked-examples/we-1-create-and-confirm-an-on-hold-booking.md) | `AirShopping` → `OfferPrice` → `OrderCreate` (no payment) → `OrderRetrieve` → `OrderQuote` → `OrderChange` → `OrderRetrieve` |
+| [WE-2 Create a paid booking](worked-examples/we-2-create-a-paid-booking.md) | `AirShopping` → `OfferPrice` → `OrderCreate` (with payment) → `OrderRetrieve` |
+| [WE-3 Retrieve a booking](worked-examples/we-3-retrieve-a-booking.md) | `OrderRetrieve` |
+| [WE-4 Rebook](worked-examples/we-4-rebook.md) | `OrderRetrieve` → `OrderReshop` → `OrderQuote` → `OrderChange` → `OrderRetrieve` |
+| [WE-5 Change a passenger name](worked-examples/we-5-change-a-passenger-name.md) | `OrderRetrieve` → `OrderReshop` → `OrderQuote` → `OrderChange` → `OrderChange` (payment, conditional) → `OrderRetrieve` |
+| [WE-6 Cancel a whole booking](worked-examples/we-6-cancel-a-whole-booking.md) | `OrderRetrieve` → `OrderReshop` → `OrderQuote` → `OrderChange` → `OrderRetrieve` |
+| [WE-7 Cancel a segment](worked-examples/we-7-cancel-a-segment.md) | `OrderRetrieve` → `OrderReshop` → `OrderChange` → `OrderRetrieve` |
+| [WE-8 Add a seat or service before payment by offer](worked-examples/we-8-add-a-seat-or-service-before-payment-by-offer.md) | `AirShopping` → `SeatAvailability` and/or `ServiceList` → `OfferPrice` → `OrderCreate` (with payment) |
+| [WE-9 Add a seat to an existing order by order](worked-examples/we-9-add-a-seat-to-an-existing-order-by-order.md) | create the order, then `SeatAvailability` (order context) → `OrderQuote` → `OrderChange` → `OrderRetrieve` |
+| [WE-10 Add a service to an existing order by order](worked-examples/we-10-add-a-service-to-an-existing-order-by-order.md) | create the order, then `ServiceList` (order context) → `OrderQuote` → `OrderChange` → `OrderRetrieve` |
 
 ## Rules that apply to every flow
 

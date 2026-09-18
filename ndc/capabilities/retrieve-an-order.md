@@ -5,8 +5,6 @@ title: Retrieve an order
 
 # Retrieve an order
 
-`Phase 1`
-
 **Definition.** Read the current state of an order: itinerary, passengers, services, payments and ticket numbers.
 
 **Preconditions.** An `OrderID`, or a booking reference with a traveller name.

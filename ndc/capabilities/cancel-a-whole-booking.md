@@ -5,8 +5,6 @@ title: Cancel a whole booking
 
 # Cancel a whole booking
 
-`Phase 1`
-
 **Definition.** Cancel every flight on an order and settle the result.
 
 **Preconditions.** An existing order and current `PaxID` values.

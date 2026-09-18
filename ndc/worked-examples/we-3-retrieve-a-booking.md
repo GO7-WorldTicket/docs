@@ -5,7 +5,7 @@ title: WE-3 Retrieve a booking
 
 # WE-3 Retrieve a booking
 
-`Phase 1` · Postman: `UseCase/Retrieve booking`
+Postman: `UseCase/Retrieve booking`
 
 **Capabilities.** [Retrieve an order](../capabilities/retrieve-an-order.md)
 

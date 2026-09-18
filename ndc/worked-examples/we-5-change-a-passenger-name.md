@@ -5,7 +5,7 @@ title: WE-5 Change a passenger name
 
 # WE-5 Change a passenger name
 
-`Phase 1` · Postman: `UseCase/Manage booking - NameChange`
+Postman: `UseCase/Manage booking - NameChange`
 
 **Capabilities.** [Change a passenger name](../capabilities/change-a-passenger-name.md)
 

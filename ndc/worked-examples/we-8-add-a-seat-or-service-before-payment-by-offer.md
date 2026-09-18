@@ -5,7 +5,7 @@ title: WE-8 Add a seat or service before payment by offer
 
 # WE-8 Add a seat or service before payment by offer
 
-`Phase 2` · Postman: `UseCase/Ancillary Offer - Seats`, `UseCase/Ancillary Offer - Services`
+Postman: `UseCase/Ancillary Offer - Seats`, `UseCase/Ancillary Offer - Services`
 
 **Capabilities.** [Shop for seats](../capabilities/shop-for-seats.md), [Shop for ancillary services](../capabilities/shop-for-ancillary-services.md), [Price an offer](../capabilities/price-an-offer.md), [Create an order with payment](../capabilities/create-an-order-with-payment.md)
 

@@ -5,8 +5,6 @@ title: Cancel a segment
 
 # Cancel a segment
 
-`Phase 1`
-
 **Definition.** Cancel part of an order, leaving the remaining flights intact.
 
 **Preconditions.** An existing order with more than one flight, and the `OrderItemRefID` of the part to remove, read from `OrderRetrieve`.

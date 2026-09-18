@@ -5,7 +5,7 @@ title: WE-6 Cancel a whole booking
 
 # WE-6 Cancel a whole booking
 
-`Phase 1` · Postman: `UseCase/Manage booking - Cancel/Cancel Booking`
+Postman: `UseCase/Manage booking - Cancel/Cancel Booking`
 
 **Capabilities.** [Cancel a whole booking](../capabilities/cancel-a-whole-booking.md)
 

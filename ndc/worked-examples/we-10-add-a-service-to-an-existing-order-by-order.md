@@ -5,7 +5,7 @@ title: WE-10 Add a service to an existing order by order
 
 # WE-10 Add a service to an existing order by order
 
-`Phase 2` · Postman: `UseCase/Ancillary Order - Services`
+Postman: `UseCase/Ancillary Order - Services`
 
 **Capabilities.** [Shop for ancillary services](../capabilities/shop-for-ancillary-services.md), [Add seats or services to an existing order](../capabilities/add-seats-or-services-to-an-existing-order.md)
 

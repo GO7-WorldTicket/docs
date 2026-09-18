@@ -5,8 +5,6 @@ title: Create an order without payment
 
 # Create an order without payment
 
-`Phase 1`
-
 **Definition.** Create an order that is held without payment, so the customer can pay later within the airline's time limit.
 
 **Preconditions.** A priced offer from `OfferPrice`, and complete passenger data — names, dates of birth for children and infants, contact email and phone, and travel documents where required.

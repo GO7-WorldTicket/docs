@@ -5,7 +5,7 @@ title: WE-9 Add a seat to an existing order by order
 
 # WE-9 Add a seat to an existing order by order
 
-`Phase 2` · Postman: `UseCase/Ancillary Order - Seats`
+Postman: `UseCase/Ancillary Order - Seats`
 
 **Capabilities.** [Shop for seats](../capabilities/shop-for-seats.md), [Add seats or services to an existing order](../capabilities/add-seats-or-services-to-an-existing-order.md)
 

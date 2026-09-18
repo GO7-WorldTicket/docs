@@ -5,7 +5,7 @@ title: WE-1 Create and confirm an on-hold booking
 
 # WE-1 Create and confirm an on-hold booking
 
-`Phase 1` · Postman: `UseCase/Create & confirm on-hold booking`
+Postman: `UseCase/Create & confirm on-hold booking`
 
 **Capabilities.** [Shop for flights](../capabilities/shop-for-flights.md), [Price an offer](../capabilities/price-an-offer.md), [Create an order without payment](../capabilities/create-an-order-without-payment.md), [Retrieve an order](../capabilities/retrieve-an-order.md), [Pay an on-hold order](../capabilities/pay-an-on-hold-order.md)
 

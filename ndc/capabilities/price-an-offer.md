@@ -5,8 +5,6 @@ title: Price an offer
 
 # Price an offer
 
-`Phase 1`
-
 **Definition.** Confirm the final price and conditions of a selected offer before you create an order. This is also the message that builds a **combined offer** when you add a seat or a service before payment.
 
 **Preconditions.** An `OfferID` and `OfferItemID` from `AirShopping`. For a combined offer, also the seat or service offer items you selected.

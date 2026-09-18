@@ -5,8 +5,6 @@ title: Shop for flights
 
 # Shop for flights
 
-`Phase 1`
-
 **Definition.** Search live flight offers for a journey and a passenger mix. You send the journey, the platform returns priced offers from every airline your API key is entitled to search.
 
 **Preconditions.** A valid API key, tenant and sales channel.

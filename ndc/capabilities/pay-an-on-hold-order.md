@@ -5,8 +5,6 @@ title: Pay an on-hold order
 
 # Pay an on-hold order
 
-`Phase 1`
-
 **Definition.** Settle a held order so it is confirmed and ticketed.
 
 **Preconditions.** An existing held order, and the current `PaxID` values read from `OrderRetrieve`.

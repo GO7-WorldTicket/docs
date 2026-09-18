@@ -5,7 +5,7 @@ title: WE-4 Rebook
 
 # WE-4 Rebook
 
-`Phase 1` · Postman: `UseCase/Manage booking - Rebook`
+Postman: `UseCase/Manage booking - Rebook`
 
 **Capabilities.** [Rebook an order](../capabilities/rebook-an-order.md)
 

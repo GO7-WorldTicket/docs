@@ -5,8 +5,6 @@ title: Add seats or services to an existing order
 
 # Add seats or services to an existing order
 
-`Phase 2`
-
 **Definition.** Add a seat or an ancillary service to an order that already exists, and pay for it.
 
 **Preconditions.** An existing order, and the current `PaxID` values read from `OrderRetrieve`.

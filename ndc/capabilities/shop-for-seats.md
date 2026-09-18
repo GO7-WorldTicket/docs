@@ -5,8 +5,6 @@ title: Shop for seats
 
 # Shop for seats
 
-`Phase 2`
-
 **Definition.** Retrieve the seat map and seat prices, either for an offer you have not yet ordered or for an existing order.
 
 **Preconditions.** *By offer:* an `OfferID` from `AirShopping`. *By order:* an existing `OrderID`.

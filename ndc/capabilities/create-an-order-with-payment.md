@@ -5,8 +5,6 @@ title: Create an order with payment
 
 # Create an order with payment
 
-`Phase 1`
-
 **Definition.** Create and pay for an order in one message, so the booking is confirmed and ticketed immediately.
 
 **Preconditions.** A priced offer from `OfferPrice`, complete passenger data, and a payment method.

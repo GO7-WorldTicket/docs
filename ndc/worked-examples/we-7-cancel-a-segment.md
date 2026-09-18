@@ -5,7 +5,7 @@ title: WE-7 Cancel a segment
 
 # WE-7 Cancel a segment
 
-`Phase 1` · Postman: `UseCase/Manage booking - Cancel/Cancel Segment`
+Postman: `UseCase/Manage booking - Cancel/Cancel Segment`
 
 **Capabilities.** [Cancel a segment](../capabilities/cancel-a-segment.md)
 

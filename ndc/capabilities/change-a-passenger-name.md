@@ -5,8 +5,6 @@ title: Change a passenger name
 
 # Change a passenger name
 
-`Phase 1`
-
 **Definition.** Correct or change a passenger's name on an existing order. The airline returns the change as an offer, which is quoted and may carry a fee.
 
 **Preconditions.** An existing order, and the current `PaxID` values read from `OrderRetrieve`. Each passenger whose name changes needs its own reshop request.

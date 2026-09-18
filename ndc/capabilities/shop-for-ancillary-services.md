@@ -5,8 +5,6 @@ title: Shop for ancillary services
 
 # Shop for ancillary services
 
-`Phase 2`
-
 **Definition.** List the ancillary services (bags, meals and other SSRs) available either for an offer you have not yet ordered, or for an order that already exists.
 
 **Preconditions.** *By offer:* an `OfferID` from `AirShopping`. *By order:* an existing `OrderID`.

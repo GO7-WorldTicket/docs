@@ -5,8 +5,6 @@ title: Rebook an order
 
 # Rebook an order
 
-`Phase 1`
-
 **Definition.** Move passengers to different flights or dates on an existing order, and settle any difference in fare.
 
 **Preconditions.** An existing order and current `PaxID` values.

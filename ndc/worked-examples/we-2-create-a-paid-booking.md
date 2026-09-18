@@ -5,7 +5,7 @@ title: WE-2 Create a paid booking
 
 # WE-2 Create a paid booking
 
-`Phase 1` · Postman: `UseCase/Create paid booking`
+Postman: `UseCase/Create paid booking`
 
 **Capabilities.** [Shop for flights](../capabilities/shop-for-flights.md), [Price an offer](../capabilities/price-an-offer.md), [Create an order with payment](../capabilities/create-an-order-with-payment.md)
 
