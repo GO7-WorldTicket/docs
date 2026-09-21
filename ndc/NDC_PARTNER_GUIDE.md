@@ -63,7 +63,7 @@ curl -X POST "https://go7-api-gateway.prod.go7.io/ndc-gateway/v21.3.5/<MessageNa
 
 [NDC API → HTTP Headers](NDC_API.md#http-headers) is the authoritative version of this table.
 
-**How your API key works.** One key represents your partnership, not a single airline. The platform resolves which airlines to search from your active agreements, so you do not put an airline on the request. See [Partner X-API-Key offer search flow](partner-x-api-key-offer-search-flow.md).
+**How your API key works.** One key represents your partnership, not a single airline. The platform resolves which airlines to search from your active agreements, so you do not put an airline on the request.
 
 **Try it in Postman.** Download the [Postman collection](/docs/assets/resources/NDC_postman_collection.json) and [environment](/docs/assets/resources/NDC.postman_environment.json), then set `x-api-key`, `x-saleschannel`, `tenant` and `ndc-gateway-url`. Each worked example below names the `UseCase/…` folder that runs it. The collection also carries extra request variants kept for experimentation; the sequences documented in this guide are the supported ones.
 
@@ -202,8 +202,6 @@ The NDC API is the same for every airline, but the passenger service system behi
 
 **Your NDC payload does not change per PSS.** Requests stay system-neutral — differences are absorbed by platform mapping and tenant configuration, not by your integration. Routes, record locators, offer identifiers, prices and ticket numbers will differ between airlines. That is expected and is not a failure.
 
-The internal engineering analysis behind this table, including the connector-level detail, is kept in the [NDC on AeroCRS vs SMS feature gap analysis](GH-7729-ndc-aerocrs-vs-sms-feature-gap-analysis.md).
-
 ## Reference
 
 | Topic | Where |
@@ -213,5 +211,3 @@ The internal engineering analysis behind this table, including the connector-lev
 | Error codes | [NDC API → Error Code](NDC_API.md#error-code) |
 | XML schema 21.3.5 | [Download](/docs/assets/resources/NDC-xmlbeans-21.3.5.zip) |
 | Postman collection | [Collection](/docs/assets/resources/NDC_postman_collection.json) · [Environment](/docs/assets/resources/NDC.postman_environment.json) |
-| Per-message field reference | [Air Shopping and the other message pages](endpoints/airshopping.md) |
-| How your API key resolves airlines | [Partner X-API-Key offer search flow](partner-x-api-key-offer-search-flow.md) |
