@@ -12,8 +12,7 @@ title: NDC API Generic Integration Guide
   - [Change Log](#change-log)
 - [Introduction](#introduction)
   - [Base URLs](#base-urls)
-  - [HTTP Headers](#http-headers)
-  - [Authentication](#http-headers)
+  - [HTTP headers and authentication](#http-headers)
 - [Business Flow](#business-flow)
   - [Phase 1 scenario summary](#phase-1-scenario-summary)
   - [Phase 2 scenario summary](#phase-2-scenario-summary)
@@ -48,7 +47,7 @@ title: NDC API Generic Integration Guide
 
 This document outlines generic integration with the Go7 **NDC Gateway** using **IATA NDC Offers & Orders** XML messages. Schema distribution **21.3** is exposed under the HTTP path **`/v21.3.5`**. Per-message field references also live under [`ndc/endpoints/`](endpoints/airshopping.md).
 
-Requests use **XML bodies** with **`Content-Type: application/xml`** (or `application/xml;charset=UTF-8`). **[Authentication](#http-headers)** describes tenant/channel headers and API key usage.
+Requests use **XML bodies** with **`Content-Type: application/xml`** (or `application/xml;charset=UTF-8`). **[HTTP headers and authentication](#http-headers)** describes tenant/channel headers and API key usage.
 
 ## Base URLs
 
@@ -78,7 +77,7 @@ Use `x-api-key` for authentication on NDC Gateway requests.
 
 # Business Flow
 
-Phased 1 scenarios cover shopping and pricing offers, creating or confirming orders, reshop/requote paths, and order retrieve. Phase 2 adds ancillary seat and service **addition** using either offer context (price into `OrderCreate`) or order context (`OrderQuote` then `OrderChange`).
+Phase 1 scenarios cover shopping and pricing offers, creating or confirming orders, reshop/requote paths, and order retrieval. Phase 2 adds ancillary seats and services using either offer context (price into `OrderCreate`) or order context (`OrderQuote` then `OrderChange`).
 
 ## Phase 1 scenario summary
 
@@ -87,15 +86,15 @@ Phased 1 scenarios cover shopping and pricing offers, creating or confirming ord
 | Create & confirm on-hold booking | `AirShopping` → `OfferPrice` → `OrderCreate`(no payment) → `OrderRetrieve` → `OrderQuote` → `OrderChange` → `OrderRetrieve`.                |
 | Create paid booking              | `AirShopping` → `OfferPrice` → `OrderCreate` (with payment) →`OrderRetrieve`.                                                               |
 | Manage booking — rebook          | `OrderRetrieve` → `OrderReshop` → `OrderQuote` → `OrderChange` → `OrderRetrieve`.                                                           |
-| Manage booking — name change     | `OrderRetrieve` → `OrderReshop` (name change) → `OrderChange` → `OrderRetrieve`.                                                             |
-| Manage booking — cancel          | `OrderRetrieve` → `OrderReshop` (cancel); **`OrderQuote` not used in Phase 1** when refunds are unsupported → `OrderChange` → `OrderRetrieve`. |
+| Manage booking — name change     | `OrderRetrieve` → `OrderReshop` (name change) → optional `OrderQuote` → `OrderChange` → conditional payment `OrderChange` → `OrderRetrieve`. |
+| Manage booking — cancel          | `OrderRetrieve` → `OrderReshop` (cancel) → optional `OrderQuote` → `OrderChange` → `OrderRetrieve`. `OrderQuote` is skipped when refunds are unsupported. |
 | Retrieve booking                 | `OrderRetrieve` (view only).              |
 
-### NDC Gateway workflow (Phased 1)
+### NDC Gateway workflow (Phase 1)
 
-Scenario flow (**NDC Gateway — NDC Workflow Process, Phased 1**). Source Mermaid: [`ndc/mermaid/ndc-phase1-scenario-flow.mmd`](mermaid/ndc-phase1-scenario-flow.mmd).
+Scenario flow (**NDC Gateway — NDC Workflow Process, Phase 1**). Source Mermaid: [`ndc/mermaid/ndc-phase1-scenario-flow.mmd`](mermaid/ndc-phase1-scenario-flow.mmd).
 
-![NDC Gateway NDC workflow — Phased 1 scenarios](../assets/ndc/ndc-workflow-phased1.png "Phased 1 scenario flow")
+![NDC Gateway NDC workflow — Phase 1 scenarios](../assets/ndc/ndc-workflow-phased1.png "Phase 1 scenario flow")
 
 IATA **`OrderRetrieveRQ`** is mapped to internal order REST reads (UUID vs record locator + traveler name): see [Order Retrieve mapping](endpoints/orderretrieve.md).
 
@@ -119,18 +118,18 @@ Phase 2 builds on the same base flow as [Phase 1 scenario summary](#phase-1-scen
 
 **Remark — SeatAvailability offer items:** a seat in `SeatAvailabilityRS` may return **multiple** `OfferItemRefID` values (for example different passenger eligibility). See [Seat Availability](endpoints/seatavailability.md).
 
-### NDC Gateway workflow (Phased 2)
+### NDC Gateway workflow (Phase 2)
 
-Scenario flow (**NDC Gateway — NDC Workflow Process, Phased 2**).
+Scenario flow (**NDC Gateway — NDC Workflow Process, Phase 2**).
 
-![NDC Gateway NDC workflow — Phased 2 scenarios](../assets/ndc/ndc-workflow-phased2.png "Phased 2 ancillary add flows")
+![NDC Gateway NDC workflow — Phase 2 scenarios](../assets/ndc/ndc-workflow-phased2.png "Phase 2 ancillary add flows")
 
 # NDC XML (Offers & Orders)
 
 Use IATA **OffersAndOrders** message XML (`IATA_AirShoppingRQ`, `IATA_OrderCreateRQ`, etc.) as shown in each endpoint document. Official XSDs are published by IATA for distribution **21.3**; align payloads with the examples in [`ndc/endpoints/`](endpoints/airshopping.md).
 
-# NDC XML Schema
-[Download NDC XML Schema 21.3.5](/docs/assets/resources/NDC-xmlbeans-21.3.5.zip)
+# NDC XML package
+[Download the IATA schema distribution 21.3 package used by GO7 gateway v21.3.5](/docs/assets/resources/NDC-xmlbeans-21.3.5.zip)
 
 # Postman Collection
 [Download Postman Collection](/docs/assets/resources/NDC_postman_collection.json)
@@ -160,7 +159,7 @@ Hub cabin codes (not numeric PADIS values such as `5`). Used on **[AirShopping](
 | W | Premium economy |
 | M | Miscellaneous (accepted, not used in practice) |
 
-When `CabinType` is present on AirShopping, IATA NDC 21.3.5 requires `PrefLevel/PrefLevelCode` (`minOccurs=1`). Missing either field returns IATA error 13. Use `Required` to keep only matching cabin offers per origin-destination. `Preferred` is sent to offer search but does not drop other cabins. Invalid cabin codes return IATA error 14.
+When `CabinType` is present on AirShopping, IATA NDC 21.3 requires `PrefLevel/PrefLevelCode` (`minOccurs=1`). Missing either field returns IATA error 13. Use `Required` to keep only matching cabin offers per origin-destination. `Preferred` is sent to offer search but does not drop other cabins. Invalid cabin codes return IATA error 14.
 
 ## Document Type
 
@@ -194,7 +193,7 @@ When `CabinType` is present on AirShopping, IATA NDC 21.3.5 requires `PrefLevel/
 
 # NDC for Offers & Orders workflow
 
-Same pattern as **[OTA for Reservation workflow](../ota/OTA_API.md#ota-for-reservation-workflow)**: this section is an **index only**. Each **step** links to the endpoint `.md` file where requests, responses, and scenario anchors live. See **[Authentication](#http-headers)**.
+Same pattern as **[OTA for Reservation workflow](../ota/OTA_API.md#ota-for-reservation-workflow)**: this section is an **index only**. Each **step** links to the endpoint reference page where requests, responses, and scenario anchors live. See **[HTTP headers and authentication](#http-headers)**.
 
 Typical Phase 1 chain: **AirShopping → OfferPrice → OrderCreate**, then **OrderRetrieve** / **OrderReshop** / **OrderQuote** / **OrderChange** as needed (see [Phase 1 scenario summary](#phase-1-scenario-summary)). Phase 2 by-offer: **AirShopping → SeatAvailability and/or ServiceList → OfferPrice** (flight + selected extras) → **OrderCreate** (instant pay). Phase 2 by-order: create via Phase 1, then **SeatAvailability** / **ServiceList** (`OrderRequest`) → **OrderQuote** → **OrderChange** → **OrderRetrieve** (see [Phase 2 scenario summary](#phase-2-scenario-summary)). After any **OrderChange**, call **OrderRetrieve** before the next process and use the latest **PaxID** values.
 
@@ -248,7 +247,7 @@ curl -X POST "https://go7-api-gateway.prod.go7.io/ndc-gateway/v21.3.5/<MessageNa
   -H "x-SalesChannel: {salesChannel}" \
   -H "x-api-key: {x-api-key}" \
   -H "Content-Type: application/xml" \
-  -d @request.xml
+  --data-binary @request.xml
 ```
 
 Replace `<MessageName>` with `AirShopping`, `OfferPrice`, `OrderCreate`, etc.

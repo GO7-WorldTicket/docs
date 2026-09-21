@@ -9,7 +9,7 @@ Postman: `UseCase/Manage booking - Cancel/Cancel Booking`
 
 **Capabilities.** [Cancel a whole booking](../capabilities/cancel-a-whole-booking.md)
 
-**Sequence.** `OrderRetrieve` → `OrderReshop` → `OrderQuote` → `OrderChange` → `OrderRetrieve`
+**Sequence.** `OrderRetrieve` → `OrderReshop` → optional `OrderQuote` → `OrderChange` → `OrderRetrieve`
 
 **Preconditions.** An existing order that the fare permits cancelling.
 
@@ -17,7 +17,7 @@ Postman: `UseCase/Manage booking - Cancel/Cancel Booking`
 |---|---|---|---|---|
 | 1 | [OrderRetrieve](../endpoints/orderretrieve.md#orderretrieve-by-order-id) | `OrderID` | Current order | `PaxID`, `OrderItemRefID` |
 | 2 | [OrderReshop](../endpoints/orderreshop.md#orderreshop-cancel-order) | `OrderID` and the cancel request | Cancel offer | `OfferRefID`, `OfferItemRefID` |
-| 3 | [OrderQuote](../endpoints/orderquote.md#orderquote-cancel) | `ExistingOrder` and the selected cancel offer | Quoted cancellation result | Quoted offer references |
+| 3 (optional) | [OrderQuote](../endpoints/orderquote.md#orderquote-cancel) | `ExistingOrder` and the selected cancel offer | Quoted cancellation result | Quoted offer references. If this step is skipped, carry forward the step 2 offer references. |
 | 4 | [OrderChange](../endpoints/orderchange.md) | The accepted cancel offer | Cancelled order | `OrderID` |
 | 5 | [OrderRetrieve](../endpoints/orderretrieve.md#orderretrieve-by-order-id) | `OrderID` | Cancelled order view | — |
 

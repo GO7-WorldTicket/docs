@@ -9,7 +9,7 @@ Postman: `UseCase/Manage booking - NameChange`
 
 **Capabilities.** [Change a passenger name](../capabilities/change-a-passenger-name.md)
 
-**Sequence.** `OrderRetrieve` → `OrderReshop` → `OrderQuote` → `OrderChange` → `OrderChange` (payment, conditional) → `OrderRetrieve`
+**Sequence.** `OrderRetrieve` → `OrderReshop` → optional `OrderQuote` → `OrderChange` → `OrderChange` (payment, conditional) → `OrderRetrieve`
 
 **Preconditions.** An existing order. Each passenger whose name changes needs its own `OrderReshop` request.
 
@@ -17,7 +17,7 @@ Postman: `UseCase/Manage booking - NameChange`
 |---|---|---|---|---|
 | 1 | [OrderRetrieve](../endpoints/orderretrieve.md#orderretrieve-by-order-id) | `OrderID`, `OwnerCode` | Current order | **`PaxID` per passenger** |
 | 2 | [OrderReshop](../endpoints/orderreshop.md#orderreshop-name-change) | `OrderRefID` and `UpdatePaxName` with `GivenName`, `Surname`, `TitleName`, `PaxRefID` | Name-change offer | `OfferRefID`, `OfferItemRefID`, amount, currency |
-| 3 | [OrderQuote](../endpoints/orderquote.md) | `ExistingOrder` and the selected offer item, with quantity | Quoted name-change price | Quoted offer references |
+| 3 (optional) | [OrderQuote](../endpoints/orderquote.md) | `ExistingOrder` and the selected offer item, with quantity | Requoted name-change price | Requoted offer references. If this step is skipped, carry forward the step 2 offer references. |
 | 4a | [OrderChange](../endpoints/orderchange.md) — pay later | `OrderID` and the accepted quoted offer, **no** `PaymentFunctions` | Order with the new name, fee outstanding | `OrderID` |
 | 4b | [OrderChange](../endpoints/orderchange.md) — pay now | The same, **plus** `PaymentFunctions` | Order with the new name, fee settled | `OrderID` |
 | 5 | [OrderChange](../endpoints/orderchange.md#orderchange-payment-on-hold) | `OrderID` and `PaymentFunctions` | Fee settled | `OrderID` |
@@ -30,7 +30,7 @@ Steps 4a and 4b are alternatives. **Step 5 runs only when you chose 4a.**
 **Watch out for.**
 - `PaxRefID` in step 2 must come from the step 1 response, not from the original `OrderCreate`.
 - Change an adult and an infant with separate step 2 requests; do not combine them.
-- Call `OrderRetrieve` again between steps 4a and 5 if you chose the pay-later route, so step 5 uses current identifiers.
+- Step 5 uses the current `OrderViewRS` returned by step 4a and does not reuse the earlier passenger references.
 
 ---
 
