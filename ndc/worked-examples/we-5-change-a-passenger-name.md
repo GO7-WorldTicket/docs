@@ -9,7 +9,7 @@ Postman: `UseCase/Manage booking - NameChange`
 
 **Capabilities.** [Change a passenger name](../capabilities/change-a-passenger-name.md)
 
-**Sequence.** `OrderRetrieve` → `OrderReshop` → optional `OrderQuote` → `OrderChange` → `OrderChange` (payment, conditional) → `OrderRetrieve`
+**Sequence.** `OrderRetrieve` → `OrderReshop` → `OrderChange` → `OrderChange` (payment, conditional) → `OrderRetrieve`
 
 **Preconditions.** An existing order. Each passenger whose name changes needs its own `OrderReshop` request.
 
@@ -17,20 +17,21 @@ Postman: `UseCase/Manage booking - NameChange`
 |---|---|---|---|---|
 | 1 | [OrderRetrieve](../endpoints/orderretrieve.md#orderretrieve-by-order-id) | `OrderID`, `OwnerCode` | Current order | **`PaxID` per passenger** |
 | 2 | [OrderReshop](../endpoints/orderreshop.md#orderreshop-name-change) | `OrderRefID` and `UpdatePaxName` with `GivenName`, `Surname`, `TitleName`, `PaxRefID` | Name-change offer | `OfferRefID`, `OfferItemRefID`, amount, currency |
-| 3 (optional) | [OrderQuote](../endpoints/orderquote.md) | `ExistingOrder` and the selected offer item, with quantity | Requoted name-change price | Requoted offer references. If this step is skipped, carry forward the step 2 offer references. |
-| 4a | [OrderChange](../endpoints/orderchange.md) — pay later | `OrderID` and the accepted quoted offer, **no** `PaymentFunctions` | Order with the new name, fee outstanding | `OrderID` |
-| 4b | [OrderChange](../endpoints/orderchange.md) — pay now | The same, **plus** `PaymentFunctions` | Order with the new name, fee settled | `OrderID` |
-| 5 | [OrderChange](../endpoints/orderchange.md#orderchange-payment-on-hold) | `OrderID` and `PaymentFunctions` | Fee settled | `OrderID` |
-| 6 | [OrderRetrieve](../endpoints/orderretrieve.md#orderretrieve-by-order-id) | `OrderID` | Order showing the new names | — |
+| 3a | [OrderChange](../endpoints/orderchange.md) — pay later | `OrderID` and the accepted `OrderReshop` offer, **no** `PaymentFunctions` | Order with the new name, fee outstanding | `OrderID` |
+| 3b | [OrderChange](../endpoints/orderchange.md) — pay now | The same, **plus** `PaymentFunctions` | Order with the new name, fee settled | `OrderID` |
+| 4 | [OrderChange](../endpoints/orderchange.md#orderchange-payment-on-hold) | `OrderID` and `PaymentFunctions` | Fee settled | `OrderID` |
+| 5 | [OrderRetrieve](../endpoints/orderretrieve.md#orderretrieve-by-order-id) | `OrderID` | Order showing the new names | — |
 
-Steps 4a and 4b are alternatives. **Step 5 runs only when you chose 4a.**
+Steps 3a and 3b are alternatives. **Step 4 runs only when you chose 3a.**
+
+There is no `OrderQuote` in this flow — `OrderChange` accepts the `OrderReshop` offer directly.
 
 **Outcome.** The order shows the new passenger names and any name-change fee is settled.
 
 **Watch out for.**
 - `PaxRefID` in step 2 must come from the step 1 response, not from the original `OrderCreate`.
 - Change an adult and an infant with separate step 2 requests; do not combine them.
-- Step 5 uses the current `OrderViewRS` returned by step 4a and does not reuse the earlier passenger references.
+- Step 4 uses the current `OrderViewRS` returned by step 3a and does not reuse the earlier passenger references.
 
 ---
 

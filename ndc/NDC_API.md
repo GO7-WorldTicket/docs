@@ -86,8 +86,8 @@ Phase 1 scenarios cover shopping and pricing offers, creating or confirming orde
 | Create & confirm on-hold booking | `AirShopping` → `OfferPrice` → `OrderCreate`(no payment) → `OrderRetrieve` → `OrderQuote` → `OrderChange` → `OrderRetrieve`.                |
 | Create paid booking              | `AirShopping` → `OfferPrice` → `OrderCreate` (with payment) →`OrderRetrieve`.                                                               |
 | Manage booking — rebook          | `OrderRetrieve` → `OrderReshop` → `OrderQuote` → `OrderChange` → `OrderRetrieve`.                                                           |
-| Manage booking — name change     | `OrderRetrieve` → `OrderReshop` (name change) → optional `OrderQuote` → `OrderChange` → conditional payment `OrderChange` → `OrderRetrieve`. |
-| Manage booking — cancel          | `OrderRetrieve` → `OrderReshop` (cancel) → optional `OrderQuote` → `OrderChange` → `OrderRetrieve`. `OrderQuote` is skipped when refunds are unsupported. |
+| Manage booking — name change     | `OrderRetrieve` → `OrderReshop` (name change) → `OrderChange` → conditional payment `OrderChange` → `OrderRetrieve`. **No `OrderQuote`** — `OrderChange` accepts the reshop offer directly. |
+| Manage booking — cancel          | `OrderRetrieve` → `OrderReshop` (cancel) → `OrderQuote` → `OrderChange` → `OrderRetrieve`. `OrderQuote` is skipped when refunds are unsupported. |
 | Retrieve booking                 | `OrderRetrieve` (view only).              |
 
 ### NDC Gateway workflow (Phase 1)

@@ -9,7 +9,7 @@ title: Cancel a whole booking
 
 **Preconditions.** An existing order and current `PaxID` values.
 
-**Process.** `OrderRetrieve` → `OrderReshop` → optional `OrderQuote` → `OrderChange` → `OrderRetrieve`
+**Process.** `OrderRetrieve` → `OrderReshop` → `OrderQuote` → `OrderChange` → `OrderRetrieve`
 
 **Post condition.**
 - *Success:* the order is cancelled.
