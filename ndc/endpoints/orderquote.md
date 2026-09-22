@@ -392,7 +392,7 @@ The request body must be a valid `IATA_OrderQuoteRQ` XML document following IATA
 ### OrderQuote — Cancel quote
 {: #orderquote-cancel}
 
-Phase 1 often **skips** **`OrderQuote`** when refunds are unsupported. If your airline enables cancel quoting, shape matches the rebook quote but **`SelectedOffers`** carry IDs returned from **cancel reshop** (when present):
+Cancellation often **skips** **`OrderQuote`** when refunds are unsupported. If your airline enables cancel quoting, shape matches the rebook quote but **`SelectedOffers`** carry IDs returned from **cancel reshop** (when present):
 
 <details>
 <summary>Request Payload</summary>

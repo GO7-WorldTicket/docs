@@ -11,16 +11,16 @@ title: Offer Price (OfferPrice)
 
 ## Description
 
-The Offer Price API returns detailed pricing for selected offers. In Phase 1 it prices a flight offer from **AirShopping**. In Phase 2 (by offer) it combines that flight offer with selected **ServiceList** ancillaries and/or **SeatAvailability** seats into one `PricedOffer` with a **combined total** — call **OfferPrice** only after searching seats and/or services (no separate OfferPrice after AirShopping).
+The Offer Price API returns detailed pricing for selected offers. On its own it prices a flight offer from **AirShopping**. When adding ancillaries by offer, it combines that flight offer with selected **ServiceList** ancillaries and/or **SeatAvailability** seats into one `PricedOffer` with a **combined total** — call **OfferPrice** only after searching seats and/or services (no separate OfferPrice after AirShopping).
 
-Use `OfferRefID` / `OfferItemRefID` from **AirShoppingRS**, and — when adding extras — from **ServiceListRS** and/or **SeatAvailabilityRS**. The priced offer feeds **[Order Create](ordercreate.md)** (Phase 2 by-offer: **instant pay**).
+Use `OfferRefID` / `OfferItemRefID` from **AirShoppingRS**, and — when adding extras — from **ServiceListRS** and/or **SeatAvailabilityRS**. The priced offer feeds **[Order Create](ordercreate.md)** (by-offer ancillaries: **instant pay**).
 
 ## Workflow (NDC API guide)
 
 **Step 2** ([workflow index](../NDC_API.md#ndc-for-offers--orders-workflow)). `POST …/OfferPrice`.
 
-- **Phase 1:** flight-only pricing after **AirShopping** → **OrderCreate** (pay-later or instant pay).
-- **Phase 2 (by offer):** after **[ServiceList](servicelist.md)** and/or **[SeatAvailability](seatavailability.md)** (`OfferRequest` using **AirShopping** offer IDs), call **OfferPrice** once with flight + selected service and/or seat → **OrderCreate** with payment (**instant pay**). For pay-later, use Phase 1 then add ancillaries **by order**.
+- **Flight only:** pricing after **AirShopping** → **OrderCreate** (pay-later or instant pay).
+- **With ancillaries (by offer):** after **[ServiceList](servicelist.md)** and/or **[SeatAvailability](seatavailability.md)** (`OfferRequest` using **AirShopping** offer IDs), call **OfferPrice** once with flight + selected service and/or seat → **OrderCreate** with payment (**instant pay**). For pay-later, price the flight only, then add ancillaries **by order**.
 
 Scenarios: **[`#offerprice-one-way-trip`](#offerprice-one-way-trip)**, **[`#offerprice-round-trip`](#offerprice-round-trip)**, **[`#offerprice-with-service`](#offerprice-with-service)**, **[`#offerprice-with-seat`](#offerprice-with-seat)**, **[`#offerprice-with-service-and-seat`](#offerprice-with-service-and-seat)**.
 
@@ -167,7 +167,7 @@ Round-trip **responses** match the one-way shape but include **two** flight `Off
 ### OfferPrice — With selected service
 {: #offerprice-with-service}
 
-**Phase 2 (by offer — instant pay):** after **AirShopping** and **[ServiceList](servicelist.md#servicelist-by-offer)** (`OfferRequest` with AirShopping offer IDs), send the flight `SelectedOffer` plus a service `SelectedOffer` whose items include **`SelectedALaCarteOfferItem`**. Flight IDs from **AirShoppingRS**; service `OfferRefID` / `OfferItemRefID` from **ServiceListRS** `ALaCarteOffer`. Continue with **OrderCreate** (with payment).
+**By offer (instant pay):** after **AirShopping** and **[ServiceList](servicelist.md#servicelist-by-offer)** (`OfferRequest` with AirShopping offer IDs), send the flight `SelectedOffer` plus a service `SelectedOffer` whose items include **`SelectedALaCarteOfferItem`**. Flight IDs from **AirShoppingRS**; service `OfferRefID` / `OfferItemRefID` from **ServiceListRS** `ALaCarteOffer`. Continue with **OrderCreate** (with payment).
 
 You may also add seat selections in the same request (see [with selected service and seat](#offerprice-with-service-and-seat)).
 
@@ -229,7 +229,7 @@ You may also add seat selections in the same request (see [with selected service
 ### OfferPrice — With selected seat
 {: #offerprice-with-seat}
 
-**Phase 2 (by offer — instant pay):** after **AirShopping** and **[SeatAvailability](seatavailability.md#seatavailability-by-offer)** (`OfferRequest` with AirShopping offer IDs), send the flight `SelectedOffer` plus a seat `SelectedOffer` whose items include **`SelectedSeat`** (`ColumnID`, `SeatRowNumber`). Flight IDs from **AirShoppingRS**; seat `OfferRefID` / `OfferItemRefID` from **SeatAvailabilityRS** `ALaCarteOffer`. Continue with **OrderCreate** (with payment).
+**By offer (instant pay):** after **AirShopping** and **[SeatAvailability](seatavailability.md#seatavailability-by-offer)** (`OfferRequest` with AirShopping offer IDs), send the flight `SelectedOffer` plus a seat `SelectedOffer` whose items include **`SelectedSeat`** (`ColumnID`, `SeatRowNumber`). Flight IDs from **AirShoppingRS**; seat `OfferRefID` / `OfferItemRefID` from **SeatAvailabilityRS** `ALaCarteOffer`. Continue with **OrderCreate** (with payment).
 
 Use one `SelectedOfferItem` + `SelectedSeat` per physical seat / passenger. You may also add service selections in the same request (see [with selected service and seat](#offerprice-with-service-and-seat)).
 
@@ -292,9 +292,9 @@ Use one `SelectedOfferItem` + `SelectedSeat` per physical seat / passenger. You 
 ### OfferPrice — With selected service and seat
 {: #offerprice-with-service-and-seat}
 
-**Phase 2 (by offer — instant pay):** after **AirShopping**, call both **[SeatAvailability](seatavailability.md#seatavailability-by-offer)** and **[ServiceList](servicelist.md#servicelist-by-offer)** (`OfferRequest`), then one **OfferPrice** with three `SelectedOffer` blocks: flight (AirShoppingRS), service (`SelectedALaCarteOfferItem` from ServiceListRS), and seat (`SelectedSeat` from SeatAvailabilityRS). Continue with **OrderCreate** (with payment).
+**By offer (instant pay):** after **AirShopping**, call both **[SeatAvailability](seatavailability.md#seatavailability-by-offer)** and **[ServiceList](servicelist.md#servicelist-by-offer)** (`OfferRequest`), then one **OfferPrice** with three `SelectedOffer` blocks: flight (AirShoppingRS), service (`SelectedALaCarteOfferItem` from ServiceListRS), and seat (`SelectedSeat` from SeatAvailabilityRS). Continue with **OrderCreate** (with payment).
 
-For pay-later, use [Phase 1](../NDC_API.md#phase-1-scenario-summary) then add ancillaries **by order**.
+For pay-later, use the [booking and servicing scenarios](../NDC_API.md#booking-and-servicing-scenarios) then add ancillaries **by order**.
 
 <details>
 <summary>Request Payload</summary>

@@ -15,7 +15,7 @@ The Order Create API creates a new booking order based on selected offers from a
 
 ## Workflow (NDC API guide)
 
-**Step 3** ([workflow index](../NDC_API.md#ndc-for-offers--orders-workflow)). `POST …/OrderCreate` · **`CreateOrder`** → **`AcceptSelectedQuotedOfferList`** using **`OfferRefID`** / **`OfferItemRefID`** / **`OwnerCode`** / **`PaxRefID`** from **OfferPriceRS** (for Phase 2 combined pricing, echo **`OfferID`** unchanged — it may be a colon-separated composite). Scenarios: **[`#ordercreate-pay-later`](#ordercreate-pay-later)**, **[`#ordercreate-instant-pay`](#ordercreate-instant-pay)**, **[`#ordercreate-combined-offer`](#ordercreate-combined-offer)**.
+**Step 3** ([workflow index](../NDC_API.md#ndc-for-offers--orders-workflow)). `POST …/OrderCreate` · **`CreateOrder`** → **`AcceptSelectedQuotedOfferList`** using **`OfferRefID`** / **`OfferItemRefID`** / **`OwnerCode`** / **`PaxRefID`** from **OfferPriceRS** (for combined pricing, echo **`OfferID`** unchanged — it may be a colon-separated composite). Scenarios: **[`#ordercreate-pay-later`](#ordercreate-pay-later)**, **[`#ordercreate-instant-pay`](#ordercreate-instant-pay)**, **[`#ordercreate-combined-offer`](#ordercreate-combined-offer)**.
 
 See [Authentication](../NDC_API.md#http-headers) for **`x-tenant`**, **`x-SalesChannel`**, and **`x-api-key`**.
 
@@ -44,7 +44,7 @@ Echo the `OfferID` from **OfferPriceRS** as `SelectedPricedOffer/OfferRefID` **w
 
 | Shape | `OfferRefID` | How items are classified |
 |-------|--------------|--------------------------|
-| **Composite** (Phase 2 combined pricing) | One `SelectedPricedOffer` with `flightOfferId[:serviceOfferId]*[:seatOfferId]*` (colon-separated UUIDs, flight first, then service offer id(s), then seat offer id(s)) | Split by item markers on the same offer: flight = no marker; SSR/service = `SelectedALaCarteOfferItem` + `Qty`; seat = `SelectedSeat` |
+| **Composite** (combined pricing) | One `SelectedPricedOffer` with `flightOfferId[:serviceOfferId]*[:seatOfferId]*` (colon-separated UUIDs, flight first, then service offer id(s), then seat offer id(s)) | Split by item markers on the same offer: flight = no marker; SSR/service = `SelectedALaCarteOfferItem` + `Qty`; seat = `SelectedSeat` |
 | **Separate offers** | One `SelectedPricedOffer` per role, each with a plain UUID (`flightOffer`, `serviceOffer`, `seatOffer`) | Same markers: seat = `SelectedSeat`; service = a-la-carte qty; flight = neither |
 | **Flight-only** | Plain UUID | Unchanged existing flow |
 
@@ -1012,13 +1012,13 @@ Invalid request format or missing required fields.
 
 ## Notes
 
-1. **Prerequisites**: You must first call `AirShopping` and `OfferPrice` to get offer references. For Phase 2 by-offer with seat/SSR, call offer-based **SeatAvailability** / **ServiceList**, then **OfferPrice**, then **OrderCreate**.
+1. **Prerequisites**: You must first call `AirShopping` and `OfferPrice` to get offer references. For by-offer with seat/SSR, call offer-based **SeatAvailability** / **ServiceList**, then **OfferPrice**, then **OrderCreate**.
 2. **Composite OfferRefID**: When OfferPrice priced flight with seat and/or SSR, echo the composite `OfferID` (`flightOfferId[:serviceOfferId]*[:seatOfferId]*`) unchanged as `OfferRefID`. Do not build or reorder components.
 3. **Selection markers**: Keep `SelectedALaCarteOfferItem` (SSR) and/or `SelectedSeat` on OrderCreate items so the gateway can split a composite offer; flight items carry neither marker.
 4. **Invalid composite**: Modified, expired, or incomplete composite components are rejected; the system does not create a partially completed order.
 5. **Pay Later vs Instant Payment**: 
    - Omit `PaymentFunctions` for pay-later (holding) bookings
-   - Include `PaymentFunctions` for instant payment (typical for Phase 2 by-offer with ancillaries)
+   - Include `PaymentFunctions` for instant payment (typical for by-offer with ancillaries)
 6. **Order Status**: 
    - Pay-later bookings return status `DRAFT` (on hold)
    - Instant payment bookings return status `OPEN` (confirmed)
