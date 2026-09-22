@@ -15,7 +15,7 @@ The Seat Availability API returns seat map details and seat-linked a la carte of
 
 ## Workflow (NDC API guide)
 
-**Step 4 (Phase 2)** ([workflow index](../NDC_API.md#ndc-for-offers--orders-workflow)). `POST …/SeatAvailability` · Phase 2 seat map lookup. **By offer:** use **AirShopping** offer IDs in `OfferRequest` (no prior OfferPrice required), then **OfferPrice** (flight + seat, or flight + seat + service) → **OrderCreate** with payment (**instant pay**). **By order:** after Phase 1 **OrderCreate** (pay-later path), call with **`OrderRequest`**, then **OrderQuote** → **OrderChange**. Scenarios: **[`#seatavailability-by-offer`](#seatavailability-by-offer)**, **[`#seatavailability-by-order`](#seatavailability-by-order)**.
+**Step 4** ([workflow index](../NDC_API.md#ndc-for-offers--orders-workflow)). `POST …/SeatAvailability` · seat map lookup. **By offer:** use **AirShopping** offer IDs in `OfferRequest` (no prior OfferPrice required), then **OfferPrice** (flight + seat, or flight + seat + service) → **OrderCreate** with payment (**instant pay**). **By order:** after **OrderCreate** (pay-later path), call with **`OrderRequest`**, then **OrderQuote** → **OrderChange**. Scenarios: **[`#seatavailability-by-offer`](#seatavailability-by-offer)**, **[`#seatavailability-by-order`](#seatavailability-by-order)**.
 
 The response returns **`SeatMap`** plus an **`ALaCarteOffer`** containing seat offer items tied to passengers and segments.
 

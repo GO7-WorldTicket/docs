@@ -23,7 +23,7 @@ Postman: `UseCase/Manage booking - Cancel/Cancel Booking`
 
 **Outcome.** Every flight on the order is cancelled.
 
-**Watch out for.** Step 3 is skipped where the airline does not support refunds on that order — go straight from step 2 to step 4.
+**Watch out for.** Step 3 is skipped only where the airline does not support refunds on that order — in that case carry the step 2 offer references straight into step 4.
 
 ---
 
