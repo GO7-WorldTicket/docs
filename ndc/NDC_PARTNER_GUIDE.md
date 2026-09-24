@@ -5,7 +5,7 @@ title: NDC Partner Guide — Capabilities and Worked Examples
 
 # NDC Partner Guide
 
-This guide is written for partners integrating with the Go7 **NDC Gateway**. It answers two questions:
+This guide is for partners integrating with the **GO7 NDC Gateway** using IATA NDC 21.3 and GO7 Gateway. It answers two questions:
 
 1. **What can I do with the NDC API?** See [Capabilities](#capabilities).
 2. **How does a complete flow run, message by message?** See [Worked Examples](#worked-examples).
@@ -49,7 +49,7 @@ Message path pattern: `…/v21.3.5/<MessageName>` — for example `POST …/v21.
 | Header | Purpose |
 |---|---|
 | `x-tenant` | Tenant identifier for the airline you are working with |
-| `x-SalesChannel` | Sales channel, normally `NDC` |
+| `x-SalesChannel` | Sales channel: `DIRECT_OTA` or `OTA_NETWORK` |
 | `x-api-key` | Your partner API key |
 | `Content-Type` | `application/xml` |
 
@@ -85,7 +85,7 @@ Each capability has its own page, written in the same shape: definition, precond
 | [Retrieve an order](capabilities/retrieve-an-order.md) | `OrderRetrieve` | [WE-3](worked-examples/we-3-retrieve-a-booking.md) |
 | [Rebook an order](capabilities/rebook-an-order.md) | `OrderReshop`, `OrderQuote`, `OrderChange` | [WE-4](worked-examples/we-4-rebook.md) |
 | [Change a passenger name](capabilities/change-a-passenger-name.md) | `OrderReshop`, `OrderChange` | [WE-5](worked-examples/we-5-change-a-passenger-name.md) |
-| [Cancel a whole booking](capabilities/cancel-a-whole-booking.md) | `OrderReshop`, `OrderQuote`, `OrderChange` | [WE-6](worked-examples/we-6-cancel-a-whole-booking.md) |
+| [Cancel a whole booking](capabilities/cancel-a-whole-booking.md) | `OrderReshop`, `OrderChange` | [WE-6](worked-examples/we-6-cancel-a-whole-booking.md) |
 | [Cancel a segment](capabilities/cancel-a-segment.md) | `OrderReshop`, `OrderChange` | [WE-7](worked-examples/we-7-cancel-a-segment.md) |
 
 ## Worked Examples
@@ -132,12 +132,12 @@ sequenceDiagram
     Note over Customer, GW: Change a passenger name
     Application->>+GW: OrderRetrieve, OrderReshop (UpdatePaxName)
     Note right of GW: no OrderQuote in this flow
-    Application->>+GW: OrderChange (accept, pay now or later)
+    Application->>+GW: OrderChange (accept and pay)
     GW-->>-Application: OrderViewRS
 
     Note over Customer, GW: Cancel
     Application->>+GW: OrderRetrieve, OrderReshop (cancel)
-    Note right of GW: OrderQuote for a whole booking, skipped for a segment
+    Note right of GW: no OrderQuote in this flow
     Application->>+GW: OrderChange
     GW-->>-Application: OrderViewRS
 
@@ -155,8 +155,8 @@ Each worked example has its own page, with a step table giving what you send, wh
 | [WE-2 Create a paid booking](worked-examples/we-2-create-a-paid-booking.md) | `AirShopping` → `OfferPrice` → `OrderCreate` (with payment) → `OrderRetrieve` |
 | [WE-3 Retrieve a booking](worked-examples/we-3-retrieve-a-booking.md) | `OrderRetrieve` |
 | [WE-4 Rebook](worked-examples/we-4-rebook.md) | `OrderRetrieve` → `OrderReshop` → `OrderQuote` → `OrderChange` → `OrderRetrieve` |
-| [WE-5 Change a passenger name](worked-examples/we-5-change-a-passenger-name.md) | `OrderRetrieve` → `OrderReshop` → `OrderChange` → `OrderChange` (payment, conditional) → `OrderRetrieve` |
-| [WE-6 Cancel a whole booking](worked-examples/we-6-cancel-a-whole-booking.md) | `OrderRetrieve` → `OrderReshop` → `OrderQuote` → `OrderChange` → `OrderRetrieve` |
+| [WE-5 Change a passenger name](worked-examples/we-5-change-a-passenger-name.md) | `OrderRetrieve` → `OrderReshop` → `OrderChange` (with payment) → `OrderRetrieve` |
+| [WE-6 Cancel a whole booking](worked-examples/we-6-cancel-a-whole-booking.md) | `OrderRetrieve` → `OrderReshop` → `OrderChange` → `OrderRetrieve` |
 | [WE-7 Cancel a segment](worked-examples/we-7-cancel-a-segment.md) | `OrderRetrieve` → `OrderReshop` → `OrderChange` → `OrderRetrieve` |
 | [WE-8 Add a seat or service before payment by offer](worked-examples/we-8-add-a-seat-or-service-before-payment-by-offer.md) | `AirShopping` → `SeatAvailability` and/or `ServiceList` → `OfferPrice` → `OrderCreate` (with payment) |
 | [WE-9 Add a seat to an existing order by order](worked-examples/we-9-add-a-seat-to-an-existing-order-by-order.md) | create the order, then `SeatAvailability` (order context) → `OrderQuote` → `OrderChange` → `OrderRetrieve` |
@@ -180,7 +180,7 @@ Payment is sent in `PaymentFunctions` — on `OrderCreate` to pay at booking ([W
 
 **Zero-amount orders.** Orders that total zero are supported on both PSS.
 
-**Name-change fees.** Paying the fee from [WE-5](worked-examples/we-5-change-a-passenger-name.md) uses the same `PaymentFunctions`; name change is available on SMS only.
+**Name-change fees.** In [WE-5](worked-examples/we-5-change-a-passenger-name.md) the fee is paid with `PaymentFunctions` on the same `OrderChange` that accepts the name-change offer — there is no separate payment call. Name change is available on SMS only.
 
 **Accepted types depend on the airline.** Which payment types a tenant accepts is set in airline configuration — confirm with the airline before going live. See [Availability by PSS](#availability-by-pss) for what is verified on each system.
 
@@ -190,7 +190,7 @@ Payment is sent in `PaymentFunctions` — on `OrderCreate` to pay at booking ([W
 |---|---|
 | **Refresh passenger and item references after `OrderChange`.** Before a later request reuses `PaxID` or related item references, call `OrderRetrieve` and read the current values. | These identifiers may change when an order is modified. A payment-only follow-up that uses the latest `OrderViewRS`, `OrderID` and `PaymentFunctions` does not reuse `PaxID`. |
 | **Insert `OrderRetrieve` between changes that reuse passenger or item references.** For example add a service, retrieve, then start another servicing flow. | Reusing identifiers from an earlier `OrderCreateRS` or `OrderChangeRS` can make the next request fail or target the wrong item. |
-| **`OrderQuote` is part of the flows that use it — it is not an optional extra step.** Rebooking, adding ancillaries by order and whole-booking cancellation all require it. Name change and segment cancellation do not use it at all. | Whole-booking cancellation is the one exception: the quote is skipped where the airline does not support refunds on that order. |
+| **`OrderQuote` is part of the flows that use it — it is not an optional extra step.** Rebooking and adding ancillaries by order require it. Name change and cancellation — whole booking or segment — do not use it at all. | Sending an `OrderQuote` a flow does not use, or skipping one it requires, makes the flow fail. |
 | **`PrefLevel/PrefLevelCode` is mandatory when you send `CabinType`.** | Omitting it returns error 13. `Required` keeps only matching cabins; `Preferred` does not drop other cabins. An invalid cabin code returns error 14. |
 | **A seat can carry several `OfferItemRefID` values.** | Pick the one matching the passenger you are seating. |
 | **The by-offer ancillary path is instant pay.** | To hold a booking and add extras later, create the order without payment and use the by-order path. |
@@ -217,7 +217,7 @@ The NDC API is the same for every airline, but the passenger service system behi
 | [Pay an on-hold order](capabilities/pay-an-on-hold-order.md) | `OrderQuote`, `OrderChange` | Available | Available | Cash payment works on both. |
 | [Retrieve an order](capabilities/retrieve-an-order.md) | `OrderRetrieve` | Available | Available | Ticket numbers synchronise on both. |
 | [Rebook an order](capabilities/rebook-an-order.md) | `OrderReshop`, `OrderQuote`, `OrderChange` | Available | Available | Same sequence on both. |
-| [Cancel a whole booking](capabilities/cancel-a-whole-booking.md) | `OrderReshop`, `OrderQuote`, `OrderChange` | Available | **Not available yet** | On AeroCRS, handle whole-booking cancellation outside the NDC API for now. |
+| [Cancel a whole booking](capabilities/cancel-a-whole-booking.md) | `OrderReshop`, `OrderChange` | Available | **Not available yet** | On AeroCRS, handle whole-booking cancellation outside the NDC API for now. |
 | [Cancel a segment](capabilities/cancel-a-segment.md) | `OrderReshop`, `OrderChange` | Available | **Not available yet** | On AeroCRS, handle segment cancellation outside the NDC API for now. |
 | [Change a passenger name](capabilities/change-a-passenger-name.md) | `OrderReshop`, `OrderChange` | Available | **Not available yet** | Available on SMS. On AeroCRS, handle name changes outside the NDC API for now. The name-change offer path is not yet exposed on that system. |
 
