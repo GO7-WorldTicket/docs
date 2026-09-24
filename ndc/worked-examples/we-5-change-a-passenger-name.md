@@ -13,6 +13,8 @@ Postman: `UseCase/Manage booking - NameChange`
 
 **Preconditions.** An existing order. Each passenger whose name changes needs its own `OrderReshop` request.
 
+**Availability.** SMS only (not yet on AeroCRS).
+
 | Step | Message | Send | Get back | Carry forward |
 |---|---|---|---|---|
 | 1 | [OrderRetrieve](../endpoints/orderretrieve.md#orderretrieve-by-order-id) | `OrderID`, `OwnerCode` | Current order | **`PaxID` per passenger** |
