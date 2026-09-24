@@ -29,6 +29,8 @@ title: NDC API Generic Integration Guide
 
 | Change Description                                                                                              | Changed By              | Change Date |
 |-----------------------------------------------------------------------------------------------------------------|-------------------------|-------------|
+| Name change: one OrderChange with payment (no separate payment OrderChange) (GH-8162)                            | Naphachara Rattanawilai | 2026-09-24  |
+| Cancel booking flow has no OrderQuote; removed OrderQuote cancel section (GH-8162)                             | Naphachara Rattanawilai | 2026-09-24  |
 | Removed phase wording from scenario sections; OrderQuote required where used; name change has no OrderQuote (GH-8162) | Naphachara Rattanawilai | 2026-09-22  |
 | AirShopping: document `CabinTypeCode` filter and required `PrefLevel` (ET-58650)                                | Naphachara Rattanawilai | 2026-08-19  |
 | Production base URL updated to `https://go7-api-gateway.prod.go7.io/ndc-gateway` (GH-7540)                      | Naphachara Rattanawilai | 2026-08-04  |
@@ -70,7 +72,7 @@ Attach the following headers to NDC Gateway requests unless an endpoint page spe
 | Header | Description | Example |
 |--------|-------------|---------|
 | `x-tenant` | Tenant identifier | `test-qa-rc` |
-| `x-SalesChannel` | Sales channel (`NDC`, `IBE`, …) | `NDC` |
+| `x-SalesChannel` | Sales channel (`DIRECT_OTA` or `OTA_NETWORK`) | `DIRECT_OTA` |
 | `x-api-key` | API key authentication | `{x-api-key}` |
 | `Content-Type` | Request body type | `application/xml` |
 
@@ -87,8 +89,8 @@ These scenarios cover shopping and pricing offers, creating or confirming orders
 | Create & confirm on-hold booking | `AirShopping` → `OfferPrice` → `OrderCreate`(no payment) → `OrderRetrieve` → `OrderQuote` → `OrderChange` → `OrderRetrieve`.                |
 | Create paid booking              | `AirShopping` → `OfferPrice` → `OrderCreate` (with payment) →`OrderRetrieve`.                                                               |
 | Manage booking — rebook          | `OrderRetrieve` → `OrderReshop` → `OrderQuote` → `OrderChange` → `OrderRetrieve`.                                                           |
-| Manage booking — name change     | `OrderRetrieve` → `OrderReshop` (name change) → `OrderChange` → conditional payment `OrderChange` → `OrderRetrieve`. **No `OrderQuote`** — `OrderChange` accepts the reshop offer directly. |
-| Manage booking — cancel          | `OrderRetrieve` → `OrderReshop` (cancel) → `OrderQuote` → `OrderChange` → `OrderRetrieve`. `OrderQuote` is skipped when refunds are unsupported. |
+| Manage booking — name change     | `OrderRetrieve` → `OrderReshop` (name change) → `OrderChange` (with payment) → `OrderRetrieve`. **No `OrderQuote`** — one `OrderChange` accepts the reshop offer and pays for it. |
+| Manage booking — cancel          | `OrderRetrieve` → `OrderReshop` (cancel) → `OrderChange` → `OrderRetrieve`. **No `OrderQuote`** — `OrderChange` accepts the cancel offer directly. |
 | Retrieve booking                 | `OrderRetrieve` (view only).              |
 
 ### NDC Gateway workflow — booking and servicing
@@ -230,7 +232,6 @@ Typical chain: **AirShopping → OfferPrice → OrderCreate**, then **OrderRetri
   - [Cancel order](endpoints/orderreshop.md#orderreshop-cancel-order)
 - **8 — [Order Quote](endpoints/orderquote.md)** — `POST …/OrderQuote` · quote before **OrderChange**
   - [Rebook quote](endpoints/orderquote.md#orderquote-rebook)
-  - [Cancel quote](endpoints/orderquote.md#orderquote-cancel)
   - [Booking (confirm on-hold quote)](endpoints/orderquote.md#orderquote-booking)
 - **9 — [Order Change](endpoints/orderchange.md)** — `POST …/OrderChange` · pay **DRAFT**, or accept quoted / rebook offers; after success, call **OrderRetrieve** before the next step
   - [Payment on hold booking](endpoints/orderchange.md#orderchange-payment-on-hold)

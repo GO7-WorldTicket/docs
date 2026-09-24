@@ -15,7 +15,7 @@ The Order Quote API returns pricing information for modifying an existing order.
 
 ## Workflow (NDC API guide)
 
-**Step 8** ([workflow index](../NDC_API.md#ndc-for-offers--orders-workflow)). `POST …/OrderQuote` · **`Payload.ExistingOrder`** + **`Payload.SelectedOffers`** with **`OfferRefID` / `OfferItemRefID`** from **AirShopping**, **OfferPrice**, or **OrderReshopRS**. Scenarios: **[`#orderquote-rebook`](#orderquote-rebook)**, **[`#orderquote-cancel`](#orderquote-cancel)**, **[`#orderquote-booking`](#orderquote-booking)**.
+**Step 8** ([workflow index](../NDC_API.md#ndc-for-offers--orders-workflow)). `POST …/OrderQuote` · **`Payload.ExistingOrder`** + **`Payload.SelectedOffers`** with **`OfferRefID` / `OfferItemRefID`** from **AirShopping**, **OfferPrice**, or **OrderReshopRS**. Scenarios: **[`#orderquote-rebook`](#orderquote-rebook)**, **[`#orderquote-booking`](#orderquote-booking)**.
 
 See [Authentication](../NDC_API.md#http-headers) for **`x-tenant`**, **`x-SalesChannel`**, and **`x-api-key`**.
 
@@ -26,7 +26,7 @@ See [Authentication](../NDC_API.md#http-headers) for **`x-tenant`**, **`x-SalesC
 | Header | Purpose | Format | Required | Example |
 |--------|---------|--------|----------|---------|
 | `x-tenant` | Identifies the tenant/organization context for the request | String (e.g., `tenant-a`, `test-qa-rc`) | Yes | `x-tenant: test-qa-rc` |
-| `x-SalesChannel` | Specifies the sales channel (maps to account IDs per tenant configuration) | String (e.g., `NDC`, `IBE`) | Yes | `x-SalesChannel: NDC` |
+| `x-SalesChannel` | Specifies the sales channel (maps to account IDs per tenant configuration) | String (`DIRECT_OTA` or `OTA_NETWORK`) | Yes | `x-SalesChannel: DIRECT_OTA` |
 | `x-api-key` | API key for authenticating the request | String | Yes | `x-api-key: {x-api-key}` |
 | `Content-Type` | Request body media type | `application/xml` or `application/xml;charset=UTF-8` | Yes | `Content-Type: application/xml` |
 
@@ -389,60 +389,6 @@ The request body must be a valid `IATA_OrderQuoteRQ` XML document following IATA
 
 </details>
 
-### OrderQuote — Cancel quote
-{: #orderquote-cancel}
-
-Cancellation often **skips** **`OrderQuote`** when refunds are unsupported. If your airline enables cancel quoting, shape matches the rebook quote but **`SelectedOffers`** carry IDs returned from **cancel reshop** (when present):
-
-<details>
-<summary>Request Payload</summary>
-
-<pre><code class="language-xml">
-&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;
-&lt;IATA_OrderQuoteRQ xmlns=&quot;http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage&quot; xmlns:cns=&quot;http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes&quot; xmlns:ns3=&quot;http://www.w3.org/2000/09/xmldsig#&quot;&gt;
-    &lt;DistributionChain&gt;
-        &lt;DistributionChainLink xmlns=&quot;http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes&quot;&gt;
-            &lt;Ordinal&gt;1&lt;/Ordinal&gt;
-            &lt;OrgRole&gt;Seller&lt;/OrgRole&gt;
-            &lt;ParticipatingOrg&gt;
-                &lt;Name&gt;Travel Agency XYZ&lt;/Name&gt;
-                &lt;OrgID&gt;SELLER123&lt;/OrgID&gt;
-            &lt;/ParticipatingOrg&gt;
-        &lt;/DistributionChainLink&gt;
-    &lt;/DistributionChain&gt;
-    &lt;Payload&gt;
-        &lt;ExistingOrder xmlns=&quot;http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes&quot;&gt;
-            &lt;OrderID&gt;d14a8d0c-74a6-4c3c-801b-8f9e17cf21c6&lt;/OrderID&gt;
-            &lt;OwnerCode&gt;VS&lt;/OwnerCode&gt;
-        &lt;/ExistingOrder&gt;
-        &lt;SelectedOffers xmlns=&quot;http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes&quot;&gt;
-            &lt;OfferRefID&gt;9fe9409f-0382-4cb0-95c9-39a5a88b18c3&lt;/OfferRefID&gt;
-            &lt;OwnerCode&gt;VS&lt;/OwnerCode&gt;
-            &lt;SelectedOfferItem&gt;
-                &lt;OfferItemRefID&gt;ccf1eb58-fd5a-4a5c-b4a8-8f5c0dbf9629&lt;/OfferItemRefID&gt;
-                &lt;PaxRefID&gt;PAX1&lt;/PaxRefID&gt;
-            &lt;/SelectedOfferItem&gt;
-            &lt;SelectedOfferItem&gt;
-                &lt;OfferItemRefID&gt;217478a5-02e5-473a-877d-a164e79b2c1d&lt;/OfferItemRefID&gt;
-                &lt;PaxRefID&gt;PAX2&lt;/PaxRefID&gt;
-            &lt;/SelectedOfferItem&gt;
-            &lt;SelectedOfferItem&gt;
-                &lt;OfferItemRefID&gt;a1ae82a1-d2f4-48ee-9983-9ff5dbd152b3&lt;/OfferItemRefID&gt;
-                &lt;PaxRefID&gt;PAX3&lt;/PaxRefID&gt;
-            &lt;/SelectedOfferItem&gt;
-        &lt;/SelectedOffers&gt;
-    &lt;/Payload&gt;
-    &lt;PayloadAttributes&gt;
-        &lt;CorrelationID xmlns=&quot;http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes&quot;&gt;{{$randomUUID}}&lt;/CorrelationID&gt;
-        &lt;Timestamp xmlns=&quot;http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes&quot;&gt;2026-05-07T14:18:37.817+07:00&lt;/Timestamp&gt;
-        &lt;TrxID xmlns=&quot;http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes&quot;&gt;TRX-123456789&lt;/TrxID&gt;
-        &lt;VersionNumber xmlns=&quot;http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes&quot;&gt;21.3&lt;/VersionNumber&gt;
-    &lt;/PayloadAttributes&gt;
-&lt;/IATA_OrderQuoteRQ&gt;
-</code></pre>
-
-</details>
-
 ### OrderQuote — Booking (confirm on-hold)
 {: #orderquote-booking}
 
@@ -676,7 +622,7 @@ Invalid request format or missing required fields.
     ```bash
     curl -X POST https://go7-api-gateway.prod.go7.io/ndc-gateway/v21.3.5/OrderQuote \
       -H "x-tenant: tenant-a" \
-      -H "x-SalesChannel: NDC" \
+      -H "x-SalesChannel: DIRECT_OTA" \
       -H "x-api-key: your-api-key-here" \
       -H "Content-Type: application/xml" \
       -d @orderquote-request.xml

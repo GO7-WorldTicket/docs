@@ -9,15 +9,15 @@ title: Cancel a whole booking
 
 **Preconditions.** An existing order and current `PaxID` values.
 
-**Process.** `OrderRetrieve` → `OrderReshop` → `OrderQuote` → `OrderChange` → `OrderRetrieve`
+**Process.** `OrderRetrieve` → `OrderReshop` → `OrderChange` → `OrderRetrieve`
 
 **Post condition.**
 - *Success:* the order is cancelled.
 - *Failure:* the fare does not permit cancellation, or the order is already cancelled.
 
-**Messages.** [Order Reshop → Cancel order](../endpoints/orderreshop.md#orderreshop-cancel-order), [Order Quote → Cancel quote](../endpoints/orderquote.md#orderquote-cancel), [Order Change](../endpoints/orderchange.md).
+**Messages.** [Order Reshop → Cancel order](../endpoints/orderreshop.md#orderreshop-cancel-order), [Order Change](../endpoints/orderchange.md).
 
-**Notes.** `OrderQuote` is skipped where the airline does not support refunds on that order. In that case go straight from `OrderReshop` to `OrderChange`.
+**Notes.** This flow has no `OrderQuote` — `OrderChange` accepts the cancel offer from `OrderReshop` directly.
 
 **Availability.** Not available on every PSS — see [Availability by PSS](../NDC_PARTNER_GUIDE.md#availability-by-pss).
 

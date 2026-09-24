@@ -17,7 +17,7 @@ title: Cancel a segment
 
 **Messages.** [Order Reshop → Cancel order](../endpoints/orderreshop.md#orderreshop-cancel-order), [Order Change](../endpoints/orderchange.md).
 
-**Notes.** Unlike a whole-booking cancellation, the segment cancel selects the `OrderItemRefID` to remove on the reshop request and does not go through `OrderQuote`.
+**Notes.** Unlike a whole-booking cancellation, the segment cancel selects the `OrderItemRefID` to remove on the reshop request. Neither cancellation goes through `OrderQuote`.
 
 **Availability.** Not available on every PSS — see [Availability by PSS](../NDC_PARTNER_GUIDE.md#availability-by-pss).
 
