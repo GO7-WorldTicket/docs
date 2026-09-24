@@ -18,6 +18,7 @@ Everything the NDC API supports is presented here as **one set**: shopping, orde
 - [Before you start](#before-you-start)
 - [Capabilities](#capabilities)
 - [Worked Examples](#worked-examples)
+- [Payment types](#payment-types)
 - [Rules that apply to every flow](#rules-that-apply-to-every-flow)
 - [Availability by PSS](#availability-by-pss)
 - [Reference](#reference)
@@ -78,8 +79,8 @@ Each capability has its own page, written in the same shape: definition, precond
 | [Shop for ancillary services](capabilities/shop-for-ancillary-services.md) | `ServiceList` | [WE-8](worked-examples/we-8-add-a-seat-or-service-before-payment-by-offer.md), [WE-10](worked-examples/we-10-add-a-service-to-an-existing-order-by-order.md) |
 | [Shop for seats](capabilities/shop-for-seats.md) | `SeatAvailability` | [WE-8](worked-examples/we-8-add-a-seat-or-service-before-payment-by-offer.md), [WE-9](worked-examples/we-9-add-a-seat-to-an-existing-order-by-order.md) |
 | [Create an order without payment](capabilities/create-an-order-without-payment.md) | `OrderCreate` | [WE-1](worked-examples/we-1-create-and-confirm-an-on-hold-booking.md) |
-| [Create an order with payment](capabilities/create-an-order-with-payment.md) | `OrderCreate` | [WE-2](worked-examples/we-2-create-a-paid-booking.md) |
-| [Pay an on-hold order](capabilities/pay-an-on-hold-order.md) | `OrderQuote`, `OrderChange` | [WE-1](worked-examples/we-1-create-and-confirm-an-on-hold-booking.md) |
+| [Create an order with payment](capabilities/create-an-order-with-payment.md) | `OrderCreate` | [WE-2](worked-examples/we-2-create-a-paid-booking.md) · [payment types](#payment-types) |
+| [Pay an on-hold order](capabilities/pay-an-on-hold-order.md) | `OrderQuote`, `OrderChange` | [WE-1](worked-examples/we-1-create-and-confirm-an-on-hold-booking.md) · [payment types](#payment-types) |
 | [Add seats or services to an existing order](capabilities/add-seats-or-services-to-an-existing-order.md) | `SeatAvailability` / `ServiceList`, `OrderQuote`, `OrderChange` | [WE-9](worked-examples/we-9-add-a-seat-to-an-existing-order-by-order.md), [WE-10](worked-examples/we-10-add-a-service-to-an-existing-order-by-order.md) |
 | [Retrieve an order](capabilities/retrieve-an-order.md) | `OrderRetrieve` | [WE-3](worked-examples/we-3-retrieve-a-booking.md) |
 | [Rebook an order](capabilities/rebook-an-order.md) | `OrderReshop`, `OrderQuote`, `OrderChange` | [WE-4](worked-examples/we-4-rebook.md) |
@@ -161,6 +162,28 @@ Each worked example has its own page, with a step table giving what you send, wh
 | [WE-9 Add a seat to an existing order by order](worked-examples/we-9-add-a-seat-to-an-existing-order-by-order.md) | create the order, then `SeatAvailability` (order context) → `OrderQuote` → `OrderChange` → `OrderRetrieve` |
 | [WE-10 Add a service to an existing order by order](worked-examples/we-10-add-a-service-to-an-existing-order-by-order.md) | create the order, then `ServiceList` (order context) → `OrderQuote` → `OrderChange` → `OrderRetrieve` |
 
+## Payment types
+
+Payment is sent in `PaymentFunctions` — on `OrderCreate` to pay at booking ([WE-2](worked-examples/we-2-create-a-paid-booking.md)), or on `OrderChange` to pay an on-hold order or settle a fee after a change ([WE-1](worked-examples/we-1-create-and-confirm-an-on-hold-booking.md), [WE-5](worked-examples/we-5-change-a-passenger-name.md)). Omit `PaymentFunctions` to hold the booking and pay later.
+
+| Payment type | `PaymentTypeCode` | Send to | Reference |
+|---|---|---|---|
+| Cash | `CA` (`OfflinePayment`) | NDC Gateway | [Order Create → Instant pay](endpoints/ordercreate.md#ordercreate-instant-pay), [Order Change → cash](endpoints/orderchange.md#orderchange-payment-cash) |
+| Debit | `DC` (`OfflinePayment`) | NDC Gateway | [Order Change → debit](endpoints/orderchange.md#orderchange-payment-debit) |
+| Credit | `CC` (`OfflinePayment`) | NDC Gateway | [Order Change → credit](endpoints/orderchange.md#orderchange-payment-credit) |
+| Debit/credit account | `OT` (`OfflinePayment`) | NDC Gateway | [Order Change → debit/credit account](endpoints/orderchange.md#orderchange-payment-debit-credit-account) |
+| Credit card, online with 3DS | `PaymentCard` | PCI Proxy (Filter Push URL) | [Order Change → credit card (PCI Proxy)](endpoints/orderchange.md#orderchange-payment-credit-card) |
+
+**Debit/credit account.** Put the account ID in `PaymentMethodCriteria/PaymentCriteriaAddlInfo/PaymentOtherMethodAddlInfo/Remark/RemarkText`, and send `OT` on both `PaymentMethodCriteria` and `PaymentProcessingDetails`.
+
+**Credit card.** Post the `OrderChange` to the PCI Filter Push URL, not to the NDC Gateway; PCI tokenizes `CardNumber`, `CardSecurityCode` and `ExpirationDate` and forwards the request. A successful **3DS authenticate result** is required: include `PaymentCard/SecurePaymentVersion2` and `PaymentRefID` (the PCI `transactionId` from 3DS init). Requests without it are not supported.
+
+**Zero-amount orders.** Orders that total zero are supported on both PSS.
+
+**Name-change fees.** Paying the fee from [WE-5](worked-examples/we-5-change-a-passenger-name.md) uses the same `PaymentFunctions`; name change is available on SMS only.
+
+**Accepted types depend on the airline.** Which payment types a tenant accepts is set in airline configuration — confirm with the airline before going live. See [Availability by PSS](#availability-by-pss) for what is verified on each system.
+
 ## Rules that apply to every flow
 
 | Rule | Why it matters |
@@ -181,7 +204,6 @@ The NDC API is the same for every airline, but the passenger service system behi
 | Status | Meaning |
 |---|---|
 | **Available** | The end-to-end NDC flow works. |
-| **Available — validation in progress** | The capability exists and is being verified end to end. Plan for it, but confirm before you rely on it in production. |
 | **Not available yet** | The complete NDC flow is not exposed on that system. |
 
 | Capability | NDC messages | SMS | AeroCRS | What this means for you |
@@ -189,7 +211,7 @@ The NDC API is the same for every airline, but the passenger service system behi
 | [Shop for flights](capabilities/shop-for-flights.md) and [price an offer](capabilities/price-an-offer.md) | `AirShopping`, `OfferPrice` | Available | Available | No difference in how you shop or price. |
 | [Shop for ancillary services](capabilities/shop-for-ancillary-services.md) | `ServiceList`, `OfferPrice`, `OrderCreate` or `OrderQuote` / `OrderChange` | Available | Available | Paid and zero-price services both work. |
 | [Shop for seats](capabilities/shop-for-seats.md) by offer | `SeatAvailability`, `OfferPrice`, `OrderCreate` | Available | Available | Seat maps and seat prices are returned on both. |
-| [Add a seat to a held order](capabilities/add-seats-or-services-to-an-existing-order.md) by order | `SeatAvailability`, `OrderQuote`, `OrderChange` | Available | Available — validation in progress | On AeroCRS, attach seats before payment with [WE-8](worked-examples/we-8-add-a-seat-or-service-before-payment-by-offer.md) while the by-order path completes validation. |
+| [Add a seat to a held order](capabilities/add-seats-or-services-to-an-existing-order.md) by order | `SeatAvailability`, `OrderQuote`, `OrderChange` | Available | Available | Same sequence on both. |
 | [Create an order without payment](capabilities/create-an-order-without-payment.md) | `OrderCreate` | Available | Available | Holding a booking works on both. |
 | [Create an order with payment](capabilities/create-an-order-with-payment.md) | `OrderCreate` | Available | Available | Cash and zero-amount payments are covered. |
 | [Pay an on-hold order](capabilities/pay-an-on-hold-order.md) | `OrderQuote`, `OrderChange` | Available | Available | Cash payment works on both. |
@@ -197,9 +219,9 @@ The NDC API is the same for every airline, but the passenger service system behi
 | [Rebook an order](capabilities/rebook-an-order.md) | `OrderReshop`, `OrderQuote`, `OrderChange` | Available | Available | Same sequence on both. |
 | [Cancel a whole booking](capabilities/cancel-a-whole-booking.md) | `OrderReshop`, `OrderQuote`, `OrderChange` | Available | **Not available yet** | On AeroCRS, handle whole-booking cancellation outside the NDC API for now. |
 | [Cancel a segment](capabilities/cancel-a-segment.md) | `OrderReshop`, `OrderChange` | Available | **Not available yet** | On AeroCRS, handle segment cancellation outside the NDC API for now. |
-| [Change a passenger name](capabilities/change-a-passenger-name.md) | `OrderReshop`, `OrderChange` | Available | **Not available yet** | On AeroCRS, handle name changes outside the NDC API for now. The name-change offer path is not yet exposed on that system. |
+| [Change a passenger name](capabilities/change-a-passenger-name.md) | `OrderReshop`, `OrderChange` | Available | **Not available yet** | Available on SMS. On AeroCRS, handle name changes outside the NDC API for now. The name-change offer path is not yet exposed on that system. |
 
-**Payment note.** The cash and zero-amount payment paths documented in this guide work on both systems. Reusing a payment you captured in your own payment service provider is available on SMS only.
+**Payment note.** The cash and zero-amount payment paths work on both systems; for the other [payment types](#payment-types), confirm with the airline. Reusing a payment you captured in your own payment service provider is available on SMS only.
 
 **Your NDC payload does not change per PSS.** Requests stay system-neutral — differences are absorbed by platform mapping and tenant configuration, not by your integration. Routes, record locators, offer identifiers, prices and ticket numbers will differ between airlines. That is expected and is not a failure.
 
@@ -210,5 +232,6 @@ The NDC API is the same for every airline, but the passenger service system behi
 | Base URLs, HTTP headers, authentication | [NDC API → Introduction](NDC_API.md#introduction) |
 | Passenger type, cabin and document codes | [NDC API → Code Lists](NDC_API.md#code-lists) |
 | Error codes | [NDC API → Error Code](NDC_API.md#error-code) |
+| Payment types and PCI Proxy card payment | [Order Change → payment](endpoints/orderchange.md#orderchange-payment-on-hold) |
 | IATA schema distribution 21.3 and GO7 gateway package v21.3.5 | [Download](/docs/assets/resources/NDC-xmlbeans-21.3.5.zip) |
 | Postman collection | [Collection](/docs/assets/resources/NDC_postman_collection.json) · [Environment](/docs/assets/resources/NDC.postman_environment.json) |

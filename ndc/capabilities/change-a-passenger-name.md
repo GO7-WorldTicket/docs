@@ -21,7 +21,7 @@ title: Change a passenger name
 
 **Paying the fee.** This flow has no `OrderQuote` — `OrderChange` accepts the `OrderReshop` offer directly. You can settle the fee in the same `OrderChange` that accepts the offer, or accept it first and pay in a following `OrderChange`.
 
-**Availability.** Not available on every PSS — see [Availability by PSS](../NDC_PARTNER_GUIDE.md#availability-by-pss).
+**Availability.** **Available on SMS.** Not available yet on AeroCRS — see [Availability by PSS](../NDC_PARTNER_GUIDE.md#availability-by-pss).
 
 ---
 
