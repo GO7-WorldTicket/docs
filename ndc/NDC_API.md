@@ -88,6 +88,7 @@ These scenarios cover shopping and pricing offers, creating or confirming orders
 |----------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
 | Create & confirm on-hold booking | `AirShopping` → `OfferPrice` → `OrderCreate`(no payment) → `OrderRetrieve` → `OrderQuote` → `OrderChange` → `OrderRetrieve`.                |
 | Create paid booking              | `AirShopping` → `OfferPrice` → `OrderCreate` (with payment) →`OrderRetrieve`.                                                               |
+| Create zero-amount booking       | `AirShopping` → `OfferPrice` → `OrderCreate` (no `PaymentFunctions`) → `OrderRetrieve`. Total due is 0, so the gateway [autopays](#zero-amount-autopayment) it and the order returns `OPEN`. |
 | Manage booking — rebook          | `OrderRetrieve` → `OrderReshop` → `OrderQuote` → `OrderChange` → `OrderRetrieve`.                                                           |
 | Manage booking — name change     | `OrderRetrieve` → `OrderReshop` (name change) → `OrderChange` (with payment) → `OrderRetrieve`. **No `OrderQuote`** — one `OrderChange` accepts the reshop offer and pays for it. |
 | Manage booking — cancel          | `OrderRetrieve` → `OrderReshop` (cancel) → `OrderChange` → `OrderRetrieve`. **No `OrderQuote`** — `OrderChange` accepts the cancel offer directly. |
@@ -116,6 +117,21 @@ These build on the same base flow as the [booking and servicing scenarios](#book
 | Add ancillary service by order         | `AirShopping` → `OfferPrice` → `OrderCreate` → `ServiceList` (`OrderRequest`) → `OrderQuote` → `OrderChange` → `OrderRetrieve`.      |
 
 **Remark:** By-offer ancillary flows are **instant pay** (`OrderCreate` with `PaymentFunctions`). For **pay-later / on-hold**, use the [booking and servicing scenarios](#booking-and-servicing-scenarios) (`AirShopping` → `OfferPrice` → `OrderCreate` without payment), then add ancillaries via the **by-order** rows above.
+
+### Zero-amount seats and services (Autopayment)
+{: #zero-amount-autopayment}
+
+When you add a **seat or SSR whose amount due is 0** to an existing order (by order), the gateway pays it automatically with **Autopayment**. Nothing is charged.
+
+`OrderRetrieve` → `SeatAvailability` / `ServiceList` (`OrderRequest`, item priced 0) → `OrderQuote` (amount due 0) → `OrderChange` **without `PaymentFunctions`** → `OrderRetrieve`.
+
+- `OrderChange` accepts the quoted offer, autopays the 0 amount and confirms the seat or SSR. The response has no pending payment.
+- If `PaymentFunctions` is sent anyway, it is ignored for a zero amount (no card or account is charged).
+- Still call `OrderQuote` and `OrderChange`; only the payment step is dropped.
+- The same applies to a zero-total `OrderCreate` (returned `OPEN`, not held `DRAFT`) and to paying an on-hold order whose balance is 0.
+- Zero means the final amount due, including taxes, fees and penalties. If anything is still payable, send `PaymentFunctions` as usual.
+
+More detail: [NDC Partner Guide → Zero-amount orders (Autopayment)](NDC_PARTNER_GUIDE.md#zero-amount-autopayment).
 
 **Remark — multi-step OrderChange:** when chaining changes on an existing order (for example add SSR then pay), insert **`OrderRetrieve`** between steps and use the latest `PaxID` values: `… → OrderChange (add SSR) → OrderRetrieve → OrderChange (payment)`.
 

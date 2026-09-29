@@ -17,7 +17,7 @@ title: Add seats or services to an existing order
 
 **Messages.** [Seat Availability → by order](../endpoints/seatavailability.md#seatavailability-by-order), [Service List → by order](../endpoints/servicelist.md#servicelist-by-order), [Order Quote](../endpoints/orderquote.md), [Order Change](../endpoints/orderchange.md).
 
-**Notes.** Refresh `PaxID` with `OrderRetrieve` before every step in this sequence.
+**Notes.** Refresh `PaxID` with `OrderRetrieve` before every step in this sequence. A seat or service whose amount due is 0 is [autopaid](../NDC_PARTNER_GUIDE.md#zero-amount-autopayment): send the final `OrderChange` without `PaymentFunctions`.
 
 **Availability.** Services on both PSS. Seats by order, see [Availability by PSS](../NDC_PARTNER_GUIDE.md#availability-by-pss).
 

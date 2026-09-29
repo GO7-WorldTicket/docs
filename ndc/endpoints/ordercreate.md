@@ -237,7 +237,7 @@ See **[Offer Price](offerprice.md)** for how the composite `OfferID` is produced
 
 </details>
 
-Omit **`PaymentFunctions`** for pay-later: the order commonly returns **`DRAFT`** until paid. For **round-trip pay later**, add a second **`SelectedOfferItem`** for the inbound priced item.
+Omit **`PaymentFunctions`** for pay-later: the order commonly returns **`DRAFT`** until paid. **Zero amount:** when the total due is 0, the gateway pays it automatically ([Autopayment](../NDC_PARTNER_GUIDE.md#zero-amount-autopayment)) and the order returns **`OPEN`** instead. For **round-trip pay later**, add a second **`SelectedOfferItem`** for the inbound priced item.
 
 ### Instant Payment Booking
 {: #ordercreate-instant-pay}
@@ -1021,6 +1021,7 @@ Invalid request format or missing required fields.
    - Include `PaymentFunctions` for instant payment (typical for by-offer with ancillaries)
 6. **Order Status**: 
    - Pay-later bookings return status `DRAFT` (on hold)
+   - Zero-total bookings without `PaymentFunctions` are autopaid and return `OPEN` ([Autopayment](../NDC_PARTNER_GUIDE.md#zero-amount-autopayment))
    - Instant payment bookings return status `OPEN` (confirmed)
-7. **Payment Processing**: For pay-later bookings, use `OrderChange` to process payment later.
+7. **Payment Processing**: For pay-later bookings, use `OrderChange` to process payment later. No payment step is needed when the total due is zero.
 8. **Order ID**: Save the `OrderID` from the response for future operations like `OrderRetrieve` or `OrderChange`.
