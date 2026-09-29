@@ -875,7 +875,7 @@ Order not found.
 ### Processing Payment for On-Hold Booking
 
 1. Order must be in `DRAFT` status (created with `OrderCreate` without `PaymentFunctions`)
-2. Call `OrderChange` with `OrderID` and `PaymentFunctions`
+2. Call `OrderChange` with `OrderID` and `PaymentFunctions` (omit `PaymentFunctions` when the balance due is 0 — it is [autopaid](../NDC_PARTNER_GUIDE.md#zero-amount-autopayment))
 3. System processes payment and polls order status until `OPEN`
 4. Response returns confirmed order with tickets issued
 
@@ -898,3 +898,4 @@ Order not found.
 5. **Order ID**: Always use the `OrderID` from the original `OrderCreate` response.
 6. **Seat Changes**: Seat-based order changes include `SelectedSeat` with `ColumnID` and `SeatRowNumber`.
 7. **Ancillary Changes**: Service-based order changes include `SelectedALaCarteOfferItem` with `Qty`.
+8. **Zero amount (Autopayment)**: When the amount due is 0 — for example a free seat or SSR added by order, or an on-hold balance of 0 — send `OrderChange` **without `PaymentFunctions`**. The gateway pays the 0 amount with Autopayment, confirms the seat or SSR, and charges nothing. `PaymentFunctions` sent for a zero amount is ignored. See [Zero-amount orders (Autopayment)](../NDC_PARTNER_GUIDE.md#zero-amount-autopayment).

@@ -12,7 +12,7 @@ title: Create an order without payment
 **Process.** `OrderCreate` with no `PaymentFunctions`
 
 **Post condition.**
-- *Success:* an order is created in a held state with an `OrderID` and a booking reference.
+- *Success:* an order is created in a held state with an `OrderID` and a booking reference. If the total due is zero, it is [autopaid](../NDC_PARTNER_GUIDE.md#zero-amount-autopayment) and returned confirmed (`OPEN`) and ticketed instead of held.
 - *Failure:* a validation error on passenger or offer data. Check the [error codes](../NDC_API.md#error-code).
 
 **Messages.** [Order Create → Pay later](../endpoints/ordercreate.md#ordercreate-pay-later).

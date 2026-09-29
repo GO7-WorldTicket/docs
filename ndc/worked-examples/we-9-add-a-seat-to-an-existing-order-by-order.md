@@ -18,12 +18,12 @@ Postman: `UseCase/Ancillary Order - Seats`
 | 1 | [OrderRetrieve](../endpoints/orderretrieve.md#orderretrieve-by-order-id) | `OrderID` | Current order | `PaxID`, `OrderItemRefID` |
 | 2 | [SeatAvailability by order](../endpoints/seatavailability.md#seatavailability-by-order) | `OrderID` and the flight to seat | Seat map with seat offer items | Seat `OfferRefID`, `OfferItemRefID` |
 | 3 | [OrderQuote](../endpoints/orderquote.md) | `ExistingOrder` and the selected seat offer item | Quoted seat price | Quoted offer references |
-| 4 | [OrderChange](../endpoints/orderchange.md) | The accepted quoted offer and `PaymentFunctions` | Order with the seat attached and paid | `OrderID` |
+| 4 | [OrderChange](../endpoints/orderchange.md) | The accepted quoted offer and `PaymentFunctions` (omit when the amount due is 0) | Order with the seat attached and paid | `OrderID` |
 | 5 | [OrderRetrieve](../endpoints/orderretrieve.md#orderretrieve-by-order-id) | `OrderID` | Order showing the seat | — |
 
 **Outcome.** The seat is attached to the order and paid.
 
-**Watch out for.** A seat taken between steps 2 and 4 returns error 486 — re-read the seat map and pick another.
+**Watch out for.** A seat taken between steps 2 and 4 returns error 486 — re-read the seat map and pick another. A free seat (amount due 0) still goes through steps 3 and 4; send step 4 without `PaymentFunctions` — the gateway [autopays](../NDC_PARTNER_GUIDE.md#zero-amount-autopayment) it.
 
 ---
 

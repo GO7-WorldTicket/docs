@@ -17,7 +17,7 @@ title: Shop for ancillary services
 
 **Messages.** [Service List](../endpoints/servicelist.md) — [by offer](../endpoints/servicelist.md#servicelist-by-offer), [by order](../endpoints/servicelist.md#servicelist-by-order).
 
-**Notes.** Zero-price services are returned as normal offers with an amount of zero, and still follow the full add-and-confirm sequence.
+**Notes.** Zero-price services are returned as normal offers with an amount of zero, and still follow the full add-and-confirm sequence. On the final `OrderChange`, omit `PaymentFunctions` — the 0 amount is [autopaid](../NDC_PARTNER_GUIDE.md#zero-amount-autopayment).
 
 **Availability.** Both PSS.
 

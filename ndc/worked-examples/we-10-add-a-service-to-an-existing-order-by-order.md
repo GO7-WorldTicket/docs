@@ -18,12 +18,12 @@ Postman: `UseCase/Ancillary Order - Services`
 | 1 | [OrderRetrieve](../endpoints/orderretrieve.md#orderretrieve-by-order-id) | `OrderID` | Current order | `PaxID`, `OrderItemRefID` |
 | 2 | [ServiceList by order](../endpoints/servicelist.md#servicelist-by-order) | `OrderID`, optionally narrowed to one order item | Service offers with prices | Service `OfferRefID`, `OfferItemRefID` |
 | 3 | [OrderQuote](../endpoints/orderquote.md) | `ExistingOrder` and the selected service offer item | Quoted service price | Quoted offer references |
-| 4 | [OrderChange](../endpoints/orderchange.md) | The accepted quoted offer and `PaymentFunctions` | Order with the service attached and paid | `OrderID` |
+| 4 | [OrderChange](../endpoints/orderchange.md) | The accepted quoted offer and `PaymentFunctions` (omit when the amount due is 0) | Order with the service attached and paid | `OrderID` |
 | 5 | [OrderRetrieve](../endpoints/orderretrieve.md#orderretrieve-by-order-id) | `OrderID` | Order showing the service | — |
 
 **Outcome.** The service is attached to the order and paid.
 
-**Watch out for.** Zero-price services still follow all five steps. Do not skip the quote because the amount is zero.
+**Watch out for.** Zero-price services still follow all five steps. Do not skip the quote because the amount is zero. For a zero-price service, send step 4 without `PaymentFunctions` — the gateway [autopays](../NDC_PARTNER_GUIDE.md#zero-amount-autopayment) it.
 
 ---
 
