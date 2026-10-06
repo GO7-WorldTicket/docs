@@ -67,7 +67,7 @@ curl -X POST "https://go7-api-gateway.prod.go7.io/ndc-gateway/v21.3.5/<MessageNa
 
 **How your API key works.** One key represents your partnership, not a single airline. The platform resolves which airlines to search from your active agreements, so you do not put an airline on the request.
 
-**Try it in Postman.** Download the [Postman collection](/docs/assets/resources/NDC_postman_collection.json) and [environment](/docs/assets/resources/NDC.postman_environment.json), then set `x-api-key`, `x-saleschannel`, `tenant` and `ndc-gateway-url`. Each worked example below names the `UseCase/…` folder that runs it. The collection also carries extra request variants kept for experimentation; the sequences documented in this guide are the supported ones.
+**Try it in Postman.** Download the [Postman collection](/docs/assets/resources/NDC_postman_collection.json) and [environment](/docs/assets/resources/NDC.postman_environment.json), then set `x-api-key`, `x-saleschannel`, `tenant` and `ndc-gateway-url`. Each worked example below names the `UseCase/…` folder that runs it. The collection also carries extra request variants kept for experimentation; the sequences documented in this guide are the supported ones. For a **Virtual Interline** sale use the `UseCase - VI` folder with the [NDC-VI environment](/docs/assets/resources/NDC-VI.postman_environment.json) and your VI API key; its folder description says which use cases are available on VI and which are not.
 
 ## Capabilities
 
@@ -256,4 +256,4 @@ The NDC API is the same for every airline, but the passenger service system behi
 | Error codes | [NDC API → Error Code](NDC_API.md#error-code) |
 | Payment types and PCI Proxy card payment | [Order Change → payment](endpoints/orderchange.md#orderchange-payment-on-hold) |
 | IATA schema distribution 21.3 and GO7 gateway package v21.3.5 | [Download](/docs/assets/resources/NDC-xmlbeans-21.3.5.zip) |
-| Postman collection | [Collection](/docs/assets/resources/NDC_postman_collection.json) · [Environment](/docs/assets/resources/NDC.postman_environment.json) |
+| Postman collection | [Collection](/docs/assets/resources/NDC_postman_collection.json) · [Environment](/docs/assets/resources/NDC.postman_environment.json) · [VI environment](/docs/assets/resources/NDC-VI.postman_environment.json) (folder `UseCase - VI`) |

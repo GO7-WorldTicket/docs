@@ -29,6 +29,7 @@ title: NDC API Generic Integration Guide
 
 | Change Description                                                                                              | Changed By              | Change Date |
 |-----------------------------------------------------------------------------------------------------------------|-------------------------|-------------|
+| Added Postman folder `UseCase - VI` and the `NDC-VI` environment for Virtual Interline (GH-8184)              | Apiluck Dokkaew         | 2026-10-06  |
 | Name change: one OrderChange with payment (no separate payment OrderChange) (GH-8162)                            | Naphachara Rattanawilai | 2026-09-24  |
 | Cancel booking flow has no OrderQuote; removed OrderQuote cancel section (GH-8162)                             | Naphachara Rattanawilai | 2026-09-24  |
 | Removed phase wording from scenario sections; OrderQuote required where used; name change has no OrderQuote (GH-8162) | Naphachara Rattanawilai | 2026-09-22  |
@@ -153,8 +154,13 @@ Use IATA **OffersAndOrders** message XML (`IATA_AirShoppingRQ`, `IATA_OrderCreat
 # Postman Collection
 [Download Postman Collection](/docs/assets/resources/NDC_postman_collection.json)
 [Download Postman Environment](/docs/assets/resources/NDC.postman_environment.json)
+[Download Postman Environment for Virtual Interline (NDC-VI)](/docs/assets/resources/NDC-VI.postman_environment.json)
 
 Please update the variables in collection such as x-api-key, x-saleschannel, tenant, ndc-gateway-url.
+
+## UseCase - VI (Virtual Interline)
+
+The collection carries a second top-level folder, `UseCase - VI`, for a **Virtual Interline** sale: one itinerary stitched from two carriers on two reservation systems, sold and paid as one NDC order. Use it with the `NDC-VI` environment and your VI API key (the key selects the tenant and the sales channel). It covers *Create & confirm on-hold booking*, *Create paid booking*, *Retrieve booking* and the ancillary flows (*Ancillary Offer - Services / Seats* before booking, *Ancillary Order - Services / Seats* on an existing order). A VI offer has one offer item per passenger per leg (OW 6, RT 12); the folder's scripts select every item and read all ids from the previous response, so nothing is hard-coded and a request whose inputs are missing is not sent. Cancel, cancel segment, rebook and name change are not included because they are not supported on VI; the folder description lists the known limits per use case.
 
 # Code Lists
 
