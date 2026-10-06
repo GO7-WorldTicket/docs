@@ -75,6 +75,7 @@ Each capability has its own page, written in the same shape: definition, precond
 
 | Capability | NDC messages | Worked example |
 |---|---|---|
+| [Get airline profile](capabilities/get-airline-profile.md) | `AirlineProfile` | — (single message) |
 | [Shop for flights](capabilities/shop-for-flights.md) | `AirShopping` | [WE-1](worked-examples/we-1-create-and-confirm-an-on-hold-booking.md) |
 | [Price an offer](capabilities/price-an-offer.md) | `OfferPrice` | [WE-1](worked-examples/we-1-create-and-confirm-an-on-hold-booking.md) |
 | [Shop for ancillary services](capabilities/shop-for-ancillary-services.md) | `ServiceList` | [WE-8](worked-examples/we-8-add-a-seat-or-service-before-payment-by-offer.md), [WE-10](worked-examples/we-10-add-a-service-to-an-existing-order-by-order.md) |
@@ -256,4 +257,5 @@ The NDC API is the same for every airline, but the passenger service system behi
 | Error codes | [NDC API → Error Code](NDC_API.md#error-code) |
 | Payment types and PCI Proxy card payment | [Order Change → payment](endpoints/orderchange.md#orderchange-payment-on-hold) |
 | IATA schema distribution 21.3 and GO7 gateway package v21.3.5 | [Download](/docs/assets/resources/NDC-xmlbeans-21.3.5.zip) |
+| `AirlineProfile` schemas (not in the package above) | [IATA_AirlineProfileRQ.xsd](/docs/assets/resources/IATA_AirlineProfileRQ.xsd) · [IATA_AirlineProfileRS.xsd](/docs/assets/resources/IATA_AirlineProfileRS.xsd) |
 | Postman collection | [Collection](/docs/assets/resources/NDC_postman_collection.json) · [Environment](/docs/assets/resources/NDC.postman_environment.json) · [VI environment](/docs/assets/resources/NDC-VI.postman_environment.json) (folder `UseCase - VI`) |

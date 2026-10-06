@@ -29,6 +29,7 @@ title: NDC API Generic Integration Guide
 
 | Change Description                                                                                              | Changed By              | Change Date |
 |-----------------------------------------------------------------------------------------------------------------|-------------------------|-------------|
+| Added `AirlineProfile` (IATA NDC 21.3): airport pairs each airline serves, by airline (`OwnerCode`)             | Andrii Denysenko        | 2026-10-06  |
 | Added Postman folder `UseCase - VI` and the `NDC-VI` environment for Virtual Interline (GH-8184)              | Apiluck Dokkaew         | 2026-10-06  |
 | Name change: one OrderChange with payment (no separate payment OrderChange) (GH-8162)                            | Naphachara Rattanawilai | 2026-09-24  |
 | Cancel booking flow has no OrderQuote; removed OrderQuote cancel section (GH-8162)                             | Naphachara Rattanawilai | 2026-09-24  |
@@ -148,6 +149,8 @@ Scenario flow (**NDC Gateway — NDC Workflow Process, ancillaries**).
 
 Use IATA **OffersAndOrders** message XML (`IATA_AirShoppingRQ`, `IATA_OrderCreateRQ`, etc.) as shown in each endpoint document. Official XSDs are published by IATA for distribution **21.3**; align payloads with the examples in [`ndc/endpoints/`](endpoints/airshopping.md).
 
+**Airline Profile schemas.** The package below does not contain the [`AirlineProfile`](endpoints/airlineprofile.md) message schemas. Download [IATA_AirlineProfileRQ.xsd](/docs/assets/resources/IATA_AirlineProfileRQ.xsd) and [IATA_AirlineProfileRS.xsd](/docs/assets/resources/IATA_AirlineProfileRS.xsd); they import `IATA_OffersAndOrdersCommonTypes.xsd` from the package.
+
 # NDC XML package
 [Download the IATA schema distribution 21.3 package used by GO7 gateway v21.3.5](/docs/assets/resources/NDC-xmlbeans-21.3.5.zip)
 
@@ -220,12 +223,16 @@ When `CabinType` is present on AirShopping, IATA NDC 21.3 requires `PrefLevel/Pr
 
 Same pattern as **[OTA for Reservation workflow](../ota/OTA_API.md#ota-for-reservation-workflow)**: this section is an **index only**. Each **step** links to the endpoint reference page where requests, responses, and scenario anchors live. See **[HTTP headers and authentication](#http-headers)**.
 
-Typical chain: **AirShopping → OfferPrice → OrderCreate**, then **OrderRetrieve** / **OrderReshop** / **OrderQuote** / **OrderChange** as needed (see [Booking and servicing scenarios](#booking-and-servicing-scenarios)). Ancillaries by offer: **AirShopping → SeatAvailability and/or ServiceList → OfferPrice** (flight + selected extras) → **OrderCreate** (instant pay). Ancillaries by order: create the order first, then **SeatAvailability** / **ServiceList** (`OrderRequest`) → **OrderQuote** → **OrderChange** → **OrderRetrieve** (see [Ancillary seat and service scenarios](#ancillary-seat-and-service-scenarios)). After any **OrderChange**, call **OrderRetrieve** before the next process and use the latest **PaxID** values.
+Optionally start with **AirlineProfile** to list the airport pairs an airline serves. Typical chain: **AirShopping → OfferPrice → OrderCreate**, then **OrderRetrieve** / **OrderReshop** / **OrderQuote** / **OrderChange** as needed (see [Booking and servicing scenarios](#booking-and-servicing-scenarios)). Ancillaries by offer: **AirShopping → SeatAvailability and/or ServiceList → OfferPrice** (flight + selected extras) → **OrderCreate** (instant pay). Ancillaries by order: create the order first, then **SeatAvailability** / **ServiceList** (`OrderRequest`) → **OrderQuote** → **OrderChange** → **OrderRetrieve** (see [Ancillary seat and service scenarios](#ancillary-seat-and-service-scenarios)). After any **OrderChange**, call **OrderRetrieve** before the next process and use the latest **PaxID** values.
 
 | | Production-style base | Message path pattern |
 |--|------------------------|----------------------|
 | Offers & Orders API | `https://go7-api-gateway.prod.go7.io/ndc-gateway` | `/v21.3.5/<MessageName>` |
 
+- **0 — [Airline Profile](endpoints/airlineprofile.md)** (optional) — `POST …/AirlineProfile` · airport pairs each airline serves, before **AirShopping**
+  - [All profiles](endpoints/airlineprofile.md#airlineprofile-all)
+  - [By airline](endpoints/airlineprofile.md#airlineprofile-by-owner)
+  - [Several airlines](endpoints/airlineprofile.md#airlineprofile-several-owners)
 - **1 — [Air Shopping](endpoints/airshopping.md)** — `POST …/AirShopping` · `IATA_AirShoppingRQ` / `RS`
   - [One-way trip](endpoints/airshopping.md#airshopping-one-way-trip)
   - [Round trip](endpoints/airshopping.md#airshopping-round-trip)
@@ -274,4 +281,4 @@ curl -X POST "https://go7-api-gateway.prod.go7.io/ndc-gateway/v21.3.5/<MessageNa
   --data-binary @request.xml
 ```
 
-Replace `<MessageName>` with `AirShopping`, `OfferPrice`, `OrderCreate`, etc.
+Replace `<MessageName>` with `AirlineProfile`, `AirShopping`, `OfferPrice`, `OrderCreate`, etc.
