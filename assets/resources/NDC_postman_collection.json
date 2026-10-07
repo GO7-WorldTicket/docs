@@ -18569,6 +18569,56 @@
           }
         }
       ]
+    },
+    {
+      "name": "AirlineProfile",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "x-SalesChannel",
+            "value": "{{x-saleschannel}}",
+            "type": "text"
+          },
+          {
+            "key": "x-tenant",
+            "value": "{{tenant}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/xml"
+          },
+          {
+            "key": "x-api-key",
+            "value": "{{x-api-key}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<IATA_AirlineProfileRQ xmlns=\"http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage\"\n                       xmlns:cns=\"http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes\">\n    <DistributionChain>\n        <cns:DistributionChainLink>\n            <cns:Ordinal>1</cns:Ordinal>\n            <cns:OrgRole>Seller</cns:OrgRole>\n            <cns:ParticipatingOrg>\n                <cns:Name>Travel Agency XYZ123511</cns:Name>\n                <cns:OrgID>SELLER123</cns:OrgID>\n            </cns:ParticipatingOrg>\n        </cns:DistributionChainLink>\n    </DistributionChain>\n    <PayloadAttributes>\n        <cns:CorrelationID>AP-001-2026</cns:CorrelationID>\n        <cns:VersionNumber>21.3</cns:VersionNumber>\n    </PayloadAttributes>\n    <Request>\n        <cns:AirlineProfileFilterCriteria>\n            <cns:AllProfilesInd>true</cns:AllProfilesInd>\n        </cns:AirlineProfileFilterCriteria>\n    </Request>\n</IATA_AirlineProfileRQ>",
+          "options": {
+            "raw": {
+              "language": "xml"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{ndc-gateway-url}}/v21.3.5/AirlineProfile",
+          "host": [
+            "{{ndc-gateway-url}}"
+          ],
+          "path": [
+            "v21.3.5",
+            "AirlineProfile"
+          ]
+        }
+      },
+      "response": []
     }
   ],
   "event": [
