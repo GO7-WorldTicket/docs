@@ -171,8 +171,6 @@ Payment is sent in `PaymentFunctions` — on `OrderCreate` to pay at booking ([W
 | Payment type | `PaymentTypeCode` | Send to | Reference |
 |---|---|---|---|
 | Cash | `CA` (`OfflinePayment`) | NDC Gateway | [Order Create → Instant pay](endpoints/ordercreate.md#ordercreate-instant-pay), [Order Change → cash](endpoints/orderchange.md#orderchange-payment-cash) |
-| Debit | `DC` (`OfflinePayment`) | NDC Gateway | [Order Change → debit](endpoints/orderchange.md#orderchange-payment-debit) |
-| Credit | `CC` (`OfflinePayment`) | NDC Gateway | [Order Change → credit](endpoints/orderchange.md#orderchange-payment-credit) |
 | Debit/credit account | `OT` (`OfflinePayment`) | NDC Gateway | [Order Change → debit/credit account](endpoints/orderchange.md#orderchange-payment-debit-credit-account) |
 | Credit card, online with 3DS | `PaymentCard` | PCI Proxy (Filter Push URL) | [Order Change → credit card (PCI Proxy)](endpoints/orderchange.md#orderchange-payment-credit-card) |
 
