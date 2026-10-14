@@ -43,6 +43,8 @@ See [Authentication](../NDC_API.md#http-headers) for **`x-tenant`**, **`x-SalesC
 
 The request body must be a valid `IATA_OrderReshopRQ` XML document following IATA NDC v21.3.5 standard.
 
+**Partner keys:** `DistributionChain` must name you: your Partner ID as `ParticipatingOrg/OrgID`, with the `OrgRole` your agreement allows. See [Partner identification (DistributionChain)](../NDC_API.md#partner-identification-distributionchain).
+
 ### Rebook with New Travel Date
 {: #orderreshop-rebook}
 
@@ -58,7 +60,7 @@ The request body must be a valid `IATA_OrderReshopRQ` XML document following IAT
             &lt;OrgRole&gt;Seller&lt;/OrgRole&gt;
             &lt;ParticipatingOrg&gt;
                 &lt;Name&gt;Travel Agency XYZ&lt;/Name&gt;
-                &lt;OrgID&gt;Seller123&lt;/OrgID&gt;
+                &lt;OrgID&gt;7f9c2b1e-3a4d-4e5f-8a6b-1c2d3e4f5a6b&lt;/OrgID&gt;
             &lt;/ParticipatingOrg&gt;
         &lt;/DistributionChainLink&gt;
     &lt;/DistributionChain&gt;
@@ -129,7 +131,7 @@ Used when updating passenger names on an existing order. The request follows the
             &lt;cns:OrgRole&gt;Seller&lt;/cns:OrgRole&gt;
             &lt;cns:ParticipatingOrg&gt;
                 &lt;cns:Name&gt;Travel Agency XYZ123511&lt;/cns:Name&gt;
-                &lt;cns:OrgID&gt;SELLER123&lt;/cns:OrgID&gt;
+                &lt;cns:OrgID&gt;7f9c2b1e-3a4d-4e5f-8a6b-1c2d3e4f5a6b&lt;/cns:OrgID&gt;
             &lt;/cns:ParticipatingOrg&gt;
         &lt;/cns:DistributionChainLink&gt;
     &lt;/DistributionChain&gt;
@@ -170,7 +172,7 @@ Set the passenger fields that need to change under **`UpdatePaxName`**. The resp
             &lt;OrgRole&gt;Seller&lt;/OrgRole&gt;
             &lt;ParticipatingOrg&gt;
                 &lt;Name&gt;Travel Agency XYZ&lt;/Name&gt;
-                &lt;OrgID&gt;Seller123&lt;/OrgID&gt;
+                &lt;OrgID&gt;7f9c2b1e-3a4d-4e5f-8a6b-1c2d3e4f5a6b&lt;/OrgID&gt;
             &lt;/ParticipatingOrg&gt;
         &lt;/DistributionChainLink&gt;
     &lt;/DistributionChain&gt;

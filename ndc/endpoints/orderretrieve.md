@@ -38,6 +38,8 @@ See [Authentication](../NDC_API.md#http-headers) for **`x-tenant`**, **`x-SalesC
 
 The request body must be a valid `IATA_OrderRetrieveRQ` XML document following IATA NDC v21.3.5 standard.
 
+**Partner keys:** `DistributionChain` must name you: your Partner ID as `ParticipatingOrg/OrgID`, with the `OrgRole` your agreement allows. See [Partner identification (DistributionChain)](../NDC_API.md#partner-identification-distributionchain).
+
 Provide either `OrderID` or `BookingID`. If both are present, the gateway uses `OrderID`.
 
 ### OrderRetrieve — By Order ID
@@ -58,7 +60,7 @@ Use `OrderID` for direct retrieval when you have the order identifier from `Orde
             &lt;ns2:OrgRole&gt;Seller&lt;/ns2:OrgRole&gt;
             &lt;ns2:ParticipatingOrg&gt;
                 &lt;ns2:Name&gt;Travel Agency XYZ&lt;/ns2:Name&gt;
-                &lt;ns2:OrgID&gt;SELLER123&lt;/ns2:OrgID&gt;
+                &lt;ns2:OrgID&gt;7f9c2b1e-3a4d-4e5f-8a6b-1c2d3e4f5a6b&lt;/ns2:OrgID&gt;
             &lt;/ns2:ParticipatingOrg&gt;
         &lt;/ns2:DistributionChainLink&gt;
     &lt;/DistributionChain&gt;
@@ -98,7 +100,7 @@ Use `BookingID` when retrieving by booking reference / record locator.
             &lt;ns2:OrgRole&gt;Seller&lt;/ns2:OrgRole&gt;
             &lt;ns2:ParticipatingOrg&gt;
                 &lt;ns2:Name&gt;Travel Agency XYZ&lt;/ns2:Name&gt;
-                &lt;ns2:OrgID&gt;SELLER123&lt;/ns2:OrgID&gt;
+                &lt;ns2:OrgID&gt;7f9c2b1e-3a4d-4e5f-8a6b-1c2d3e4f5a6b&lt;/ns2:OrgID&gt;
             &lt;/ns2:ParticipatingOrg&gt;
         &lt;/ns2:DistributionChainLink&gt;
     &lt;/DistributionChain&gt;

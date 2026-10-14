@@ -44,6 +44,8 @@ See [Authentication](../NDC_API.md#http-headers) for **`x-tenant`**, **`x-SalesC
 
 The request body must be a valid `IATA_OrderChangeRQ` XML document following IATA NDC v21.3.5 standard.
 
+**Partner keys:** `DistributionChain` must name you: your Partner ID as `ParticipatingOrg/OrgID`, with the `OrgRole` your agreement allows. See [Partner identification (DistributionChain)](../NDC_API.md#partner-identification-distributionchain).
+
 ### Process Payment for On-Hold Booking
 {: #orderchange-payment-on-hold}
 <details>
@@ -59,7 +61,7 @@ The request body must be a valid `IATA_OrderChangeRQ` XML document following IAT
             &lt;OrgRole&gt;Seller&lt;/OrgRole&gt;
             &lt;ParticipatingOrg&gt;
                 &lt;Name&gt;Travel Agency XYZ&lt;/Name&gt;
-                &lt;OrgID&gt;SELLER123&lt;/OrgID&gt;
+                &lt;OrgID&gt;7f9c2b1e-3a4d-4e5f-8a6b-1c2d3e4f5a6b&lt;/OrgID&gt;
             &lt;/ParticipatingOrg&gt;
         &lt;/DistributionChainLink&gt;
     &lt;/DistributionChain&gt;
@@ -112,7 +114,7 @@ Use this pattern for the **order flow** when accepting a quoted seat offer and p
             &lt;cns:OrgRole&gt;Seller&lt;/cns:OrgRole&gt;
             &lt;cns:ParticipatingOrg&gt;
                 &lt;cns:Name&gt;Travel Agency XYZ&lt;/cns:Name&gt;
-                &lt;cns:OrgID&gt;Seller123&lt;/cns:OrgID&gt;
+                &lt;cns:OrgID&gt;7f9c2b1e-3a4d-4e5f-8a6b-1c2d3e4f5a6b&lt;/cns:OrgID&gt;
             &lt;/cns:ParticipatingOrg&gt;
         &lt;/cns:DistributionChainLink&gt;
     &lt;/DistributionChain&gt;
@@ -170,7 +172,7 @@ Use this pattern for the **order flow** when accepting a quoted ancillary offer 
             &lt;cns:OrgRole&gt;Seller&lt;/cns:OrgRole&gt;
             &lt;cns:ParticipatingOrg&gt;
                 &lt;cns:Name&gt;Travel Agency XYZ&lt;/cns:Name&gt;
-                &lt;cns:OrgID&gt;Seller123&lt;/cns:OrgID&gt;
+                &lt;cns:OrgID&gt;7f9c2b1e-3a4d-4e5f-8a6b-1c2d3e4f5a6b&lt;/cns:OrgID&gt;
             &lt;/cns:ParticipatingOrg&gt;
         &lt;/cns:DistributionChainLink&gt;
     &lt;/DistributionChain&gt;
@@ -293,7 +295,7 @@ Use this path for **online credit card** payment with 3DS. Post `IATA_OrderChang
             <ns2:OrgRole>Seller</ns2:OrgRole>
             <ns2:ParticipatingOrg>
                 <ns2:Name>Travel Agency XYZ</ns2:Name>
-                <ns2:OrgID>Seller123</ns2:OrgID>
+                <ns2:OrgID>7f9c2b1e-3a4d-4e5f-8a6b-1c2d3e4f5a6b</ns2:OrgID>
             </ns2:ParticipatingOrg>
         </ns2:DistributionChainLink>
     </DistributionChain>
@@ -357,7 +359,7 @@ Use this path for **online credit card** payment with 3DS. Post `IATA_OrderChang
             &lt;OrgRole&gt;Seller&lt;/OrgRole&gt;
             &lt;ParticipatingOrg&gt;
                 &lt;Name&gt;Travel Agency XYZ&lt;/Name&gt;
-                &lt;OrgID&gt;Seller123&lt;/OrgID&gt;
+                &lt;OrgID&gt;7f9c2b1e-3a4d-4e5f-8a6b-1c2d3e4f5a6b&lt;/OrgID&gt;
             &lt;/ParticipatingOrg&gt;
         &lt;/DistributionChainLink&gt;
     &lt;/DistributionChain&gt;

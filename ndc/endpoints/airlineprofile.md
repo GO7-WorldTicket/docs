@@ -38,6 +38,8 @@ See [Authentication](../NDC_API.md#http-headers) for **`x-tenant`**, **`x-SalesC
 
 The request body must be a valid `IATA_AirlineProfileRQ` XML document ([IATA_AirlineProfileRQ.xsd](/docs/assets/resources/IATA_AirlineProfileRQ.xsd)).
 
+**Partner keys:** `DistributionChain` must name you: your Partner ID as `ParticipatingOrg/OrgID`, with the `OrgRole` your agreement allows. See [Partner identification (DistributionChain)](../NDC_API.md#partner-identification-distributionchain).
+
 | Element | Occurs | Use |
 |---------|--------|-----|
 | `DistributionChain` | 1 | Same as on every NDC message. Each link needs `Ordinal`, `OrgRole` and `ParticipatingOrg/OrgID`. |
@@ -67,7 +69,7 @@ Use this mode to list every route without filtering by airline. The routes retur
             &lt;cns:OrgRole&gt;Seller&lt;/cns:OrgRole&gt;
             &lt;cns:ParticipatingOrg&gt;
                 &lt;cns:Name&gt;Travel Agency XYZ123511&lt;/cns:Name&gt;
-                &lt;cns:OrgID&gt;SELLER123&lt;/cns:OrgID&gt;
+                &lt;cns:OrgID&gt;7f9c2b1e-3a4d-4e5f-8a6b-1c2d3e4f5a6b&lt;/cns:OrgID&gt;
             &lt;/cns:ParticipatingOrg&gt;
         &lt;/cns:DistributionChainLink&gt;
     &lt;/DistributionChain&gt;
@@ -103,7 +105,7 @@ Use this mode to list every route of one airline.
             &lt;cns:OrgRole&gt;Seller&lt;/cns:OrgRole&gt;
             &lt;cns:ParticipatingOrg&gt;
                 &lt;cns:Name&gt;Travel Agency XYZ123511&lt;/cns:Name&gt;
-                &lt;cns:OrgID&gt;SELLER123&lt;/cns:OrgID&gt;
+                &lt;cns:OrgID&gt;7f9c2b1e-3a4d-4e5f-8a6b-1c2d3e4f5a6b&lt;/cns:OrgID&gt;
             &lt;/cns:ParticipatingOrg&gt;
         &lt;/cns:DistributionChainLink&gt;
     &lt;/DistributionChain&gt;
@@ -141,7 +143,7 @@ Repeat `AirlineProfileCriteria` to get the profiles of several airlines in one c
             &lt;cns:OrgRole&gt;Seller&lt;/cns:OrgRole&gt;
             &lt;cns:ParticipatingOrg&gt;
                 &lt;cns:Name&gt;Travel Agency XYZ123511&lt;/cns:Name&gt;
-                &lt;cns:OrgID&gt;SELLER123&lt;/cns:OrgID&gt;
+                &lt;cns:OrgID&gt;7f9c2b1e-3a4d-4e5f-8a6b-1c2d3e4f5a6b&lt;/cns:OrgID&gt;
             &lt;/cns:ParticipatingOrg&gt;
         &lt;/cns:DistributionChainLink&gt;
     &lt;/DistributionChain&gt;
@@ -254,6 +256,9 @@ Invalid request format, missing required fields, invalid codes, or no profile fo
 | Case | Code | TagText |
 |------|------|---------|
 | `DistributionChain` missing, or a link without `Ordinal`, `OrgRole` or `ParticipatingOrg/OrgID` | 13 | `Request.DistributionChain…` |
+| Partner key: no Active agreement | 12 | `Request.DistributionChain` |
+| Partner key: your Partner ID is not in `DistributionChain` | 12 | `Request.DistributionChain` |
+| Partner key: your link has the wrong `OrgRole` ([rules](../NDC_API.md#partner-identification-distributionchain)) | 12 | `Request.DistributionChain.DistributionChainLink[i].OrgRole` |
 | `Request` or `Request/AirlineProfileFilterCriteria` missing | 13 | `Request`, `Request.AirlineProfileFilterCriteria` |
 | `AirlineProfileCriteria` without `OwnerCode` | 13 | `Request.AirlineProfileFilterCriteria.AirlineProfileCriteria[i].OwnerCode` |
 | `OwnerCode` is not a valid IATA or ICAO airline code | 12 | `Request.AirlineProfileFilterCriteria.AirlineProfileCriteria[i].OwnerCode` |

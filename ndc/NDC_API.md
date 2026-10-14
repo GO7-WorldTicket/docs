@@ -24,11 +24,13 @@ title: NDC API Generic Integration Guide
   - [Document Type](#document-type)
 - [NDC for Offers & Orders workflow](#ndc-for-offers--orders-workflow)
   - [Basic request format (API key)](#basic-request-format-api-key)
+  - [Partner identification (DistributionChain)](#partner-identification-distributionchain)
 
 ## Change Log
 
 | Change Description                                                                                              | Changed By              | Change Date |
 |-----------------------------------------------------------------------------------------------------------------|-------------------------|-------------|
+| DistributionChain must identify the calling partner on every NDC message (GH-8269)                              | Naphachara Rattanawilai | 2026-10-14  |
 | Added `AirlineProfile` (IATA NDC 21.3): airport pairs each airline serves, by airline (`OwnerCode`)             | Andrii Denysenko        | 2026-10-06  |
 | Added Postman folder `UseCase - VI` and the `NDC-VI` environment for Virtual Interline (GH-8184)              | Apiluck Dokkaew         | 2026-10-06  |
 | Name change: one OrderChange with payment (no separate payment OrderChange) (GH-8162)                            | Naphachara Rattanawilai | 2026-09-24  |
@@ -219,6 +221,8 @@ When `CabinType` is present on AirShopping, IATA NDC 21.3 requires `PrefLevel/Pr
 | 916  | SYSTEM      | EDIFACT/XML version not supported    |
 | 305  | SECURITY    | Security/Audit Failure               |
 
+Codes 12 and 13 on `Request.DistributionChain` (partner keys) are explained in [Partner identification (DistributionChain)](#partner-identification-distributionchain).
+
 # NDC for Offers & Orders workflow
 
 Same pattern as **[OTA for Reservation workflow](../ota/OTA_API.md#ota-for-reservation-workflow)**: this section is an **index only**. Each **step** links to the endpoint reference page where requests, responses, and scenario anchors live. See **[HTTP headers and authentication](#http-headers)**.
@@ -282,3 +286,49 @@ curl -X POST "https://go7-api-gateway.prod.go7.io/ndc-gateway/v21.3.5/<MessageNa
 ```
 
 Replace `<MessageName>` with `AirlineProfile`, `AirShopping`, `OfferPrice`, `OrderCreate`, etc.
+
+## Partner identification (DistributionChain)
+{: #partner-identification-distributionchain}
+
+If your API key identifies a **partner**, every NDC message must name you in `DistributionChain`: `AirlineProfile`, `AirShopping`, `OfferPrice`, `OrderCreate`, `OrderRetrieve`, `OrderChange`, `OrderReshop`, `OrderQuote`, `ServiceList` and `SeatAvailability`. Tenant API keys (`x-api-key` + `x-tenant` + `x-SalesChannel`) that do not identify a partner are not affected.
+
+**Rules**
+
+- Put your **Partner ID** (UUID) in a `DistributionChainLink` as `ParticipatingOrg/OrgID`. It is compared ignoring upper/lower case and surrounding spaces.
+- That link's `OrgRole` must match your agreement:
+
+| Your agreement | `OrgRole` on your link |
+|----------------|------------------------|
+| Sales | `Seller` |
+| Network | `Distributor` |
+| Sales and Network | `Seller` or `Distributor` |
+| Marketplace / Tour Operator only | Any (only the Active-agreement check applies) |
+
+- You need at least one **Active** agreement with an airline you may sell.
+- Links with `OrgRole` `Carrier` never count as your link. `Name` is not checked.
+- Your agreements always come from your API key. Nothing in the request changes which agreements or offers are used.
+
+```xml
+<DistributionChain>
+    <cns:DistributionChainLink>
+        <cns:Ordinal>1</cns:Ordinal>
+        <cns:OrgRole>Seller</cns:OrgRole>
+        <cns:ParticipatingOrg>
+            <cns:Name>Your company</cns:Name>
+            <cns:OrgID>7f9c2b1e-3a4d-4e5f-8a6b-1c2d3e4f5a6b</cns:OrgID>
+        </cns:ParticipatingOrg>
+    </cns:DistributionChainLink>
+</DistributionChain>
+```
+
+**Errors** — checked in this order; each returns **HTTP 400** with an `Error` in that message's response (for example `IATA_AirShoppingRS`).
+
+| Case | Code | DescText | TagText |
+|------|------|----------|---------|
+| `DistributionChain` missing | 13 | `Missing required field: Request.DistributionChain` | `Request.DistributionChain` |
+| No `DistributionChainLink` | 13 | `Missing required field: Request.DistributionChain.DistributionChainLink` | `Request.DistributionChain.DistributionChainLink` |
+| No Active agreement with any airline you may sell | 12 | `Partner has no active agreement` | `Request.DistributionChain` |
+| Your Partner ID is not in a non-`Carrier` link | 12 | `DistributionChain does not contain the authenticated partner` | `Request.DistributionChain` |
+| Your link has the wrong `OrgRole` | 12 | `OrgRole must be Seller for the authenticated partner` (or `Distributor`, or `Seller or Distributor`, per your agreement) | `Request.DistributionChain.DistributionChainLink[i].OrgRole` |
+
+If your agreements cannot be checked at that moment, the API returns that HTTP status with Code **911** (system error). The request is not processed; retry later.

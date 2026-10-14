@@ -35,6 +35,8 @@ See [Authentication](../NDC_API.md#http-headers) for **`x-tenant`**, **`x-SalesC
 ## Request Body
 
 The request body must be a valid `IATA_OrderCreateRQ` XML document following IATA NDC v21.3.5 standard.
+
+**Partner keys:** `DistributionChain` must name you: your Partner ID as `ParticipatingOrg/OrgID`, with the `OrgRole` your agreement allows. See [Partner identification (DistributionChain)](../NDC_API.md#partner-identification-distributionchain).
 - Each `<PaxList>`/`<Pax>` must be ordered by PassengerType in a strictly sequential ADT, CHD, INF
 - Passenger `<PaxID>`'s number must be consecutive numbers
 
@@ -100,7 +102,7 @@ See **[Offer Price](offerprice.md)** for how the composite `OfferID` is produced
          &lt;ns2:OrgRole&gt;Seller&lt;/ns2:OrgRole&gt;
          &lt;ns2:ParticipatingOrg&gt;
             &lt;ns2:Name&gt;Travel Agency XYZ&lt;/ns2:Name&gt;
-            &lt;ns2:OrgID&gt;Seller123&lt;/ns2:OrgID&gt;
+            &lt;ns2:OrgID&gt;7f9c2b1e-3a4d-4e5f-8a6b-1c2d3e4f5a6b&lt;/ns2:OrgID&gt;
          &lt;/ns2:ParticipatingOrg&gt;
       &lt;/ns2:DistributionChainLink&gt;
    &lt;/DistributionChain&gt;
@@ -254,7 +256,7 @@ Omit **`PaymentFunctions`** for pay-later: the order commonly returns **`DRAFT`*
          &lt;ns2:OrgRole&gt;Seller&lt;/ns2:OrgRole&gt;
          &lt;ns2:ParticipatingOrg&gt;
             &lt;ns2:Name&gt;Travel Agency XYZ&lt;/ns2:Name&gt;
-            &lt;ns2:OrgID&gt;Seller123&lt;/ns2:OrgID&gt;
+            &lt;ns2:OrgID&gt;7f9c2b1e-3a4d-4e5f-8a6b-1c2d3e4f5a6b&lt;/ns2:OrgID&gt;
          &lt;/ns2:ParticipatingOrg&gt;
       &lt;/ns2:DistributionChainLink&gt;
    &lt;/DistributionChain&gt;
@@ -418,7 +420,7 @@ When **OfferPrice** returned a composite `OfferID` (flight priced with seat and/
          &lt;ns2:OrgRole&gt;Seller&lt;/ns2:OrgRole&gt;
          &lt;ns2:ParticipatingOrg&gt;
             &lt;ns2:Name&gt;Travel Agency XYZ&lt;/ns2:Name&gt;
-            &lt;ns2:OrgID&gt;Seller123&lt;/ns2:OrgID&gt;
+            &lt;ns2:OrgID&gt;7f9c2b1e-3a4d-4e5f-8a6b-1c2d3e4f5a6b&lt;/ns2:OrgID&gt;
          &lt;/ns2:ParticipatingOrg&gt;
       &lt;/ns2:DistributionChainLink&gt;
    &lt;/DistributionChain&gt;

@@ -7,7 +7,7 @@ title: Get airline profile
 
 **Definition.** Get the airline profile of one or more airlines: the origin and destination airport pairs each airline serves. Use it to fill origin and destination pickers, or to check that a pair is served before you search for flights.
 
-**Preconditions.** A valid API key, tenant and sales channel.
+**Preconditions.** A valid API key, tenant and sales channel. With a partner key: an Active agreement, and your Partner ID in `DistributionChain` with the role your agreement allows ([Partner identification](../NDC_API.md#partner-identification-distributionchain)).
 
 **Process.** `AirlineProfile`
 
