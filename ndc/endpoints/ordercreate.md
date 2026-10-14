@@ -960,7 +960,7 @@ Returns an `IATA_OrderViewRS` XML document with order confirmation details.
          &lt;OrgRole&gt;Seller&lt;/OrgRole&gt;
          &lt;ParticipatingOrg&gt;
             &lt;Name&gt;Travel Agency XYZ&lt;/Name&gt;
-            &lt;OrgID&gt;Seller123&lt;/OrgID&gt;
+            &lt;OrgID&gt;7f9c2b1e-3a4d-4e5f-8a6b-1c2d3e4f5a6b&lt;/OrgID&gt;
          &lt;/ParticipatingOrg&gt;
       &lt;/DistributionChainLink&gt;
    &lt;/ns2:DistributionChain&gt;
