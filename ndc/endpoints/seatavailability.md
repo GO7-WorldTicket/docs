@@ -21,7 +21,7 @@ The response returns **`SeatMap`** plus an **`ALaCarteOffer`** containing seat o
 
 **Partner note — multiple `OfferItemRefID` per seat:** IATA NDC 21.3 allows unbounded `OfferItemRefID` on each `Seat`. A physical seat may therefore list **one or more** `OfferItemRefID` values when different commercial offers apply (for example Adult vs Child eligibility or different prices). Select the `ALaCarteOffer/OfferItem` whose `Eligibility/PaxRefID` matches the passenger, then pass that `OfferItemRefID` into **OfferPrice** / **OrderQuote** / **OrderChange**. Conversely, several seats may share one `OfferItem` when price and conditions are identical.
 
-See [Authentication](../NDC_API.md#http-headers) for **`x-tenant`**, **`x-SalesChannel`**, and **`x-api-key`**.
+See [Authentication](../NDC_API.md#http-headers) for **`x-api-key`**.
 
 ## Request
 
@@ -29,16 +29,16 @@ See [Authentication](../NDC_API.md#http-headers) for **`x-tenant`**, **`x-SalesC
 
 | Header | Purpose | Format | Required | Example |
 |--------|---------|--------|----------|---------|
-| `x-tenant` | Identifies the tenant/organization context for the request | String (e.g., `tenant-a`, `test-qa-rc`) | Yes | `x-tenant: test-qa-rc` |
-| `x-SalesChannel` | Specifies the sales channel (maps to account IDs per tenant configuration) | String (`DIRECT_OTA` or `OTA_NETWORK`) | Yes | `x-SalesChannel: DIRECT_OTA` |
 | `x-api-key` | API key for authenticating the request | String | Yes | `x-api-key: {x-api-key}` |
 | `Content-Type` | Request body media type | `application/xml` or `application/xml;charset=UTF-8` | Yes | `Content-Type: application/xml` |
 
-**Note:** The `x-SalesChannel` value is used to determine the account ID based on tenant configuration.
+**Note:** The `x-api-key` alone identifies the caller; the gateway resolves the account from it.
 
 ## Request Body
 
 The request body must be a valid `IATA_SeatAvailabilityRQ` XML document following IATA NDC v21.3.5 standard.
+
+**Partner keys:** `DistributionChain` must name you: your Partner ID as `ParticipatingOrg/OrgID`, with the `OrgRole` your agreement allows. See [Partner identification (DistributionChain)](../NDC_API.md#partner-identification-distributionchain).
 
 Provide exactly one of **`OfferRequest`** or **`OrderRequest`** inside **`SeatAvailCoreRequest`**.
 
@@ -60,7 +60,7 @@ Use this mode when you already have an offer from **AirShopping** and need the s
             &lt;cns:OrgRole&gt;Seller&lt;/cns:OrgRole&gt;
             &lt;cns:ParticipatingOrg&gt;
                 &lt;cns:Name&gt;Travel Agency XYZ123511&lt;/cns:Name&gt;
-                &lt;cns:OrgID&gt;SELLER123&lt;/cns:OrgID&gt;
+                &lt;cns:OrgID&gt;7f9c2b1e-3a4d-4e5f-8a6b-1c2d3e4f5a6b&lt;/cns:OrgID&gt;
             &lt;/cns:ParticipatingOrg&gt;
         &lt;/cns:DistributionChainLink&gt;
     &lt;/DistributionChain&gt;
@@ -100,7 +100,7 @@ Use this mode for an existing booking when seat availability must be resolved ag
             &lt;cns:OrgRole&gt;Seller&lt;/cns:OrgRole&gt;
             &lt;cns:ParticipatingOrg&gt;
                 &lt;cns:Name&gt;Travel Agency XYZ123511&lt;/cns:Name&gt;
-                &lt;cns:OrgID&gt;SELLER123&lt;/cns:OrgID&gt;
+                &lt;cns:OrgID&gt;7f9c2b1e-3a4d-4e5f-8a6b-1c2d3e4f5a6b&lt;/cns:OrgID&gt;
             &lt;/cns:ParticipatingOrg&gt;
         &lt;/cns:DistributionChainLink&gt;
     &lt;/DistributionChain&gt;
@@ -368,8 +368,6 @@ Invalid request format or missing required fields.
 
     ```bash
     curl -X POST https://go7-api-gateway.prod.go7.io/ndc-gateway/v21.3.5/SeatAvailability \
-      -H "x-tenant: tenant-a" \
-      -H "x-SalesChannel: DIRECT_OTA" \
       -H "x-api-key: your-api-key-here" \
       -H "Content-Type: application/xml" \
       -d @seatavailability-request-offer.xml

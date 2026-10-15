@@ -49,15 +49,11 @@ Message path pattern: `…/v21.3.5/<MessageName>` — for example `POST …/v21.
 
 | Header | Purpose |
 |---|---|
-| `x-tenant` | Tenant identifier for the airline you are working with |
-| `x-SalesChannel` | Sales channel: `DIRECT_OTA` or `OTA_NETWORK` |
-| `x-api-key` | Your partner API key |
+| `x-api-key` | Your partner API key (required) |
 | `Content-Type` | `application/xml` |
 
 ```bash
 curl -X POST "https://go7-api-gateway.prod.go7.io/ndc-gateway/v21.3.5/<MessageName>" \
-  -H "x-tenant: {tenant}" \
-  -H "x-SalesChannel: {salesChannel}" \
   -H "x-api-key: {x-api-key}" \
   -H "Content-Type: application/xml" \
   --data-binary @request.xml
@@ -67,7 +63,9 @@ curl -X POST "https://go7-api-gateway.prod.go7.io/ndc-gateway/v21.3.5/<MessageNa
 
 **How your API key works.** One key represents your partnership, not a single airline. The platform resolves which airlines to search from your active agreements, so you do not put an airline on the request.
 
-**Try it in Postman.** Download the [Postman collection](/docs/assets/resources/NDC_postman_collection.json) and [environment](/docs/assets/resources/NDC.postman_environment.json), then set `x-api-key`, `x-saleschannel`, `tenant` and `ndc-gateway-url`. Each worked example below names the `UseCase/…` folder that runs it. The collection also carries extra request variants kept for experimentation; the sequences documented in this guide are the supported ones. For a **Virtual Interline** sale use the `UseCase - VI` folder with the [NDC-VI environment](/docs/assets/resources/NDC-VI.postman_environment.json) and your VI API key; its folder description says which use cases are available on VI and which are not.
+**Name yourself in every request.** Every NDC message must carry your Partner ID in `DistributionChain`, as `ParticipatingOrg/OrgID`. Use `OrgRole` `Seller` for a Sales agreement and `Distributor` for a Network agreement (either if you have both). This only identifies you: your agreements always come from your API key, never from the request. Details and errors: [NDC API → Partner identification (DistributionChain)](NDC_API.md#partner-identification-distributionchain).
+
+**Try it in Postman.** Download the [Postman collection](/docs/assets/resources/NDC_postman_collection.json) and [environment](/docs/assets/resources/NDC.postman_environment.json), then set `x-api-key` and `ndc-gateway-url`. Each worked example below names the `UseCase/…` folder that runs it. The collection also carries extra request variants kept for experimentation; the sequences documented in this guide are the supported ones. For a **Virtual Interline** sale use the `UseCase - VI` folder with the [NDC-VI environment](/docs/assets/resources/NDC-VI.postman_environment.json) and your VI API key; its folder description says which use cases are available on VI and which are not.
 
 ## Capabilities
 
@@ -209,6 +207,7 @@ Do not skip `OrderQuote` or `OrderChange` because the price is zero. Only the pa
 
 | Rule | Why it matters |
 |---|---|
+| **Your Partner ID must appear in `DistributionChain` on every message**, with the `OrgRole` your agreement allows ([details](NDC_API.md#partner-identification-distributionchain)). | Otherwise every message returns HTTP 400 with error 12. |
 | **Refresh passenger and item references after `OrderChange`.** Before a later request reuses `PaxID` or related item references, call `OrderRetrieve` and read the current values. | These identifiers may change when an order is modified. A payment-only follow-up that uses the latest `OrderViewRS`, `OrderID` and `PaymentFunctions` does not reuse `PaxID`. |
 | **Insert `OrderRetrieve` between changes that reuse passenger or item references.** For example add a service, retrieve, then start another servicing flow. | Reusing identifiers from an earlier `OrderCreateRS` or `OrderChangeRS` can make the next request fail or target the wrong item. |
 | **`OrderQuote` is part of the flows that use it — it is not an optional extra step.** Rebooking and adding ancillaries by order require it. Name change and cancellation — whole booking or segment — do not use it at all. | Sending an `OrderQuote` a flow does not use, or skipping one it requires, makes the flow fail. |

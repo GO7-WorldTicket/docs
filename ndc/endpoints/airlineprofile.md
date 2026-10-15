@@ -21,7 +21,7 @@ The Airline Profile API returns the IATA NDC airline profile of each airline: th
 
 The response returns one **`AirlineProfile`** per airline, with one **`AirlineProfileDataItem`** per origin and destination airport pair.
 
-See [Authentication](../NDC_API.md#http-headers) for **`x-tenant`**, **`x-SalesChannel`**, and **`x-api-key`**.
+See [Authentication](../NDC_API.md#http-headers) for **`x-api-key`**.
 
 ## Request
 
@@ -29,14 +29,14 @@ See [Authentication](../NDC_API.md#http-headers) for **`x-tenant`**, **`x-SalesC
 
 | Header | Purpose | Format | Required | Example |
 |--------|---------|--------|----------|---------|
-| `x-tenant` | Identifies the tenant/organization context for the request | String (e.g., `tenant-a`, `test-qa-rc`) | Yes | `x-tenant: test-qa-rc` |
-| `x-SalesChannel` | Specifies the sales channel; only routes sold in this channel are returned | String (`DIRECT_OTA` or `OTA_NETWORK`) | Yes | `x-SalesChannel: DIRECT_OTA` |
 | `x-api-key` | API key for authenticating the request | String | Yes | `x-api-key: {x-api-key}` |
 | `Content-Type` | Request body media type | `application/xml` or `application/xml;charset=UTF-8` | Yes | `Content-Type: application/xml` |
 
 ## Request Body
 
 The request body must be a valid `IATA_AirlineProfileRQ` XML document ([IATA_AirlineProfileRQ.xsd](/docs/assets/resources/IATA_AirlineProfileRQ.xsd)).
+
+**Partner keys:** `DistributionChain` must name you: your Partner ID as `ParticipatingOrg/OrgID`, with the `OrgRole` your agreement allows. See [Partner identification (DistributionChain)](../NDC_API.md#partner-identification-distributionchain).
 
 | Element | Occurs | Use |
 |---------|--------|-----|
@@ -52,7 +52,7 @@ Without `AirlineProfileCriteria` (or with `AllProfilesInd` = `true`) no airline 
 ### AirlineProfile — All profiles
 {: #airlineprofile-all}
 
-Use this mode to list every route without filtering by airline. The routes returned are those available for the tenant the request is made for (`x-tenant`) in your sales channel (`x-SalesChannel`). An empty `AirlineProfileFilterCriteria` gives the same result.
+Use this mode to list every route without filtering by airline. The routes returned are those available to your API key in its sales channel. An empty `AirlineProfileFilterCriteria` gives the same result.
 
 <details>
 <summary>Request Payload</summary>
@@ -67,7 +67,7 @@ Use this mode to list every route without filtering by airline. The routes retur
             &lt;cns:OrgRole&gt;Seller&lt;/cns:OrgRole&gt;
             &lt;cns:ParticipatingOrg&gt;
                 &lt;cns:Name&gt;Travel Agency XYZ123511&lt;/cns:Name&gt;
-                &lt;cns:OrgID&gt;SELLER123&lt;/cns:OrgID&gt;
+                &lt;cns:OrgID&gt;7f9c2b1e-3a4d-4e5f-8a6b-1c2d3e4f5a6b&lt;/cns:OrgID&gt;
             &lt;/cns:ParticipatingOrg&gt;
         &lt;/cns:DistributionChainLink&gt;
     &lt;/DistributionChain&gt;
@@ -103,7 +103,7 @@ Use this mode to list every route of one airline.
             &lt;cns:OrgRole&gt;Seller&lt;/cns:OrgRole&gt;
             &lt;cns:ParticipatingOrg&gt;
                 &lt;cns:Name&gt;Travel Agency XYZ123511&lt;/cns:Name&gt;
-                &lt;cns:OrgID&gt;SELLER123&lt;/cns:OrgID&gt;
+                &lt;cns:OrgID&gt;7f9c2b1e-3a4d-4e5f-8a6b-1c2d3e4f5a6b&lt;/cns:OrgID&gt;
             &lt;/cns:ParticipatingOrg&gt;
         &lt;/cns:DistributionChainLink&gt;
     &lt;/DistributionChain&gt;
@@ -141,7 +141,7 @@ Repeat `AirlineProfileCriteria` to get the profiles of several airlines in one c
             &lt;cns:OrgRole&gt;Seller&lt;/cns:OrgRole&gt;
             &lt;cns:ParticipatingOrg&gt;
                 &lt;cns:Name&gt;Travel Agency XYZ123511&lt;/cns:Name&gt;
-                &lt;cns:OrgID&gt;SELLER123&lt;/cns:OrgID&gt;
+                &lt;cns:OrgID&gt;7f9c2b1e-3a4d-4e5f-8a6b-1c2d3e4f5a6b&lt;/cns:OrgID&gt;
             &lt;/cns:ParticipatingOrg&gt;
         &lt;/cns:DistributionChainLink&gt;
     &lt;/DistributionChain&gt;
@@ -254,6 +254,9 @@ Invalid request format, missing required fields, invalid codes, or no profile fo
 | Case | Code | TagText |
 |------|------|---------|
 | `DistributionChain` missing, or a link without `Ordinal`, `OrgRole` or `ParticipatingOrg/OrgID` | 13 | `Request.DistributionChain…` |
+| Partner key: no Active agreement | 12 | `Request.DistributionChain` |
+| Partner key: your Partner ID is not in `DistributionChain` | 12 | `Request.DistributionChain` |
+| Partner key: your link has the wrong `OrgRole` ([rules](../NDC_API.md#partner-identification-distributionchain)) | 12 | `Request.DistributionChain.DistributionChainLink[i].OrgRole` |
 | `Request` or `Request/AirlineProfileFilterCriteria` missing | 13 | `Request`, `Request.AirlineProfileFilterCriteria` |
 | `AirlineProfileCriteria` without `OwnerCode` | 13 | `Request.AirlineProfileFilterCriteria.AirlineProfileCriteria[i].OwnerCode` |
 | `OwnerCode` is not a valid IATA or ICAO airline code | 12 | `Request.AirlineProfileFilterCriteria.AirlineProfileCriteria[i].OwnerCode` |
@@ -302,8 +305,6 @@ Invalid request format, missing required fields, invalid codes, or no profile fo
 
     ```bash
     curl -X POST https://go7-api-gateway.prod.go7.io/ndc-gateway/v21.3.5/AirlineProfile \
-      -H "x-tenant: tenant-a" \
-      -H "x-SalesChannel: DIRECT_OTA" \
       -H "x-api-key: your-api-key-here" \
       -H "Content-Type: application/xml" \
       -d @airlineprofile-request.xml
@@ -313,5 +314,5 @@ Invalid request format, missing required fields, invalid codes, or no profile fo
 
 1. `IATA_AirlineProfileRQ` / `IATA_AirlineProfileRS` are standard IATA NDC 21.3 messages; validate them against [IATA_AirlineProfileRQ.xsd](/docs/assets/resources/IATA_AirlineProfileRQ.xsd) and [IATA_AirlineProfileRS.xsd](/docs/assets/resources/IATA_AirlineProfileRS.xsd).
 2. Send `OwnerCode` to get the profiles of specific airlines; without it the routes returned depend on the tenant the request is made for.
-3. Routes are filtered by the `x-SalesChannel` header: a route that is not sold in that channel is not returned.
+3. Routes are filtered by the sales channel of your API key: a route that is not sold in that channel is not returned.
 4. A route is an airport pair, not a flight. Use **AirShopping** for dates, flights, connections and prices.

@@ -17,7 +17,7 @@ The Order Create API creates a new booking order based on selected offers from a
 
 **Step 3** ([workflow index](../NDC_API.md#ndc-for-offers--orders-workflow)). `POST …/OrderCreate` · **`CreateOrder`** → **`AcceptSelectedQuotedOfferList`** using **`OfferRefID`** / **`OfferItemRefID`** / **`OwnerCode`** / **`PaxRefID`** from **OfferPriceRS** (for combined pricing, echo **`OfferID`** unchanged — it may be a colon-separated composite). Scenarios: **[`#ordercreate-pay-later`](#ordercreate-pay-later)**, **[`#ordercreate-instant-pay`](#ordercreate-instant-pay)**, **[`#ordercreate-combined-offer`](#ordercreate-combined-offer)**.
 
-See [Authentication](../NDC_API.md#http-headers) for **`x-tenant`**, **`x-SalesChannel`**, and **`x-api-key`**.
+See [Authentication](../NDC_API.md#http-headers) for **`x-api-key`**.
 
 ## Request
 
@@ -25,16 +25,16 @@ See [Authentication](../NDC_API.md#http-headers) for **`x-tenant`**, **`x-SalesC
 
 | Header | Purpose | Format | Required | Example |
 |--------|---------|--------|----------|---------|
-| `x-tenant` | Identifies the tenant/organization context for the request | String (e.g., `tenant-a`, `test-qa-rc`) | Yes | `x-tenant: test-qa-rc` |
-| `x-SalesChannel` | Specifies the sales channel (maps to account IDs per tenant configuration) | String (`DIRECT_OTA` or `OTA_NETWORK`) | Yes | `x-SalesChannel: DIRECT_OTA` |
 | `x-api-key` | API key for authenticating the request | String | Yes | `x-api-key: {x-api-key}` |
 | `Content-Type` | Request body media type | `application/xml` or `application/xml;charset=UTF-8` | Yes | `Content-Type: application/xml` |
 
-**Note:** The `x-SalesChannel` value is used to determine the account ID based on tenant configuration.
+**Note:** The `x-api-key` alone identifies the caller; the gateway resolves the account from it.
 
 ## Request Body
 
 The request body must be a valid `IATA_OrderCreateRQ` XML document following IATA NDC v21.3.5 standard.
+
+**Partner keys:** `DistributionChain` must name you: your Partner ID as `ParticipatingOrg/OrgID`, with the `OrgRole` your agreement allows. See [Partner identification (DistributionChain)](../NDC_API.md#partner-identification-distributionchain).
 - Each `<PaxList>`/`<Pax>` must be ordered by PassengerType in a strictly sequential ADT, CHD, INF
 - Passenger `<PaxID>`'s number must be consecutive numbers
 
@@ -100,7 +100,7 @@ See **[Offer Price](offerprice.md)** for how the composite `OfferID` is produced
          &lt;ns2:OrgRole&gt;Seller&lt;/ns2:OrgRole&gt;
          &lt;ns2:ParticipatingOrg&gt;
             &lt;ns2:Name&gt;Travel Agency XYZ&lt;/ns2:Name&gt;
-            &lt;ns2:OrgID&gt;Seller123&lt;/ns2:OrgID&gt;
+            &lt;ns2:OrgID&gt;7f9c2b1e-3a4d-4e5f-8a6b-1c2d3e4f5a6b&lt;/ns2:OrgID&gt;
          &lt;/ns2:ParticipatingOrg&gt;
       &lt;/ns2:DistributionChainLink&gt;
    &lt;/DistributionChain&gt;
@@ -254,7 +254,7 @@ Omit **`PaymentFunctions`** for pay-later: the order commonly returns **`DRAFT`*
          &lt;ns2:OrgRole&gt;Seller&lt;/ns2:OrgRole&gt;
          &lt;ns2:ParticipatingOrg&gt;
             &lt;ns2:Name&gt;Travel Agency XYZ&lt;/ns2:Name&gt;
-            &lt;ns2:OrgID&gt;Seller123&lt;/ns2:OrgID&gt;
+            &lt;ns2:OrgID&gt;7f9c2b1e-3a4d-4e5f-8a6b-1c2d3e4f5a6b&lt;/ns2:OrgID&gt;
          &lt;/ns2:ParticipatingOrg&gt;
       &lt;/ns2:DistributionChainLink&gt;
    &lt;/DistributionChain&gt;
@@ -418,7 +418,7 @@ When **OfferPrice** returned a composite `OfferID` (flight priced with seat and/
          &lt;ns2:OrgRole&gt;Seller&lt;/ns2:OrgRole&gt;
          &lt;ns2:ParticipatingOrg&gt;
             &lt;ns2:Name&gt;Travel Agency XYZ&lt;/ns2:Name&gt;
-            &lt;ns2:OrgID&gt;Seller123&lt;/ns2:OrgID&gt;
+            &lt;ns2:OrgID&gt;7f9c2b1e-3a4d-4e5f-8a6b-1c2d3e4f5a6b&lt;/ns2:OrgID&gt;
          &lt;/ns2:ParticipatingOrg&gt;
       &lt;/ns2:DistributionChainLink&gt;
    &lt;/DistributionChain&gt;
@@ -958,7 +958,7 @@ Returns an `IATA_OrderViewRS` XML document with order confirmation details.
          &lt;OrgRole&gt;Seller&lt;/OrgRole&gt;
          &lt;ParticipatingOrg&gt;
             &lt;Name&gt;Travel Agency XYZ&lt;/Name&gt;
-            &lt;OrgID&gt;Seller123&lt;/OrgID&gt;
+            &lt;OrgID&gt;7f9c2b1e-3a4d-4e5f-8a6b-1c2d3e4f5a6b&lt;/OrgID&gt;
          &lt;/ParticipatingOrg&gt;
       &lt;/DistributionChainLink&gt;
    &lt;/ns2:DistributionChain&gt;
@@ -1003,8 +1003,6 @@ Invalid request format or missing required fields.
 
     ```bash
     curl -X POST https://go7-api-gateway.prod.go7.io/ndc-gateway/v21.3.5/OrderCreate \
-      -H "x-tenant: tenant-a" \
-      -H "x-SalesChannel: DIRECT_OTA" \
       -H "x-api-key: your-api-key-here" \
       -H "Content-Type: application/xml" \
       -d @ordercreate-request.xml

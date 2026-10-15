@@ -17,7 +17,7 @@ The Air Shopping API searches for available flight offers matching your criteria
 
 **Step 1** in the booking chain ([NDC API — Offers & Orders workflow](../NDC_API.md#ndc-for-offers--orders-workflow)). `POST …/AirShopping` · messages **`IATA_AirShoppingRQ`** / **`IATA_AirShoppingRS`**. Capture **`OfferID`**, **`OfferItemID`**, **`OwnerCode`**, and **`PaxRefID`** for **[Offer Price](offerprice.md)**. Scenario anchors: **[`#airshopping-one-way-trip`](#airshopping-one-way-trip)**, **[`#airshopping-round-trip`](#airshopping-round-trip)**.
 
-See [Authentication](../NDC_API.md#http-headers) for **`x-tenant`**, **`x-SalesChannel`**, and **`x-api-key`**.
+See [Authentication](../NDC_API.md#http-headers) for **`x-api-key`**.
 
 ## Request
 
@@ -25,16 +25,16 @@ See [Authentication](../NDC_API.md#http-headers) for **`x-tenant`**, **`x-SalesC
 
 | Header | Purpose | Format | Required | Example |
 |--------|---------|--------|----------|---------|
-| `x-tenant` | Identifies the tenant/organization context for the request | String (e.g., `tenant-a`, `test-qa-rc`) | Yes | `x-tenant: test-qa-rc` |
-| `x-SalesChannel` | Specifies the sales channel (maps to account IDs per tenant configuration) | String (`DIRECT_OTA` or `OTA_NETWORK`) | Yes | `x-SalesChannel: DIRECT_OTA` |
 | `x-api-key` | API key for authenticating the request | String | Yes | `x-api-key: {x-api-key}` |
 | `Content-Type` | Request body media type | `application/xml` or `application/xml;charset=UTF-8` | Yes | `Content-Type: application/xml` |
 
-**Note:** The `x-SalesChannel` value is used to determine the account ID based on tenant configuration.
+**Note:** The `x-api-key` alone identifies the caller; the gateway resolves the account from it.
 
 ## Request Body
 
 The request body must be a valid `IATA_AirShoppingRQ` XML document following IATA NDC v21.3.5 standard.
+
+**Partner keys:** `DistributionChain` must name you: your Partner ID as `ParticipatingOrg/OrgID`, with the `OrgRole` your agreement allows. See [Partner identification (DistributionChain)](../NDC_API.md#partner-identification-distributionchain).
 
 Optional **`OriginDestCriteria.CabinType`** filters offers by cabin (see [Cabin Type](../NDC_API.md#cabin-type)). Omit the block to search without a cabin filter. If it is present, NDC 21.3.5 requires both **`CabinTypeCode`** and **`PrefLevel/PrefLevelCode`**. Codes from all origin-destination pairs are merged into offer search `preferences.cabinTypes`; NDC then keeps only offers whose flight items match **Required** cabin codes **per origin-destination**. `Preferred` does not drop other cabins.
 
@@ -55,7 +55,7 @@ Single **`OriginDestCriteria`** (outbound only).
             &lt;cns:OrgRole&gt;Seller&lt;/cns:OrgRole&gt;
             &lt;cns:ParticipatingOrg&gt;
                 &lt;cns:Name&gt;Travel Agency XYZ&lt;/cns:Name&gt;
-                &lt;cns:OrgID&gt;SELLER123&lt;/cns:OrgID&gt;
+                &lt;cns:OrgID&gt;7f9c2b1e-3a4d-4e5f-8a6b-1c2d3e4f5a6b&lt;/cns:OrgID&gt;
             &lt;/cns:ParticipatingOrg&gt;
         &lt;/cns:DistributionChainLink&gt;
     &lt;/DistributionChain&gt;
@@ -128,7 +128,7 @@ Two **`OriginDestCriteria`** blocks (outbound + inbound).
             &lt;OrgRole&gt;Seller&lt;/OrgRole&gt;
             &lt;ParticipatingOrg&gt;
                 &lt;Name&gt;Travel Agency XYZ&lt;/Name&gt;
-                &lt;OrgID&gt;SELLER123&lt;/OrgID&gt;
+                &lt;OrgID&gt;7f9c2b1e-3a4d-4e5f-8a6b-1c2d3e4f5a6b&lt;/OrgID&gt;
             &lt;/ParticipatingOrg&gt;
         &lt;/DistributionChainLink&gt;
     &lt;/DistributionChain&gt;
@@ -5714,14 +5714,33 @@ Invalid request format or missing required fields.
 
 </details>
 
+Partner key without your Partner ID in `DistributionChain` (see [Partner identification (DistributionChain)](../NDC_API.md#partner-identification-distributionchain)):
+
+<details>
+<summary>Response Payload — partner not in DistributionChain</summary>
+
+<pre><code class="language-xml">
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;
+        &lt;ns2:IATA_AirShoppingRS xmlns=&quot;http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes&quot; xmlns:ns2=&quot;http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage&quot; xmlns:ns3=&quot;http://www.w3.org/2000/09/xmldsig#&quot;&gt;
+        &lt;ns2:Error&gt;
+        &lt;Code&gt;12&lt;/Code&gt;
+        &lt;DescText&gt;DistributionChain does not contain the authenticated partner&lt;/DescText&gt;
+        &lt;ErrorID&gt;5b7e0c2a-9d41-4f8e-b3a6-2e1f7c9d0a84&lt;/ErrorID&gt;
+        &lt;LangCode&gt;EN&lt;/LangCode&gt;
+        &lt;TagText&gt;Request.DistributionChain&lt;/TagText&gt;
+        &lt;TypeCode&gt;Validation&lt;/TypeCode&gt;
+        &lt;/ns2:Error&gt;
+        &lt;/ns2:IATA_AirShoppingRS&gt;
+</code></pre>
+
+</details>
+
 ## Code Examples
 
 === "Curl"
 
     ```bash
     curl -X POST https://go7-api-gateway.prod.go7.io/ndc-gateway/v21.3.5/AirShopping \
-      -H "x-tenant: tenant-a" \
-      -H "x-SalesChannel: DIRECT_OTA" \
       -H "x-api-key: your-api-key-here" \
       -H "Content-Type: application/xml" \
       -d @airshopping-request.xml

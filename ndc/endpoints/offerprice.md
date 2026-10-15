@@ -24,7 +24,7 @@ Use `OfferRefID` / `OfferItemRefID` from **AirShoppingRS**, and — when adding 
 
 Scenarios: **[`#offerprice-one-way-trip`](#offerprice-one-way-trip)**, **[`#offerprice-round-trip`](#offerprice-round-trip)**, **[`#offerprice-with-service`](#offerprice-with-service)**, **[`#offerprice-with-seat`](#offerprice-with-seat)**, **[`#offerprice-with-service-and-seat`](#offerprice-with-service-and-seat)**.
 
-See [Authentication](../NDC_API.md#http-headers) for **`x-tenant`**, **`x-SalesChannel`**, and **`x-api-key`**.
+See [Authentication](../NDC_API.md#http-headers) for **`x-api-key`**.
 
 ## Request
 
@@ -32,16 +32,16 @@ See [Authentication](../NDC_API.md#http-headers) for **`x-tenant`**, **`x-SalesC
 
 | Header | Purpose | Format | Required | Example |
 |--------|---------|--------|----------|---------|
-| `x-tenant` | Identifies the tenant/organization context for the request | String (e.g., `tenant-a`, `test-qa-rc`) | Yes | `x-tenant: test-qa-rc` |
-| `x-SalesChannel` | Specifies the sales channel (maps to account IDs per tenant configuration) | String (`DIRECT_OTA` or `OTA_NETWORK`) | Yes | `x-SalesChannel: DIRECT_OTA` |
 | `x-api-key` | API key for authenticating the request | String | Yes | `x-api-key: {x-api-key}` |
 | `Content-Type` | Request body media type | `application/xml` or `application/xml;charset=UTF-8` | Yes | `Content-Type: application/xml` |
 
-**Note:** The `x-SalesChannel` value is used to determine the account ID based on tenant configuration.
+**Note:** The `x-api-key` alone identifies the caller; the gateway resolves the account from it.
 
 ## Request Body
 
 The request body must be a valid `IATA_OfferPriceRQ` XML document following IATA NDC v21.3.5 standard.
+
+**Partner keys:** `DistributionChain` must name you: your Partner ID as `ParticipatingOrg/OrgID`, with the `OrgRole` your agreement allows. See [Partner identification (DistributionChain)](../NDC_API.md#partner-identification-distributionchain).
 
 `Request/PricedOffer/SelectedOfferList` contains one or more **`SelectedOffer`** blocks. The gateway classifies each block by the child marker on its `SelectedOfferItem` elements (same pattern as **OrderCreate** / **OrderChange**):
 
@@ -75,7 +75,7 @@ One **`SelectedOffer`** with typically **one `SelectedOfferItem`** per passenger
             &lt;cns:OrgRole&gt;Seller&lt;/cns:OrgRole&gt;
             &lt;cns:ParticipatingOrg&gt;
                 &lt;cns:Name&gt;Travel Agency XYZ&lt;/cns:Name&gt;
-                &lt;cns:OrgID&gt;SELLER123&lt;/cns:OrgID&gt;
+                &lt;cns:OrgID&gt;7f9c2b1e-3a4d-4e5f-8a6b-1c2d3e4f5a6b&lt;/cns:OrgID&gt;
             &lt;/cns:ParticipatingOrg&gt;
         &lt;/cns:DistributionChainLink&gt;
     &lt;/DistributionChain&gt;
@@ -129,7 +129,7 @@ Same **`OfferRefID`** when both directions sit under one offer; **two `SelectedO
             &lt;OrgRole&gt;Seller&lt;/OrgRole&gt;
             &lt;ParticipatingOrg&gt;
                 &lt;Name&gt;Travel Agency XYZ&lt;/Name&gt;
-                &lt;OrgID&gt;SELLER123&lt;/OrgID&gt;
+                &lt;OrgID&gt;7f9c2b1e-3a4d-4e5f-8a6b-1c2d3e4f5a6b&lt;/OrgID&gt;
             &lt;/ParticipatingOrg&gt;
         &lt;/DistributionChainLink&gt;
     &lt;/DistributionChain&gt;
@@ -184,7 +184,7 @@ You may also add seat selections in the same request (see [with selected service
             &lt;cns:OrgRole&gt;Seller&lt;/cns:OrgRole&gt;
             &lt;cns:ParticipatingOrg&gt;
                 &lt;cns:Name&gt;Travel Agency XYZ&lt;/cns:Name&gt;
-                &lt;cns:OrgID&gt;SELLER123&lt;/cns:OrgID&gt;
+                &lt;cns:OrgID&gt;7f9c2b1e-3a4d-4e5f-8a6b-1c2d3e4f5a6b&lt;/cns:OrgID&gt;
             &lt;/cns:ParticipatingOrg&gt;
         &lt;/cns:DistributionChainLink&gt;
     &lt;/DistributionChain&gt;
@@ -246,7 +246,7 @@ Use one `SelectedOfferItem` + `SelectedSeat` per physical seat / passenger. You 
             &lt;cns:OrgRole&gt;Seller&lt;/cns:OrgRole&gt;
             &lt;cns:ParticipatingOrg&gt;
                 &lt;cns:Name&gt;Travel Agency XYZ&lt;/cns:Name&gt;
-                &lt;cns:OrgID&gt;SELLER123&lt;/cns:OrgID&gt;
+                &lt;cns:OrgID&gt;7f9c2b1e-3a4d-4e5f-8a6b-1c2d3e4f5a6b&lt;/cns:OrgID&gt;
             &lt;/cns:ParticipatingOrg&gt;
         &lt;/cns:DistributionChainLink&gt;
     &lt;/DistributionChain&gt;
@@ -309,7 +309,7 @@ For pay-later, use the [booking and servicing scenarios](../NDC_API.md#booking-a
             &lt;cns:OrgRole&gt;Seller&lt;/cns:OrgRole&gt;
             &lt;cns:ParticipatingOrg&gt;
                 &lt;cns:Name&gt;Travel Agency XYZ&lt;/cns:Name&gt;
-                &lt;cns:OrgID&gt;SELLER123&lt;/cns:OrgID&gt;
+                &lt;cns:OrgID&gt;7f9c2b1e-3a4d-4e5f-8a6b-1c2d3e4f5a6b&lt;/cns:OrgID&gt;
             &lt;/cns:ParticipatingOrg&gt;
         &lt;/cns:DistributionChainLink&gt;
     &lt;/DistributionChain&gt;
@@ -652,8 +652,6 @@ Invalid request format, missing required fields, or business validation failures
 
     ```bash
     curl -X POST https://go7-api-gateway.prod.go7.io/ndc-gateway/v21.3.5/OfferPrice \
-      -H "x-tenant: tenant-a" \
-      -H "x-SalesChannel: DIRECT_OTA" \
       -H "x-api-key: your-api-key-here" \
       -H "Content-Type: application/xml" \
       -d @offerprice-request.xml

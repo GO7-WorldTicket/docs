@@ -19,7 +19,7 @@ The Order Retrieve API returns the current view of an existing order. Use the `O
 
 **Step 6** ([workflow index](../NDC_API.md#ndc-for-offers--orders-workflow)). `POST …/OrderRetrieve` · send `IATA_OrderRetrieveRQ` with either **`OrderID`** or **`BookingID`**. The gateway returns **`IATA_OrderViewRS`**. Use this step to refresh passenger IDs after **OrderChange**. Scenarios: **[`#orderretrieve-by-order-id`](#orderretrieve-by-order-id)**, **[`#orderretrieve-by-booking-reference`](#orderretrieve-by-booking-reference)**.
 
-See [Authentication](../NDC_API.md#http-headers) for **`x-tenant`**, **`x-SalesChannel`**, and **`x-api-key`**.
+See [Authentication](../NDC_API.md#http-headers) for **`x-api-key`**.
 
 ## Request
 
@@ -27,16 +27,16 @@ See [Authentication](../NDC_API.md#http-headers) for **`x-tenant`**, **`x-SalesC
 
 | Header | Purpose | Format | Required | Example                         |
 |--------|---------|--------|----------|---------------------------------|
-| `x-tenant` | Identifies the tenant/organization context for the request | String (e.g., `tenant-a`, `test-qa-rc`) | Yes | `x-tenant: test-qa-rc`          |
-| `x-SalesChannel` | Specifies the sales channel (maps to account IDs per tenant configuration) | String (`DIRECT_OTA` or `OTA_NETWORK`) | Yes | `x-SalesChannel: DIRECT_OTA`           |
 | `x-api-key` | API key for authenticating the request | String | Yes | `x-api-key: {x-api-key}`        |
 | `Content-Type` | Request body media type | `application/xml` or `application/xml;charset=UTF-8` | Yes | `Content-Type: application/xml` |
 
-**Note:** The `x-SalesChannel` value is used to determine the account ID based on tenant configuration.
+**Note:** The `x-api-key` alone identifies the caller; the gateway resolves the account from it.
 
 ## Request Body
 
 The request body must be a valid `IATA_OrderRetrieveRQ` XML document following IATA NDC v21.3.5 standard.
+
+**Partner keys:** `DistributionChain` must name you: your Partner ID as `ParticipatingOrg/OrgID`, with the `OrgRole` your agreement allows. See [Partner identification (DistributionChain)](../NDC_API.md#partner-identification-distributionchain).
 
 Provide either `OrderID` or `BookingID`. If both are present, the gateway uses `OrderID`.
 
@@ -58,7 +58,7 @@ Use `OrderID` for direct retrieval when you have the order identifier from `Orde
             &lt;ns2:OrgRole&gt;Seller&lt;/ns2:OrgRole&gt;
             &lt;ns2:ParticipatingOrg&gt;
                 &lt;ns2:Name&gt;Travel Agency XYZ&lt;/ns2:Name&gt;
-                &lt;ns2:OrgID&gt;SELLER123&lt;/ns2:OrgID&gt;
+                &lt;ns2:OrgID&gt;7f9c2b1e-3a4d-4e5f-8a6b-1c2d3e4f5a6b&lt;/ns2:OrgID&gt;
             &lt;/ns2:ParticipatingOrg&gt;
         &lt;/ns2:DistributionChainLink&gt;
     &lt;/DistributionChain&gt;
@@ -98,7 +98,7 @@ Use `BookingID` when retrieving by booking reference / record locator.
             &lt;ns2:OrgRole&gt;Seller&lt;/ns2:OrgRole&gt;
             &lt;ns2:ParticipatingOrg&gt;
                 &lt;ns2:Name&gt;Travel Agency XYZ&lt;/ns2:Name&gt;
-                &lt;ns2:OrgID&gt;SELLER123&lt;/ns2:OrgID&gt;
+                &lt;ns2:OrgID&gt;7f9c2b1e-3a4d-4e5f-8a6b-1c2d3e4f5a6b&lt;/ns2:OrgID&gt;
             &lt;/ns2:ParticipatingOrg&gt;
         &lt;/ns2:DistributionChainLink&gt;
     &lt;/DistributionChain&gt;
@@ -479,7 +479,7 @@ Returns an `IATA_OrderViewRS` XML document with the retrieved order details.
             &lt;OrgRole&gt;Seller&lt;/OrgRole&gt;
             &lt;ParticipatingOrg&gt;
                 &lt;Name&gt;Travel Agency XYZ&lt;/Name&gt;
-                &lt;OrgID&gt;SELLER123&lt;/OrgID&gt;
+                &lt;OrgID&gt;7f9c2b1e-3a4d-4e5f-8a6b-1c2d3e4f5a6b&lt;/OrgID&gt;
             &lt;/ParticipatingOrg&gt;
         &lt;/DistributionChainLink&gt;
     &lt;/ns2:DistributionChain&gt;
@@ -546,8 +546,6 @@ Order or booking reference not found.
 
     ```bash
     curl -X POST https://go7-api-gateway.prod.go7.io/ndc-gateway/v21.3.5/OrderRetrieve \
-      -H "x-tenant: tenant-a" \
-      -H "x-SalesChannel: DIRECT_OTA" \
       -H "x-api-key: your-api-key-here" \
       -H "Content-Type: application/xml" \
       -d @orderretrieve-request.xml

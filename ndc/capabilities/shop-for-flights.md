@@ -7,7 +7,7 @@ title: Shop for flights
 
 **Definition.** Search live flight offers for a journey and a passenger mix. You send the journey, the platform returns priced offers from every airline your API key is entitled to search.
 
-**Preconditions.** A valid API key, tenant and sales channel.
+**Preconditions.** A valid API key, tenant and sales channel. With a partner key: an Active agreement, and your Partner ID in `DistributionChain` with the role your agreement allows ([Partner identification](../NDC_API.md#partner-identification-distributionchain)).
 
 **Process.** `AirShopping`
 
