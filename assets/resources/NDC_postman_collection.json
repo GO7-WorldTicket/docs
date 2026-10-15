@@ -44,14 +44,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}"
-                      },
-                      {
                         "key": "X-API-Key",
                         "value": "{{x-api-key}}"
                       }
@@ -225,16 +217,6 @@
                     },
                     "method": "POST",
                     "header": [
-                      {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
                       {
                         "key": "X-API-Key",
                         "value": "{{x-api-key}}",
@@ -418,16 +400,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
-                      {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
                         "type": "text"
@@ -573,16 +545,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
-                      {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
                         "type": "text"
@@ -684,16 +646,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
-                      {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
                         "type": "text"
@@ -762,14 +714,6 @@
                   "request": {
                     "method": "POST",
                     "header": [
-                      {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}"
-                      },
                       {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
@@ -840,14 +784,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}"
-                      },
-                      {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
                         "type": "text"
@@ -917,14 +853,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}"
-                      },
-                      {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
                         "type": "text"
@@ -985,14 +913,6 @@
                     },
                     "method": "POST",
                     "header": [
-                      {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}"
-                      },
                       {
                         "key": "X-API-Key",
                         "value": "{{x-api-key}}"
@@ -1167,16 +1087,6 @@
                     },
                     "method": "POST",
                     "header": [
-                      {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
                       {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
@@ -1360,16 +1270,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
-                      {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
                         "type": "text"
@@ -1504,16 +1404,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
-                      {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
                         "type": "text"
@@ -1615,16 +1505,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
-                      {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
                         "type": "text"
@@ -1693,14 +1573,6 @@
                   "request": {
                     "method": "POST",
                     "header": [
-                      {
-                        "key": "x-SalesChannel",
-                        "value": "IBE"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "tenant-a"
-                      },
                       {
                         "key": "Content-Type",
                         "value": "application/xml"
@@ -1774,14 +1646,6 @@
                   "request": {
                     "method": "POST",
                     "header": [
-                      {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}"
-                      },
                       {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
@@ -1960,16 +1824,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
-                      {
                         "key": "X-API-Key",
                         "value": "{{x-api-key}}",
                         "type": "text"
@@ -2144,16 +1998,6 @@
                     },
                     "method": "POST",
                     "header": [
-                      {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
                       {
                         "key": "X-API-Key",
                         "value": "{{x-api-key}}",
@@ -2353,16 +2197,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
-                      {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
                         "type": "text"
@@ -2524,16 +2358,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
-                      {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
                         "type": "text"
@@ -2594,14 +2418,6 @@
                     },
                     "method": "POST",
                     "header": [
-                      {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}"
-                      },
                       {
                         "key": "X-API-Key",
                         "value": "{{x-api-key}}"
@@ -2777,16 +2593,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
-                      {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
                         "type": "text"
@@ -2945,16 +2751,6 @@
                     },
                     "method": "POST",
                     "header": [
-                      {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
                       {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
@@ -3116,16 +2912,6 @@
                     },
                     "method": "POST",
                     "header": [
-                      {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
                       {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
@@ -3293,16 +3079,6 @@
                 "method": "POST",
                 "header": [
                   {
-                    "key": "x-SalesChannel",
-                    "value": "{{x-saleschannel}}",
-                    "type": "text"
-                  },
-                  {
-                    "key": "x-tenant",
-                    "value": "{{tenant}}",
-                    "type": "text"
-                  },
-                  {
                     "key": "x-api-key",
                     "value": "{{x-api-key}}",
                     "type": "text"
@@ -3462,16 +3238,6 @@
                 "method": "POST",
                 "header": [
                   {
-                    "key": "x-SalesChannel",
-                    "value": "{{x-saleschannel}}",
-                    "type": "text"
-                  },
-                  {
-                    "key": "x-tenant",
-                    "value": "{{tenant}}",
-                    "type": "text"
-                  },
-                  {
                     "key": "x-api-key",
                     "value": "{{x-api-key}}",
                     "type": "text"
@@ -3608,16 +3374,6 @@
                         },
                         "method": "POST",
                         "header": [
-                          {
-                            "key": "x-SalesChannel",
-                            "value": "{{x-saleschannel}}",
-                            "type": "text"
-                          },
-                          {
-                            "key": "x-tenant",
-                            "value": "{{tenant}}",
-                            "type": "text"
-                          },
                           {
                             "key": "x-api-key",
                             "value": "{{x-api-key}}",
@@ -3795,16 +3551,6 @@
                         "method": "POST",
                         "header": [
                           {
-                            "key": "x-SalesChannel",
-                            "value": "{{x-saleschannel}}",
-                            "type": "text"
-                          },
-                          {
-                            "key": "x-tenant",
-                            "value": "{{tenant}}",
-                            "type": "text"
-                          },
-                          {
                             "key": "x-api-key",
                             "value": "{{x-api-key}}",
                             "type": "text"
@@ -3858,14 +3604,6 @@
                         },
                         "method": "POST",
                         "header": [
-                          {
-                            "key": "x-SalesChannel",
-                            "value": "{{x-saleschannel}}"
-                          },
-                          {
-                            "key": "x-tenant",
-                            "value": "{{tenant}}"
-                          },
                           {
                             "key": "x-api-key",
                             "value": "{{x-api-key}}"
@@ -3934,14 +3672,6 @@
                       "request": {
                         "method": "POST",
                         "header": [
-                          {
-                            "key": "x-SalesChannel",
-                            "value": "IBE"
-                          },
-                          {
-                            "key": "x-tenant",
-                            "value": "tenant-a"
-                          },
                           {
                             "key": "Content-Type",
                             "value": "application/xml"
@@ -4073,16 +3803,6 @@
                         "method": "POST",
                         "header": [
                           {
-                            "key": "x-SalesChannel",
-                            "value": "{{x-saleschannel}}",
-                            "type": "text"
-                          },
-                          {
-                            "key": "x-tenant",
-                            "value": "{{tenant}}",
-                            "type": "text"
-                          },
-                          {
                             "key": "x-api-key",
                             "value": "{{x-api-key}}",
                             "type": "text"
@@ -4213,16 +3933,6 @@
                         },
                         "method": "POST",
                         "header": [
-                          {
-                            "key": "x-SalesChannel",
-                            "value": "{{x-saleschannel}}",
-                            "type": "text"
-                          },
-                          {
-                            "key": "x-tenant",
-                            "value": "{{tenant}}",
-                            "type": "text"
-                          },
                           {
                             "key": "x-api-key",
                             "value": "{{x-api-key}}",
@@ -4400,16 +4110,6 @@
                         "method": "POST",
                         "header": [
                           {
-                            "key": "x-SalesChannel",
-                            "value": "{{x-saleschannel}}",
-                            "type": "text"
-                          },
-                          {
-                            "key": "x-tenant",
-                            "value": "{{tenant}}",
-                            "type": "text"
-                          },
-                          {
                             "key": "x-api-key",
                             "value": "{{x-api-key}}",
                             "type": "text"
@@ -4518,16 +4218,6 @@
                         "method": "POST",
                         "header": [
                           {
-                            "key": "x-SalesChannel",
-                            "value": "{{x-saleschannel}}",
-                            "type": "text"
-                          },
-                          {
-                            "key": "x-tenant",
-                            "value": "{{tenant}}",
-                            "type": "text"
-                          },
-                          {
                             "key": "x-api-key",
                             "value": "{{x-api-key}}",
                             "type": "text"
@@ -4596,14 +4286,6 @@
                       "request": {
                         "method": "POST",
                         "header": [
-                          {
-                            "key": "x-SalesChannel",
-                            "value": "IBE"
-                          },
-                          {
-                            "key": "x-tenant",
-                            "value": "tenant-a"
-                          },
                           {
                             "key": "Content-Type",
                             "value": "application/xml"
@@ -4734,16 +4416,6 @@
                         },
                         "method": "POST",
                         "header": [
-                          {
-                            "key": "x-SalesChannel",
-                            "value": "{{x-saleschannel}}",
-                            "type": "text"
-                          },
-                          {
-                            "key": "x-tenant",
-                            "value": "{{tenant}}",
-                            "type": "text"
-                          },
                           {
                             "key": "x-api-key",
                             "value": "{{x-api-key}}",
@@ -4880,16 +4552,6 @@
                         },
                         "method": "POST",
                         "header": [
-                          {
-                            "key": "x-SalesChannel",
-                            "value": "{{x-saleschannel}}",
-                            "type": "text"
-                          },
-                          {
-                            "key": "x-tenant",
-                            "value": "{{tenant}}",
-                            "type": "text"
-                          },
                           {
                             "key": "x-api-key",
                             "value": "{{x-api-key}}",
@@ -5067,16 +4729,6 @@
                         "method": "POST",
                         "header": [
                           {
-                            "key": "x-SalesChannel",
-                            "value": "{{x-saleschannel}}",
-                            "type": "text"
-                          },
-                          {
-                            "key": "x-tenant",
-                            "value": "{{tenant}}",
-                            "type": "text"
-                          },
-                          {
                             "key": "x-api-key",
                             "value": "{{x-api-key}}",
                             "type": "text"
@@ -5145,14 +4797,6 @@
                       "request": {
                         "method": "POST",
                         "header": [
-                          {
-                            "key": "x-SalesChannel",
-                            "value": "IBE"
-                          },
-                          {
-                            "key": "x-tenant",
-                            "value": "tenant-a"
-                          },
                           {
                             "key": "Content-Type",
                             "value": "application/xml"
@@ -5284,16 +4928,6 @@
                         "method": "POST",
                         "header": [
                           {
-                            "key": "x-SalesChannel",
-                            "value": "{{x-saleschannel}}",
-                            "type": "text"
-                          },
-                          {
-                            "key": "x-tenant",
-                            "value": "{{tenant}}",
-                            "type": "text"
-                          },
-                          {
                             "key": "x-api-key",
                             "value": "{{x-api-key}}",
                             "type": "text"
@@ -5361,14 +4995,6 @@
                     },
                     "method": "POST",
                     "header": [
-                      {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}"
-                      },
                       {
                         "key": "X-API-Key",
                         "value": "{{x-api-key}}"
@@ -5506,16 +5132,6 @@
                     },
                     "method": "POST",
                     "header": [
-                      {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
                       {
                         "key": "X-API-Key",
                         "value": "{{x-api-key}}",
@@ -5715,16 +5331,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
-                      {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
                         "type": "text"
@@ -5858,16 +5464,6 @@
                     },
                     "method": "POST",
                     "header": [
-                      {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
                       {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
@@ -6045,16 +5641,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
-                      {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
                         "type": "text"
@@ -6213,16 +5799,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
-                      {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
                         "type": "text"
@@ -6291,14 +5867,6 @@
                   "request": {
                     "method": "POST",
                     "header": [
-                      {
-                        "key": "x-SalesChannel",
-                        "value": "IBE"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "tenant-a"
-                      },
                       {
                         "key": "Content-Type",
                         "value": "application/xml"
@@ -6501,16 +6069,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
-                      {
                         "key": "X-API-Key",
                         "value": "{{x-api-key}}",
                         "type": "text"
@@ -6648,16 +6206,6 @@
                     },
                     "method": "POST",
                     "header": [
-                      {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
                       {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
@@ -6818,16 +6366,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
-                      {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
                         "type": "text"
@@ -6953,16 +6491,6 @@
                     },
                     "method": "POST",
                     "header": [
-                      {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
                       {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
@@ -7158,16 +6686,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
-                      {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
                         "type": "text"
@@ -7319,16 +6837,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
-                      {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
                         "type": "text"
@@ -7397,14 +6905,6 @@
                   "request": {
                     "method": "POST",
                     "header": [
-                      {
-                        "key": "x-SalesChannel",
-                        "value": "IBE"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "tenant-a"
-                      },
                       {
                         "key": "Content-Type",
                         "value": "application/xml"
@@ -7573,16 +7073,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
-                      {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
                         "type": "text"
@@ -7746,16 +7236,6 @@
                     },
                     "method": "POST",
                     "header": [
-                      {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
                       {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
@@ -7921,16 +7401,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
-                      {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
                         "type": "text"
@@ -8031,16 +7501,6 @@
                     },
                     "method": "POST",
                     "header": [
-                      {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
                       {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
@@ -8200,16 +7660,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
-                      {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
                         "type": "text"
@@ -8292,16 +7742,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
-                      {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
                         "type": "text"
@@ -8370,14 +7810,6 @@
                   "request": {
                     "method": "POST",
                     "header": [
-                      {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}"
-                      },
                       {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
@@ -8509,16 +7941,6 @@
                     },
                     "method": "POST",
                     "header": [
-                      {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
                       {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
@@ -8661,16 +8083,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
-                      {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
                         "type": "text"
@@ -8737,14 +8149,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}"
-                      },
-                      {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}"
                       }
@@ -8797,14 +8201,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}"
-                      },
-                      {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}"
                       }
@@ -8850,14 +8246,6 @@
                     },
                     "method": "POST",
                     "header": [
-                      {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}"
-                      },
                       {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}"
@@ -8911,14 +8299,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}"
-                      },
-                      {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}"
                       }
@@ -8950,14 +8330,6 @@
                   "request": {
                     "method": "POST",
                     "header": [
-                      {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}"
-                      },
                       {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}"
@@ -9101,16 +8473,6 @@
                     },
                     "method": "POST",
                     "header": [
-                      {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
                       {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
@@ -9340,16 +8702,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
-                      {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
                         "type": "text"
@@ -9578,16 +8930,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
-                      {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
                         "type": "text"
@@ -9688,16 +9030,6 @@
                     },
                     "method": "POST",
                     "header": [
-                      {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
                       {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
@@ -9830,16 +9162,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
-                      {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
                         "type": "text"
@@ -9921,16 +9243,6 @@
                   "request": {
                     "method": "POST",
                     "header": [
-                      {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
                       {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
@@ -10070,16 +9382,6 @@
                     },
                     "method": "POST",
                     "header": [
-                      {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
                       {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
@@ -10309,16 +9611,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
-                      {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
                         "type": "text"
@@ -10420,16 +9712,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
-                      {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
                         "type": "text"
@@ -10512,16 +9794,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
-                      {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
                         "type": "text"
@@ -10585,14 +9857,6 @@
                 "method": "POST",
                 "header": [
                   {
-                    "key": "x-SalesChannel",
-                    "value": "{{x-saleschannel}}"
-                  },
-                  {
-                    "key": "x-tenant",
-                    "value": "{{tenant}}"
-                  },
-                  {
                     "key": "X-API-Key",
                     "value": "{{x-api-key}}"
                   }
@@ -10635,14 +9899,6 @@
               "request": {
                 "method": "POST",
                 "header": [
-                  {
-                    "key": "x-SalesChannel",
-                    "value": "{{x-saleschannel}}"
-                  },
-                  {
-                    "key": "x-tenant",
-                    "value": "{{tenant}}"
-                  },
                   {
                     "key": "x-api-key",
                     "value": "{{x-api-key}}"
@@ -10799,16 +10055,6 @@
                 "method": "POST",
                 "header": [
                   {
-                    "key": "x-SalesChannel",
-                    "value": "{{x-saleschannel}}",
-                    "type": "text"
-                  },
-                  {
-                    "key": "x-tenant",
-                    "value": "{{tenant}}",
-                    "type": "text"
-                  },
-                  {
                     "key": "X-API-Key",
                     "value": "{{x-api-key}}",
                     "type": "text"
@@ -10943,16 +10189,6 @@
                 "method": "POST",
                 "header": [
                   {
-                    "key": "x-SalesChannel",
-                    "value": "{{x-saleschannel}}",
-                    "type": "text"
-                  },
-                  {
-                    "key": "x-tenant",
-                    "value": "{{tenant}}",
-                    "type": "text"
-                  },
-                  {
                     "key": "x-api-key",
                     "value": "{{x-api-key}}",
                     "type": "text"
@@ -11086,16 +10322,6 @@
                 },
                 "method": "POST",
                 "header": [
-                  {
-                    "key": "x-SalesChannel",
-                    "value": "{{x-saleschannel}}",
-                    "type": "text"
-                  },
-                  {
-                    "key": "x-tenant",
-                    "value": "{{tenant}}",
-                    "type": "text"
-                  },
                   {
                     "key": "x-api-key",
                     "value": "{{x-api-key}}",
@@ -11243,16 +10469,6 @@
                 "method": "POST",
                 "header": [
                   {
-                    "key": "x-SalesChannel",
-                    "value": "{{x-saleschannel}}",
-                    "type": "text"
-                  },
-                  {
-                    "key": "x-tenant",
-                    "value": "{{tenant}}",
-                    "type": "text"
-                  },
-                  {
                     "key": "x-api-key",
                     "value": "{{x-api-key}}",
                     "type": "text"
@@ -11313,14 +10529,6 @@
                 },
                 "method": "POST",
                 "header": [
-                  {
-                    "key": "x-SalesChannel",
-                    "value": "{{x-saleschannel}}"
-                  },
-                  {
-                    "key": "x-tenant",
-                    "value": "{{tenant}}"
-                  },
                   {
                     "key": "X-API-Key",
                     "value": "{{x-api-key}}"
@@ -11489,16 +10697,6 @@
                 "method": "POST",
                 "header": [
                   {
-                    "key": "x-SalesChannel",
-                    "value": "{{x-saleschannel}}",
-                    "type": "text"
-                  },
-                  {
-                    "key": "x-tenant",
-                    "value": "{{tenant}}",
-                    "type": "text"
-                  },
-                  {
                     "key": "x-api-key",
                     "value": "{{x-api-key}}",
                     "type": "text"
@@ -11639,16 +10837,6 @@
                 "method": "POST",
                 "header": [
                   {
-                    "key": "x-SalesChannel",
-                    "value": "{{x-saleschannel}}",
-                    "type": "text"
-                  },
-                  {
-                    "key": "x-tenant",
-                    "value": "{{tenant}}",
-                    "type": "text"
-                  },
-                  {
                     "key": "X-API-Key",
                     "value": "{{x-api-key}}",
                     "type": "text"
@@ -11782,16 +10970,6 @@
                 },
                 "method": "POST",
                 "header": [
-                  {
-                    "key": "x-SalesChannel",
-                    "value": "{{x-saleschannel}}",
-                    "type": "text"
-                  },
-                  {
-                    "key": "x-tenant",
-                    "value": "{{tenant}}",
-                    "type": "text"
-                  },
                   {
                     "key": "x-api-key",
                     "value": "{{x-api-key}}",
@@ -11927,16 +11105,6 @@
                 "method": "POST",
                 "header": [
                   {
-                    "key": "x-SalesChannel",
-                    "value": "{{x-saleschannel}}",
-                    "type": "text"
-                  },
-                  {
-                    "key": "x-tenant",
-                    "value": "{{tenant}}",
-                    "type": "text"
-                  },
-                  {
                     "key": "x-api-key",
                     "value": "{{x-api-key}}",
                     "type": "text"
@@ -12070,16 +11238,6 @@
                 },
                 "method": "POST",
                 "header": [
-                  {
-                    "key": "x-SalesChannel",
-                    "value": "{{x-saleschannel}}",
-                    "type": "text"
-                  },
-                  {
-                    "key": "x-tenant",
-                    "value": "{{tenant}}",
-                    "type": "text"
-                  },
                   {
                     "key": "x-api-key",
                     "value": "{{x-api-key}}",
@@ -12215,16 +11373,6 @@
                 "method": "POST",
                 "header": [
                   {
-                    "key": "x-SalesChannel",
-                    "value": "{{x-saleschannel}}",
-                    "type": "text"
-                  },
-                  {
-                    "key": "x-tenant",
-                    "value": "{{tenant}}",
-                    "type": "text"
-                  },
-                  {
                     "key": "x-api-key",
                     "value": "{{x-api-key}}",
                     "type": "text"
@@ -12270,16 +11418,6 @@
               "request": {
                 "method": "POST",
                 "header": [
-                  {
-                    "key": "x-SalesChannel",
-                    "value": "{{x-saleschannel}}",
-                    "type": "text"
-                  },
-                  {
-                    "key": "x-tenant",
-                    "value": "{{tenant}}",
-                    "type": "text"
-                  },
                   {
                     "key": "x-api-key",
                     "value": "{{x-api-key}}",
@@ -12423,14 +11561,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}"
-                      },
-                      {
                         "key": "X-API-Key",
                         "value": "{{x-api-key}}"
                       }
@@ -12515,16 +11645,6 @@
                     },
                     "method": "POST",
                     "header": [
-                      {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
                       {
                         "key": "X-API-Key",
                         "value": "{{x-api-key}}",
@@ -12650,16 +11770,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
-                      {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
                         "type": "text"
@@ -12784,16 +11894,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
-                      {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
                         "type": "text"
@@ -12870,16 +11970,6 @@
                     },
                     "method": "POST",
                     "header": [
-                      {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
                       {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
@@ -13001,14 +12091,6 @@
                   "request": {
                     "method": "POST",
                     "header": [
-                      {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}"
-                      },
                       {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
@@ -13144,14 +12226,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}"
-                      },
-                      {
                         "key": "X-API-Key",
                         "value": "{{x-api-key}}"
                       }
@@ -13236,16 +12310,6 @@
                     },
                     "method": "POST",
                     "header": [
-                      {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
                       {
                         "key": "X-API-Key",
                         "value": "{{x-api-key}}",
@@ -13371,16 +12435,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
-                      {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
                         "type": "text"
@@ -13505,16 +12559,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
-                      {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
                         "type": "text"
@@ -13591,16 +12635,6 @@
                     },
                     "method": "POST",
                     "header": [
-                      {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
                       {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
@@ -13722,14 +12756,6 @@
                   "request": {
                     "method": "POST",
                     "header": [
-                      {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}"
-                      },
                       {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
@@ -13871,14 +12897,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}"
-                      },
-                      {
                         "key": "X-API-Key",
                         "value": "{{x-api-key}}"
                       }
@@ -13963,16 +12981,6 @@
                     },
                     "method": "POST",
                     "header": [
-                      {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
                       {
                         "key": "X-API-Key",
                         "value": "{{x-api-key}}",
@@ -14098,16 +13106,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
-                      {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
                         "type": "text"
@@ -14231,16 +13229,6 @@
                     },
                     "method": "POST",
                     "header": [
-                      {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
                       {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
@@ -14376,14 +13364,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}"
-                      },
-                      {
                         "key": "X-API-Key",
                         "value": "{{x-api-key}}"
                       }
@@ -14468,16 +13448,6 @@
                     },
                     "method": "POST",
                     "header": [
-                      {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
                       {
                         "key": "X-API-Key",
                         "value": "{{x-api-key}}",
@@ -14603,16 +13573,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
-                      {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
                         "type": "text"
@@ -14736,16 +13696,6 @@
                     },
                     "method": "POST",
                     "header": [
-                      {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
                       {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
@@ -14879,16 +13829,6 @@
                 "method": "POST",
                 "header": [
                   {
-                    "key": "x-SalesChannel",
-                    "value": "{{x-saleschannel}}",
-                    "type": "text"
-                  },
-                  {
-                    "key": "x-tenant",
-                    "value": "{{tenant}}",
-                    "type": "text"
-                  },
-                  {
                     "key": "x-api-key",
                     "value": "{{x-api-key}}",
                     "type": "text"
@@ -15012,16 +13952,6 @@
                 },
                 "method": "POST",
                 "header": [
-                  {
-                    "key": "x-SalesChannel",
-                    "value": "{{x-saleschannel}}",
-                    "type": "text"
-                  },
-                  {
-                    "key": "x-tenant",
-                    "value": "{{tenant}}",
-                    "type": "text"
-                  },
                   {
                     "key": "x-api-key",
                     "value": "{{x-api-key}}",
@@ -15158,14 +14088,6 @@
                 "method": "POST",
                 "header": [
                   {
-                    "key": "x-SalesChannel",
-                    "value": "{{x-saleschannel}}"
-                  },
-                  {
-                    "key": "x-tenant",
-                    "value": "{{tenant}}"
-                  },
-                  {
                     "key": "X-API-Key",
                     "value": "{{x-api-key}}"
                   }
@@ -15259,16 +14181,6 @@
                 "method": "POST",
                 "header": [
                   {
-                    "key": "x-SalesChannel",
-                    "value": "{{x-saleschannel}}",
-                    "type": "text"
-                  },
-                  {
-                    "key": "x-tenant",
-                    "value": "{{tenant}}",
-                    "type": "text"
-                  },
-                  {
                     "key": "x-api-key",
                     "value": "{{x-api-key}}",
                     "type": "text"
@@ -15354,16 +14266,6 @@
                 },
                 "method": "POST",
                 "header": [
-                  {
-                    "key": "x-SalesChannel",
-                    "value": "{{x-saleschannel}}",
-                    "type": "text"
-                  },
-                  {
-                    "key": "x-tenant",
-                    "value": "{{tenant}}",
-                    "type": "text"
-                  },
                   {
                     "key": "X-API-Key",
                     "value": "{{x-api-key}}",
@@ -15489,16 +14391,6 @@
                 "method": "POST",
                 "header": [
                   {
-                    "key": "x-SalesChannel",
-                    "value": "{{x-saleschannel}}",
-                    "type": "text"
-                  },
-                  {
-                    "key": "x-tenant",
-                    "value": "{{tenant}}",
-                    "type": "text"
-                  },
-                  {
                     "key": "x-api-key",
                     "value": "{{x-api-key}}",
                     "type": "text"
@@ -15619,14 +14511,6 @@
               "request": {
                 "method": "POST",
                 "header": [
-                  {
-                    "key": "x-SalesChannel",
-                    "value": "{{x-saleschannel}}"
-                  },
-                  {
-                    "key": "x-tenant",
-                    "value": "{{tenant}}"
-                  },
                   {
                     "key": "x-api-key",
                     "value": "{{x-api-key}}",
@@ -15751,16 +14635,6 @@
                 },
                 "method": "POST",
                 "header": [
-                  {
-                    "key": "x-SalesChannel",
-                    "value": "{{x-saleschannel}}",
-                    "type": "text"
-                  },
-                  {
-                    "key": "x-tenant",
-                    "value": "{{tenant}}",
-                    "type": "text"
-                  },
                   {
                     "key": "x-api-key",
                     "value": "{{x-api-key}}",
@@ -15897,14 +14771,6 @@
                 "method": "POST",
                 "header": [
                   {
-                    "key": "x-SalesChannel",
-                    "value": "{{x-saleschannel}}"
-                  },
-                  {
-                    "key": "x-tenant",
-                    "value": "{{tenant}}"
-                  },
-                  {
                     "key": "X-API-Key",
                     "value": "{{x-api-key}}"
                   }
@@ -16023,14 +14889,6 @@
                 "method": "POST",
                 "header": [
                   {
-                    "key": "x-SalesChannel",
-                    "value": "{{x-saleschannel}}"
-                  },
-                  {
-                    "key": "x-tenant",
-                    "value": "{{tenant}}"
-                  },
-                  {
                     "key": "x-api-key",
                     "value": "{{x-api-key}}"
                   }
@@ -16115,16 +14973,6 @@
                 },
                 "method": "POST",
                 "header": [
-                  {
-                    "key": "x-SalesChannel",
-                    "value": "{{x-saleschannel}}",
-                    "type": "text"
-                  },
-                  {
-                    "key": "x-tenant",
-                    "value": "{{tenant}}",
-                    "type": "text"
-                  },
                   {
                     "key": "X-API-Key",
                     "value": "{{x-api-key}}",
@@ -16250,16 +15098,6 @@
                 "method": "POST",
                 "header": [
                   {
-                    "key": "x-SalesChannel",
-                    "value": "{{x-saleschannel}}",
-                    "type": "text"
-                  },
-                  {
-                    "key": "x-tenant",
-                    "value": "{{tenant}}",
-                    "type": "text"
-                  },
-                  {
                     "key": "x-api-key",
                     "value": "{{x-api-key}}",
                     "type": "text"
@@ -16380,14 +15218,6 @@
               "request": {
                 "method": "POST",
                 "header": [
-                  {
-                    "key": "x-SalesChannel",
-                    "value": "{{x-saleschannel}}"
-                  },
-                  {
-                    "key": "x-tenant",
-                    "value": "{{tenant}}"
-                  },
                   {
                     "key": "x-api-key",
                     "value": "{{x-api-key}}",
@@ -16512,16 +15342,6 @@
                 },
                 "method": "POST",
                 "header": [
-                  {
-                    "key": "x-SalesChannel",
-                    "value": "{{x-saleschannel}}",
-                    "type": "text"
-                  },
-                  {
-                    "key": "x-tenant",
-                    "value": "{{tenant}}",
-                    "type": "text"
-                  },
                   {
                     "key": "x-api-key",
                     "value": "{{x-api-key}}",
@@ -16661,14 +15481,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}"
-                      },
-                      {
                         "key": "X-API-Key",
                         "value": "{{x-api-key}}"
                       }
@@ -16753,16 +15565,6 @@
                     },
                     "method": "POST",
                     "header": [
-                      {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
                       {
                         "key": "X-API-Key",
                         "value": "{{x-api-key}}",
@@ -16888,16 +15690,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
-                      {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
                         "type": "text"
@@ -16992,16 +15784,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
-                      {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
                         "type": "text"
@@ -17078,16 +15860,6 @@
                     },
                     "method": "POST",
                     "header": [
-                      {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
                       {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
@@ -17210,14 +15982,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}"
-                      },
-                      {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
                         "type": "text"
@@ -17338,14 +16102,6 @@
                   "request": {
                     "method": "POST",
                     "header": [
-                      {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}"
-                      },
                       {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
@@ -17470,16 +16226,6 @@
                     },
                     "method": "POST",
                     "header": [
-                      {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
                       {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
@@ -17621,14 +16367,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}"
-                      },
-                      {
                         "key": "X-API-Key",
                         "value": "{{x-api-key}}"
                       }
@@ -17713,16 +16451,6 @@
                     },
                     "method": "POST",
                     "header": [
-                      {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
                       {
                         "key": "X-API-Key",
                         "value": "{{x-api-key}}",
@@ -17848,16 +16576,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
-                      {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
                         "type": "text"
@@ -17977,14 +16695,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}"
-                      },
-                      {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}"
                       }
@@ -18060,16 +16770,6 @@
                     },
                     "method": "POST",
                     "header": [
-                      {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
                       {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
@@ -18192,14 +16892,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}"
-                      },
-                      {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
                         "type": "text"
@@ -18320,14 +17012,6 @@
                   "request": {
                     "method": "POST",
                     "header": [
-                      {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}"
-                      },
                       {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
@@ -18453,16 +17137,6 @@
                     "method": "POST",
                     "header": [
                       {
-                        "key": "x-SalesChannel",
-                        "value": "{{x-saleschannel}}",
-                        "type": "text"
-                      },
-                      {
-                        "key": "x-tenant",
-                        "value": "{{tenant}}",
-                        "type": "text"
-                      },
-                      {
                         "key": "x-api-key",
                         "value": "{{x-api-key}}",
                         "type": "text"
@@ -18579,16 +17253,6 @@
         "method": "POST",
         "header": [
           {
-            "key": "x-SalesChannel",
-            "value": "{{x-saleschannel}}",
-            "type": "text"
-          },
-          {
-            "key": "x-tenant",
-            "value": "{{tenant}}",
-            "type": "text"
-          },
-          {
             "key": "Content-Type",
             "value": "application/xml"
           },
@@ -18649,10 +17313,6 @@
     {
       "key": "service-code",
       "value": "XBAG"
-    },
-    {
-      "key": "x-saleschannel",
-      "value": ""
     },
     {
       "key": "ndc-gateway-url",

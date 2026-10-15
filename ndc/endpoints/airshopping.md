@@ -17,7 +17,7 @@ The Air Shopping API searches for available flight offers matching your criteria
 
 **Step 1** in the booking chain ([NDC API — Offers & Orders workflow](../NDC_API.md#ndc-for-offers--orders-workflow)). `POST …/AirShopping` · messages **`IATA_AirShoppingRQ`** / **`IATA_AirShoppingRS`**. Capture **`OfferID`**, **`OfferItemID`**, **`OwnerCode`**, and **`PaxRefID`** for **[Offer Price](offerprice.md)**. Scenario anchors: **[`#airshopping-one-way-trip`](#airshopping-one-way-trip)**, **[`#airshopping-round-trip`](#airshopping-round-trip)**.
 
-See [Authentication](../NDC_API.md#http-headers) for **`x-tenant`**, **`x-SalesChannel`**, and **`x-api-key`**.
+See [Authentication](../NDC_API.md#http-headers) for **`x-api-key`**.
 
 ## Request
 
@@ -25,12 +25,10 @@ See [Authentication](../NDC_API.md#http-headers) for **`x-tenant`**, **`x-SalesC
 
 | Header | Purpose | Format | Required | Example |
 |--------|---------|--------|----------|---------|
-| `x-tenant` | Identifies the tenant/organization context for the request | String (e.g., `tenant-a`, `test-qa-rc`) | Yes | `x-tenant: test-qa-rc` |
-| `x-SalesChannel` | Specifies the sales channel (maps to account IDs per tenant configuration) | String (`DIRECT_OTA` or `OTA_NETWORK`) | Yes | `x-SalesChannel: DIRECT_OTA` |
 | `x-api-key` | API key for authenticating the request | String | Yes | `x-api-key: {x-api-key}` |
 | `Content-Type` | Request body media type | `application/xml` or `application/xml;charset=UTF-8` | Yes | `Content-Type: application/xml` |
 
-**Note:** The `x-SalesChannel` value is used to determine the account ID based on tenant configuration.
+**Note:** The `x-api-key` alone identifies the caller; the gateway resolves the account from it.
 
 ## Request Body
 
@@ -5743,8 +5741,6 @@ Partner key without your Partner ID in `DistributionChain` (see [Partner identif
 
     ```bash
     curl -X POST https://go7-api-gateway.prod.go7.io/ndc-gateway/v21.3.5/AirShopping \
-      -H "x-tenant: tenant-a" \
-      -H "x-SalesChannel: DIRECT_OTA" \
       -H "x-api-key: your-api-key-here" \
       -H "Content-Type: application/xml" \
       -d @airshopping-request.xml

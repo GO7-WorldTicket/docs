@@ -17,7 +17,7 @@ title: Get airline profile
 
 **Messages.** [Airline Profile](../endpoints/airlineprofile.md) — [all profiles](../endpoints/airlineprofile.md#airlineprofile-all), [by airline](../endpoints/airlineprofile.md#airlineprofile-by-owner), [several airlines](../endpoints/airlineprofile.md#airlineprofile-several-owners).
 
-**Notes.** Select airlines with `AirlineProfileCriteria/OwnerCode`; `AllProfilesInd` = `true` returns every profile available to you. The message has no airport filter. Only routes sold in your `x-SalesChannel` are returned. A route is an airport pair, not a flight — use [Shop for flights](shop-for-flights.md) for dates, flights and prices.
+**Notes.** Select airlines with `AirlineProfileCriteria/OwnerCode`; `AllProfilesInd` = `true` returns every profile available to you. The message has no airport filter. Only routes sold in the sales channel of your API key are returned. A route is an airport pair, not a flight — use [Shop for flights](shop-for-flights.md) for dates, flights and prices.
 
 **Availability.** Routes are read from the GO7 route catalogue, so the message is the same on every PSS; the routes returned are the ones loaded for the airline.
 

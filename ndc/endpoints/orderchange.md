@@ -25,7 +25,7 @@ The API validates the order status, processes the changes, and returns the updat
 
 **Step 9** ([workflow index](../NDC_API.md#ndc-for-offers--orders-workflow)). `POST …/OrderChange` · settle payment on **`DRAFT`**, or **`ChangeOrderChoice`** + **`PaymentFunctions`** after a quote ([**Rebook with New Offers**](#orderchange-rebook)). After success, call **OrderRetrieve** before the next process. Fragments: **[`#orderchange-payment-on-hold`](#orderchange-payment-on-hold)**, **[`#orderchange-payment-debit`](#orderchange-payment-debit)**, **[`#orderchange-payment-credit`](#orderchange-payment-credit)**, **[`#orderchange-payment-debit-credit-account`](#orderchange-payment-debit-credit-account)**, **[`#orderchange-payment-credit-card`](#orderchange-payment-credit-card)**, **[`#orderchange-rebook`](#orderchange-rebook)**, **[`#orderchange-rebook-seat-with-payment`](#orderchange-rebook-seat-with-payment)**, **[`#orderchange-rebook-ancillary-with-payment`](#orderchange-rebook-ancillary-with-payment)**.
 
-See [Authentication](../NDC_API.md#http-headers) for **`x-tenant`**, **`x-SalesChannel`**, and **`x-api-key`** on gateway XML calls.
+See [Authentication](../NDC_API.md#http-headers) for **`x-api-key`** on gateway XML calls.
 
 ## Request
 
@@ -33,12 +33,10 @@ See [Authentication](../NDC_API.md#http-headers) for **`x-tenant`**, **`x-SalesC
 
 | Header | Purpose | Format | Required | Example |
 |--------|---------|--------|----------|---------|
-| `x-tenant` | Identifies the tenant/organization context for the request | String (e.g., `tenant-a`, `test-qa-rc`) | Yes | `x-tenant: test-qa-rc` |
-| `x-SalesChannel` | Specifies the sales channel (maps to account IDs per tenant configuration) | String (`DIRECT_OTA` or `OTA_NETWORK`) | Yes | `x-SalesChannel: DIRECT_OTA` |
 | `x-api-key` | API key for authenticating the request | String | Yes | `x-api-key: {x-api-key}` |
 | `Content-Type` | Request body media type | `application/xml` or `application/xml;charset=UTF-8` | Yes | `Content-Type: application/xml` |
 
-**Note:** The `x-SalesChannel` value is used to determine the account ID based on tenant configuration.
+**Note:** The `x-api-key` alone identifies the caller; the gateway resolves the account from it.
 
 ## Request Body
 
@@ -277,7 +275,7 @@ Use this path for **online credit card** payment with 3DS. Post `IATA_OrderChang
 **Remark:** Online credit card payment **requires a 3DS Authenticate Result**. Include `PaymentCard/SecurePaymentVersion2` (for example `AuthenticationValue`, `ElectronicCommerceInd`, `DirectoryServerTrxID`, `TrxStatusText`) and `PaymentRefID` (PCI `transactionId` from 3DS init). Requests without a successful 3DS authenticate result are not supported.
 
 **Endpoint:** `POST https://{pci-proxy}/v1/push/{uniquePushKey}`  
-**Headers:** `pci-proxy-api-key`, `Content-Type: application/xml` (plus `x-tenant` / `x-SalesChannel` / `x-api-key` as required by your PCI dashboard forward configuration).
+**Headers:** `pci-proxy-api-key`, `Content-Type: application/xml` (plus `x-api-key` as required by your PCI dashboard forward configuration).
 
 **PCI Filter Push:** tokenize `CardNumber`, `CardSecurityCode`, and `ExpirationDate`. Pass through `SecurePaymentVersion2` and `PaymentRefID` (PCI `transactionId` from 3DS init) unchanged.
 
@@ -865,8 +863,6 @@ Order not found.
 
     ```bash
     curl -X POST https://go7-api-gateway.prod.go7.io/ndc-gateway/v21.3.5/OrderChange \
-      -H "x-tenant: tenant-a" \
-      -H "x-SalesChannel: DIRECT_OTA" \
       -H "x-api-key: your-api-key-here" \
       -H "Content-Type: application/xml" \
       -d @orderchange-request.xml

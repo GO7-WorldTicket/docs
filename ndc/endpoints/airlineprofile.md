@@ -21,7 +21,7 @@ The Airline Profile API returns the IATA NDC airline profile of each airline: th
 
 The response returns one **`AirlineProfile`** per airline, with one **`AirlineProfileDataItem`** per origin and destination airport pair.
 
-See [Authentication](../NDC_API.md#http-headers) for **`x-tenant`**, **`x-SalesChannel`**, and **`x-api-key`**.
+See [Authentication](../NDC_API.md#http-headers) for **`x-api-key`**.
 
 ## Request
 
@@ -29,8 +29,6 @@ See [Authentication](../NDC_API.md#http-headers) for **`x-tenant`**, **`x-SalesC
 
 | Header | Purpose | Format | Required | Example |
 |--------|---------|--------|----------|---------|
-| `x-tenant` | Identifies the tenant/organization context for the request | String (e.g., `tenant-a`, `test-qa-rc`) | Yes | `x-tenant: test-qa-rc` |
-| `x-SalesChannel` | Specifies the sales channel; only routes sold in this channel are returned | String (`DIRECT_OTA` or `OTA_NETWORK`) | Yes | `x-SalesChannel: DIRECT_OTA` |
 | `x-api-key` | API key for authenticating the request | String | Yes | `x-api-key: {x-api-key}` |
 | `Content-Type` | Request body media type | `application/xml` or `application/xml;charset=UTF-8` | Yes | `Content-Type: application/xml` |
 
@@ -54,7 +52,7 @@ Without `AirlineProfileCriteria` (or with `AllProfilesInd` = `true`) no airline 
 ### AirlineProfile — All profiles
 {: #airlineprofile-all}
 
-Use this mode to list every route without filtering by airline. The routes returned are those available for the tenant the request is made for (`x-tenant`) in your sales channel (`x-SalesChannel`). An empty `AirlineProfileFilterCriteria` gives the same result.
+Use this mode to list every route without filtering by airline. The routes returned are those available to your API key in its sales channel. An empty `AirlineProfileFilterCriteria` gives the same result.
 
 <details>
 <summary>Request Payload</summary>
@@ -307,8 +305,6 @@ Invalid request format, missing required fields, invalid codes, or no profile fo
 
     ```bash
     curl -X POST https://go7-api-gateway.prod.go7.io/ndc-gateway/v21.3.5/AirlineProfile \
-      -H "x-tenant: tenant-a" \
-      -H "x-SalesChannel: DIRECT_OTA" \
       -H "x-api-key: your-api-key-here" \
       -H "Content-Type: application/xml" \
       -d @airlineprofile-request.xml
@@ -318,5 +314,5 @@ Invalid request format, missing required fields, invalid codes, or no profile fo
 
 1. `IATA_AirlineProfileRQ` / `IATA_AirlineProfileRS` are standard IATA NDC 21.3 messages; validate them against [IATA_AirlineProfileRQ.xsd](/docs/assets/resources/IATA_AirlineProfileRQ.xsd) and [IATA_AirlineProfileRS.xsd](/docs/assets/resources/IATA_AirlineProfileRS.xsd).
 2. Send `OwnerCode` to get the profiles of specific airlines; without it the routes returned depend on the tenant the request is made for.
-3. Routes are filtered by the `x-SalesChannel` header: a route that is not sold in that channel is not returned.
+3. Routes are filtered by the sales channel of your API key: a route that is not sold in that channel is not returned.
 4. A route is an airport pair, not a flight. Use **AirShopping** for dates, flights, connections and prices.
