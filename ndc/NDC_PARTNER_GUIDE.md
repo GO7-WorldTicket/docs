@@ -20,6 +20,7 @@ Everything the NDC API supports is presented here as **one set**: shopping, orde
 - [Worked Examples](#worked-examples)
 - [Payment types](#payment-types)
   - [Zero-amount orders (Autopayment)](#zero-amount-autopayment)
+- [Booking deeplink](#booking-deeplink)
 - [Rules that apply to every flow](#rules-that-apply-to-every-flow)
 - [Availability by PSS](#availability-by-pss)
 - [Reference](#reference)
@@ -203,6 +204,25 @@ Do not skip `OrderQuote` or `OrderChange` because the price is zero. Only the pa
 
 **What counts as zero.** It is the final amount due for that request, including taxes, fees and penalties. A seat or service shown as "free" does not qualify if another amount on the same order is still to be paid; that amount follows the normal [payment types](#payment-types).
 
+## Booking deeplink
+
+Each `AirShopping` offer can carry a link that opens a booking site with the searched journey and passengers already filled in. It is returned on the offer as `RichMedia` with `DescText` `DEEPLINK`. Without any setup, the link points to the **airline's** booking site, using the airline's default template. To send travellers to **your own** site instead, GO7 sets a deeplink template on your agreement.
+
+**How to set it up.** Send GO7 the following for each agreement that should use your link:
+
+| What | Example |
+|---|---|
+| The agreement (your Partner ID and the airline) | Partner ID `3f2a…`, airline `DX` |
+| Your URL template, built from the [template variables](endpoints/airshopping.md#template-variables) | `https://book.example.com/{LANG}/search?from={DST1}&to={DST2}&dep={OUTBOUND_DATE}&ret={INBOUND_DATE}&adt={ADLT}&chd={CHLD}&inf={INF}&cur={CURR}` |
+
+GO7 enables deeplink on the agreement and stores the template: as the redirect URL override on a Sales agreement, or as the default redirect URL on a Network agreement. You do not send anything new in `AirShopping`; the change shows up in the next search.
+
+**When your template is used.** Only when every flight in an offer belongs to that one agreement. An offer that combines flights from more than one agreement falls back to the airline's template. If neither template exists, the offer has no `RichMedia`.
+
+**Check it.** Run an `AirShopping` with your partner key and confirm each offer's `RichMedia/ResourceURI` starts with your URL and has every variable filled in. A `{NAME}` left in the link means the variable name is misspelled or not supported. Names are case-sensitive.
+
+Template variables, rules and a worked example: [Air Shopping → Booking deeplink](endpoints/airshopping.md#booking-deeplink).
+
 ## Rules that apply to every flow
 
 | Rule | Why it matters |
@@ -253,6 +273,7 @@ The NDC API is the same for every airline, but the passenger service system behi
 | Passenger type, cabin and document codes | [NDC API → Code Lists](NDC_API.md#code-lists) |
 | Error codes | [NDC API → Error Code](NDC_API.md#error-code) |
 | Payment types and PCI Proxy card payment | [Order Change → payment](endpoints/orderchange.md#orderchange-payment-on-hold) |
+| Booking deeplink template variables | [Air Shopping → Booking deeplink](endpoints/airshopping.md#booking-deeplink) |
 | IATA schema distribution 21.3 and GO7 gateway package v21.3.5 | [Download](/docs/assets/resources/NDC-xmlbeans-21.3.5.zip) |
 | `AirlineProfile` schemas (not in the package above) | [IATA_AirlineProfileRQ.xsd](/docs/assets/resources/IATA_AirlineProfileRQ.xsd) · [IATA_AirlineProfileRS.xsd](/docs/assets/resources/IATA_AirlineProfileRS.xsd) |
 | Postman collection | [Collection](/docs/assets/resources/NDC_postman_collection.json) · [Environment](/docs/assets/resources/NDC.postman_environment.json) · [VI environment](/docs/assets/resources/NDC-VI.postman_environment.json) (folder `UseCase - VI`) |
