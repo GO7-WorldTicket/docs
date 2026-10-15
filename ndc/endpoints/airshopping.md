@@ -5746,6 +5746,75 @@ Partner key without your Partner ID in `DistributionChain` (see [Partner identif
       -d @airshopping-request.xml
     ```
 
+## Booking deeplink
+
+Each offer can carry a link to the airline's booking site, pre-filled with the searched journey and passengers. It is returned on the offer as `RichMedia` with `DescText` `DEEPLINK`:
+
+```xml
+<Offer>
+    <!-- … -->
+    <OfferID>…</OfferID>
+    <!-- … -->
+    <RichMedia>
+        <DescText>DEEPLINK</DescText>
+        <ResourceURI>https://book.example.com/search?from=AAL&amp;to=AAC&amp;dep=2025-11-29&amp;adt=1</ResourceURI>
+    </RichMedia>
+</Offer>
+```
+
+No `RichMedia` means no deeplink is configured for that offer.
+
+### Which template is used
+
+The link is built from a URL template:
+
+1. **Your agreement's template**, when all of the following hold:
+    - every flight in the offer belongs to **one** agreement,
+    - that agreement has deeplink enabled, and
+    - that agreement has a redirect URL set (sales partner agreement: redirect URL override; network partner agreement: default redirect URL).
+2. **The airline's default template** in every other case, including an offer that combines flights from more than one agreement.
+
+If neither template exists, the offer has no deeplink. To set or change the template on your agreement, contact GO7.
+
+### Template variables
+
+Write each variable in the template in upper case inside curly braces. The gateway replaces it with the offer's value.
+
+| Variable | Value | Example |
+|----------|-------|---------|
+| `{LANG}` | Language. `PayloadAttributes/PrimaryLangID` from the request; if absent, the language of the airline's country | `en` |
+| `{DST1}` | Origin airport of the outbound journey | `AAL` |
+| `{DST2}` | Destination airport of the outbound journey | `AAC` |
+| `{OUTBOUND_DATE}` | Outbound departure date, `YYYY-MM-DD` | `2025-11-29` |
+| `{INBOUND_DATE}` | Return departure date, `YYYY-MM-DD`; `NA` on a one-way trip | `2025-12-05` |
+| `{ADLT}` | Number of adults (`ADT`) | `1` |
+| `{CHLD}` | Number of children (`CHD`) | `0` |
+| `{INF}` | Number of infants (`INF`) | `0` |
+| `{CURR}` | Currency of the offer's total price | `USD` |
+| `{CARRIERCODE}` | Airline code of the offer | `DX` |
+| `{TRAVELTYPE}` | `return` for a round trip, `oneway` otherwise | `oneway` |
+| `{PROMO_CODE}` | Promo code applied to the offer; empty when none | `SUMMER25` |
+
+**Rules**
+
+- Names are case-sensitive: `{DST1}` is replaced, `{dst1}` is not.
+- A variable that is not in the table is left in the link unchanged.
+- A variable with no value is replaced with an empty string.
+
+### Example
+
+Template:
+
+```text
+https://book.example.com/{LANG}/search?from={DST1}&to={DST2}&dep={OUTBOUND_DATE}&ret={INBOUND_DATE}&adt={ADLT}&chd={CHLD}&inf={INF}&cur={CURR}&type={TRAVELTYPE}
+```
+
+One-way search, AAL → AAC on 2025-11-29, one adult, `PrimaryLangID` `en`, priced in USD:
+
+```text
+https://book.example.com/en/search?from=AAL&to=AAC&dep=2025-11-29&ret=NA&adt=1&chd=0&inf=0&cur=USD&type=oneway
+```
+
 ## Validation Rules
 
 ### Passenger Type Codes (PTC)
@@ -5775,3 +5844,4 @@ Partner key without your Partner ID in `DistributionChain` (see [Partner identif
 2. **Round-Trip Searches**: Include multiple `OriginDestCriteria` elements for round-trip or multi-city searches. Cabin codes are sent to offer search as one merged preference list; NDC then applies cabin **per origin-destination**.
 3. **CabinType**: When sending a cabin preference, include both `CabinTypeCode` and `PrefLevel/PrefLevelCode`.
 4. **Offer IDs**: Use the `OfferID` and `OfferItemID` from the response in subsequent `OfferPrice` requests.
+5. **Deeplink**: An offer may carry a booking link in `RichMedia` (`DescText` `DEEPLINK`). See [Booking deeplink](#booking-deeplink).

@@ -30,6 +30,7 @@ title: NDC API Generic Integration Guide
 
 | Change Description                                                                                              | Changed By              | Change Date |
 |-----------------------------------------------------------------------------------------------------------------|-------------------------|-------------|
+| AirShopping: document the offer booking deeplink, agreement template override and template variables (GH-8427)  | Naphachara Rattanawilai | 2026-10-15  |
 | DistributionChain must identify the calling partner on every NDC message (GH-8269)                              | Naphachara Rattanawilai | 2026-10-14  |
 | NDC requests send only the x-api-key header; x-tenant and x-SalesChannel removed from docs and the Postman collection (GH-8269) | Naphachara Rattanawilai | 2026-10-15  |
 | Added `AirlineProfile` (IATA NDC 21.3): airport pairs each airline serves, by airline (`OwnerCode`)             | Andrii Denysenko        | 2026-10-06  |
