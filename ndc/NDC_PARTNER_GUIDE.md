@@ -213,11 +213,11 @@ Each `AirShopping` offer can carry a link that opens a booking site with the sea
 | What | Example |
 |---|---|
 | The agreement (your Partner ID and the airline) | Partner ID `3f2a…`, airline `DX` |
-| Your URL template, built from the [template variables](endpoints/airshopping.md#template-variables) | `https://book.example.com/{LANG}/search?from={DST1}&to={DST2}&dep={OUTBOUND_DATE}&ret={INBOUND_DATE}&adt={ADLT}&chd={CHLD}&inf={INF}&cur={CURR}` |
+| Your URL template, built from the [template variables](endpoints/airshopping.md#template-variables) | `http://www.airlineibe.com/{LANG}/flight-results/{DST1}-{DST2}/{OUTBOUND_DATE}/{INBOUND_DATE}/{ADLT}/{CHLD}/{INF}/{CURR}` |
 
 GO7 enables deeplink on the agreement and stores the template: as the redirect URL override on a Sales agreement, or as the default redirect URL on a Network agreement. You do not send anything new in `AirShopping`; the change shows up in the next search.
 
-**When your template is used.** Only when every flight in an offer belongs to that one agreement. An offer that combines flights from more than one agreement falls back to the airline's template. If neither template exists, the offer has no `RichMedia`.
+**When your template is used.** When the offer's flights belong to that one agreement, or when the offer names no agreement and that is your only active agreement with the offer's airline (found from your Partner ID). Deeplink must be enabled on the agreement and the template set. Otherwise the offer falls back to the airline's template, including an offer that combines flights from more than one agreement. If neither template exists, the offer has no `RichMedia`.
 
 **Check it.** Run an `AirShopping` with your partner key and confirm each offer's `RichMedia/ResourceURI` starts with your URL and has every variable filled in. A `{NAME}` left in the link means the variable name is misspelled or not supported. Names are case-sensitive.
 
