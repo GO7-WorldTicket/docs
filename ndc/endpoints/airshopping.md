@@ -5757,7 +5757,7 @@ Each offer can carry a link to the airline's booking site, pre-filled with the s
     <!-- … -->
     <RichMedia>
         <DescText>DEEPLINK</DescText>
-        <ResourceURI>https://book.example.com/search?from=AAL&amp;to=AAC&amp;dep=2025-11-29&amp;adt=1</ResourceURI>
+        <ResourceURI>http://www.airlineibe.com/en/flight-results/AAL-AAC/2025-11-29/NA/1/0/0/USD</ResourceURI>
     </RichMedia>
 </Offer>
 ```
@@ -5766,15 +5766,25 @@ No `RichMedia` means no deeplink is configured for that offer.
 
 ### Which template is used
 
-The link is built from a URL template:
+The link is built from a URL template. The gateway first finds your agreement for the offer, then picks the template:
 
-1. **Your agreement's template**, when all of the following hold:
-    - every flight in the offer belongs to **one** agreement,
-    - that agreement has deeplink enabled, and
-    - that agreement has a redirect URL set (sales partner agreement: redirect URL override; network partner agreement: default redirect URL).
-2. **The airline's default template** in every other case, including an offer that combines flights from more than one agreement.
+1. **Find the agreement.** The gateway uses the agreement the offer's flights belong to. If the offer names no
+   agreement, it uses your Partner ID (from your API key) to find your active agreement with the offer's airline.
+2. **Deeplink enabled on the agreement:** your agreement's template is used (sales partner agreement: redirect URL
+   override; network partner agreement: default redirect URL). If the agreement has no template, the airline's default
+   template is used.
+3. **Deeplink not enabled on the agreement:** the airline's default template is used.
+4. **No agreement found:** the airline's default template is used.
 
-If neither template exists, the offer has no deeplink. To set or change the template on your agreement, contact GO7.
+If the airline's default template is also missing, the offer has no deeplink. To set or change the template on your
+agreement, contact GO7.
+
+The airline's default template is used in these cases too:
+
+- the offer combines flights from more than one agreement;
+- the offer names no agreement and you have more than one active agreement with the offer's airline.
+
+The same link is returned on the priced offer in `OfferPrice`.
 
 ### Template variables
 
@@ -5803,16 +5813,29 @@ Write each variable in the template in upper case inside curly braces. The gatew
 
 ### Example
 
-Template:
+A deeplink follows this pattern:
 
 ```text
-https://book.example.com/{LANG}/search?from={DST1}&to={DST2}&dep={OUTBOUND_DATE}&ret={INBOUND_DATE}&adt={ADLT}&chd={CHLD}&inf={INF}&cur={CURR}&type={TRAVELTYPE}
+http://www.airlineibe.com/LANG/flight-results/DST1-DST2/YYYY-MM-DD/YYYY-MM-DD/ADLT/CHLD/INF/CURR
+```
+
+Written as a template:
+
+```text
+http://www.airlineibe.com/{LANG}/flight-results/{DST1}-{DST2}/{OUTBOUND_DATE}/{INBOUND_DATE}/{ADLT}/{CHLD}/{INF}/{CURR}
 ```
 
 One-way search, AAL → AAC on 2025-11-29, one adult, `PrimaryLangID` `en`, priced in USD:
 
 ```text
-https://book.example.com/en/search?from=AAL&to=AAC&dep=2025-11-29&ret=NA&adt=1&chd=0&inf=0&cur=USD&type=oneway
+http://www.airlineibe.com/en/flight-results/AAL-AAC/2025-11-29/NA/1/0/0/USD
+```
+
+Round trip, AAL → AAC on 2025-11-29 and back on 2025-12-05, two adults and one child, `PrimaryLangID` `en`, priced in
+USD:
+
+```text
+http://www.airlineibe.com/en/flight-results/AAL-AAC/2025-11-29/2025-12-05/2/1/0/USD
 ```
 
 ## Validation Rules

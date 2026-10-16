@@ -30,6 +30,7 @@ title: NDC API Generic Integration Guide
 
 | Change Description                                                                                              | Changed By              | Change Date |
 |-----------------------------------------------------------------------------------------------------------------|-------------------------|-------------|
+| Deeplink: URL pattern example; offers without an agreement use the partner's agreement with the airline (GH-8052) | Naphachara Rattanawilai | 2026-10-16  |
 | AirShopping: document the offer booking deeplink, agreement template override and template variables (GH-8427)  | Naphachara Rattanawilai | 2026-10-15  |
 | DistributionChain must identify the calling partner on every NDC message (GH-8269)                              | Naphachara Rattanawilai | 2026-10-14  |
 | NDC requests send only the x-api-key header; x-tenant and x-SalesChannel removed from docs and the Postman collection (GH-8269) | Naphachara Rattanawilai | 2026-10-15  |
