@@ -43,6 +43,8 @@ The request body must be a valid `IATA_OrderReshopRQ` XML document following IAT
 
 **Partner keys:** `DistributionChain` must name you: your Partner ID as `ParticipatingOrg/OrgID`, with the `OrgRole` your agreement allows. See [Partner identification (DistributionChain)](../NDC_API.md#partner-identification-distributionchain).
 
+**Message attributes:** `PayloadAttributes` is optional. When you send it, the gateway echoes it back unchanged, and your `CorrelationID` comes back as `Error/ErrorID` if the request fails. See [Message attributes (PayloadAttributes)](../NDC_API.md#payload-attributes).
+
 ### Rebook with New Travel Date
 {: #orderreshop-rebook}
 

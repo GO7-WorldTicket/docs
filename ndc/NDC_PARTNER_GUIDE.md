@@ -228,6 +228,7 @@ Template variables, rules and a worked example: [Air Shopping → Booking deepli
 | Rule | Why it matters |
 |---|---|
 | **Your Partner ID must appear in `DistributionChain` on every message**, with the `OrgRole` your agreement allows ([details](NDC_API.md#partner-identification-distributionchain)). | Otherwise every message returns HTTP 400 with error 12. |
+| **`PayloadAttributes` is optional, but send it on every message** — a fresh `CorrelationID` per request, one `TrxID` for the whole flow, `VersionNumber` `21.3`, and keep the children in schema order ([details](NDC_API.md#payload-attributes)). | It is the only thing that ties a response, and a gateway log line, back to the request you sent. The gateway echoes it unchanged on success and returns your `CorrelationID` as `Error/ErrorID` on a failure, so support can find your call. |
 | **Refresh passenger and item references after `OrderChange`.** Before a later request reuses `PaxID` or related item references, call `OrderRetrieve` and read the current values. | These identifiers may change when an order is modified. A payment-only follow-up that uses the latest `OrderViewRS`, `OrderID` and `PaymentFunctions` does not reuse `PaxID`. |
 | **Insert `OrderRetrieve` between changes that reuse passenger or item references.** For example add a service, retrieve, then start another servicing flow. | Reusing identifiers from an earlier `OrderCreateRS` or `OrderChangeRS` can make the next request fail or target the wrong item. |
 | **`OrderQuote` is part of the flows that use it — it is not an optional extra step.** Rebooking and adding ancillaries by order require it. Name change and cancellation — whole booking or segment — do not use it at all. | Sending an `OrderQuote` a flow does not use, or skipping one it requires, makes the flow fail. |
@@ -270,6 +271,7 @@ The NDC API is the same for every airline, but the passenger service system behi
 | Topic | Where |
 |---|---|
 | Base URLs, HTTP headers, authentication | [NDC API → Introduction](NDC_API.md#introduction) |
+| `PayloadAttributes` fields and element order | [NDC API → Message attributes](NDC_API.md#payload-attributes) |
 | Passenger type, cabin and document codes | [NDC API → Code Lists](NDC_API.md#code-lists) |
 | Error codes | [NDC API → Error Code](NDC_API.md#error-code) |
 | Payment types and PCI Proxy card payment | [Order Change → payment](endpoints/orderchange.md#orderchange-payment-on-hold) |

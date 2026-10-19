@@ -25,11 +25,13 @@ title: NDC API Generic Integration Guide
 - [NDC for Offers & Orders workflow](#ndc-for-offers--orders-workflow)
   - [Basic request format (API key)](#basic-request-format-api-key)
   - [Partner identification (DistributionChain)](#partner-identification-distributionchain)
+  - [Message attributes (PayloadAttributes)](#payload-attributes)
 
 ## Change Log
 
 | Change Description                                                                                              | Changed By              | Change Date |
 |-----------------------------------------------------------------------------------------------------------------|-------------------------|-------------|
+| `PayloadAttributes` is optional on every message: fields echoed, element order, `CorrelationID` returned as `Error/ErrorID` (GH-8220) | Naphachara Rattanawilai | 2026-10-19 |
 | Deeplink: URL pattern example; offers without an agreement use the partner's agreement with the airline (GH-8052) | Naphachara Rattanawilai | 2026-10-16  |
 | AirShopping: document the offer booking deeplink, agreement template override and template variables (GH-8427)  | Naphachara Rattanawilai | 2026-10-15  |
 | DistributionChain must identify the calling partner on every NDC message (GH-8269)                              | Naphachara Rattanawilai | 2026-10-14  |
@@ -331,3 +333,39 @@ If your API key identifies a **partner**, every NDC message must name you in `Di
 | Your link has the wrong `OrgRole` | 12 | `OrgRole must be Seller for the authenticated partner` (or `Distributor`, or `Seller or Distributor`, per your agreement) | `Request.DistributionChain.DistributionChainLink[i].OrgRole` |
 
 If your agreements cannot be checked at that moment, the API returns that HTTP status with Code **911** (system error). The request is not processed; retry later.
+
+## Message attributes (PayloadAttributes)
+{: #payload-attributes}
+
+`PayloadAttributes` is **optional** on every NDC message — the schema declares it `minOccurs="0"`, and a request without it is processed normally. Send it anyway: it is how you correlate a response, and a log line, with the request you sent.
+
+**What the gateway does with it**
+
+- Whatever you send is **echoed unchanged** in the response, before any processing of the business payload.
+- `CorrelationID` is also written to the gateway's own logs, and on a failure it comes back as `Error/ErrorID` in the error response. Quote it when you report a problem.
+- Error responses carry the `Error` element only — no `PayloadAttributes` is echoed on a failed request.
+- If you omit `PayloadAttributes`, the response has no `PayloadAttributes` either, and the gateway logs the message without your correlation ID.
+
+**Fields**
+
+| Element | Occurs | Use |
+|---------|--------|-----|
+| `CorrelationID` | 0..1 | Your ID for this single message. Use a fresh UUID per request. Echoed in the response and written to the gateway logs. |
+| `Timestamp` | 0..1 | Creation date and time of the message, `xs:dateTime` (for example `2026-05-07T18:11:33.876+07:00`). Echoed. |
+| `TrxID` | 0..1 | Your ID for the whole transaction — keep it the same across `AirShopping` → `OfferPrice` → `OrderCreate` to group one booking flow. Echoed. |
+| `VersionNumber` | 0..1 | Schema distribution version: `21.3`. Echoed. |
+| `PrimaryLangID` | 0..1 | Language preference (ISO 639). `AirShopping` uses it as `{LANG}` in the [booking deeplink](endpoints/airshopping.md#booking-deeplink); without it the language of the airline's country is used. Echoed. |
+
+The schema also allows `AltLangID`, `RetransmissionInd` and `SeqNumber`. The gateway accepts them but does **not** echo them; only the five fields above come back.
+
+**Element order matters.** `PayloadAttributes` is an `xs:sequence`, so keep its children in schema order: `AltLangID`, `CorrelationID`, `PrimaryLangID`, `RetransmissionInd`, `SeqNumber`, `Timestamp`, `TrxID`, `VersionNumber` — note that `PrimaryLangID` goes *before* `Timestamp`. Children sent out of order are not reliably read: depending on the gateway's XSD-validation setting they are either rejected as a schema error or ignored, and an ignored field is not echoed back.
+
+```xml
+<PayloadAttributes>
+    <cns:CorrelationID>32f9ddf2-bda9-4ca4-83ee-82a873c509f6</cns:CorrelationID>
+    <cns:PrimaryLangID>en</cns:PrimaryLangID>
+    <cns:Timestamp>2026-05-07T18:11:33.876+07:00</cns:Timestamp>
+    <cns:TrxID>TRX-123456789</cns:TrxID>
+    <cns:VersionNumber>21.3</cns:VersionNumber>
+</PayloadAttributes>
+```

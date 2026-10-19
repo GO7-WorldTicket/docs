@@ -36,6 +36,8 @@ The request body must be a valid `IATA_AirShoppingRQ` XML document following IAT
 
 **Partner keys:** `DistributionChain` must name you: your Partner ID as `ParticipatingOrg/OrgID`, with the `OrgRole` your agreement allows. See [Partner identification (DistributionChain)](../NDC_API.md#partner-identification-distributionchain).
 
+**Message attributes:** `PayloadAttributes` is optional. When you send it, the gateway echoes it back unchanged, and your `CorrelationID` comes back as `Error/ErrorID` if the request fails. See [Message attributes (PayloadAttributes)](../NDC_API.md#payload-attributes).
+
 Optional **`OriginDestCriteria.CabinType`** filters offers by cabin (see [Cabin Type](../NDC_API.md#cabin-type)). Omit the block to search without a cabin filter. If it is present, NDC 21.3.5 requires both **`CabinTypeCode`** and **`PrefLevel/PrefLevelCode`**. Codes from all origin-destination pairs are merged into offer search `preferences.cabinTypes`; NDC then keeps only offers whose flight items match **Required** cabin codes **per origin-destination**. `Preferred` does not drop other cabins.
 
 ### AirShopping — One-way trip
