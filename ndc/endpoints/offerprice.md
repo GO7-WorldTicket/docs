@@ -43,7 +43,7 @@ The request body must be a valid `IATA_OfferPriceRQ` XML document following IATA
 
 **Partner keys:** `DistributionChain` must name you: your Partner ID as `ParticipatingOrg/OrgID`, with the `OrgRole` your agreement allows. See [Partner identification (DistributionChain)](../NDC_API.md#partner-identification-distributionchain).
 
-**Message attributes:** `PayloadAttributes` is optional. When you send it, the gateway echoes it back unchanged, and your `CorrelationID` comes back as `Error/ErrorID` if the request fails. See [Message attributes (PayloadAttributes)](../NDC_API.md#payload-attributes).
+**Message attributes:** send `PayloadAttributes` with a fresh `CorrelationID` on every request — both are required. The gateway echoes the block back unchanged, and your `CorrelationID` comes back as `Error/ErrorID` if the request fails. See [Message attributes (PayloadAttributes)](../NDC_API.md#payload-attributes).
 
 `Request/PricedOffer/SelectedOfferList` contains one or more **`SelectedOffer`** blocks. The gateway classifies each block by the child marker on its `SelectedOfferItem` elements (same pattern as **OrderCreate** / **OrderChange**):
 

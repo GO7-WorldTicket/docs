@@ -31,7 +31,7 @@ title: NDC API Generic Integration Guide
 
 | Change Description                                                                                              | Changed By              | Change Date |
 |-----------------------------------------------------------------------------------------------------------------|-------------------------|-------------|
-| `PayloadAttributes` is optional on every message: fields echoed, element order, `CorrelationID` returned as `Error/ErrorID` (GH-8220) | Naphachara Rattanawilai | 2026-10-19 |
+| `PayloadAttributes` with a per-message `CorrelationID` is required on every NDC message: fields echoed, element order, `CorrelationID` returned as `Error/ErrorID` (GH-8220) | Naphachara Rattanawilai | 2026-10-19 |
 | Deeplink: URL pattern example; offers without an agreement use the partner's agreement with the airline (GH-8052) | Naphachara Rattanawilai | 2026-10-16  |
 | AirShopping: document the offer booking deeplink, agreement template override and template variables (GH-8427)  | Naphachara Rattanawilai | 2026-10-15  |
 | DistributionChain must identify the calling partner on every NDC message (GH-8269)                              | Naphachara Rattanawilai | 2026-10-14  |
@@ -337,7 +337,9 @@ If your agreements cannot be checked at that moment, the API returns that HTTP s
 ## Message attributes (PayloadAttributes)
 {: #payload-attributes}
 
-`PayloadAttributes` is **optional** on every NDC message — the schema declares it `minOccurs="0"`, and a request without it is processed normally. Send it anyway: it is how you correlate a response, and a log line, with the request you sent.
+**Send `PayloadAttributes` on every NDC message, with a `CorrelationID` in it.** Both are required for integration with the GO7 NDC Gateway.
+
+The IATA schema itself declares `PayloadAttributes` `minOccurs="0"`, and the gateway does **not** currently reject a request that leaves it out — such a request is processed normally. That is not a reason to omit it: without a `CorrelationID` there is nothing that ties a response, or a line in the gateway's logs, back to the request you sent, and a problem report that cannot be traced to a call cannot be investigated.
 
 **What the gateway does with it**
 
@@ -348,13 +350,15 @@ If your agreements cannot be checked at that moment, the API returns that HTTP s
 
 **Fields**
 
-| Element | Occurs | Use |
-|---------|--------|-----|
-| `CorrelationID` | 0..1 | Your ID for this single message. Use a fresh UUID per request. Echoed in the response and written to the gateway logs. |
-| `Timestamp` | 0..1 | Creation date and time of the message, `xs:dateTime` (for example `2026-05-07T18:11:33.876+07:00`). Echoed. |
-| `TrxID` | 0..1 | Your ID for the whole transaction — keep it the same across `AirShopping` → `OfferPrice` → `OrderCreate` to group one booking flow. Echoed. |
-| `VersionNumber` | 0..1 | Schema distribution version: `21.3`. Echoed. |
-| `PrimaryLangID` | 0..1 | Language preference (ISO 639). `AirShopping` uses it as `{LANG}` in the [booking deeplink](endpoints/airshopping.md#booking-deeplink); without it the language of the airline's country is used. Echoed. |
+| Element | Required | Use |
+|---------|----------|-----|
+| `CorrelationID` | **Yes** | Your ID for this single message. Use a **fresh UUID per request** — never reuse one across messages. Echoed in the response, written to the gateway logs, and returned as `Error/ErrorID` when the request fails. |
+| `Timestamp` | Recommended | Creation date and time of the message, `xs:dateTime` (for example `2026-05-07T18:11:33.876+07:00`). Echoed. |
+| `TrxID` | Recommended | Your ID for the whole transaction — keep it the same across `AirShopping` → `OfferPrice` → `OrderCreate` to group one booking flow. Echoed. |
+| `VersionNumber` | Recommended | Schema distribution version: `21.3`. Echoed. |
+| `PrimaryLangID` | Optional | Language preference (ISO 639). `AirShopping` uses it as `{LANG}` in the [booking deeplink](endpoints/airshopping.md#booking-deeplink); without it the language of the airline's country is used. Echoed. |
+
+"Required" and "Recommended" above are GO7 integration requirements, not schema rules — every child is `minOccurs="0"` in the IATA schema, so nothing here is enforced by XSD validation.
 
 The schema also allows `AltLangID`, `RetransmissionInd` and `SeqNumber`. The gateway accepts them but does **not** echo them; only the five fields above come back.
 

@@ -38,7 +38,7 @@ The request body must be a valid `IATA_ServiceListRQ` XML document following IAT
 
 **Partner keys:** `DistributionChain` must name you: your Partner ID as `ParticipatingOrg/OrgID`, with the `OrgRole` your agreement allows. See [Partner identification (DistributionChain)](../NDC_API.md#partner-identification-distributionchain).
 
-**Message attributes:** `PayloadAttributes` is optional. When you send it, the gateway echoes it back unchanged, and your `CorrelationID` comes back as `Error/ErrorID` if the request fails. See [Message attributes (PayloadAttributes)](../NDC_API.md#payload-attributes).
+**Message attributes:** send `PayloadAttributes` with a fresh `CorrelationID` on every request — both are required. The gateway echoes the block back unchanged, and your `CorrelationID` comes back as `Error/ErrorID` if the request fails. See [Message attributes (PayloadAttributes)](../NDC_API.md#payload-attributes).
 
 Provide exactly one of **`OfferRequest`** or **`OrderRequest`** inside **`ServiceListCoreRequest`**. Both request modes also support **`ResponseParameters`** such as currency and language.
 
