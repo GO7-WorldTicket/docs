@@ -38,10 +38,12 @@ The request body must be a valid `IATA_AirlineProfileRQ` XML document ([IATA_Air
 
 **Partner keys:** `DistributionChain` must name you: your Partner ID as `ParticipatingOrg/OrgID`, with the `OrgRole` your agreement allows. See [Partner identification (DistributionChain)](../NDC_API.md#partner-identification-distributionchain).
 
+**Message attributes:** send `PayloadAttributes` with a fresh `CorrelationID` on every request — both are required. The gateway echoes the block back unchanged, and your `CorrelationID` comes back as `Error/ErrorID` if the request fails. See [Message attributes (PayloadAttributes)](../NDC_API.md#payload-attributes).
+
 | Element | Occurs | Use |
 |---------|--------|-----|
 | `DistributionChain` | 1 | Same as on every NDC message. Each link needs `Ordinal`, `OrgRole` and `ParticipatingOrg/OrgID`. |
-| `PayloadAttributes` | 0..1 | Echoed in the response (`CorrelationID`, `TrxID`, `VersionNumber`, `Timestamp`, `PrimaryLangID`). |
+| `PayloadAttributes` | 1 | Required on every message, with a `CorrelationID` inside it (the IATA schema allows `0..1`; GO7 does not). Echoed in the response (`CorrelationID`, `TrxID`, `VersionNumber`, `Timestamp`, `PrimaryLangID`). See [Message attributes](../NDC_API.md#payload-attributes). |
 | `Request/AirlineProfileFilterCriteria` | 1 | Profile filter. May be empty. |
 | `…/AirlineProfileCriteria/OwnerCode` | 0..n | Airline whose profile is returned. Repeat `AirlineProfileCriteria` for several airlines. |
 | `…/AllProfilesInd` | 0..1 | `true` returns every profile available to you; `OwnerCode` values are then ignored. |

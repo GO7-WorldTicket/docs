@@ -36,6 +36,8 @@ The request body must be a valid `IATA_OrderCreateRQ` XML document following IAT
 
 **Partner keys:** `DistributionChain` must name you: your Partner ID as `ParticipatingOrg/OrgID`, with the `OrgRole` your agreement allows. See [Partner identification (DistributionChain)](../NDC_API.md#partner-identification-distributionchain).
 - Each `<PaxList>`/`<Pax>` must be ordered by PassengerType in a strictly sequential ADT, CHD, INF
+**Message attributes:** send `PayloadAttributes` with a fresh `CorrelationID` on every request — both are required. The gateway echoes the block back unchanged, and your `CorrelationID` comes back as `Error/ErrorID` if the request fails. See [Message attributes (PayloadAttributes)](../NDC_API.md#payload-attributes).
+
 - Passenger `<PaxID>`'s number must be consecutive numbers
 
 ### OfferRefID shapes
