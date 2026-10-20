@@ -31,6 +31,7 @@ title: NDC API Generic Integration Guide
 
 | Change Description                                                                                              | Changed By              | Change Date |
 |-----------------------------------------------------------------------------------------------------------------|-------------------------|-------------|
+| Replace environment-specific URLs with placeholders in NDC guides and endpoint examples; leave service URLs and API keys empty in Postman environment downloads and document local setup | Sittiwet Mahapratoom | 2026-10-20 |
 | `PayloadAttributes` with a per-message `CorrelationID` is required on every NDC message: fields echoed, element order, `CorrelationID` returned as `Error/ErrorID` (GH-8220) | Naphachara Rattanawilai | 2026-10-19 |
 | Deeplink: URL pattern example; offers without an agreement use the partner's agreement with the airline (GH-8052) | Naphachara Rattanawilai | 2026-10-16  |
 | AirShopping: document the offer booking deeplink, agreement template override and template variables (GH-8427)  | Naphachara Rattanawilai | 2026-10-15  |
@@ -42,7 +43,7 @@ title: NDC API Generic Integration Guide
 | Cancel booking flow has no OrderQuote; removed OrderQuote cancel section (GH-8162)                             | Naphachara Rattanawilai | 2026-09-24  |
 | Removed phase wording from scenario sections; OrderQuote required where used; name change has no OrderQuote (GH-8162) | Naphachara Rattanawilai | 2026-09-22  |
 | AirShopping: document `CabinTypeCode` filter and required `PrefLevel` (ET-58650)                                | Naphachara Rattanawilai | 2026-08-19  |
-| Production base URL updated to `https://go7-api-gateway.prod.go7.io/ndc-gateway` (GH-7540)                      | Naphachara Rattanawilai | 2026-08-04  |
+| Updated production gateway base URL (GH-7540)                                                                | Naphachara Rattanawilai | 2026-08-04  |
 | OrderChange: call OrderRetrieve and reuse PaxIDs before the next process (GH-7531 / GH-7171)                    | Naphachara Rattanawilai | 2026-08-04  |
 | SeatAvailability: document multiple `OfferItemRefID` per seat — partner guidance (GH-7532 / GH-7253)            | Naphachara Rattanawilai | 2026-08-04  |
 | OrderCreate supports combined OfferPrice `OfferID` (composite flight + service + seat)                | Naphachara Rattanawilai | 2026-08-03  |
@@ -63,16 +64,11 @@ Requests use **XML bodies** with **`Content-Type: application/xml`** (or `applic
 
 ## Base URLs
 
-Use these hosts with the paths documented per endpoint (for example `POST …/v21.3.5/AirShopping`).
-
-| Environment               | Base URL |
-|---------------------------|-----------|
-| Production (platform API) | `https://go7-api-gateway.prod.go7.io/ndc-gateway` |
-| Test (platform API)       | `https://go7-api-gateway.dev.go7.io/ndc-gateway` |
+Obtain the base URL and partner API key for your target environment from GO7 during onboarding. `{ndc-gateway-url}` represents the supplied base URL, including `/ndc-gateway` and without a trailing slash. Use it with the paths documented per endpoint (for example `POST …/v21.3.5/AirShopping`). Published examples do not select an environment.
 
 All Offers & Orders messages documented here are posted under:
 
-`https://go7-api-gateway.prod.go7.io/ndc-gateway/v21.3.5/<MessageName>`
+`{ndc-gateway-url}/v21.3.5/<MessageName>`
 
 ## HTTP Headers
 
@@ -164,7 +160,7 @@ Use IATA **OffersAndOrders** message XML (`IATA_AirShoppingRQ`, `IATA_OrderCreat
 [Download Postman Environment](/docs/assets/resources/NDC.postman_environment.json)
 [Download Postman Environment for Virtual Interline (NDC-VI)](/docs/assets/resources/NDC-VI.postman_environment.json)
 
-Please update the variables in collection such as x-api-key, ndc-gateway-url.
+Select the imported Postman environment and fill `ndc-gateway-url` and `x-api-key` with the values supplied by GO7 for your target environment. The collection references these environment variables; both environment downloads leave service URLs and API keys empty. Fill additional service URL variables only when required by your integration. Keep credentials in local values and remove them before sharing or exporting.
 
 ## UseCase - VI (Virtual Interline)
 
@@ -232,9 +228,9 @@ Same pattern as **[OTA for Reservation workflow](../ota/OTA_API.md#ota-for-reser
 
 Optionally start with **AirlineProfile** to list the airport pairs an airline serves. Typical chain: **AirShopping → OfferPrice → OrderCreate**, then **OrderRetrieve** / **OrderReshop** / **OrderQuote** / **OrderChange** as needed (see [Booking and servicing scenarios](#booking-and-servicing-scenarios)). Ancillaries by offer: **AirShopping → SeatAvailability and/or ServiceList → OfferPrice** (flight + selected extras) → **OrderCreate** (instant pay). Ancillaries by order: create the order first, then **SeatAvailability** / **ServiceList** (`OrderRequest`) → **OrderQuote** → **OrderChange** → **OrderRetrieve** (see [Ancillary seat and service scenarios](#ancillary-seat-and-service-scenarios)). After any **OrderChange**, call **OrderRetrieve** before the next process and use the latest **PaxID** values.
 
-| | Production-style base | Message path pattern |
+| | Base URL placeholder | Message path pattern |
 |--|------------------------|----------------------|
-| Offers & Orders API | `https://go7-api-gateway.prod.go7.io/ndc-gateway` | `/v21.3.5/<MessageName>` |
+| Offers & Orders API | `{ndc-gateway-url}` | `/v21.3.5/<MessageName>` |
 
 - **0 — [Airline Profile](endpoints/airlineprofile.md)** (optional) — `POST …/AirlineProfile` · airport pairs each airline serves, before **AirShopping**
   - [All profiles](endpoints/airlineprofile.md#airlineprofile-all)
@@ -279,9 +275,11 @@ Optionally start with **AirlineProfile** to list the airport pairs an airline se
 
 ## Basic request format (API key)
 
+Set `NDC_GATEWAY_URL` and `NDC_API_KEY` in your local shell to the base URL and API key supplied by GO7. These correspond to `{ndc-gateway-url}` and `{x-api-key}` in the reference tables. All shell examples use these variables.
+
 ```bash
-curl -X POST "https://go7-api-gateway.prod.go7.io/ndc-gateway/v21.3.5/<MessageName>" \
-  -H "x-api-key: {x-api-key}" \
+curl -X POST "${NDC_GATEWAY_URL}/v21.3.5/<MessageName>" \
+  -H "x-api-key: ${NDC_API_KEY}" \
   -H "Content-Type: application/xml" \
   --data-binary @request.xml
 ```

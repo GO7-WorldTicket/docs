@@ -41,10 +41,12 @@ Capabilities describe *what* you can do. Worked examples show *how*, as a number
 
 All messages are XML, posted to one host with the message name in the path.
 
-| Environment | Base URL |
+Obtain the NDC Gateway base URL and partner API key for your target environment from GO7 during onboarding. Published examples use placeholders; no environment is selected by default.
+
+| Setting | Placeholder |
 |---|---|
-| Production | `https://go7-api-gateway.prod.go7.io/ndc-gateway` |
-| Test | `https://go7-api-gateway.dev.go7.io/ndc-gateway` |
+| NDC Gateway base URL (including `/ndc-gateway`, without a trailing slash) | `{ndc-gateway-url}` |
+| Partner API key | `{x-api-key}` |
 
 Message path pattern: `…/v21.3.5/<MessageName>` — for example `POST …/v21.3.5/AirShopping`.
 
@@ -53,9 +55,11 @@ Message path pattern: `…/v21.3.5/<MessageName>` — for example `POST …/v21.
 | `x-api-key` | Your partner API key (required) |
 | `Content-Type` | `application/xml` |
 
+Set `NDC_GATEWAY_URL` and `NDC_API_KEY` in your local shell to the supplied values before running the shell examples. `NDC_GATEWAY_URL` corresponds to `{ndc-gateway-url}` and `NDC_API_KEY` to `{x-api-key}`.
+
 ```bash
-curl -X POST "https://go7-api-gateway.prod.go7.io/ndc-gateway/v21.3.5/<MessageName>" \
-  -H "x-api-key: {x-api-key}" \
+curl -X POST "${NDC_GATEWAY_URL}/v21.3.5/<MessageName>" \
+  -H "x-api-key: ${NDC_API_KEY}" \
   -H "Content-Type: application/xml" \
   --data-binary @request.xml
 ```
@@ -66,7 +70,7 @@ curl -X POST "https://go7-api-gateway.prod.go7.io/ndc-gateway/v21.3.5/<MessageNa
 
 **Name yourself in every request.** Every NDC message must carry your Partner ID in `DistributionChain`, as `ParticipatingOrg/OrgID`. Use `OrgRole` `Seller` for a Sales agreement and `Distributor` for a Network agreement (either if you have both). This only identifies you: your agreements always come from your API key, never from the request. Details and errors: [NDC API → Partner identification (DistributionChain)](NDC_API.md#partner-identification-distributionchain).
 
-**Try it in Postman.** Download the [Postman collection](/docs/assets/resources/NDC_postman_collection.json) and [environment](/docs/assets/resources/NDC.postman_environment.json), then set `x-api-key` and `ndc-gateway-url`. Each worked example below names the `UseCase/…` folder that runs it. The collection also carries extra request variants kept for experimentation; the sequences documented in this guide are the supported ones. For a **Virtual Interline** sale use the `UseCase - VI` folder with the [NDC-VI environment](/docs/assets/resources/NDC-VI.postman_environment.json) and your VI API key; its folder description says which use cases are available on VI and which are not.
+**Try it in Postman.** Download the [Postman collection](/docs/assets/resources/NDC_postman_collection.json) and [environment](/docs/assets/resources/NDC.postman_environment.json), then set `x-api-key` and `ndc-gateway-url` in your selected Postman environment to the values supplied by GO7. Both environment downloads leave service URLs and API keys empty. Fill any additional service URL only if your integration requires it; keep credentials in local values and remove them before sharing or exporting. Each worked example below names the `UseCase/…` folder that runs it. The collection also carries extra request variants kept for experimentation; the sequences documented in this guide are the supported ones. For a **Virtual Interline** sale use the `UseCase - VI` folder with the [NDC-VI environment](/docs/assets/resources/NDC-VI.postman_environment.json) and your VI API key; its folder description says which use cases are available on VI and which are not.
 
 ## Capabilities
 

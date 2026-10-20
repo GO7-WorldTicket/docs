@@ -5,7 +5,7 @@ title: Offer Price (OfferPrice)
 
 # Offer Price
 
-`POST` `https://go7-api-gateway.prod.go7.io/ndc-gateway/v21.3.5/OfferPrice`
+`POST` `{ndc-gateway-url}/v21.3.5/OfferPrice`
 
 ---
 
@@ -653,8 +653,8 @@ Invalid request format, missing required fields, or business validation failures
 === "Curl"
 
     ```bash
-    curl -X POST https://go7-api-gateway.prod.go7.io/ndc-gateway/v21.3.5/OfferPrice \
-      -H "x-api-key: your-api-key-here" \
+    curl -X POST "${NDC_GATEWAY_URL}/v21.3.5/OfferPrice" \
+      -H "x-api-key: ${NDC_API_KEY}" \
       -H "Content-Type: application/xml" \
       -d @offerprice-request.xml
     ```

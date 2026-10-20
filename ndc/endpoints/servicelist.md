@@ -5,7 +5,7 @@ title: Service List (ServiceList)
 
 # Service List
 
-`POST` `https://go7-api-gateway.prod.go7.io/ndc-gateway/v21.3.5/ServiceList`
+`POST` `{ndc-gateway-url}/v21.3.5/ServiceList`
 
 ---
 
@@ -312,8 +312,8 @@ Invalid request format or missing required fields.
 === "Curl"
 
     ```bash
-    curl -X POST https://go7-api-gateway.prod.go7.io/ndc-gateway/v21.3.5/ServiceList \
-      -H "x-api-key: your-api-key-here" \
+    curl -X POST "${NDC_GATEWAY_URL}/v21.3.5/ServiceList" \
+      -H "x-api-key: ${NDC_API_KEY}" \
       -H "Content-Type: application/xml" \
       -d @servicelist-request-offer.xml
     ```

@@ -2,6 +2,7 @@
   "info": {
     "_postman_id": "1f8637fd-3645-4dc0-9068-fd2f383aac02",
     "name": "NDC-API",
+    "description": "Environment setup: import NDC or NDC-VI and select it in Postman. Set ndc-gateway-url (including /ndc-gateway, without a trailing slash) and x-api-key to the values supplied by GO7 for your target environment. Requests use {{ndc-gateway-url}} and {{x-api-key}}. Exported environments leave service URLs and API keys empty. Configure additional service URLs only if required. Keep credentials in local values and remove them before sharing or exporting.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "9466313"
   },

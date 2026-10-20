@@ -5,7 +5,7 @@ title: Order Change (OrderChange)
 
 # Order Change
 
-`POST` `https://go7-api-gateway.prod.go7.io/ndc-gateway/v21.3.5/OrderChange`
+`POST` `{ndc-gateway-url}/v21.3.5/OrderChange`
 
 ---
 
@@ -864,8 +864,8 @@ Order not found.
 === "Curl"
 
     ```bash
-    curl -X POST https://go7-api-gateway.prod.go7.io/ndc-gateway/v21.3.5/OrderChange \
-      -H "x-api-key: your-api-key-here" \
+    curl -X POST "${NDC_GATEWAY_URL}/v21.3.5/OrderChange" \
+      -H "x-api-key: ${NDC_API_KEY}" \
       -H "Content-Type: application/xml" \
       -d @orderchange-request.xml
     ```

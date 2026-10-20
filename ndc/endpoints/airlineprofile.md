@@ -5,7 +5,7 @@ title: Airline Profile (AirlineProfile)
 
 # Airline Profile
 
-`POST` `https://go7-api-gateway.prod.go7.io/ndc-gateway/v21.3.5/AirlineProfile`
+`POST` `{ndc-gateway-url}/v21.3.5/AirlineProfile`
 
 ---
 
@@ -306,8 +306,8 @@ Invalid request format, missing required fields, invalid codes, or no profile fo
 === "Curl"
 
     ```bash
-    curl -X POST https://go7-api-gateway.prod.go7.io/ndc-gateway/v21.3.5/AirlineProfile \
-      -H "x-api-key: your-api-key-here" \
+    curl -X POST "${NDC_GATEWAY_URL}/v21.3.5/AirlineProfile" \
+      -H "x-api-key: ${NDC_API_KEY}" \
       -H "Content-Type: application/xml" \
       -d @airlineprofile-request.xml
     ```
