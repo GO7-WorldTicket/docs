@@ -5,7 +5,9 @@ title: Order Create (OrderCreate)
 
 # Order Create
 
-`POST` `https://go7-api-gateway.prod.go7.io/ndc-gateway/v21.3.5/OrderCreate`
+`POST` `{NDC_GATEWAY_BASE_URL}/v21.3.5/OrderCreate`
+
+Obtain your assigned base URL and API key from GO7; see [Base URLs](../NDC_API.md#base-urls).
 
 ---
 
@@ -1004,7 +1006,7 @@ Invalid request format or missing required fields.
 === "Curl"
 
     ```bash
-    curl -X POST https://go7-api-gateway.prod.go7.io/ndc-gateway/v21.3.5/OrderCreate \
+    curl -X POST {NDC_GATEWAY_BASE_URL}/v21.3.5/OrderCreate \
       -H "x-api-key: your-api-key-here" \
       -H "Content-Type: application/xml" \
       -d @ordercreate-request.xml

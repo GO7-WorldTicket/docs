@@ -5,7 +5,9 @@ title: Order Quote (OrderQuote)
 
 # Order Quote
 
-`POST` `https://go7-api-gateway.prod.go7.io/ndc-gateway/v21.3.5/OrderQuote`
+`POST` `{NDC_GATEWAY_BASE_URL}/v21.3.5/OrderQuote`
+
+Obtain your assigned base URL and API key from GO7; see [Base URLs](../NDC_API.md#base-urls).
 
 ---
 
@@ -622,7 +624,7 @@ Invalid request format or missing required fields.
 === "Curl"
 
     ```bash
-    curl -X POST https://go7-api-gateway.prod.go7.io/ndc-gateway/v21.3.5/OrderQuote \
+    curl -X POST {NDC_GATEWAY_BASE_URL}/v21.3.5/OrderQuote \
       -H "x-api-key: your-api-key-here" \
       -H "Content-Type: application/xml" \
       -d @orderquote-request.xml

@@ -13,6 +13,8 @@ Postman: `UseCase/Manage booking - Cancel/Cancel Booking`
 
 **Preconditions.** An existing order that the fare permits cancelling.
 
+**Availability.** SMS and AeroCRS; see [Availability by PSS](../NDC_PARTNER_GUIDE.md#availability-by-pss).
+
 | Step | Message | Send | Get back | Carry forward |
 |---|---|---|---|---|
 | 1 | [OrderRetrieve](../endpoints/orderretrieve.md#orderretrieve-by-order-id) | `OrderID` | Current order | `PaxID`, `OrderItemRefID` |

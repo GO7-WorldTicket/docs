@@ -19,7 +19,7 @@ title: Cancel a whole booking
 
 **Notes.** This flow has no `OrderQuote` — `OrderChange` accepts the cancel offer from `OrderReshop` directly.
 
-**Availability.** Not available on every PSS — see [Availability by PSS](../NDC_PARTNER_GUIDE.md#availability-by-pss).
+**Availability.** Available on SMS and AeroCRS — see [Availability by PSS](../NDC_PARTNER_GUIDE.md#availability-by-pss).
 
 ---
 
