@@ -39,14 +39,7 @@ Capabilities describe *what* you can do. Worked examples show *how*, as a number
 
 ## Before you start
 
-All messages are XML, posted to one host with the message name in the path.
-
-| Environment | Base URL |
-|---|---|
-| Production | `https://go7-api-gateway.prod.go7.io/ndc-gateway` |
-| Test | `https://go7-api-gateway.dev.go7.io/ndc-gateway` |
-
-Message path pattern: `…/v21.3.5/<MessageName>` — for example `POST …/v21.3.5/AirShopping`.
+Obtain your assigned NDC Gateway base URL and API key from GO7 for the environment you are using. All messages are XML and use the path `{NDC_GATEWAY_BASE_URL}/v21.3.5/{MessageName}` — for example `POST {NDC_GATEWAY_BASE_URL}/v21.3.5/AirShopping`. Replace the placeholders with your assigned base URL and message name.
 
 | Header | Purpose |
 |---|---|
@@ -54,7 +47,7 @@ Message path pattern: `…/v21.3.5/<MessageName>` — for example `POST …/v21.
 | `Content-Type` | `application/xml` |
 
 ```bash
-curl -X POST "https://go7-api-gateway.prod.go7.io/ndc-gateway/v21.3.5/<MessageName>" \
+curl -X POST "{NDC_GATEWAY_BASE_URL}/v21.3.5/{MessageName}" \
   -H "x-api-key: {x-api-key}" \
   -H "Content-Type: application/xml" \
   --data-binary @request.xml
@@ -66,7 +59,7 @@ curl -X POST "https://go7-api-gateway.prod.go7.io/ndc-gateway/v21.3.5/<MessageNa
 
 **Name yourself in every request.** Every NDC message must carry your Partner ID in `DistributionChain`, as `ParticipatingOrg/OrgID`. Use `OrgRole` `Seller` for a Sales agreement and `Distributor` for a Network agreement (either if you have both). This only identifies you: your agreements always come from your API key, never from the request. Details and errors: [NDC API → Partner identification (DistributionChain)](NDC_API.md#partner-identification-distributionchain).
 
-**Try it in Postman.** Download the [Postman collection](/docs/assets/resources/NDC_postman_collection.json) and [environment](/docs/assets/resources/NDC.postman_environment.json), then set `x-api-key` and `ndc-gateway-url`. Each worked example below names the `UseCase/…` folder that runs it. The collection also carries extra request variants kept for experimentation; the sequences documented in this guide are the supported ones. For a **Virtual Interline** sale use the `UseCase - VI` folder with the [NDC-VI environment](/docs/assets/resources/NDC-VI.postman_environment.json) and your VI API key; its folder description says which use cases are available on VI and which are not.
+**Try it in Postman.** Download the [Postman collection](/docs/assets/resources/NDC_postman_collection.json) and [environment](/docs/assets/resources/NDC.postman_environment.json), then set `x-api-key` and `ndc-gateway-url` to the values assigned by GO7. The environment file defaults to a development URL; replace it if your assigned URL differs. Each worked example below names the `UseCase/…` folder that runs it. The collection also carries extra request variants kept for experimentation; the sequences documented in this guide are the supported ones. For a **Virtual Interline** sale use the `UseCase - VI` folder with the [NDC-VI environment](/docs/assets/resources/NDC-VI.postman_environment.json) and your VI API key; its folder description says which use cases are available on VI and which are not.
 
 ## Capabilities
 
@@ -258,7 +251,7 @@ The NDC API is the same for every airline, but the passenger service system behi
 | [Pay an on-hold order](capabilities/pay-an-on-hold-order.md) | `OrderQuote`, `OrderChange` | Available | Available | Cash payment works on both. |
 | [Retrieve an order](capabilities/retrieve-an-order.md) | `OrderRetrieve` | Available | Available | Ticket numbers synchronise on both. |
 | [Rebook an order](capabilities/rebook-an-order.md) | `OrderReshop`, `OrderQuote`, `OrderChange` | Available | Available | Same sequence on both. |
-| [Cancel a whole booking](capabilities/cancel-a-whole-booking.md) | `OrderReshop`, `OrderChange` | Available | **Not available yet** | On AeroCRS, handle whole-booking cancellation outside the NDC API for now. |
+| [Cancel a whole booking](capabilities/cancel-a-whole-booking.md) | `OrderReshop`, `OrderChange` | Available | Available | Cancel the entire order through the NDC API, subject to fare conditions. |
 | [Cancel a segment](capabilities/cancel-a-segment.md) | `OrderReshop`, `OrderChange` | Available | **Not available yet** | On AeroCRS, handle segment cancellation outside the NDC API for now. |
 | [Change a passenger name](capabilities/change-a-passenger-name.md) | `OrderReshop`, `OrderChange` | Available | **Not available yet** | Available on SMS. On AeroCRS, handle name changes outside the NDC API for now. The name-change offer path is not yet exposed on that system. |
 

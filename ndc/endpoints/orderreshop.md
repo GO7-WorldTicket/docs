@@ -5,7 +5,9 @@ title: Order Reshop (OrderReshop)
 
 # Order Reshop
 
-`POST` `https://go7-api-gateway.prod.go7.io/ndc-gateway/v21.3.5/OrderReshop`
+`POST` `{NDC_GATEWAY_BASE_URL}/v21.3.5/OrderReshop`
+
+Obtain your assigned base URL and API key from GO7; see [Base URLs](../NDC_API.md#base-urls).
 
 ---
 
@@ -2189,7 +2191,7 @@ Order not found.
 === "Curl"
 
     ```bash
-    curl -X POST https://go7-api-gateway.prod.go7.io/ndc-gateway/v21.3.5/OrderReshop \
+    curl -X POST {NDC_GATEWAY_BASE_URL}/v21.3.5/OrderReshop \
       -H "x-api-key: your-api-key-here" \
       -H "Content-Type: application/xml" \
       -d @orderreshop-request.xml
