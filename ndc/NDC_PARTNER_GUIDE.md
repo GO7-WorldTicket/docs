@@ -162,7 +162,6 @@ Payment is sent in `PaymentFunctions` — on `OrderCreate` to pay at booking ([W
 
 | Payment type | `PaymentTypeCode` | Send to | Reference |
 |---|---|---|---|
-| Cash | `CA` (`OfflinePayment`) | NDC Gateway | [Order Create → Instant pay](endpoints/ordercreate.md#ordercreate-instant-pay), [Order Change → cash](endpoints/orderchange.md#orderchange-payment-cash) |
 | Debit/credit account | `OT` (`OfflinePayment`) | NDC Gateway | [Order Change → debit/credit account](endpoints/orderchange.md#orderchange-payment-debit-credit-account) |
 | Credit card, online with 3DS | `PaymentCard` | PCI Proxy (Filter Push URL) | [Order Change → credit card (PCI Proxy)](endpoints/orderchange.md#orderchange-payment-credit-card) |
 
@@ -192,8 +191,8 @@ Do not skip `OrderQuote` or `OrderChange` because the price is zero. Only the pa
 |---|---|---|
 | Add a free seat or SSR by order, `OrderChange` without `PaymentFunctions` | The seat or SSR stayed unpaid and expired | Autopaid; the seat or SSR is confirmed |
 | `OrderCreate` without `PaymentFunctions` | Order held as `DRAFT` | Autopaid; the order returns `OPEN` and ticketed |
-| Pay an on-hold order whose balance is 0 | `PaymentFunctions` (cash, amount 0) required | `OrderChange` without `PaymentFunctions` is enough |
-| `PaymentFunctions` sent anyway (any method) | Only cash with amount 0 was accepted | Ignored; no card or account is charged |
+| Pay an on-hold order whose balance is 0 | A zero-amount payment was required | `OrderChange` without `PaymentFunctions` is enough |
+| `PaymentFunctions` sent anyway (any method) | A zero-amount payment was required | Ignored; no card or account is charged |
 
 **What counts as zero.** It is the final amount due for that request, including taxes, fees and penalties. A seat or service shown as "free" does not qualify if another amount on the same order is still to be paid; that amount follows the normal [payment types](#payment-types).
 
@@ -247,15 +246,15 @@ The NDC API is the same for every airline, but the passenger service system behi
 | [Shop for seats](capabilities/shop-for-seats.md) by offer | `SeatAvailability`, `OfferPrice`, `OrderCreate` | Available | Available | Seat maps and seat prices are returned on both. |
 | [Add a seat to a held order](capabilities/add-seats-or-services-to-an-existing-order.md) by order | `SeatAvailability`, `OrderQuote`, `OrderChange` | Available | Available | Same sequence on both. |
 | [Create an order without payment](capabilities/create-an-order-without-payment.md) | `OrderCreate` | Available | Available | Holding a booking works on both. A zero-total order is [autopaid](#zero-amount-autopayment) and returned confirmed instead of held. |
-| [Create an order with payment](capabilities/create-an-order-with-payment.md) | `OrderCreate` | Available | Available | Cash payments are covered; zero-amount orders need no `PaymentFunctions` ([Autopayment](#zero-amount-autopayment)). |
-| [Pay an on-hold order](capabilities/pay-an-on-hold-order.md) | `OrderQuote`, `OrderChange` | Available | Available | Cash payment works on both. |
+| [Create an order with payment](capabilities/create-an-order-with-payment.md) | `OrderCreate` | Available | Available | Zero-amount orders need no `PaymentFunctions` ([Autopayment](#zero-amount-autopayment)). |
+| [Pay an on-hold order](capabilities/pay-an-on-hold-order.md) | `OrderQuote`, `OrderChange` | Available | Available | Confirm available payment types with the airline. |
 | [Retrieve an order](capabilities/retrieve-an-order.md) | `OrderRetrieve` | Available | Available | Ticket numbers synchronise on both. |
 | [Rebook an order](capabilities/rebook-an-order.md) | `OrderReshop`, `OrderQuote`, `OrderChange` | Available | Available | Same sequence on both. |
 | [Cancel a whole booking](capabilities/cancel-a-whole-booking.md) | `OrderReshop`, `OrderChange` | Available | Available | Cancel the entire order through the NDC API, subject to fare conditions. |
 | [Cancel a segment](capabilities/cancel-a-segment.md) | `OrderReshop`, `OrderChange` | Available | **Not available yet** | On AeroCRS, handle segment cancellation outside the NDC API for now. |
 | [Change a passenger name](capabilities/change-a-passenger-name.md) | `OrderReshop`, `OrderChange` | Available | **Not available yet** | Available on SMS. On AeroCRS, handle name changes outside the NDC API for now. The name-change offer path is not yet exposed on that system. |
 
-**Payment note.** Cash payment and zero-amount [Autopayment](#zero-amount-autopayment) work on both systems; for the other [payment types](#payment-types), confirm with the airline. Reusing a payment you captured in your own payment service provider is available on SMS only.
+**Payment note.** Zero-amount [Autopayment](#zero-amount-autopayment) works on both systems; confirm available [payment types](#payment-types) with the airline. Reusing a payment you captured in your own payment service provider is available on SMS only.
 
 **Your NDC payload does not change per PSS.** Requests stay system-neutral — differences are absorbed by platform mapping and tenant configuration, not by your integration. Routes, record locators, offer identifiers, prices and ticket numbers will differ between airlines. That is expected and is not a failure.
 

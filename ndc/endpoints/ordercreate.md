@@ -394,7 +394,7 @@ Omit **`PaymentFunctions`** for pay-later: the order commonly returns **`DRAFT`*
             &lt;ns2:Amount CurCode=&quot;USD&quot;&gt;122.19&lt;/ns2:Amount&gt;
             &lt;ns2:PaymentMethod&gt;
                &lt;ns2:OfflinePayment&gt;
-                  &lt;ns2:PaymentTypeCode&gt;CA&lt;/ns2:PaymentTypeCode&gt;
+                  &lt;ns2:PaymentTypeCode&gt;DC&lt;/ns2:PaymentTypeCode&gt;
                &lt;/ns2:OfflinePayment&gt;
             &lt;/ns2:PaymentMethod&gt;
          &lt;/ns2:PaymentProcessingDetails&gt;

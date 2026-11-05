@@ -88,7 +88,7 @@ The request body must be a valid `IATA_OrderChangeRQ` XML document following IAT
                 &lt;Amount CurCode=&quot;USD&quot;&gt;122.19&lt;/Amount&gt;
                 &lt;PaymentMethod&gt;
                     &lt;OfflinePayment&gt;
-                        &lt;PaymentTypeCode&gt;CA&lt;/PaymentTypeCode&gt;
+                        &lt;PaymentTypeCode&gt;DC&lt;/PaymentTypeCode&gt;
                     &lt;/OfflinePayment&gt;
                 &lt;/PaymentMethod&gt;
             &lt;/PaymentProcessingDetails&gt;
@@ -146,7 +146,7 @@ Use this pattern for the **order flow** when accepting a quoted seat offer and p
                 &lt;cns:Amount CurCode="USD"&gt;15.0&lt;/cns:Amount&gt;
                 &lt;cns:PaymentMethod&gt;
                     &lt;cns:OfflinePayment&gt;
-                        &lt;cns:PaymentTypeCode&gt;CA&lt;/cns:PaymentTypeCode&gt;
+                        &lt;cns:PaymentTypeCode&gt;DC&lt;/cns:PaymentTypeCode&gt;
                     &lt;/cns:OfflinePayment&gt;
                 &lt;/cns:PaymentMethod&gt;
             &lt;/cns:PaymentProcessingDetails&gt;
@@ -203,7 +203,7 @@ Use this pattern for the **order flow** when accepting a quoted ancillary offer 
                 &lt;cns:Amount CurCode="USD"&gt;6.79&lt;/cns:Amount&gt;
                 &lt;cns:PaymentMethod&gt;
                     &lt;cns:OfflinePayment&gt;
-                        &lt;cns:PaymentTypeCode&gt;CA&lt;/cns:PaymentTypeCode&gt;
+                        &lt;cns:PaymentTypeCode&gt;DC&lt;/cns:PaymentTypeCode&gt;
                     &lt;/cns:OfflinePayment&gt;
                 &lt;/cns:PaymentMethod&gt;
             &lt;/cns:PaymentProcessingDetails&gt;
@@ -215,15 +215,6 @@ Use this pattern for the **order flow** when accepting a quoted ancillary offer 
 </details>
 
 Same **`Order`** + **`PaymentFunctions`** envelope as above; only **`PaymentTypeCode`** differs (confirm codes with your airline / PADIS mapping).
-
-### Payment with cash (`OfflinePayment`)
-{: #orderchange-payment-cash}
-
-```xml
-<OfflinePayment>
-    <PaymentTypeCode>CA</PaymentTypeCode>
-</OfflinePayment>
-```
 
 ### Payment with debit (`OfflinePayment`)
 {: #orderchange-payment-debit}
@@ -406,7 +397,7 @@ Use this path for **online credit card** payment with 3DS. Post `IATA_OrderChang
                 &lt;Amount CurCode=&quot;USD&quot;&gt;122.19&lt;/Amount&gt;
                 &lt;PaymentMethod&gt;
                     &lt;OfflinePayment&gt;
-                        &lt;PaymentTypeCode&gt;CA&lt;/PaymentTypeCode&gt;
+                        &lt;PaymentTypeCode&gt;DC&lt;/PaymentTypeCode&gt;
                     &lt;/OfflinePayment&gt;
                 &lt;/PaymentMethod&gt;
             &lt;/PaymentProcessingDetails&gt;
@@ -896,7 +887,7 @@ Order not found.
 1. **Order Status**: For payment processing, order must be in `DRAFT` status.
 2. **Payment Processing**: The system automatically polls order status until tickets are issued (`OPEN` status).
 3. **Rebooking**: Use `ChangeOrderChoice` with new offers to rebook flights.
-4. **Payment Methods**: Supported payment types depend on airline configuration. OfflinePayment (`CA` / `DC` / `CC`) uses the normal gateway `OrderChange` URL; online **PaymentCard** credit-card payment uses the PCI Filter Push URL (see [`#orderchange-payment-credit-card`](#orderchange-payment-credit-card)).
+4. **Payment Methods**: Supported payment types depend on airline configuration. OfflinePayment (`DC` / `CC` / `OT`) uses the normal gateway `OrderChange` URL; online **PaymentCard** credit-card payment uses the PCI Filter Push URL (see [`#orderchange-payment-credit-card`](#orderchange-payment-credit-card)).
 5. **Order ID**: Always use the `OrderID` from the original `OrderCreate` response.
 6. **Seat Changes**: Seat-based order changes include `SelectedSeat` with `ColumnID` and `SeatRowNumber`.
 7. **Ancillary Changes**: Service-based order changes include `SelectedALaCarteOfferItem` with `Qty`.
