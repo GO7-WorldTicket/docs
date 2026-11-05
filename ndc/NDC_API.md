@@ -31,6 +31,7 @@ title: NDC API Generic Integration Guide
 
 | Change Description                                                                                              | Changed By              | Change Date |
 |-----------------------------------------------------------------------------------------------------------------|-------------------------|-------------|
+| Remove cash as an OTA payment option and update payment examples | Sittiwet Mahapratoom | 2026-11-05 |
 | Use assigned NDC Gateway base URLs and API keys in partner and endpoint guidance; document AeroCRS whole-booking cancellation | Sittiwet Mahapratoom | 2026-11-05 |
 | `PayloadAttributes` with a per-message `CorrelationID` is required on every NDC message: fields echoed, element order, `CorrelationID` returned as `Error/ErrorID` (GH-8220) | Naphachara Rattanawilai | 2026-10-19 |
 | Deeplink: URL pattern example; offers without an agreement use the partner's agreement with the airline (GH-8052) | Naphachara Rattanawilai | 2026-10-16  |
