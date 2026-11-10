@@ -268,7 +268,6 @@ Optionally start with **AirlineProfile** to list the airport pairs an airline se
   - [Booking (confirm on-hold quote)](endpoints/orderquote.md#orderquote-booking)
 - **9 — [Order Change](endpoints/orderchange.md)** — `POST …/OrderChange` · pay **DRAFT**, or accept quoted / rebook offers; after success, call **OrderRetrieve** before the next step
   - [Payment on hold booking](endpoints/orderchange.md#orderchange-payment-on-hold)
-  - [Payment with debit](endpoints/orderchange.md#orderchange-payment-debit)
   - [Payment with credit](endpoints/orderchange.md#orderchange-payment-credit)
   - [Payment with debit/credit account](endpoints/orderchange.md#orderchange-payment-debit-credit-account)
   - [Payment with credit card (PCI Proxy)](endpoints/orderchange.md#orderchange-payment-credit-card) — **requires 3DS Authenticate Result** (`SecurePaymentVersion2`)

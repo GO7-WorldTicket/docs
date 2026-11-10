@@ -17,7 +17,7 @@ title: Pay an on-hold order
 
 **Messages.** [Order Quote → Booking](../endpoints/orderquote.md#orderquote-booking), [Order Change → Payment on hold booking](../endpoints/orderchange.md#orderchange-payment-on-hold).
 
-**Payment methods.** [debit](../endpoints/orderchange.md#orderchange-payment-debit), [credit](../endpoints/orderchange.md#orderchange-payment-credit), [debit or credit account](../endpoints/orderchange.md#orderchange-payment-debit-credit-account), and [credit card via PCI Proxy](../endpoints/orderchange.md#orderchange-payment-credit-card) — the card path **requires a 3DS authenticate result** (`SecurePaymentVersion2`).
+**Payment methods.** [credit](../endpoints/orderchange.md#orderchange-payment-credit), [debit or credit account](../endpoints/orderchange.md#orderchange-payment-debit-credit-account), and [credit card via PCI Proxy](../endpoints/orderchange.md#orderchange-payment-credit-card) — the card path **requires a 3DS authenticate result** (`SecurePaymentVersion2`).
 
 **Zero balance.** If the amount due is 0, send `OrderChange` without `PaymentFunctions` — it is [autopaid](../NDC_PARTNER_GUIDE.md#zero-amount-autopayment) with no charge.
 

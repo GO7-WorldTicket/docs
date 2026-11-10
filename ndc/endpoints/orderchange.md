@@ -25,7 +25,7 @@ The API validates the order status, processes the changes, and returns the updat
 
 ## Workflow (NDC API guide)
 
-**Step 9** ([workflow index](../NDC_API.md#ndc-for-offers--orders-workflow)). `POST …/OrderChange` · settle payment on **`DRAFT`**, or **`ChangeOrderChoice`** + **`PaymentFunctions`** after a quote ([**Rebook with New Offers**](#orderchange-rebook)). After success, call **OrderRetrieve** before the next process. Fragments: **[`#orderchange-payment-on-hold`](#orderchange-payment-on-hold)**, **[`#orderchange-payment-debit`](#orderchange-payment-debit)**, **[`#orderchange-payment-credit`](#orderchange-payment-credit)**, **[`#orderchange-payment-debit-credit-account`](#orderchange-payment-debit-credit-account)**, **[`#orderchange-payment-credit-card`](#orderchange-payment-credit-card)**, **[`#orderchange-rebook`](#orderchange-rebook)**, **[`#orderchange-rebook-seat-with-payment`](#orderchange-rebook-seat-with-payment)**, **[`#orderchange-rebook-ancillary-with-payment`](#orderchange-rebook-ancillary-with-payment)**.
+**Step 9** ([workflow index](../NDC_API.md#ndc-for-offers--orders-workflow)). `POST …/OrderChange` · settle payment on **`DRAFT`**, or **`ChangeOrderChoice`** + **`PaymentFunctions`** after a quote ([**Rebook with New Offers**](#orderchange-rebook)). After success, call **OrderRetrieve** before the next process. Fragments: **[`#orderchange-payment-on-hold`](#orderchange-payment-on-hold)**, **[`#orderchange-payment-credit`](#orderchange-payment-credit)**, **[`#orderchange-payment-debit-credit-account`](#orderchange-payment-debit-credit-account)**, **[`#orderchange-payment-credit-card`](#orderchange-payment-credit-card)**, **[`#orderchange-rebook`](#orderchange-rebook)**, **[`#orderchange-rebook-seat-with-payment`](#orderchange-rebook-seat-with-payment)**, **[`#orderchange-rebook-ancillary-with-payment`](#orderchange-rebook-ancillary-with-payment)**.
 
 See [Authentication](../NDC_API.md#http-headers) for **`x-api-key`** on gateway XML calls.
 
@@ -245,15 +245,6 @@ Use this pattern for the **order flow** when accepting a quoted ancillary offer 
 </details>
 
 Same **`Order`** + **`PaymentFunctions`** envelope as above; only **`PaymentTypeCode`** differs (confirm codes with your airline / PADIS mapping).
-
-### Payment with debit (`OfflinePayment`)
-{: #orderchange-payment-debit}
-
-```xml
-<OfflinePayment>
-    <PaymentTypeCode>DC</PaymentTypeCode>
-</OfflinePayment>
-```
 
 ### Payment with credit (`OfflinePayment`)
 {: #orderchange-payment-credit}
@@ -927,7 +918,7 @@ Order not found.
 1. **Order Status**: For payment processing, order must be in `DRAFT` status.
 2. **Payment Processing**: The system automatically polls order status until tickets are issued (`OPEN` status).
 3. **Rebooking**: Use `ChangeOrderChoice` with new offers to rebook flights.
-4. **Payment Methods**: Supported payment types depend on airline configuration. OfflinePayment (`DC` / `CC` / `OT`) uses the normal gateway `OrderChange` URL; online **PaymentCard** credit-card payment uses the PCI Filter Push URL (see [`#orderchange-payment-credit-card`](#orderchange-payment-credit-card)).
+4. **Payment Methods**: Supported payment types depend on airline configuration. OfflinePayment (`CC` / `OT`) uses the normal gateway `OrderChange` URL; online **PaymentCard** credit-card payment uses the PCI Filter Push URL (see [`#orderchange-payment-credit-card`](#orderchange-payment-credit-card)).
 5. **Order ID**: Always use the `OrderID` from the original `OrderCreate` response.
 6. **Seat Changes**: Seat-based order changes include `SelectedSeat` with `ColumnID` and `SeatRowNumber`.
 7. **Ancillary Changes**: Service-based order changes include `SelectedALaCarteOfferItem` with `Qty`.
