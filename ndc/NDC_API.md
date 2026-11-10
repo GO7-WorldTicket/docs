@@ -31,6 +31,7 @@ title: NDC API Generic Integration Guide
 
 | Change Description                                                                                              | Changed By              | Change Date |
 |-----------------------------------------------------------------------------------------------------------------|-------------------------|-------------|
+| Remove cash as an OTA payment option and update payment examples | Sittiwet Mahapratoom | 2026-11-05 |
 | Use assigned NDC Gateway base URLs and API keys in partner and endpoint guidance; document AeroCRS whole-booking cancellation | Sittiwet Mahapratoom | 2026-11-05 |
 | `PayloadAttributes` with a per-message `CorrelationID` is required on every NDC message: fields echoed, element order, `CorrelationID` returned as `Error/ErrorID` (GH-8220) | Naphachara Rattanawilai | 2026-10-19 |
 | Deeplink: URL pattern example; offers without an agreement use the partner's agreement with the airline (GH-8052) | Naphachara Rattanawilai | 2026-10-16  |
@@ -267,7 +268,6 @@ Optionally start with **AirlineProfile** to list the airport pairs an airline se
   - [Booking (confirm on-hold quote)](endpoints/orderquote.md#orderquote-booking)
 - **9 — [Order Change](endpoints/orderchange.md)** — `POST …/OrderChange` · pay **DRAFT**, or accept quoted / rebook offers; after success, call **OrderRetrieve** before the next step
   - [Payment on hold booking](endpoints/orderchange.md#orderchange-payment-on-hold)
-  - [Payment with debit](endpoints/orderchange.md#orderchange-payment-debit)
   - [Payment with credit](endpoints/orderchange.md#orderchange-payment-credit)
   - [Payment with debit/credit account](endpoints/orderchange.md#orderchange-payment-debit-credit-account)
   - [Payment with credit card (PCI Proxy)](endpoints/orderchange.md#orderchange-payment-credit-card) — **requires 3DS Authenticate Result** (`SecurePaymentVersion2`)
