@@ -283,6 +283,10 @@ Use this path to pay with a **debit/credit account**. Put the account ID in `Rem
 </ns2:PaymentFunctions>
 ```
 
+**AeroCRS airlines (deposit account).** The account is your agency's deposit. Put the AeroCRS **agency ID** that owns the deposit in `RemarkText`, for example `71138`. The bare ID pays from the deposit in the booking currency; `<agency ID>-<currency code>`, for example `71138-EUR`, pays from the agency's deposit in that currency.
+
+AeroCRS accepts the payment only if the order was created with `SalesAgentID`, an agent user of that agency, on your own `DistributionChainLink` in [`OrderCreate`](ordercreate.md#ordercreate-deposit-payment). `SalesAgentID` sent on `OrderChange` is ignored, so it cannot be added to an existing order. The airline must have enabled deposit payment for you; ask the airline or GO7 support. See [Sales agent (SalesAgentID)](../NDC_API.md#partner-sales-agent).
+
 ### Payment with credit card (`PaymentCard`) — PCI Proxy
 {: #orderchange-payment-credit-card}
 

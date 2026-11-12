@@ -17,7 +17,7 @@ The Order Create API creates a new booking order based on selected offers from a
 
 ## Workflow (NDC API guide)
 
-**Step 3** ([workflow index](../NDC_API.md#ndc-for-offers--orders-workflow)). `POST …/OrderCreate` · **`CreateOrder`** → **`AcceptSelectedQuotedOfferList`** using **`OfferRefID`** / **`OfferItemRefID`** / **`OwnerCode`** / **`PaxRefID`** from **OfferPriceRS** (for combined pricing, echo **`OfferID`** unchanged — it may be a colon-separated composite). Scenarios: **[`#ordercreate-pay-later`](#ordercreate-pay-later)**, **[`#ordercreate-instant-pay`](#ordercreate-instant-pay)**, **[`#ordercreate-combined-offer`](#ordercreate-combined-offer)**.
+**Step 3** ([workflow index](../NDC_API.md#ndc-for-offers--orders-workflow)). `POST …/OrderCreate` · **`CreateOrder`** → **`AcceptSelectedQuotedOfferList`** using **`OfferRefID`** / **`OfferItemRefID`** / **`OwnerCode`** / **`PaxRefID`** from **OfferPriceRS** (for combined pricing, echo **`OfferID`** unchanged — it may be a colon-separated composite). Scenarios: **[`#ordercreate-pay-later`](#ordercreate-pay-later)**, **[`#ordercreate-instant-pay`](#ordercreate-instant-pay)**, **[`#ordercreate-deposit-payment`](#ordercreate-deposit-payment)**, **[`#ordercreate-combined-offer`](#ordercreate-combined-offer)**.
 
 See [Authentication](../NDC_API.md#http-headers) for **`x-api-key`**.
 
@@ -36,7 +36,7 @@ See [Authentication](../NDC_API.md#http-headers) for **`x-api-key`**.
 
 The request body must be a valid `IATA_OrderCreateRQ` XML document following IATA NDC v21.3.5 standard.
 
-**Partner keys:** `DistributionChain` must name you: your Partner ID as `ParticipatingOrg/OrgID`, with the `OrgRole` your agreement allows. See [Partner identification (DistributionChain)](../NDC_API.md#partner-identification-distributionchain).
+**Partner keys:** `DistributionChain` must name you: your Partner ID as `ParticipatingOrg/OrgID`, with the `OrgRole` your agreement allows. See [Partner identification (DistributionChain)](../NDC_API.md#partner-identification-distributionchain). On `OrderCreate` your own link can also carry `SalesAgent/SalesAgentID`, the agent user who sells the booking ([Sales agent](../NDC_API.md#partner-sales-agent)). A booking that will be paid from a deposit account on an AeroCRS airline, now or later, must be created with it ([Deposit payment](#ordercreate-deposit-payment)).
 - Each `<PaxList>`/`<Pax>` must be ordered by PassengerType in a strictly sequential ADT, CHD, INF
 **Message attributes:** send `PayloadAttributes` with a fresh `CorrelationID` on every request — both are required. The gateway echoes the block back unchanged, and your `CorrelationID` comes back as `Error/ErrorID` if the request fails. See [Message attributes (PayloadAttributes)](../NDC_API.md#payload-attributes).
 
@@ -414,6 +414,67 @@ Omit **`PaymentFunctions`** for pay-later: the order commonly returns **`DRAFT`*
 </code></pre>
 
 </details>
+
+### Deposit payment on AeroCRS airlines
+{: #ordercreate-deposit-payment}
+
+Pay from your agency's **deposit account** on an AeroCRS airline. Send the [instant payment](#ordercreate-instant-pay) request with these two parts:
+
+1. **`SalesAgentID` on your own `DistributionChainLink`**: an AeroCRS agent user of the agency that owns the deposit. Place `SalesAgent` after `ParticipatingOrg`.
+2. **`OT` payment with the agency in `RemarkText`**: the AeroCRS **agency ID** that owns the deposit, for example `71138`. The bare ID pays from the deposit in the booking currency. To pay from the agency's deposit in another currency, send `<agency ID>-<currency code>`, for example `71138-EUR`.
+
+In `DistributionChain`:
+
+```xml
+<DistributionChain>
+    <ns2:DistributionChainLink>
+        <ns2:Ordinal>1</ns2:Ordinal>
+        <ns2:OrgRole>Seller</ns2:OrgRole>
+        <ns2:ParticipatingOrg>
+            <ns2:Name>Travel Agency XYZ</ns2:Name>
+            <ns2:OrgID>7f9c2b1e-3a4d-4e5f-8a6b-1c2d3e4f5a6b</ns2:OrgID>
+        </ns2:ParticipatingOrg>
+        <ns2:SalesAgent>
+            <ns2:SalesAgentID>21175</ns2:SalesAgentID>
+        </ns2:SalesAgent>
+    </ns2:DistributionChainLink>
+</DistributionChain>
+```
+
+In `Request`, after `DataLists`:
+
+```xml
+<ns2:PaymentFunctions>
+    <ns2:PaymentMethodCriteria>
+        <ns2:PaymentCriteriaAddlInfo>
+            <ns2:PaymentOtherMethodAddlInfo>
+                <ns2:Remark>
+                    <ns2:RemarkText>71138</ns2:RemarkText>
+                </ns2:Remark>
+            </ns2:PaymentOtherMethodAddlInfo>
+        </ns2:PaymentCriteriaAddlInfo>
+        <ns2:PaymentTypeCode>OT</ns2:PaymentTypeCode>
+    </ns2:PaymentMethodCriteria>
+    <ns2:PaymentProcessingDetails>
+        <ns2:Amount CurCode="EUR">385.43</ns2:Amount>
+        <ns2:PaymentMethod>
+            <ns2:OfflinePayment>
+                <ns2:PaymentTypeCode>OT</ns2:PaymentTypeCode>
+            </ns2:OfflinePayment>
+        </ns2:PaymentMethod>
+    </ns2:PaymentProcessingDetails>
+</ns2:PaymentFunctions>
+```
+
+**Rules**
+
+- **Send `SalesAgentID` on this `OrderCreate`.** AeroCRS accepts a deposit payment only for a booking that belongs to the agency, which means a booking created by one of the agency's agent users. Without `SalesAgentID` the booking does not belong to your agency, and the deposit payment is refused.
+- **It cannot be added later.** `SalesAgentID` on `OrderChange` is ignored.
+- **Pay later works too.** Create the order with `SalesAgentID` and without `PaymentFunctions` ([pay later](#ordercreate-pay-later)), then pay with `OT` in [Order Change → debit/credit account](orderchange.md#orderchange-payment-debit-credit-account). The agent user is stored with the booking when it is created.
+- **Use an agent user of the agency you pay with.** GO7 passes both IDs to AeroCRS unchanged and does not check them against your agreement.
+- **The airline must enable deposit payment for you.** Ask the airline or GO7 support before you go live.
+
+All rules for `SalesAgentID`, including when it has no effect: [Sales agent (SalesAgentID)](../NDC_API.md#partner-sales-agent).
 
 ### Combined offer (flight + seat and/or SSR)
 {: #ordercreate-combined-offer}

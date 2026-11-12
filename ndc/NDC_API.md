@@ -25,12 +25,14 @@ title: NDC API Generic Integration Guide
 - [NDC for Offers & Orders workflow](#ndc-for-offers--orders-workflow)
   - [Basic request format (API key)](#basic-request-format-api-key)
   - [Partner identification (DistributionChain)](#partner-identification-distributionchain)
+    - [Sales agent (SalesAgentID)](#partner-sales-agent)
   - [Message attributes (PayloadAttributes)](#payload-attributes)
 
 ## Change Log
 
 | Change Description                                                                                              | Changed By              | Change Date |
 |-----------------------------------------------------------------------------------------------------------------|-------------------------|-------------|
+| OrderCreate: optional `SalesAgent/SalesAgentID` on the partner's own `DistributionChainLink`; deposit payment (`OT`) on AeroCRS airlines requires it, at booking or later via OrderChange (GH-8800) | Apiluck Dokkaew | 2026-11-12 |
 | Remove cash as an OTA payment option and update payment examples | Sittiwet Mahapratoom | 2026-11-05 |
 | Use assigned NDC Gateway base URLs and API keys in partner and endpoint guidance; document AeroCRS whole-booking cancellation | Sittiwet Mahapratoom | 2026-11-05 |
 | `PayloadAttributes` with a per-message `CorrelationID` is required on every NDC message: fields echoed, element order, `CorrelationID` returned as `Error/ErrorID` (GH-8220) | Naphachara Rattanawilai | 2026-10-19 |
@@ -163,6 +165,8 @@ Use IATA **OffersAndOrders** message XML (`IATA_AirShoppingRQ`, `IATA_OrderCreat
 
 Set the `x-api-key` and `ndc-gateway-url` environment variables to the values assigned by GO7. The environment files default to a development URL; replace it if your assigned URL differs.
 
+The request `UseCase/Create paid booking/OW - 1ADT 1CHD 1INF/3.1. OrderCreate [OW] [1ADT, 1CHD, 1INF] [Pay] [DEPOSIT]` also needs `partnerId`, `salesAgentId` and `debitCreditAccount`. See [Deposit payment on AeroCRS airlines](endpoints/ordercreate.md#ordercreate-deposit-payment).
+
 ## UseCase - VI (Virtual Interline)
 
 The collection carries a second top-level folder, `UseCase - VI`, for a **Virtual Interline** sale: one itinerary stitched from two carriers on two reservation systems, sold and paid as one NDC order. Use it with the `NDC-VI` environment and your VI API key (the key selects the tenant and the sales channel). It covers *Create & confirm on-hold booking*, *Create paid booking*, *Retrieve booking* and the ancillary flows (*Ancillary Offer - Services / Seats* before booking, *Ancillary Order - Services / Seats* on an existing order). A VI offer has one offer item per passenger per leg (OW 6, RT 12); the folder's scripts select every item and read all ids from the previous response, so nothing is hard-coded and a request whose inputs are missing is not sent. Cancel, cancel segment, rebook and name change are not included because they are not supported on VI; the folder description lists the known limits per use case.
@@ -249,6 +253,7 @@ Optionally start with **AirlineProfile** to list the airport pairs an airline se
 - **3 — [Order Create](endpoints/ordercreate.md)** — `POST …/OrderCreate` · accept priced offer; optional payment; echo composite OfferPrice `OfferID` when flight was priced with seat/SSR
   - [Pay later (on hold)](endpoints/ordercreate.md#ordercreate-pay-later)
   - [Instant pay](endpoints/ordercreate.md#ordercreate-instant-pay)
+  - [Deposit payment on AeroCRS airlines](endpoints/ordercreate.md#ordercreate-deposit-payment) — **requires `SalesAgentID`** on your own `DistributionChainLink`
   - [Combined offer (flight + seat and/or SSR)](endpoints/ordercreate.md#ordercreate-combined-offer)
 - **4 — [Seat Availability](endpoints/seatavailability.md)** — `POST …/SeatAvailability` · optional seat map and seat offer lookup; a seat may return **multiple** `OfferItemRefID` values
   - [By offer](endpoints/seatavailability.md#seatavailability-by-offer)
@@ -329,6 +334,45 @@ If your API key identifies a **partner**, every NDC message must name you in `Di
 | Your link has the wrong `OrgRole` | 12 | `OrgRole must be Seller for the authenticated partner` (or `Distributor`, or `Seller or Distributor`, per your agreement) | `Request.DistributionChain.DistributionChainLink[i].OrgRole` |
 
 If your agreements cannot be checked at that moment, the API returns that HTTP status with Code **911** (system error). The request is not processed; retry later.
+
+### Sales agent (SalesAgentID)
+{: #partner-sales-agent}
+
+On `OrderCreate` you can name the agent user who sells the booking. Add `SalesAgent/SalesAgentID` to **your own** link, after `ParticipatingOrg`. The value is the ID of an agent user in the airline's reservation system. It is optional, except for a [deposit payment on an AeroCRS airline](endpoints/ordercreate.md#ordercreate-deposit-payment), which requires it.
+
+```xml
+<DistributionChain>
+    <cns:DistributionChainLink>
+        <cns:Ordinal>1</cns:Ordinal>
+        <cns:OrgRole>Seller</cns:OrgRole>
+        <cns:ParticipatingOrg>
+            <cns:Name>Your company</cns:Name>
+            <cns:OrgID>7f9c2b1e-3a4d-4e5f-8a6b-1c2d3e4f5a6b</cns:OrgID>
+        </cns:ParticipatingOrg>
+        <cns:SalesAgent>
+            <cns:SalesAgentID>21175</cns:SalesAgentID>
+        </cns:SalesAgent>
+    </cns:DistributionChainLink>
+</DistributionChain>
+```
+
+Keep the schema order inside the link: `Ordinal`, `OrgRole`, `ParticipatingOrg`, `SalesAgent`, `SalesBranch`.
+
+**When it is used**
+
+- Only on `OrderCreate`, and only when your API key identifies a partner.
+- Only from your own link: `OrgRole` is not `Carrier`, and `ParticipatingOrg/OrgID` is your Partner ID (compared ignoring upper/lower case and surrounding spaces).
+- Surrounding spaces are removed, and the value is stored with the order.
+- On an AeroCRS airline, the booking is created and confirmed under that agent user, so it belongs to the agent user's agency. Example: agent user `21175` belongs to agency `71138`.
+- GO7 passes the value on unchanged. It does not check it against your agency or your agreement.
+
+**When it has no effect** — the request is processed as if `SalesAgentID` were absent, and no error is returned:
+
+- It is on the `Carrier` link or on another organisation's link.
+- It is sent on `OrderChange` or on any message other than `OrderCreate`. It cannot be added to an existing order.
+- Your API key does not identify a partner.
+- It is blank, or longer than 255 characters.
+- The airline uses SMS. SMS airlines ignore it; nothing changes for them.
 
 ## Message attributes (PayloadAttributes)
 {: #payload-attributes}
