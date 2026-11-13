@@ -19,6 +19,8 @@ title: Pay an on-hold order
 
 **Payment methods.** [credit](../endpoints/orderchange.md#orderchange-payment-credit), [debit or credit account](../endpoints/orderchange.md#orderchange-payment-debit-credit-account), and [credit card via PCI Proxy](../endpoints/orderchange.md#orderchange-payment-credit-card) — the card path **requires a 3DS authenticate result** (`SecurePaymentVersion2`).
 
+**Deposit on AeroCRS.** A deposit account payment is accepted only if the order was created with `SalesAgentID` — see [Order Change → debit/credit account](../endpoints/orderchange.md#orderchange-payment-debit-credit-account).
+
 **Zero balance.** If the amount due is 0, send `OrderChange` without `PaymentFunctions` — it is [autopaid](../NDC_PARTNER_GUIDE.md#zero-amount-autopayment) with no charge.
 
 **Availability.** Zero-amount payments are available on both PSS; confirm available payment methods with the airline. Reuse of a payment captured in your own payment service provider is available on one PSS only — see [Availability by PSS](../NDC_PARTNER_GUIDE.md#availability-by-pss).

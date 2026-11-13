@@ -22,7 +22,7 @@ Postman: `UseCase/Create paid booking`
 
 **Outcome.** A paid and ticketed order in one round trip.
 
-**Watch out for.** The payment amount and currency must match the priced offer from step 2 exactly.
+**Watch out for.** The payment amount and currency must match the priced offer from step 2 exactly. To pay from an agency deposit on an AeroCRS airline, step 3 also needs `SalesAgentID` on your own `DistributionChainLink` ([deposit payment](../endpoints/ordercreate.md#ordercreate-deposit-payment)).
 
 ---
 
