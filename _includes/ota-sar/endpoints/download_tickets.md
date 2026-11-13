@@ -21,7 +21,9 @@ The following endpoint can be used to download a zip file containing all tickets
 |-----------|--------|----------|-------------|---------|
 | x-api-key | Header | Yes | Access Token | [Access token]({{ sar_profile.documentation_root }}/OTA_API_SAR.html#api-key) |
 | rloc | Path | Yes | Booking reference (RLOC) | O8ZKAK |
-| mode | Query | No | Download mode. Supported values: `full` (default), `delta`. `legacy` is accepted for backward compatibility and behaves as `delta`. | full |
+| mode | Query | No | Download mode. Omit this parameter to use `full`, or specify `full` explicitly. `delta` and its backward-compatible alias `legacy` are deprecated and scheduled for removal at the end of 2026. After removal, only `full` will be supported. | full |
+
+> **Migration:** Use the endpoint without the `mode` parameter to download all tickets. This is equivalent to `mode=full`.
 
 #### Request (default mode)
 
@@ -37,14 +39,6 @@ curl '{base_url}/tickets/confirmation/{rloc}/download' \
 curl '{base_url}/tickets/confirmation/{rloc}/download?mode=full' \
     -H 'x-api-key: {api-key}' \
     --output tickets_full.zip
-```
-
-#### Request (delta mode)
-
-```bash
-curl '{base_url}/tickets/confirmation/{rloc}/download?mode=delta' \
-    -H 'x-api-key: {api-key}' \
-    --output tickets_delta.zip
 ```
 
 > ⚠️ If an unsupported `mode` value is provided, the request returns `400 Bad Request`.
