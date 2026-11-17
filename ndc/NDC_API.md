@@ -32,6 +32,7 @@ title: NDC API Generic Integration Guide
 
 | Change Description                                                                                              | Changed By              | Change Date |
 |-----------------------------------------------------------------------------------------------------------------|-------------------------|-------------|
+| Postman: every request's `DistributionChain` now uses the `OrgRole`, `partnerName` and `partnerId` environment variables, added to both environments; the on-hold `OrderCreate [Pay Later]` requests carry `salesAgentId` so their `OT` payment works on AeroCRS airlines (GH-8269) | Apiluck Dokkaew | 2026-11-17 |
 | **Breaking:** deposit account payment (`OT`) now requires the `ACCOUNT_REF:<value>` prefix in `RemarkText`; a bare value is rejected (GH-8878) | Apilak Dokkaew | 2026-11-17 |
 | OrderCreate: optional `SalesAgent/SalesAgentID` on the partner's own `DistributionChainLink`; deposit payment (`OT`) on AeroCRS airlines requires it, at booking or later via OrderChange (GH-8800) | Apiluck Dokkaew | 2026-11-12 |
 | Remove cash as an OTA payment option and update payment examples | Sittiwet Mahapratoom | 2026-11-05 |
@@ -166,7 +167,9 @@ Use IATA **OffersAndOrders** message XML (`IATA_AirShoppingRQ`, `IATA_OrderCreat
 
 Set the `x-api-key` and `ndc-gateway-url` environment variables to the values assigned by GO7. The environment files default to a development URL; replace it if your assigned URL differs.
 
-The request `UseCase/Create paid booking/OW - 1ADT 1CHD 1INF/3.1. OrderCreate [OW] [1ADT, 1CHD, 1INF] [Pay] [DEPOSIT]` also needs `partnerId`, `salesAgentId` and `debitCreditAccount`. See [Deposit payment on AeroCRS airlines](endpoints/ordercreate.md#ordercreate-deposit-payment).
+Every request fills `DistributionChain` from three environment variables: set `partnerId` to your Partner ID, `OrgRole` to `Seller` (Sales agreement) or `Distributor` (Network agreement), and `partnerName` to your organisation name. See [Partner identification (DistributionChain)](#partner-identification-distributionchain).
+
+Deposit payment on AeroCRS airlines also needs `salesAgentId` and `debitCreditAccount`: the request `UseCase/Create paid booking/OW - 1ADT 1CHD 1INF/3.1. OrderCreate [OW] [1ADT, 1CHD, 1INF] [Pay] [DEPOSIT]`, and `6.2. OrderChange … [Pay] [DEBIT]` in `UseCase/Create & confirm on-hold booking`, whose `3. OrderCreate … [Pay Later]` carries `salesAgentId` because it cannot be added after the order is created. Leave `salesAgentId` empty for other airlines: a blank value has no effect. See [Deposit payment on AeroCRS airlines](endpoints/ordercreate.md#ordercreate-deposit-payment).
 
 ## UseCase - VI (Virtual Interline)
 
