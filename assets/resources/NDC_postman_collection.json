@@ -2225,6 +2225,205 @@
                   "response": []
                 },
                 {
+                  "name": "3.1. OrderCreate [OW] [1ADT, 1CHD, 1INF] [Pay] [DEPOSIT]",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "const xml2js = require('xml2js');",
+                          "const xmlContent = pm.response.text();",
+                          "",
+                          "const parseString = xml2js.parseString;",
+                          "const stripPrefix = xml2js.processors.stripPrefix;",
+                          "",
+                          "function toArray(value) {",
+                          "    if (!value) return [];",
+                          "    return Array.isArray(value) ? value : [value];",
+                          "}",
+                          "",
+                          "parseString(xmlContent, {",
+                          "    tagNameProcessors: [stripPrefix],",
+                          "    explicitArray: false,",
+                          "    ignoreAttrs: false",
+                          "}, function (err, result) {",
+                          "    if (err) {",
+                          "        console.error('Error parsing XML:', err);",
+                          "        return;",
+                          "    }",
+                          "",
+                          "    try {",
+                          "        // --- OfferPriceRS ---",
+                          "        if (result.IATA_OfferPriceRS) {",
+                          "            const pricedOffer = result.IATA_OfferPriceRS.Response.PricedOffer;",
+                          "            const totalAmount = pricedOffer.TotalPrice.TotalAmount;",
+                          "",
+                          "            pm.environment.set('totalPrice', totalAmount._);",
+                          "            pm.environment.set('totalCurCode', totalAmount.$.CurCode);",
+                          "            pm.environment.set('offerId', pricedOffer.OfferID);",
+                          "",
+                          "            toArray(pricedOffer.OfferItem).forEach((item, index) => {",
+                          "                pm.environment.set(`offerItemId${index}`, item.OfferItemID);",
+                          "            });",
+                          "",
+                          "            console.log('OfferPriceRS → totalPrice:', totalAmount._);",
+                          "            console.log('OfferPriceRS → totalCurCode:', totalAmount.$.CurCode);",
+                          "            console.log('OfferPriceRS → offerId:', pricedOffer.OfferID);",
+                          "        }",
+                          "",
+                          "        // --- OrderViewRS ---",
+                          "        if (result.IATA_OrderViewRS) {",
+                          "            const order = result.IATA_OrderViewRS.Response.Order;",
+                          "            const totalAmount = order.TotalPrice.TotalAmount;",
+                          "",
+                          "            pm.environment.set('orderId', order.OrderID);",
+                          "            pm.environment.set('totalPrice', totalAmount._);",
+                          "            pm.environment.set('totalCurCode', totalAmount.$.CurCode);",
+                          "",
+                          "            const orderItems = toArray(order.OrderItem);",
+                          "            orderItems.forEach((item, index) => {",
+                          "                pm.environment.set(`orderItemId${index}`, item.OrderItemID);",
+                          "            });",
+                          "",
+                          "            const bookingId = orderItems",
+                          "                .map(item => {",
+                          "                    return toArray(item.Service)",
+                          "                        .map(s => s?.BookingRef?.BookingID)",
+                          "                        .find(Boolean);",
+                          "                })",
+                          "                .find(Boolean);",
+                          "",
+                          "            if (bookingId) {",
+                          "                pm.environment.set('bookingId', bookingId);",
+                          "            }",
+                          "",
+                          "            console.log('OrderViewRS → orderId:', order.OrderID);",
+                          "            console.log('OrderViewRS → totalPrice:', totalAmount._);",
+                          "            console.log('OrderViewRS → totalCurCode:', totalAmount.$.CurCode);",
+                          "            console.log('OrderViewRS → bookingId:', bookingId);",
+                          "        }",
+                          "",
+                          "    } catch (e) {",
+                          "        console.error('Could not find the expected path in the XML structure:', e.message);",
+                          "        console.log('Full parsed object structure:', result);",
+                          "    }",
+                          "});"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          "function formatWithTimezone(date, tzOffsetMinutes) {",
+                          "    const pad = (n, width = 2) => String(n).padStart(width, '0');",
+                          "",
+                          "    const sign = tzOffsetMinutes >= 0 ? \"+\" : \"-\";",
+                          "    const abs = Math.abs(tzOffsetMinutes);",
+                          "    const offsetHours = pad(Math.floor(abs / 60));",
+                          "    const offsetMinutes = pad(abs % 60);",
+                          "",
+                          "    return (",
+                          "        date.getFullYear() +",
+                          "        \"-\" + pad(date.getMonth() + 1) +",
+                          "        \"-\" + pad(date.getDate()) +",
+                          "        \"T\" + pad(date.getHours()) +",
+                          "        \":\" + pad(date.getMinutes()) +",
+                          "        \":\" + pad(date.getSeconds()) +",
+                          "        \".\" + pad(date.getMilliseconds(), 3) +",
+                          "        sign + offsetHours + \":\" + offsetMinutes",
+                          "    );",
+                          "}",
+                          "",
+                          "function formatDateOnly(date) {",
+                          "    const pad = (n, width = 2) => String(n).padStart(width, '0');",
+                          "    return (",
+                          "        date.getFullYear() +",
+                          "        \"-\" + pad(date.getMonth() + 1) +",
+                          "        \"-\" + pad(date.getDate())",
+                          "    );",
+                          "}",
+                          "",
+                          "function subtractYears(date, years) {",
+                          "    const result = new Date(date);",
+                          "    result.setFullYear(result.getFullYear() - years);",
+                          "    return result;",
+                          "}",
+                          "",
+                          "function subtractMonths(date, months) {",
+                          "    const result = new Date(date);",
+                          "    result.setMonth(result.getMonth() - months);",
+                          "    return result;",
+                          "}",
+                          "",
+                          "function addYears(date, years) {",
+                          "    const result = new Date(date);",
+                          "    result.setFullYear(result.getFullYear() + years);",
+                          "    return result;",
+                          "}",
+                          "",
+                          "let today = new Date();",
+                          "",
+                          "// Thailand timezone = +07:00 → 420 minutes",
+                          "let th = formatWithTimezone(today, 420);",
+                          "pm.environment.set(\"today_th\", th);",
+                          "",
+                          "// Birthdates: YYYY-MM-DD",
+                          "let adultBirthDate = formatDateOnly(subtractYears(today, 30));",
+                          "let childBirthDate = formatDateOnly(subtractYears(today, 3));",
+                          "let infantBirthDate = formatDateOnly(subtractMonths(today, 1));",
+                          "let expiryDate = formatDateOnly(addYears(today, 10));",
+                          "",
+                          "pm.environment.set(\"adultBirthDate\", adultBirthDate);",
+                          "pm.environment.set(\"childBirthDate\", childBirthDate);",
+                          "pm.environment.set(\"infantBirthDate\", infantBirthDate);",
+                          "pm.environment.set(\"expiryDate\", expiryDate);"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "auth": {
+                      "type": "noauth"
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "x-api-key",
+                        "value": "{{x-api-key}}",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<IATA_OrderCreateRQ xmlns=\"http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersMessage\" xmlns:ns2=\"http://www.iata.org/IATA/2015/EASD/00/IATA_OffersAndOrdersCommonTypes\" xmlns:ns3=\"http://www.w3.org/2000/09/xmldsig#\">\n    <DistributionChain>\n        <ns2:DistributionChainLink>\n            <ns2:Ordinal>1</ns2:Ordinal>\n            <ns2:OrgRole>Seller</ns2:OrgRole>\n            <ns2:ParticipatingOrg>\n                <ns2:Name>Travel Agency XYZ</ns2:Name>\n                <ns2:OrgID>{{partnerId}}</ns2:OrgID>\n            </ns2:ParticipatingOrg>\n            <ns2:SalesAgent>\n                <ns2:SalesAgentID>{{salesAgentId}}</ns2:SalesAgentID>\n            </ns2:SalesAgent>\n        </ns2:DistributionChainLink>\n    </DistributionChain>\n    <PayloadAttributes>\n        <ns2:CorrelationID>{{$randomUUID}}</ns2:CorrelationID>\n        <ns2:Timestamp>{{today_th}}</ns2:Timestamp>\n        <ns2:TrxID>TRX-123456789</ns2:TrxID>\n        <ns2:VersionNumber>21.3</ns2:VersionNumber>\n    </PayloadAttributes>\n    <POS>\n        <ns2:Country>\n            <ns2:CountryCode>FR</ns2:CountryCode>\n        </ns2:Country>\n    </POS>\n    <Request>\n        <ns2:CreateOrder>\n            <ns2:AcceptSelectedQuotedOfferList>\n                <ns2:SelectedPricedOffer>\n                    <ns2:OfferRefID>{{selectedOfferId}}</ns2:OfferRefID>\n                    <ns2:OwnerCode>VS</ns2:OwnerCode>\n                    <ns2:SelectedOfferItem>\n                        <ns2:OfferItemRefID>{{selectedOfferItemId_0}}</ns2:OfferItemRefID>\n                        <ns2:PaxRefID>PAX1</ns2:PaxRefID>\n                    </ns2:SelectedOfferItem>\n                    <ns2:SelectedOfferItem>\n                        <ns2:OfferItemRefID>{{selectedOfferItemId_1}}</ns2:OfferItemRefID>\n                        <ns2:PaxRefID>PAX2</ns2:PaxRefID>\n                    </ns2:SelectedOfferItem>\n                    <ns2:SelectedOfferItem>\n                        <ns2:OfferItemRefID>{{selectedOfferItemId_2}}</ns2:OfferItemRefID>\n                        <ns2:PaxRefID>PAX3</ns2:PaxRefID>\n                    </ns2:SelectedOfferItem>\n                </ns2:SelectedPricedOffer>\n            </ns2:AcceptSelectedQuotedOfferList>\n        </ns2:CreateOrder>\n        <ns2:DataLists>\n            <ns2:ContactInfoList>\n                <ns2:ContactInfo>\n                    <ns2:ContactInfoID>CTCPAX1_1</ns2:ContactInfoID>\n                    <ns2:EmailAddress>\n                        <ns2:ContactTypeText>Home</ns2:ContactTypeText>\n                        <ns2:EmailAddressText>sample@a.com</ns2:EmailAddressText>\n                    </ns2:EmailAddress>\n                    <ns2:Individual>\n                        <ns2:Birthdate>{{adultBirthDate}}</ns2:Birthdate>\n                        <ns2:GivenName>Firstname</ns2:GivenName>\n                        <ns2:Surname>Surname</ns2:Surname>\n                        <ns2:TitleName>Mr</ns2:TitleName>\n                    </ns2:Individual>\n                    <ns2:Phone>\n                        <ns2:CountryDialingCode>66</ns2:CountryDialingCode>\n                        <ns2:PhoneNumber>12345960</ns2:PhoneNumber>\n                    </ns2:Phone>\n                    <ns2:PostalAddress>\n                        <ns2:CityName>TEST</ns2:CityName>\n                        <ns2:CountryCode>TH</ns2:CountryCode>\n                        <ns2:PostalCode>10210</ns2:PostalCode>\n                    </ns2:PostalAddress>\n                </ns2:ContactInfo>\n            </ns2:ContactInfoList>\n            <ns2:PaxList>\n                <ns2:Pax>\n                    <ns2:IdentityDoc>\n                        <ns2:ExpiryDate>{{expiryDate}}</ns2:ExpiryDate>\n                        <ns2:IdentityDocID>0123456789</ns2:IdentityDocID>\n                        <ns2:IdentityDocTypeCode>PP</ns2:IdentityDocTypeCode>\n                        <ns2:IssuingCountryCode>GB</ns2:IssuingCountryCode>\n                        <ns2:ResidenceCountryCode>GB</ns2:ResidenceCountryCode>\n                        <ns2:Surname>Wayne</ns2:Surname>\n                    </ns2:IdentityDoc>\n                    <ns2:Individual>\n                        <ns2:Birthdate>{{adultBirthDate}}</ns2:Birthdate>\n                        <ns2:GenderCode>M</ns2:GenderCode>\n                        <ns2:GivenName>Bruce</ns2:GivenName>\n                        <ns2:Surname>Wayne</ns2:Surname>\n                        <ns2:TitleName>MR</ns2:TitleName>\n                    </ns2:Individual>\n                    <ns2:LangUsage>\n                        <ns2:LangCode>FR</ns2:LangCode>\n                    </ns2:LangUsage>\n                    <ns2:PaxID>PAX1</ns2:PaxID>\n                    <ns2:PaxRefID>PAX3</ns2:PaxRefID>\n                    <ns2:PTC>ADT</ns2:PTC>\n                </ns2:Pax>\n                <ns2:Pax>\n                    <ns2:IdentityDoc>\n                        <ns2:ExpiryDate>{{expiryDate}}</ns2:ExpiryDate>\n                        <ns2:IdentityDocID>0123456789</ns2:IdentityDocID>\n                        <ns2:IdentityDocTypeCode>PP</ns2:IdentityDocTypeCode>\n                        <ns2:IssuingCountryCode>GB</ns2:IssuingCountryCode>\n                        <ns2:ResidenceCountryCode>GB</ns2:ResidenceCountryCode>\n                        <ns2:Surname>Wayne</ns2:Surname>\n                    </ns2:IdentityDoc>\n                    <ns2:Individual>\n                        <ns2:Birthdate>{{childBirthDate}}</ns2:Birthdate>\n                        <ns2:GenderCode>M</ns2:GenderCode>\n                        <ns2:GivenName>Child</ns2:GivenName>\n                        <ns2:Surname>Wayne</ns2:Surname>\n                        <ns2:TitleName>MR</ns2:TitleName>\n                    </ns2:Individual>\n                    <ns2:LangUsage>\n                        <ns2:LangCode>FR</ns2:LangCode>\n                    </ns2:LangUsage>\n                    <ns2:PaxID>PAX2</ns2:PaxID>\n                    <ns2:PTC>CHD</ns2:PTC>\n                </ns2:Pax>\n                <ns2:Pax>\n                    <ns2:IdentityDoc>\n                        <ns2:ExpiryDate>{{expiryDate}}</ns2:ExpiryDate>\n                        <ns2:IdentityDocID>0123456780</ns2:IdentityDocID>\n                        <ns2:IdentityDocTypeCode>PP</ns2:IdentityDocTypeCode>\n                        <ns2:IssuingCountryCode>GB</ns2:IssuingCountryCode>\n                        <ns2:ResidenceCountryCode>GB</ns2:ResidenceCountryCode>\n                        <ns2:Surname>Wayne</ns2:Surname>\n                    </ns2:IdentityDoc>\n                    <ns2:Individual>\n                        <ns2:Birthdate>{{infantBirthDate}}</ns2:Birthdate>\n                        <ns2:GenderCode>M</ns2:GenderCode>\n                        <ns2:GivenName>Baby</ns2:GivenName>\n                        <ns2:Surname>Wayne</ns2:Surname>\n                        <ns2:TitleName>MR</ns2:TitleName>\n                    </ns2:Individual>\n                    <ns2:LangUsage>\n                        <ns2:LangCode>FR</ns2:LangCode>\n                    </ns2:LangUsage>\n                    <ns2:PaxID>PAX3</ns2:PaxID>\n                    <ns2:PTC>INF</ns2:PTC>\n                </ns2:Pax>\n            </ns2:PaxList>\n        </ns2:DataLists>\n        <ns2:PaymentFunctions>\n            <ns2:PaymentMethodCriteria>\n                <ns2:PaymentCriteriaAddlInfo>\n                    <ns2:PaymentOtherMethodAddlInfo>\n                        <ns2:Remark>\n                            <ns2:RemarkText>{{debitCreditAccount}}</ns2:RemarkText>\n                        </ns2:Remark>\n                    </ns2:PaymentOtherMethodAddlInfo>\n                </ns2:PaymentCriteriaAddlInfo>\n                <ns2:PaymentTypeCode>OT</ns2:PaymentTypeCode>\n            </ns2:PaymentMethodCriteria>\n            <ns2:PaymentProcessingDetails>\n                <ns2:Amount CurCode=\"{{totalCurCode}}\">{{totalPrice}}</ns2:Amount>\n                <ns2:PaymentMethod>\n                    <ns2:OfflinePayment>\n                        <ns2:PaymentTypeCode>OT</ns2:PaymentTypeCode>\n                    </ns2:OfflinePayment>\n                </ns2:PaymentMethod>\n            </ns2:PaymentProcessingDetails>\n        </ns2:PaymentFunctions>\n    </Request>\n</IATA_OrderCreateRQ>\n",
+                      "options": {
+                        "raw": {
+                          "language": "xml"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{ndc-gateway-url}}/v21.3.5/OrderCreate",
+                      "host": [
+                        "{{ndc-gateway-url}}"
+                      ],
+                      "path": [
+                        "v21.3.5",
+                        "OrderCreate"
+                      ]
+                    },
+                    "description": "Instant payment from an agency deposit account on an AeroCRS airline.\n\nSet `partnerId` (your Partner ID, the `OrgID` of your own link), `salesAgentId` (an AeroCRS agent user of the agency that owns the deposit) and `debitCreditAccount` (the AeroCRS agency ID, or `<agency ID>-<currency code>`). `SalesAgentID` is read on OrderCreate only, so a booking you will pay from the deposit later must also be created with it. Use the `OrgRole` your agreement allows (`Seller` or `Distributor`)."
+                  },
+                  "response": []
+                },
+                {
                   "name": "4. OrderRetrieve by OrderId",
                   "event": [
                     {

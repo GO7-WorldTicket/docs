@@ -162,10 +162,10 @@ Payment is sent in `PaymentFunctions` — on `OrderCreate` to pay at booking ([W
 
 | Payment type | `PaymentTypeCode` | Send to | Reference |
 |---|---|---|---|
-| Debit/credit account | `OT` (`OfflinePayment`) | NDC Gateway | [Order Change → debit/credit account](endpoints/orderchange.md#orderchange-payment-debit-credit-account) |
+| Debit/credit account | `OT` (`OfflinePayment`) | NDC Gateway | [Order Create → instant pay](endpoints/ordercreate.md#ordercreate-instant-pay), [Order Change → debit/credit account](endpoints/orderchange.md#orderchange-payment-debit-credit-account) |
 | Credit card, online with 3DS | `PaymentCard` | PCI Proxy (Filter Push URL) | [Order Change → credit card (PCI Proxy)](endpoints/orderchange.md#orderchange-payment-credit-card) |
 
-**Debit/credit account.** Put the account ID in `PaymentMethodCriteria/PaymentCriteriaAddlInfo/PaymentOtherMethodAddlInfo/Remark/RemarkText`, and send `OT` on both `PaymentMethodCriteria` and `PaymentProcessingDetails`.
+**Debit/credit account.** Put the account ID in `PaymentMethodCriteria/PaymentCriteriaAddlInfo/PaymentOtherMethodAddlInfo/Remark/RemarkText`, and send `OT` on both `PaymentMethodCriteria` and `PaymentProcessingDetails`. On an AeroCRS airline the account is your agency's deposit: the account ID is the AeroCRS agency ID, and the order must be created with [`SalesAgentID`](NDC_API.md#partner-sales-agent) — see [Deposit payment on AeroCRS airlines](endpoints/ordercreate.md#ordercreate-deposit-payment).
 
 **Credit card.** Post the `OrderChange` to the PCI Filter Push URL, not to the NDC Gateway; PCI tokenizes `CardNumber`, `CardSecurityCode` and `ExpirationDate` and forwards the request. A successful **3DS authenticate result** is required: include `PaymentCard/SecurePaymentVersion2` and `PaymentRefID` (the PCI `transactionId` from 3DS init). Requests without it are not supported.
 
@@ -248,6 +248,7 @@ The NDC API is the same for every airline, but the passenger service system behi
 | [Create an order without payment](capabilities/create-an-order-without-payment.md) | `OrderCreate` | Available | Available | Holding a booking works on both. A zero-total order is [autopaid](#zero-amount-autopayment) and returned confirmed instead of held. |
 | [Create an order with payment](capabilities/create-an-order-with-payment.md) | `OrderCreate` | Available | Available | Zero-amount orders need no `PaymentFunctions` ([Autopayment](#zero-amount-autopayment)). |
 | [Pay an on-hold order](capabilities/pay-an-on-hold-order.md) | `OrderQuote`, `OrderChange` | Available | Available | Confirm available payment types with the airline. |
+| Pay from an account (`OT`), [at booking](endpoints/ordercreate.md#ordercreate-deposit-payment) or [on hold](endpoints/orderchange.md#orderchange-payment-debit-credit-account) | `OrderCreate` or `OrderChange` | Available | Available | On AeroCRS the account is your agency's deposit. Create the order with [`SalesAgentID`](NDC_API.md#partner-sales-agent), even when you pay later, and ask the airline to enable deposit payment for you. |
 | [Retrieve an order](capabilities/retrieve-an-order.md) | `OrderRetrieve` | Available | Available | Ticket numbers synchronise on both. |
 | [Rebook an order](capabilities/rebook-an-order.md) | `OrderReshop`, `OrderQuote`, `OrderChange` | Available | Available | Same sequence on both. |
 | [Cancel a whole booking](capabilities/cancel-a-whole-booking.md) | `OrderReshop`, `OrderChange` | Available | Available | Cancel the entire order through the NDC API, subject to fare conditions. |

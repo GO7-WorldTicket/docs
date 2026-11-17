@@ -19,6 +19,8 @@ title: Create an order with payment
 
 **Notes.** This is the only way to buy seats or services **before** the order exists. That by-offer path is instant pay only — to hold a booking and add extras later, create the order without payment and use the by-order path.
 
+**Deposit on AeroCRS.** To pay from your agency's deposit account, also send `SalesAgentID` on your own `DistributionChainLink` — see [Order Create → deposit payment](../endpoints/ordercreate.md#ordercreate-deposit-payment).
+
 **Availability.** Both PSS.
 
 ---
