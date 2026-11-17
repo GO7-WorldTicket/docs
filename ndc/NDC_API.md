@@ -32,6 +32,7 @@ title: NDC API Generic Integration Guide
 
 | Change Description                                                                                              | Changed By              | Change Date |
 |-----------------------------------------------------------------------------------------------------------------|-------------------------|-------------|
+| **Breaking:** deposit account payment (`OT`) now requires the `ACCOUNT_REF:<value>` prefix in `RemarkText`; a bare value is rejected (GH-8878) | Apilak Dokkaew | 2026-11-17 |
 | OrderCreate: optional `SalesAgent/SalesAgentID` on the partner's own `DistributionChainLink`; deposit payment (`OT`) on AeroCRS airlines requires it, at booking or later via OrderChange (GH-8800) | Apiluck Dokkaew | 2026-11-12 |
 | Remove cash as an OTA payment option and update payment examples | Sittiwet Mahapratoom | 2026-11-05 |
 | Use assigned NDC Gateway base URLs and API keys in partner and endpoint guidance; document AeroCRS whole-booking cancellation | Sittiwet Mahapratoom | 2026-11-05 |

@@ -88,7 +88,7 @@ The request body must be a valid `IATA_OrderChangeRQ` XML document following IAT
                 &lt;PaymentCriteriaAddlInfo&gt;
                     &lt;PaymentOtherMethodAddlInfo&gt;
                         &lt;Remark&gt;
-                            &lt;RemarkText&gt;{{debitCreditAccount}}&lt;/RemarkText&gt;
+                            &lt;RemarkText&gt;ACCOUNT_REF:{{debitCreditAccount}}&lt;/RemarkText&gt;
                         &lt;/Remark&gt;
                     &lt;/PaymentOtherMethodAddlInfo&gt;
                 &lt;/PaymentCriteriaAddlInfo&gt;
@@ -156,7 +156,7 @@ Use this pattern for the **order flow** when accepting a quoted seat offer and p
                 &lt;cns:PaymentCriteriaAddlInfo&gt;
                     &lt;cns:PaymentOtherMethodAddlInfo&gt;
                         &lt;cns:Remark&gt;
-                            &lt;cns:RemarkText&gt;{{debitCreditAccount}}&lt;/cns:RemarkText&gt;
+                            &lt;cns:RemarkText&gt;ACCOUNT_REF:{{debitCreditAccount}}&lt;/cns:RemarkText&gt;
                         &lt;/cns:Remark&gt;
                     &lt;/cns:PaymentOtherMethodAddlInfo&gt;
                 &lt;/cns:PaymentCriteriaAddlInfo&gt;
@@ -223,7 +223,7 @@ Use this pattern for the **order flow** when accepting a quoted ancillary offer 
                 &lt;cns:PaymentCriteriaAddlInfo&gt;
                     &lt;cns:PaymentOtherMethodAddlInfo&gt;
                         &lt;cns:Remark&gt;
-                            &lt;cns:RemarkText&gt;{{debitCreditAccount}}&lt;/cns:RemarkText&gt;
+                            &lt;cns:RemarkText&gt;ACCOUNT_REF:{{debitCreditAccount}}&lt;/cns:RemarkText&gt;
                         &lt;/cns:Remark&gt;
                     &lt;/cns:PaymentOtherMethodAddlInfo&gt;
                 &lt;/cns:PaymentCriteriaAddlInfo&gt;
@@ -258,7 +258,11 @@ Same **`Order`** + **`PaymentFunctions`** envelope as above; only **`PaymentType
 ### Payment with debit/credit account
 {: #orderchange-payment-debit-credit-account}
 
-Use this path to pay with a **debit/credit account**. Put the account ID in `RemarkText`. Use `PaymentTypeCode` `OT` on both `PaymentMethodCriteria` and `PaymentProcessingDetails` (`OfflinePayment` is the NDC schema container for this payment type).
+Use this path to pay with a **debit/credit account**. Put the account reference in `RemarkText`, labelled `ACCOUNT_REF:<value>`. Use `PaymentTypeCode` `OT` on both `PaymentMethodCriteria` and `PaymentProcessingDetails` (`OfflinePayment` is the NDC schema container for this payment type).
+
+Value: AeroCRS takes the agency ID (`ACCOUNT_REF:71138`; `ACCOUNT_REF:71138-EUR` selects the EUR sub-account), SMS takes the deposit account name (`ACCOUNT_REF:<deposit account name>`). The prefix is required and matched ignoring letter case; whitespace around the value is trimmed. A bare value without the prefix is rejected with an NDC error. If there are several `Remark` elements, the first one carrying the prefix is used and the others are treated as free text.
+
+**Breaking change (GH-8878):** partners that previously sent a bare account value must add the `ACCOUNT_REF:` prefix.
 
 ```xml
 <ns2:PaymentFunctions>
@@ -266,7 +270,7 @@ Use this path to pay with a **debit/credit account**. Put the account ID in `Rem
         <ns2:PaymentCriteriaAddlInfo>
             <ns2:PaymentOtherMethodAddlInfo>
                 <ns2:Remark>
-                    <ns2:RemarkText>{{debitCreditAccount}}</ns2:RemarkText>
+                    <ns2:RemarkText>ACCOUNT_REF:{{debitCreditAccount}}</ns2:RemarkText>
                 </ns2:Remark>
             </ns2:PaymentOtherMethodAddlInfo>
         </ns2:PaymentCriteriaAddlInfo>
@@ -283,7 +287,7 @@ Use this path to pay with a **debit/credit account**. Put the account ID in `Rem
 </ns2:PaymentFunctions>
 ```
 
-**AeroCRS airlines (deposit account).** The account is your agency's deposit. Put the AeroCRS **agency ID** that owns the deposit in `RemarkText`, for example `71138`. The bare ID pays from the deposit in the booking currency; `<agency ID>-<currency code>`, for example `71138-EUR`, pays from the agency's deposit in that currency.
+**AeroCRS airlines (deposit account).** The account is your agency's deposit. Put the AeroCRS **agency ID** that owns the deposit in `RemarkText` as `ACCOUNT_REF:<agency ID>`, for example `ACCOUNT_REF:71138`. The ID alone pays from the deposit in the booking currency; `ACCOUNT_REF:<agency ID>-<currency code>`, for example `ACCOUNT_REF:71138-EUR`, pays from the agency's deposit in that currency.
 
 AeroCRS accepts the payment only if the order was created with `SalesAgentID`, an agent user of that agency, on your own `DistributionChainLink` in [`OrderCreate`](ordercreate.md#ordercreate-deposit-payment). `SalesAgentID` sent on `OrderChange` is ignored, so it cannot be added to an existing order. The airline must have enabled deposit payment for you; ask the airline or GO7 support. See [Sales agent (SalesAgentID)](../NDC_API.md#partner-sales-agent).
 
@@ -422,7 +426,7 @@ Use this path for **online credit card** payment with 3DS. Post `IATA_OrderChang
                 &lt;PaymentCriteriaAddlInfo&gt;
                     &lt;PaymentOtherMethodAddlInfo&gt;
                         &lt;Remark&gt;
-                            &lt;RemarkText&gt;{{debitCreditAccount}}&lt;/RemarkText&gt;
+                            &lt;RemarkText&gt;ACCOUNT_REF:{{debitCreditAccount}}&lt;/RemarkText&gt;
                         &lt;/Remark&gt;
                     &lt;/PaymentOtherMethodAddlInfo&gt;
                 &lt;/PaymentCriteriaAddlInfo&gt;
