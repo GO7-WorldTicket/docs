@@ -394,7 +394,7 @@ Omit **`PaymentFunctions`** for pay-later: the order commonly returns **`DRAFT`*
              &lt;ns2:PaymentCriteriaAddlInfo&gt;
                  &lt;ns2:PaymentOtherMethodAddlInfo&gt;
                      &lt;ns2:Remark&gt;
-                         &lt;ns2:RemarkText&gt;{{debitCreditAccount}}&lt;/ns2:RemarkText&gt;
+                         &lt;ns2:RemarkText&gt;ACCOUNT_REF:{{debitCreditAccount}}&lt;/ns2:RemarkText&gt;
                      &lt;/ns2:Remark&gt;
                  &lt;/ns2:PaymentOtherMethodAddlInfo&gt;
              &lt;/ns2:PaymentCriteriaAddlInfo&gt;
@@ -421,7 +421,7 @@ Omit **`PaymentFunctions`** for pay-later: the order commonly returns **`DRAFT`*
 Pay from your agency's **deposit account** on an AeroCRS airline. Send the [instant payment](#ordercreate-instant-pay) request with these two parts:
 
 1. **`SalesAgentID` on your own `DistributionChainLink`**: an AeroCRS agent user of the agency that owns the deposit. Place `SalesAgent` after `ParticipatingOrg`.
-2. **`OT` payment with the agency in `RemarkText`**: the AeroCRS **agency ID** that owns the deposit, for example `71138`. The bare ID pays from the deposit in the booking currency. To pay from the agency's deposit in another currency, send `<agency ID>-<currency code>`, for example `71138-EUR`.
+2. **`OT` payment with the agency in `RemarkText`**: `ACCOUNT_REF:` followed by the AeroCRS **agency ID** that owns the deposit, for example `ACCOUNT_REF:71138`. The prefix is required (case-insensitive; a bare value is rejected with an NDC error). The ID alone pays from the deposit in the booking currency. To pay from the agency's deposit in another currency, send `ACCOUNT_REF:<agency ID>-<currency code>`, for example `ACCOUNT_REF:71138-EUR`.
 
 In `DistributionChain`:
 
@@ -449,7 +449,7 @@ In `Request`, after `DataLists`:
         <ns2:PaymentCriteriaAddlInfo>
             <ns2:PaymentOtherMethodAddlInfo>
                 <ns2:Remark>
-                    <ns2:RemarkText>71138</ns2:RemarkText>
+                    <ns2:RemarkText>ACCOUNT_REF:71138</ns2:RemarkText>
                 </ns2:Remark>
             </ns2:PaymentOtherMethodAddlInfo>
         </ns2:PaymentCriteriaAddlInfo>
