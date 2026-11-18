@@ -24,6 +24,7 @@
 
 | Change Description                                                                                         | Changed By              | Change Date |
 |------------------------------------------------------------------------------------------------------------|-------------------------|-------------|
+| [Correct supported booking modification types](changelog.html#2026-11-18) | Sittiwet Mahapratoom | 2026-11-18 |
 | [Added Change Passenger Info request and response examples and reorganized Modify booking navigation](changelog.html#2026-09-02) | Sittiwet Mahapratoom | 2026-09-02  |
 | [Added cancel passenger and cancel segment request and response examples](changelog.html#2026-09-01)         | Duangtida Athakravi     | 2026-09-01  |
 | [Add penalty rules for OTA_AirBookRS, OTA_AirPriceRS](changelog.html#2026-07-31)                             | Thotsaphorn Phonlabutr  | 2026-07-31  |
