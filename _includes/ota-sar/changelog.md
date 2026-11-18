@@ -1,6 +1,13 @@
 {% capture sar_document %}
 ## Changelog
 
+### 2026-11-18
+
+#### Correct supported booking modification types
+
+- Removed modification types 7, 9, and 20 from the supported list and corrected split booking to type 6.
+- Clarified how to update contact details using modification type 40 with an existing passenger entry.
+
 ### 2026-09-02
 
 #### Added Change Passenger Info examples and reorganized Modify booking navigation

@@ -9,10 +9,10 @@ Supported modification types:
 | Change passenger name | 3    | Changes passenger name. This operation is essential for group bookings when passenger names are unknown at booking creation time and could be updated later after ticketing. |
 | Change passenger info | 40   | Changes other passenger information other than name.                                                                                                                         |
 | Other                 | 5    | Other modifications such as special services and seats.                                                                                                                      |
-| Split booking         | 7    | Moves passenger or segment into a new booking.                                                                                                                               |
-| Change contact        | 9    | Changes contact information such as email or pone number.                                                                                                                    |
+| Split booking         | 6    | Moves passenger or segment into a new booking.                                                                                                                               |
 | Cancel segment        | 10   | Cancels individual segment. See also [Cancel booking]({{ sar_profile.documentation_root }}/endpoints/cancel_booking.html#full-booking-cancellation)                                                                                               |
-| Rebook segment        | 20   | This covers change of the flight or train, and upgrade of the booking class.                                                                                                 |
+
+To update contact details using modification type `40`, include the updated `CTC` contact and an existing passenger entry in `airBookModifyRQ.travelerInfo.airTraveler`. The passenger details can remain unchanged.
 
 ### Request Parameters
 
