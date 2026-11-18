@@ -2,6 +2,8 @@
 
 Comprehensive guide to OTA API error responses, codes, and handling strategies.
 
+For SAR OTA 2015B JSON requests, use the [OTA Error Response guide]({{ sar_profile.documentation_root }}/endpoints/error-response.html). The XML examples below apply to XML integrations.
+
 ## Error Response Format
 
 ### XML Error Format

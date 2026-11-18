@@ -8,7 +8,7 @@
   <h4>Request</h4>
   <pre>
     GET /schedule/routes?sales_channel=OTA
-    Base URL: {{ sar_profile.test_api_origin }}/sms-gateway
+    Base URL: {{ sar_profile.test_api_origin }}/sms-gateway-service
     Header: x-api-key: {api_key}
   </pre>
 
@@ -155,7 +155,7 @@
   <h4>Request</h4>
   <pre>
     GET /schedule/calendar/availability?start_date=2023-12-03T00:00:00&end_date=2023-12-28T00:00:00&departure_airport=XMD&arrival_airport=JED&direct=true
-    Base URL: {{ sar_profile.test_api_origin }}/sms-gateway
+    Base URL: {{ sar_profile.test_api_origin }}/sms-gateway-service
     Header:
       x-api-key: {api_key}
   </pre>

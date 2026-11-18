@@ -3,6 +3,13 @@
 
 ### 2026-11-18
 
+#### Clarify SAR OTA integration guidance
+
+- Standardized the test gateway prefix for route and calendar queries, email resends, and ticket downloads.
+- Added cancellation-email examples for all eligible cancelled segments and for a specific segment list.
+- Clarified the JSON error format, empty low-fare search results, and seat-map routing.
+- Corrected fare, booking, payment, and cancellation examples. Clarified booking deadlines, passenger naming after payment, and locale labels on penalty descriptions.
+
 #### Correct supported booking modification types
 
 - Removed modification types 7, 9, and 20 from the supported list and corrected split booking to type 6.
@@ -118,7 +125,7 @@
 | applyFromTime| Start date and time from which the penalty rule applies. The value is returned in UTC. |
 | applyUntilTime| End date and time until which the penalty rule applies. The value is returned in UTC.  |
 | description| Localized description of the penalty rule.                                             |
-| locale| Language and regional code of the description, such as en_GB or ar_SA.                 |
+| locale | Locale label supplied with the description, such as en_GB or ar_SA. The description is passed through from HHR and can contain English text under ar_SA. |
 | value| Penalty rule description in the specified language.                                    |
 
 <br /><br />

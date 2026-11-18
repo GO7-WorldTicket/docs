@@ -55,7 +55,7 @@ curl -X POST \
                     "locationCode": "MKX"
                 },
                 "departureDateTime": {
-                    "value": "2025-07-21",
+                    "value": "2025-05-31",
                     "windowBefore": "P0D",
                     "windowAfter": "P0D"
                 }
@@ -305,436 +305,7 @@ curl -X POST \
 
 #### AirLowFareSearchRQ for Oneway Trip
 
-<details>
-  <summary>Request Payload</summary>
-  <pre>
-      {
-        "version": "2.001",
-        "pos": {
-          "source": [
-                  {
-                      "isoCurrency": "SAR",
-                      "requestorID": {
-                          "type": "5",
-                          "id": "<ins>agentId</ins>",
-                          "name": "<ins>agencyId</ins>"
-                      },
-                      "bookingChannel": {
-                          "type": "OTA"
-                      }
-                  }
-              ]
-        },
-        "processingInfo": {
-          "displayOrder": "BY_PRICE_LOW_TO_HIGH",
-          "availabilityIndicator": true
-        },
-        "originDestinationInformation": [
-          {
-            "originLocation": {
-              "locationCode": "JED"
-            },
-            "destinationLocation": {
-              "locationCode": "XMK"
-            },
-            "departureDateTime": {
-              "value": "2023-04-02",
-              "windowBefore": "P0D",
-              "windowAfter": "P0D"
-            }
-          },
-          {
-            "originLocation": {
-              "locationCode": "XMK"
-            },
-            "destinationLocation": {
-              "locationCode": "XMD"
-            },
-            "departureDateTime": {
-              "value": "2023-04-03",
-              "windowBefore": "P0D",
-              "windowAfter": "P0D"
-            }
-          },
-          {
-            "originLocation": {
-              "locationCode": "XMD"
-            },
-            "destinationLocation": {
-              "locationCode": "JED"
-            },
-            "departureDateTime": {
-              "value": "2023-04-04",
-              "windowBefore": "P0D",
-              "windowAfter": "P0D"
-            }
-          },
-          {
-            "originLocation": {
-              "locationCode": "JED"
-            },
-            "destinationLocation": {
-              "locationCode": "XMK"
-            },
-            "departureDateTime": {
-              "value": "2023-04-05",
-              "windowBefore": "P0D",
-              "windowAfter": "P0D"
-            }
-          }
-        ],
-        "travelerInfoSummary": {
-          "airTravelerAvail": [
-            {
-              "passengerTypeQuantity": [
-                {
-                  "code": "ADT",
-                  "quantity": 2
-                }
-              ]
-            }
-          ]
-        }
-      }
-  </pre>
-</details>
-<details>
-  <summary>Response Payload</summary>
-  <pre>
-    {
-      "success": {},
-      "pricedItineraries": {
-        "pricedItinerary": [
-          {
-            "airItinerary": {
-              "originDestinationOptions": {
-                "originDestinationOption": [
-                  {
-                    "flightSegment": [
-                      {
-                        "departureAirport": {
-                          "locationCode": "JED"
-                        },
-                        "arrivalAirport": {
-                          "locationCode": "XMK"
-                        },
-                        "operatingAirline": {
-                          "value": "",
-                          "code": "HHR",
-                          "flightNumber": "5011"
-                        },
-                        "equipment": [],
-                        "departureDateTime": "2023-04-02T01:35:00.000+03:00",
-                        "arrivalDateTime": "2023-04-02T02:29:00.000+03:00",
-                        "stopQuantity": 0,
-                        "marketingAirline": {
-                          "value": "",
-                          "code": "HHR"
-                        },
-                        "flightNumber": "5011",
-                        "resBookDesigCode": "Y",
-                        "bookingClassAvails": [
-                          {
-                            "bookingClassAvail": [
-                              {
-                                "resBookDesigCode": "Y",
-                                "resBookDesigQuantity": "304"
-                              }
-                            ],
-                            "cabinType": "ECONOMY"
-                          }
-                        ],
-                        "comment": [],
-                        "stopLocation": [],
-                        "status": "34",
-                        "tpaExtensions": {
-                          "airEquipType": "TRN"
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "flightSegment": [
-                      {
-                        "departureAirport": {
-                          "locationCode": "XMK"
-                        },
-                        "arrivalAirport": {
-                          "locationCode": "XMD"
-                        },
-                        "operatingAirline": {
-                          "value": "",
-                          "code": "HHR",
-                          "flightNumber": "1010"
-                        },
-                        "equipment": [],
-                        "departureDateTime": "2023-04-03T01:00:00.000+03:00",
-                        "arrivalDateTime": "2023-04-03T03:20:00.000+03:00",
-                        "stopQuantity": 0,
-                        "marketingAirline": {
-                          "value": "",
-                          "code": "HHR"
-                        },
-                        "flightNumber": "1010",
-                        "resBookDesigCode": "Y",
-                        "bookingClassAvails": [
-                          {
-                            "bookingClassAvail": [
-                              {
-                                "resBookDesigCode": "Y",
-                                "resBookDesigQuantity": "304"
-                              }
-                            ],
-                            "cabinType": "ECONOMY"
-                          }
-                        ],
-                        "comment": [],
-                        "stopLocation": [],
-                        "status": "34",
-                        "tpaExtensions": {
-                          "airEquipType": "TRN"
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "flightSegment": [
-                      {
-                        "departureAirport": {
-                          "locationCode": "XMD"
-                        },
-                        "arrivalAirport": {
-                          "locationCode": "JED"
-                        },
-                        "operatingAirline": {
-                          "value": "",
-                          "code": "HHR",
-                          "flightNumber": "7211"
-                        },
-                        "equipment": [],
-                        "departureDateTime": "2023-04-04T21:00:00.000+03:00",
-                        "arrivalDateTime": "2023-04-04T22:54:00.000+03:00",
-                        "stopQuantity": 0,
-                        "marketingAirline": {
-                          "value": "",
-                          "code": "HHR"
-                        },
-                        "flightNumber": "7211",
-                        "resBookDesigCode": "Y",
-                        "bookingClassAvails": [
-                          {
-                            "bookingClassAvail": [
-                              {
-                                "resBookDesigCode": "Y",
-                                "resBookDesigQuantity": "304"
-                              }
-                            ],
-                            "cabinType": "ECONOMY"
-                          }
-                        ],
-                        "comment": [],
-                        "stopLocation": [],
-                        "status": "34",
-                        "tpaExtensions": {
-                          "airEquipType": "TRN"
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "flightSegment": [
-                      {
-                        "departureAirport": {
-                          "locationCode": "JED"
-                        },
-                        "arrivalAirport": {
-                          "locationCode": "XMK"
-                        },
-                        "operatingAirline": {
-                          "value": "",
-                          "code": "HHR",
-                          "flightNumber": "5011"
-                        },
-                        "equipment": [],
-                        "departureDateTime": "2023-04-05T01:35:00.000+03:00",
-                        "arrivalDateTime": "2023-04-05T02:29:00.000+03:00",
-                        "stopQuantity": 0,
-                        "marketingAirline": {
-                          "value": "",
-                          "code": "HHR"
-                        },
-                        "flightNumber": "5011",
-                        "resBookDesigCode": "Y",
-                        "bookingClassAvails": [
-                          {
-                            "bookingClassAvail": [
-                              {
-                                "resBookDesigCode": "Y",
-                                "resBookDesigQuantity": "304"
-                              }
-                            ],
-                            "cabinType": "ECONOMY"
-                          }
-                        ],
-                        "comment": [],
-                        "stopLocation": [],
-                        "status": "34",
-                        "tpaExtensions": {
-                          "airEquipType": "TRN"
-                        }
-                      }
-                    ]
-                  }
-                ]
-              }
-            },
-            "airItineraryPricingInfo": {
-              "itinTotalFare": [
-                {
-                  "baseFare": {
-                    "currencyCode": "USD",
-                    "amount": 3711.30
-                  },
-                  "equivFare": [],
-                  "fees": {
-                    "fee": [
-                      {
-                        "value": "",
-                        "feeCode": "VAT_TOTAL",
-                        "currencyCode": "USD",
-                        "amount": 371.12
-                      }
-                    ]
-                  },
-                  "totalFare": {
-                    "currencyCode": "USD",
-                    "amount": 4162.42
-                  },
-                  "fareBaggageAllowance": [],
-                  "remark": []
-                }
-              ],
-              "fareInfos": {
-                "fareInfo": [
-                  {
-                    "fareReference": [
-                      {
-                        "value": "YECOSTD"
-                      }
-                    ],
-                    "filingAirline": {
-                      "value": "HHR"
-                    },
-                    "marketingAirline": [],
-                    "departureAirport": {
-                      "value": "",
-                      "locationCode": "JED"
-                    },
-                    "arrivalAirport": {
-                      "value": "",
-                      "locationCode": "XMK"
-                    },
-                    "date": [],
-                    "fareInfo": [],
-                    "city": [],
-                    "airport": [],
-                    "tpaExtensions": {
-                      "priceGroup": "Eco"
-                    }
-                  },
-                  {
-                    "fareReference": [
-                      {
-                        "value": "YECOSTD"
-                      }
-                    ],
-                    "filingAirline": {
-                      "value": "HHR"
-                    },
-                    "marketingAirline": [],
-                    "departureAirport": {
-                      "value": "",
-                      "locationCode": "XMK"
-                    },
-                    "arrivalAirport": {
-                      "value": "",
-                      "locationCode": "XMD"
-                    },
-                    "date": [],
-                    "fareInfo": [],
-                    "city": [],
-                    "airport": [],
-                    "tpaExtensions": {
-                      "priceGroup": "Eco"
-                    }
-                  },
-                  {
-                    "fareReference": [
-                      {
-                        "value": "YECOSTD"
-                      }
-                    ],
-                    "filingAirline": {
-                      "value": "HHR"
-                    },
-                    "marketingAirline": [],
-                    "departureAirport": {
-                      "value": "",
-                      "locationCode": "XMD"
-                    },
-                    "arrivalAirport": {
-                      "value": "",
-                      "locationCode": "JED"
-                    },
-                    "date": [],
-                    "fareInfo": [],
-                    "city": [],
-                    "airport": [],
-                    "tpaExtensions": {
-                      "priceGroup": "Eco"
-                    }
-                  },
-                  {
-                    "fareReference": [
-                      {
-                        "value": "YECOSTD"
-                      }
-                    ],
-                    "filingAirline": {
-                      "value": "HHR"
-                    },
-                    "marketingAirline": [],
-                    "departureAirport": {
-                      "value": "",
-                      "locationCode": "JED"
-                    },
-                    "arrivalAirport": {
-                      "value": "",
-                      "locationCode": "XMK"
-                    },
-                    "date": [],
-                    "fareInfo": [],
-                    "city": [],
-                    "airport": [],
-                    "tpaExtensions": {
-                      "priceGroup": "Eco"
-                    }
-                  }
-                ]
-              }
-            },
-            "notes": [],
-            "sequenceNumber": 1
-          }
-        ]
-      },
-      "timeStamp": "2023-02-24T17:25:28.091Z",
-      "version": 2.001,
-      "retransmissionIndicator": false
-    }
-  </pre>
-</details>
-
+Send one origin–destination option for a one-way search. The [one-way request and response below](#airlowfaresearchrq-for-oneway-trip-with-booking-class-preference) show a single MKX–JED leg and fares in SAR.
 
 #### AirLowFareSearchRQ for Oneway Trip with Booking Class Preference
 
@@ -3238,26 +2809,26 @@ curl -X POST \
         "originDestinationInformation": [
             {
                 "originLocation": {
-                    "locationCode": "DMX"
-                },
-                "destinationLocation": {
                     "locationCode": "MKX"
                 },
+                "destinationLocation": {
+                    "locationCode": "DMX"
+                },
                 "departureDateTime": {
-                    "value": "2024-04-19",
+                    "value": "2024-04-13",
                     "windowBefore": "P0D",
                     "windowAfter": "P0D"
                 }
             },
             {
                 "originLocation": {
-                    "locationCode": "MKX"
-                },
-                "destinationLocation": {
                     "locationCode": "DMX"
                 },
+                "destinationLocation": {
+                    "locationCode": "MKX"
+                },
                 "departureDateTime": {
-                    "value": "2024-04-29",
+                    "value": "2024-04-21",
                     "windowBefore": "P0D",
                     "windowAfter": "P0D"
                 }
@@ -28882,8 +28453,8 @@ curl -X POST \
 
 <details>
 <summary><b>Error</b></summary>
-<h4>404 - No price tariff exists</h4>
-<pre>HHR returns an empty response (status code 204) when the search criteria cannot be met.</pre>
+<h4>200 - Search completed with no itineraries</h4>
+<p>When HHR availability returns 204 No Content, the SAR OTA low-fare search responds with a successful OTA response and no priced itineraries. Check for an empty <code>pricedItineraries</code> result. The upstream 204 status is internal to this flow.</p>
 
 <h4>400 - No availability found</h4>
 <pre>

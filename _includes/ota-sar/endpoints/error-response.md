@@ -19,13 +19,13 @@ To establish a standardized way to handle and respond to errors during API commu
 
 #### 1.2 Error Response Format
 
-All API responses containing errors will be returned with the following JSON structure and appropriate HTTP status codes:
+This section describes the JSON problem response for SAR OTA 2015B requests. The HTTP status and the application error code are separate fields.
 
 ##### Error Response Structure
 
 ```json
 {
-  "status": HTTP Status Codes,
+  "status": 400,
   "code": "ERR_CODE",
   "title": "Human-readable description of the error",
   "detail": "Optional technical details for debugging (if any)",
@@ -40,7 +40,7 @@ All API responses containing errors will be returned with the following JSON str
 |----------------|---------------------------------------------------------------|
 | status         | HTTP response status code                                     |
 | error          | HTTP response status name                                     |
-| code           | Original error code shows the root cause of the error.        |
+| code           | Application error code. OTA-generated codes are strings, including digit-only values such as `"878"`. A forwarded provider error may retain its original code type. |
 | title          | Error reason                                                  |
 | detail         | Error details                                                 |
 | correlationId  | Reference number of the transaction that got error            |
@@ -276,7 +276,7 @@ Error responses contain specific details for investigating issues. The main reas
 | 1032 | Missing or empty profiles |
 | 1033 | Missing or invalid profile quantity <QTY> |
 | 1050 | RFU |
-| 1051 | ¡ Already used reference id: <ID> |
+| 1051 | Already used reference id: <ID> |
 | 1052 | Invalid reference <ID> |
 | 1053 | Not enough seats for category <ID> |
 | 1054 | Selected category <ID> not found, or is not available |

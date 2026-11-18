@@ -11,6 +11,16 @@
 | agentId    | Payload | Custom HTTP header | ota                      |
 | agencyId   | Payload | Custom HTTP header | ota                      |
 
+### Booking deadlines
+
+- `confirmationTimeLimit` is the deadline to pay and confirm the booking. If it passes before confirmation, the held booking expires.
+- `updateTravellersTimeLimit` is the deadline to provide or update traveller details.
+- `cancellationTimeLimit` is the deadline that applies to cancellation of the confirmed booking. Refunds and penalties depend on the fare rules.
+
+Penalty rule descriptions carry the locale labels supplied by HHR. An `ar_SA` entry can contain English text.
+
+Timestamps ending in `Z` are in UTC. Compare them with departure times using the offset in each timestamp.
+
 #### Request
 
 ```
@@ -36,7 +46,7 @@ curl -X POST \
         "requestorID": {
           "type": "5",
           "id": "<ins>agentId</ins>",
-          "name": "<ins>agencyId</ins>"
+          "name": "<ins>agencyId</ins>",
           "location": "CPH"
         }
       }
@@ -192,8 +202,8 @@ curl -X POST \
                             "tax": 7.50,
                             "total": 57.50,
                             "vat": 15.00,
-                            "applyFromTime": "2026-07-09T04:40:00Z",
-                            "applyUntilTime": "2026-07-09T05:00:00Z",
+                            "applyFromTime": "2024-03-22T06:40:00Z",
+                            "applyUntilTime": "2024-03-22T07:00:00Z",
                             "description": [
                               {
                                 "locale": "en_GB",
@@ -223,8 +233,8 @@ curl -X POST \
                             "tax": 2.25,
                             "total": 17.25,
                             "vat": 15.00,
-                            "applyFromTime": "2026-07-08T05:00:00Z",
-                            "applyUntilTime": "2026-07-09T04:40:00Z",
+                            "applyFromTime": "2024-03-21T07:00:00Z",
+                            "applyUntilTime": "2024-03-22T06:40:00Z",
                             "description": [
                               {
                                 "locale": "en_GB",
@@ -243,9 +253,9 @@ curl -X POST \
                 }
               },
               "tpaextensions": {
-                "updateTravellersTimeLimit": "2024-04-12T10:20:00Z",
-                "confirmationTimeLimit": "2024-04-12T10:49:00Z",
-                "cancellationTimeLimit": "2024-04-12T08:40:00Z"
+                "updateTravellersTimeLimit": "2024-03-19T07:00:00Z",
+                "confirmationTimeLimit": "2024-03-18T10:49:00Z",
+                "cancellationTimeLimit": "2024-03-22T06:40:00Z"
               }
             },
             "rph": "1"

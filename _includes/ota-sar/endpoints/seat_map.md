@@ -2,6 +2,8 @@
 
 This method returns the seat map for some given flights. Seat maps can be requested for a booking once it has been paid.
 
+Send the request to the dedicated seat-map path shown below. The path identifies the OTA message, so this endpoint does not require the `local-name` header.
+
 #### Request Parameters
 
 | Parameter    | Type    | Description        | Example                  |

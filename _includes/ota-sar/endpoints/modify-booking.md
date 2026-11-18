@@ -6,7 +6,7 @@ Supported modification types:
 | Operation             | Type | Description                                                                                                                                                                  |
 |-----------------------|------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Cancel passenger      | 2    | Cancels individual passenger. See also [Cancel booking]({{ sar_profile.documentation_root }}/endpoints/cancel_booking.html#full-booking-cancellation)                                                                                             |
-| Change passenger name | 3    | Changes passenger name. This operation is essential for group bookings when passenger names are unknown at booking creation time and could be updated later after ticketing. |
+| Change passenger name | 3    | Adds a name to an unnamed group passenger, including after payment and ticketing if the traveller update deadline allows it. |
 | Change passenger info | 40   | Changes other passenger information other than name.                                                                                                                         |
 | Other                 | 5    | Other modifications such as special services and seats.                                                                                                                      |
 | Split booking         | 6    | Moves passenger or segment into a new booking.                                                                                                                               |
@@ -34,7 +34,7 @@ curl -X POST \
 
 ### Change passenger name
 
-`Changes to the passenger name may not permitted after the booking is paid and tickets are issued.`
+For a paid group booking, type `3` can replace an unnamed passenger’s placeholder with their actual name. Submit the update by the booking’s `updateTravellersTimeLimit` and use the original passenger reference (RPH). After payment, the API rejects a change to an existing passenger name.
 
 #### Change Passenger in One Way Booking
 
