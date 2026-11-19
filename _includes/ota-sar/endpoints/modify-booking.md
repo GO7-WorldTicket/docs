@@ -6,7 +6,7 @@ Supported modification types:
 | Operation             | Type | Description                                                                                                                                                                  |
 |-----------------------|------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Cancel passenger      | 2    | Cancels individual passenger. See also [Cancel booking]({{ sar_profile.documentation_root }}/endpoints/cancel_booking.html#full-booking-cancellation)                                                                                             |
-| Change passenger name | 3    | Adds a name to an unnamed group passenger, including after payment and ticketing if the traveller update deadline allows it. |
+| Change passenger name | 3    | Updates a passenger name, with additional restrictions after payment. |
 | Change passenger info | 40   | Changes other passenger information other than name.                                                                                                                         |
 | Other                 | 5    | Other modifications such as special services and seats.                                                                                                                      |
 | Split booking         | 6    | Moves passenger or segment into a new booking.                                                                                                                               |
@@ -34,7 +34,7 @@ curl -X POST \
 
 ### Change passenger name
 
-For a paid group booking, type `3` can replace an unnamed passenger’s placeholder with their actual name. Submit the update by the booking’s `updateTravellersTimeLimit` and use the original passenger reference (RPH). After payment, the API rejects a change to an existing passenger name.
+Use type `3` with the original passenger reference (RPH). Before payment, an existing name can be updated subject to booking validation. After payment, only an unnamed group passenger’s placeholder can be replaced with their actual name. Submit the update before the booking’s `updateTravellersTimeLimit`.
 
 #### Change Passenger in One Way Booking
 

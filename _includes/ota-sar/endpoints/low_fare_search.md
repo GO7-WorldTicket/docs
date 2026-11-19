@@ -323,7 +323,7 @@ Send one origin–destination option for a one-way search. The [one-way request 
         "requestorID": {
           "type": "5",
           "id": "<ins>agentId</ins>",
-          "name": "<ins>agentId</ins>"
+          "name": "<ins>agencyId</ins>"
         }
       }
     ]
@@ -28456,12 +28456,8 @@ Send one origin–destination option for a one-way search. The [one-way request 
 <h4>200 - Search completed with no itineraries</h4>
 <p>When HHR availability returns 204 No Content, the SAR OTA low-fare search responds with a successful OTA response and no priced itineraries. Check for an empty <code>pricedItineraries</code> result. The upstream 204 status is internal to this flow.</p>
 
-<h4>400 - No availability found</h4>
-<pre>
-This happens when the HHR system returns data that doesn't match the user's search criteria.
-For instance, if a user searches for a round trip flight, but only one leg is available
-in the results.
-</pre>
+<h4>422 - No availability for the requested itinerary</h4>
+<p>If HHR reports that the available results cannot satisfy the requested itinerary, the OTA API returns 422 Unprocessable Entity with error code <code>"322"</code> (No availability). For example, only one leg may be available for a round-trip request.</p>
 
 <h4>502 - Cannot get priced itineraries data</h4>
 <pre>

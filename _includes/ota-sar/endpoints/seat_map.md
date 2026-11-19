@@ -16,7 +16,7 @@ Send the request to the dedicated seat-map path shown below. The path identifies
 
 ```
 curl -X POST \
-    {base_url}/v2015b/OTA_AirSeatMapRQ \
+    {base_url}/ota/v2015b/OTA_AirSeatMapRQ \
     -H 'x-api-key: {api-key}'
 ```
 

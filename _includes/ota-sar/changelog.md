@@ -124,9 +124,9 @@
 | vat| VAT percentage applied to the penalty amount. For example, 15.00 means 15%.            |
 | applyFromTime| Start date and time from which the penalty rule applies. The value is returned in UTC. |
 | applyUntilTime| End date and time until which the penalty rule applies. The value is returned in UTC.  |
-| description| Localized description of the penalty rule.                                             |
+| description | List of penalty-rule descriptions supplied by HHR. |
 | locale | Locale label supplied with the description, such as en_GB or ar_SA. The description is passed through from HHR and can contain English text under ar_SA. |
-| value| Penalty rule description in the specified language.                                    |
+| value | Penalty-rule text as supplied by HHR. |
 
 <br /><br />
 

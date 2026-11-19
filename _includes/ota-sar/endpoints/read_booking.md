@@ -255,7 +255,7 @@ curl -X POST \
               "tpaextensions": {
                 "updateTravellersTimeLimit": "2024-03-19T07:00:00Z",
                 "confirmationTimeLimit": "2024-03-18T10:49:00Z",
-                "cancellationTimeLimit": "2024-03-22T06:40:00Z"
+                "cancellationTimeLimit": "2024-03-22T07:00:00Z"
               }
             },
             "rph": "1"
