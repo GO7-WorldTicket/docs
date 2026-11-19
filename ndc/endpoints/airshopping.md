@@ -13,7 +13,7 @@ Obtain your assigned base URL and API key from GO7; see [Base URLs](../NDC_API.m
 
 ## Description
 
-The Air Shopping API searches for available flight offers matching your criteria. Provide origin/destination airports, travel dates, passenger types, and optional cabin preferences. The response includes available offers with pricing and flight segment details.
+The Air Shopping API searches for available flight offers matching your criteria. Provide origin/destination airports, travel dates, passenger types, and optional cabin preferences. The response includes available offers with pricing and flight segment details. A branded offer also names its fare brand and lists the services the brand includes; see [Fare brands](#fare-brands).
 
 ## Workflow (NDC API guide)
 
@@ -5842,6 +5842,172 @@ USD:
 http://www.airlineibe.com/en/flight-results/AAL-AAC/2025-11-29/2025-12-05/2/1/0/USD
 ```
 
+## Fare brands
+
+An airline can sell one flight in several named fare brands, such as Basic or Flex. A branded offer names its brand in `PriceClass` and lists the services the brand includes as `ServiceDefinition` entries. The flight offer item links to both. The platform takes the brand from the airline's fare-brand catalogue or, on an AeroCRS airline, from the brand the reservation system returns.
+
+You do not request this content. Every `IATA_AirShoppingRS` that has branded offers carries it, and so does the matching `IATA_OfferPriceRS` ([Offer Price → Fare brands](offerprice.md#fare-brands)).
+
+### Example
+
+This excerpt comes from one `IATA_AirShoppingRS` of an AeroCRS airline (`PL`). `<!-- … -->` marks content left out.
+
+`DataLists` holds one `PriceClass` for each brand and one `ServiceDefinition` for each brand service:
+
+```xml
+<DataLists>
+    <!-- … -->
+    <PriceClassList>
+        <!-- … -->
+        <PriceClass>
+            <Code>Economy</Code>
+            <DisplayOrderText>2</DisplayOrderText>
+            <Name>Flex</Name>
+            <PriceClassID>PC2</PriceClassID>
+        </PriceClass>
+        <!-- … -->
+    </PriceClassList>
+    <ServiceDefinitionList>
+        <!-- … -->
+        <ServiceDefinition>
+            <Desc>
+                <DescText>Enhanced seating is included</DescText>
+            </Desc>
+            <Name>Seat Selection</Name>
+            <OwnerCode>PL</OwnerCode>
+            <ServiceDefinitionID>SD-FB6</ServiceDefinitionID>
+        </ServiceDefinition>
+        <ServiceDefinition>
+            <Desc>
+                <DescText>Carry-on bag 8KG 55X40X20</DescText>
+            </Desc>
+            <Name>Hand Baggage</Name>
+            <OwnerCode>PL</OwnerCode>
+            <ServiceDefinitionID>SD-FB7</ServiceDefinitionID>
+        </ServiceDefinition>
+        <ServiceDefinition>
+            <Desc>
+                <DescText>1 Checked-in bag up to 23KG</DescText>
+            </Desc>
+            <Name>Checked-in Baggage</Name>
+            <OwnerCode>PL</OwnerCode>
+            <ServiceDefinitionID>SD-FB8</ServiceDefinitionID>
+        </ServiceDefinition>
+        <!-- … -->
+    </ServiceDefinitionList>
+</DataLists>
+```
+
+The flight offer item of the Flex brand names its `PriceClass` and carries one extra `Service` for each brand service:
+
+```xml
+<OfferItem>
+    <FareDetail>
+        <FareComponent>
+            <!-- … -->
+            <PaxSegmentRefID>SEG1</PaxSegmentRefID>
+            <PriceClassRefID>PC2</PriceClassRefID>
+        </FareComponent>
+        <PaxRefID>PAX1</PaxRefID>
+    </FareDetail>
+    <OfferItemID>72784e36-d609-4ddc-aa09-7f4e54ea5da7:4a733998-f831-44fd-9aa5-299eeab3cdb8</OfferItemID>
+    <Price>
+        <BaseAmount CurCode="EUR">369.7</BaseAmount>
+        <!-- … -->
+        <TotalAmount CurCode="EUR">385.43</TotalAmount>
+    </Price>
+    <!-- The flight itself -->
+    <Service>
+        <OfferServiceAssociation>
+            <PaxJourneyRef>
+                <PaxJourneyRefID>JOUR1</PaxJourneyRefID>
+            </PaxJourneyRef>
+        </OfferServiceAssociation>
+        <PaxRefID>PAX1</PaxRefID>
+        <ServiceID>1</ServiceID>
+    </Service>
+    <!-- Brand services, with no price of their own -->
+    <Service>
+        <OfferServiceAssociation>
+            <ServiceDefinitionRef>
+                <OfferFlightAssociations>
+                    <PaxJourneyRef>
+                        <PaxJourneyRefID>JOUR1</PaxJourneyRefID>
+                    </PaxJourneyRef>
+                </OfferFlightAssociations>
+                <ServiceDefinitionRefID>SD-FB6</ServiceDefinitionRefID>
+            </ServiceDefinitionRef>
+        </OfferServiceAssociation>
+        <PaxRefID>PAX1</PaxRefID>
+        <ServiceID>2</ServiceID>
+    </Service>
+    <Service>
+        <OfferServiceAssociation>
+            <ServiceDefinitionRef>
+                <OfferFlightAssociations>
+                    <PaxJourneyRef>
+                        <PaxJourneyRefID>JOUR1</PaxJourneyRefID>
+                    </PaxJourneyRef>
+                </OfferFlightAssociations>
+                <ServiceDefinitionRefID>SD-FB7</ServiceDefinitionRefID>
+            </ServiceDefinitionRef>
+        </OfferServiceAssociation>
+        <PaxRefID>PAX1</PaxRefID>
+        <ServiceID>3</ServiceID>
+    </Service>
+    <Service>
+        <OfferServiceAssociation>
+            <ServiceDefinitionRef>
+                <OfferFlightAssociations>
+                    <PaxJourneyRef>
+                        <PaxJourneyRefID>JOUR1</PaxJourneyRefID>
+                    </PaxJourneyRef>
+                </OfferFlightAssociations>
+                <ServiceDefinitionRefID>SD-FB8</ServiceDefinitionRefID>
+            </ServiceDefinitionRef>
+        </OfferServiceAssociation>
+        <PaxRefID>PAX1</PaxRefID>
+        <ServiceID>4</ServiceID>
+    </Service>
+    <!-- … -->
+</OfferItem>
+```
+
+### Elements
+
+| Element | Content |
+|---------|---------|
+| `PriceClass/Code`, `PriceClass/Name` | The brand code and the brand name. |
+| `PriceClass/Desc/DescText` | The brand description from the airline's catalogue. Absent when the catalogue has none. |
+| `PriceClass/DisplayOrderText` | The brand's display order. Show the brand with the lower number first. |
+| `ServiceDefinition/Name`, `ServiceDefinition/Desc/DescText` | The name and description of one service the brand includes, from the airline's catalogue. |
+| `ServiceDefinition/OwnerCode` | The marketing airline of the flight. |
+| `ServiceDefinition/ServiceCode` | The SSR code of the service. Absent when the service has none. |
+| `ServiceDefinition/ServiceDefinitionID` | `SD-FB` followed by a number, for example `SD-FB6`. |
+
+### How the elements link
+
+`PriceClass` does not list its services. The flight offer item names both, through two references.
+
+| From | To | Meaning |
+|------|----|---------|
+| `OfferItem/FareDetail/FareComponent/PriceClassRefID` | `PriceClass/PriceClassID` | The brand of the offer item. |
+| `OfferItem/Service/OfferServiceAssociation/ServiceDefinitionRef/ServiceDefinitionRefID` | `ServiceDefinition/ServiceDefinitionID` | A service the brand includes. |
+
+To show the services of a brand, read the brand `Service` elements of an offer item that references the brand's `PriceClassID`.
+
+**Rules**
+
+- A brand `Service` has no price. The `Price` of the offer item already covers it, so add nothing to the total for it.
+- The first `Service` of the offer item is the flight itself, with `ServiceID` `1`. The brand `Service` elements follow it.
+- A brand `Service` is associated with the whole journey (`OfferFlightAssociations/PaxJourneyRef`) when the offer item covers it. It is associated with the item's segments (`OfferFlightAssociations/PaxSegmentReferences/PaxSegmentRefID`) when the item covers only part of the journey, as each leg of a Virtual Interline journey (one itinerary from two airlines) does, or when the airline defines the service per segment.
+- Services with the same owner, name, and description are defined once. Every offer item that includes the service references the same `ServiceDefinitionID`. In the full response of the excerpt above, the Flex and Business brands both reference `SD-FB6` and `SD-FB7`.
+- The `SD-FB` numbers follow the order in which the response first uses a service. Do not store them, and do not compare them between responses.
+- When no offer has a brand, the response has no `PriceClassList`. It no longer returns an empty `<PriceClassList/>`, which fails schema validation.
+- Booking does not change. `OrderCreate` takes the offer as before and does not order brand services separately. `IATA_OrderViewRS` does not show the brand.
+
+The service list is informational content from the airline's catalogue. Whether a service is free or paid is whatever its `Desc/DescText` says. To add a paid extra to a booking, see [Shop for ancillary services](../capabilities/shop-for-ancillary-services.md).
+
 ## Validation Rules
 
 ### Passenger Type Codes (PTC)
@@ -5872,3 +6038,4 @@ http://www.airlineibe.com/en/flight-results/AAL-AAC/2025-11-29/2025-12-05/2/1/0/
 3. **CabinType**: When sending a cabin preference, include both `CabinTypeCode` and `PrefLevel/PrefLevelCode`.
 4. **Offer IDs**: Use the `OfferID` and `OfferItemID` from the response in subsequent `OfferPrice` requests.
 5. **Deeplink**: An offer may carry a booking link in `RichMedia` (`DescText` `DEEPLINK`). See [Booking deeplink](#booking-deeplink).
+6. **Fare brands**: A branded offer item carries one price-less `Service` for each service its brand includes, linked to a `ServiceDefinition` in `DataLists`. See [Fare brands](#fare-brands).

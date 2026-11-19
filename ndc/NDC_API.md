@@ -32,6 +32,7 @@ title: NDC API Generic Integration Guide
 
 | Change Description                                                                                              | Changed By              | Change Date |
 |-----------------------------------------------------------------------------------------------------------------|-------------------------|-------------|
+| AirShopping and OfferPrice: fare-brand content. `PriceClass` carries `Desc` and `DisplayOrderText`; each service a brand includes is a `ServiceDefinition` (`SD-FB<n>`) and a price-less `Service` on the flight `OfferItem`; an empty `PriceClassList` is no longer returned (GH-8250) | Apiluck Dokkaew | 2026-11-19 |
 | Postman: every request's `DistributionChain` now uses the `OrgRole`, `partnerName` and `partnerId` environment variables, added to both environments; the on-hold `OrderCreate [Pay Later]` requests carry `salesAgentId` so their `OT` payment works on AeroCRS airlines (GH-8269) | Apiluck Dokkaew | 2026-11-17 |
 | **Breaking:** deposit account payment (`OT`) now requires the `ACCOUNT_REF:<value>` prefix in `RemarkText`; a bare value is rejected (GH-8878) | Apilak Dokkaew | 2026-11-17 |
 | OrderCreate: optional `SalesAgent/SalesAgentID` on the partner's own `DistributionChainLink`; deposit payment (`OT`) on AeroCRS airlines requires it, at booking or later via OrderChange (GH-8800) | Apiluck Dokkaew | 2026-11-12 |

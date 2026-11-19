@@ -12,7 +12,7 @@ title: Shop for flights
 **Process.** `AirShopping`
 
 **Post condition.**
-- *Success:* a list of offers, each with an `OfferID`, its `OfferItemID` values and an `OwnerCode`. An offer may also carry a booking link — see [Booking deeplink](../endpoints/airshopping.md#booking-deeplink).
+- *Success:* a list of offers, each with an `OfferID`, its `OfferItemID` values and an `OwnerCode`. An offer may also carry a booking link — see [Booking deeplink](../endpoints/airshopping.md#booking-deeplink). A branded offer also names its fare brand and lists the services the brand includes. See [Fare brands](../endpoints/airshopping.md#fare-brands).
 - *Failure:* a validation error. No offer matching your criteria returns an empty offer list, not an error.
 
 **Messages.** [Air Shopping](../endpoints/airshopping.md) — [one-way](../endpoints/airshopping.md#airshopping-one-way-trip), [round trip](../endpoints/airshopping.md#airshopping-round-trip).
