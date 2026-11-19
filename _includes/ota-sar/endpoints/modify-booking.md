@@ -3450,7 +3450,7 @@ Seats can be changed after the booking has been paid for.
         "requestorID": {
           "type": "5",
           "id": "<ins>agentId</ins>",
-          "name": "<ins>agentId</ins>"
+          "name": "<ins>agencyId</ins>"
         },
         "bookingChannel": {
           "type": "OTA"

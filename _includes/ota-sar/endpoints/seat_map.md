@@ -35,7 +35,7 @@ curl -X POST \
                 "requestorID": {
                     "type": "5",
                     "id": "<ins>agentId</ins>",
-                    "name": "<ins>agentId</ins>"
+                    "name": "<ins>agencyId</ins>"
                 }
             }
         ]
@@ -218,7 +218,7 @@ Both `flightSegmentInfo` and `travelerRefNumberRPHs` can be acquired from the `O
         "requestorID": {
           "type": "5",
           "id": "<ins>agentId</ins>",
-          "name": "<ins>agentId</ins>"
+          "name": "<ins>agencyId</ins>"
         }
       }
     ]
