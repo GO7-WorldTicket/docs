@@ -2,6 +2,8 @@
 
 This method returns the seat map for some given flights. Seat maps can be requested for a booking once it has been paid.
 
+Send the request to the dedicated seat-map path shown below. The path identifies the OTA message, so this endpoint does not require the `local-name` header.
+
 #### Request Parameters
 
 | Parameter    | Type    | Description        | Example                  |
@@ -14,7 +16,7 @@ This method returns the seat map for some given flights. Seat maps can be reques
 
 ```
 curl -X POST \
-    {base_url}/v2015b/OTA_AirSeatMapRQ \
+    {base_url}/ota/v2015b/OTA_AirSeatMapRQ \
     -H 'x-api-key: {api-key}'
 ```
 
@@ -33,7 +35,7 @@ curl -X POST \
                 "requestorID": {
                     "type": "5",
                     "id": "<ins>agentId</ins>",
-                    "name": "<ins>agentId</ins>"
+                    "name": "<ins>agencyId</ins>"
                 }
             }
         ]
@@ -216,7 +218,7 @@ Both `flightSegmentInfo` and `travelerRefNumberRPHs` can be acquired from the `O
         "requestorID": {
           "type": "5",
           "id": "<ins>agentId</ins>",
-          "name": "<ins>agentId</ins>"
+          "name": "<ins>agencyId</ins>"
         }
       }
     ]

@@ -1,5 +1,7 @@
 ## Create a booking
 
+Penalty rule descriptions use the locale labels supplied by HHR. An `ar_SA` entry can contain English text. Use the structured amounts and time windows for the penalty calculation.
+
 The purpose is to create the booking in SMS by providing a specific flight and fare in the request.
 
 There are two types of bookings:
@@ -157,7 +159,7 @@ curl -X POST \
               ]
             },
             "passengerTypeCode": "ADT",
-            "gender": "Male"
+            "gender": "Female"
           },
           {
             "personName": {
@@ -198,7 +200,7 @@ curl -X POST \
               ]
             },
             "passengerTypeCode": "ADT",
-            "gender": "Male"
+            "gender": "Female"
           },
           {
             "personName": {
@@ -695,7 +697,7 @@ curl -X POST \
               },
               "socialMediaInfo": [],
               "passengerTypeCode": "ADT",
-              "gender": "Male",
+              "gender": "Female",
               "comment": []
             },
             {
@@ -744,7 +746,7 @@ curl -X POST \
               },
               "socialMediaInfo": [],
               "passengerTypeCode": "ADT",
-              "gender": "Male",
+              "gender": "Female",
               "comment": []
             },
             {
@@ -1118,7 +1120,7 @@ curl -X POST \
                         ]
                     },
                     "passengerTypeCode": "ADT",
-                    "gender": "Male"
+                    "gender": "Female"
                 },
                 {
                     "personName": {
@@ -1159,7 +1161,7 @@ curl -X POST \
                         ]
                     },
                     "passengerTypeCode": "ADT",
-                    "gender": "Male"
+                    "gender": "Female"
                 },
                 {
                     "personName": {
@@ -1658,7 +1660,7 @@ curl -X POST \
                         },
                         "socialMediaInfo": [],
                         "passengerTypeCode": "ADT",
-                        "gender": "Male",
+                        "gender": "Female",
                         "comment": []
                     },
                     {
@@ -1708,7 +1710,7 @@ curl -X POST \
                         },
                         "socialMediaInfo": [],
                         "passengerTypeCode": "ADT",
-                        "gender": "Male",
+                        "gender": "Female",
                         "comment": []
                     },
                     {

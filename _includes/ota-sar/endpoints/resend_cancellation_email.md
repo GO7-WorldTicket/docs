@@ -6,7 +6,7 @@ This document explains how to use the `/notifications/cancellation-email` endpoi
 
 |Production                                            | Test                                     |
 |----------------------------------------------------- | ---------------------------------------- |
-|{{ sar_profile.production_origin }}/sms-gateway-service | {{ sar_profile.test_api_origin }}/sms-gateway |
+|{{ sar_profile.production_origin }}/sms-gateway-service | {{ sar_profile.test_api_origin }}/sms-gateway-service |
 
 ## Endpoint Overview
 
@@ -28,38 +28,36 @@ This endpoint does not accept any parameters in the URL. All necessary data shou
 
 ### Request Body
 
-The request body must be in JSON format. The following fields must be included in the body:
+Send a JSON body with `recordLocator` and `emails`. Use `ccEmails` and `bccEmails` to add optional recipients.
 
-- `emails` (Array of strings - mandatory): List of email addresses to send the email to.
-- `ccEmails` (Array of strings - optional): List of email addresses to send a carbon copy (CC) to.
-- `bccEmails` (Array of strings - optional): List of email addresses to send a blind carbon copy (BCC) to.
-- `recordLocator` (String - mandatory): The record locator or booking reference.
-
-The request body may include the following field:
-
-- `segments` (Array of segment information - mandatory): List of specific cancelled segment within the booking to include in the email. Each segment must include the following information:
-  - `flightDesignator` (String - mandatory): The code of the flight
-  - `departure` (String - mandatory): Three letters code of the departure airport/station
-  - `arrival` (String - mandatory): Three letters code of the arrival airport/station
-  - `departureDate` (String - mandatory): Departure date of the segment in YYYY-MM-DD format
-
-In the case where no `segment` is provided, an email will be sent with information of all cancelled segments within the booking.
+- Omit `segments` or pass an empty array to include all cancelled segments on the booking that have yet to depart. This also applies to a partially cancelled booking.
+- To include only specific cancelled segments, pass a non-empty `segments` array. Each entry must match the booking's `flightDesignator`, `departure` station code, `arrival` station code, and `departureDate` in `YYYY-MM-DD` format. The filter selects segments that are already cancelled.
 
 ### Example Request Body
 
 <details open>
-  <summary>Request Payload</summary>
+  <summary>Resend for all cancelled segments</summary>
   <pre>
 {
-    "emails" : ["{{ sar_profile.cancellation_to_email }}"],
+    "emails": ["{{ sar_profile.cancellation_to_email }}"],
+    "recordLocator": "ABC123"
+}
+</pre>
+</details>
+
+<details>
+  <summary>Resend for specific cancelled segments</summary>
+  <pre>
+{
+    "emails": ["{{ sar_profile.cancellation_to_email }}"],
     "ccEmails": ["{{ sar_profile.cancellation_cc_email }}"],
     "bccEmails": ["{{ sar_profile.cancellation_bcc_email }}"],
-    "recordLocator" : "ABC123",
-    "segments" : [{
+    "recordLocator": "ABC123",
+    "segments": [{
         "flightDesignator": "DEF4321",
         "departure": "ABC",
         "arrival": "DEF",
-        "departureDate": "2025-07-30"
+        "departureDate": "2026-12-15"
     }]
 }
 </pre>

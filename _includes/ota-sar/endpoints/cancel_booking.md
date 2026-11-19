@@ -1,6 +1,6 @@
 ## Full Booking Cancellation
 
-This method cancels entire booking. In case you need to cancel individual passenger or segment use `OTA_AirBookingModifyRQ` and not `OTA_CancelRQ` message.
+Send `OTA_CancelRQ` to cancel the full booking. To cancel a passenger or segment, use [Modify booking]({{ sar_profile.documentation_root }}/endpoints/modify-booking.html) with `OTA_AirBookModifyRQ`.
 
 #### Request Parameters
 
@@ -11,6 +11,8 @@ This method cancels entire booking. In case you need to cancel individual passen
 | agentId      | Payload |                    | ota                      |
 | agencyId     | Payload |                    | ota                      |
 
+Send `POST /ota/v2015b/OTA` to the [OTA API origin for your environment]({{ sar_profile.documentation_root }}/OTA_API_SAR.html#ota-for-reservation-workflow), with `Content-Type: application/json`, `x-api-key`, and `local-name: OTA_CancelRQ`. Use a top-level `uniqueID` array with the WorldTicket booking reference.
+
 ## JSON Request
 
 <details>
@@ -20,26 +22,28 @@ This method cancels entire booking. In case you need to cancel individual passen
 ```json
 {
   "version": "2.001",
+  "cancelType": "Commit",
   "pos": {
     "source": [
       {
+        "isoCurrency": "{currency_code}",
+        "requestorID": {
+          "type": "5",
+          "id": "{agent_id}",
+          "name": "{agency_id}"
+        },
         "bookingChannel": {
           "type": "OTA"
-        },
-        "isoCurrency": "{currency_code}"
-      }
-    ]
-  },
-  "readRequests": {
-    "readRequest": [
-      {
-        "uniqueID": {
-          "id": "{record_locator}",
-          "type": "14"
         }
       }
     ]
-  }
+  },
+  "uniqueID": [
+    {
+      "id": "{record_locator}",
+      "type": "14"
+    }
+  ]
 }
 ```
 
@@ -58,7 +62,7 @@ This method cancels entire booking. In case you need to cancel individual passen
   "pos": {
     "source": [
       {
-        "isoCurrency": "USD",
+        "isoCurrency": "SAR",
         "requestorID": {
           "type": "5",
           "id": "agentId",
@@ -111,6 +115,9 @@ This method cancels entire booking. In case you need to cancel individual passen
 </details>
 
 ### Cancellation and Refund Penalty Policy
+
+Read the booking to find its cancellation deadline and the penalty rules for the applicable fare. Check the refund amounts and penalties in the booking details after cancellation.
+
 This policy sets the rules for handling cancellations and refund penalties as per the commercial agreements between SAR and the OTA. The different terms and conditions will apply based on the fare class, booking channel, and specific contractual agreements.
 The system will automatically verify the cancellation and refund rules for each OTA based on their agreement and provide the appropriate result. Once the cancellation is successful, a cancelation email will be sent automatically.
 

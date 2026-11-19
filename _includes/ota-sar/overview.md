@@ -24,6 +24,7 @@
 
 | Change Description                                                                                         | Changed By              | Change Date |
 |------------------------------------------------------------------------------------------------------------|-------------------------|-------------|
+| [Clarify SAR OTA integration guidance](changelog.html#clarify-sar-ota-integration-guidance) | Sittiwet Mahapratoom | 2026-11-18 |
 | [Correct supported booking modification types](changelog.html#2026-11-18) | Sittiwet Mahapratoom | 2026-11-18 |
 | [Added Change Passenger Info request and response examples and reorganized Modify booking navigation](changelog.html#2026-09-02) | Sittiwet Mahapratoom | 2026-09-02  |
 | [Added cancel passenger and cancel segment request and response examples](changelog.html#2026-09-01)         | Duangtida Athakravi     | 2026-09-01  |
@@ -33,10 +34,10 @@
 | [Add seat map errors](generic/error-handling.html#seat-map-errors)                                           | Duangtida Athakravi     | 2026-04-10  |
 | [Add seat map endpoint and how to update seat](endpoints/seat_map)                                         | Duangtida Athakravi     | 2026-03-12  |
 | [Clarify download all tickets endpoint (`/tickets/confirmation/{rloc}/download`)](changelog.html#2026-02-22) | Sittiwet Mahapratoom    | 2026-02-22  |
-| [Segments cancellation with automatic refund](changelog.html#2025-09-12)                                     | Jarun Jiamtaweeboon     | 2025-07-31  |
+| [Expanded segment cancellation documentation](changelog.html#2025-09-12)                                     | Jarun Jiamtaweeboon     | 2025-09-12  |
 | [Add sold-out segment for OTA_AirLowFareSearchRS](changelog.html#2025-07-11)                                 | Thotsaphorn Phonlabutr  | 2025-07-11  |
 | [Add resend cancellation email endpoint](endpoints/resend_cancellation_email)                              | Duangtida Athakravi     | 2025-07-08  |
-| [Add policy for OTA_AirBookRS, OTA_AirPriceRS](changelog.html#2025-07-02)                                    | Thotsaphorn Phonlabutr  | 2025-06-26  |
+| [Add policy for OTA_AirBookRS, OTA_AirPriceRS](changelog.html#2025-07-02)                                    | Thotsaphorn Phonlabutr  | 2025-07-02  |
 | [Clarify request and response for AirLowFareSearch (one-way with booking class)](changelog.html#2025-06-26)  | Sittiwet Mahapratoom    | 2025-06-26  |
 | [Deprecate download endpoint using passenger details](changelog.html#2025-06-21)                             | Sittiwet Mahapratoom    | 2025-06-21  |
 | [Error handling change](changelog.html#2025-04-23)                                                           | Sittiwet Mahapratoom    | 2025-04-23  |
@@ -200,7 +201,9 @@ Please update the variables in collection such as apiKey, agent_id, agent_name a
 
 |                  | Production                                            | Test                                     |
 | ---------------- | ----------------------------------------------------- | ---------------------------------------- |
-| Routes & Flights | {{ sar_profile.production_origin }}/sms-gateway-service | {{ sar_profile.test_gateway_origin }}/sms-gateway |
+| Routes & Flights | {{ sar_profile.production_origin }}/sms-gateway-service | {{ sar_profile.test_api_origin }}/sms-gateway-service |
+
+Routes, calendar availability, email resends, and ticket downloads use the same `/sms-gateway-service` prefix on the API origin for the selected environment.
 
 
 - [Routes](endpoints/available_routes_and_flights#routes)
@@ -213,7 +216,7 @@ Please update the variables in collection such as apiKey, agent_id, agent_name a
 | ------- | ------------------------------------------------ | ----------------------------------------------- |
 | OTA API | {{ sar_profile.production_origin }}/ota/v2015b/OTA | {{ sar_profile.test_api_origin }}/ota/v2015b/OTA |
 
-- [Error Response](endpoints/error-response)
+- [SAR OTA JSON error responses](endpoints/error-response.html)
 - [Low Fare Search](endpoints/low_fare_search)
   - [One-way trip](endpoints/low_fare_search#airlowfaresearchrq-for-oneway-trip)
   - [One-way trip with booking class](endpoints/low_fare_search#airlowfaresearchrq-for-oneway-trip-with-booking-class-preference)

@@ -6,7 +6,7 @@ This document explains how to use the `/notifications/email` endpoint to send an
 
 |                                  | Production                                            | Test                                     |
 |----------------------------------| ----------------------------------------------------- | ---------------------------------------- |
-| Resend Ticket Confirmation Email | {{ sar_profile.production_origin }}/sms-gateway-service | {{ sar_profile.test_api_origin }}/sms-gateway |
+| Resend Ticket Confirmation Email | {{ sar_profile.production_origin }}/sms-gateway-service | {{ sar_profile.test_api_origin }}/sms-gateway-service |
 
 ## Endpoint Overview
 

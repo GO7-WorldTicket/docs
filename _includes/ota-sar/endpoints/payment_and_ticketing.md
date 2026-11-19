@@ -47,7 +47,7 @@ curl -X POST \
             "requestorID": {
               "type": "5",
               "id": "<ins>agentId</ins>",
-              "name": "<ins>agencyId</ins>"
+              "name": "<ins>agencyId</ins>",
               "location": "CPH"
             },
             "isocountry": "US",
@@ -219,6 +219,8 @@ Note that for bookings with named passengers, the response will also contain dow
 
 <details>
   <summary>Response Payload (named passengers)</summary>
+
+  Use `links` for ticket downloads. The `urls` field is deprecated.
   <pre>
     {
       "success": {},
@@ -245,7 +247,6 @@ Note that for bookings with named passengers, the response will also contain dow
             "nameTitle": [],
             "passengerTypeCode": "ADT",
             "tpaextensions": {
-              /* urls is deprecated and will be removed. links should be used */
               "urls": "https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=JENNIFER&lastName=STEWART&departure=MKX&arrival=DMX https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=JENNIFER&lastName=STEWART&departure=DMX&arrival=MKX",
               "links": [
                 {
@@ -281,7 +282,6 @@ Note that for bookings with named passengers, the response will also contain dow
             "nameTitle": [],
             "passengerTypeCode": "ADT",
             "tpaextensions": {
-              /* urls is deprecated and will be removed. links should be used */
               "urls": "https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=MARY&lastName=THOMSON&departure=MKX&arrival=DMX https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=MARY&lastName=THOMSON&departure=DMX&arrival=MKX",
               "links": [
                 {
@@ -317,7 +317,6 @@ Note that for bookings with named passengers, the response will also contain dow
             "nameTitle": [],
             "passengerTypeCode": "CHD",
             "tpaextensions": {
-              /* urls is deprecated and will be removed. links should be used */
               "urls": "https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=ELIZABETH&lastName=ROBERTSON&departure=MKX&arrival=DMX https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=ELIZABETH&lastName=ROBERTSON&departure=DMX&arrival=MKX",
               "links": [
                 {
@@ -330,7 +329,6 @@ Note that for bookings with named passengers, the response will also contain dow
                 }
               ]
             }
-          }
           },
           "conjunctiveTicket": [],
           "ticketNumber": "3333330058953",
@@ -343,7 +341,7 @@ Note that for bookings with named passengers, the response will also contain dow
         {
           "passengerName": {
             "namePrefix": [
-              "MR"
+              "MISS"
             ],
             "givenName": [
               "PATRICIA"
@@ -354,7 +352,6 @@ Note that for bookings with named passengers, the response will also contain dow
             "nameTitle": [],
             "passengerTypeCode": "CHD",
             "tpaextensions": {
-              /* urls is deprecated and will be removed. links should be used */
               "urls": "https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=PATRICIA&lastName=ANDERSON&departure=MKX&arrival=DMX https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=PATRICIA&lastName=ANDERSON&departure=DMX&arrival=MKX",
               "links": [
                 {
@@ -390,7 +387,6 @@ Note that for bookings with named passengers, the response will also contain dow
             "nameTitle": [],
             "passengerTypeCode": "INF",
             "tpaextensions": {
-              /* urls is deprecated and will be removed. links should be used */
               "urls": "https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=LINDA&lastName=SCOTT&departure=MKX&arrival=DMX https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=LINDA&lastName=SCOTT&departure=DMX&arrival=MKX",
               "links": [
                 {
@@ -426,7 +422,6 @@ Note that for bookings with named passengers, the response will also contain dow
             "nameTitle": [],
             "passengerTypeCode": "INF",
             "tpaextensions": {
-              /* urls is deprecated and will be removed. links should be used */
               "urls": "https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=BARBARA&lastName=TAYLOR&departure=MKX&arrival=DMX https://test-api.worldticket.net/sms-gateway-service/tickets/confirmation/QN6HQV/download/passenger-segment?firstName=BARBARA&lastName=TAYLOR&departure=DMX&arrival=MKX",
               "links": [
                 {

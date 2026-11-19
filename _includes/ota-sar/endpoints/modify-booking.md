@@ -6,7 +6,7 @@ Supported modification types:
 | Operation             | Type | Description                                                                                                                                                                  |
 |-----------------------|------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Cancel passenger      | 2    | Cancels individual passenger. See also [Cancel booking]({{ sar_profile.documentation_root }}/endpoints/cancel_booking.html#full-booking-cancellation)                                                                                             |
-| Change passenger name | 3    | Changes passenger name. This operation is essential for group bookings when passenger names are unknown at booking creation time and could be updated later after ticketing. |
+| Change passenger name | 3    | Updates a passenger name, with additional restrictions after payment. |
 | Change passenger info | 40   | Changes other passenger information other than name.                                                                                                                         |
 | Other                 | 5    | Other modifications such as special services and seats.                                                                                                                      |
 | Split booking         | 6    | Moves passenger or segment into a new booking.                                                                                                                               |
@@ -34,7 +34,7 @@ curl -X POST \
 
 ### Change passenger name
 
-`Changes to the passenger name may not permitted after the booking is paid and tickets are issued.`
+Use type `3` with the original passenger reference (RPH). Before payment, an existing name can be updated subject to booking validation. After payment, only an unnamed group passenger’s placeholder can be replaced with their actual name. Submit the update before the booking’s `updateTravellersTimeLimit`.
 
 #### Change Passenger in One Way Booking
 
@@ -3450,7 +3450,7 @@ Seats can be changed after the booking has been paid for.
         "requestorID": {
           "type": "5",
           "id": "<ins>agentId</ins>",
-          "name": "<ins>agentId</ins>"
+          "name": "<ins>agencyId</ins>"
         },
         "bookingChannel": {
           "type": "OTA"
