@@ -621,6 +621,12 @@ When services or seats are included, `PricedOffer` keeps the flight `OfferItem` 
 
 </details>
 
+### Fare brands
+
+A flight offer item of a branded offer carries the same fare-brand content as in `AirShopping`. `DataLists/PriceClassList` names the brand, with `Desc` and `DisplayOrderText` when the airline has them. `DataLists/ServiceDefinitionList` defines each service the brand includes, with an id such as `SD-FB1`. Each flight `OfferItem` has one price-less `Service` for each brand service, after the `Service` for the flight itself. Brand services do not change `PricedOffer/TotalPrice`.
+
+The `SD-FB` prefix keeps these ids apart from the `SD1`-style ids of the services and seats you selected. Element meanings, linking rules, and an example are in [Air Shopping → Fare brands](airshopping.md#fare-brands).
+
 ### Error Responses
 
 #### 400 Bad Request
@@ -670,3 +676,4 @@ Invalid request format, missing required fields, or business validation failures
 5. **Passenger eligibility:** `PaxRefID` on service/seat items must match the eligible passenger on that offer item.
 6. **Feature flags:** Combined service/seat pricing requires tenant `service-enabled` / `seat-enabled` (global defaults may be off).
 7. **Use in OrderCreate:** Echo `PricedOffer/OfferID` as `OfferRefID` (plain UUID for flight-only; composite when extras were priced). Pass the same selection markers (`SelectedALaCarteOfferItem` / `SelectedSeat`) when creating the order from the priced offer.
+8. **Fare brands:** A branded flight offer item keeps its brand services as price-less `Service` elements. They add nothing to `PricedOffer.TotalPrice`, and `OrderCreate` does not reference them. See [Fare brands](#fare-brands).
